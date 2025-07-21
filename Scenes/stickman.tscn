@@ -23,7 +23,7 @@ debug_color = Color(0.988235, 0, 0, 0.227451)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_4ub1n")
-debug_color = Color(0, 0.470588, 0.701961, 0.619608)
+debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -32)
