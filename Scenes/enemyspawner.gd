@@ -14,12 +14,8 @@ func _process(delta: float) -> void:
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT :
-			print("Left mouse button")
+			print("Spawned a stickman at " + str(event.position))
 			spawn_stickman(event.position)
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP :
-			print("Scroll wheel up")
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			print("Scroll wheel down")
 
 func spawn_stickman(pos: Vector2):
 	if stickman == null:
