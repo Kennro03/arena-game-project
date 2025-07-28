@@ -11,7 +11,7 @@ class_name Stickman extends Node2D
 	set(value):
 		health = value
 @export var damage := 20.0
-@export var knockback := 50.0
+@export var attack_speed := 1.0
 @export var aggro_range := 750.0
 @export var range := 50.0
 
@@ -19,7 +19,6 @@ var enemies_group_name := "Stickmen"
 
 func _ready():
 	add_to_group(enemies_group_name)
-
 
 func get_closest_stickman(max_distance := INF) -> Node2D:
 	var closest = null
@@ -56,6 +55,11 @@ func target_proximity_check(target : Node2D, max_distance : float) :
 
 func hit(target : Node2D, damage : float):
 	target.health = target.health-damage
+	if target.has_method("update_health") :
+		target.update_health()
 	if target.health <= 0:
 		target.queue_free()
 	pass
+
+func update_health():
+	%HealthBar.value = health

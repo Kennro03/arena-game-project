@@ -3,9 +3,12 @@ var closest_target
 var closest_target_vector
 
 func enter(previous_state_path: String, data := {}) -> void:
-	%AnimationPlayer.play("Idle")
+	pass
 
 func physics_update(_delta: float) -> void:
+	if !%AnimationPlayer.is_playing():
+		%AnimationPlayer.play("Idle")
+	
 	closest_target = owner.get_closest_stickman(owner.aggro_range)
 	if closest_target !=null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)
