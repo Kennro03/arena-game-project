@@ -16,7 +16,7 @@ func _input(event):
 			spawn_default_stickman(event.position)
 		if event.button_index == MOUSE_BUTTON_RIGHT :
 			print("Spawned a random stickman at " + str(event.position))
-			spawn_random_stickman(event.position)
+			spawn_random_stickman(event.position, 5)
 
 func spawn_default_stickman(pos: Vector2):
 	if stickman == null:
@@ -27,20 +27,22 @@ func spawn_default_stickman(pos: Vector2):
 	stickman_instance.position = pos
 	get_parent().add_child(stickman_instance)
 
-func spawn_random_stickman(pos: Vector2):
+func spawn_random_stickman(pos: Vector2, rand_multiplier):
 	if stickman == null:
 		push_error("No stickman scene assigned!")
 		return
 	
 	var stickman_instance = stickman.instantiate()
 	
-	stickman_instance.speed = randi_range((stickman_instance.speed/2),(stickman_instance.speed*2))
-	stickman_instance.health = randi_range((stickman_instance.health/2),(stickman_instance.health*2))
-	stickman_instance.damage = randi_range((stickman_instance.damage/2),(stickman_instance.damage*2))
-	stickman_instance.attack_speed = randi_range((stickman_instance.attack_speed/2),(stickman_instance.attack_speed*2))
-	stickman_instance.attack_range = randi_range((stickman_instance.attack_range/2),(stickman_instance.attack_range*2))
-	stickman_instance.knockback = randi_range((stickman_instance.knockback/2),(stickman_instance.knockback*2))
+	stickman_instance.speed = randi_range((stickman_instance.speed/rand_multiplier),(stickman_instance.speed*rand_multiplier))
+	stickman_instance.health = randi_range((stickman_instance.health/rand_multiplier),(stickman_instance.health*rand_multiplier))
+	stickman_instance.health_regen = randi_range((stickman_instance.health_regen/rand_multiplier),(stickman_instance.health_regen*rand_multiplier))
+	stickman_instance.damage = randi_range((stickman_instance.damage/rand_multiplier),(stickman_instance.damage*rand_multiplier))
+	stickman_instance.attack_speed = randi_range((stickman_instance.attack_speed/rand_multiplier),(stickman_instance.attack_speed*rand_multiplier))
+	stickman_instance.attack_range = randi_range((stickman_instance.attack_range/rand_multiplier),(stickman_instance.attack_range*rand_multiplier))
+	stickman_instance.knockback = randi_range((stickman_instance.knockback/rand_multiplier),(stickman_instance.knockback*rand_multiplier))
 	
+	stickman_instance.sprite_color = Color(randf(),randf(),randf())
 	
 	stickman_instance.position = pos
 	get_parent().add_child(stickman_instance)

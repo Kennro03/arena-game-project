@@ -41,23 +41,24 @@ class_name Stickman extends Node2D
 	set(value):
 		knockback = value
 
+@export var sprite_color := Color(255.0,255.0,255.0)
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay := 1000.0 
 var enemies_group_name := "Stickmen"
 
 func _ready():
 	%HealthBar.max_value = health
+	get_node("Sprite").modulate = sprite_color
 	add_to_group(enemies_group_name)
 
 func get_closest_stickman(max_distance := INF) -> Node2D:
 	var closest = null
-	var min_dist = max_distance
 	for other in get_tree().get_nodes_in_group(enemies_group_name):
 		if other == self:
 			continue
 		var dist = position.distance_to(other.position)
-		if dist < min_dist:
-			min_dist = dist
+		if dist < max_distance:
+			max_distance = dist
 			closest = other
 	return closest
 
