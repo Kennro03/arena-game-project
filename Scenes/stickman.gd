@@ -1,5 +1,4 @@
 class_name Stickman extends Node2D
-var StateMachine = preload("res://Scenes/StateMachine/state_machine.gd")
 
 @export var speed := 100.0:
 	get:
@@ -11,19 +10,38 @@ var StateMachine = preload("res://Scenes/StateMachine/state_machine.gd")
 		return health
 	set(value):
 		health = value
-@export var damage := 20.0
-@export var attack_speed := 1.0
-@export var aggro_range := 750.0
-@export var range := 50.0
-@export var knockback := 100.0
+@export var damage := 20.0:
+	get:
+		return damage
+	set(value):
+		damage = value
+@export var attack_speed := 0.5:
+	get:
+		return attack_speed
+	set(value):
+		attack_speed = value
+@export var aggro_range := 750.0:
+	get:
+		return aggro_range
+	set(value):
+		aggro_range = value
+@export var attack_range := 60.0:
+	get:
+		return attack_range
+	set(value):
+		attack_range = value
+@export var knockback := 100.0:
+	get:
+		return knockback
+	set(value):
+		knockback = value
 
 var knockback_velocity: Vector2 = Vector2.ZERO
-var knockback_decay := 800.0 
+var knockback_decay := 1000.0 
 var enemies_group_name := "Stickmen"
 
 func _ready():
 	add_to_group(enemies_group_name)
-
 
 func get_closest_stickman(max_distance := INF) -> Node2D:
 	var closest = null
@@ -46,8 +64,8 @@ func get_target_position_vector(target_position := Vector2()) -> Vector2:
 	
 	return closest_target_vector
 
-func position_proximity_check(position : Vector2, max_distance : float) :
-	if self.position.distance_to(position) <= max_distance :
+func position_proximity_check(target_position : Vector2, max_distance : float) :
+	if self.position.distance_to(target_position) <= max_distance :
 		return true
 	else :
 		return false
@@ -58,14 +76,14 @@ func target_proximity_check(target : Node2D, max_distance : float) :
 	else :
 		return false
 
-func hit(target : Node2D, damage : float):
+func hit(target : Node2D):
 	target.health = target.health-damage
 	if target.has_method("update_health") :
 		target.update_health()
 	if target.health <= 0:
 		target.queue_free()
 
-func punch(target : Node2D, damage : float, knockback_direction: Vector2, knockback_force: float):
+func punch(target : Node2D, knockback_direction: Vector2, knockback_force: float):
 	target.health = target.health-damage
 	if target.has_method("update_health") :
 		target.update_health()

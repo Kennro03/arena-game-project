@@ -2,7 +2,7 @@ extends StickmanState
 var closest_target
 var closest_target_vector
 
-func enter(previous_state_path: String, data := {}) -> void:
+func enter(_previous_state_path: String, _data := {}) -> void:
 	pass
 
 func physics_update(_delta: float) -> void:
@@ -13,7 +13,7 @@ func physics_update(_delta: float) -> void:
 	if closest_target !=null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)
 	
-	if closest_target != null and owner.target_proximity_check(closest_target,owner.range) :
+	if closest_target != null and owner.target_proximity_check(closest_target,owner.attack_range) :
 		finished.emit(ATTACKING)
-	elif closest_target != null and !owner.target_proximity_check(closest_target,owner.range):
+	elif closest_target != null and !owner.target_proximity_check(closest_target,owner.attack_range):
 		finished.emit(MOVING)
