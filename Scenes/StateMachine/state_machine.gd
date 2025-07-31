@@ -26,6 +26,14 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if owner.position.x > 1152.0 :
+		owner.apply_knockback(owner,Vector2(-1,0),500)
+	if owner.position.x < 0.0 :
+		owner.apply_knockback(owner,Vector2(1,0),500)
+	if owner.position.y > 648.0 :
+		owner.apply_knockback(owner,Vector2(0,-1),500)
+	if owner.position.y < 0.0 :
+		owner.apply_knockback(owner,Vector2(0,1),500)
 	if owner.knockback_velocity.length() > 0.1:
 		owner.position += owner.knockback_velocity * delta
 		owner.knockback_velocity = owner.knockback_velocity.move_toward(Vector2.ZERO, owner.knockback_decay * delta)

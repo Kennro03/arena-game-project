@@ -10,7 +10,7 @@ class_name Stickman extends Node2D
 		return health
 	set(value):
 		health = maxf(0.0, value)
-@export var health_regen := 3.0:
+@export var health_regen := 2.0:
 	get:
 		return health_regen
 	set(value):
@@ -35,7 +35,7 @@ class_name Stickman extends Node2D
 		return attack_range
 	set(value):
 		attack_range = value
-@export var knockback := 60.0:
+@export var knockback := 100.0:
 	get:
 		return knockback
 	set(value):

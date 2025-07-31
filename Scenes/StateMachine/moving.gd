@@ -18,6 +18,6 @@ func physics_update(_delta: float) -> void:
 	
 	owner.position = owner.position + closest_target_vector.normalized()*owner.speed*_delta
 	
-	if owner.target_proximity_check(closest_target,owner.attack_range) :
+	if owner.target_proximity_check(closest_target,owner.attack_range/1.5) :
 		finished.emit(IDLE)
 	
