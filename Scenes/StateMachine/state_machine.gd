@@ -20,10 +20,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	
 	state.update(delta)
 
 
 func _physics_process(delta: float) -> void:
+	if owner.knockback_velocity.length() > 0.1:
+		owner.position += owner.knockback_velocity * delta
+		owner.knockback_velocity = owner.knockback_velocity.move_toward(Vector2.ZERO, owner.knockback_decay * delta)
+	
 	state.physics_update(delta)
 
 

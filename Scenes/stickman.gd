@@ -1,4 +1,5 @@
 class_name Stickman extends Node2D
+var StateMachine = preload("res://Scenes/StateMachine/state_machine.gd")
 
 @export var speed := 100.0:
 	get:
@@ -14,11 +15,15 @@ class_name Stickman extends Node2D
 @export var attack_speed := 1.0
 @export var aggro_range := 750.0
 @export var range := 50.0
+@export var knockback := 100.0
 
+var knockback_velocity: Vector2 = Vector2.ZERO
+var knockback_decay := 800.0 
 var enemies_group_name := "Stickmen"
 
 func _ready():
 	add_to_group(enemies_group_name)
+
 
 func get_closest_stickman(max_distance := INF) -> Node2D:
 	var closest = null
@@ -59,7 +64,22 @@ func hit(target : Node2D, damage : float):
 		target.update_health()
 	if target.health <= 0:
 		target.queue_free()
-	pass
+
+func punch(target : Node2D, damage : float, knockback_direction: Vector2, knockback_force: float):
+	target.health = target.health-damage
+	if target.has_method("update_health") :
+		target.update_health()
+	if target.health <= 0:
+		target.queue_free()
+	elif target.has_method("receive_knockback") and knockback_force >= 0.1 and knockback_direction != null:
+		target.apply_knockback(target, knockback_direction, knockback_force)
+
+func apply_knockback(target: Node2D, direction: Vector2, force: float):
+	if target.has_method("receive_knockback"):
+		target.receive_knockback(direction.normalized() * force)
+
+func receive_knockback(force: Vector2):
+	knockback_velocity += force
 
 func update_health():
 	%HealthBar.value = health

@@ -15,8 +15,6 @@ func physics_update(_delta: float) -> void:
 	if !%AnimationPlayer.is_playing():
 		%AnimationPlayer.play("walking")
 	
-	
-	
 	owner.position = owner.position + closest_target_vector.normalized()*owner.speed*_delta
 	
 	if owner.target_proximity_check(closest_target,owner.range) :
