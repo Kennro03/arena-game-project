@@ -108,9 +108,6 @@ _data = {
 
 [node name="Stickman" type="Node2D" groups=["Stickmen"]]
 script = ExtResource("1_j4fy3")
-attack_speed = 1.0
-aggro_range = 500.0
-knockback = 75.0
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false

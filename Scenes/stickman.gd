@@ -9,17 +9,22 @@ class_name Stickman extends Node2D
 	get:
 		return health
 	set(value):
-		health = value
+		health = maxf(0.0, value)
+@export var health_regen := 3.0:
+	get:
+		return health_regen
+	set(value):
+		health_regen = value
 @export var damage := 20.0:
 	get:
 		return damage
 	set(value):
-		damage = value
-@export var attack_speed := 0.5:
+		damage = maxf(0.0, value)
+@export var attack_speed := 1.0:
 	get:
 		return attack_speed
 	set(value):
-		attack_speed = value
+		attack_speed = maxf(0.0, value)
 @export var aggro_range := 750.0:
 	get:
 		return aggro_range
@@ -30,7 +35,7 @@ class_name Stickman extends Node2D
 		return attack_range
 	set(value):
 		attack_range = value
-@export var knockback := 100.0:
+@export var knockback := 60.0:
 	get:
 		return knockback
 	set(value):
@@ -41,6 +46,7 @@ var knockback_decay := 1000.0
 var enemies_group_name := "Stickmen"
 
 func _ready():
+	%HealthBar.max_value = health
 	add_to_group(enemies_group_name)
 
 func get_closest_stickman(max_distance := INF) -> Node2D:
@@ -85,8 +91,6 @@ func hit(target : Node2D):
 
 func punch(target : Node2D, knockback_direction: Vector2, knockback_force: float):
 	target.health = target.health-damage
-	if target.has_method("update_health") :
-		target.update_health()
 	if target.health <= 0:
 		target.queue_free()
 	elif target.has_method("receive_knockback") and knockback_force >= 0.1 and knockback_direction != null:
