@@ -40,6 +40,7 @@ class_name Stickman extends Node2D
 		return knockback
 	set(value):
 		knockback = value
+@export var team : Team
 
 @export var sprite_color := Color(255.0,255.0,255.0)
 var knockback_velocity: Vector2 = Vector2.ZERO
@@ -55,6 +56,8 @@ func get_closest_stickman(max_distance := INF) -> Node2D:
 	var closest = null
 	for other in get_tree().get_nodes_in_group(enemies_group_name):
 		if other == self:
+			continue
+		elif check_if_ally(other) :
 			continue
 		var dist = position.distance_to(other.position)
 		if dist < max_distance:
@@ -78,7 +81,7 @@ func position_proximity_check(target_position : Vector2, max_distance : float) :
 		return false
 
 func target_proximity_check(target : Node2D, max_distance : float) :
-	if self.position.distance_to(target.position) <= max_distance :
+	if target != null and self.position.distance_to(target.position) <= max_distance :
 		return true
 	else :
 		return false
@@ -96,6 +99,12 @@ func punch(target : Node2D, knockback_direction: Vector2, knockback_force: float
 		target.queue_free()
 	elif target.has_method("receive_knockback") and knockback_force >= 0.1 and knockback_direction != null:
 		target.apply_knockback(target, knockback_direction, knockback_force)
+
+func check_if_ally(target : Node2D):
+	if team.team_name == target.team.team_name :
+		return true
+	else :
+		return false
 
 func apply_knockback(target: Node2D, direction: Vector2, force: float):
 	if target.has_method("receive_knockback"):

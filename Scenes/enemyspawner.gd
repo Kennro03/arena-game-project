@@ -1,6 +1,9 @@
 extends Node
 @export var stickman: PackedScene
 
+var red_team := preload("res://ressources/Teams/Red_Team.tres")
+var blue_team := preload("res://ressources/Teams/Blue_Team.tres")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -25,6 +28,8 @@ func spawn_default_stickman(pos: Vector2):
 	
 	var stickman_instance = stickman.instantiate()
 	stickman_instance.position = pos
+	
+	stickman_instance.team = red_team
 	get_parent().add_child(stickman_instance)
 
 func spawn_random_stickman(pos: Vector2, rand_multiplier):
@@ -42,6 +47,7 @@ func spawn_random_stickman(pos: Vector2, rand_multiplier):
 	stickman_instance.attack_range = randi_range((stickman_instance.attack_range/rand_multiplier),(stickman_instance.attack_range*rand_multiplier))
 	stickman_instance.knockback = randi_range((stickman_instance.knockback/rand_multiplier),(stickman_instance.knockback*rand_multiplier))
 	
+	stickman_instance.team = blue_team
 	stickman_instance.sprite_color = Color(randf(),randf(),randf())
 	
 	stickman_instance.position = pos

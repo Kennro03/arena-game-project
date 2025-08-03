@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Team" load_steps=2 format=3 uid="uid://bpth1axk0vfy5"]
+
+[ext_resource type="Script" uid="uid://ba2sw8ajyas5p" path="res://Scenes/team.gd" id="1_lb1d7"]
+
+[resource]
+script = ExtResource("1_lb1d7")
+team_name = "RedTeam"
+team_color = Color(1, 0, 0, 1)
+metadata/_custom_type_script = "uid://ba2sw8ajyas5p"
