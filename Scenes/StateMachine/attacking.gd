@@ -14,8 +14,10 @@ func physics_update(_delta: float) -> void:
 	else : 
 		%Sprite.flip_h = true
 	
+	if !%AnimationPlayer.is_playing():
+		%AnimationPlayer.play("fighting_stance")
 	if closest_target !=null and %HitCooldown.is_stopped() :
-		%AnimationPlayer.play("punch")
+		%AnimationPlayer.play("punch_1")
 		owner.punch(closest_target,closest_target_vector, owner.knockback)
 		print(str(closest_target) + " health = " + str(closest_target.health))
 		%HitCooldown.start()
