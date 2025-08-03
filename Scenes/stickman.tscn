@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c8qwxekpq23e3"]
+[gd_scene load_steps=18 format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/stickman.gd" id="1_j4fy3"]
 [ext_resource type="Texture2D" uid="uid://bh4i0k1x25bb1" path="res://ressources/Sprites/Stickman.png" id="2_3vlyt"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="5_omsj2"]
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
 [ext_resource type="Script" uid="uid://cwlc2s7gxu4s8" path="res://Scenes/team_controller.gd" id="7_jj3cr"]
-[ext_resource type="Resource" uid="uid://bpth1axk0vfy5" path="res://ressources/Teams/Red_Team.tres" id="8_jkhki"]
 [ext_resource type="PackedScene" uid="uid://dqxexvs3g4y71" path="res://Scenes/flag.tscn" id="9_jkhki"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s68di"]
@@ -129,7 +128,6 @@ _data = {
 
 [node name="Stickman" type="Node2D" groups=["Stickmen"]]
 script = ExtResource("1_j4fy3")
-team = ExtResource("8_jkhki")
 sprite_color = Color(0, 0, 0, 1)
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -193,6 +191,10 @@ offset_bottom = 15.0
 value = 100.0
 show_percentage = false
 
-[node name="TeamController" type="Node" parent="."]
+[node name="TeamController" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -80.0
+offset_bottom = -80.0
 script = ExtResource("7_jj3cr")
 flag = ExtResource("9_jkhki")
