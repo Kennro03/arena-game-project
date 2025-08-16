@@ -19,7 +19,7 @@ func physics_update(_delta: float) -> void:
 	if closest_target !=null and %HitCooldown.is_stopped() :
 		%AnimationPlayer.play("punch_1")
 		owner.punch(closest_target,closest_target_vector, owner.knockback)
-		print(str(closest_target) + " health = " + str(closest_target.health))
+		#print(str(closest_target) + " health = " + str(closest_target.health))
 		%HitCooldown.start()
 	
 	if !closest_target :
