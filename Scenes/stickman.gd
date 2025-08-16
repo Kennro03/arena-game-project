@@ -125,8 +125,6 @@ func damage_popup(popupdamage: float) :
 		var damage_popup = DamagePopupNode.instantiate()
 		damage_popup.position = find_child("DamagePopupLocation").global_position
 		damage_popup.find_child("Label").text = str(popupdamage)
-		print(str(popupdamage))
-		print(str(damage_popup.position))
 		get_tree().current_scene.add_child(damage_popup)
 	else :
 		printerr("Damage Popup Scene not assigned !")
