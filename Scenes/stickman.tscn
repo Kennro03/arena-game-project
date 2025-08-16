@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c8qwxekpq23e3"]
+[gd_scene load_steps=19 format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/stickman.gd" id="1_j4fy3"]
 [ext_resource type="Texture2D" uid="uid://bh4i0k1x25bb1" path="res://ressources/Sprites/Stickman.png" id="2_3vlyt"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
 [ext_resource type="Script" uid="uid://cwlc2s7gxu4s8" path="res://Scenes/team_controller.gd" id="7_jj3cr"]
 [ext_resource type="PackedScene" uid="uid://dqxexvs3g4y71" path="res://Scenes/flag.tscn" id="9_jkhki"]
+[ext_resource type="PackedScene" uid="uid://3o1geleuhue0" path="res://Scenes/floating_number.tscn" id="10_t4ecy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s68di"]
 radius = 7.33334
@@ -64,10 +65,9 @@ tracks/0/keys = {
 "values": [Vector2i(0, 5), Vector2i(1, 5)]
 }
 
-[sub_resource type="Animation" id="Animation_j4fy3"]
-resource_name = "walking"
-length = 0.65
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_to2s8"]
+resource_name = "punch_1"
+length = 0.2666
 step = 0.1333
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -76,10 +76,10 @@ tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.3999, 0.5299),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1333),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6)]
+"values": [Vector2i(2, 5), Vector2i(3, 5)]
 }
 
 [sub_resource type="Animation" id="Animation_sspo4"]
@@ -99,9 +99,10 @@ tracks/0/keys = {
 "values": [Vector2i(4, 5), Vector2i(5, 5), Vector2i(6, 5)]
 }
 
-[sub_resource type="Animation" id="Animation_to2s8"]
-resource_name = "punch_1"
-length = 0.2666
+[sub_resource type="Animation" id="Animation_j4fy3"]
+resource_name = "walking"
+length = 0.65
+loop_mode = 1
 step = 0.1333
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -110,10 +111,10 @@ tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.3999, 0.5299),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(2, 5), Vector2i(3, 5)]
+"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j4fy3"]
@@ -128,6 +129,7 @@ _data = {
 
 [node name="Stickman" type="Node2D" groups=["Stickmen"]]
 script = ExtResource("1_j4fy3")
+DamagePopupNode = ExtResource("10_t4ecy")
 sprite_color = Color(0, 0, 0, 1)
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -198,3 +200,6 @@ offset_top = -80.0
 offset_bottom = -80.0
 script = ExtResource("7_jj3cr")
 flag = ExtResource("9_jkhki")
+
+[node name="DamagePopupLocation" type="Marker2D" parent="."]
+position = Vector2(0, -65)
