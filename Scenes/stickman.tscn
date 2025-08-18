@@ -16,7 +16,8 @@ radius = 7.33334
 height = 17.3333
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
-radius = 5.0
+radius = 9.0
+height = 36.0
 
 [sub_resource type="Animation" id="Animation_4ub1n"]
 resource_name = "Idle"
@@ -210,7 +211,6 @@ shape = SubResource("CapsuleShape2D_s68di")
 debug_color = Color(0.988235, 0, 0, 0.227451)
 
 [node name="Hurtbox" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 rotation = 1.5708

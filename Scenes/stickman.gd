@@ -140,6 +140,7 @@ func block(incoming_damage):
 
 func parry(_incoming_damage):
 	%AnimationPlayer.play("parry")
+	%DamagePopupMarker.damage_popup("Parry!", 1.0)
 
 func dodge(_incoming_damage):
 	%AnimationPlayer.play(dodge_animations[randi() % dodge_animations.size()])
