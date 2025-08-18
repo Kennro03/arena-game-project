@@ -9,8 +9,3 @@ func _ready() -> void:
 		flag_instance = flag.instantiate()
 		flag_instance.modulate = owner.team.team_color
 		add_child(flag_instance)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

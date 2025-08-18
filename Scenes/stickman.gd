@@ -41,12 +41,20 @@ class_name Stickman extends Node2D
 	set(value):
 		knockback = value
 
+@export var dodge_probability := 20.0
+@export var parry_probability := 10.0
+@export var block_probability := 50.0
+@export var block_power := 10.0
+
 @export var team : Team
 
 @export var sprite_color := Color(255.0,255.0,255.0)
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay := 1000.0 
 var enemies_group_name := "Stickmen"
+var idle_animations = ["Idle"]
+var punch_animations = ["punch_1","punch_2"]
+var dodge_animations = ["dodge_1","dodge_2"]
 
 func _ready():
 	%HealthBar.max_value = health
@@ -70,9 +78,6 @@ func get_target_position_vector(target_position := Vector2()) -> Vector2:
 	var closest_target_vector : Vector2
 	closest_target_vector = target_position-self.position
 	
-	#print("owner position : " + str(self.position) + ", target position : " + str(target_position))
-	#print("Closest target vector : " + str(closest_target_vector))
-	
 	return closest_target_vector
 
 func position_proximity_check(target_position : Vector2, max_distance : float) :
@@ -87,23 +92,9 @@ func target_proximity_check(target : Node2D, max_distance : float) :
 	else :
 		return false
 
-func hit(target : Node2D):
-	target.health = target.health-damage
-	if target.find_child("DamagePopupMarker"):
-		target.find_child("DamagePopupMarker").damage_popup(damage)
-	if target.has_method("update_health") :
-		target.update_health()
-	if target.health <= 0:
-		target.queue_free()
-
-func punch(target : Node2D, knockback_direction: Vector2, knockback_force: float):
-	target.health = target.health-damage
-	if target.find_child("DamagePopupMarker"):
-		target.find_child("DamagePopupMarker").damage_popup(damage)
-	if target.health <= 0:
-		target.queue_free()
-	elif target.has_method("receive_knockback") and knockback_force >= 0.1 and knockback_direction != null:
-		target.apply_knockback(target, knockback_direction, knockback_force)
+func punch(target : Node2D, punch_damage : float = 0.0, knockback_direction: Vector2  = Vector2(0,0), knockback_force: float  = 0.0):
+	if target.has_method("take_hit") :
+		target.take_hit(punch_damage,knockback_direction,knockback_force)
 
 func check_if_ally(target : Node2D):
 	if team.team_name == target.team.team_name :
@@ -117,6 +108,59 @@ func apply_knockback(target: Node2D, direction: Vector2, force: float):
 
 func receive_knockback(force: Vector2):
 	knockback_velocity += force
+
+func try_to_dodge():
+	if randf_range(0.0,100.0)<=dodge_probability:
+		return true
+	else :
+		return false
+
+func try_to_parry():
+	if randf_range(0.0,100.0)<=parry_probability:
+		return true
+	else :
+		return false
+
+func try_to_block():
+	if randf_range(0.0,100.0)<=block_probability:
+		return true
+	else :
+		return false
+
+func take_damage(incoming_damage) :
+	health = health - incoming_damage
+	%DamagePopupMarker.damage_popup(incoming_damage)
+
+func block(incoming_damage):
+	var calculated_damage = maxf((incoming_damage-block_power),0.0)
+	health = health - calculated_damage
+	%DamagePopupMarker.damage_popup(calculated_damage)
+	%AnimationPlayer.play("block")
+
+func parry(_incoming_damage):
+	%AnimationPlayer.play("parry")
+
+func dodge(_incoming_damage):
+	%AnimationPlayer.play(dodge_animations[randi() % dodge_animations.size()])
+	apply_knockback(self, Vector2(randf(),randf()), 250.0)
+
+func take_hit(hit_damage : float = 0.0, knockback_direction : Vector2 = Vector2(0,0), knockback_force : float = 0.0) :
+	if try_to_dodge() :
+		dodge(hit_damage)
+	elif try_to_parry() :
+		parry(hit_damage)
+	elif try_to_block() :
+		block(hit_damage)
+		
+		if knockback_force >= 0.1 and knockback_direction != Vector2(0,0) :
+			apply_knockback(self, knockback_direction, knockback_force/2)
+	else :
+		take_damage(hit_damage)
+		if knockback_force >= 0.1 and knockback_direction != Vector2(0,0) :
+			apply_knockback(self, knockback_direction, knockback_force)
+	
+	if health <= 0:
+		queue_free()
 
 func update_health():
 	%HealthBar.value = health
