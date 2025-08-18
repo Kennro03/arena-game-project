@@ -129,12 +129,13 @@ func try_to_block():
 
 func take_damage(incoming_damage) :
 	health = health - incoming_damage
-	%DamagePopupMarker.damage_popup(incoming_damage)
+	%DamagePopupMarker.damage_popup(str(incoming_damage))
 
 func block(incoming_damage):
 	var calculated_damage = maxf((incoming_damage-block_power),0.0)
 	health = health - calculated_damage
-	%DamagePopupMarker.damage_popup(calculated_damage)
+	%DamagePopupMarker.damage_popup("Blocked!", 0.5)
+	%DamagePopupMarker.damage_popup(str(calculated_damage))
 	%AnimationPlayer.play("block")
 
 func parry(_incoming_damage):

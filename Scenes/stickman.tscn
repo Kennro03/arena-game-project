@@ -253,6 +253,7 @@ autostart = true
 [node name="HealthBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 modulate = Color(0, 1, 0, 1)
+z_index = -1
 offset_left = -17.0
 offset_top = 9.0
 offset_right = 17.0
