@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c8qwxekpq23e3"]
+[gd_scene load_steps=24 format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/stickman.gd" id="1_j4fy3"]
 [ext_resource type="Texture2D" uid="uid://bh4i0k1x25bb1" path="res://ressources/Sprites/Stickman.png" id="2_3vlyt"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
 [ext_resource type="Script" uid="uid://cwlc2s7gxu4s8" path="res://Scenes/team_controller.gd" id="7_jj3cr"]
 [ext_resource type="PackedScene" uid="uid://dqxexvs3g4y71" path="res://Scenes/flag.tscn" id="9_jkhki"]
+[ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/damage_popup_marker.gd" id="10_awmep"]
 [ext_resource type="PackedScene" uid="uid://3o1geleuhue0" path="res://Scenes/floating_number.tscn" id="10_t4ecy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s68di"]
@@ -48,6 +49,54 @@ tracks/0/keys = {
 "values": [Vector2i(0, 2)]
 }
 
+[sub_resource type="Animation" id="Animation_jkhki"]
+resource_name = "block"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_awmep"]
+resource_name = "dodge_1"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_y784s"]
+resource_name = "dodge_2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 3)]
+}
+
 [sub_resource type="Animation" id="Animation_3vlyt"]
 resource_name = "fighting_stance"
 loop_mode = 1
@@ -63,6 +112,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(0, 5), Vector2i(1, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_t4ecy"]
+resource_name = "parry"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_to2s8"]
@@ -117,70 +182,6 @@ tracks/0/keys = {
 "values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6)]
 }
 
-[sub_resource type="Animation" id="Animation_jkhki"]
-resource_name = "block"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 2)]
-}
-
-[sub_resource type="Animation" id="Animation_t4ecy"]
-resource_name = "parry"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_awmep"]
-resource_name = "dodge_1"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 3)]
-}
-
-[sub_resource type="Animation" id="Animation_y784s"]
-resource_name = "dodge_2"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(1, 3)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j4fy3"]
 _data = {
 &"Idle": SubResource("Animation_4ub1n"),
@@ -197,7 +198,6 @@ _data = {
 
 [node name="Stickman" type="Node2D" groups=["Stickmen"]]
 script = ExtResource("1_j4fy3")
-DamagePopupNode = ExtResource("10_t4ecy")
 sprite_color = Color(0, 0, 0, 1)
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -269,5 +269,8 @@ offset_bottom = -80.0
 script = ExtResource("7_jj3cr")
 flag = ExtResource("9_jkhki")
 
-[node name="DamagePopupLocation" type="Marker2D" parent="."]
+[node name="DamagePopupMarker" type="Marker2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(0, -65)
+script = ExtResource("10_awmep")
+DamagePopupNode = ExtResource("10_t4ecy")

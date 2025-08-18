@@ -42,7 +42,6 @@ class_name Stickman extends Node2D
 		knockback = value
 
 @export var team : Team
-@export var DamagePopupNode : PackedScene
 
 @export var sprite_color := Color(255.0,255.0,255.0)
 var knockback_velocity: Vector2 = Vector2.ZERO
@@ -90,7 +89,8 @@ func target_proximity_check(target : Node2D, max_distance : float) :
 
 func hit(target : Node2D):
 	target.health = target.health-damage
-	target.damage_popup(damage)
+	if target.find_child("DamagePopupMarker"):
+		target.find_child("DamagePopupMarker").damage_popup(damage)
 	if target.has_method("update_health") :
 		target.update_health()
 	if target.health <= 0:
@@ -98,7 +98,8 @@ func hit(target : Node2D):
 
 func punch(target : Node2D, knockback_direction: Vector2, knockback_force: float):
 	target.health = target.health-damage
-	target.damage_popup(damage)
+	if target.find_child("DamagePopupMarker"):
+		target.find_child("DamagePopupMarker").damage_popup(damage)
 	if target.health <= 0:
 		target.queue_free()
 	elif target.has_method("receive_knockback") and knockback_force >= 0.1 and knockback_direction != null:
@@ -119,12 +120,3 @@ func receive_knockback(force: Vector2):
 
 func update_health():
 	%HealthBar.value = health
-
-func damage_popup(popupdamage: float) : 
-	if DamagePopupNode != null :
-		var damage_popup = DamagePopupNode.instantiate()
-		damage_popup.position = find_child("DamagePopupLocation").global_position
-		damage_popup.find_child("Label").text = str(popupdamage)
-		get_tree().current_scene.add_child(damage_popup)
-	else :
-		printerr("Damage Popup Scene not assigned !")
