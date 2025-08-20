@@ -15,10 +15,10 @@ func _process(_delta: float) -> void:
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT :
-			print("Spawned a stickman at " + str(event.position))
+			#print("Spawned a stickman at " + str(event.position))
 			spawn_default_stickman(event.position)
 		if event.button_index == MOUSE_BUTTON_RIGHT :
-			print("Spawned a random stickman at " + str(event.position))
+			#print("Spawned a random stickman at " + str(event.position))
 			spawn_random_stickman(event.position, 5)
 
 func spawn_default_stickman(pos: Vector2):

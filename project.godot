@@ -15,6 +15,11 @@ run/main_scene="uid://nme44bdde5qw"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[global_group]
+
+Hitbox=""
+Hurtbox=""
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://3o1geleuhue0" path="res://Scenes/floating_number.tscn" id="10_t4ecy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s68di"]
-radius = 7.33334
-height = 17.3333
+radius = 8.66667
+height = 33.3333
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
 radius = 9.0
@@ -200,17 +200,16 @@ _data = {
 script = ExtResource("1_j4fy3")
 sprite_color = Color(0, 0, 0, 1)
 
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
+[node name="Hitbox" type="Area2D" parent="." groups=["Hitbox"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(9, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(44, 0)
 rotation = 1.5708
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CapsuleShape2D_s68di")
 debug_color = Color(0.988235, 0, 0, 0.227451)
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 rotation = 1.5708
