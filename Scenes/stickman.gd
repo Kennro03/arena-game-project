@@ -41,10 +41,11 @@ class_name Stickman extends Node2D
 	set(value):
 		knockback = value
 
-@export var dodge_probability := 20.0
-@export var parry_probability := 10.0
-@export var block_probability := 50.0
-@export var block_power := 10.0
+@export var dodge_probability := 10.0
+@export var parry_probability := 5.0
+@export var block_probability := 40.0
+@export var flat_block_power := 0.0
+@export var percent_block_power := 50.0
 
 @export var team : Team
 
@@ -61,9 +62,9 @@ func _ready():
 	get_node("Sprite").modulate = sprite_color
 	add_to_group(enemies_group_name)
 
-func get_closest_stickman(max_distance := INF) -> Node2D:
+func get_closest_stickman(max_distance := INF, group_name : String = enemies_group_name) -> Node2D:
 	var closest = null
-	for other in get_tree().get_nodes_in_group(enemies_group_name):
+	for other in get_tree().get_nodes_in_group(group_name):
 		if other == self:
 			continue
 		elif check_if_ally(other) :
@@ -73,6 +74,20 @@ func get_closest_stickman(max_distance := INF) -> Node2D:
 			max_distance = dist
 			closest = other
 	return closest
+
+func get_overlapping_areas_in_area(area: Area2D, areagroupname : String = "Hurtbox") -> Array:
+	var results: Array = []
+	for overlap in area.get_overlapping_areas():
+		if overlap.is_in_group(areagroupname):
+			results.append(overlap)
+	return results
+
+func get_stickmen_in_area(area: Area2D, areagroupname : String = "Hurtbox") -> Array:
+	var results: Array = []
+	for overlap in area.get_overlapping_areas():
+		if overlap.is_in_group(areagroupname):
+			results.append(overlap.owner)
+	return results
 
 func get_target_position_vector(target_position := Vector2()) -> Vector2:
 	var closest_target_vector : Vector2
@@ -132,10 +147,11 @@ func take_damage(incoming_damage) :
 	%DamagePopupMarker.damage_popup(str(incoming_damage))
 
 func block(incoming_damage):
-	var calculated_damage = maxf((incoming_damage-block_power),0.0)
-	health = health - calculated_damage
+	var flat_blocked_damage = maxf((incoming_damage-flat_block_power),0.0)
+	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*percent_block_power)
+	health -= blocked_damage
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5)
-	%DamagePopupMarker.damage_popup(str(calculated_damage))
+	%DamagePopupMarker.damage_popup(str(blocked_damage))
 	%AnimationPlayer.play("block")
 
 func parry(_incoming_damage):
