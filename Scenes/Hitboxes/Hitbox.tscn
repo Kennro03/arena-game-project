@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuyx18wcbijgd"]
+
+[ext_resource type="Script" uid="uid://cqseytinj18vm" path="res://Scenes/Hitboxes/hitbox.gd" id="1_1apj2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1apj2"]
+
+[node name="Hitbox" type="Area2D" groups=["Hitbox"]]
+script = ExtResource("1_1apj2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1apj2")
+debug_color = Color(0.988235, 0, 0, 0.227451)

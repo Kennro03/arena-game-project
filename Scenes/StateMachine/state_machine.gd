@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	stickman_body_knockback()
+	%Hurtbox.stickman_body_knockback()
 	border_knockback()
 	
 	if owner.knockback_velocity.length() > 0.1:
@@ -46,9 +46,7 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 	state = get_node(target_state_path)
 	state.enter(previous_state_path, data)
 
-func stickman_body_knockback() -> void:
-	for targetarea in owner.get_overlapping_areas_in_area(owner.find_child("Hurtbox"),"Hurtbox") : 
-		owner.apply_knockback(targetarea.owner, targetarea.owner.position - owner.position , 10.0)
+
 
 func border_knockback() -> void:
 	if owner.position.x > 1152.0 :

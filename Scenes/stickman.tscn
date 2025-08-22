@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://c8qwxekpq23e3"]
+[gd_scene load_steps=25 format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/stickman.gd" id="1_j4fy3"]
 [ext_resource type="Texture2D" uid="uid://bh4i0k1x25bb1" path="res://ressources/Sprites/Stickman.png" id="2_3vlyt"]
 [ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="2_s68di"]
+[ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="2_y784s"]
 [ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="4_to2s8"]
 [ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="5_omsj2"]
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
@@ -10,10 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dqxexvs3g4y71" path="res://Scenes/flag.tscn" id="9_jkhki"]
 [ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/damage_popup_marker.gd" id="10_awmep"]
 [ext_resource type="PackedScene" uid="uid://3o1geleuhue0" path="res://Scenes/floating_number.tscn" id="10_t4ecy"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s68di"]
-radius = 8.66667
-height = 33.3333
+[ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/skill_module.gd" id="11_awmep"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
 radius = 9.0
@@ -200,16 +198,9 @@ _data = {
 script = ExtResource("1_j4fy3")
 sprite_color = Color(0, 0, 0, 1)
 
-[node name="Hitbox" type="Area2D" parent="." groups=["Hitbox"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(44, 0)
-rotation = 1.5708
-scale = Vector2(1.5, 1.5)
-shape = SubResource("CapsuleShape2D_s68di")
-debug_color = Color(0.988235, 0, 0, 0.227451)
-
 [node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
+unique_name_in_owner = true
+script = ExtResource("2_y784s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 rotation = 1.5708
@@ -273,3 +264,6 @@ unique_name_in_owner = true
 position = Vector2(0, -65)
 script = ExtResource("10_awmep")
 DamagePopupNode = ExtResource("10_t4ecy")
+
+[node name="SkillModule" type="Node" parent="."]
+script = ExtResource("11_awmep")

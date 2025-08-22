@@ -75,20 +75,6 @@ func get_closest_stickman(max_distance := INF, group_name : String = enemies_gro
 			closest = other
 	return closest
 
-func get_overlapping_areas_in_area(area: Area2D, areagroupname : String = "Hurtbox") -> Array:
-	var results: Array = []
-	for overlap in area.get_overlapping_areas():
-		if overlap.is_in_group(areagroupname):
-			results.append(overlap)
-	return results
-
-func get_stickmen_in_area(area: Area2D, areagroupname : String = "Hurtbox") -> Array:
-	var results: Array = []
-	for overlap in area.get_overlapping_areas():
-		if overlap.is_in_group(areagroupname):
-			results.append(overlap.owner)
-	return results
-
 func get_target_position_vector(target_position := Vector2()) -> Vector2:
 	var closest_target_vector : Vector2
 	closest_target_vector = target_position-self.position
