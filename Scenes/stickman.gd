@@ -97,10 +97,13 @@ func punch(target : Node2D, punch_damage : float = 0.0, knockback_direction: Vec
 	if target.has_method("take_hit") :
 		target.take_hit(punch_damage,knockback_direction,knockback_force)
 
-func check_if_ally(target : Node2D):
-	if team.team_name == target.team.team_name :
-		return true
-	else :
+func check_if_ally(target : Node2D) -> bool :
+	if is_instance_valid(team) and is_instance_valid(target.team) :
+		if team.team_name == target.team.team_name :
+			return true
+		else :
+			return false
+	else : 
 		return false
 
 func apply_knockback(target: Node2D, direction: Vector2, force: float):
