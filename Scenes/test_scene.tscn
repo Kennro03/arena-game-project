@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://nme44bdde5qw"]
+[gd_scene load_steps=5 format=3 uid="uid://nme44bdde5qw"]
 
 [ext_resource type="PackedScene" uid="uid://dxfphpf6bsadn" path="res://Scenes/enemyspawner.tscn" id="1_3dogw"]
 [ext_resource type="PackedScene" uid="uid://cuyx18wcbijgd" path="res://Scenes/Hitboxes/Hitbox.tscn" id="2_r5l72"]
 [ext_resource type="PackedScene" uid="uid://c8qwxekpq23e3" path="res://Scenes/stickman.tscn" id="3_50ct6"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_hb2xm"]
 
 [sub_resource type="Curve" id="Curve_r5l72"]
 _limits = [0.0, 5.0, 0.0, 0.25]
@@ -16,13 +14,12 @@ point_count = 5
 [node name="Enemyspawner" parent="." instance=ExtResource("1_3dogw")]
 
 [node name="Hitbox" parent="." instance=ExtResource("2_r5l72")]
-position = Vector2(614, 293)
-shape = SubResource("CircleShape2D_hb2xm")
+position = Vector2(614, 313)
+radius = 50.0
 size = Vector2(200, 200)
 velocity = Vector2(50, 50)
 grow_over_time = true
 growth_curve = SubResource("Curve_r5l72")
-follow_target = NodePath("../Stickman")
 
 [node name="Stickman" parent="." instance=ExtResource("3_50ct6")]
 position = Vector2(215, 212)

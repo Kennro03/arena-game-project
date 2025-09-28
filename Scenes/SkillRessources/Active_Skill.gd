@@ -12,6 +12,6 @@ func activate(caster: Node2D, targets: Array[Node], context: Dictionary = {}) ->
 		print("activated skill")
 	pass
 
-func check_conditions() -> bool :
+func check_conditions(context: Dictionary = {}) -> bool :
 	# Default behavior — can be overridden
 	return true

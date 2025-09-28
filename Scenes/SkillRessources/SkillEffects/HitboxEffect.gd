@@ -9,6 +9,10 @@ class_name HitboxEffect
 
 func apply(caster: Node2D, _targets: Array[Node], _context: Dictionary = {}):
 	var hitbox = hitbox_scene.instantiate()
+	shape = _context.get("shape", shape)
+	duration = _context.get("duration", duration)
+	nested_effects = _context.get("nested_effects", nested_effects)
+	
 	hitbox.global_position = caster.global_position + offset.rotated(caster.rotation)
 	hitbox.set("shape", shape)
 	hitbox.set("caster", caster) # pass reference to the hitbox

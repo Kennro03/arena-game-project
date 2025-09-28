@@ -32,7 +32,8 @@ var _follow_target_ref : Node2D = null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_shape_and_dimensions()
-	if follow_target != NodePath() :
+	if follow_target != NodePath() and !follow_target.is_empty() :
+		print("Following target : " + str(follow_target))
 		_follow_target_ref = get_node_or_null(follow_target)
 	
 	#target_list = get_stickmen_in_area()
@@ -50,8 +51,10 @@ func _process(delta: float) -> void:
 	target_list = target_list.filter(func(t): return is_instance_valid(t))
 	
 	# Follow target
-	if _follow_target_ref and is_instance_valid(_follow_target_ref) :
-		global_position = _follow_target_ref.global_position + follow_offset
+	if follow_target :
+		check_follow_target()
+		if is_instance_valid(_follow_target_ref) :
+			global_position = _follow_target_ref.global_position + follow_offset
 	
 	# Move hitbox
 	if move_over_time : 
@@ -60,7 +63,6 @@ func _process(delta: float) -> void:
 	# Grow/Shrink hitbox
 	growth()
 	
-	check_follow_target()
 	#print("Target list : " + str(target_list))
 
 func set_shape_and_dimensions() -> void:
@@ -77,7 +79,7 @@ func set_shape_and_dimensions() -> void:
 			$CollisionShape2D.shape.A = point_A 
 			$CollisionShape2D.shape.B = point_B 
 		else : printerr("Unsupported shape!") 
-	else : printerr("No shape!")
+	else : printerr(str(self) + " : has no shape!")
 
 func get_overlapping_areas_in_area() -> Array[Area2D]:
 	var results: Array = []
@@ -117,7 +119,7 @@ func get_targets() -> Array[Node2D]:
 
 func check_follow_target() -> void : 
 	if !is_instance_valid(_follow_target_ref) :
-		print("Node followed gone what the hell")
+		printerr(str(self) + " : followed Node gone!")
 		follow_target = NodePath()
 		_follow_target_ref = null
 		queue_free()
