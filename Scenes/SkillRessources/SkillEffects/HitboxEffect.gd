@@ -2,20 +2,39 @@ extends SkillEffect
 class_name HitboxEffect
 
 @export var hitbox_scene: PackedScene = preload("res://Scenes/Hitboxes/Hitbox.tscn")
+#default values, used if not provided in the context
+@export var caster_offset: Vector2 = Vector2(40, 0)
 @export var shape: Shape2D = CapsuleShape2D.new()
-@export var offset: Vector2 = Vector2(40, 0) # relative to caster
 @export var duration: float = 0.2
 @export var nested_effects: Array[SkillEffect] = []
+@export var rotation_offset: float = 0.0
+var targets: Array[Node2D] = []
 
-func apply(caster: Node2D, _targets: Array[Node], _context: Dictionary = {}):
+func apply(caster: Node2D, _context: Dictionary = {}):
 	var hitbox = hitbox_scene.instantiate()
-	shape = _context.get("shape", shape)
-	duration = _context.get("duration", duration)
-	nested_effects = _context.get("nested_effects", nested_effects)
 	
-	hitbox.global_position = caster.global_position + offset.rotated(caster.rotation)
-	hitbox.set("shape", shape)
-	hitbox.set("caster", caster) # pass reference to the hitbox
-	hitbox.set("duration", duration)
-	hitbox.set("effects", nested_effects)
+	#context override
+	hitbox.caster = caster
+	hitbox.shape = _context.get("shape", shape)
+	hitbox.duration = _context.get("duration", duration)
+	hitbox.nested_effects = _context.get("nested_effects", nested_effects)
+	hitbox.rotation = _context.get("rotation_offset", rotation_offset)
+	#targets = _context.get("targets", targets)
+	
+	# Hitbox and orientation placement
+	var spawn_pos = caster.global_position + caster_offset.rotated(caster.rotation)
+	var spawn_rot = caster.rotation + rotation_offset
+	hitbox.set_origin(spawn_pos, spawn_rot)
+	
+	# Connect events to trigger nested effects
+	hitbox.hitbox_finished.connect(func(targets: Array[Node2D]):
+		for eff in nested_effects:
+			eff.apply(caster, {"targets": targets})
+	)
+	
 	caster.get_parent().add_child(hitbox)
+
+
+
+func get_targets():
+	return targets

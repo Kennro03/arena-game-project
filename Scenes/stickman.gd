@@ -46,6 +46,7 @@ class_name Stickman extends Node2D
 @export var block_probability := 40.0
 @export var flat_block_power := 0.0
 @export var percent_block_power := 50.0
+var is_casting: bool = false
 
 @export var team : Team
 
