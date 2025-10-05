@@ -10,3 +10,7 @@ class_name Team extends Resource
 		return team_color
 	set(value):
 		team_color = value
+
+func _init(name, RGB_color) -> void:
+	team_name = name
+	team_color = RGB_color

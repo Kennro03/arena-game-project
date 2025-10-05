@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://sj5ga6f11ten"]
+
+[ext_resource type="Script" uid="uid://b62xw15kyeii8" path="res://Scenes/UI/spawning_ui.gd" id="1_bn11v"]
+
+[node name="Spawning_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+script = ExtResource("1_bn11v")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1000, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.066
+anchor_top = 0.86100006
+anchor_right = 0.066
+anchor_bottom = 0.86100006
+offset_left = -0.03199768
+offset_top = 0.27197266
+offset_right = 999.968
+offset_bottom = 50.271973
+grow_vertical = 0

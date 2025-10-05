@@ -1,8 +1,10 @@
 extends Node
 @export var stickman: PackedScene
 
-var red_team := preload("res://ressources/Teams/Red_Team.tres")
-var blue_team := preload("res://ressources/Teams/Blue_Team.tres")
+var red_team = Team.new("Red",Color(255,0,0))
+var green_team = Team.new("Green",Color(0,255,0))
+var blue_team = Team.new("Blue",Color(0,0,255))
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
