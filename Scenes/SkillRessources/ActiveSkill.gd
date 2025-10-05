@@ -1,8 +1,10 @@
 extends Skill
 class_name ActiveSkill
 
-@export var skill_range: float = 100.0
-@export var cooldown: float = 10.0
-@export var activation_time: float = 0.0
-@export var placement_component: Array[SkillEffect]
-@export var components : Array[SkillEffect]
+@export var cooldown: float = 5.0
+@export var activation_time: float = 0.5
+
+@export var targeting_effects: Array[SkillEffect] = []   # where or who to affect, such as closest enemy/ally
+@export var spawn_effects: Array[SkillEffect] = []       # hitboxes and/or projectiles
+@export var apply_effects: Array[SkillEffect] = []       # damage, knockback, buffs, and all other effects to apply to targets
+@export var end_effects: Array[SkillEffect] = []         # cleanup, delayed triggers

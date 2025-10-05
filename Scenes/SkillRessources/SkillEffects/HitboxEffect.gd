@@ -8,10 +8,11 @@ class_name HitboxEffect
 @export var duration: float = 0.2
 @export var nested_effects: Array[SkillEffect] = []
 @export var rotation_offset: float = 0.0
-var targets: Array[Node2D] = []
+var hitbox = hitbox_scene.instantiate()
+
 
 func apply(caster: Node2D, _context: Dictionary = {}):
-	var hitbox = hitbox_scene.instantiate()
+	var target_point = _context.get("target_point", Vector2.ZERO)
 	
 	#context override
 	hitbox.caster = caster
@@ -26,15 +27,8 @@ func apply(caster: Node2D, _context: Dictionary = {}):
 	var spawn_rot = caster.rotation + rotation_offset
 	hitbox.set_origin(spawn_pos, spawn_rot)
 	
-	# Connect events to trigger nested effects
-	hitbox.hitbox_finished.connect(func(targets: Array[Node2D]):
-		for eff in nested_effects:
-			eff.apply(caster, {"targets": targets})
-	)
-	
 	caster.get_parent().add_child(hitbox)
 
 
-
-func get_targets():
-	return targets
+func get_targets() -> Array[Node2D]:
+	return hitbox.target_list

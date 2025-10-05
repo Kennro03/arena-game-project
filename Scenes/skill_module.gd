@@ -5,6 +5,7 @@ var skill_list: Array[ActiveSkill] = []
 var skill_runtimes: Dictionary = {}
 
 func add_skill(skill: ActiveSkill, slot: int = -1):
+	
 	if skill_runtimes.has(skill.skill_name):
 		push_warning("Skill " + skill.skill_name + " already added." )
 		return
