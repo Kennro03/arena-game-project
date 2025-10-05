@@ -6,7 +6,7 @@ class_name HitboxEffect
 @export var caster_offset: Vector2 = Vector2(40, 0)
 @export var shape: Shape2D = CapsuleShape2D.new()
 @export var duration: float = 0.2
-@export var nested_effects: Array[SkillEffect] = []
+@export var nested_effects: Array[SkillEffect] = [] #extra effects such as another hitbox ?
 @export var rotation_offset: float = 0.0
 var hitbox = hitbox_scene.instantiate()
 

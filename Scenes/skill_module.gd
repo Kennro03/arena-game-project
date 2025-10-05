@@ -18,7 +18,7 @@ func add_skill(skill: ActiveSkill, slot: int = -1):
 	skill_list.append(skill)
 	skill_runtimes[skill.skill_name] = SkillRuntime.new(skill, get_parent())
 
-func remove_skill(skill: ActiveSkill, slot: int = -1):
+func remove_skill(skill: ActiveSkill, _slot: int = -1):
 	if skill_runtimes.has(skill.skill_name):
 		skill_runtimes.erase(skill.skill_name)
 	

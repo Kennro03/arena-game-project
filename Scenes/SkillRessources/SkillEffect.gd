@@ -1,6 +1,6 @@
 extends Resource
 class_name SkillEffect
 
-func apply(caster: Node2D, context: Dictionary = {}):
+func apply(_caster: Node2D, _context: Dictionary = {}):
 	# context is optional extra info (direction, point of impact, etc.)
 	pass

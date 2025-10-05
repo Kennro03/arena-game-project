@@ -47,10 +47,9 @@ func _start_cast(skill_caster: Node2D, _context: Dictionary) -> void:
 	if skill_data.activation_time > 0.0 and !skill_caster.is_casting:
 		print("Casting " + skill_data.skill_name + " (" + str(skill_data.activation_time) + "s)")
 		skill_caster.is_casting = true
-		do_targeting_effects(skill_caster, _context)
-		
-		#FINISH THIS WHOLE FUNCTION
 		_start_cooldown()
+		do_targeting_effects(skill_caster, _context)
+		do_spawn_effects(skill_caster, _context)
 
 func _start_cooldown() -> void:
 	if skill_data.cooldown <= 0:
@@ -59,16 +58,16 @@ func _start_cooldown() -> void:
 		is_on_cooldown = true
 
 func _check_conditions(_context: Dictionary = {}) -> bool:
-	# Optional condition override 
+	
 	return true
 
-func do_targeting_effects(skill_caster, context):
+func do_targeting_effects(skill_caster, _context):
 	for eff in skill_data.targeting_effects:
-		eff.apply(skill_caster, context)
+		eff.apply(skill_caster, _context)
 
-func do_spawn_effects(skill_caster, context):
+func do_spawn_effects(skill_caster, _context):
 	for eff in skill_data.spawn_effects:
-		eff.apply(skill_caster, context)
+		eff.apply(skill_caster, _context)
 
 func get_hitboxes_targets():
 	var targets_inside_hitboxes : Array[Node2D] = []
@@ -79,18 +78,18 @@ func get_hitboxes_targets():
 					targets_inside_hitboxes.append(t)
 	return targets_inside_hitboxes
 
-func do_apply_effects(skill_caster, context):
+func do_apply_effects(skill_caster, _context):
 	for eff in skill_data.apply_effects:
 		context.set("targets",targets.filter(func(t): return not hit_targets.has(t))) #affect only targets that haven't been affected yet
-		eff.apply(skill_caster, context)
+		eff.apply(skill_caster, _context)
 		for target in targets : 
 			if !hit_targets.has(target) :
 				hit_targets.append(target)
 	
 
-func do_end_effects(skill_caster, context):
+func do_end_effects(skill_caster, _context):
 	for eff in skill_data.end_effects:
-		eff.apply(skill_caster, context)
+		eff.apply(skill_caster, _context)
 
 func get_targets_from_hitboxes():
 	for hitbox in skill_data.HitboxEffect.hitbox_scene :
