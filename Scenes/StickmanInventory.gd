@@ -1,6 +1,6 @@
-extends Control
-@export var spawner_inventory = preload("res://Scenes/StickmanInventory.gd")
-
+extends Node
+@export var available_units: Array[Stickman]
+var selected_unit: Stickman = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
