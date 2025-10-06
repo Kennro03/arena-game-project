@@ -13,6 +13,13 @@ point_count = 5
 [node name="TestScene" type="Node2D"]
 
 [node name="Spawning_UI" parent="." instance=ExtResource("1_hb2xm")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_vertical = 0
 
 [node name="Enemyspawner" parent="." instance=ExtResource("1_3dogw")]
 

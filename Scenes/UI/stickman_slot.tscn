@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkq72tu3j8e2o"]
+
+[ext_resource type="Script" uid="uid://3idiedqayhbf" path="res://Scenes/UI/stickman_slot.gd" id="1_71i4w"]
+[ext_resource type="Texture2D" uid="uid://ccpr8mltdglbp" path="res://ressources/Sprites/Stickman White Tpose.png" id="1_fsf6l"]
+
+[node name="StickmanSlot" type="Button"]
+custom_minimum_size = Vector2(75, 75)
+offset_right = 75.0
+offset_bottom = 75.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_71i4w")
+
+[node name="StickmanSpriteIcon" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(37, 37)
+texture = ExtResource("1_fsf6l")

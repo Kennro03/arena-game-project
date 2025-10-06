@@ -4,7 +4,6 @@ class_name Stickman extends Node2D
 @export var icon: Texture2D
 @export var description: String = ""
 
-
 @export var speed := 100.0:
 	get:
 		return speed
@@ -45,7 +44,6 @@ class_name Stickman extends Node2D
 		return knockback
 	set(value):
 		knockback = value
-
 
 @export var dodge_probability := 10.0
 @export var parry_probability := 5.0

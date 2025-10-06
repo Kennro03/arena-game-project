@@ -1,5 +1,6 @@
 extends Node
 @export var stickman: PackedScene
+@export var stickman_data = StickmanData
 
 var red_team = Team.new("Red",Color(255,0,0))
 var green_team = Team.new("Green",Color(0,255,0))
@@ -38,19 +39,24 @@ func spawn_random_stickman(pos: Vector2, rand_multiplier):
 	if stickman == null:
 		push_error("No stickman scene assigned!")
 		return
+	if stickman_data == null:
+		push_error("No stickman data resource assigned!")
+		return
 	
 	var stickman_instance = stickman.instantiate()
+	var stickman_data_resource: StickmanData = stickman_data.new()
+	var randomized_data = stickman_data_resource.get_randomized_stats(1.0, rand_multiplier)
 	
-	stickman_instance.speed = randi_range((stickman_instance.speed/rand_multiplier),(stickman_instance.speed*rand_multiplier))
-	stickman_instance.health = randi_range((stickman_instance.health/rand_multiplier),(stickman_instance.health*rand_multiplier))
-	stickman_instance.health_regen = randi_range((stickman_instance.health_regen/rand_multiplier),(stickman_instance.health_regen*rand_multiplier))
-	stickman_instance.damage = randi_range((stickman_instance.damage/rand_multiplier),(stickman_instance.damage*rand_multiplier))
-	stickman_instance.attack_speed = randi_range((stickman_instance.attack_speed/rand_multiplier),(stickman_instance.attack_speed*rand_multiplier))
-	stickman_instance.attack_range = randi_range((stickman_instance.attack_range/rand_multiplier),(stickman_instance.attack_range*rand_multiplier))
-	stickman_instance.knockback = randi_range((stickman_instance.knockback/rand_multiplier),(stickman_instance.knockback*rand_multiplier))
+	stickman_instance.speed = randomized_data.speed
+	stickman_instance.health = randomized_data.health
+	stickman_instance.health_regen = randomized_data.health_regen
+	stickman_instance.damage = randomized_data.damage
+	stickman_instance.attack_speed = randomized_data.attack_speed
+	stickman_instance.attack_range = randomized_data.attack_range
+	stickman_instance.knockback = randomized_data.knockback
+	stickman_instance.sprite_color = randomized_data.color
 	
 	stickman_instance.team = blue_team
-	stickman_instance.sprite_color = Color(randf(),randf(),randf())
 	
 	stickman_instance.position = pos
 	get_parent().add_child(stickman_instance)

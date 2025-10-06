@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1lt44dtk7m7o"]
+
+[ext_resource type="Script" uid="uid://bl2m88uvw37ll" path="res://Scenes/stickman_inventory.gd" id="1_d07ck"]
+
+[node name="Stickman_Inventory" type="Node"]
+script = ExtResource("1_d07ck")
