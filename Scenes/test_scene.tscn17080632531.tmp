@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://nme44bdde5qw"]
 
 [ext_resource type="PackedScene" uid="uid://dxfphpf6bsadn" path="res://Scenes/enemyspawner.tscn" id="1_3dogw"]
-[ext_resource type="PackedScene" uid="uid://sj5ga6f11ten" path="res://Scenes/UI/ui.tscn" id="1_hb2xm"]
+[ext_resource type="PackedScene" uid="uid://sj5ga6f11ten" path="res://Scenes/UI/spawning_ui.tscn" id="1_hb2xm"]
 [ext_resource type="PackedScene" uid="uid://cuyx18wcbijgd" path="res://Scenes/Hitboxes/Hitbox.tscn" id="2_r5l72"]
 [ext_resource type="PackedScene" uid="uid://c8qwxekpq23e3" path="res://Scenes/stickman.tscn" id="3_50ct6"]
 
@@ -13,7 +13,6 @@ point_count = 5
 [node name="TestScene" type="Node2D"]
 
 [node name="Spawning_UI" parent="." instance=ExtResource("1_hb2xm")]
-z_index = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

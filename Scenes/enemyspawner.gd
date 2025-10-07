@@ -1,6 +1,7 @@
 extends Node
 @export var stickman: PackedScene
 @export var stickman_data = StickmanData
+@export var inventory = Node
 
 var red_team = Team.new("Red",Color(255,0,0))
 var green_team = Team.new("Green",Color(0,255,0))
@@ -16,7 +17,14 @@ func _process(_delta: float) -> void:
 	pass
 
 func _input(event):
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.pressed :
+		
+		#ignore 
+		var hovered = get_viewport().gui_get_hovered_control()
+		if hovered != null && hovered.get_class() != "Control" :
+			#print("Mouse clicked on UI element : ", hovered.name)
+			return
+		
 		if event.button_index == MOUSE_BUTTON_LEFT :
 			#print("Spawned a stickman at " + str(event.position))
 			spawn_default_stickman(event.position)
