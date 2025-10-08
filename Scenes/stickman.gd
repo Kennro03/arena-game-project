@@ -5,45 +5,35 @@ class_name Stickman extends Node2D
 @export var description: String = ""
 
 @export var speed := 100.0:
-	get:
-		return speed
 	set(value):
-		speed = value
-@export var health := 100.0:
-	get:
-		return health
+		speed = clamp(value,0.0,INF)
+@export var max_health := 100.0:
 	set(value):
-		health = maxf(0.0, value)
+		max_health = clamp(value,0.0,INF)
+var health := 100.0:
+	set(value):
+		if value > 0.0 :
+			health = clamp(value,0.0,max_health)
+		else : 
+			die()
 @export var health_regen := 2.0:
-	get:
-		return health_regen
 	set(value):
 		health_regen = value
 @export var damage := 20.0:
-	get:
-		return damage
 	set(value):
-		damage = maxf(0.0, value)
+		damage = clamp(value,0.0,INF)
 @export var attack_speed := 1.0:
-	get:
-		return attack_speed
 	set(value):
-		attack_speed = maxf(0.0, value)
+		attack_speed = clamp(value,0.0,INF)
 @export var aggro_range := 750.0:
-	get:
-		return aggro_range
 	set(value):
-		aggro_range = value
+		aggro_range = clamp(value,0.0,INF)
 @export var attack_range := 60.0:
-	get:
-		return attack_range
 	set(value):
-		attack_range = value
+		attack_range = clamp(value,0.0,INF)
 @export var knockback := 100.0:
-	get:
-		return knockback
 	set(value):
-		knockback = value
+		knockback = clamp(value,0.0,INF)
 
 @export var dodge_probability := 10.0
 @export var parry_probability := 5.0
@@ -170,9 +160,6 @@ func take_hit(hit_damage : float = 0.0, knockback_direction : Vector2 = Vector2(
 		take_damage(hit_damage)
 		if knockback_force >= 0.1 and knockback_direction != Vector2(0,0) :
 			apply_knockback(self, knockback_direction, knockback_force)
-	
-	if health <= 0:
-		queue_free()
 
 func update_health():
 	%HealthBar.value = health
@@ -192,3 +179,6 @@ func apply_data(data: StickmanData) -> void:
 	self.flat_block_power = data.flat_block_power
 	self.percent_block_power = data.percent_block_power
 	self.sprite_color = data.color
+
+func die() -> void:
+	queue_free()

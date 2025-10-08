@@ -6,7 +6,8 @@ class_name StickmanData
 @export var description: String = ""
 
 @export var speed: float = 100.0
-@export var health: float = 100.0
+@export var max_health: float = 100.0
+var health: float = max_health
 @export var health_regen: float = 2.0
 @export var damage: float = 20.0
 @export var attack_speed: float = 1.0
@@ -28,7 +29,7 @@ func get_scaled_stickmanData(multiplier: float) -> StickmanData:
 	var scaled_stickman_data = StickmanData.new()
 	scaled_stickman_data.type= "Scaled "+str(multiplier)+" Stickman"
 	scaled_stickman_data.speed= round(speed * multiplier * 100) / 100.0
-	scaled_stickman_data.health= round(health * multiplier * 100) / 100.0
+	scaled_stickman_data.max_health= round(max_health * multiplier * 100) / 100.0
 	scaled_stickman_data.damage= round(damage * multiplier * 100) / 100.0
 	scaled_stickman_data.attack_speed= round(attack_speed * multiplier * 100) / 100.0
 	scaled_stickman_data.aggro_range= round(aggro_range * multiplier * 100) / 100.0
@@ -48,7 +49,7 @@ func get_randomized_stickmanData(rand_min_multiplier: float,rand_max_multiplier:
 	multiplier_array = []
 	
 	randomized_stickman_data.speed= randomize_stat(speed,rand_min_multiplier,rand_max_multiplier)
-	randomized_stickman_data.health= randomize_stat(health,rand_min_multiplier,rand_max_multiplier)
+	randomized_stickman_data.max_health= randomize_stat(max_health,rand_min_multiplier,rand_max_multiplier)
 	randomized_stickman_data.damage= randomize_stat(damage,rand_min_multiplier,rand_max_multiplier)
 	randomized_stickman_data.attack_speed= randomize_stat(attack_speed,rand_min_multiplier,rand_max_multiplier)
 	randomized_stickman_data.aggro_range= randomize_stat(aggro_range,rand_min_multiplier,rand_max_multiplier)
@@ -70,7 +71,7 @@ func get_scaled_stats_dictionary(multiplier: float) -> Dictionary:
 	return {
 		"type": "Scaled "+str(multiplier)+" Stickman",
 		"speed": speed * multiplier,
-		"health": health * multiplier,
+		"max_health": max_health * multiplier,
 		"damage": damage * multiplier,
 		"attack_speed": attack_speed * multiplier,
 		"aggro_range": aggro_range,
@@ -90,7 +91,7 @@ func get_randomized_stats_dictionary(rand_min_multiplier: float,rand_max_multipl
 		"type": "Randomized "+str(rand_min_multiplier)+"-"+str(rand_max_multiplier)+" Stickman",
 		
 		"speed": randf_range((speed*rand_min_multiplier),(speed*rand_max_multiplier)),
-		"health": randf_range((health*rand_min_multiplier),(health*rand_max_multiplier)),
+		"max_health": randf_range((max_health*rand_min_multiplier),(max_health*rand_max_multiplier)),
 		"health_regen": randf_range((health_regen*rand_min_multiplier),(health_regen*rand_max_multiplier)),
 		"damage": randf_range((damage*rand_min_multiplier),(damage*rand_max_multiplier)),
 		"attack_speed": randf_range((attack_speed*rand_min_multiplier),(attack_speed*rand_max_multiplier)),
