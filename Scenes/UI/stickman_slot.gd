@@ -8,6 +8,7 @@ signal stickman_selected(_stickman_data: Stickman)
 func _ready() -> void:
 	if stickman_data :
 		%StickmanSpriteIcon.texture = load("res://ressources/Sprites/Stickman White Tpose.png")
+		%StickmanSpriteIcon.modulate = stickman_data.color
 	else : 
 		%StickmanSpriteIcon.visible = false
 	connect("pressed", Callable(self, "_on_pressed"))
