@@ -10,7 +10,7 @@ func _ready() -> void:
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func instantiate_hotbar_slots():
@@ -31,7 +31,7 @@ func _on_stickman_slot_stickman_selected(unit_data: StickmanData) -> void:
 	inventory_node.selected_unit_data = unit_data
 
 
-func _on_stickman_inventory_inventory_stickman_added(unit_data) -> void:
+func _on_stickman_inventory_inventory_stickman_added(_unit_data) -> void:
 	for slot in %HotbarHBbox.get_children() : 
 		if inventory_node.inventory[slot.get_index()].stickman_data : 
 			%HotbarHBbox.get_child(slot.get_index()).stickman_data = inventory_node.inventory[slot.get_index()]
