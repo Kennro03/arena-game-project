@@ -20,7 +20,8 @@ func physics_update(_delta: float) -> void:
 		%AnimationPlayer.speed_scale = randf_range(0.75,1.25)
 		%AnimationPlayer.play("walking")
 	
-	owner.position = owner.position + closest_target_vector.normalized()*owner.speed*_delta
+	if closest_target_vector: 
+		owner.position = owner.position + closest_target_vector.normalized()*owner.speed*_delta
 	
 	if owner.target_proximity_check(closest_target,owner.attack_range/1.5) :
 		finished.emit(IDLE)

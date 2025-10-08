@@ -4,7 +4,7 @@ signal inventory_stickman_removed()
 
 @export var stickman_scene := preload("res://Scenes/stickman.tscn")
 
-@export var HOTBAR_SIZE := 8
+@export var HOTBAR_SIZE := 10
 @export var autofill_test_int := 4
 
 var inventory: Array[StickmanData] = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]

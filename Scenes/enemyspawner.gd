@@ -22,7 +22,7 @@ func _input(event):
 		#ignore 
 		var hovered = get_viewport().gui_get_hovered_control()
 		if hovered != null && hovered.get_class() != "Control" :
-			#print("Mouse clicked on UI element : ", hovered.name)
+			print("Mouse clicked on UI element : ", hovered.name)
 			return
 		
 		if event.button_index == MOUSE_BUTTON_LEFT :

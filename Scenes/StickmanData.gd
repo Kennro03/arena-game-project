@@ -21,30 +21,33 @@ class_name StickmanData
 @export var percent_block_power := 50.0
 
 @export var color := Color()
+var multiplier_array : Array[float] = []
+
 
 func get_scaled_stickmanData(multiplier: float) -> StickmanData:
 	var scaled_stickman_data = StickmanData.new()
 	scaled_stickman_data.type= "Scaled "+str(multiplier)+" Stickman"
-	scaled_stickman_data.speed= speed * multiplier
-	scaled_stickman_data.health= health * multiplier
-	scaled_stickman_data.damage= damage * multiplier
-	scaled_stickman_data.attack_speed= attack_speed * multiplier
-	scaled_stickman_data.aggro_range= aggro_range
-	scaled_stickman_data.attack_range= attack_range * multiplier
-	scaled_stickman_data.knockback= knockback * multiplier
+	scaled_stickman_data.speed= round(speed * multiplier * 100) / 100.0
+	scaled_stickman_data.health= round(health * multiplier * 100) / 100.0
+	scaled_stickman_data.damage= round(damage * multiplier * 100) / 100.0
+	scaled_stickman_data.attack_speed= round(attack_speed * multiplier * 100) / 100.0
+	scaled_stickman_data.aggro_range= round(aggro_range * multiplier * 100) / 100.0
+	scaled_stickman_data.attack_range= round(attack_range * multiplier * 100) / 100.0
+	scaled_stickman_data.knockback= round(knockback * multiplier * 100) / 100.0
 	
-	scaled_stickman_data.dodge_probability= dodge_probability * multiplier
-	scaled_stickman_data.parry_probability= parry_probability * multiplier
-	scaled_stickman_data.block_probability= block_probability * multiplier
-	scaled_stickman_data.flat_block_power= flat_block_power * multiplier
+	scaled_stickman_data.dodge_probability= round(dodge_probability * multiplier * 100) / 100.0
+	scaled_stickman_data.parry_probability= round(parry_probability * multiplier * 100) / 100.0
+	scaled_stickman_data.block_probability= round(block_probability * multiplier * 100) / 100.0
+	scaled_stickman_data.flat_block_power= round(flat_block_power * multiplier * 100) / 100.0
 	scaled_stickman_data.percent_block_power= percent_block_power
 	scaled_stickman_data.color= Color(randf(),randf(),randf())
 	return scaled_stickman_data
 
 func get_randomized_stickmanData(rand_min_multiplier: float,rand_max_multiplier: float) -> StickmanData:
 	var randomized_stickman_data = StickmanData.new()
+	multiplier_array = []
 	
-	randomized_stickman_data.type= "Randomized "+str(rand_min_multiplier)+"-"+str(rand_max_multiplier)+" Stickman"
+	
 	randomized_stickman_data.speed= randomize_stat(speed,rand_min_multiplier,rand_max_multiplier)
 	randomized_stickman_data.health= randomize_stat(health,rand_min_multiplier,rand_max_multiplier)
 	randomized_stickman_data.damage= randomize_stat(damage,rand_min_multiplier,rand_max_multiplier)
@@ -59,6 +62,9 @@ func get_randomized_stickmanData(rand_min_multiplier: float,rand_max_multiplier:
 	randomized_stickman_data.flat_block_power= randomize_stat(flat_block_power,rand_min_multiplier,rand_max_multiplier)
 	randomized_stickman_data.percent_block_power= percent_block_power
 	randomized_stickman_data.color= Color(randf(),randf(),randf())
+	
+	randomized_stickman_data.type= "Randomized "+str(rand_min_multiplier)+"-"+str(rand_max_multiplier)+" Stickman (avg=" + str(round(sum_array(multiplier_array)/multiplier_array.size()* 100) / 100.0 )+")"
+	
 	return randomized_stickman_data
 
 func get_scaled_stats(multiplier: float) -> Dictionary:
@@ -101,6 +107,13 @@ func get_randomized_stats(rand_min_multiplier: float,rand_max_multiplier: float)
 	}	
 
 func randomize_stat(stat,min_rand : float,max_rand : float) -> float:
-	var randomized_stat : float = 0
-	randomized_stat = round(randf_range((int(stat)*min_rand),(int(stat)*max_rand)) * 100) / 100.0
+	var randomized_num : float = round(randf_range((min_rand),(max_rand)) * 100) / 100.0
+	var randomized_stat = int(stat)*randomized_num
+	multiplier_array.append(randomized_num)
 	return randomized_stat
+
+static func sum_array(array):
+	var sum = 0.0
+	for element in array:
+		sum += element
+	return sum
