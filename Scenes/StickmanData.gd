@@ -47,7 +47,6 @@ func get_randomized_stickmanData(rand_min_multiplier: float,rand_max_multiplier:
 	var randomized_stickman_data = StickmanData.new()
 	multiplier_array = []
 	
-	
 	randomized_stickman_data.speed= randomize_stat(speed,rand_min_multiplier,rand_max_multiplier)
 	randomized_stickman_data.health= randomize_stat(health,rand_min_multiplier,rand_max_multiplier)
 	randomized_stickman_data.damage= randomize_stat(damage,rand_min_multiplier,rand_max_multiplier)
@@ -67,7 +66,7 @@ func get_randomized_stickmanData(rand_min_multiplier: float,rand_max_multiplier:
 	
 	return randomized_stickman_data
 
-func get_scaled_stats(multiplier: float) -> Dictionary:
+func get_scaled_stats_dictionary(multiplier: float) -> Dictionary:
 	return {
 		"type": "Scaled "+str(multiplier)+" Stickman",
 		"speed": speed * multiplier,
@@ -86,7 +85,7 @@ func get_scaled_stats(multiplier: float) -> Dictionary:
 		"color": Color(randf(),randf(),randf()),
 	}
 
-func get_randomized_stats(rand_min_multiplier: float,rand_max_multiplier: float) -> Dictionary:
+func get_randomized_stats_dictionary(rand_min_multiplier: float,rand_max_multiplier: float) -> Dictionary:
 	return {
 		"type": "Randomized "+str(rand_min_multiplier)+"-"+str(rand_max_multiplier)+" Stickman",
 		
@@ -107,8 +106,8 @@ func get_randomized_stats(rand_min_multiplier: float,rand_max_multiplier: float)
 	}	
 
 func randomize_stat(stat,min_rand : float,max_rand : float) -> float:
-	var randomized_num : float = round(randf_range((min_rand),(max_rand)) * 100) / 100.0
-	var randomized_stat = int(stat)*randomized_num
+	var randomized_num : float = randf_range((min_rand),(max_rand))  
+	var randomized_stat = round((int(stat)*randomized_num) * 100) / 100.0
 	multiplier_array.append(randomized_num)
 	return randomized_stat
 

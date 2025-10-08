@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://sj5ga6f11ten"]
+[gd_scene load_steps=4 format=3 uid="uid://sj5ga6f11ten"]
 
 [ext_resource type="Script" uid="uid://b62xw15kyeii8" path="res://Scenes/UI/ui.gd" id="1_bn11v"]
-[ext_resource type="PackedScene" uid="uid://dkq72tu3j8e2o" path="res://Scenes/UI/stickman_slot.tscn" id="2_b8adx"]
 [ext_resource type="PackedScene" uid="uid://c1lt44dtk7m7o" path="res://stickman_inventory.tscn" id="2_ii1lt"]
 [ext_resource type="Texture2D" uid="uid://cuyqhcginxphp" path="res://ressources/Sprites/hotbar_128.png" id="3_fo61o"]
 
@@ -15,7 +14,6 @@ grow_vertical = 2
 size_flags_vertical = 8
 script = ExtResource("1_bn11v")
 inventory_node = NodePath("Stickman_Inventory")
-Slot_scene = ExtResource("2_b8adx")
 
 [node name="HotbarContainer" type="MarginContainer" parent="."]
 layout_direction = 2
@@ -27,7 +25,7 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -475.0
 offset_top = -153.0
-offset_right = 475.0
+offset_right = 425.0
 offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -42,20 +40,19 @@ patch_margin_bottom = 64
 
 [node name="HotbarHBbox" type="HBoxContainer" parent="HotbarContainer/HotbarRect"]
 unique_name_in_owner = true
-layout_direction = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -437.5
-offset_top = -37.5
-offset_right = 437.5
-offset_bottom = 37.5
+offset_left = -425.0
+offset_top = -38.25
+offset_right = 425.0
+offset_bottom = 37.75
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="InventoryVBox" type="VBoxContainer" parent="."]

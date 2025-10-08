@@ -176,3 +176,19 @@ func take_hit(hit_damage : float = 0.0, knockback_direction : Vector2 = Vector2(
 
 func update_health():
 	%HealthBar.value = health
+
+func apply_data(data: StickmanData) -> void:
+	self.speed = data.speed
+	self.health = data.health
+	self.health_regen = data.health_regen
+	self.damage = data.damage
+	self.attack_speed = data.attack_speed
+	self.aggro_range = data.aggro_range
+	self.attack_range = data.attack_range
+	self.knockback = data.knockback
+	self.dodge_probability = data.dodge_probability
+	self.parry_probability = data.parry_probability
+	self.block_probability = data.block_probability
+	self.flat_block_power = data.flat_block_power
+	self.percent_block_power = data.percent_block_power
+	self.sprite_color = data.color

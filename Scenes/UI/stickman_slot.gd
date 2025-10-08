@@ -8,7 +8,6 @@ signal stickman_selected(_stickman_data: Stickman)
 func _ready() -> void:
 	if stickman_data :
 		%StickmanSpriteIcon.texture = load("res://ressources/Sprites/Stickman White Tpose.png")
-		#%StickmanSpriteIcon.modulate(stickman_data.sprite_color)
 	else : 
 		%StickmanSpriteIcon.visible = false
 	connect("pressed", Callable(self, "_on_pressed"))
@@ -19,5 +18,5 @@ func _process(delta: float) -> void:
 
 func _on_pressed():
 	emit_signal("stickman_selected", stickman_data)
-	if stickman_data :
-		print("Type : " + stickman_data.type)
+	#if stickman_data :
+		#print("Type : " + stickman_data.type)
