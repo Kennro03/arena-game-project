@@ -26,7 +26,8 @@ func instantiate_hotbar_slots():
 
 
 func _on_stickman_slot_stickman_selected(unit_data: StickmanData) -> void:
-	print(unit_data.type)
+	if unit_data : 
+		print(unit_data.type)
 	inventory_node.selected_unit_data = unit_data
 
 
