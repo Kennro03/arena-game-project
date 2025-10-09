@@ -10,6 +10,7 @@ class_name Stickman extends Node2D
 @export var max_health := 100.0:
 	set(value):
 		max_health = clamp(value,0.0,INF)
+		%HealthBar.max_value = max_health
 var health := 100.0:
 	set(value):
 		if value > 0.0 :
@@ -166,6 +167,7 @@ func update_health():
 
 func apply_data(data: StickmanData) -> void:
 	self.speed = data.speed
+	self.max_health = data.max_health
 	self.health = data.health
 	self.health_regen = data.health_regen
 	self.damage = data.damage

@@ -19,12 +19,12 @@ func _ready() -> void:
 	inventory[4] = StickmanData.new().get_randomized_stickmanData(1.0,3.0)
 	
 	
-	for slot in inventory : 
-		if slot != null :
-			print(slot.health)
-		else :
-			print("Empty slot !")
-	pass # Replace with function body.
+	for i in inventory.size():
+		var slot = inventory[i]
+		if slot != null and slot.type != null:
+			print("Slot (index) : " + str(i) + " Type = " + str(slot.type))
+		else:
+			print("Slot (index) " + str(i) + " is empty or invalid!")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
