@@ -41,7 +41,9 @@ var health := 100.0:
 @export var block_probability := 40.0
 @export var flat_block_power := 0.0
 @export var percent_block_power := 50.0
+
 var is_casting: bool = false
+var is_stunned: bool = false
 
 @export var team : Team
 
