@@ -31,26 +31,22 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func add_unit_to_slot(unit_data: StickmanData, _slot: int):
-	if _slot < inventory.size():
-		if inventory[_slot] == null : 
-			inventory[_slot] = unit_data
+func add_unit(unit_data: StickmanData, _slot: int = -1):
+	if _slot != -1 && _slot < inventory.size():
+		inventory[_slot] = unit_data
 	else :
 		inventory.append(unit_data)
 	emit_signal("inventory_stickman_added",unit_data)
 
-func remove_unit_from_slot(_slot: int):
-	if _slot > 0 and _slot < inventory.size():
-		if inventory[_slot] != null :
-			inventory[_slot] = null
-	emit_signal("inventory_stickman_removed")
-
-func add_unit(unit_data: StickmanData):
-	inventory.append(unit_data)
-	emit_signal("inventory_stickman_added")
+func free_slot(_slot: int):
+	if _slot >= 0 and _slot <= inventory.size():
+		inventory[_slot] = null
 	
-func remove_unit(unit_data: StickmanData):
-	inventory.erase(unit_data)
+func remove_unit(unit_data: StickmanData, _slot: int = -1):
+	if _slot != -1 && _slot < inventory.size():
+		inventory[_slot] = null
+	else : 
+		inventory.erase(unit_data)
 	emit_signal("inventory_stickman_removed")
 
 func get_hotbar_array(hotbar_length:int) -> Array[StickmanData] :
