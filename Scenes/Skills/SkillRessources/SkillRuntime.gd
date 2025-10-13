@@ -37,10 +37,8 @@ func _process(delta) -> void:
 
 func _activate(skill_caster: Node2D, _context: Dictionary = {}) -> void :
 	_context.set("target_point",target_point)
-	if not _check_conditions(_context):
-		print("Conditions not met for " + skill_data.skill_name)
-		return
-	else :
+	if _check_cast_conditions(_context):
+		print("Conditions met for " + skill_data.skill_name)
 		_start_cast(skill_caster, _context)
 
 func _start_cast(skill_caster: Node2D, _context: Dictionary) -> void:
@@ -57,9 +55,22 @@ func _start_cooldown() -> void:
 	else : 
 		is_on_cooldown = true
 
-func _check_conditions(_context: Dictionary = {}) -> bool:
-	
-	return true
+func _check_cast_conditions(_context: Dictionary = {}) -> bool:
+	if !caster.is_casting and !caster.is_stunned and _check_targets_distance(skill_data.activation_range) :
+		print("Caster is not casting. is_casting=" + str(caster.is_casting))
+		print("Caster is not stunned. is_stunned=" + str(caster.is_stunned))
+		print("Atleast one target in range. distance_check=" + str(_check_targets_distance(skill_data.activation_range)))
+		return true
+	return false
+
+func _check_targets_distance(_range: float , _context: Dictionary = {}) -> bool:
+	if _range > 0.0 :
+		for target in targets : 
+			if target.distance.distance_to(caster) :
+				return true
+		return false
+	else : 
+		return true
 
 func do_targeting_effects(skill_caster, _context):
 	for eff in skill_data.targeting_effects:
@@ -94,3 +105,14 @@ func do_end_effects(skill_caster, _context):
 func get_targets_from_hitboxes():
 	for hitbox in skill_data.HitboxEffect.hitbox_scene :
 		pass
+
+func check_usable() -> bool :
+	if is_on_cooldown : 
+		return false
+	if !skill_data : 
+		printerr("Skill has no skill_data !")
+		return false
+	if !caster : 
+		printerr("Skill has no caster !")
+		return false
+	return  true

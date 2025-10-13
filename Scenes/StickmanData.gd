@@ -22,8 +22,31 @@ var health: float = max_health
 @export var percent_block_power := 50.0
 
 @export var color := Color()
+
+@export var skill_list : Array[Skill] = []
+
 var multiplier_array : Array[float] = []
 
+func get_skilled_stickmanData(multiplier: float = 0.0, skill_array : Array[Skill] = []) -> StickmanData : 
+	var skill_stickman_data = StickmanData.new()
+	skill_stickman_data.type= "Skilled Stickman"
+	skill_stickman_data.speed= round(speed * multiplier * 100) / 100.0
+	skill_stickman_data.max_health= round(max_health * multiplier * 100) / 100.0
+	skill_stickman_data.damage= round(damage * multiplier * 100) / 100.0
+	skill_stickman_data.attack_speed= round(attack_speed * multiplier * 100) / 100.0
+	skill_stickman_data.aggro_range= round(aggro_range * multiplier * 100) / 100.0
+	skill_stickman_data.attack_range= round(attack_range * multiplier * 100) / 100.0
+	skill_stickman_data.knockback= round(knockback * multiplier * 100) / 100.0
+	
+	skill_stickman_data.dodge_probability= round(dodge_probability * multiplier * 100) / 100.0
+	skill_stickman_data.parry_probability= round(parry_probability * multiplier * 100) / 100.0
+	skill_stickman_data.block_probability= round(block_probability * multiplier * 100) / 100.0
+	skill_stickman_data.flat_block_power= round(flat_block_power * multiplier * 100) / 100.0
+	skill_stickman_data.percent_block_power= percent_block_power
+	skill_stickman_data.color= Color(randf(),randf(),randf())
+	
+	skill_stickman_data.skill_list = skill_array
+	return skill_stickman_data
 
 func get_scaled_stickmanData(multiplier: float) -> StickmanData:
 	var scaled_stickman_data = StickmanData.new()
@@ -111,6 +134,8 @@ func randomize_stat(stat,min_rand : float,max_rand : float) -> float:
 	var randomized_stat = round((int(stat)*randomized_num) * 100) / 100.0
 	multiplier_array.append(randomized_num)
 	return randomized_stat
+
+
 
 static func sum_array(array):
 	var sum = 0.0

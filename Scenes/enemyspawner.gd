@@ -29,8 +29,13 @@ func _input(event):
 			return
 		
 		if event.button_index == MOUSE_BUTTON_LEFT :
-			#print("Spawned a stickman at " + str(event.position))
+			print("Spawned a stickman at " + str(event.position))
+			
 			if  selected_stickmandata : 
+				var temp_message : Array
+				for i in selected_stickmandata.skill_list :
+					temp_message.append(i.skill_name)
+				print("Stickmandata skill list = " +  str(temp_message))
 				spawn_stickman(event.position, selected_stickmandata)
 			else :
 				print("No stickmanData provided, spawning default stickman")

@@ -18,6 +18,11 @@ func _ready() -> void:
 	inventory[3] = StickmanData.new().get_randomized_stickmanData(0.5,1.5)
 	inventory[4] = StickmanData.new().get_randomized_stickmanData(1.0,3.0)
 	
+	var skill_array_kick : Array[Skill]
+	var kick_skill = preload("res://Scenes/Skills/Kick_Skill.tres")
+	skill_array_kick.append(kick_skill)
+	inventory[6] = StickmanData.new().get_skilled_stickmanData(1.1, skill_array_kick)
+	
 	
 	for i in inventory.size():
 		var slot = inventory[i]

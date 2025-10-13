@@ -46,8 +46,9 @@ var is_casting: bool = false
 var is_stunned: bool = false
 
 @export var team : Team
-
 @export var sprite_color := Color(255.0,255.0,255.0)
+
+
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay := 1000.0 
 var enemies_group_name := "Stickmen"
@@ -183,6 +184,7 @@ func apply_data(data: StickmanData) -> void:
 	self.flat_block_power = data.flat_block_power
 	self.percent_block_power = data.percent_block_power
 	self.sprite_color = data.color
+	%SkillModule.skill_list = data.skill_list
 
 func die() -> void:
 	queue_free()

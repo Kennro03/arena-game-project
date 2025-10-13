@@ -22,6 +22,7 @@ func physics_update(_delta: float) -> void:
 		#print(str(closest_target) + " health = " + str(closest_target.health))
 		%HitCooldown.start()
 	
+	
 	if !closest_target :
 		finished.emit(IDLE)
 	if closest_target != null and !owner.target_proximity_check(closest_target,owner.attack_range):

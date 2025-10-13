@@ -29,6 +29,7 @@ metadata/_custom_type_script = "uid://cvoepl25p34qi"
 
 [resource]
 script = ExtResource("4_p7d8n")
+activation_range = 100.0
 spawn_effects = Array[ExtResource("1_3ddgs")]([SubResource("Resource_271sb")])
 apply_effects = Array[ExtResource("1_3ddgs")]([SubResource("Resource_oq0cl"), SubResource("Resource_s4gol")])
 icon = SubResource("PlaceholderTexture2D_fqelj")

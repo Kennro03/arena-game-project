@@ -234,6 +234,8 @@ script = ExtResource("5_omsj2")
 [node name="Attacking" type="Node" parent="StateMachine"]
 script = ExtResource("6_3vlyt")
 
+[node name="Casting" type="Node" parent="StateMachine"]
+
 [node name="HitCooldown" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 2.0
@@ -266,4 +268,5 @@ script = ExtResource("10_awmep")
 DamagePopupNode = ExtResource("10_t4ecy")
 
 [node name="SkillModule" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("11_awmep")
