@@ -55,13 +55,14 @@ var enemies_group_name := "Stickmen"
 var idle_animations = ["Idle"]
 var punch_animations = ["punch_1","punch_2"]
 var dodge_animations = ["dodge_1","dodge_2"]
+var cast_animations = ["kick"]
 
 func _ready():
 	%HealthBar.max_value = health
 	get_node("Sprite").modulate = sprite_color
 	add_to_group(enemies_group_name)
 
-func get_closest_stickman(max_distance := INF, group_name : String = enemies_group_name) -> Node2D:
+func get_closest_unit(max_distance := INF, group_name : String = enemies_group_name) -> Node2D:
 	var closest = null
 	for other in get_tree().get_nodes_in_group(group_name):
 		if other == self:

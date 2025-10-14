@@ -6,7 +6,7 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	%AnimationPlayer.stop()
 
 func physics_update(_delta: float) -> void:
-	closest_target = owner.get_closest_stickman(owner.aggro_range)
+	closest_target = owner.get_closest_unit(owner.aggro_range)
 	if closest_target != null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)
 		if closest_target_vector.x > 0 :

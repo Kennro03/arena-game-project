@@ -1,8 +1,11 @@
 extends Node
 class_name SkillModule
 
+@export var skill_check_delay : float = 0.25
+var time_passed : float
 var skill_list: Array[Skill] = []
 var skill_runtimes: Dictionary = {}
+var context : Dictionary = {}
 
 func add_skill(skill: Skill, slot: int = -1):
 	print("Adding skill " + str(skill) + " to " + str(Stickman))
@@ -39,20 +42,41 @@ func use_skill_by_slot(slot: int, context: Dictionary = {}):
 		var skill = skill_list[slot]
 		use_skill_by_name(skill.skill_name, context)
 
-func create_skill_runtime(skill: Skill) -> void : 
-	skill_runtimes[skill.skill_name] = SkillRuntime.new(skill, get_parent())
+func create_skill_runtime(skill_to_add: Skill) -> void : 
+	if skill_runtimes.has(skill_to_add.skill_name):
+		push_warning("Skill " + skill_to_add.skill_name + " already added." )
+		return
+	else : 
+		skill_runtimes[skill_to_add.skill_name] = SkillRuntime.new(skill_to_add, owner)
+
+func actualize_context() -> void : 
+	context.set("caster",owner)
+	context.set("skill_target",owner.get_closest_unit())
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	await owner.ready
 	for skill in skill_list : 
-		pass
+		create_skill_runtime(skill)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	for skill in skill_runtimes :
-		if skill.check_usable() :
-			skill.activate()
+	var skill_activated := false
+	time_passed += _delta
+	if time_passed >= skill_check_delay : 
+		time_passed -= skill_check_delay
+		
+		
+		for skill_key in skill_runtimes :
+			#print("checking conditions for " + str(skill_runtimes[skill_key].skill_data.skill_name) + " : usable=" + str(skill_runtimes[skill_key].check_usable()) + " cast_conditions=" + str(skill_runtimes[skill_key]._check_cast_conditions()))
+			if not skill_activated and skill_runtimes[skill_key].check_usable() and skill_runtimes[skill_key]._check_cast_conditions() :
+				skill_runtimes[skill_key]._activate()
+				print("Skill activated : "+ skill_runtimes[skill_key].skill_data.skill_name)
+				skill_activated = true
 		pass
+	
+	
+	
 	
 	pass

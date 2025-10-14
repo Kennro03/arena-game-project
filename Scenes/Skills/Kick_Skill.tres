@@ -19,17 +19,18 @@ metadata/_custom_type_script = "uid://cduc4h57bl4d6"
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fqelj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8ml7"]
-size = Vector2(60, 40)
+size = Vector2(100, 50)
 
 [sub_resource type="Resource" id="Resource_271sb"]
 script = ExtResource("6_gm2of")
 shape = SubResource("RectangleShape2D_x8ml7")
-duration = 1.0
+duration = 1.25
 metadata/_custom_type_script = "uid://cvoepl25p34qi"
 
 [resource]
 script = ExtResource("4_p7d8n")
-activation_range = 100.0
+activation_time = 0.1
+activation_range = 300.0
 spawn_effects = Array[ExtResource("1_3ddgs")]([SubResource("Resource_271sb")])
 apply_effects = Array[ExtResource("1_3ddgs")]([SubResource("Resource_oq0cl"), SubResource("Resource_s4gol")])
 icon = SubResource("PlaceholderTexture2D_fqelj")

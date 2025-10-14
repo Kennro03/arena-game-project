@@ -29,7 +29,8 @@ func _ready() -> void:
 		if slot != null and slot.type != null:
 			print("Slot (index) : " + str(i) + " Type = " + str(slot.type))
 		else:
-			print("Slot (index) " + str(i) + " is empty or invalid!")
+			pass
+			#print("Slot (index) " + str(i) + " is empty or invalid!")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

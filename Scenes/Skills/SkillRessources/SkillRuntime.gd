@@ -1,9 +1,10 @@
 extends RefCounted
 class_name SkillRuntime
 
+var skill_module: SkillModule
 var skill_data: ActiveSkill
 var caster: Node2D
-var is_on_cooldown: bool = false
+var is_on_cooldown:= false 
 
 var targets: Array[Node2D] 
 var hit_targets: Array[Node2D] 
@@ -14,17 +15,18 @@ var casting_time_passed: float = 0.0
 var context: Dictionary = {}
  
 func _init(skill: ActiveSkill, owner: Node2D):
-	self.skill_data = skill
-	self.caster = owner
+	skill_data = skill
+	caster = owner
 
 func _process(delta) -> void:
-	if caster.is_casting :
+	print(str(cooldown_time_passed))
+	if caster.is_casting == true :
 		casting_time_passed += delta
 		if casting_time_passed >= skill_data.activation_time:
 			casting_time_passed -= skill_data.activation_time
 			caster.is_casting = false
 			print(skill_data.skill_name + " cast ended.")
-	if is_on_cooldown :
+	if is_on_cooldown == true :
 		cooldown_time_passed += delta
 		if cooldown_time_passed >= skill_data.cooldown:
 			cooldown_time_passed -= skill_data.cooldown
@@ -35,38 +37,32 @@ func _process(delta) -> void:
 		targets = get_hitboxes_targets()
 	do_apply_effects(caster, context)
 
-func _activate(skill_caster: Node2D, _context: Dictionary = {}) -> void :
+func _activate(_context: Dictionary = {}) -> void :
 	_context.set("target_point",target_point)
 	if _check_cast_conditions(_context):
 		print("Conditions met for " + skill_data.skill_name)
-		_start_cast(skill_caster, _context)
+		_start_cast(_context)
 
-func _start_cast(skill_caster: Node2D, _context: Dictionary) -> void:
-	if skill_data.activation_time > 0.0 and !skill_caster.is_casting:
+func _start_cast(_context: Dictionary) -> void:
+	if skill_data.activation_time > 0.0 and !caster.is_casting:
 		print("Casting " + skill_data.skill_name + " (" + str(skill_data.activation_time) + "s)")
-		skill_caster.is_casting = true
+		caster.is_casting = true
 		_start_cooldown()
-		do_targeting_effects(skill_caster, _context)
-		do_spawn_effects(skill_caster, _context)
+		do_targeting_effects(caster, _context)
+		do_spawn_effects(caster, _context)
 
 func _start_cooldown() -> void:
+	print("Started cooldown")
 	if skill_data.cooldown <= 0:
 		return
 	else : 
 		is_on_cooldown = true
 
-func _check_cast_conditions(_context: Dictionary = {}) -> bool:
-	if !caster.is_casting and !caster.is_stunned and _check_targets_distance(skill_data.activation_range) :
-		print("Caster is not casting. is_casting=" + str(caster.is_casting))
-		print("Caster is not stunned. is_stunned=" + str(caster.is_stunned))
-		print("Atleast one target in range. distance_check=" + str(_check_targets_distance(skill_data.activation_range)))
-		return true
-	return false
-
 func _check_targets_distance(_range: float , _context: Dictionary = {}) -> bool:
 	if _range > 0.0 :
-		for target in targets : 
-			if target.distance.distance_to(caster) :
+		if caster.get_closest_unit() : 
+			if caster.get_closest_unit().position.distance_to(caster.position) < skill_data.activation_range :
+				print(str(caster.get_closest_unit().position.distance_to(caster.position)))
 				return true
 		return false
 	else : 
@@ -106,13 +102,28 @@ func get_targets_from_hitboxes():
 	for hitbox in skill_data.HitboxEffect.hitbox_scene :
 		pass
 
-func check_usable() -> bool :
-	if is_on_cooldown : 
+func check_usable(_context: Dictionary = {}) -> bool :
+	if is_on_cooldown == true : 
+		printerr("Skill is on cooldown !")
 		return false
-	if !skill_data : 
+	elif !skill_data : 
 		printerr("Skill has no skill_data !")
 		return false
-	if !caster : 
+	elif !caster : 
 		printerr("Skill has no caster !")
 		return false
-	return  true
+	else : 
+		return  true
+
+func _check_cast_conditions(_context: Dictionary = {}) -> bool:
+	if caster.is_casting :
+		printerr("caster already casting !")
+		return false
+	elif caster.is_stunned :
+		printerr("caster is stunned !")
+		return false
+	elif !_check_targets_distance(skill_data.activation_range) :
+		printerr("target too far away !")
+		return false
+	else :
+		return true
