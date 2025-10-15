@@ -7,7 +7,7 @@ signal hitbox_finished(target_list: Array[Node2D])
 @export var duration: float = 100.0 #in seconds
 @export var group_filter: String = "Hurtbox"
 @export var origin_position : Vector2
-@export var origin_rotation : float = 0.0
+@export var origin_rotation : float
 
 #Movement
 @export var move_over_time: bool = false
@@ -31,11 +31,11 @@ var _follow_target_ref : Node2D = null
 func _ready() -> void:
 	set_properties()
 	if follow_target != NodePath() and !follow_target.is_empty() :
-		print("Following target : " + str(follow_target))
+		#print("Following target : " + str(follow_target))
 		_follow_target_ref = get_node_or_null(follow_target)
 	
 	await get_tree().process_frame
-	emit_signal("hitbox_started", get_stickmen_in_area())
+	emit_signal("hitbox_started", get_units_in_area())
 	await get_tree().create_timer(duration).timeout
 	emit_signal("hitbox_finished", target_list.filter(is_instance_valid))
 	queue_free()
@@ -69,7 +69,8 @@ func set_properties() -> void:
 	
 	if origin_position != Vector2.ZERO:
 		global_position = origin_position
-	rotation = origin_rotation
+	if origin_rotation != 0.0:
+		global_rotation = deg_to_rad(origin_rotation) 
 
 
 func get_overlapping_areas_in_area() -> Array[Area2D]:
@@ -79,7 +80,7 @@ func get_overlapping_areas_in_area() -> Array[Area2D]:
 			results.append(overlap)
 	return results
 
-func get_stickmen_in_area() -> Array[Node2D]:
+func get_units_in_area() -> Array[Node2D]:
 	var results: Array[Node2D] = []
 	for overlap in self.get_overlapping_areas() :
 		if overlap.is_in_group(group_filter) :
@@ -96,12 +97,12 @@ func growth() -> void:
 		scale = Vector2.ONE * growth_curve.sample(t)
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group(group_filter) and !target_list.has(area.owner)  :
+	if area.is_in_group(group_filter) :
 		target_list.append(area.owner)
 		#print("Entered hitbox : " + str(area.owner))
 
 func _on_area_exited(area: Area2D) -> void:
-	if area.is_in_group(group_filter) and target_list.has(area.owner)  :
+	if area.is_in_group(group_filter) :
 		target_list.erase(area.owner)
 		#print("Exited hitbox : " + str(area.owner))
 
@@ -110,11 +111,11 @@ func get_targets() -> Array[Node2D]:
 
 func check_follow_target() -> void : 
 	if !is_instance_valid(_follow_target_ref) :
-		printerr(str(self) + " : followed Node gone!")
+		#printerr(str(self) + " : followed Node gone!")
 		follow_target = NodePath()
 		_follow_target_ref = null
 		queue_free()
 
 func set_origin(pos: Vector2, rot: float = 0.0) -> void:
-	global_position = pos 
-	rotation = rot
+	self.global_position = pos 
+	self.rotation  = rot

@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="ActiveSkill" load_steps=11 format=3 uid="uid://bqd2htlyx6ivr"]
+
+[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://Scenes/Skills/SkillRessources/SkillEffects/SkillEffect.gd" id="1_pxfj0"]
+[ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://Scenes/Skills/SkillRessources/SkillEffects/KnockBackEffect.gd" id="2_iycj2"]
+[ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://Scenes/Skills/SkillRessources/SkillEffects/DamageOthersEffect.gd" id="3_afy7n"]
+[ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="4_cdt5m"]
+[ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://Scenes/Skills/SkillRessources/SkillEffects/HitboxEffect.gd" id="5_qs2jv"]
+
+[sub_resource type="Resource" id="Resource_oq0cl"]
+script = ExtResource("2_iycj2")
+power = 600.0
+metadata/_custom_type_script = "uid://brkhtuervrtmr"
+
+[sub_resource type="Resource" id="Resource_dlclx"]
+script = ExtResource("3_afy7n")
+amount = 25.0
+metadata/_custom_type_script = "uid://dje5s1fj67ug"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fqelj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pxfj0"]
+radius = 150.0
+
+[sub_resource type="Resource" id="Resource_271sb"]
+script = ExtResource("5_qs2jv")
+shape = SubResource("CircleShape2D_pxfj0")
+duration = 0.5
+metadata/_custom_type_script = "uid://cvoepl25p34qi"
+
+[resource]
+script = ExtResource("4_cdt5m")
+cooldown = 10.0
+activation_range = 150.0
+spawn_effects = Array[ExtResource("1_pxfj0")]([SubResource("Resource_271sb")])
+apply_effects = Array[ExtResource("1_pxfj0")]([SubResource("Resource_oq0cl"), SubResource("Resource_dlclx")])
+icon = SubResource("PlaceholderTexture2D_fqelj")
+skill_name = "KICK"
+skill_description = "A placeholder KICK Skill that does a small AOE zone infront of the caster, damaging and pushing back enemies"
+metadata/_custom_type_script = "uid://dav671j6ilit5"
