@@ -30,10 +30,10 @@ metadata/_custom_type_script = "uid://cvoepl25p34qi"
 [resource]
 script = ExtResource("4_cdt5m")
 cooldown = 10.0
-activation_range = 150.0
+activation_range = 125.0
 spawn_effects = Array[ExtResource("1_pxfj0")]([SubResource("Resource_271sb")])
 apply_effects = Array[ExtResource("1_pxfj0")]([SubResource("Resource_oq0cl"), SubResource("Resource_dlclx")])
 icon = SubResource("PlaceholderTexture2D_fqelj")
-skill_name = "KICK"
-skill_description = "A placeholder KICK Skill that does a small AOE zone infront of the caster, damaging and pushing back enemies"
+skill_name = "SMALL BURST"
+skill_description = "A placeholder burst Skill that does a small AOE zone infront of the caster, damaging and pushing back enemies"
 metadata/_custom_type_script = "uid://dav671j6ilit5"

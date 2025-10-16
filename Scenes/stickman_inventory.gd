@@ -20,7 +20,9 @@ func _ready() -> void:
 	
 	var skill_array_kick : Array[Skill]
 	var kick_skill = preload("res://Scenes/Skills/Kick_Skill.tres")
+	var burst_skill = preload("res://Scenes/Skills/SmallBurst_Skill.tres")
 	skill_array_kick.append(kick_skill)
+	skill_array_kick.append(burst_skill)
 	inventory[6] = StickmanData.new().get_skilled_stickmanData(1.1, skill_array_kick)
 	
 	
