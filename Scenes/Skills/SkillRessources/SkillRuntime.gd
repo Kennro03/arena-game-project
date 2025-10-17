@@ -93,7 +93,7 @@ func do_spawn_effects(skill_caster, _context):
 func get_hitboxes_targets() -> Array[Node2D]:
 	var targets_inside_hitboxes : Array[Node2D] = []
 	for eff in skill_data.spawn_effects:
-		if eff.has_method("get_targets") :
+		if eff.has_method("get_targets") and eff.hitbox :
 			for t in eff.get_targets():
 				if is_instance_valid(t) and not targets_inside_hitboxes.has(t):
 					targets_inside_hitboxes.append(t)

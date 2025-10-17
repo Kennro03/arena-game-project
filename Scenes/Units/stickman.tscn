@@ -1,13 +1,13 @@
 [gd_scene load_steps=27 format=3 uid="uid://c8qwxekpq23e3"]
 
-[ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/stickman.gd" id="1_j4fy3"]
-[ext_resource type="Texture2D" uid="uid://bh4i0k1x25bb1" path="res://ressources/Sprites/Stickman.png" id="2_3vlyt"]
+[ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/Units/stickman.gd" id="1_j4fy3"]
+[ext_resource type="Texture2D" uid="uid://bh4i0k1x25bb1" path="res://ressources/Sprites/Units/Stickman.png" id="2_3vlyt"]
 [ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="2_s68di"]
 [ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="2_y784s"]
 [ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="4_to2s8"]
 [ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="5_omsj2"]
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
-[ext_resource type="Script" uid="uid://cwlc2s7gxu4s8" path="res://Scenes/team_controller.gd" id="7_jj3cr"]
+[ext_resource type="Script" uid="uid://cwlc2s7gxu4s8" path="res://Scenes/Units/team_controller.gd" id="7_jj3cr"]
 [ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="8_n38p5"]
 [ext_resource type="PackedScene" uid="uid://dqxexvs3g4y71" path="res://Scenes/flag.tscn" id="9_jkhki"]
 [ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/damage_popup_marker.gd" id="10_awmep"]
@@ -261,6 +261,28 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
+[node name="TeamController" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -80.0
+offset_bottom = -80.0
+script = ExtResource("7_jj3cr")
+flag = ExtResource("9_jkhki")
+
+[node name="SkillModule" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("11_awmep")
+
+[node name="HealthModule" type="Node" parent="."]
+
+[node name="PopupModule" type="Node" parent="."]
+
+[node name="DamagePopupMarker" type="Marker2D" parent="PopupModule"]
+unique_name_in_owner = true
+position = Vector2(0, -65)
+script = ExtResource("10_awmep")
+DamagePopupNode = ExtResource("10_t4ecy")
+
 [node name="HealthBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 modulate = Color(0, 1, 0, 1)
@@ -271,21 +293,3 @@ offset_right = 17.0
 offset_bottom = 15.0
 value = 100.0
 show_percentage = false
-
-[node name="TeamController" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_top = -80.0
-offset_bottom = -80.0
-script = ExtResource("7_jj3cr")
-flag = ExtResource("9_jkhki")
-
-[node name="DamagePopupMarker" type="Marker2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0, -65)
-script = ExtResource("10_awmep")
-DamagePopupNode = ExtResource("10_t4ecy")
-
-[node name="SkillModule" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("11_awmep")

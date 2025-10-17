@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxfphpf6bsadn"]
 
 [ext_resource type="Script" uid="uid://b46o07dkbysm1" path="res://Scenes/enemyspawner.gd" id="1_yu0tv"]
-[ext_resource type="PackedScene" uid="uid://c8qwxekpq23e3" path="res://Scenes/stickman.tscn" id="2_07s5y"]
+[ext_resource type="PackedScene" uid="uid://c8qwxekpq23e3" path="res://Scenes/Units/stickman.tscn" id="2_07s5y"]
 
 [node name="Enemyspawner" type="Node"]
 script = ExtResource("1_yu0tv")

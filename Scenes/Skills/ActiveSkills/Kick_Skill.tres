@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="ActiveSkill" load_steps=11 format=3 uid="uid://cxgikyug1upgh"]
 
-[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://Scenes/Skills/SkillRessources/SkillEffects/SkillEffect.gd" id="1_3ddgs"]
-[ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://Scenes/Skills/SkillRessources/SkillEffects/KnockBackEffect.gd" id="2_dlclx"]
-[ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://Scenes/Skills/SkillRessources/SkillEffects/DamageOthersEffect.gd" id="3_3ddgs"]
+[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://Scenes/Skills/SkillEffects/SkillEffect.gd" id="1_3ddgs"]
+[ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://Scenes/Skills/SkillEffects/KnockBackEffect.gd" id="2_dlclx"]
+[ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://Scenes/Skills/SkillEffects/DamageOthersEffect.gd" id="3_3ddgs"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="4_p7d8n"]
-[ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://Scenes/Skills/SkillRessources/SkillEffects/HitboxEffect.gd" id="6_gm2of"]
+[ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://Scenes/Skills/SkillEffects/HitboxEffect.gd" id="6_gm2of"]
 
 [sub_resource type="Resource" id="Resource_oq0cl"]
 script = ExtResource("2_dlclx")

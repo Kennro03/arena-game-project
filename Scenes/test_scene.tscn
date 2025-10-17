@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://nme44bdde5qw"]
+[gd_scene load_steps=6 format=3 uid="uid://nme44bdde5qw"]
 
 [ext_resource type="PackedScene" uid="uid://dxfphpf6bsadn" path="res://Scenes/enemyspawner.tscn" id="1_3dogw"]
 [ext_resource type="PackedScene" uid="uid://sj5ga6f11ten" path="res://Scenes/UI/ui.tscn" id="1_hb2xm"]
-[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://Scenes/StickmanData.gd" id="3_ak5v8"]
+[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://Scenes/Units/StickmanData.gd" id="3_ak5v8"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_hb2xm"]
 
 [sub_resource type="Resource" id="Resource_x033f"]
 script = ExtResource("3_ak5v8")

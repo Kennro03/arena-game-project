@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dkq72tu3j8e2o"]
 
 [ext_resource type="Script" uid="uid://3idiedqayhbf" path="res://Scenes/UI/stickman_slot.gd" id="1_71i4w"]
-[ext_resource type="Texture2D" uid="uid://ccpr8mltdglbp" path="res://ressources/Sprites/Stickman White Tpose.png" id="1_fsf6l"]
+[ext_resource type="Texture2D" uid="uid://ccpr8mltdglbp" path="res://ressources/Sprites/Units/Stickman White Tpose.png" id="1_fsf6l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsf6l"]
 bg_color = Color(0.13333334, 0.13333334, 0.13333334, 0.9411765)

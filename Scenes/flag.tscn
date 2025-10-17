@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dqxexvs3g4y71"]
 
-[ext_resource type="Texture2D" uid="uid://ds4sl51lnasix" path="res://ressources/Sprites/flag.png" id="1_snk6q"]
+[ext_resource type="Texture2D" uid="uid://ds4sl51lnasix" path="res://ressources/Sprites/Units/flag.png" id="1_snk6q"]
 
 [node name="Flag" type="Sprite2D"]
 texture = ExtResource("1_snk6q")

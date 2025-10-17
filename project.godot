@@ -15,6 +15,19 @@ run/main_scene="uid://nme44bdde5qw"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://Scenes/": "blue",
+"res://Scenes/Hitboxes/": "red",
+"res://Scenes/Skills/": "orange",
+"res://Scenes/StateMachine/": "yellow",
+"res://Scenes/UI/": "green",
+"res://Scenes/Units/": "teal",
+"res://ressources/": "green",
+"res://ressources/Sprites/Units/": "teal"
+}
+
 [global_group]
 
 Hitbox=""

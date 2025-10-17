@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmo3esm83v1v6"
-path="res://.godot/imported/hotbar_512.png-a42a53a277a0fbe03cba02773a08ecca.ctex"
+uid="uid://ccpr8mltdglbp"
+path="res://.godot/imported/Stickman White Tpose.png-e0e7b5a7bfb5cb9a616288ca7ed2c4e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/Sprites/hotbar_512.png"
-dest_files=["res://.godot/imported/hotbar_512.png-a42a53a277a0fbe03cba02773a08ecca.ctex"]
+source_file="res://ressources/Sprites/Units/Stickman White Tpose.png"
+dest_files=["res://.godot/imported/Stickman White Tpose.png-e0e7b5a7bfb5cb9a616288ca7ed2c4e7.ctex"]
 
 [params]
 
