@@ -2,7 +2,7 @@ extends Node
 signal inventory_stickman_added(unit_data : StickmanData)
 signal inventory_stickman_removed()
 
-@export var stickman_scene := preload("res://Scenes/stickman.tscn")
+@export var stickman_scene := preload("res://Scenes/Units/stickman.tscn")
 
 @export var HOTBAR_SIZE := 10
 @export var autofill_test_int := 4
@@ -19,8 +19,8 @@ func _ready() -> void:
 	inventory[4] = StickmanData.new().get_randomized_stickmanData(1.0,3.0)
 	
 	var skill_array_kick : Array[Skill]
-	var kick_skill = preload("res://Scenes/Skills/Kick_Skill.tres")
-	var burst_skill = preload("res://Scenes/Skills/SmallBurst_Skill.tres")
+	var kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres")
+	var burst_skill = preload("res://Scenes/Skills/ActiveSkills/SmallBurst_Skill.tres")
 	skill_array_kick.append(kick_skill)
 	skill_array_kick.append(burst_skill)
 	inventory[6] = StickmanData.new().get_skilled_stickmanData(1.1, skill_array_kick)

@@ -273,15 +273,15 @@ flag = ExtResource("9_jkhki")
 unique_name_in_owner = true
 script = ExtResource("11_awmep")
 
-[node name="HealthModule" type="Node" parent="."]
-
-[node name="PopupModule" type="Node" parent="."]
-
-[node name="DamagePopupMarker" type="Marker2D" parent="PopupModule"]
+[node name="DamagePopupMarker" type="Marker2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -65)
 script = ExtResource("10_awmep")
 DamagePopupNode = ExtResource("10_t4ecy")
+
+[node name="PopupModule" type="Node" parent="."]
+
+[node name="HealthModule" type="Node" parent="."]
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true

@@ -7,7 +7,7 @@ signal stickman_selected(_stickman_data: Stickman)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if stickman_data :
-		%StickmanSpriteIcon.texture = load("res://ressources/Sprites/Stickman White Tpose.png")
+		%StickmanSpriteIcon.texture = load("res://ressources/Sprites/Units/Stickman White Tpose.png")
 		%StickmanSpriteIcon.modulate = stickman_data.color
 	else : 
 		%StickmanSpriteIcon.visible = false

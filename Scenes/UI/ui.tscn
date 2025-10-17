@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://sj5ga6f11ten"]
 
 [ext_resource type="Script" uid="uid://b62xw15kyeii8" path="res://Scenes/UI/ui.gd" id="1_bn11v"]
-[ext_resource type="PackedScene" uid="uid://c1lt44dtk7m7o" path="res://stickman_inventory.tscn" id="2_ii1lt"]
+[ext_resource type="PackedScene" uid="uid://c1lt44dtk7m7o" path="res://Scenes/stickman_inventory.tscn" id="2_ii1lt"]
 [ext_resource type="Texture2D" uid="uid://cuyqhcginxphp" path="res://ressources/Sprites/UI/hotbar_128.png" id="3_fo61o"]
 
 [node name="UI" type="Control" node_paths=PackedStringArray("inventory_node")]
