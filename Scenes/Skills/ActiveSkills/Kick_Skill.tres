@@ -26,6 +26,7 @@ height = 200.0
 script = ExtResource("6_gm2of")
 shape = SubResource("CapsuleShape2D_3ddgs")
 rotation_offset = 90.0
+caster_offset = Vector2(50, 0)
 duration = 1.25
 metadata/_custom_type_script = "uid://cvoepl25p34qi"
 

@@ -87,6 +87,7 @@ func do_targeting_effects(skill_caster, _context):
 		eff.apply(skill_caster, _context)
 
 func do_spawn_effects(skill_caster, _context):
+	_context.set("target_point",caster.get_closest_unit())
 	for eff in skill_data.spawn_effects:
 		eff.apply(skill_caster, _context)
 

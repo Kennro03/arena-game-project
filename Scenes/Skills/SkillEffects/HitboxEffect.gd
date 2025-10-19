@@ -9,27 +9,31 @@ var hitbox_scene: PackedScene = preload("res://Scenes/Hitboxes/Hitbox.tscn")
 @export var caster_offset: Vector2 = Vector2(0, 0)
 @export var duration: float = 0.2
 @export var nested_effects: Array[SkillEffect] = [] #extra effects such as another hitbox ? Not implemented
-
 var hitbox : Node
+
 
 func apply(_caster: Node2D, _context: Dictionary = {}):
 	hitbox = hitbox_scene.instantiate()
-	var _target_point = _context.get("target_point", Vector2.ZERO)
-	
 	#context override
 	hitbox.caster = _context.get("caster", _caster)
 	hitbox.shape = _context.get("shape", shape)
 	hitbox.duration = _context.get("duration", duration)
 	#hitbox.nested_effects = _context.get("nested_effects", nested_effects)
-	#targets = _context.get("targets", targets)
-	hitbox.follow_target = _caster.get_path()
-	#hitbox.follow_offset = Vector2(0.0,0.0)
 	
 	# Hitbox and orientation placement
-	var spawn_pos = _caster.global_position + _context.get("caster_offset", caster_offset)
-	var spawn_rot = _caster.rotation + _context.get("rotation_offset", rotation_offset)
+	var _target_point = _context.get("target_point", _caster.global_position)
+	var direction: Vector2 = (_target_point.position - _caster.position).normalized()
+	var angle_to_target: float = direction.angle()
+	hitbox.rotation = angle_to_target 
+	var forward_offset = direction * caster_offset.x
+	var side_offset = Vector2(-direction.y, direction.x) * caster_offset.y
+	var spawn_pos = _caster.global_position + forward_offset + side_offset
+	var spawn_rot = angle_to_target + deg_to_rad(rotation_offset)
+	hitbox.set_origin(spawn_pos, spawn_rot)
 	
-	hitbox.set_origin(spawn_pos, deg_to_rad(spawn_rot) )
+	hitbox.follow_target = _caster.get_path()
+	hitbox.follow_offset = forward_offset + side_offset
+	
 	_caster.get_parent().add_child(hitbox)
 
 
@@ -37,5 +41,5 @@ func get_targets() -> Array[Node2D]:
 	if hitbox :
 		return hitbox.target_list
 	else : 
-		print("no hitbox")
+		printerr("no hitbox")
 		return []

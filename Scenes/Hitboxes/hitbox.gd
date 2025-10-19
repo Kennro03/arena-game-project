@@ -55,6 +55,7 @@ func _process(delta: float) -> void:
 		if is_instance_valid(_follow_target_ref) :
 			global_position = _follow_target_ref.global_position + follow_offset
 	
+	
 	elif move_over_time : 
 		global_position += velocity * delta
 	
