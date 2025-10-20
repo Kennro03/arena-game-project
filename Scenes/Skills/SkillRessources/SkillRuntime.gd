@@ -102,7 +102,7 @@ func get_hitboxes_targets() -> Array[Node2D]:
 
 func do_apply_effects(skill_caster, _context):
 	#print("Targets in context : " + str(context.get("targets")) + " --- and in list : " + str(get_hitboxes_targets()))
-	targets = get_hitboxes_targets()
+	targets = get_hitboxes_targets() #get targets inside hitbox
 	context.set("targets",targets.filter(func(t): return not hit_targets.has(t))) #affect only targets that haven't been affected yet
 	var hit : HitData = HitData.new()
 	var hit_result
@@ -110,7 +110,7 @@ func do_apply_effects(skill_caster, _context):
 		hit_result = eff.modify_hit(skill_caster,hit, _context)
 	for target in targets : 
 		if !hit_targets.has(target) and target!=skill_caster :
-			print("Hit damage="+str(hit_result.damage) +" knockback-strength="+str(hit_result.knockback_force) +" knockback-direction="+str(hit_result.knockback_direction))
+			#print("Hit damage="+str(hit_result.damage) +" knockback-strength="+str(hit_result.knockback_force) +" knockback-direction="+str(hit_result.knockback_direction))
 			if target.has_method("resolve_hit") :
 				target.resolve_hit(hit_result)
 			hit_targets.append(target)
