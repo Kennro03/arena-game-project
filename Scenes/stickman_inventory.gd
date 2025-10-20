@@ -19,10 +19,12 @@ func _ready() -> void:
 	inventory[4] = StickmanData.new().get_randomized_stickmanData(1.0,3.0)
 	
 	var skill_array_kick : Array[Skill]
-	var kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres")
-	var burst_skill = preload("res://Scenes/Skills/ActiveSkills/SmallBurst_Skill.tres")
+	var kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres").duplicate(true)
+	var burst_skill = preload("res://Scenes/Skills/ActiveSkills/SmallBurst_Skill.tres").duplicate(true)
+	var projectile_skill = preload("res://Scenes/Skills/ActiveSkills/BaseProjectile_Skill.tres").duplicate(true)
 	skill_array_kick.append(kick_skill)
 	skill_array_kick.append(burst_skill)
+	skill_array_kick.append(projectile_skill)
 	inventory[6] = StickmanData.new().get_skilled_stickmanData(1.1, skill_array_kick)
 	
 	

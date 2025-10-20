@@ -19,6 +19,8 @@ var skill_activated: bool = false
 func _init(skill: ActiveSkill, owner: Node2D):
 	skill_data = skill
 	caster = owner
+	
+	skill_data = skill.duplicate(true)
 
 func _process(delta) -> void:
 	if caster.is_casting == true :
@@ -110,7 +112,7 @@ func do_apply_effects(skill_caster, _context):
 		hit_result = eff.modify_hit(skill_caster,hit, _context)
 	for target in targets : 
 		if !hit_targets.has(target) and target!=skill_caster :
-			#print("Hit damage="+str(hit_result.damage) +" knockback-strength="+str(hit_result.knockback_force) +" knockback-direction="+str(hit_result.knockback_direction))
+			print("Hit damage="+str(hit_result.damage) +" knockback-strength="+str(hit_result.knockback_force) +" knockback-direction="+str(hit_result.knockback_direction))
 			if target.has_method("resolve_hit") :
 				target.resolve_hit(hit_result)
 			hit_targets.append(target)

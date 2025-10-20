@@ -27,6 +27,7 @@ var target_list : Array[Node2D]
 var lifetime_elapsed: float = 0.0
 var _follow_target_ref : Node2D = null
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_properties()

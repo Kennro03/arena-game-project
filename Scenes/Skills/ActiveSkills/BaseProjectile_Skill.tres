@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="ActiveSkill" load_steps=10 format=3 uid="uid://bojk3a754bpf3"]
+
+[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://ressources/SkillEffects/SkillEffect.gd" id="1_o6p8x"]
+[ext_resource type="Script" uid="uid://cduc4h57bl4d6" path="res://ressources/SkillEffects/DamageEveryoneEffect.gd" id="2_6tb1w"]
+[ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="2_hgqhc"]
+[ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://ressources/SkillEffects/KnockBackEffect.gd" id="3_3b1wv"]
+[ext_resource type="Script" uid="uid://cvvnm56qg2hwe" path="res://ressources/SkillEffects/ProjectileEffect.gd" id="3_6tb1w"]
+
+[sub_resource type="Resource" id="Resource_fkdxu"]
+script = ExtResource("2_6tb1w")
+amount = 20.0
+metadata/_custom_type_script = "uid://cduc4h57bl4d6"
+
+[sub_resource type="Resource" id="Resource_ggxir"]
+script = ExtResource("3_3b1wv")
+power = 150.0
+metadata/_custom_type_script = "uid://brkhtuervrtmr"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3b1wv"]
+size = Vector2(40, 10)
+
+[sub_resource type="Resource" id="Resource_dp4pe"]
+script = ExtResource("3_6tb1w")
+shape = SubResource("RectangleShape2D_3b1wv")
+duration = 10.0
+projectile_speed = 300.0
+metadata/_custom_type_script = "uid://cvvnm56qg2hwe"
+
+[resource]
+script = ExtResource("2_hgqhc")
+cooldown = 1.0
+duration = 10.0
+activation_time = 0.1
+activation_range = 2000.0
+spawn_effects = Array[ExtResource("1_o6p8x")]([SubResource("Resource_dp4pe")])
+apply_effects = Array[ExtResource("1_o6p8x")]([SubResource("Resource_fkdxu"), SubResource("Resource_ggxir")])
+skill_name = "Base ranged Skill"
+metadata/_custom_type_script = "uid://dav671j6ilit5"
