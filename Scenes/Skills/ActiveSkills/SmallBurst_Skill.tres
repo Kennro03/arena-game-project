@@ -1,18 +1,18 @@
 [gd_resource type="Resource" script_class="ActiveSkill" load_steps=11 format=3 uid="uid://bqd2htlyx6ivr"]
 
-[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://Scenes/Skills/SkillEffects/SkillEffect.gd" id="1_pxfj0"]
-[ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://Scenes/Skills/SkillEffects/KnockBackEffect.gd" id="2_iycj2"]
-[ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://Scenes/Skills/SkillEffects/DamageOthersEffect.gd" id="3_afy7n"]
+[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://ressources/SkillEffects/SkillEffect.gd" id="1_34dxq"]
+[ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://ressources/SkillEffects/KnockBackEffect.gd" id="2_2wc5c"]
+[ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://ressources/SkillEffects/DamageOthersEffect.gd" id="3_v6rhs"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="4_cdt5m"]
-[ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://Scenes/Skills/SkillEffects/HitboxEffect.gd" id="5_qs2jv"]
+[ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://ressources/SkillEffects/HitboxEffect.gd" id="5_ym6lw"]
 
 [sub_resource type="Resource" id="Resource_oq0cl"]
-script = ExtResource("2_iycj2")
+script = ExtResource("2_2wc5c")
 power = 600.0
 metadata/_custom_type_script = "uid://brkhtuervrtmr"
 
 [sub_resource type="Resource" id="Resource_dlclx"]
-script = ExtResource("3_afy7n")
+script = ExtResource("3_v6rhs")
 amount = 25.0
 metadata/_custom_type_script = "uid://dje5s1fj67ug"
 
@@ -22,7 +22,7 @@ metadata/_custom_type_script = "uid://dje5s1fj67ug"
 radius = 50.0
 
 [sub_resource type="Resource" id="Resource_271sb"]
-script = ExtResource("5_qs2jv")
+script = ExtResource("5_ym6lw")
 shape = SubResource("CircleShape2D_pxfj0")
 duration = 0.5
 metadata/_custom_type_script = "uid://cvoepl25p34qi"
@@ -31,8 +31,8 @@ metadata/_custom_type_script = "uid://cvoepl25p34qi"
 script = ExtResource("4_cdt5m")
 cooldown = 10.0
 activation_range = 50.0
-spawn_effects = Array[ExtResource("1_pxfj0")]([SubResource("Resource_271sb")])
-apply_effects = Array[ExtResource("1_pxfj0")]([SubResource("Resource_oq0cl"), SubResource("Resource_dlclx")])
+spawn_effects = Array[ExtResource("1_34dxq")]([SubResource("Resource_271sb")])
+apply_effects = Array[ExtResource("1_34dxq")]([SubResource("Resource_oq0cl"), SubResource("Resource_dlclx")])
 icon = SubResource("PlaceholderTexture2D_fqelj")
 skill_name = "SMALL BURST"
 skill_description = "A placeholder burst Skill that does a small AOE zone infront of the caster, damaging and pushing back enemies"

@@ -25,6 +25,7 @@ folder_colors={
 "res://Scenes/UI/": "green",
 "res://Scenes/Units/": "teal",
 "res://ressources/": "green",
+"res://ressources/SkillEffects/": "orange",
 "res://ressources/Sprites/Units/": "teal",
 "res://ressources/scripts/": "purple"
 }

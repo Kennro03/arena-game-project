@@ -94,8 +94,9 @@ func target_proximity_check(target : Node2D, max_distance : float) :
 		return false
 
 func punch(target : Node2D, punch_damage : float = 0.0, knockback_direction: Vector2  = Vector2(0,0), knockback_force: float  = 0.0):
-	if target.has_method("take_hit") :
-		target.take_hit(punch_damage,knockback_direction,knockback_force)
+	var hit_result = HitData.new(punch_damage,knockback_direction,knockback_force)
+	if target.has_method("resolve_hit") :
+		target.resolve_hit(hit_result)
 
 func check_if_ally(target : Node2D) -> bool :
 	if is_instance_valid(team) and is_instance_valid(target.team) :
@@ -135,36 +136,36 @@ func take_damage(incoming_damage) :
 	health = health - incoming_damage
 	%DamagePopupMarker.damage_popup(str(incoming_damage))
 
-func block(incoming_damage):
-	var flat_blocked_damage = maxf((incoming_damage-flat_block_power),0.0)
+func block(hit: HitData):
+	var flat_blocked_damage = maxf((hit.damage-flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*percent_block_power)
 	health -= blocked_damage
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5)
 	%DamagePopupMarker.damage_popup(str(blocked_damage))
 	%AnimationPlayer.play("block")
 
-func parry(_incoming_damage):
+func parry(_hit: HitData):
 	%AnimationPlayer.play("parry")
 	%DamagePopupMarker.damage_popup("Parry!", 1.0)
 
-func dodge(_incoming_damage):
+func dodge(_hit: HitData):
 	%AnimationPlayer.play(dodge_animations[randi() % dodge_animations.size()])
 	apply_knockback(self, Vector2(randf(),randf()), 250.0)
 
-func take_hit(hit_damage : float = 0.0, knockback_direction : Vector2 = Vector2(0,0), knockback_force : float = 0.0) :
+func resolve_hit(hit_result : HitData) :
 	if try_to_dodge() :
-		dodge(hit_damage)
+		dodge(hit_result)
 	elif try_to_parry() :
-		parry(hit_damage)
+		parry(hit_result)
 	elif try_to_block() :
-		block(hit_damage)
+		block(hit_result)
 		
-		if knockback_force >= 0.1 and knockback_direction != Vector2(0,0) :
-			apply_knockback(self, knockback_direction, knockback_force/2)
+		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
+			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)
 	else :
-		take_damage(hit_damage)
-		if knockback_force >= 0.1 and knockback_direction != Vector2(0,0) :
-			apply_knockback(self, knockback_direction, knockback_force)
+		take_damage(hit_result.damage)
+		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
+			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
 
 func update_health():
 	%HealthBar.value = health
