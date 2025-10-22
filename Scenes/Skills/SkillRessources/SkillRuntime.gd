@@ -15,6 +15,8 @@ var casting_time_passed: float = 0.0
 var duration_time_passed: float = 0.0
 var context: Dictionary = {}
 var skill_activated: bool = false
+
+var active_spawn_effects: Array[SkillEffect] = []
  
 func _init(skill: ActiveSkill, owner: Node2D):
 	skill_data = skill
@@ -23,6 +25,10 @@ func _init(skill: ActiveSkill, owner: Node2D):
 	skill_data = skill.duplicate(true)
 
 func _process(delta) -> void:
+	
+	
+	active_spawn_effects = sanitize_skill_effects(active_spawn_effects)
+	
 	if caster.is_casting == true :
 		casting_time_passed += delta
 		if casting_time_passed >= skill_data.activation_time:
@@ -59,6 +65,7 @@ func _start_cast(_context: Dictionary) -> void:
 		_start_cooldown()
 		do_targeting_effects(caster, _context)
 		do_spawn_effects(caster, _context)
+		
 		skill_activated = true
 	else : 
 		#print("Instant cast " + skill_data.skill_name + " (" + str(skill_data.activation_time) + "s)")
@@ -91,27 +98,31 @@ func do_targeting_effects(skill_caster, _context):
 func do_spawn_effects(skill_caster, _context):
 	_context.set("target_point",caster.get_closest_unit())
 	for eff in skill_data.spawn_effects:
-		eff.apply(skill_caster, _context)
+		var eff_instance = eff.duplicate(true) 
+		eff_instance.apply(skill_caster, _context)
+		eff_instance.connect("hitboxskilleffect_finished",Callable(self, "_on_hitboxskilleffect_expired"))
+		active_spawn_effects.append(eff_instance)
+		
 
 func get_hitboxes_targets() -> Array[Node2D]:
-	var targets_inside_hitboxes : Array[Node2D] = []
-	for eff in skill_data.spawn_effects:
-		if eff.has_method("get_targets") and eff.hitbox :
-			for t in eff.get_targets():
-				if is_instance_valid(t) and not targets_inside_hitboxes.has(t):
-					targets_inside_hitboxes.append(t)
-	return targets_inside_hitboxes
+	var all_targets: Array[Node2D] = []
+	for eff in active_spawn_effects:
+		if eff!= null and eff.has_method("get_targets"):
+			all_targets += eff.get_targets()
+	return all_targets
 
 func do_apply_effects(skill_caster, _context):
 	#print("Targets in context : " + str(context.get("targets")) + " --- and in list : " + str(get_hitboxes_targets()))
 	targets = get_hitboxes_targets() #get targets inside hitbox
-	context.set("targets",targets.filter(func(t): return not hit_targets.has(t))) #affect only targets that haven't been affected yet
+	targets = targets.filter(func(t): return is_instance_valid(t))
+	hit_targets = hit_targets.filter(func(h): return is_instance_valid(h))
+	context.set("targets",targets.filter(func(t): return is_instance_valid(t) and not hit_targets.has(t))) #affect only targets that haven't been affected yet
 	var hit : HitData = HitData.new()
 	var hit_result
 	for eff in skill_data.apply_effects:
 		hit_result = eff.modify_hit(skill_caster,hit, _context)
 	for target in targets : 
-		if !hit_targets.has(target) and target!=skill_caster :
+		if target and !hit_targets.has(target) and target!=skill_caster :
 			print("Hit damage="+str(hit_result.damage) +" knockback-strength="+str(hit_result.knockback_force) +" knockback-direction="+str(hit_result.knockback_direction))
 			if target.has_method("resolve_hit") :
 				target.resolve_hit(hit_result)
@@ -151,3 +162,17 @@ func _check_cast_conditions(_context: Dictionary = {}) -> bool:
 		return false
 	else :
 		return true
+
+func sanitize_skill_effects(array : Array[SkillEffect]) -> Array[SkillEffect] :
+	var sanitized_array : Array[SkillEffect]
+	for i in array :
+		if is_instance_valid(i) :
+			sanitized_array.append(i)
+		else : 
+			printerr("Hitbox " + str(i) + " broken or missing, removing from skill references")
+	return sanitized_array
+
+func _on_hitboxskilleffect_expired(hitboxskilleffect : SkillEffect) :
+	printerr(hitboxskilleffect)
+	active_spawn_effects.erase(hitboxskilleffect)
+	pass

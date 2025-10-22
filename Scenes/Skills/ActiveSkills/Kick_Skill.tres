@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_oq0cl"]
 script = ExtResource("2_u4aa2")
-power = 800.0
+power = 500.0
 metadata/_custom_type_script = "uid://brkhtuervrtmr"
 
 [sub_resource type="Resource" id="Resource_3lqhf"]
@@ -24,9 +24,9 @@ height = 200.0
 [sub_resource type="Resource" id="Resource_271sb"]
 script = ExtResource("5_bk6lv")
 shape = SubResource("CapsuleShape2D_3ddgs")
-rotation_offset = 90.0
-caster_offset = Vector2(50, 0)
 duration = 1.25
+caster_offset = Vector2(50, 0)
+rot_offset = 90.0
 metadata/_custom_type_script = "uid://cvoepl25p34qi"
 
 [resource]

@@ -37,9 +37,7 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	emit_signal("hitbox_started", get_units_in_area())
-	await get_tree().create_timer(duration).timeout
-	emit_signal("hitbox_finished", target_list.filter(is_instance_valid))
-	queue_free()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -50,18 +48,17 @@ func _process(delta: float) -> void:
 	if follow_target and move_over_time :
 		printerr(str(self) +" Can't follow AND move over time! Disabling movement.")
 		move_over_time = false
-	
 	elif follow_target :
 		check_follow_target()
 		if is_instance_valid(_follow_target_ref) :
 			global_position = _follow_target_ref.global_position + follow_offset
-	
-	
 	elif move_over_time : 
 		global_position += velocity * delta
-	
-	# Grow/Shrink hitbox
 	growth()
+	
+	if lifetime_elapsed >= duration :
+		emit_signal("hitbox_finished", target_list.filter(is_instance_valid))
+		queue_free()
 	#print("Target list : " + str(target_list))
 
 func set_properties() -> void:

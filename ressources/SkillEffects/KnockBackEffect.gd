@@ -18,7 +18,7 @@ func modify_hit(_caster: Node2D, _hit_result: HitData, _context: Dictionary = {}
 		printerr("modify_hit() received null hit_result, creating new one.")
 		_hit_result = HitData.new()
 	for t in _context.get("targets"):
-		if t != _caster :
+		if t != _caster and t :
 			direction = t.position - _caster.position
 			_hit_result.knockback_force += power
 			_hit_result.knockback_direction = direction
