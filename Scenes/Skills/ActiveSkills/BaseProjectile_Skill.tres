@@ -29,7 +29,7 @@ metadata/_custom_type_script = "uid://cvoepl25p34qi"
 
 [resource]
 script = ExtResource("2_hgqhc")
-cooldown = 1.0
+cooldown = 2.5
 activation_time = 0.1
 activation_range = 2000.0
 spawn_effects = Array[ExtResource("1_o6p8x")]([SubResource("Resource_3b1wv")])

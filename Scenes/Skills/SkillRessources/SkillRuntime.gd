@@ -21,12 +21,9 @@ var active_spawn_effects: Array[SkillEffect] = []
 func _init(skill: ActiveSkill, owner: Node2D):
 	skill_data = skill
 	caster = owner
-	
 	skill_data = skill.duplicate(true)
 
 func _process(delta) -> void:
-	
-	
 	active_spawn_effects = sanitize_skill_effects(active_spawn_effects)
 	
 	if caster.is_casting == true :
@@ -92,6 +89,7 @@ func _check_targets_distance(_range: float , _context: Dictionary = {}) -> bool:
 		return true
 
 func do_targeting_effects(skill_caster, _context):
+	_context.set("activation_range",skill_data.activation_range)
 	for eff in skill_data.targeting_effects:
 		eff.apply(skill_caster, _context)
 
