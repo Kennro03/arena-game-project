@@ -1,7 +1,7 @@
 extends SpawnEffect
 class_name HitboxEffect
 
-signal hitboxskilleffect_finished(SkillEffect)
+signal hitboxeffect_finished(HitboxEffect)
 
 var hitbox_scene: PackedScene = preload("res://Scenes/Hitboxes/Hitbox.tscn")
 
@@ -12,13 +12,14 @@ var hitbox_scene: PackedScene = preload("res://Scenes/Hitboxes/Hitbox.tscn")
 @export var rot_offset: float = 0.0
 @export var follow_caster: bool = true
 @export var velocity: float = 0.0
+@export var Teamate_collision : bool
 #@export var nested_effects: Array[SkillEffect] = [] #extra effects such as another hitbox ? Not implemented
 
 var time_elapsed : float = 0.0
 var hitbox : Node
 var hit_targets: Array[Node2D] = []
 
-func apply(_caster: Node2D, _context: Dictionary = {}):
+func spawn(_caster: Node2D, _context: Dictionary = {}):
 	hitbox = hitbox_scene.instantiate()
 	
 	#context override
@@ -28,7 +29,8 @@ func apply(_caster: Node2D, _context: Dictionary = {}):
 	velocity = _context.get("hitbox_velocity",velocity)
 	
 	# Hitbox and orientation placement
-	var _target_point = _context.get("target_point", _caster.global_position)
+	var _target_point = _context.get("target_point")
+	
 	var direction: Vector2 = (_target_point.position - _caster.position).normalized()
 	var angle_to_target: float = direction.angle()
 	hitbox.rotation = angle_to_target 
@@ -46,24 +48,31 @@ func apply(_caster: Node2D, _context: Dictionary = {}):
 		hitbox.move_over_time = true
 		hitbox.velocity = direction * velocity
 	
+	hitbox.connect("hitbox_finished",Callable(self, "_on_hitbox_end"))
 	#assign hitbox to scene
 	_caster.get_parent().add_child(hitbox)
-
 
 func _process(delta):
 	time_elapsed += delta
 	if time_elapsed >= duration:
 		time_elapsed = 0.0
-		emit_signal("hitboxskilleffect_finished", self)
+		emit_signal("hitboxeffect_finished", self)
 
-func get_targets() -> Array[Node2D]:
+func get_targets(_caster : Node2D, _context: Dictionary = {}) -> Array[Node2D]:
+	var targets : Array[Node2D]
 	if hitbox :
-		return hitbox.target_list
+		if Teamate_collision : 
+			for t in hitbox.target_list : 
+				if !(t.team == _caster.team) : 
+					targets.append(t)
+			return hitbox.target_list
+		else : 
+			return hitbox.target_list
 	else : 
-		#print("no hitbox")
+		printerr("no hitbox")
 		return []
 
 func _on_hitbox_end():
-	print("SkillEffect " + str(self) + " finished.")
-	emit_signal("hitboxskilleffect_finished", self)
+	#print("SkillEffect " + str(self) + " hitbox disapeared, effect finished.")
+	emit_signal("hitboxeffect_finished", self)
 	pass

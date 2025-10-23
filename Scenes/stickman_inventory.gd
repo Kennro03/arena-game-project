@@ -12,17 +12,22 @@ var selected_unit_data: StickmanData = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var skill_array_kick : Array[Skill]
+	var kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres").duplicate(true)
+	
 	inventory[0] = StickmanData.new()
 	inventory[1] = StickmanData.new().get_scaled_stickmanData(0.5)
 	inventory[2] = StickmanData.new().get_scaled_stickmanData(1.5)
 	inventory[3] = StickmanData.new().get_randomized_stickmanData(0.5,1.5)
 	inventory[4] = StickmanData.new().get_randomized_stickmanData(1.0,3.0)
 	
-	var skill_array_kick : Array[Skill]
-	var kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres").duplicate(true)
+	skill_array_kick.append(kick_skill)
+	inventory[5] = StickmanData.new().get_skilled_stickmanData(1.4, skill_array_kick)
+	inventory[5].color = Color(255,0,0) 
+	inventory[5].team = Team.new("Test_Team",Color(96.594, 1.799, 98.543, 1.0))
+	
 	var burst_skill = preload("res://Scenes/Skills/ActiveSkills/SmallBurst_Skill.tres").duplicate(true)
 	var projectile_skill = preload("res://Scenes/Skills/ActiveSkills/BaseProjectile_Skill.tres").duplicate(true)
-	skill_array_kick.append(kick_skill)
 	skill_array_kick.append(burst_skill)
 	skill_array_kick.append(projectile_skill)
 	inventory[6] = StickmanData.new().get_skilled_stickmanData(1.1, skill_array_kick)

@@ -22,6 +22,7 @@ var health: float = max_health
 @export var percent_block_power := 50.0
 
 @export var color := Color()
+@export var team : Team = null
 
 @export var skill_list : Array[Skill] = []
 
@@ -44,6 +45,7 @@ func get_skilled_stickmanData(multiplier: float = 0.0, skill_array : Array[Skill
 	skill_stickman_data.flat_block_power= round(flat_block_power * multiplier * 100) / 100.0
 	skill_stickman_data.percent_block_power= percent_block_power
 	skill_stickman_data.color= Color(randf(),randf(),randf())
+	skill_stickman_data.team= null
 	
 	skill_stickman_data.skill_list = skill_array
 	return skill_stickman_data
@@ -65,6 +67,7 @@ func get_scaled_stickmanData(multiplier: float) -> StickmanData:
 	scaled_stickman_data.flat_block_power= round(flat_block_power * multiplier * 100) / 100.0
 	scaled_stickman_data.percent_block_power= percent_block_power
 	scaled_stickman_data.color= Color(randf(),randf(),randf())
+	scaled_stickman_data.team= null
 	return scaled_stickman_data
 
 func get_randomized_stickmanData(rand_min_multiplier: float,rand_max_multiplier: float) -> StickmanData:
@@ -85,6 +88,7 @@ func get_randomized_stickmanData(rand_min_multiplier: float,rand_max_multiplier:
 	randomized_stickman_data.flat_block_power= randomize_stat(flat_block_power,rand_min_multiplier,rand_max_multiplier)
 	randomized_stickman_data.percent_block_power= percent_block_power
 	randomized_stickman_data.color= Color(randf(),randf(),randf())
+	randomized_stickman_data.team= null
 	
 	randomized_stickman_data.type= "Randomized "+str(rand_min_multiplier)+"-"+str(rand_max_multiplier)+" Stickman (avg=" + str(round(sum_array(multiplier_array)/multiplier_array.size()* 100) / 100.0 )+")"
 	
@@ -107,6 +111,7 @@ func get_scaled_stats_dictionary(multiplier: float) -> Dictionary:
 		"flat_block_power": flat_block_power * multiplier,
 		"percent_block_power": percent_block_power,
 		"color": Color(randf(),randf(),randf()),
+		"team": null,
 	}
 
 func get_randomized_stats_dictionary(rand_min_multiplier: float,rand_max_multiplier: float) -> Dictionary:
@@ -127,6 +132,7 @@ func get_randomized_stats_dictionary(rand_min_multiplier: float,rand_max_multipl
 		"flat_block_power": flat_block_power + 1 * randf_range((rand_min_multiplier),(rand_max_multiplier)),
 		"percent_block_power": percent_block_power,
 		"color": Color(randf(),randf(),randf()),
+		"team": null,
 	}	
 
 func randomize_stat(stat,min_rand : float,max_rand : float) -> float:
@@ -134,8 +140,6 @@ func randomize_stat(stat,min_rand : float,max_rand : float) -> float:
 	var randomized_stat = round((int(stat)*randomized_num) * 100) / 100.0
 	multiplier_array.append(randomized_num)
 	return randomized_stat
-
-
 
 static func sum_array(array):
 	var sum = 0.0

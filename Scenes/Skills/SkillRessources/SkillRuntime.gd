@@ -88,25 +88,24 @@ func _check_targets_distance(_range: float , _context: Dictionary = {}) -> bool:
 	else : 
 		return true
 
-func do_targeting_effects(skill_caster, _context):
+func do_targeting_effects(_skill_caster, _context):
 	_context.set("activation_range",skill_data.activation_range)
 	#for eff in skill_data.targeting_effects:
 	#	eff.apply(skill_caster, _context)
 
-func do_spawn_effects(skill_caster, _context):
-	_context.set("target_point",caster.get_closest_unit())
+func do_spawn_effects(_skill_caster, _context):
+	_context.set("target_point",_skill_caster.get_closest_unit())
 	for eff in skill_data.spawn_effects:
 		var eff_instance = eff.duplicate(true) 
-		eff_instance.apply(skill_caster, _context)
-		eff_instance.connect("hitboxskilleffect_finished",Callable(self, "_on_hitboxskilleffect_expired"))
+		eff_instance.spawn(_skill_caster, _context)
+		eff_instance.connect("hitboxeffect_finished",Callable(self, "_on_hitboxeffect_expired"))
 		active_spawn_effects.append(eff_instance)
-		
 
 func get_hitboxes_targets() -> Array[Node2D]:
 	var all_targets: Array[Node2D] = []
 	for eff in active_spawn_effects:
 		if eff!= null and eff.has_method("get_targets"):
-			all_targets += eff.get_targets()
+			all_targets += eff.get_targets(caster)
 	return all_targets
 
 func do_apply_effects(skill_caster, _context):
@@ -122,7 +121,7 @@ func do_apply_effects(skill_caster, _context):
 			hit_result = eff.modify_hit(skill_caster,hit, _context)
 		for target in targets : 
 			if target and !hit_targets.has(target) and target!=skill_caster :
-				print("Hit damage="+str(hit_result.damage) +" knockback-strength="+str(hit_result.knockback_force) +" knockback-direction="+str(hit_result.knockback_direction))
+				#print("Hit damage="+str(hit_result.damage) +" knockback-strength="+str(hit_result.knockback_force) +" knockback-direction="+str(hit_result.knockback_direction))
 				if target.has_method("resolve_hit") :
 					target.resolve_hit(hit_result)
 				hit_targets.append(target)
@@ -171,7 +170,7 @@ func sanitize_spawn_effects(array : Array[SpawnEffect]) -> Array[SpawnEffect] :
 			printerr("Hitbox " + str(i) + " broken or missing, removing from skill references")
 	return sanitized_array
 
-func _on_hitboxskilleffect_expired(hitboxskilleffect : SpawnEffect) :
-	printerr(hitboxskilleffect)
-	active_spawn_effects.erase(hitboxskilleffect)
+func _on_hitboxeffect_expired(hitboxeffect : SpawnEffect) :
+	#printerr(str(hitboxeffect) + " has expired, removing from active spawn effects")
+	active_spawn_effects.erase(hitboxeffect)
 	pass

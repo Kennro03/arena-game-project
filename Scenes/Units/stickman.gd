@@ -186,6 +186,8 @@ func apply_data(data: StickmanData) -> void:
 	self.flat_block_power = data.flat_block_power
 	self.percent_block_power = data.percent_block_power
 	self.sprite_color = data.color
+	self.team = data.team
+	
 	%SkillModule.skill_list = data.skill_list
 
 func die() -> void:

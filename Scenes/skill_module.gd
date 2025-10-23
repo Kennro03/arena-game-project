@@ -33,11 +33,11 @@ func remove_skill(skill: Skill, _slot: int = -1):
 			skill_list.remove_at(i)
 			break
 
-func use_skill_by_name(skill_name: String, context: Dictionary = {}):
+func use_skill_by_name(skill_name: String, _context: Dictionary = {}):
 	if skill_name in skill_runtimes:
 		skill_runtimes[skill_name].activate(context)
 
-func use_skill_by_slot(slot: int, context: Dictionary = {}):
+func use_skill_by_slot(slot: int, _context: Dictionary = {}):
 	if slot >= 0 and slot < skill_list.size():
 		var skill = skill_list[slot]
 		use_skill_by_name(skill.skill_name, context)

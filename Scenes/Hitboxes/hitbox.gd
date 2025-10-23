@@ -57,7 +57,8 @@ func _process(delta: float) -> void:
 	growth()
 	
 	if lifetime_elapsed >= duration :
-		emit_signal("hitbox_finished", target_list.filter(is_instance_valid))
+		#print("Hitbox lifetime finished, despawning")
+		emit_signal("hitbox_finished")
 		queue_free()
 	#print("Target list : " + str(target_list))
 
