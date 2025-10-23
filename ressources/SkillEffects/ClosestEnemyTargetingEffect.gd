@@ -1,4 +1,5 @@
-extends SkillEffect
+extends TargetingEffect
+class_name ClosestEnemyTargetingEffect
 
 @export var number_of_targets: int = 2
 @export var range: float = 0.0

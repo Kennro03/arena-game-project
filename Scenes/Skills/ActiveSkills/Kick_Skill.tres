@@ -1,19 +1,22 @@
-[gd_resource type="Resource" script_class="ActiveSkill" load_steps=11 format=3 uid="uid://cxgikyug1upgh"]
+[gd_resource type="Resource" script_class="ActiveSkill" load_steps=14 format=3 uid="uid://cxgikyug1upgh"]
 
-[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://ressources/SkillEffects/SkillEffect.gd" id="1_qn50m"]
+[ext_resource type="Script" uid="uid://blk4ddp3rw3vw" path="res://ressources/SkillEffects/ComponentResources/ApplyEffect.gd" id="1_bk6lv"]
+[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://ressources/SkillEffects/ComponentResources/SpawnEffect.gd" id="1_qn50m"]
+[ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://ressources/SkillEffects/DamageEffect.gd" id="2_3lqhf"]
 [ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://ressources/SkillEffects/KnockBackEffect.gd" id="2_u4aa2"]
-[ext_resource type="Script" uid="uid://cduc4h57bl4d6" path="res://ressources/SkillEffects/DamageEveryoneEffect.gd" id="3_01q5o"]
+[ext_resource type="Script" uid="uid://brjpxngoaa6b2" path="res://ressources/SkillEffects/ComponentResources/EndEffect.gd" id="4_01q5o"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="4_p7d8n"]
 [ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://ressources/SkillEffects/HitboxEffect.gd" id="5_bk6lv"]
+[ext_resource type="Script" uid="uid://dkn2lovp6jbtr" path="res://ressources/SkillEffects/ComponentResources/TargetingEffect.gd" id="7_bk6lv"]
 
-[sub_resource type="Resource" id="Resource_oq0cl"]
+[sub_resource type="Resource" id="Resource_y0a5o"]
+script = ExtResource("2_3lqhf")
+metadata/_custom_type_script = "uid://dje5s1fj67ug"
+
+[sub_resource type="Resource" id="Resource_fjsk6"]
 script = ExtResource("2_u4aa2")
-power = 500.0
+power = 750.0
 metadata/_custom_type_script = "uid://brkhtuervrtmr"
-
-[sub_resource type="Resource" id="Resource_3lqhf"]
-script = ExtResource("3_01q5o")
-metadata/_custom_type_script = "uid://cduc4h57bl4d6"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fqelj"]
 
@@ -34,7 +37,7 @@ script = ExtResource("4_p7d8n")
 activation_time = 0.1
 activation_range = 175.0
 spawn_effects = Array[ExtResource("1_qn50m")]([SubResource("Resource_271sb")])
-apply_effects = Array[ExtResource("1_qn50m")]([SubResource("Resource_oq0cl"), SubResource("Resource_3lqhf")])
+apply_effects = Array[ExtResource("1_bk6lv")]([SubResource("Resource_y0a5o"), SubResource("Resource_fjsk6")])
 icon = SubResource("PlaceholderTexture2D_fqelj")
 skill_name = "KICK"
 skill_description = "A placeholder KICK Skill that does a small AOE zone infront of the caster, damaging and pushing back enemies"

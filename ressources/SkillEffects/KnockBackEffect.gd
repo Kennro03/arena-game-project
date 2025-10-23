@@ -1,4 +1,4 @@
-extends SkillEffect
+extends ApplyEffect
 class_name KnockBackEffect
 
 @export var power: float = 300.0

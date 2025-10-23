@@ -1,4 +1,4 @@
-extends SkillEffect
+extends SpawnEffect
 class_name HitboxEffect
 
 signal hitboxskilleffect_finished(SkillEffect)

@@ -16,7 +16,7 @@ var duration_time_passed: float = 0.0
 var context: Dictionary = {}
 var skill_activated: bool = false
 
-var active_spawn_effects: Array[SkillEffect] = []
+var active_spawn_effects: Array[SpawnEffect] = []
  
 func _init(skill: ActiveSkill, owner: Node2D):
 	skill_data = skill
@@ -24,7 +24,7 @@ func _init(skill: ActiveSkill, owner: Node2D):
 	skill_data = skill.duplicate(true)
 
 func _process(delta) -> void:
-	active_spawn_effects = sanitize_skill_effects(active_spawn_effects)
+	active_spawn_effects = sanitize_spawn_effects(active_spawn_effects)
 	
 	if caster.is_casting == true :
 		casting_time_passed += delta
@@ -90,8 +90,8 @@ func _check_targets_distance(_range: float , _context: Dictionary = {}) -> bool:
 
 func do_targeting_effects(skill_caster, _context):
 	_context.set("activation_range",skill_data.activation_range)
-	for eff in skill_data.targeting_effects:
-		eff.apply(skill_caster, _context)
+	#for eff in skill_data.targeting_effects:
+	#	eff.apply(skill_caster, _context)
 
 func do_spawn_effects(skill_caster, _context):
 	_context.set("target_point",caster.get_closest_unit())
@@ -111,20 +111,21 @@ func get_hitboxes_targets() -> Array[Node2D]:
 
 func do_apply_effects(skill_caster, _context):
 	#print("Targets in context : " + str(context.get("targets")) + " --- and in list : " + str(get_hitboxes_targets()))
-	targets = get_hitboxes_targets() #get targets inside hitbox
-	targets = targets.filter(func(t): return is_instance_valid(t))
-	hit_targets = hit_targets.filter(func(h): return is_instance_valid(h))
-	context.set("targets",targets.filter(func(t): return is_instance_valid(t) and not hit_targets.has(t))) #affect only targets that haven't been affected yet
-	var hit : HitData = HitData.new()
-	var hit_result
-	for eff in skill_data.apply_effects:
-		hit_result = eff.modify_hit(skill_caster,hit, _context)
-	for target in targets : 
-		if target and !hit_targets.has(target) and target!=skill_caster :
-			print("Hit damage="+str(hit_result.damage) +" knockback-strength="+str(hit_result.knockback_force) +" knockback-direction="+str(hit_result.knockback_direction))
-			if target.has_method("resolve_hit") :
-				target.resolve_hit(hit_result)
-			hit_targets.append(target)
+	if skill_data.apply_effects : 
+		targets = get_hitboxes_targets() #get targets inside hitbox
+		targets = targets.filter(func(t): return is_instance_valid(t))
+		hit_targets = hit_targets.filter(func(h): return is_instance_valid(h))
+		context.set("targets",targets.filter(func(t): return is_instance_valid(t) and not hit_targets.has(t))) #affect only targets that haven't been affected yet
+		var hit : HitData = HitData.new()
+		var hit_result : HitData
+		for eff in skill_data.apply_effects:
+			hit_result = eff.modify_hit(skill_caster,hit, _context)
+		for target in targets : 
+			if target and !hit_targets.has(target) and target!=skill_caster :
+				print("Hit damage="+str(hit_result.damage) +" knockback-strength="+str(hit_result.knockback_force) +" knockback-direction="+str(hit_result.knockback_direction))
+				if target.has_method("resolve_hit") :
+					target.resolve_hit(hit_result)
+				hit_targets.append(target)
 
 func do_end_effects(skill_caster, _context):
 	for eff in skill_data.end_effects:
@@ -161,8 +162,8 @@ func _check_cast_conditions(_context: Dictionary = {}) -> bool:
 	else :
 		return true
 
-func sanitize_skill_effects(array : Array[SkillEffect]) -> Array[SkillEffect] :
-	var sanitized_array : Array[SkillEffect]
+func sanitize_spawn_effects(array : Array[SpawnEffect]) -> Array[SpawnEffect] :
+	var sanitized_array : Array[SpawnEffect]
 	for i in array :
 		if is_instance_valid(i) :
 			sanitized_array.append(i)
@@ -170,7 +171,7 @@ func sanitize_skill_effects(array : Array[SkillEffect]) -> Array[SkillEffect] :
 			printerr("Hitbox " + str(i) + " broken or missing, removing from skill references")
 	return sanitized_array
 
-func _on_hitboxskilleffect_expired(hitboxskilleffect : SkillEffect) :
+func _on_hitboxskilleffect_expired(hitboxskilleffect : SpawnEffect) :
 	printerr(hitboxskilleffect)
 	active_spawn_effects.erase(hitboxskilleffect)
 	pass
