@@ -27,6 +27,7 @@ folder_colors={
 "res://ressources/": "green",
 "res://ressources/SkillEffects/": "orange",
 "res://ressources/Sprites/Units/": "teal",
+"res://ressources/Sprites/VFX/": "pink",
 "res://ressources/scripts/": "purple"
 }
 
