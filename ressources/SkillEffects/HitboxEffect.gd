@@ -12,7 +12,7 @@ var hitbox_scene: PackedScene = preload("res://Scenes/Hitboxes/Hitbox.tscn")
 @export var rot_offset: float = 0.0
 @export var follow_caster: bool = true
 @export var velocity: float = 0.0
-@export var Teamate_collision : bool
+@export var Teamate_collision : bool = false
 #@export var nested_effects: Array[SkillEffect] = [] #extra effects such as another hitbox ? Not implemented
 
 var time_elapsed : float = 0.0
@@ -61,11 +61,14 @@ func _process(delta):
 func get_targets(_caster : Node2D, _context: Dictionary = {}) -> Array[Node2D]:
 	var targets : Array[Node2D]
 	if hitbox :
-		if Teamate_collision : 
+		if !Teamate_collision : 
 			for t in hitbox.target_list : 
-				if !(t.team == _caster.team) : 
+				if is_instance_valid(t) and !(t.team == _caster.team) : 
 					targets.append(t)
-			return hitbox.target_list
+				else : 
+					#print("Target in same team as caster, ignoring.")
+					continue
+			return targets
 		else : 
 			return hitbox.target_list
 	else : 
