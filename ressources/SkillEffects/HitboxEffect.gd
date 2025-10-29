@@ -61,12 +61,11 @@ func _process(delta):
 func get_targets(_caster : Node2D, _context: Dictionary = {}) -> Array[Node2D]:
 	var targets : Array[Node2D]
 	if hitbox :
-		if !Teamate_collision : 
+		if !Teamate_collision and _caster.team!=null: 
 			for t in hitbox.target_list : 
 				if is_instance_valid(t) and !(t.team == _caster.team) : 
 					targets.append(t)
 				else : 
-					#print("Target in same team as caster, ignoring.")
 					continue
 			return targets
 		else : 
