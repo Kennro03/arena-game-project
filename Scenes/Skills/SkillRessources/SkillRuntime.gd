@@ -28,10 +28,10 @@ func _process(delta) -> void:
 	
 	if caster.is_casting == true :
 		casting_time_passed += delta
-		if casting_time_passed >= skill_data.activation_time:
-			casting_time_passed -= skill_data.activation_time
+		if casting_time_passed >= skill_data.cast_time:
+			casting_time_passed -= skill_data.cast_time
 			caster.is_casting = false
-			#print(skill_data.skill_name + " cast ended.")
+			print(skill_data.skill_name + " cast ended.")
 	if is_on_cooldown == true :
 		cooldown_time_passed += delta
 		if cooldown_time_passed >= skill_data.cooldown:
@@ -49,27 +49,13 @@ func _process(delta) -> void:
 			do_end_effects(caster,context)
 			#print(skill_data.skill_name + " ended.")
 
-func _activate(_context: Dictionary = {}) -> void :
+func _activate(_context: Dictionary) -> void:
 	_context.set("target_point",target_point)
-	#print("Activating skill : " + skill_data.skill_name)
-	_start_cast(_context)
-
-func _start_cast(_context: Dictionary) -> void:
-	if skill_data.activation_time > 0.0 :
-		#print("Casting " + skill_data.skill_name + " (" + str(skill_data.activation_time) + "s)")
-		caster.is_casting = true
-		hit_targets = []
-		_start_cooldown()
-		do_targeting_effects(caster, _context)
-		do_spawn_effects(caster, _context)
-		
-		skill_activated = true
-	else : 
-		#print("Instant cast " + skill_data.skill_name + " (" + str(skill_data.activation_time) + "s)")
-		_start_cooldown()
-		do_targeting_effects(caster, _context)
-		do_spawn_effects(caster, _context)
-		skill_activated = true
+	hit_targets = []
+	_start_cooldown()
+	do_targeting_effects(caster, _context)
+	do_spawn_effects(caster, _context)
+	skill_activated = true
 
 func _start_cooldown() -> void:
 	#print("Started cooldown")

@@ -62,23 +62,35 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	var using_skill := false
 	for i in skill_runtimes :
 		skill_runtimes[i]._process(_delta)
 	
 	time_passed += _delta
 	if time_passed >= skill_check_delay : 
 		time_passed -= skill_check_delay
-		
-		for skill_key in skill_runtimes :
-			#print("checking conditions for " + str(skill_runtimes[skill_key].skill_data.skill_name) + " : usable=" + str(skill_runtimes[skill_key].check_usable()) + " cast_conditions=" + str(skill_runtimes[skill_key]._check_cast_conditions()))
-			if not using_skill and skill_runtimes[skill_key].check_usable() and skill_runtimes[skill_key]._check_cast_conditions() :
-				#print("Skill module using : "+ skill_runtimes[skill_key].skill_data.skill_name)
-				skill_runtimes[skill_key]._activate()
-				using_skill = true
-		pass
-	
-	
-	
-	
 	pass
+
+func check_any_usable_skill() -> bool :
+	var usableskill : bool = false
+	for skill_key in skill_runtimes :
+		#print("checking conditions for " + str(skill_runtimes[skill_key].skill_data.skill_name) + " : usable=" + str(skill_runtimes[skill_key].check_usable()) + " cast_conditions=" + str(skill_runtimes[skill_key]._check_cast_conditions()))
+		if skill_runtimes[skill_key].check_usable() and skill_runtimes[skill_key]._check_cast_conditions() :
+			#print("Skill module using : "+ skill_runtimes[skill_key].skill_data.skill_name)
+			usableskill = true
+	return usableskill
+
+func get_usable_skill_list()-> Array[SkillRuntime]:
+	var usable_skill_list : Array[SkillRuntime]
+	for skill_key in skill_runtimes :
+		#print("checking conditions for " + str(skill_runtimes[skill_key].skill_data.skill_name) + " : usable=" + str(skill_runtimes[skill_key].check_usable()) + " cast_conditions=" + str(skill_runtimes[skill_key]._check_cast_conditions()))
+		if skill_runtimes[skill_key].check_usable() and skill_runtimes[skill_key]._check_cast_conditions() :
+			#print("Skill module using : "+ skill_runtimes[skill_key].skill_data.skill_name)
+			usable_skill_list.append(skill_runtimes[skill_key])
+	return usable_skill_list
+
+func get_first_usable_skill()-> SkillRuntime :
+	var skill : SkillRuntime
+	var usable_skill_list := get_usable_skill_list()
+	if usable_skill_list.size()>=1:
+		skill = usable_skill_list[0]
+	return skill

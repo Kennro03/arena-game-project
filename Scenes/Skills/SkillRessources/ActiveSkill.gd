@@ -3,7 +3,7 @@ class_name ActiveSkill
 
 @export var cooldown: float = 5.0
 @export var duration: float = 1.0
-@export var activation_time: float = 0.5
+@export var cast_time: float = 0.5
 @export var activation_range: float = 0.0
 
 @export var targeting_effects: Array[TargetingEffect] = []   # where or who to affect, such as closest enemy/ally
