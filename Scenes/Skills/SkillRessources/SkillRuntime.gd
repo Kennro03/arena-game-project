@@ -49,7 +49,7 @@ func _process(delta) -> void:
 			do_end_effects(caster,context)
 			#print(skill_data.skill_name + " ended.")
 
-func _activate(_context: Dictionary) -> void:
+func activate(_context: Dictionary = {}) -> void:
 	_context.set("target_point",target_point)
 	hit_targets = []
 	_start_cooldown()

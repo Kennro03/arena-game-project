@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="ActiveSkill" load_steps=14 format=3 uid="uid://dg5hyahub2of"]
+
+[ext_resource type="Script" uid="uid://blk4ddp3rw3vw" path="res://ressources/SkillEffects/ComponentResources/ApplyEffect.gd" id="1_sli72"]
+[ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://ressources/SkillEffects/KnockBackEffect.gd" id="2_owx52"]
+[ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://ressources/SkillEffects/DamageEffect.gd" id="3_c0dv2"]
+[ext_resource type="Script" uid="uid://brjpxngoaa6b2" path="res://ressources/SkillEffects/ComponentResources/EndEffect.gd" id="4_b6wrf"]
+[ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="5_u7dmn"]
+[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://ressources/SkillEffects/ComponentResources/SpawnEffect.gd" id="6_j7mic"]
+[ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://ressources/SkillEffects/HitboxEffect.gd" id="7_u1xtq"]
+[ext_resource type="Script" uid="uid://dkn2lovp6jbtr" path="res://ressources/SkillEffects/ComponentResources/TargetingEffect.gd" id="8_8v65y"]
+
+[sub_resource type="Resource" id="Resource_ym6lw"]
+script = ExtResource("2_owx52")
+power = 900.0
+metadata/_custom_type_script = "uid://brkhtuervrtmr"
+
+[sub_resource type="Resource" id="Resource_5uts2"]
+script = ExtResource("3_c0dv2")
+amount = 40.0
+metadata/_custom_type_script = "uid://dje5s1fj67ug"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fqelj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pxfj0"]
+radius = 50.0
+
+[sub_resource type="Resource" id="Resource_271sb"]
+script = ExtResource("7_u1xtq")
+shape = SubResource("CircleShape2D_pxfj0")
+duration = 0.5
+metadata/_custom_type_script = "uid://cvoepl25p34qi"
+
+[resource]
+script = ExtResource("5_u7dmn")
+cooldown = 15.0
+duration = 0.5
+cast_time = 0.0
+activation_range = 50.0
+spawn_effects = Array[ExtResource("6_j7mic")]([SubResource("Resource_271sb")])
+apply_effects = Array[ExtResource("1_sli72")]([SubResource("Resource_ym6lw"), SubResource("Resource_5uts2")])
+icon = SubResource("PlaceholderTexture2D_fqelj")
+skill_name = "SMALL BURST"
+skill_description = "A placeholder burst Skill that does a small AOE zone infront of the caster, damaging and pushing back enemies"
+metadata/_custom_type_script = "uid://dav671j6ilit5"

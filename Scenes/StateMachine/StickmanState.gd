@@ -4,9 +4,9 @@ const IDLE = "Idle"
 const MOVING = "Moving"
 const ATTACKING = "Attacking"
 const DYING = "Dying"
+const CASTING = "Casting"
 
 var stickman: Stickman
-
 
 func _ready() -> void:
 	await owner.ready

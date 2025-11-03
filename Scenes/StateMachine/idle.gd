@@ -13,6 +13,11 @@ func physics_update(_delta: float) -> void:
 	if closest_target !=null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)
 	
+	%SkillModule.check_skill_timepassed += _delta
+	if %SkillModule.check_skill_timepassed >= %SkillModule.check_skill_delay : 
+		if %SkillModule.check_any_usable_skill() : 
+			finished.emit(CASTING)
+	
 	if closest_target != null and owner.target_proximity_check(closest_target,owner.attack_range) :
 		finished.emit(ATTACKING)
 	elif closest_target != null and !owner.target_proximity_check(closest_target,owner.attack_range):

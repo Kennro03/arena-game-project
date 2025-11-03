@@ -17,7 +17,10 @@ func physics_update(_delta: float) -> void:
 		else : 
 			%Sprite.flip_h = true
 	
-	
+	%SkillModule.check_skill_timepassed += _delta
+	if %SkillModule.check_skill_timepassed >= %SkillModule.check_skill_delay : 
+		if %SkillModule.check_any_usable_skill() : 
+			finished.emit(CASTING)
 	
 	if closest_target !=null and %HitCooldown.is_stopped() :
 		%AnimationPlayer.play(owner.punch_animations[randi() % owner.punch_animations.size()])

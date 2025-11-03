@@ -115,19 +115,19 @@ func receive_knockback(force: Vector2):
 	knockback_velocity += force
 
 func try_to_dodge():
-	if randf_range(0.0,100.0)<=dodge_probability:
+	if randf_range(0.0,100.0)<=dodge_probability and is_casting==false:
 		return true
 	else :
 		return false
 
-func try_to_parry():
-	if randf_range(0.0,100.0)<=parry_probability:
+func try_to_parry() :
+	if randf_range(0.0,100.0)<=parry_probability and is_casting==false:
 		return true
 	else :
 		return false
 
 func try_to_block():
-	if randf_range(0.0,100.0)<=block_probability:
+	if randf_range(0.0,100.0)<=block_probability and is_casting==false:
 		return true
 	else :
 		return false
