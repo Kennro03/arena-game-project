@@ -32,7 +32,6 @@ func _on_stickman_inventory_inventory_stickman_added(_unit_data) -> void:
 	for slot in %HotbarHBbox.get_children() : 
 		if inventory_node.inventory[slot.get_index()].stickman_data : 
 			%HotbarHBbox.get_child(slot.get_index()).stickman_data = inventory_node.inventory[slot.get_index()]
-		
 
 
 func _on_stickman_inventory_inventory_stickman_removed() -> void:

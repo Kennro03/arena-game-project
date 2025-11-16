@@ -11,7 +11,7 @@ metadata/_custom_type_script = "uid://cj80g8y6an50q"
 
 [node name="TestScene" type="Node2D"]
 
-[node name="Spawning_UI" parent="." instance=ExtResource("1_hb2xm")]
+[node name="Player_UI" parent="." instance=ExtResource("1_hb2xm")]
 z_index = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -23,4 +23,4 @@ grow_vertical = 0
 
 [node name="Enemyspawner" parent="." node_paths=PackedStringArray("UI_node") instance=ExtResource("1_3dogw")]
 stickman_data_resource = SubResource("Resource_x033f")
-UI_node = NodePath("../Spawning_UI")
+UI_node = NodePath("../Player_UI")

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c1lt44dtk7m7o" path="res://Scenes/stickman_inventory.tscn" id="2_ii1lt"]
 [ext_resource type="Texture2D" uid="uid://cuyqhcginxphp" path="res://ressources/Sprites/UI/hotbar_128.png" id="3_fo61o"]
 
-[node name="UI" type="Control" node_paths=PackedStringArray("inventory_node")]
+[node name="Player_UI" type="Control" node_paths=PackedStringArray("inventory_node")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
