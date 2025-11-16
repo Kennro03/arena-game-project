@@ -82,7 +82,7 @@ func check_any_usable_skill() -> bool :
 	return usableskill
 
 func get_usable_skill_list()-> Array[SkillRuntime]:
-	var usable_skill_list : Array[SkillRuntime]
+	var usable_skill_list: Array[SkillRuntime] = []
 	for skill_key in skill_runtimes :
 		#print("checking conditions for " + str(skill_runtimes[skill_key].skill_data.skill_name) + " : usable=" + str(skill_runtimes[skill_key].check_usable()) + " cast_conditions=" + str(skill_runtimes[skill_key]._check_cast_conditions()))
 		if skill_runtimes[skill_key].check_usable() and skill_runtimes[skill_key]._check_cast_conditions() :
