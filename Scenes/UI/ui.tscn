@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://sj5ga6f11ten"]
 
 [ext_resource type="Script" uid="uid://b62xw15kyeii8" path="res://Scenes/UI/ui.gd" id="1_bn11v"]
-[ext_resource type="PackedScene" uid="uid://c1lt44dtk7m7o" path="res://Scenes/stickman_inventory.tscn" id="2_ii1lt"]
+[ext_resource type="Script" uid="uid://c7x60ii86djxy" path="res://Scenes/UI/inventory.gd" id="3_alcrr"]
 [ext_resource type="Texture2D" uid="uid://cuyqhcginxphp" path="res://ressources/Sprites/UI/hotbar_128.png" id="3_fo61o"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fo61o"]
@@ -12,7 +12,7 @@ shadow_size = 10
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(5, 5)
 
-[node name="Player_UI" type="Control" node_paths=PackedStringArray("inventory_node")]
+[node name="Player_UI" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -22,7 +22,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 8
 script = ExtResource("1_bn11v")
-inventory_node = NodePath("Stickman_Inventory")
 
 [node name="HotbarContainer" type="MarginContainer" parent="."]
 layout_direction = 2
@@ -64,6 +63,120 @@ grow_vertical = 2
 theme_override_constants/separation = 10
 alignment = 1
 
+[node name="Inventory" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -435.0
+offset_top = -254.0
+offset_right = 435.0
+offset_bottom = 154.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_alcrr")
+inventory_size = 90
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05882353, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Inventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -5.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Inventory/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="InventoryGrid" type="GridContainer" parent="Inventory/MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 10
+
+[node name="UnitCreator" type="Control" parent="."]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -276.0
+offset_right = 425.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="UnitCreator"]
+layout_mode = 0
+offset_right = 850.0
+offset_bottom = 400.0
+color = Color(0, 0, 0.05882353, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UnitCreator"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 841.0
+offset_bottom = 392.0
+
+[node name="UnitCreatorButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -24.0
+offset_right = -12.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+toggle_mode = true
+text = "Unit Creator"
+
+[node name="InventoryButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = 16.0
+offset_right = -12.0
+offset_bottom = 48.0
+grow_horizontal = 0
+grow_vertical = 2
+toggle_mode = true
+text = "Inventory"
+
 [node name="PauseLabel" type="Label" parent="."]
 visible = false
 layout_mode = 1
@@ -88,20 +201,8 @@ offset_left = -452.5
 offset_top = -280.0
 offset_right = 699.5
 offset_bottom = 368.0
-color = Color(0.63293624, 0.5972797, 0.6726258, 0.13725491)
+color = Color(0.6313726, 0.59607846, 0.6745098, 0.32156864)
 
-[node name="InventoryVBox" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(1000, 0)
-layout_mode = 0
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 1100.0
-offset_bottom = 400.0
-mouse_filter = 2
-alignment = 2
-
-[node name="Stickman_Inventory" parent="." instance=ExtResource("2_ii1lt")]
-autofill_test_int = 6
-
-[connection signal="inventory_stickman_added" from="Stickman_Inventory" to="." method="_on_stickman_inventory_inventory_stickman_added"]
-[connection signal="inventory_stickman_removed" from="Stickman_Inventory" to="." method="_on_stickman_inventory_inventory_stickman_removed"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="toggled" from="UnitCreatorButton" to="." method="_on_unit_creator_button_toggled"]
+[connection signal="toggled" from="InventoryButton" to="." method="_on_inventory_button_toggled"]
