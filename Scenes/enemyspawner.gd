@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed :
-		selected_stickmandata = UI_node.inventory_node.selected_unit_data
+		
 		#print(selected_stickmandata)
 		#dont use spawning logic if clicking UI Elements
 		var hovered = get_viewport().gui_get_hovered_control()
@@ -31,11 +31,12 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT :
 			print("Spawned a stickman at " + str(event.position))
 			
-			if  selected_stickmandata : 
+			if  UI_node.inventory_module.selected_unit_data : 
+				selected_stickmandata = UI_node.inventory_module.selected_unit_data
 				var temp_message : Array
 				for i in selected_stickmandata.skill_list :
 					temp_message.append(i.skill_name)
-				print("Stickmandata skill list = " +  str(temp_message))
+				#print("Stickmandata skill list = " +  str(temp_message))
 				spawn_stickman(event.position, selected_stickmandata)
 			else :
 				print("No stickmanData provided, spawning default stickman")

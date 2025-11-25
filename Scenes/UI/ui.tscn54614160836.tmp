@@ -47,7 +47,6 @@ script = ExtResource("3_alcrr")
 inventory_size = 90
 
 [node name="Inventory" type="Control" parent="Inventory module"]
-visible = false
 custom_minimum_size = Vector2(850, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -76,7 +75,6 @@ offset_right = 400.0
 offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 
 [node name="ColorRect2" type="ColorRect" parent="Inventory module/Inventory/Container"]
 layout_mode = 2
@@ -113,7 +111,6 @@ offset_top = -70.0
 offset_bottom = -70.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 1
 
 [node name="HotbarContainer" type="MarginContainer" parent="Inventory module/Hotbar"]
 layout_mode = 1
@@ -242,8 +239,7 @@ script = ExtResource("6_1c2ca")
 layout_mode = 2
 text = "Team"
 
-[node name="TeamOptions" type="OptionButton" parent="UnitCreator/MarginContainer/VBoxContainer/TeamSelectionContainer"]
-unique_name_in_owner = true
+[node name="OptionButton" type="OptionButton" parent="UnitCreator/MarginContainer/VBoxContainer/TeamSelectionContainer"]
 layout_mode = 2
 selected = 0
 item_count = 1
@@ -312,6 +308,7 @@ offset_right = 699.5
 offset_bottom = 368.0
 color = Color(0.6313726, 0.59607846, 0.6745098, 0.32156864)
 
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="gui_input" from="Inventory module" to="Inventory module" method="_on_gui_input"]
 [connection signal="pressed" from="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer/ColorPickerButton" to="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer" method="_on_color_picker_button_pressed"]
 [connection signal="pressed" from="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer/PopupPanel/VBoxContainer/ConfirmColorButton" to="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer" method="_on_confirm_color_button_pressed"]

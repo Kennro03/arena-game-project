@@ -28,6 +28,50 @@ var health: float = max_health
 
 var multiplier_array : Array[float] = []
 
+func get_stats_dictionnary() -> Dictionary :
+	return {
+		"type": "Stickman",
+		"speed": speed,
+		"max_health": max_health,
+		"damage": damage,
+		"attack_speed": attack_speed,
+		"aggro_range": aggro_range,
+		"attack_range": attack_range,
+		"knockback": knockback,
+		
+		"dodge_probability": dodge_probability,
+		"parry_probability": parry_probability,
+		"block_probability": block_probability,
+		"flat_block_power": flat_block_power,
+		"percent_block_power": percent_block_power,
+		"color": Color(255,255,255),
+		"team": null,
+		"skill_list": skill_list,
+	}
+
+func set_stats_using_dictionnary(dict: Dictionary) -> StickmanData :
+	var stickman_data = StickmanData.new()
+	
+	stickman_data.type = dict.get("type",type)
+	stickman_data.speed = dict.get("speed",speed)
+	stickman_data.max_health = dict.get("max_health",max_health)
+	stickman_data.damage = dict.get("damage",damage)
+	stickman_data.attack_speed = dict.get("attack_speed",attack_speed)
+	stickman_data.aggro_range = dict.get("aggro_range",aggro_range)
+	stickman_data.attack_range = dict.get("attack_range",attack_range)
+	stickman_data.knockback = dict.get("knockback",knockback)
+	
+	stickman_data.dodge_probability = dict.get("dodge_probability",dodge_probability)
+	stickman_data.parry_probability = dict.get("parry_probability",parry_probability)
+	stickman_data.block_probability = dict.get("block_probability",block_probability)
+	stickman_data.flat_block_power = dict.get("flat_block_power",flat_block_power)
+	stickman_data.percent_block_power = dict.get("percent_block_power",percent_block_power)
+	
+	stickman_data.color = dict.get("color",color)
+	stickman_data.team = dict.get("team",team)
+
+	return stickman_data
+
 func get_skilled_stickmanData(multiplier: float = 0.0, skill_array : Array[Skill] = []) -> StickmanData : 
 	var skill_stickman_data = StickmanData.new()
 	skill_stickman_data.type= "Skilled Stickman"

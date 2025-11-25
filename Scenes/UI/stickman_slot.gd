@@ -8,7 +8,6 @@ signal stickman_selected(_stickman_data: Stickman)
 func _ready() -> void:
 	update_sprite()
 	connect("pressed", Callable(self, "_on_pressed"))
-	
 
 func _process(_delta: float) -> void:
 	pass

@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsb50ifrufuxg"]
+
+[ext_resource type="Script" uid="uid://doiej28iimyoe" path="res://Scenes/UI/stat_container.gd" id="1_v6fgv"]
+
+[node name="StatContainer" type="HBoxContainer"]
+offset_right = 270.0
+offset_bottom = 31.0
+script = ExtResource("1_v6fgv")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "placeholder"
+
+[node name="Input" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "0"
