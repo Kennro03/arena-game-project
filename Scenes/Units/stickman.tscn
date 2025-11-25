@@ -234,7 +234,6 @@ sprite_color = Color(0, 0, 0, 1)
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
 unique_name_in_owner = true
-z_index = -1
 script = ExtResource("2_y784s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -244,6 +243,7 @@ debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+z_index = 1
 position = Vector2(0, -32)
 texture = ExtResource("2_3vlyt")
 hframes = 7
