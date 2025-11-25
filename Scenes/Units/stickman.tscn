@@ -272,11 +272,7 @@ script = ExtResource("6_3vlyt")
 [node name="Casting" type="Node" parent="StateMachine"]
 script = ExtResource("8_n38p5")
 
-[node name="TeamController" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_top = -80.0
-offset_bottom = -80.0
+[node name="TeamController" type="Node" parent="."]
 script = ExtResource("7_jj3cr")
 flag = ExtResource("9_jkhki")
 
