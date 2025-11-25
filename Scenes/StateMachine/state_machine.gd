@@ -20,6 +20,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	owner.last_attack_time += delta
 	owner.health += owner.health_regen * delta
 	owner.update_health()
 	state.update(delta)

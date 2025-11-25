@@ -34,9 +34,9 @@ func _on_create_button_pressed() -> void:
 	stat_dict.set("color",$MarginContainer/VBoxContainer/ColorSelectionContainer/PopupPanel/VBoxContainer/ColorPicker.color)
 	var team_options_button = $MarginContainer/VBoxContainer/TeamSelectionContainer/TeamOptions
 	var selected_team : String = team_options_button.get_item_text(team_options_button.get_selected())
-	var stickman_team = Team.registry.filter(func(t): return t.team_name == selected_team)[0]
-	print(stickman_team.team_name)
-	stat_dict.set("team",stickman_team)
+	if selected_team != "None" :
+		var stickman_team = Team.registry.filter(func(t): return t.team_name == selected_team)[0]
+		stat_dict.set("team",stickman_team)
 	
 	stickmandata = stickmandata.set_stats_using_dictionnary(stat_dict)
 	print("Added stickman to inv : " + stickmandata.type)

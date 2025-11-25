@@ -234,6 +234,7 @@ sprite_color = Color(0, 0, 0, 1)
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
 unique_name_in_owner = true
+z_index = -1
 script = ExtResource("2_y784s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -270,12 +271,6 @@ script = ExtResource("6_3vlyt")
 
 [node name="Casting" type="Node" parent="StateMachine"]
 script = ExtResource("8_n38p5")
-
-[node name="HitCooldown" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 2.0
-one_shot = true
-autostart = true
 
 [node name="TeamController" type="Control" parent="."]
 layout_mode = 3

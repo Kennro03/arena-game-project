@@ -22,11 +22,11 @@ func physics_update(_delta: float) -> void:
 		if %SkillModule.check_any_usable_skill() : 
 			finished.emit(CASTING)
 	
-	if closest_target !=null and %HitCooldown.is_stopped() :
+	if closest_target !=null and owner.can_hit() :
 		%AnimationPlayer.play(owner.punch_animations[randi() % owner.punch_animations.size()])
 		owner.punch(closest_target,owner.damage,closest_target_vector, owner.knockback)
 		#print(str(closest_target) + " health = " + str(closest_target.health))
-		%HitCooldown.start()
+		owner.last_attack_time = 0.0
 	
 	
 	if !closest_target :
