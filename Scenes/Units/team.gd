@@ -13,10 +13,12 @@ static var registry: Array[Team] = []
 		return team_color
 	set(value):
 		team_color = value
+@export var flagVisible : bool = true
 
-func _init(name, RGB_color) -> void:
+func _init(name, RGB_color,showFlag : bool = false) -> void:
 	team_name = name
 	team_color = RGB_color
+	flagVisible = showFlag
 	Team.registry.append(self)
 
 func get_team(name = "", RGB_color = Color()) -> Team :

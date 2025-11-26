@@ -3,6 +3,8 @@ class_name Stickman extends Node2D
 @export var type = "Default Stickman"
 @export var icon: Texture2D
 @export var description: String = ""
+@export var team : Team
+@export var sprite_color := Color(255.0,255.0,255.0)
 
 @export var speed := 100.0:
 	set(value):
@@ -35,7 +37,6 @@ var health := 100.0:
 @export var knockback := 100.0:
 	set(value):
 		knockback = clamp(value,0.0,INF)
-
 @export var dodge_probability := 10.0
 @export var parry_probability := 5.0
 @export var block_probability := 40.0
@@ -45,19 +46,25 @@ var health := 100.0:
 var last_attack_time := 0.0
 var is_casting: bool = false
 var is_stunned: bool = false
-
-@export var team : Team
-@export var sprite_color := Color(255.0,255.0,255.0)
-
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay := 1000.0 
 var enemies_group_name := "Stickmen"
+
 var idle_animations = ["Idle"]
 var punch_animations = ["punch_1","punch_2"]
 var dodge_animations = ["dodge_1","dodge_2"]
 var cast_animations = ["kick"]
+@export var flag: PackedScene
+var flag_instance
 
 func _ready():
+	if team != null :
+		#print("Stickman has a team, adding flag.")
+		flag_instance = flag.instantiate()
+		flag_instance.position.y -= 80
+		flag_instance.modulate = team.team_color
+		add_child(flag_instance)
+	
 	%HealthBar.max_value = health
 	get_node("Sprite").modulate = sprite_color
 	add_to_group(enemies_group_name)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c8qwxekpq23e3"]
+[gd_scene load_steps=27 format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/Units/stickman.gd" id="1_j4fy3"]
 [ext_resource type="Texture2D" uid="uid://bh4i0k1x25bb1" path="res://ressources/Sprites/Units/Stickman.png" id="2_3vlyt"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="4_to2s8"]
 [ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="5_omsj2"]
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
-[ext_resource type="Script" uid="uid://cwlc2s7gxu4s8" path="res://Scenes/Units/team_controller.gd" id="7_jj3cr"]
 [ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="8_n38p5"]
 [ext_resource type="PackedScene" uid="uid://dqxexvs3g4y71" path="res://Scenes/flag.tscn" id="9_jkhki"]
 [ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/damage_popup_marker.gd" id="10_awmep"]
@@ -231,6 +230,7 @@ _data = {
 [node name="Stickman" type="Node2D" groups=["Stickmen"]]
 script = ExtResource("1_j4fy3")
 sprite_color = Color(0, 0, 0, 1)
+flag = ExtResource("9_jkhki")
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
 unique_name_in_owner = true
@@ -271,10 +271,6 @@ script = ExtResource("6_3vlyt")
 
 [node name="Casting" type="Node" parent="StateMachine"]
 script = ExtResource("8_n38p5")
-
-[node name="TeamController" type="Node" parent="."]
-script = ExtResource("7_jj3cr")
-flag = ExtResource("9_jkhki")
 
 [node name="SkillModule" type="Node" parent="."]
 unique_name_in_owner = true
