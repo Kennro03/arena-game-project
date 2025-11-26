@@ -54,12 +54,11 @@ var idle_animations = ["Idle"]
 var punch_animations = ["punch_1","punch_2"]
 var dodge_animations = ["dodge_1","dodge_2"]
 var cast_animations = ["kick"]
-@export var flag: PackedScene
-var flag_instance
 
 func _ready():
 	if team != null :
-		#print("Stickman has a team, adding flag.")
+		var flag: PackedScene = preload("res://Scenes/flag.tscn")
+		var flag_instance
 		flag_instance = flag.instantiate()
 		flag_instance.position.y -= 80
 		flag_instance.modulate = team.team_color
