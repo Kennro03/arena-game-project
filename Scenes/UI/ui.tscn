@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://sj5ga6f11ten"]
+[gd_scene load_steps=9 format=3 uid="uid://sj5ga6f11ten"]
 
 [ext_resource type="Script" uid="uid://b62xw15kyeii8" path="res://Scenes/UI/ui.gd" id="1_bn11v"]
 [ext_resource type="Script" uid="uid://c7x60ii86djxy" path="res://Scenes/UI/inventory.gd" id="3_alcrr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b8vh8x3mgwpbu" path="res://Scenes/UI/unit_creator.gd" id="4_fo61o"]
 [ext_resource type="Script" uid="uid://be5bkbvcowbpn" path="res://Scenes/UI/color_selection_container.gd" id="5_alcrr"]
 [ext_resource type="Script" uid="uid://c4ul6sy50uhk4" path="res://Scenes/UI/team_selection_container.gd" id="6_1c2ca"]
+[ext_resource type="Script" uid="uid://b46o07dkbysm1" path="res://Scenes/enemyspawner.gd" id="7_duuxe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fo61o"]
 font_size = 64
@@ -30,6 +31,7 @@ inventory_module = NodePath("Inventory module")
 
 [node name="Inventory module" type="Control" parent="."]
 unique_name_in_owner = true
+z_index = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -157,6 +159,7 @@ alignment = 1
 
 [node name="UnitCreator" type="Control" parent="."]
 visible = false
+z_index = 2
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -311,6 +314,10 @@ offset_top = -280.0
 offset_right = 699.5
 offset_bottom = 368.0
 color = Color(0.6313726, 0.59607846, 0.6745098, 0.32156864)
+
+[node name="Enemyspawner" type="Node" parent="." node_paths=PackedStringArray("UI_node")]
+script = ExtResource("7_duuxe")
+UI_node = NodePath("..")
 
 [connection signal="gui_input" from="Inventory module" to="Inventory module" method="_on_gui_input"]
 [connection signal="pressed" from="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer/ColorPickerButton" to="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer" method="_on_color_picker_button_pressed"]
