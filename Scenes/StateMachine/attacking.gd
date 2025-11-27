@@ -18,7 +18,7 @@ func physics_update(_delta: float) -> void:
 			%Sprite.flip_h = true
 	
 	%SkillModule.check_skill_timepassed += _delta
-	if %SkillModule.check_skill_timepassed >= %SkillModule.check_skill_delay : 
+	if %SkillModule.check_skill_timepassed >= %SkillModule.skill_check_delay : 
 		if %SkillModule.check_any_usable_skill() : 
 			finished.emit(CASTING)
 	

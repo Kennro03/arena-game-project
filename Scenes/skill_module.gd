@@ -6,7 +6,6 @@ var time_passed : float
 var skill_list: Array[Skill] = []
 var skill_runtimes: Dictionary = {}
 var context : Dictionary = {}
-var check_skill_delay : float = 0.05
 var check_skill_timepassed : float = 0.0
 
 func add_skill(skill: Skill, slot: int = -1):
