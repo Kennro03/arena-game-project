@@ -1,0 +1,219 @@
+[gd_scene load_steps=24 format=3 uid="uid://dpm4plan27goy"]
+
+[ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/stickman_sprite.gd" id="1_bt3t7"]
+[ext_resource type="Texture2D" uid="uid://di68png3ij87o" path="res://ressources/Sprites/Units/Stickman/ModularStickmanTpose-Sheet.png" id="1_e83xu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykvpi"]
+atlas = ExtResource("1_e83xu")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ykvpi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykvpi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76fq2"]
+atlas = ExtResource("1_e83xu")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_76fq2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76fq2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38inb"]
+atlas = ExtResource("1_e83xu")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_38inb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38inb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt3t7"]
+atlas = ExtResource("1_e83xu")
+region = Rect2(0, 2304, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gyor6"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bt3t7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyor6"]
+atlas = ExtResource("1_e83xu")
+region = Rect2(0, 1280, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bt3t7"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyor6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e83xu"]
+atlas = ExtResource("1_e83xu")
+region = Rect2(0, 1024, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e83xu"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e83xu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isgce"]
+atlas = ExtResource("1_e83xu")
+region = Rect2(0, 1536, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_isgce"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isgce")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju7ab"]
+atlas = ExtResource("1_e83xu")
+region = Rect2(0, 1792, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ju7ab"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju7ab")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvatb"]
+atlas = ExtResource("1_e83xu")
+region = Rect2(0, 2048, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pvatb"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvatb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3pohh"]
+animation = &"default"
+use_custom_timeline = true
+timeline_length = 1.0
+stretch_time_scale = true
+start_offset = 0.0
+loop_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k0oh5"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_isgce"]
+states/Start/position = Vector2(161, 100)
+states/default/node = SubResource("AnimationNodeAnimation_3pohh")
+states/default/position = Vector2(476, 54)
+transitions = ["Start", "default", SubResource("AnimationNodeStateMachineTransition_k0oh5")]
+
+[node name="StickmanSprite" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_bt3t7")
+
+[node name="HandPivot" type="Node2D" parent="."]
+visible = false
+position = Vector2(30, 0)
+rotation = -1.5707964
+
+[node name="WeaponRoot" type="Node2D" parent="HandPivot"]
+position = Vector2(21, -23)
+
+[node name="WeaponHandleSprite" type="AnimatedSprite2D" parent="HandPivot/WeaponRoot"]
+modulate = Color(0.6955032, 0.6955031, 0.6955031, 1)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_ykvpi")
+
+[node name="WeaponMainSprite" type="AnimatedSprite2D" parent="HandPivot/WeaponRoot"]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_76fq2")
+
+[node name="WeaponExtraSprite" type="AnimatedSprite2D" parent="HandPivot/WeaponRoot"]
+modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_38inb")
+
+[node name="HeadSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_gyor6")
+
+[node name="ArmsSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_bt3t7")
+
+[node name="ChestSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_e83xu")
+
+[node name="HandsSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_isgce")
+
+[node name="LegsSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_ju7ab")
+
+[node name="FeetSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_pvatb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_isgce")
+anim_player = NodePath("../AnimationPlayer")
