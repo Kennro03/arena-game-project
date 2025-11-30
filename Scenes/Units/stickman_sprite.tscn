@@ -1,10 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://dpm4plan27goy"]
+[gd_scene load_steps=27 format=3 uid="uid://dpm4plan27goy"]
 
 [ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/stickman_sprite.gd" id="1_bt3t7"]
-[ext_resource type="Texture2D" uid="uid://di68png3ij87o" path="res://ressources/Sprites/Units/Stickman/ModularStickmanTpose-Sheet.png" id="1_e83xu"]
+[ext_resource type="Texture2D" uid="uid://c122wmpe2ls73" path="res://ressources/Sprites/Units/Stickman/ModularStickmanTpose-Sheet.png" id="1_e83xu"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bt3t7"]
+load_path = "res://.godot/imported/ModularStickmanTpose-Sheet.png-f77af84470a9c44b317646f6f440db2f.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykvpi"]
-atlas = ExtResource("1_e83xu")
+atlas = SubResource("CompressedTexture2D_bt3t7")
 region = Rect2(0, 768, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ykvpi"]
@@ -19,7 +22,7 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_76fq2"]
-atlas = ExtResource("1_e83xu")
+atlas = SubResource("CompressedTexture2D_bt3t7")
 region = Rect2(0, 256, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_76fq2"]
@@ -34,7 +37,7 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_38inb"]
-atlas = ExtResource("1_e83xu")
+atlas = SubResource("CompressedTexture2D_bt3t7")
 region = Rect2(0, 512, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_38inb"]
@@ -48,8 +51,23 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bt3t7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pohh"]
 atlas = ExtResource("1_e83xu")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k0oh5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pohh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt3t7"]
+atlas = SubResource("CompressedTexture2D_bt3t7")
 region = Rect2(0, 2304, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gyor6"]
@@ -65,7 +83,7 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gyor6"]
-atlas = ExtResource("1_e83xu")
+atlas = SubResource("CompressedTexture2D_bt3t7")
 region = Rect2(0, 1280, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bt3t7"]
@@ -81,7 +99,7 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e83xu"]
-atlas = ExtResource("1_e83xu")
+atlas = SubResource("CompressedTexture2D_bt3t7")
 region = Rect2(0, 1024, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e83xu"]
@@ -97,7 +115,7 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_isgce"]
-atlas = ExtResource("1_e83xu")
+atlas = SubResource("CompressedTexture2D_bt3t7")
 region = Rect2(0, 1536, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_isgce"]
@@ -113,7 +131,7 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ju7ab"]
-atlas = ExtResource("1_e83xu")
+atlas = SubResource("CompressedTexture2D_bt3t7")
 region = Rect2(0, 1792, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ju7ab"]
@@ -129,7 +147,7 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pvatb"]
-atlas = ExtResource("1_e83xu")
+atlas = SubResource("CompressedTexture2D_bt3t7")
 region = Rect2(0, 2048, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pvatb"]
@@ -188,27 +206,36 @@ modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_38inb")
 
+[node name="BodySprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_k0oh5")
+
 [node name="HeadSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_gyor6")
 
 [node name="ArmsSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_bt3t7")
 
 [node name="ChestSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_e83xu")
 
 [node name="HandsSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_isgce")
 
 [node name="LegsSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_ju7ab")
 
 [node name="FeetSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_pvatb")
 

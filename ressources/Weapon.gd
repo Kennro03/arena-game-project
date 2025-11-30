@@ -1,15 +1,31 @@
 extends Resource
 class_name Weapon
 
+@export var weaponName : String
+@export var description : String
+@export var icon : Texture2D
+
 enum WeaponTypeEnum { LIGHT, MEDIUM, HEAVY, SPECIAL }
-var weaponType : WeaponTypeEnum
-var description : String
-var icon : Texture2D
+@export var weaponType : WeaponTypeEnum
 
-var attack_speed : float
-var attack_range : float
-var damage: float
-var knockback : float
-var statChanges : Dictionary
+@export var attack_speed : float
+@export var attack_range : float
+@export var damage: float
+@export var knockback : float
+@export var comboLength : int
+@export var statChanges : Dictionary
 
-var comboLength : int
+func applyStatChanges()-> void:
+	for stat in statChanges : 
+		#apply stat changes to the stickman equipping the weapon
+		pass
+
+func comboHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
+	var hit_result = HitData.new(damage, knockback_direction,knockback/5)
+	if target.has_method("resolve_hit") :
+		target.resolve_hit(hit_result)
+
+func lastHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
+	var hit_result = HitData.new(damage, knockback_direction,knockback)
+	if target.has_method("resolve_hit") :
+		target.resolve_hit(hit_result)
