@@ -6,43 +6,15 @@ class_name Stickman extends Node2D
 @export var team : Team
 @export var sprite_color := Color(255.0,255.0,255.0)
 
-@export var speed := 100.0:
-	set(value):
-		speed = clamp(value,0.0,INF)
-@export var max_health := 100.0:
-	set(value):
-		max_health = clamp(value,0.0,INF)
-		%HealthBar.max_value = max_health
+@export var unit_data : Unit = Unit.new().duplicate()
+
+@export var weapon : Weapon = null
 var health := 100.0:
 	set(value):
 		if value > 0.0 :
-			health = clamp(value,0.0,max_health)
+			health = clamp(value,0.0,unit_data.max_health)
 		else : 
 			die()
-@export var health_regen := 2.0:
-	set(value):
-		health_regen = value
-@export var damage := 20.0:
-	set(value):
-		damage = clamp(value,0.0,INF)
-@export var attack_speed := 1.0:
-	set(value):
-		attack_speed = clamp(value,0.0,INF)
-@export var aggro_range := 750.0:
-	set(value):
-		aggro_range = clamp(value,0.0,INF)
-@export var attack_range := 60.0:
-	set(value):
-		attack_range = clamp(value,0.0,INF)
-@export var knockback := 100.0:
-	set(value):
-		knockback = clamp(value,0.0,INF)
-@export var dodge_probability := 10.0
-@export var parry_probability := 5.0
-@export var block_probability := 40.0
-@export var flat_block_power := 0.0
-@export var percent_block_power := 50.0
-
 var last_attack_time := 0.0
 var is_casting: bool = false
 var is_stunned: bool = false
@@ -69,7 +41,7 @@ func _ready():
 	add_to_group(enemies_group_name)
 
 func can_hit()-> bool :
-	if last_attack_time >= 1.0/attack_speed:
+	if last_attack_time >= 1.0/unit_data.attack_speed:
 		return true
 	else : 
 		return false
@@ -126,31 +98,13 @@ func apply_knockback(target: Node2D, direction: Vector2, force: float):
 func receive_knockback(force: Vector2):
 	knockback_velocity += force
 
-func try_to_dodge():
-	if randf_range(0.0,100.0)<=dodge_probability and is_casting==false:
-		return true
-	else :
-		return false
-
-func try_to_parry() :
-	if randf_range(0.0,100.0)<=parry_probability and is_casting==false:
-		return true
-	else :
-		return false
-
-func try_to_block():
-	if randf_range(0.0,100.0)<=block_probability and is_casting==false:
-		return true
-	else :
-		return false
-
 func take_damage(incoming_damage) :
 	health = health - incoming_damage
 	%DamagePopupMarker.damage_popup(str(incoming_damage))
 
 func block(hit: HitData):
-	var flat_blocked_damage = maxf((hit.damage-flat_block_power),0.0)
-	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*percent_block_power)
+	var flat_blocked_damage = maxf((hit.damage-unit_data.flat_block_power),0.0)
+	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*unit_data.percent_block_power)
 	health -= blocked_damage
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5)
 	%DamagePopupMarker.damage_popup(str(blocked_damage))
@@ -165,13 +119,12 @@ func dodge(_hit: HitData):
 	apply_knockback(self, Vector2(randf(),randf()), 250.0)
 
 func resolve_hit(hit_result : HitData) :
-	if try_to_dodge() :
+	if randf_range(0.0,100.0)<=unit_data.dodge_probability and is_casting==false:
 		dodge(hit_result)
-	elif try_to_parry() :
+	elif randf_range(0.0,100.0)<=unit_data.parry_probability and is_casting==false:
 		parry(hit_result)
-	elif try_to_block() :
+	elif randf_range(0.0,100.0)<=unit_data.block_probability and is_casting==false:
 		block(hit_result)
-		
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)
 	else :
@@ -183,22 +136,22 @@ func update_health():
 	%HealthBar.value = health
 
 func apply_data(data: StickmanData) -> void:
-	self.speed = data.speed
-	self.max_health = data.max_health
+	self.unit_data.speed = data.speed
+	self.unit_data.max_health = data.max_health
 	self.health = data.health
-	self.health_regen = data.health_regen
-	self.damage = data.damage
-	self.attack_speed = data.attack_speed
-	self.aggro_range = data.aggro_range
-	self.attack_range = data.attack_range
-	self.knockback = data.knockback
-	self.dodge_probability = data.dodge_probability
-	self.parry_probability = data.parry_probability
-	self.block_probability = data.block_probability
-	self.flat_block_power = data.flat_block_power
-	self.percent_block_power = data.percent_block_power
+	self.unit_data.health_regen = data.health_regen
+	self.unit_data.damage = data.damage
+	self.unit_data.attack_speed = data.attack_speed
+	self.unit_data.aggro_range = data.aggro_range
+	self.unit_data.attack_range = data.attack_range
+	self.unit_data.knockback = data.knockback
+	self.unit_data.dodge_probability = data.dodge_probability
+	self.unit_data.parry_probability = data.parry_probability
+	self.unit_data.block_probability = data.block_probability
+	self.unit_data.flat_block_power = data.flat_block_power
+	self.unit_data.percent_block_power = data.percent_block_power
 	self.sprite_color = data.color
-	self.team = data.team
+	self.unit_data.team = data.team
 	
 	%SkillModule.skill_list = data.skill_list
 
