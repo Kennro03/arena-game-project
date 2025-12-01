@@ -21,11 +21,13 @@ func applyStatChanges()-> void:
 		pass
 
 func comboHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
-	var hit_result = HitData.new(damage, knockback_direction,knockback/5)
+	var hit_result = HitData.new(damage, knockback_direction,knockback)
+	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 
 func lastHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
-	var hit_result = HitData.new(damage, knockback_direction,knockback)
+	var hit_result = HitData.new(damage, knockback_direction,500 + knockback*3)
+	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)

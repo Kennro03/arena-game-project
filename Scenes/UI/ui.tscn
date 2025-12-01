@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://b8vh8x3mgwpbu" path="res://Scenes/UI/unit_creator.gd" id="4_fo61o"]
 [ext_resource type="Script" uid="uid://be5bkbvcowbpn" path="res://Scenes/UI/color_selection_container.gd" id="5_alcrr"]
 [ext_resource type="Script" uid="uid://c4ul6sy50uhk4" path="res://Scenes/UI/team_selection_container.gd" id="6_1c2ca"]
-[ext_resource type="Script" uid="uid://b46o07dkbysm1" path="res://Scenes/enemyspawner.gd" id="7_duuxe"]
+[ext_resource type="Script" uid="uid://b46o07dkbysm1" path="res://Scenes/UI/enemyspawner.gd" id="7_duuxe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fo61o"]
 font_size = 64

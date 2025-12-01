@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="5_omsj2"]
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
 [ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="8_n38p5"]
-[ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/damage_popup_marker.gd" id="10_awmep"]
-[ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/skill_module.gd" id="11_awmep"]
+[ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="10_awmep"]
+[ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="11_awmep"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
 radius = 9.0
