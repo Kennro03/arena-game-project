@@ -156,4 +156,5 @@ func apply_data(data: StickmanData) -> void:
 	%SkillModule.skill_list = data.skill_list
 
 func die() -> void:
+	%DamagePopupMarker.damage_popup("DEAD",1.25)
 	queue_free()
