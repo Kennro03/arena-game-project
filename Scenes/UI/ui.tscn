@@ -18,6 +18,7 @@ shadow_offset = Vector2(5, 5)
 
 [node name="Player_UI" type="Control" node_paths=PackedStringArray("inventory_module")]
 process_mode = 3
+z_index = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -258,6 +259,7 @@ layout_mode = 2
 text = "Create Stickman"
 
 [node name="UnitCreatorButton" type="Button" parent="."]
+z_index = 2
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -274,6 +276,7 @@ toggle_mode = true
 text = "Unit Creator"
 
 [node name="InventoryButton" type="Button" parent="."]
+z_index = 2
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -291,6 +294,7 @@ text = "Inventory"
 
 [node name="PauseLabel" type="Label" parent="."]
 visible = false
+z_index = 3
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
