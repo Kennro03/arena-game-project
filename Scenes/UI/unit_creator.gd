@@ -1,6 +1,6 @@
 extends Control
 
-var statcontainerscene := load("res://Scenes/stat_container.tscn")
+var statcontainerscene := load("res://Scenes/UI/stat_container.tscn")
 var stickmanDictionnary = StickmanData.new().get_stats_dictionnary()
 
 

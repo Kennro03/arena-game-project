@@ -1,5 +1,5 @@
 extends Marker2D
-var DamagePopupNode : PackedScene = preload("res://Scenes/floating_number.tscn")
+var DamagePopupNode : PackedScene = preload("res://Scenes/UI/floating_number.tscn")
 
 func damage_popup(popupdamage: String, textscale : float = 1.0) : 
 	if DamagePopupNode != null :
