@@ -1,13 +1,13 @@
 extends Marker2D
 var DamagePopupNode : PackedScene = preload("res://Scenes/UI/floating_number.tscn")
 
-func damage_popup(popupdamage: String, textscale : float = 1.0, text_color : Color = Color("White")) : 
+func damage_popup(popupdamage: String, textscale : float = 1.0, text_color : Color = Color("White"),movementmultiplier : float = 1.0) : 
 	if DamagePopupNode != null :
 		var damage_popup_label = DamagePopupNode.instantiate()
 		var tween = get_tree().create_tween()
 		
 		damage_popup_label.position = owner.find_child("DamagePopupMarker").global_position
-		tween.tween_property(damage_popup_label,"position",global_position + get_direction(),0.75)
+		tween.tween_property(damage_popup_label,"position",global_position + get_direction()*movementmultiplier,0.75)
 		
 		damage_popup_label.scale = Vector2(textscale, textscale)
 		damage_popup_label.modulate = text_color

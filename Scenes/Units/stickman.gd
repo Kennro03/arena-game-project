@@ -155,6 +155,7 @@ func apply_data(data: StickmanData) -> void:
 	
 	%SkillModule.skill_list = data.skill_list
 
+var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]
 func die() -> void:
-	%DamagePopupMarker.damage_popup("DEAD",1.25,Color("RED"))
+	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
 	queue_free()
