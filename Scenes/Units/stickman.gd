@@ -100,19 +100,19 @@ func receive_knockback(force: Vector2):
 
 func take_damage(incoming_damage) :
 	health = health - incoming_damage
-	%DamagePopupMarker.damage_popup(str(incoming_damage))
+	%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
 func block(hit: HitData):
 	var flat_blocked_damage = maxf((hit.damage-unit_data.flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*unit_data.percent_block_power)
 	health -= blocked_damage
-	%DamagePopupMarker.damage_popup("Blocked!", 0.5)
+	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
 	%DamagePopupMarker.damage_popup(str(blocked_damage))
 	%AnimationPlayer.play("block")
 
 func parry(_hit: HitData):
 	%AnimationPlayer.play("parry")
-	%DamagePopupMarker.damage_popup("Parry!", 1.0)
+	%DamagePopupMarker.damage_popup("Parry!", 1.0,Color("Gold"))
 
 func dodge(_hit: HitData):
 	%AnimationPlayer.play(dodge_animations[randi() % dodge_animations.size()])
@@ -156,5 +156,5 @@ func apply_data(data: StickmanData) -> void:
 	%SkillModule.skill_list = data.skill_list
 
 func die() -> void:
-	%DamagePopupMarker.damage_popup("DEAD",1.25)
+	%DamagePopupMarker.damage_popup("DEAD",1.25,Color("RED"))
 	queue_free()
