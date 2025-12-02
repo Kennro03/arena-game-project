@@ -1,7 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://dpm4plan27goy"]
+[gd_scene load_steps=34 format=3 uid="uid://dpm4plan27goy"]
 
 [ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/stickman_sprite.gd" id="1_bt3t7"]
-[ext_resource type="Texture2D" uid="uid://c122wmpe2ls73" path="res://ressources/Sprites/Units/Stickman/ModularStickmanTpose-Sheet.png" id="1_e83xu"]
+[ext_resource type="Texture2D" uid="uid://b6y5dcer5k3cu" path="res://ressources/Sprites/Units/Stickman/ModularStickman.png" id="2_bt3t7"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bt3t7"]
 load_path = "res://.godot/imported/ModularStickmanTpose-Sheet.png-f77af84470a9c44b317646f6f440db2f.ctex"
@@ -45,21 +45,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_38inb")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3pohh"]
-atlas = ExtResource("1_e83xu")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_k0oh5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3pohh")
 }],
 "loop": true,
 "name": &"default",
@@ -162,22 +147,217 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3pohh"]
-animation = &"default"
-use_custom_timeline = true
-timeline_length = 1.0
-stretch_time_scale = true
-start_offset = 0.0
-loop_mode = 0
+[sub_resource type="Animation" id="Animation_pvatb"]
+resource_name = "tpose"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k0oh5"]
-advance_mode = 2
+[sub_resource type="Animation" id="Animation_ykvpi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodySprite:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_isgce"]
-states/Start/position = Vector2(161, 100)
-states/default/node = SubResource("AnimationNodeAnimation_3pohh")
-states/default/position = Vector2(476, 54)
-transitions = ["Start", "default", SubResource("AnimationNodeStateMachineTransition_k0oh5")]
+[sub_resource type="Animation" id="Animation_38inb"]
+resource_name = "block"
+length = 0.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_3pohh"]
+resource_name = "parry"
+length = 0.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_k0oh5"]
+resource_name = "walk"
+length = 0.6665
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.39990002, 0.5332, 0.6665),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_j7ym2"]
+resource_name = "dodge1"
+length = 0.5
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_o0mns"]
+resource_name = "dodge2"
+length = 0.5
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_bt3t7"]
+resource_name = "stunned"
+length = 0.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_isgce"]
+resource_name = "fist_end"
+length = 0.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 6), Vector2i(6, 6), Vector2i(7, 6), Vector2i(5, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_gyor6"]
+resource_name = "fist_2"
+length = 0.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(3, 6), Vector2i(4, 6), Vector2i(5, 6), Vector2i(0, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_jfclq"]
+resource_name = "fist_1"
+length = 0.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(0, 6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_76fq2"]
+_data = {
+&"RESET": SubResource("Animation_ykvpi"),
+&"block": SubResource("Animation_38inb"),
+&"dodge1": SubResource("Animation_j7ym2"),
+&"dodge2": SubResource("Animation_o0mns"),
+&"fist_1": SubResource("Animation_jfclq"),
+&"fist_2": SubResource("Animation_gyor6"),
+&"fist_end": SubResource("Animation_isgce"),
+&"parry": SubResource("Animation_3pohh"),
+&"stunned": SubResource("Animation_bt3t7"),
+&"tpose": SubResource("Animation_pvatb"),
+&"walk": SubResource("Animation_k0oh5")
+}
 
 [node name="StickmanSprite" type="Node2D"]
 texture_filter = 1
@@ -206,8 +386,12 @@ modulate = Color(0.69411767, 0.69411767, 0.69411767, 1)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_38inb")
 
-[node name="BodySprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_k0oh5")
+[node name="BodySprite" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("2_bt3t7")
+hframes = 8
+vframes = 7
+frame = 8
 
 [node name="HeadSprite" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -240,7 +424,6 @@ scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_pvatb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_isgce")
-anim_player = NodePath("../AnimationPlayer")
+libraries = {
+&"": SubResource("AnimationLibrary_76fq2")
+}
