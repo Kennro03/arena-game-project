@@ -1,11 +1,12 @@
 class_name Stickman extends Node2D
+var spriteNode
+var animationPlayerNode
 
 @export var type = "Default Stickman"
 @export var icon: Texture2D
 @export var description: String = ""
 @export var team : Team
 @export var sprite_color := Color(255.0,255.0,255.0)
-
 @export var unit_data : Unit = Unit.new().duplicate()
 
 @export var weapon : Weapon = null
@@ -23,11 +24,13 @@ var knockback_decay := 1000.0
 var enemies_group_name := "Stickmen"
 
 var idle_animations = ["Idle"]
-var punch_animations = ["punch_1","punch_2"]
-var dodge_animations = ["dodge_1","dodge_2"]
+var punch_animations = ["fist_light1","fist_light2"]
+var dodge_animations = ["dodge1","dodge2"]
 var cast_animations = ["kick"]
 
 func _ready():
+	spriteNode = $StickmanSprite
+	animationPlayerNode = $StickmanSprite/AnimationPlayer
 	if team != null :
 		var flag: PackedScene = preload("res://Scenes/flag.tscn")
 		var flag_instance
@@ -37,7 +40,6 @@ func _ready():
 		add_child(flag_instance)
 	
 	%HealthBar.max_value = health
-	get_node("Sprite").modulate = sprite_color
 	add_to_group(enemies_group_name)
 
 func can_hit()-> bool :
@@ -108,14 +110,14 @@ func block(hit: HitData):
 	health -= blocked_damage
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
 	%DamagePopupMarker.damage_popup(str(blocked_damage))
-	%AnimationPlayer.play("block")
+	animationPlayerNode.play("block")
 
 func parry(_hit: HitData):
-	%AnimationPlayer.play("parry")
+	animationPlayerNode.play("parry")
 	%DamagePopupMarker.damage_popup("Parry!", 1.0,Color("Gold"))
 
 func dodge(_hit: HitData):
-	%AnimationPlayer.play(dodge_animations[randi() % dodge_animations.size()])
+	animationPlayerNode.play(dodge_animations[randi() % dodge_animations.size()])
 	apply_knockback(self, Vector2(randf(),randf()), 250.0)
 
 func resolve_hit(hit_result : HitData) :

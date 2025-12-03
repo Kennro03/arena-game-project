@@ -15,7 +15,7 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	if cast_skill : 
 		if cast_skill.skill_data.cast_time > 0.0 :
 			owner.is_casting = true
-			%AnimationPlayer.play("casting_placeholder", -1,1.0/cast_skill.skill_data.cast_time)
+			owner.animationPlayerNode.play("casting_placeholder", -1,1.0/cast_skill.skill_data.cast_time)
 			#play the casting animation for the duration
 		else : 
 			print(cast_skill.skill_data.skill_name + " instacast, activating.")

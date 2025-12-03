@@ -294,7 +294,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_isgce"]
-resource_name = "fist_end"
+resource_name = "fist_heavy"
 length = 0.5
 step = 0.1333
 tracks/0/type = "value"
@@ -311,7 +311,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_gyor6"]
-resource_name = "fist_2"
+resource_name = "fist_light2"
 length = 0.5
 step = 0.1333
 tracks/0/type = "value"
@@ -328,7 +328,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_jfclq"]
-resource_name = "fist_1"
+resource_name = "fist_light1"
 length = 0.5
 step = 0.1333
 tracks/0/type = "value"
@@ -350,9 +350,9 @@ _data = {
 &"block": SubResource("Animation_38inb"),
 &"dodge1": SubResource("Animation_j7ym2"),
 &"dodge2": SubResource("Animation_o0mns"),
-&"fist_1": SubResource("Animation_jfclq"),
-&"fist_2": SubResource("Animation_gyor6"),
-&"fist_end": SubResource("Animation_isgce"),
+&"fist_heavy": SubResource("Animation_isgce"),
+&"fist_light1": SubResource("Animation_jfclq"),
+&"fist_light2": SubResource("Animation_gyor6"),
 &"parry": SubResource("Animation_3pohh"),
 &"stunned": SubResource("Animation_bt3t7"),
 &"tpose": SubResource("Animation_pvatb"),

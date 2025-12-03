@@ -6,8 +6,8 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	pass
 
 func physics_update(_delta: float) -> void:
-	if !%AnimationPlayer.is_playing():
-		%AnimationPlayer.play("Idle")
+	if !owner.animationPlayerNode.is_playing():
+		owner.animationPlayerNode.play("Idle")
 	
 	closest_target = owner.get_closest_unit(owner.unit_data.aggro_range)
 	if closest_target !=null :

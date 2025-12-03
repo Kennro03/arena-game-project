@@ -3,19 +3,19 @@ var closest_target
 var closest_target_vector
 
 func enter(_previous_state_path: String, _data := {}) -> void:
-	%AnimationPlayer.play("fighting_stance")
+	owner.animationPlayerNode.play("fighting_stance")
 
 func physics_update(_delta: float) -> void:
-	if !%AnimationPlayer.is_playing():
-		%AnimationPlayer.play("fighting_stance")
+	if !owner.animationPlayerNode.is_playing():
+		owner.animationPlayerNode.play("fighting_stance")
 	
 	closest_target = owner.get_closest_unit(owner.unit_data.aggro_range)
 	if closest_target != null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)
 		if closest_target_vector.x > 0 :
-			%Sprite.flip_h = false
+			owner.spriteNode.flipSprite(false)
 		else : 
-			%Sprite.flip_h = true
+			owner.spriteNode.flipSprite(true)
 	
 	%SkillModule.check_skill_timepassed += _delta
 	if %SkillModule.check_skill_timepassed >= %SkillModule.skill_check_delay : 
@@ -23,7 +23,7 @@ func physics_update(_delta: float) -> void:
 			finished.emit(CASTING)
 	
 	if closest_target !=null and owner.can_hit() :
-		%AnimationPlayer.play(owner.punch_animations[randi() % owner.punch_animations.size()])
+		owner.animationPlayerNode.play(owner.punch_animations[randi() % owner.punch_animations.size()])
 		owner.punch(closest_target,owner.unit_data.damage,closest_target_vector, owner.unit_data.knockback)
 		#print(str(closest_target) + " health = " + str(closest_target.health))
 		owner.last_attack_time = 0.0

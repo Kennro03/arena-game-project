@@ -1,9 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://c8qwxekpq23e3"]
+[gd_scene load_steps=12 format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/Units/stickman.gd" id="1_j4fy3"]
-[ext_resource type="Texture2D" uid="uid://bh4i0k1x25bb1" path="res://ressources/Sprites/Units/Stickman.png" id="2_3vlyt"]
 [ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="2_s68di"]
 [ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="2_y784s"]
+[ext_resource type="PackedScene" uid="uid://dpm4plan27goy" path="res://Scenes/Units/stickman_sprite.tscn" id="4_g4boi"]
 [ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="4_to2s8"]
 [ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="5_omsj2"]
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
@@ -14,216 +14,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
 radius = 9.0
 height = 36.0
-
-[sub_resource type="Animation" id="Animation_4ub1n"]
-resource_name = "Idle"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 6)]
-}
-
-[sub_resource type="Animation" id="Animation_s68di"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 2)]
-}
-
-[sub_resource type="Animation" id="Animation_jkhki"]
-resource_name = "block"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 2)]
-}
-
-[sub_resource type="Animation" id="Animation_uwept"]
-resource_name = "casting_placeholder"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 8)]
-}
-
-[sub_resource type="Animation" id="Animation_awmep"]
-resource_name = "dodge_1"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 3)]
-}
-
-[sub_resource type="Animation" id="Animation_y784s"]
-resource_name = "dodge_2"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(1, 3)]
-}
-
-[sub_resource type="Animation" id="Animation_3vlyt"]
-resource_name = "fighting_stance"
-loop_mode = 1
-step = 0.1333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2i(0, 5), Vector2i(1, 5)]
-}
-
-[sub_resource type="Animation" id="Animation_n38p5"]
-resource_name = "kick"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.2, 0.44, 0.45),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(2, 4), Vector2i(0, 4)]
-}
-
-[sub_resource type="Animation" id="Animation_t4ecy"]
-resource_name = "parry"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_to2s8"]
-resource_name = "punch_1"
-length = 0.2666
-step = 0.1333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2i(2, 5), Vector2i(3, 5)]
-}
-
-[sub_resource type="Animation" id="Animation_sspo4"]
-resource_name = "punch_2"
-length = 0.2666
-step = 0.1333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1333, 0.2665),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Vector2i(4, 5), Vector2i(5, 5), Vector2i(6, 5)]
-}
-
-[sub_resource type="Animation" id="Animation_j4fy3"]
-resource_name = "walking"
-length = 0.65
-step = 0.1333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.3999, 0.5299),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_j4fy3"]
-_data = {
-&"Idle": SubResource("Animation_4ub1n"),
-&"RESET": SubResource("Animation_s68di"),
-&"block": SubResource("Animation_jkhki"),
-&"casting_placeholder": SubResource("Animation_uwept"),
-&"dodge_1": SubResource("Animation_awmep"),
-&"dodge_2": SubResource("Animation_y784s"),
-&"fighting_stance": SubResource("Animation_3vlyt"),
-&"kick": SubResource("Animation_n38p5"),
-&"parry": SubResource("Animation_t4ecy"),
-&"punch_1": SubResource("Animation_to2s8"),
-&"punch_2": SubResource("Animation_sspo4"),
-&"walking": SubResource("Animation_j4fy3")
-}
 
 [node name="Stickman" type="Node2D" groups=["Stickmen"]]
 script = ExtResource("1_j4fy3")
@@ -238,20 +28,8 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_4ub1n")
 debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
-[node name="Sprite" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-z_index = 1
+[node name="StickmanSprite" parent="." instance=ExtResource("4_g4boi")]
 position = Vector2(0, -32)
-texture = ExtResource("2_3vlyt")
-hframes = 7
-vframes = 9
-frame = 14
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_j4fy3")
-}
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_s68di")
