@@ -17,8 +17,7 @@ func physics_update(_delta: float) -> void:
 		finished.emit(IDLE)
 	
 	if !owner.animationPlayerNode.is_playing():
-		owner.animationPlayerNode.speed_scale = randf_range(0.75,1.25)
-		owner.animationPlayerNode.play("walk")
+		owner.spriteNode.play_walk_animation()
 	
 	%SkillModule.check_skill_timepassed += _delta
 	if %SkillModule.check_skill_timepassed >= %SkillModule.skill_check_delay : 

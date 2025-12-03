@@ -7,7 +7,7 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 
 func physics_update(_delta: float) -> void:
 	if !owner.animationPlayerNode.is_playing():
-		owner.animationPlayerNode.play("Idle")
+		owner.spriteNode.play_idle_animation()
 	
 	closest_target = owner.get_closest_unit(owner.unit_data.aggro_range)
 	if closest_target !=null :

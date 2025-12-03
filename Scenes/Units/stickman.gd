@@ -23,11 +23,6 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay := 1000.0 
 var enemies_group_name := "Stickmen"
 
-var idle_animations = ["Idle"]
-var punch_animations = ["fist_light1","fist_light2"]
-var dodge_animations = ["dodge1","dodge2"]
-var cast_animations = ["kick"]
-
 func _ready():
 	spriteNode = $StickmanSprite
 	animationPlayerNode = $StickmanSprite/AnimationPlayer
@@ -117,7 +112,7 @@ func parry(_hit: HitData):
 	%DamagePopupMarker.damage_popup("Parry!", 1.0,Color("Gold"))
 
 func dodge(_hit: HitData):
-	animationPlayerNode.play(dodge_animations[randi() % dodge_animations.size()])
+	spriteNode.play_dodge_animation()
 	apply_knockback(self, Vector2(randf(),randf()), 250.0)
 
 func resolve_hit(hit_result : HitData) :
