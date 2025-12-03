@@ -3,11 +3,11 @@ var closest_target
 var closest_target_vector
 
 func enter(_previous_state_path: String, _data := {}) -> void:
-	owner.animationPlayerNode.play("fighting_stance")
+	owner.spriteNode.play_fighting_animation()
 
 func physics_update(_delta: float) -> void:
 	if !owner.animationPlayerNode.is_playing():
-		owner.animationPlayerNode.play("fighting_stance")
+		owner.spriteNode.play_fighting_animation()
 	
 	closest_target = owner.get_closest_unit(owner.unit_data.aggro_range)
 	if closest_target != null :
@@ -23,11 +23,10 @@ func physics_update(_delta: float) -> void:
 			finished.emit(CASTING)
 	
 	if closest_target !=null and owner.can_hit() :
-		owner.animationPlayerNode.play(owner.punch_animations[randi() % owner.punch_animations.size()])
+		owner.spriteNode.play_lightHit_animation()
 		owner.punch(closest_target,owner.unit_data.damage,closest_target_vector, owner.unit_data.knockback)
 		#print(str(closest_target) + " health = " + str(closest_target.health))
 		owner.last_attack_time = 0.0
-	
 	
 	if !closest_target :
 		finished.emit(IDLE)

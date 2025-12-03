@@ -11,7 +11,8 @@ var legsColor : Color = Color("White")
 var feetColor : Color = Color("White")
 
 var lastAnimation : String = "None"
-var idle_animations = ["Idle"]
+var idle_animations = ["idle"]
+var fighting_animations = ["fighting"]
 var dodge_animations = ["dodge1","dodge2"]
 var cast_animations = []
 var lightHit_animations = ["fist_light1","fist_light2"]
@@ -39,6 +40,12 @@ func play_idle_animation(animationName : String = "") -> void :
 		$AnimationPlayer.play(animationName)
 	else : 
 		$AnimationPlayer.play(idle_animations.pick_random())
+
+func play_fighting_animation(animationName : String = "") -> void : 
+	if fighting_animations.has(animationName) :
+		$AnimationPlayer.play(animationName)
+	else : 
+		$AnimationPlayer.play(fighting_animations.pick_random())
 
 func play_walk_animation():
 	$AnimationPlayer.speed_scale = randf_range(0.75,1.25)
