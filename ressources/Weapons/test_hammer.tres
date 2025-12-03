@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://cs2puovybd0fd"]
+
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapon.gd" id="1_6530e"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_031ab"]
+
+[resource]
+script = ExtResource("1_6530e")
+weaponName = "TestHammer"
+description = "A base hammer, used for testing."
+icon = SubResource("PlaceholderTexture2D_031ab")
+weaponType = 2
+attack_speed = 0.7
+attack_range = 250.0
+damage = 25.0
+knockback = 300.0
+endLag = 0.25
+attackTypes = {
+"heavy": 4,
+"light": 6,
+"special": 0
+}
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
