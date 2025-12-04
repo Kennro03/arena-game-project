@@ -17,7 +17,6 @@ height = 36.0
 
 [node name="Stickman" type="Node2D" groups=["Stickmen"]]
 script = ExtResource("1_j4fy3")
-sprite_color = Color(0, 0, 0, 1)
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
 unique_name_in_owner = true

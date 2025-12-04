@@ -20,6 +20,9 @@ var heavyHit_animations = ["fist_heavy1"]
 var specialHit_animations = []
 
 func _ready() -> void:
+	selfmodulate()
+
+func selfmodulate() -> void : 
 	$BodySprite.self_modulate = bodyColor
 	$HeadSprite.self_modulate = headColor
 	$ArmsSprite.self_modulate = armsColor
@@ -35,56 +38,58 @@ func flipSprite(flipped : bool) -> void :
 				sprite.flip_h = flipped
 				flip = flipped
 
-func play_idle_animation(animationName : String = "") -> void : 
+func play_idle_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if idle_animations.has(animationName) :
-		$AnimationPlayer.play(animationName)
+		$AnimationPlayer.play(animationName, -1, animationSpeed)
 	else : 
-		$AnimationPlayer.play(idle_animations.pick_random())
+		$AnimationPlayer.play(idle_animations.pick_random(), -1, animationSpeed)
 
-func play_fighting_animation(animationName : String = "") -> void : 
+func play_fighting_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if fighting_animations.has(animationName) :
-		$AnimationPlayer.play(animationName)
+		$AnimationPlayer.play(animationName, -1, animationSpeed)
 	else : 
-		$AnimationPlayer.play(fighting_animations.pick_random())
+		$AnimationPlayer.play(fighting_animations.pick_random(), -1, animationSpeed)
 
-func play_walk_animation():
-	$AnimationPlayer.speed_scale = randf_range(0.75,1.25)
-	$AnimationPlayer.play("walk")
+func play_walk_animation(animationSpeed : float = 1.0):
+	if animationSpeed != 1.0 :
+		$AnimationPlayer.play("walk", -1, animationSpeed) 
+	else : 
+		$AnimationPlayer.play("walk", -1, randf_range(0.75,1.25))
 	$AnimationPlayer.speed_scale = 1
 
-func play_dodge_animation(animationName : String = "") -> void : 
+func play_dodge_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if dodge_animations.has(animationName) :
-		$AnimationPlayer.play(animationName)
+		$AnimationPlayer.play(animationName, -1, animationSpeed)
 	else : 
-		$AnimationPlayer.play(dodge_animations.pick_random())
+		$AnimationPlayer.play(dodge_animations.pick_random(), -1, animationSpeed)
 
-func play_cast_animation(animationName : String = "") -> void : 
+func play_cast_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if cast_animations.has(animationName) :
-		$AnimationPlayer.play(animationName)
+		$AnimationPlayer.play(animationName, -1, animationSpeed)
 	else : 
-		$AnimationPlayer.play(cast_animations.pick_random())
+		$AnimationPlayer.play(cast_animations.pick_random(), -1, animationSpeed)
 
-func play_lightHit_animation(animationName : String = "") -> void : 
+func play_lightHit_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if lightHit_animations.has(animationName) :
-		$AnimationPlayer.play(animationName)
+		$AnimationPlayer.play(animationName, -1, animationSpeed)
 	else : 
 		if lastAnimation.ends_with("1") :
-			$AnimationPlayer.play(lightHit_animations[0])
+			$AnimationPlayer.play(lightHit_animations[0], -1, animationSpeed)
 			lastAnimation = lightHit_animations[0]
 		elif lastAnimation.ends_with("2") : 
-			$AnimationPlayer.play(lightHit_animations[1])
+			$AnimationPlayer.play(lightHit_animations[1], -1, animationSpeed)
 			lastAnimation = lightHit_animations[1]
 		else :
-			$AnimationPlayer.play(lightHit_animations.pick_random())
+			$AnimationPlayer.play(lightHit_animations.pick_random(), -1, animationSpeed)
 
-func play_heavyHit_animation(animationName : String = "") -> void : 
+func play_heavyHit_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if heavyHit_animations.has(animationName) :
-		$AnimationPlayer.play(animationName)
+		$AnimationPlayer.play(animationName, -1, animationSpeed)
 	else : 
-		$AnimationPlayer.play(heavyHit_animations.pick_random())
+		$AnimationPlayer.play(heavyHit_animations.pick_random(), -1, animationSpeed)
 
-func play_specialHit_animation(animationName : String = "") -> void : 
+func play_specialHit_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if specialHit_animations.has(animationName) :
-		$AnimationPlayer.play(animationName)
+		$AnimationPlayer.play(animationName, -1, animationSpeed)
 	else : 
-		$AnimationPlayer.play(specialHit_animations.pick_random())
+		$AnimationPlayer.play(specialHit_animations.pick_random(), -1, animationSpeed)

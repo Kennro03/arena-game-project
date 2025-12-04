@@ -2,11 +2,6 @@ class_name Stickman extends Node2D
 var spriteNode
 var animationPlayerNode
 
-@export var type = "Default Stickman"
-@export var icon: Texture2D
-@export var description: String = ""
-@export var team : Team
-@export var sprite_color := Color(255.0,255.0,255.0)
 @export var unit_data : Unit = Unit.new().duplicate()
 
 @export var weapon : Weapon = null
@@ -26,12 +21,14 @@ var enemies_group_name := "Stickmen"
 func _ready():
 	spriteNode = $StickmanSprite
 	animationPlayerNode = $StickmanSprite/AnimationPlayer
-	if team != null :
+	spriteNode.bodyColor = unit_data.sprite_color
+	spriteNode.selfmodulate()
+	if unit_data.team != null :
 		var flag: PackedScene = preload("res://Scenes/flag.tscn")
 		var flag_instance
 		flag_instance = flag.instantiate()
 		flag_instance.position.y -= 80
-		flag_instance.modulate = team.team_color
+		flag_instance.modulate = unit_data.team.team_color
 		add_child(flag_instance)
 	
 	%HealthBar.max_value = health
@@ -80,8 +77,8 @@ func punch(target : Node2D, punch_damage : float = 0.0, knockback_direction: Vec
 		target.resolve_hit(hit_result)
 
 func check_if_ally(target : Node2D) -> bool :
-	if is_instance_valid(team) and is_instance_valid(target.team) :
-		if team.team_name == target.team.team_name :
+	if is_instance_valid(unit_data.team) and is_instance_valid(target.unit_data.team) :
+		if unit_data.team.team_name == target.unit_data.team.team_name :
 			return true
 		else :
 			return false
