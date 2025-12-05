@@ -86,9 +86,9 @@ func spawn_random_stickman(pos: Vector2, rand_multiplier,team : Team = null):
 	stickman_instance.apply_data(randomized_data) 
 	
 	if team : 
-		stickman_instance.team = team
+		stickman_instance.unit_data.team = team
 	else : 
-		stickman_instance.team = [null,red_team,blue_team,green_team].pick_random()
+		stickman_instance.unit_data.team = [null,red_team,blue_team,green_team].pick_random()
 	
 	stickman_instance.position = pos
 	get_parent().add_child(stickman_instance)

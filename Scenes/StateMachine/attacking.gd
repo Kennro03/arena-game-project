@@ -24,7 +24,7 @@ func physics_update(_delta: float) -> void:
 	
 	if closest_target !=null and owner.can_hit() :
 		owner.spriteNode.play_lightHit_animation()
-		owner.punch(closest_target,owner.unit_data.damage,closest_target_vector, owner.unit_data.knockback)
+		owner.attack(closest_target,owner.unit_data.damage,closest_target_vector, owner.unit_data.knockback)
 		#print(str(closest_target) + " health = " + str(closest_target.health))
 		owner.last_attack_time = 0.0
 	

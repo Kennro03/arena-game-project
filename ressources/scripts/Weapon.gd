@@ -17,7 +17,7 @@ enum WeaponTypeEnum { LIGHT, MEDIUM, HEAVY, SPECIAL }
 @export var attackTypes : Dictionary = {
 	"light" : 8,
 	"heavy" : 2,
-	"special" : 1
+	"special" : 0
 }
 
 func applyStatChanges()-> void:
@@ -49,10 +49,10 @@ func specialHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> v
 func selectAttackType() -> String:
 	var totalWeight : int = 0
 	for type in attackTypes : 
-		totalWeight += type.value 
+		totalWeight += attackTypes[type]
 	var roll = randi_range(0,totalWeight)
 	for type in attackTypes : 
-		if roll>type.value :
+		if roll>attackTypes[type] :
 			return type
 	return "UNKNOWN ROLL"
 

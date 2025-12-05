@@ -33,6 +33,9 @@ func _ready():
 	
 	%HealthBar.max_value = health
 	add_to_group(enemies_group_name)
+	
+	if weapon == null :
+		weapon = preload("res://Scenes/Weapons/fists.tres") 
 
 func can_hit()-> bool :
 	if last_attack_time >= 1.0/unit_data.attack_speed:
@@ -71,10 +74,14 @@ func target_proximity_check(target : Node2D, max_distance : float) :
 	else :
 		return false
 
-func punch(target : Node2D, punch_damage : float = 0.0, knockback_direction: Vector2  = Vector2(0,0), knockback_force: float  = 0.0):
-	var hit_result = HitData.new(punch_damage,knockback_direction,knockback_force)
-	if target.has_method("resolve_hit") :
-		target.resolve_hit(hit_result)
+func attack(target : Node2D, punch_damage : float = 0.0, knockback_direction: Vector2  = Vector2(0,0), knockback_force: float  = 0.0):
+	if weapon : 
+		weapon.hit(target)
+	else : 
+		print("Could not find weapon")
+		var hit_result = HitData.new(punch_damage,knockback_direction,knockback_force)
+		if target.has_method("resolve_hit") :
+			target.resolve_hit(hit_result)
 
 func check_if_ally(target : Node2D) -> bool :
 	if is_instance_valid(unit_data.team) and is_instance_valid(target.unit_data.team) :
@@ -144,7 +151,7 @@ func apply_data(data: StickmanData) -> void:
 	self.unit_data.block_probability = data.block_probability
 	self.unit_data.flat_block_power = data.flat_block_power
 	self.unit_data.percent_block_power = data.percent_block_power
-	self.sprite_color = data.color
+	self.unit_data.sprite_color = data.color
 	self.unit_data.team = data.team
 	
 	%SkillModule.skill_list = data.skill_list
