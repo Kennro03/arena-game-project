@@ -10,5 +10,4 @@ attack_speed = 1.0
 attack_range = 100.0
 damage = 10.0
 knockback = 50.0
-comboLength = 3
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

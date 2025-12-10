@@ -20,6 +20,23 @@ enum WeaponTypeEnum { LIGHT, MEDIUM, HEAVY, SPECIAL }
 	"special" : 0
 }
 
+func generate_item(_weightedDict : Dictionary):
+	## Calculate the total weights 
+	var totalWeights : float = 0
+	for key in _weightedDict:
+		totalWeights += _weightedDict[key]
+	var keyGenerated : bool = false
+	while !keyGenerated:
+		## Generate a random weight
+		var randomWeight : float = randi_range(0, totalWeights)
+		## Pick a random item based on the random weight
+		for key in _weightedDict:
+			randomWeight -= _weightedDict[key]
+			if randomWeight < 0:
+				keyGenerated = true
+				return key
+		print("NO KEY MADE CHOSEN: REPEAT")
+
 func applyStatChanges()-> void:
 	for stat in statChanges : 
 		#apply stat changes to the stickman equipping the weapon
@@ -46,18 +63,8 @@ func specialHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> v
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 
-func selectAttackType() -> String:
-	var totalWeight : int = 0
-	for type in attackTypes : 
-		totalWeight += attackTypes[type]
-	var roll = randi_range(0,totalWeight)
-	for type in attackTypes : 
-		if roll>attackTypes[type] :
-			return type
-	return "UNKNOWN ROLL"
-
 func hit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
-	var attack : String = selectAttackType()
+	var attack : String = generate_item(attackTypes)
 	if attack == "light" :
 		lightHit(target,knockback_direction)
 	elif attack == "heavy" :
