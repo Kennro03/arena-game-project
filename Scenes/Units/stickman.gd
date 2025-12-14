@@ -2,15 +2,15 @@ class_name Stickman extends Node2D
 var spriteNode
 var animationPlayerNode
 
-@export var unit_data : Unit = Unit.new().duplicate()
+@export var type = "Default Stickman"
+@export var icon: Texture2D = null
+@export var description: String = "A regular Stickman."
+@export var team : Team = null
+@export var sprite_color := Color(255.0,255.0,255.0)
 
+@export var stats : Stats
 @export var weapon : Weapon = null
-var health := 100.0:
-	set(value):
-		if value > 0.0 :
-			health = clamp(value,0.0,unit_data.max_health)
-		else : 
-			die()
+
 var last_attack_time := 0.0
 var is_casting: bool = false
 var is_stunned: bool = false
@@ -21,24 +21,24 @@ var enemies_group_name := "Stickmen"
 func _ready():
 	spriteNode = $StickmanSprite
 	animationPlayerNode = $StickmanSprite/AnimationPlayer
-	spriteNode.bodyColor = unit_data.sprite_color
+	spriteNode.bodyColor = sprite_color
 	spriteNode.selfmodulate()
-	if unit_data.team != null :
+	if team != null :
 		var flag: PackedScene = preload("res://Scenes/flag.tscn")
 		var flag_instance
 		flag_instance = flag.instantiate()
 		flag_instance.position.y -= 80
-		flag_instance.modulate = unit_data.team.team_color
+		flag_instance.modulate = team.team_color
 		add_child(flag_instance)
 	
-	%HealthBar.max_value = health
+	%HealthBar.max_value = stats.health
 	add_to_group(enemies_group_name)
 	
 	if weapon == null :
 		weapon = preload("res://Scenes/Weapons/fists.tres") 
 
 func can_hit()-> bool :
-	if last_attack_time >= 1.0/unit_data.attack_speed:
+	if last_attack_time >= 1.0/stats.attack_speed:
 		return true
 	else : 
 		return false
@@ -84,8 +84,8 @@ func attack(target : Node2D, punch_damage : float = 0.0, knockback_direction: Ve
 			target.resolve_hit(hit_result)
 
 func check_if_ally(target : Node2D) -> bool :
-	if is_instance_valid(unit_data.team) and is_instance_valid(target.unit_data.team) :
-		if unit_data.team.team_name == target.unit_data.team.team_name :
+	if is_instance_valid(team) and is_instance_valid(target.team) :
+		if team.team_name == target.team.team_name :
 			return true
 		else :
 			return false
@@ -100,13 +100,13 @@ func receive_knockback(force: Vector2):
 	knockback_velocity += force
 
 func take_damage(incoming_damage) :
-	health = health - incoming_damage
+	stats.health = stats.health - incoming_damage
 	%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
 func block(hit: HitData):
-	var flat_blocked_damage = maxf((hit.damage-unit_data.flat_block_power),0.0)
-	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*unit_data.percent_block_power)
-	health -= blocked_damage
+	var flat_blocked_damage = maxf((hit.damage-stats.flat_block_power),0.0)
+	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.percent_block_power)
+	stats.health -= blocked_damage
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
 	%DamagePopupMarker.damage_popup(str(blocked_damage))
 	animationPlayerNode.play("block")
@@ -120,11 +120,11 @@ func dodge(_hit: HitData):
 	apply_knockback(self, Vector2(randf(),randf()), 250.0)
 
 func resolve_hit(hit_result : HitData) :
-	if randf_range(0.0,100.0)<=unit_data.dodge_probability and is_casting==false:
+	if randf_range(0.0,100.0)<=stats.dodge_probability and is_casting==false:
 		dodge(hit_result)
-	elif randf_range(0.0,100.0)<=unit_data.parry_probability and is_casting==false:
+	elif randf_range(0.0,100.0)<=stats.parry_probability and is_casting==false:
 		parry(hit_result)
-	elif randf_range(0.0,100.0)<=unit_data.block_probability and is_casting==false:
+	elif randf_range(0.0,100.0)<=stats.block_probability and is_casting==false:
 		block(hit_result)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)
@@ -133,10 +133,11 @@ func resolve_hit(hit_result : HitData) :
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
 
-func update_health():
-	%HealthBar.value = health
+func update_healthBar():
+	%HealthBar.value = stats.health
 
 func apply_data(data: StickmanData) -> void:
+	#Replace all of this to use the new stat resource instead
 	self.unit_data.speed = data.speed
 	self.unit_data.max_health = data.max_health
 	self.health = data.health
