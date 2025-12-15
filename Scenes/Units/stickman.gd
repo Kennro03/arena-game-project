@@ -11,7 +11,6 @@ var animationPlayerNode
 @export var stats : Stats
 @export var weapon : Weapon = null
 
-
 var last_attack_time := 0.0
 var is_casting: bool = false
 var is_stunned: bool = false
