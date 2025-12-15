@@ -142,19 +142,14 @@ func apply_data(data: StickmanData) -> void:
 	self.stats.base_movement_speed = data.speed
 	self.stats.base_max_health = data.max_health
 	self.stats.base_health_regen = data.health_regen
-	self.stats.base_damage = data.damage
-	self.stats.base_attack_speed = data.attack_speed
-	self.stats.base_aggro_range = data.aggro_range
-	self.stats.base_attack_range = data.attack_range
-	self.stats.base_knockback = data.knockback
 	self.stats.base_dodge_probability = data.dodge_probability
 	self.stats.base_parry_probability = data.parry_probability
 	self.stats.base_block_probability = data.block_probability
 	self.stats.base_flat_block_power = data.flat_block_power
 	self.stats.base_percent_block_power = data.percent_block_power
 	
-	self.stats.sprite_color = data.color
-	self.stats.team = data.team
+	self.sprite_color = data.color
+	self.team = data.team
 	
 	%SkillModule.skill_list = data.skill_list
 

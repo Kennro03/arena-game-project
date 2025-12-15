@@ -8,6 +8,6 @@ weaponName = "Fists"
 description = "A stickman's bare fist. Usually used when nothing else is available."
 attack_speed = 1.0
 attack_range = 100.0
-damage = 10.0
+damage = 12.0
 knockback = 50.0
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
