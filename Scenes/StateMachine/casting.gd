@@ -28,7 +28,6 @@ func physics_update(_delta: float) -> void:
 	if cast_skill == null:
 		return 
 	
-	
 	if owner.is_casting == true :
 		casting_time_passed += _delta
 		if casting_time_passed >= cast_skill.skill_data.cast_time:

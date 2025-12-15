@@ -9,7 +9,7 @@ func physics_update(_delta: float) -> void:
 	if !owner.animationPlayerNode.is_playing():
 		owner.spriteNode.play_idle_animation()
 	
-	closest_target = owner.get_closest_unit(owner.unit_data.aggro_range)
+	closest_target = owner.get_closest_unit()
 	if closest_target !=null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)
 	
@@ -18,7 +18,7 @@ func physics_update(_delta: float) -> void:
 		if %SkillModule.check_any_usable_skill() : 
 			finished.emit(CASTING)
 	
-	if closest_target != null and owner.target_proximity_check(closest_target,owner.unit_data.attack_range) :
+	if closest_target != null and owner.target_proximity_check(closest_target,owner.weapon.attack_range) :
 		finished.emit(ATTACKING)
-	elif closest_target != null and !owner.target_proximity_check(closest_target,owner.unit_data.attack_range):
+	elif closest_target != null and !owner.target_proximity_check(closest_target,owner.weapon.attack_range):
 		finished.emit(MOVING)

@@ -5,11 +5,12 @@ var animationPlayerNode
 @export var type = "Default Stickman"
 @export var icon: Texture2D = null
 @export var description: String = "A regular Stickman."
-@export var team : Team = null
 @export var sprite_color := Color(255.0,255.0,255.0)
+@export var team : Team = null
 
 @export var stats : Stats
 @export var weapon : Weapon = null
+
 
 var last_attack_time := 0.0
 var is_casting: bool = false
@@ -38,7 +39,7 @@ func _ready():
 		weapon = preload("res://Scenes/Weapons/fists.tres") 
 
 func can_hit()-> bool :
-	if last_attack_time >= 1.0/stats.attack_speed:
+	if last_attack_time >= 1.0/weapon.attack_speed:
 		return true
 	else : 
 		return false
@@ -104,8 +105,8 @@ func take_damage(incoming_damage) :
 	%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
 func block(hit: HitData):
-	var flat_blocked_damage = maxf((hit.damage-stats.flat_block_power),0.0)
-	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.percent_block_power)
+	var flat_blocked_damage = maxf((hit.damage-stats.current_flat_block_power),0.0)
+	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
 	stats.health -= blocked_damage
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
 	%DamagePopupMarker.damage_popup(str(blocked_damage))
@@ -120,11 +121,11 @@ func dodge(_hit: HitData):
 	apply_knockback(self, Vector2(randf(),randf()), 250.0)
 
 func resolve_hit(hit_result : HitData) :
-	if randf_range(0.0,100.0)<=stats.dodge_probability and is_casting==false:
+	if randf_range(0.0,100.0)<=stats.current_dodge_probability and is_casting==false:
 		dodge(hit_result)
-	elif randf_range(0.0,100.0)<=stats.parry_probability and is_casting==false:
+	elif randf_range(0.0,100.0)<=stats.current_parry_probability and is_casting==false:
 		parry(hit_result)
-	elif randf_range(0.0,100.0)<=stats.block_probability and is_casting==false:
+	elif randf_range(0.0,100.0)<=stats.current_block_probability and is_casting==false:
 		block(hit_result)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)
@@ -138,22 +139,22 @@ func update_healthBar():
 
 func apply_data(data: StickmanData) -> void:
 	#Replace all of this to use the new stat resource instead
-	self.unit_data.speed = data.speed
-	self.unit_data.max_health = data.max_health
-	self.health = data.health
-	self.unit_data.health_regen = data.health_regen
-	self.unit_data.damage = data.damage
-	self.unit_data.attack_speed = data.attack_speed
-	self.unit_data.aggro_range = data.aggro_range
-	self.unit_data.attack_range = data.attack_range
-	self.unit_data.knockback = data.knockback
-	self.unit_data.dodge_probability = data.dodge_probability
-	self.unit_data.parry_probability = data.parry_probability
-	self.unit_data.block_probability = data.block_probability
-	self.unit_data.flat_block_power = data.flat_block_power
-	self.unit_data.percent_block_power = data.percent_block_power
-	self.unit_data.sprite_color = data.color
-	self.unit_data.team = data.team
+	self.stats.base_movement_speed = data.speed
+	self.stats.base_max_health = data.max_health
+	self.stats.base_health_regen = data.health_regen
+	self.stats.base_damage = data.damage
+	self.stats.base_attack_speed = data.attack_speed
+	self.stats.base_aggro_range = data.aggro_range
+	self.stats.base_attack_range = data.attack_range
+	self.stats.base_knockback = data.knockback
+	self.stats.base_dodge_probability = data.dodge_probability
+	self.stats.base_parry_probability = data.parry_probability
+	self.stats.base_block_probability = data.block_probability
+	self.stats.base_flat_block_power = data.flat_block_power
+	self.stats.base_percent_block_power = data.percent_block_power
+	
+	self.stats.sprite_color = data.color
+	self.stats.team = data.team
 	
 	%SkillModule.skill_list = data.skill_list
 
