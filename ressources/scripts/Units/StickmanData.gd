@@ -6,7 +6,7 @@ class_name StickmanData
 @export var display_name: String = "Stickman"
 @export var description: String = ""
 @export var icon: Texture2D
-@export var color: Color = Color.WHITE
+@export var color: Color = Color.from_hsv(randf(), 0.8, 0.9)
 @export var team: Team = null
 
 ## Core Gameplay

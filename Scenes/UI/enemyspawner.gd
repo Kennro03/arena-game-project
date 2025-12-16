@@ -61,7 +61,7 @@ func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
 	unit.weapon = data.weapon
 	unit.sprite_color = data.color
 	for skill in data.skill_list:
-		unit.add_skill(skill.duplicate(true))
+		unit.skillModule.add_skill(skill.duplicate(true))
 	unit.position = pos
 	get_parent().add_child(unit)
 

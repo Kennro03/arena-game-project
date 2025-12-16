@@ -21,9 +21,10 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 radius = 9.0
 height = 36.0
 
-[node name="Stickman" type="Node2D" groups=["Stickmen"]]
+[node name="Stickman" type="Node2D" node_paths=PackedStringArray("skillModule") groups=["Stickmen"]]
 script = ExtResource("1_j4fy3")
 stats = SubResource("Resource_et0ph")
+skillModule = NodePath("SkillModule")
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
 unique_name_in_owner = true
