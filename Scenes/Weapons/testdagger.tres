@@ -5,9 +5,14 @@
 [resource]
 script = ExtResource("1_qjtvy")
 weaponName = "Fists"
-description = "A stickman's bare fist. Usually used when nothing else is available."
+description = "A basic dagger used for testing"
 attack_speed = 1.1
 attack_range = 100.0
 damage = 8.0
 knockback = 50.0
+attackTypes = {
+"heavy": 2,
+"light": 10,
+"special": 0
+}
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

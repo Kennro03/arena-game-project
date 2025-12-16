@@ -144,6 +144,36 @@ func recalculate_stats() -> void :
 		set(cur_property_name, get(cur_property_name) + stat_addends[stat_name])
 
 
+func apply_scale(multiplier: float) -> void:
+	if multiplier == 1.0:
+		return
+
+	for stat in BuffableStats.values():
+		if stat in [
+			BuffableStats.STRENGTH,
+			BuffableStats.DEXTERITY,
+			BuffableStats.ENDURANCE,
+			BuffableStats.INTELLECT,
+			BuffableStats.FAITH,
+			BuffableStats.ATTUNEMENT,
+			
+			BuffableStats.MAX_HEALTH,
+			BuffableStats.HEALTH_REGEN,
+			BuffableStats.MOVEMENT_SPEED,
+			BuffableStats.DODGE_PROBABILITY,
+			BuffableStats.PARRY_PROBABILITY,
+			BuffableStats.BLOCK_PROBABILITY,
+			BuffableStats.FLAT_BLOCK_POWER,
+			BuffableStats.PERCENT_BLOCK_POWER
+		]:
+			add_buff(
+				StatBuff.new(
+					stat,
+					multiplier - 1.0,
+					StatBuff.BuffType.MULTIPLY
+				)
+			)
+
 func _on_health_set(new_value : float) -> void:
 	health = clampf(new_value, 0, current_max_health)
 	health_changed.emit(health,current_max_health)

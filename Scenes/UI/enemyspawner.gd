@@ -38,57 +38,50 @@ func _input(event):
 				for i in selected_stickmandata.skill_list :
 					temp_message.append(i.skill_name)
 				#print("Stickmandata skill list = " +  str(temp_message))
-				spawn_stickman(event.position, selected_stickmandata)
+				spawn_from_data(event.position, selected_stickmandata)
 			else :
 				print("No stickmanData provided, spawning default stickman")
-				spawn_default_stickman(event.position)
+				spawn_from_data(event.position, StickmanData.new())
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT :
 			#print("Spawned a random stickman at " + str(event.position))
-			spawn_random_stickman(event.position, 3.0)
+			spawn_random_stickman(event.position, StickmanData.new())
 
-func spawn_stickman(pos: Vector2,unit_data : StickmanData,team : Team = null):
-	if stickman == null:
-		push_error("No stickman scene assigned!")
-		return
-	
-	var stickman_instance = stickman.instantiate()
-	stickman_instance.apply_data(unit_data)
-	stickman_instance.position = pos
-	if team : 
-		stickman_instance.team = team
-	
-	get_parent().add_child(stickman_instance)
 
-func spawn_default_stickman(pos: Vector2,team : Team = null):
-	if stickman == null:
-		push_error("No stickman scene assigned!")
+func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
+	if stickman == null or data == null:
+		push_error("Missing stickman scene or data")
 		return
 	
-	var stickman_instance = stickman.instantiate()
-	stickman_instance.position = pos
-	if team : 
-		stickman_instance.team = team
-	
-	get_parent().add_child(stickman_instance)
+	var unit := stickman.instantiate()
+	unit.stats = data.stats.duplicate(true)
+	unit.stats.apply_scale(data.scale_multiplier)
+	unit.stats.setup_stats()
+	unit.team = data.team
+	unit.weapon = data.weapon
+	unit.sprite_color = data.color
+	for skill in data.skill_list:
+		unit.add_skill(skill.duplicate(true))
+	unit.position = pos
+	get_parent().add_child(unit)
 
-func spawn_random_stickman(pos: Vector2, rand_multiplier,team : Team = null):
-	if stickman == null:
-		push_error("No stickman scene assigned!")
-		return
-	if stickman_data_resource == null:
-		push_error("No stickman data resource assigned!")
+func spawn_random_stickman(pos: Vector2, data: StickmanData):
+	if stickman == null or data == null:
+		push_error("Missing stickman scene or data")
 		return
 	
-	var stickman_instance = stickman.instantiate()
-	var randomized_data = stickman_data_resource.get_randomized_stickmanData(1.0, rand_multiplier)
+	var rand_data := data.randomized(0.7, 1.5).duplicated()
+	rand_data.team = Team.registry.pick_random()
 	
-	stickman_instance.apply_data(randomized_data) 
+	var unit := stickman.instantiate()
+	unit.stats = rand_data.stats.duplicate(true)
+	unit.stats.apply_scale(rand_data.scale_multiplier)
+	unit.stats.setup_stats()
 	
-	if team : 
-		stickman_instance.team = team
-	else : 
-		stickman_instance.team = [null,red_team,blue_team,green_team].pick_random()
-	
-	stickman_instance.position = pos
-	get_parent().add_child(stickman_instance)
+	unit.team = rand_data.team
+	unit.weapon = rand_data.weapon
+	unit.sprite_color = rand_data.color
+	for skill in rand_data.skill_list:
+		unit.add_skill(skill.duplicate(true))
+	unit.position = pos
+	get_parent().add_child(unit)

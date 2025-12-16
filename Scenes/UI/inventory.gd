@@ -20,27 +20,15 @@ func _ready() -> void:
 	inventory.resize(inventory_size)
 	instantiate_inventory(inventory_size)
 	
-	var skill_array_kick : Array[Skill]
 	var kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres").duplicate(true)
 	var burst_skill = preload("res://Scenes/Skills/ActiveSkills/SmallBurst_Skill.tres").duplicate(true)
 	#var projectile_skill = preload("res://Scenes/Skills/ActiveSkills/BaseProjectile_Skill.tres").duplicate(true)
 	
 	add_unit(StickmanData.new())
-	add_unit(StickmanData.new().get_scaled_stickmanData(0.5))
-	add_unit(StickmanData.new().get_scaled_stickmanData(1.5))
-	add_unit(StickmanData.new().get_randomized_stickmanData(0.5,1.5))
-	add_unit(StickmanData.new().get_randomized_stickmanData(1.0,3.0))
-	
-	var newunit = StickmanData.new().get_skilled_stickmanData(1.4, skill_array_kick)
-	newunit.color = Color(255,0,0) 
-	newunit.team = Team.new("Test_Team",Color(96.594, 1.799, 98.543, 1.0))
-	add_unit(newunit)
-	
-	
-	skill_array_kick.append(kick_skill)
-	skill_array_kick.append(burst_skill)
-	#skill_array_kick.append(projectile_skill)
-	add_unit(StickmanData.new().get_skilled_stickmanData(1.1, skill_array_kick))
+	add_unit(StickmanData.new().with_scale(0.5))
+	add_unit(StickmanData.new().with_scale(1.5))
+	add_unit(StickmanData.new().randomized(0.5, 2.0))
+	add_unit(StickmanData.new().with_skills([kick_skill, burst_skill]))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -103,7 +91,7 @@ func print_inv() -> void:
 
 func _on_stickman_slot_stickman_selected(unit_data: StickmanData) -> void:
 	if unit_data : 
-		print(unit_data.type)
+		print("Unit ID : " + unit_data.id + " \nUnit DisplayName = " + unit_data.display_name)
 	selected_unit_data = unit_data
 
 func _on_stickman_inventory_inventory_stickman_added(_unit_data) -> void:

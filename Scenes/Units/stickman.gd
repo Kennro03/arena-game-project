@@ -2,21 +2,22 @@ class_name Stickman extends Node2D
 var spriteNode
 var animationPlayerNode
 
-@export var type = "Default Stickman"
-@export var icon: Texture2D = null
+@export var id: String = "stickman_default"
+@export var display_name: String = "Stickman"
 @export var description: String = "A regular Stickman."
-@export var sprite_color := Color(255.0,255.0,255.0)
-@export var team : Team = null
+@export var icon: Texture2D = null
+@export var sprite_color:= Color.WHITE
+@export var team: Team
 
 @export var stats : Stats
 @export var weapon : Weapon = null
 
-var last_attack_time := 0.0
+var last_attack_time:= 0.0
 var is_casting: bool = false
 var is_stunned: bool = false
 var knockback_velocity: Vector2 = Vector2.ZERO
-var knockback_decay := 1000.0 
-var enemies_group_name := "Stickmen"
+var knockback_decay:= 1000.0 
+var enemies_group_name:= "Stickmen"
 
 func _ready():
 	spriteNode = $StickmanSprite
