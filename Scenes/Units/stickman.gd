@@ -134,6 +134,8 @@ func resolve_hit(hit_result : HitData) :
 		take_damage(hit_result.damage)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
+	if stats.health <= 0.0 :
+		die() 
 
 func update_healthBar():
 	%HealthBar.value = stats.health

@@ -36,6 +36,7 @@ shape = SubResource("CapsuleShape2D_4ub1n")
 debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
 [node name="StickmanSprite" parent="." instance=ExtResource("4_g4boi")]
+z_index = 1
 position = Vector2(0, -32)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]

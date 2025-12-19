@@ -28,7 +28,7 @@ func generate_item(_weightedDict : Dictionary):
 	var keyGenerated : bool = false
 	while !keyGenerated:
 		## Generate a random weight
-		var randomWeight : float = randi_range(0, totalWeights)
+		var randomWeight : float = randi_range(0, int(totalWeights))
 		## Pick a random item based on the random weight
 		for key in _weightedDict:
 			randomWeight -= _weightedDict[key]
