@@ -19,6 +19,7 @@ var is_stunned: bool = false
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay:= 1000.0 
 var enemies_group_name:= "Stickmen"
+var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]
 
 func _ready():
 	spriteNode = $StickmanSprite
@@ -38,6 +39,8 @@ func _ready():
 	
 	if weapon == null :
 		weapon = preload("res://Scenes/Weapons/fists.tres") 
+	
+	stats.connect("health_depleted",die)
 
 func can_hit()-> bool :
 	if last_attack_time >= 1.0/weapon.attack_speed:
@@ -134,8 +137,7 @@ func resolve_hit(hit_result : HitData) :
 		take_damage(hit_result.damage)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
-	if stats.health <= 0.0 :
-		die() 
+
 
 func update_healthBar():
 	%HealthBar.value = stats.health
@@ -156,7 +158,6 @@ func apply_data(data: StickmanData) -> void:
 	
 	%SkillModule.skill_list = data.skill_list
 
-var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]
 func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
 	queue_free()
