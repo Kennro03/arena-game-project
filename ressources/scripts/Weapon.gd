@@ -21,21 +21,17 @@ enum WeaponTypeEnum { LIGHT, MEDIUM, HEAVY, SPECIAL }
 }
 
 func generate_item(_weightedDict : Dictionary):
-	## Calculate the total weights 
 	var totalWeights : float = 0
 	for key in _weightedDict:
 		totalWeights += _weightedDict[key]
-	var keyGenerated : bool = false
-	while !keyGenerated:
-		## Generate a random weight
-		var randomWeight : float = randi_range(0, int(totalWeights))
-		## Pick a random item based on the random weight
-		for key in _weightedDict:
-			randomWeight -= _weightedDict[key]
-			if randomWeight < 0:
-				keyGenerated = true
-				return key
-		print("NO KEY MADE CHOSEN: REPEAT")
+	var accumulatedweight : int = 0
+	var randomWeight : float = randi_range(0, int(totalWeights)) ## Generate a random weight
+	## Pick a random item based on the random weight
+	for key in _weightedDict: 
+		accumulatedweight += _weightedDict[key]
+		if randomWeight <= accumulatedweight:
+			return key
+	print("NO KEY MADE CHOSEN: REPEAT")
 
 func applyStatChanges()-> void:
 	for stat in statChanges : 
