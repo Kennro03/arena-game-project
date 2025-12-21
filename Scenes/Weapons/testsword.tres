@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_80t4j")
-weaponName = "Sword"
+weaponName = "TestSword"
 description = "A basic sword used for testing"
 attack_speed = 0.95
 attack_range = 130.0

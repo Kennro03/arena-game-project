@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_qjtvy")
-weaponName = "Fists"
+weaponName = "TestDagger"
 description = "A basic dagger used for testing"
 attack_speed = 1.1
 attack_range = 100.0

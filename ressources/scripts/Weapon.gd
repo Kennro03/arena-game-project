@@ -39,21 +39,21 @@ func applyStatChanges()-> void:
 		pass
 
 func lightHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
-	print(weaponName + " used light hit")
+	#print(weaponName + " used light hit")
 	var hit_result = HitData.new(damage, knockback_direction,knockback)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 
 func heavyHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
-	print(weaponName + " used heavy hit")
+	#print(weaponName + " used heavy hit")
 	var hit_result = HitData.new(damage, knockback_direction,knockback)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 
 func specialHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
-	print(weaponName + " used special hit")
+	#print(weaponName + " used special hit")
 	var hit_result = HitData.new(damage, knockback_direction,knockback)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :

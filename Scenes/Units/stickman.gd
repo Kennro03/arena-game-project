@@ -105,15 +105,15 @@ func receive_knockback(force: Vector2):
 	knockback_velocity += force
 
 func take_damage(incoming_damage) :
+	incoming_damage = round(incoming_damage * pow(10.0, 2)) / pow(10.0, 2)
 	stats.health = stats.health - incoming_damage
 	%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
 func block(hit: HitData):
 	var flat_blocked_damage = maxf((hit.damage-stats.current_flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
-	stats.health -= blocked_damage
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
-	%DamagePopupMarker.damage_popup(str(blocked_damage))
+	take_damage(blocked_damage) 
 	animationPlayerNode.play("block")
 
 func parry(_hit: HitData):
