@@ -1,6 +1,7 @@
 extends Resource
 class_name Stats
 
+const BASE_LEVEL_XP : float = 100.0
 enum BuffableStats {
 	STRENGTH,
 	DEXTERITY,
@@ -18,30 +19,8 @@ enum BuffableStats {
 	PERCENT_BLOCK_POWER
 }
 
-const STAT_CURVES: Dictionary[BuffableStats, Curve] = {
-	BuffableStats.STRENGTH: preload("uid://dov560ppbcvrd"),
-	BuffableStats.DEXTERITY: preload("uid://dov560ppbcvrd"),
-	BuffableStats.ENDURANCE: preload("uid://dov560ppbcvrd"),
-	BuffableStats.INTELLECT: preload("uid://dov560ppbcvrd"),
-	BuffableStats.FAITH: preload("uid://dov560ppbcvrd"),
-	BuffableStats.ATTUNEMENT: preload("uid://dov560ppbcvrd"),
-	BuffableStats.MAX_HEALTH: preload("uid://dov560ppbcvrd"),
-	BuffableStats.HEALTH_REGEN: preload("uid://dov560ppbcvrd"),
-	BuffableStats.MOVEMENT_SPEED: preload("uid://dov560ppbcvrd"),
-	BuffableStats.DODGE_PROBABILITY: preload("uid://dov560ppbcvrd"),
-	BuffableStats.PARRY_PROBABILITY: preload("uid://dov560ppbcvrd"),
-	BuffableStats.BLOCK_PROBABILITY: preload("uid://dov560ppbcvrd"),
-	BuffableStats.FLAT_BLOCK_POWER: preload("uid://dov560ppbcvrd"),
-	BuffableStats.PERCENT_BLOCK_POWER: preload("uid://dov560ppbcvrd")
-	
-}
-
-const BASE_LEVEL_XP : float = 100.0
-
 signal health_depleted
 signal health_changed(cur_health:float,max_health:float)
-
-
 
 @export var base_strength : int = 0
 @export var base_dexterity : int = 0
@@ -91,6 +70,22 @@ func setup_stats() -> void :
 	recalculate_stats() 
 	health = current_max_health
 
+func setup_base_stats(dict : Dictionary) -> void : 
+	base_strength = dict.get("strength",base_strength)
+	base_dexterity = dict.get("dexterity",base_dexterity)
+	base_endurance = dict.get("endurance",base_endurance)
+	base_intellect = dict.get("intellect",base_intellect)
+	base_faith = dict.get("faith",base_faith)
+	base_attunement = dict.get("attunement",base_attunement)
+	base_max_health = dict.get("max_health",base_max_health)
+	base_health_regen = dict.get("health_regen",base_health_regen)
+	base_movement_speed = dict.get("movement_speed",base_movement_speed)
+	base_dodge_probability = dict.get("dodge_probability",base_dodge_probability)
+	base_parry_probability = dict.get("parry_probability",base_parry_probability)
+	base_block_probability = dict.get("block_probability",base_block_probability)
+	base_flat_block_power = dict.get("flat_block_power",base_flat_block_power)
+	base_percent_block_power = dict.get("percent_block_power",base_percent_block_power)
+
 func add_buff(buff: StatBuff) -> void :
 	stat_buffs.append(buff)
 	recalculate_stats.call_deferred()
@@ -102,6 +97,9 @@ func remove_buff(buff: StatBuff) -> void :
 func recalculate_stats() -> void :
 	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
 	var stat_addends: Dictionary = {} #Amount to add to included stats
+	
+	#Stat scaling logic will be calculated here, for each buffable stat, every scaling will be applied depending on its scaling stat and the current stat value
+	
 	for buff in stat_buffs :
 		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
 		match buff.buff_type:
@@ -119,21 +117,22 @@ func recalculate_stats() -> void :
 					stat_multipliers[stat_name] = 0.0
 	
 	
-	var stat_sample_pos: float = (float(level) / 100.0) - 0.01
-	current_strength = int(base_strength * STAT_CURVES[BuffableStats.STRENGTH].sample(stat_sample_pos))
-	current_dexterity = int(base_dexterity * STAT_CURVES[BuffableStats.DEXTERITY].sample(stat_sample_pos))
-	current_endurance = int(base_endurance * STAT_CURVES[BuffableStats.ENDURANCE].sample(stat_sample_pos))
-	current_intellect = int(base_intellect * STAT_CURVES[BuffableStats.INTELLECT].sample(stat_sample_pos))
-	current_faith = int(base_faith * STAT_CURVES[BuffableStats.FAITH].sample(stat_sample_pos))
-	current_attunement = int(base_attunement * STAT_CURVES[BuffableStats.ATTUNEMENT].sample(stat_sample_pos))
-	current_max_health = base_max_health * STAT_CURVES[BuffableStats.MAX_HEALTH].sample(stat_sample_pos)
-	current_health_regen = base_health_regen * STAT_CURVES[BuffableStats.HEALTH_REGEN].sample(stat_sample_pos)
-	current_movement_speed = base_movement_speed * STAT_CURVES[BuffableStats.MOVEMENT_SPEED].sample(stat_sample_pos)
-	current_dodge_probability = base_dodge_probability * STAT_CURVES[BuffableStats.DODGE_PROBABILITY].sample(stat_sample_pos)
-	current_parry_probability = base_parry_probability * STAT_CURVES[BuffableStats.PARRY_PROBABILITY].sample(stat_sample_pos)
-	current_block_probability = base_block_probability * STAT_CURVES[BuffableStats.BLOCK_PROBABILITY].sample(stat_sample_pos)
-	current_flat_block_power = base_flat_block_power * STAT_CURVES[BuffableStats.FLAT_BLOCK_POWER].sample(stat_sample_pos)
-	current_percent_block_power = base_percent_block_power * STAT_CURVES[BuffableStats.PERCENT_BLOCK_POWER].sample(stat_sample_pos)
+	var _stat_sample_pos: float = (float(level) / 100.0) - 0.01
+	current_strength = int(base_strength )
+	current_dexterity = int(base_dexterity)
+	current_endurance = int(base_endurance)
+	current_intellect = int(base_intellect)
+	current_faith = int(base_faith)
+	current_attunement = int(base_attunement)
+	
+	current_max_health = base_max_health + (current_endurance*2.5) + (current_attunement*1.5) + (current_faith*1)
+	current_health_regen = base_health_regen + (current_endurance*0.1) + (current_faith*0.025)
+	current_movement_speed = base_movement_speed + (current_dexterity*5)
+	current_dodge_probability = base_dodge_probability + (current_dexterity*0.75) + (current_attunement*0.5)
+	current_parry_probability = base_parry_probability + (current_dexterity*0.75) + (current_intellect*0.5)
+	current_block_probability = base_block_probability + (current_endurance*0.5) + (current_strength*0.5)
+	current_flat_block_power = base_flat_block_power + (current_endurance*0.25)
+	current_percent_block_power = base_percent_block_power + (current_endurance*0.25)
 	
 	for stat_name in stat_multipliers:
 		var cur_property_name : String = str("current_" + stat_name)
@@ -186,3 +185,50 @@ func _on_experience_set(new_value : int) -> void :
 	
 	if not old_level == level :
 		recalculate_stats() 
+
+
+enum StatValueType { BASE, CURRENT }
+func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dictionary:
+	if value_type == StatValueType.BASE : 
+		return {
+			"strength": base_strength,
+			"dexterity": base_dexterity,
+			"endurance": base_endurance,
+			"intellect": base_intellect,
+			"faith": base_faith,
+			"attunement": base_attunement,
+
+			"max_health": base_max_health,
+			"health_regen": base_health_regen,
+			"movement_speed": base_movement_speed,
+			"dodge_probability": base_dodge_probability,
+			"parry_probability": base_parry_probability,
+			"block_probability": base_block_probability,
+			"flat_block_power": base_flat_block_power,
+			"percent_block_power": base_percent_block_power,
+
+			"level": level,
+			"health": health
+		}
+	else : 
+		printerr("Value type not valid, use a correct StatValueType")
+		return {
+			"strength": current_strength,
+			"dexterity": current_dexterity,
+			"endurance": current_endurance,
+			"intellect": current_intellect,
+			"faith": current_faith,
+			"attunement": current_attunement,
+
+			"max_health": current_max_health,
+			"health_regen": current_health_regen,
+			"movement_speed": current_movement_speed,
+			"dodge_probability": current_dodge_probability,
+			"parry_probability": current_parry_probability,
+			"block_probability": current_block_probability,
+			"flat_block_power": current_flat_block_power,
+			"percent_block_power": current_percent_block_power,
+
+			"level": level,
+			"health": health
+		}

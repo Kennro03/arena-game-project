@@ -45,19 +45,3 @@ func randomized(min_mul: float, max_mul: float, _seed := -1) -> StickmanData:
 	data.color = Color(randi()%255+1,randi()%255+1,randi()%255+1)
 	data.display_name = "Random %.2f× %s" % [m, display_name]
 	return data
-
-func get_stats_dictionnary() -> Dictionary :
-	return {
-		"type": "Stickman",
-		"speed": 100.0,
-		"max_health": 100.0,
-		"dodge_probability": 0.0,
-		"parry_probability": 0.0,
-		"block_probability": 0.0,
-		"flat_block_power": 0.0,
-		"percent_block_power": 0.0,
-		
-		"color": Color(255,255,255),
-		"team": null,
-		"skill_list": skill_list,
-	}
