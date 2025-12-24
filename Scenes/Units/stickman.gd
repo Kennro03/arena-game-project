@@ -9,7 +9,7 @@ var animationPlayerNode
 @export var sprite_color:= Color.WHITE
 @export var team: Team
 
-@export var stats : Stats
+@export var stats : Stats = Stats.new()
 @export var weapon : Weapon = null
 @export var skillModule : Node
 

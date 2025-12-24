@@ -3,19 +3,16 @@ extends Control
 var statcontainerscene := load("res://Scenes/UI/stat_container.tscn")
 var stickmanDictionnary : Dictionary
 
-
 func _ready() -> void:
 	getDictionnary.call_deferred()
 	initialize_statcontainers.call_deferred()
 
 func getDictionnary() -> void :
-	stickmanDictionnary = StickmanData.new().get_stats_dictionnary()
+	stickmanDictionnary = Stickman.new().stats.get_stats_dictionary()
 
 func initialize_statcontainers() -> void :
-	
 	for key in stickmanDictionnary.keys() :
-		if key != "color" and key != "team" and key != "skill_list":
-			
+		if key != "skill_list":
 			var statcontainer = statcontainerscene.instantiate()
 			statcontainer.name = key + "_Container"
 			statcontainer.statname = key
@@ -43,6 +40,6 @@ func _on_create_button_pressed() -> void:
 		stat_dict.set("team",stickman_team)
 	
 	## Fix this >!!!<
-	stickmandata = stickmandata.set_stats_using_dictionnary(stat_dict)
+	stickmandata = stickmandata.stats.set_stats_using_dictionnary(stat_dict)
 	print("Added stickman to inv : " + stickmandata.type)
 	owner.inventory_module.add_unit(stickmandata)
