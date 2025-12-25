@@ -38,34 +38,36 @@ func applyStatChanges()-> void:
 		#apply stat changes to the stickman equipping the weapon
 		pass
 
-func lightHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
+func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used light hit")
-	var hit_result = HitData.new(damage, knockback_direction,knockback)
+	var hit_result = HitData.new(attack_damage, knockback_direction,knockback)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 
-func heavyHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
+func heavyHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used heavy hit")
-	var hit_result = HitData.new(damage, knockback_direction,knockback)
+	var hit_result = HitData.new(attack_damage*1.10, knockback_direction,knockback*3.5)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 
-func specialHit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
+func specialHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used special hit")
-	var hit_result = HitData.new(damage, knockback_direction,knockback)
+	var hit_result = HitData.new(attack_damage, knockback_direction,knockback)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 
-func hit(target:Node2D, knockback_direction: Vector2  = Vector2(0,0))-> void:
+func hit(target:Node2D, damage_mult: float = 1.0, knockback_direction:= Vector2.ZERO)-> void:
 	var attack : String = generate_item(attackTypes)
+	var final_damage := damage * damage_mult
+
 	if attack == "light" :
-		lightHit(target,knockback_direction)
+		lightHit(target,final_damage,knockback_direction)
 	elif attack == "heavy" :
-		heavyHit(target,knockback_direction)
+		heavyHit(target,final_damage,knockback_direction)
 	elif attack == "special" :
-		specialHit(target,knockback_direction)
+		specialHit(target,final_damage,knockback_direction)
 	else :
 		pass

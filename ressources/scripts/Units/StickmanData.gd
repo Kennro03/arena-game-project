@@ -17,15 +17,31 @@ class_name StickmanData
 ## Testing / variation metadata
 @export var scale_multiplier: float = 1.0
 @export var random_seed: int = 0
-@export var tags: Array[String] = ["base","random"]   # e.g. ["test", "elite", "random"]
+@export var tags: Array[String] = ["base"]   # e.g. ["test", "elite", "random"]
 var multiplier_array : Array[float] = []
 
 func duplicated() -> StickmanData:
 	return duplicate(true)
 
+func with_stats(_stats : Stats) -> StickmanData:
+	var data := duplicate(true)
+	data.stats = _stats
+	data.tags.append("custom_Stats")
+	data.display_name = "%sx %.2f" % [display_name]
+	return data
+
 func with_scale(multiplier: float) -> StickmanData:
 	var data := duplicate(true)
 	data.scale_multiplier = multiplier
+	
+	data.stats.base_strength = stats.base_strength * scale_multiplier 
+	data.stats.base_dexterity = stats.base_dexterity * scale_multiplier 
+	data.stats.base_endurance = stats.base_endurance * scale_multiplier 
+	data.stats.base_intellect = stats.base_intellect * scale_multiplier 
+	data.stats.base_faith = stats.base_faith * scale_multiplier 
+	data.stats.base_attunement = stats.base_attunement * scale_multiplier 
+	
+	data.tags.append("scaled")
 	data.display_name = "%sx %.2f" % [display_name, multiplier]
 	return data
 
@@ -33,6 +49,7 @@ func with_skills(skill_array: Array[Skill]) -> StickmanData:
 	var data := duplicate(true)
 	for s in skill_array:
 		data.skill_list.append(s.duplicate(true))
+	data.tags.append("skilled")
 	return data
 
 func randomized(min_mul: float, max_mul: float, _seed := -1) -> StickmanData:
@@ -44,4 +61,5 @@ func randomized(min_mul: float, max_mul: float, _seed := -1) -> StickmanData:
 	data.scale_multiplier = m
 	data.color = Color(randi()%255+1,randi()%255+1,randi()%255+1)
 	data.display_name = "Random %.2f× %s" % [m, display_name]
+	data.tags.append("randomized")
 	return data

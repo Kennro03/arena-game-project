@@ -79,14 +79,17 @@ func target_proximity_check(target : Node2D, max_distance : float) :
 	else :
 		return false
 
-func attack(target : Node2D, punch_damage : float = 0.0, knockback_direction: Vector2  = Vector2(0,0), knockback_force: float  = 0.0):
-	if weapon : 
-		weapon.hit(target)
-	else : 
-		print("Could not find weapon")
-		var hit_result = HitData.new(punch_damage,knockback_direction,knockback_force)
-		if target.has_method("resolve_hit") :
-			target.resolve_hit(hit_result)
+func attack(target : Node2D):
+	if not weapon:
+		printerr("Could not find a weapon.")
+		weapon = preload("res://Scenes/Weapons/fists.tres")
+	
+	var is_crit := randf() <= stats.current_crit_chance / 100.0
+	var crit_mult := stats.current_crit_damage if is_crit else 1.0
+	weapon.hit(target, crit_mult)
+	
+	# line used to check for crit :
+	# if randf_range(0.0,100.0)<=stats.current_crit_chance : 
 
 func check_if_ally(target : Node2D) -> bool :
 	if is_instance_valid(team) and is_instance_valid(target.team) :
