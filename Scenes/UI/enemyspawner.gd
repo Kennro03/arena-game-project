@@ -56,7 +56,6 @@ func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
 	var unit := stickman.instantiate()
 	unit.stats = data.stats.duplicate(true)
 	unit.stats.apply_scale(data.scale_multiplier)
-	unit.stats.setup_stats()
 	unit.team = data.team
 	unit.weapon = data.weapon
 	unit.sprite_color = data.color
@@ -70,13 +69,12 @@ func spawn_random_stickman(pos: Vector2, data: StickmanData):
 		push_error("Missing stickman scene or data")
 		return
 	
-	var rand_data := data.randomized(0.7, 1.5).duplicated()
+	var rand_data := data.randomized(0.9, 1.0).duplicated()
 	rand_data.team = Team.registry.pick_random()
 	
 	var unit := stickman.instantiate()
-	unit.stats = rand_data.stats.duplicate(true)
+	unit.stats = rand_data.stats
 	unit.stats.apply_scale(rand_data.scale_multiplier)
-	unit.stats.setup_stats()
 	
 	unit.team = rand_data.team
 	

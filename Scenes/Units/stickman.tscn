@@ -32,10 +32,6 @@ height = 36.0
 
 [node name="Stickman" type="Node2D" node_paths=PackedStringArray("skillModule") groups=["Stickmen"]]
 script = ExtResource("1_j4fy3")
-id = null
-display_name = null
-description = null
-sprite_color = null
 stats = SubResource("Resource_et0ph")
 skillModule = NodePath("SkillModule")
 

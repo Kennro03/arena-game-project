@@ -2,6 +2,14 @@ extends Resource
 class_name Stats
 
 const BASE_LEVEL_XP : float = 100.0
+enum Attributes {
+	STRENGTH,
+	DEXTERITY,
+	ENDURANCE,
+	INTELLECT,
+	FAITH,
+	ATTUNEMENT,
+}
 enum BuffableStats {
 	STRENGTH,
 	DEXTERITY,
@@ -44,38 +52,38 @@ signal health_changed(cur_health:float,max_health:float)
 @export var experience : int = 0: set = _on_experience_set
 
 @export var max_health_scalings: Array[StatScaling] = [
-	StatScaling.new(Stats.BuffableStats.ENDURANCE, StatScaling.ScalingType.LINEAR, 2.5),
-	StatScaling.new(Stats.BuffableStats.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 1.5)
+	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 2.5),
+	StatScaling.new(current_attunement, StatScaling.ScalingType.LINEAR, 1.5)
 ]
 @export var health_regen_scalings : Array[StatScaling] = [
-	StatScaling.new(Stats.BuffableStats.ENDURANCE, StatScaling.ScalingType.LINEAR, 0.15),
-	StatScaling.new(Stats.BuffableStats.FAITH, StatScaling.ScalingType.LINEAR, 0.1)
+	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 0.15),
+	StatScaling.new(current_faith, StatScaling.ScalingType.LINEAR, 0.1)
 ]
 @export var movement_speed_scalings : Array[StatScaling] = [
-	StatScaling.new(Stats.BuffableStats.DEXTERITY, StatScaling.ScalingType.LINEAR, 5.0, 0.95),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.LINEAR, 5.0, 0.95),
 ]
 @export var dodge_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(Stats.BuffableStats.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.6),
-	StatScaling.new(Stats.BuffableStats.INTELLECT, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.6),
+	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.4),
 ]
 @export var parry_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(Stats.BuffableStats.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.5),
-	StatScaling.new(Stats.BuffableStats.STRENGTH, StatScaling.ScalingType.PERCENT, 0.25),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.5),
+	StatScaling.new(current_strength, StatScaling.ScalingType.PERCENT, 0.25),
 ]
 @export var block_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(Stats.BuffableStats.ENDURANCE, StatScaling.ScalingType.PERCENT, 0.7),
-	StatScaling.new(Stats.BuffableStats.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(current_endurance, StatScaling.ScalingType.PERCENT, 0.7),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.4),
 ]
 @export var flat_block_power_scalings : Array[StatScaling]
 @export var percent_block_power_scalings : Array[StatScaling]
 @export var crit_chance_scalings : Array[StatScaling] = [
-	StatScaling.new(Stats.BuffableStats.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.4),
-	StatScaling.new(Stats.BuffableStats.ATTUNEMENT, StatScaling.ScalingType.PERCENT, 0.3),
-	StatScaling.new(Stats.BuffableStats.INTELLECT, StatScaling.ScalingType.PERCENT, 0.2),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.3),
+	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.2),
 ]
 @export var crit_damage_scalings : Array[StatScaling] = [
-	StatScaling.new(Stats.BuffableStats.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.4),
-	StatScaling.new(Stats.BuffableStats.ATTUNEMENT, StatScaling.ScalingType.PERCENT, 0.3),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.3),
 ]
 
 var level : int : 
@@ -112,7 +120,7 @@ func setup_stats() -> void :
 	recalculate_stats() 
 	health = current_max_health
 
-func setup_base_stats(dict : Dictionary) -> void : 
+func setup_base_stats_from_dict(dict : Dictionary) -> void : 
 	base_strength = dict.get("strength",base_strength)
 	base_dexterity = dict.get("dexterity",base_dexterity)
 	base_endurance = dict.get("endurance",base_endurance)
@@ -143,6 +151,26 @@ func recalculate_stats() -> void :
 	var stat_addends: Dictionary = {} #Amount to add to included stats
 	
 	#Stat scaling logic will be calculated here, for each buffable stat, every scaling will be applied depending on its scaling stat and the current stat value
+	for scaling in max_health_scalings : 
+		current_max_health += scaling.get_scaling_value()
+	for scaling in health_regen_scalings : 
+		current_health_regen += scaling.get_scaling_value()
+	for scaling in movement_speed_scalings : 
+		current_movement_speed += scaling.get_scaling_value()
+	for scaling in dodge_probability_scalings : 
+		current_dodge_probability += scaling.get_scaling_value()
+	for scaling in parry_probability_scalings : 
+		current_parry_probability += scaling.get_scaling_value()
+	for scaling in block_probability_scalings : 
+		current_block_probability += scaling.get_scaling_value()
+	for scaling in flat_block_power_scalings : 
+		current_flat_block_power += scaling.get_scaling_value()
+	for scaling in percent_block_power_scalings : 
+		current_percent_block_power += scaling.get_scaling_value()
+	for scaling in crit_chance_scalings : 
+		current_crit_chance += scaling.get_scaling_value()
+	for scaling in crit_damage_scalings : 
+		current_crit_damage += scaling.get_scaling_value()
 	
 	for buff in stat_buffs :
 		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
@@ -171,27 +199,6 @@ func recalculate_stats() -> void :
 	current_intellect = int(base_intellect)
 	current_faith = int(base_faith)
 	current_attunement = int(base_attunement)
-	
-	for scaling in max_health_scalings : 
-		current_max_health += scaling.get_scaling_value()
-	for scaling in health_regen_scalings : 
-		current_health_regen += scaling.get_scaling_value()
-	for scaling in movement_speed_scalings : 
-		current_movement_speed += scaling.get_scaling_value()
-	for scaling in dodge_probability_scalings : 
-		current_dodge_probability += scaling.get_scaling_value()
-	for scaling in parry_probability_scalings : 
-		current_parry_probability += scaling.get_scaling_value()
-	for scaling in block_probability_scalings : 
-		current_block_probability += scaling.get_scaling_value()
-	for scaling in flat_block_power_scalings : 
-		current_flat_block_power += scaling.get_scaling_value()
-	for scaling in percent_block_power_scalings : 
-		current_percent_block_power += scaling.get_scaling_value()
-	for scaling in crit_chance_scalings : 
-		current_crit_chance += scaling.get_scaling_value()
-	for scaling in crit_damage_scalings : 
-		current_crit_damage += scaling.get_scaling_value()
 	
 	for stat_name in stat_multipliers:
 		var cur_property_name : String = str("current_" + stat_name)
@@ -297,3 +304,18 @@ func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dic
 			"level": level,
 			"health": health
 		}
+
+func print_attributes()-> void:
+	print("Base Strength : " + str(base_strength))
+	print("Base Dexterity : " + str(base_dexterity))
+	print("Base Endurance : " + str(base_endurance))
+	print("Base Intellect : " + str(base_intellect))
+	print("Base Faith : " + str(base_faith))
+	print("Base Attunement : " + str(base_attunement))
+	
+	print("Current Strength : " + str(current_strength))
+	print("Current Dexterity : " + str(current_dexterity))
+	print("Current Endurance : " + str(current_endurance))
+	print("Current Intellect : " + str(current_intellect))
+	print("Current Faith : " + str(current_faith))
+	print("Current Attunement : " + str(current_attunement))
