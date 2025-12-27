@@ -24,7 +24,7 @@ func compute(stats : Stats) -> float :
 			var res : float = (pow(stat_value, scaling_power) * scaling_value)
 			return res
 		ScalingType.PERCENT :
-			var res : float = 100.0 * (1.0 - exp(-stat_value * 0.01))
+			var res : float = 100.0 * (1.0 - exp(-stat_value * (scaling_value * 0.01)))
 			return res
 	printerr("Scaling Type not recognized!")
 	return 0.0

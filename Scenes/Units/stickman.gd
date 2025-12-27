@@ -40,6 +40,7 @@ func _ready():
 	if weapon == null :
 		weapon = preload("res://Scenes/Weapons/fists.tres") 
 	
+	stats.connect("health_changed",update_healthBar)
 	stats.connect("health_depleted",die)
 
 func can_hit()-> bool :
@@ -86,7 +87,8 @@ func attack(target : Node2D):
 	
 	var is_crit := randf() <= stats.current_crit_chance / 100.0
 	var crit_mult := stats.current_crit_damage if is_crit else 1.0
-	weapon.hit(target, crit_mult)
+	var target_direction : Vector2 = get_target_position_vector(target.global_position).normalized()
+	weapon.hit(target, crit_mult, target_direction)
 	
 	# line used to check for crit :
 	# if randf_range(0.0,100.0)<=stats.current_crit_chance : 
@@ -141,8 +143,8 @@ func resolve_hit(hit_result : HitData) :
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
 
-
 func update_healthBar():
+	%HealthBar.max_value = stats.current_max_health
 	%HealthBar.value = stats.health
 
 func apply_data(data: StickmanData) -> void:

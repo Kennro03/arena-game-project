@@ -9,5 +9,5 @@ description = "A stickman's bare fist. Usually used when nothing else is availab
 attack_speed = 1.0
 attack_range = 90.0
 damage = 8.0
-knockback = 50.0
+knockback = 100.0
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

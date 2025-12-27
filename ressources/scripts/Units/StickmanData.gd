@@ -83,7 +83,7 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 			data.stats.base_intellect = max(stats.base_intellect * value,0)
 			data.stats.base_faith = max(stats.base_faith * value,0)
 			data.stats.base_attunement = max(stats.base_attunement * value,0)
-	data.color = Color(randi()%255+1,randi()%255+1,randi()%255+1)
+	
 	data.display_name = "Random %s" % [display_name]
 	data.tags.append("randomized")
 	data.stats.recalculate_stats()

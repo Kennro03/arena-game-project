@@ -82,8 +82,8 @@ signal health_changed(cur_health:float,max_health:float)
 	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.2),
 ]
 @export var crit_damage_scalings : Array[StatScaling] = [
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.4),
-	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.3),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.04),
+	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.03),
 ]
 
 var level : int : 
