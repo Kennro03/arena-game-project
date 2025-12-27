@@ -147,30 +147,31 @@ func remove_buff(buff: StatBuff) -> void :
 	recalculate_stats.call_deferred()
 
 func recalculate_stats() -> void :
+	reset_current_stats()
 	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
 	var stat_addends: Dictionary = {} #Amount to add to included stats
 	
 	#Stat scaling logic will be calculated here, for each buffable stat, every scaling will be applied depending on its scaling stat and the current stat value
 	for scaling in max_health_scalings : 
-		current_max_health += scaling.get_scaling_value()
+		current_max_health += scaling.compute(self)
 	for scaling in health_regen_scalings : 
-		current_health_regen += scaling.get_scaling_value()
+		current_health_regen += scaling.compute(self)
 	for scaling in movement_speed_scalings : 
-		current_movement_speed += scaling.get_scaling_value()
+		current_movement_speed += scaling.compute(self)
 	for scaling in dodge_probability_scalings : 
-		current_dodge_probability += scaling.get_scaling_value()
+		current_dodge_probability += scaling.compute(self)
 	for scaling in parry_probability_scalings : 
-		current_parry_probability += scaling.get_scaling_value()
+		current_parry_probability += scaling.compute(self)
 	for scaling in block_probability_scalings : 
-		current_block_probability += scaling.get_scaling_value()
+		current_block_probability += scaling.compute(self)
 	for scaling in flat_block_power_scalings : 
-		current_flat_block_power += scaling.get_scaling_value()
+		current_flat_block_power += scaling.compute(self)
 	for scaling in percent_block_power_scalings : 
-		current_percent_block_power += scaling.get_scaling_value()
+		current_percent_block_power += scaling.compute(self)
 	for scaling in crit_chance_scalings : 
-		current_crit_chance += scaling.get_scaling_value()
+		current_crit_chance += scaling.compute(self)
 	for scaling in crit_damage_scalings : 
-		current_crit_damage += scaling.get_scaling_value()
+		current_crit_damage += scaling.compute(self)
 	
 	for buff in stat_buffs :
 		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
@@ -305,6 +306,16 @@ func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dic
 			"health": health
 		}
 
+func get_current_attribute(attr: Attributes) -> int:
+	match attr:
+		Attributes.STRENGTH: return current_strength
+		Attributes.DEXTERITY: return current_dexterity
+		Attributes.ENDURANCE: return current_endurance
+		Attributes.INTELLECT: return current_intellect
+		Attributes.FAITH: return current_faith
+		Attributes.ATTUNEMENT: return current_attunement
+	return 0
+
 func print_attributes()-> void:
 	print("Base Strength : " + str(base_strength))
 	print("Base Dexterity : " + str(base_dexterity))
@@ -319,3 +330,22 @@ func print_attributes()-> void:
 	print("Current Intellect : " + str(current_intellect))
 	print("Current Faith : " + str(current_faith))
 	print("Current Attunement : " + str(current_attunement))
+
+func reset_current_stats() -> void:
+	current_strength = base_strength
+	current_dexterity = base_dexterity
+	current_endurance = base_endurance
+	current_intellect = base_intellect
+	current_faith = base_faith
+	current_attunement = base_attunement
+
+	current_max_health = base_max_health
+	current_health_regen = base_health_regen
+	current_movement_speed = base_movement_speed
+	current_dodge_probability = base_dodge_probability
+	current_parry_probability = base_parry_probability
+	current_block_probability = base_block_probability
+	current_flat_block_power = base_flat_block_power
+	current_percent_block_power = base_percent_block_power
+	current_crit_chance = base_crit_chance
+	current_crit_damage = base_crit_damage

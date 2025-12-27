@@ -6,18 +6,19 @@ enum ScalingType{
 	PERCENT,
 }
 
-@export var stat_value : float = 0.0
+@export var source_stat : Stats.Attributes
 @export var scaling_value: float = 1.0
 @export var scaling_type: ScalingType = ScalingType.LINEAR
 @export var scaling_power : float = 0.9
 
-func _init(_stat_value = 0.0, _scaling_type : ScalingType = ScalingType.LINEAR, _scaling_value: float = 1.0, _scaling_power: float = 0.9) -> void:
-	stat_value = float(_stat_value)
+func _init(_source_stat : Stats.Attributes = Stats.Attributes.STRENGTH, _scaling_type : ScalingType = ScalingType.LINEAR, _scaling_value: float = 1.0, _scaling_power: float = 0.9) -> void:
+	source_stat = _source_stat
 	scaling_type = _scaling_type
 	scaling_value = _scaling_value
 	scaling_power = _scaling_power
 
-func get_scaling_value() -> float :
+func compute(stats : Stats) -> float :
+	var stat_value := stats.get_current_attribute(source_stat)
 	match scaling_type : 
 		ScalingType.LINEAR : 
 			var res : float = (pow(stat_value, scaling_power) * scaling_value)
