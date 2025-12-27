@@ -143,9 +143,9 @@ func resolve_hit(hit_result : HitData) :
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
 
-func update_healthBar():
-	%HealthBar.max_value = stats.current_max_health
-	%HealthBar.value = stats.health
+func update_healthBar(_health, _max_health):
+	%HealthBar.max_value = _max_health
+	%HealthBar.value = _health
 
 func apply_data(data: StickmanData) -> void:
 	#Replace all of this to use the new stat resource instead

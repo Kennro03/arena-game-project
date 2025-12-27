@@ -22,7 +22,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	owner.last_attack_time += delta
 	owner.stats.health += owner.stats.current_health_regen * delta
-	owner.update_healthBar()
 	state.update(delta)
 
 
