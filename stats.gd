@@ -26,7 +26,7 @@ enum BuffableStats {
 	FLAT_BLOCK_POWER,
 	PERCENT_BLOCK_POWER,
 	CRIT_CHANCE,
-	CRIT_DAMAGE
+	CRIT_DAMAGE,
 }
 
 signal health_depleted
@@ -48,7 +48,8 @@ signal health_changed(cur_health:float,max_health:float)
 @export var base_flat_block_power : float = 0.0
 @export var base_percent_block_power : float = 50.0
 @export var base_crit_chance : float = 5.0
-@export var base_crit_damage : float = 1.5
+@export var base_crit_damage : float = 1.0
+
 @export var experience : int = 0: set = _on_experience_set
 
 @export var max_health_scalings: Array[StatScaling] = [

@@ -1,24 +1,30 @@
 extends Resource
 class_name Weapon
 
+signal attack_performed(attack_type:AttackTypeEnum, endlag: float)
+
+enum WeaponTypeEnum { LIGHT, MEDIUM, HEAVY, SPECIAL }
+enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK, SPECIALATTACK}
+
 @export var weaponName : String
 @export var description : String
 @export var icon : Texture2D
 
-enum WeaponTypeEnum { LIGHT, MEDIUM, HEAVY, SPECIAL }
 @export var weaponType : WeaponTypeEnum
-
 @export var attack_speed : float
 @export var attack_range : float
 @export var damage: float
 @export var knockback : float
-@export var statChanges : Dictionary
-@export var endLag : float
+@export var statChanges : Array[StatBuff]
 @export var attackTypes : Dictionary = {
 	"light" : 8,
 	"heavy" : 2,
 	"special" : 0
 }
+
+@export var light_endlag :float = 0.15
+@export var heavy_endlag :float = 0.6
+@export var special_endlag :float = 0.4
 
 func generate_item(_weightedDict : Dictionary):
 	var totalWeights : float = 0
@@ -34,7 +40,7 @@ func generate_item(_weightedDict : Dictionary):
 	print("NO KEY MADE CHOSEN: REPEAT")
 
 func applyStatChanges()-> void:
-	for stat in statChanges : 
+	for buff in statChanges : 
 		#apply stat changes to the stickman equipping the weapon
 		pass
 
@@ -44,6 +50,7 @@ func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
+	attack_performed.emit(AttackTypeEnum.LIGHTATTACK, light_endlag)
 
 func heavyHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used heavy hit")
@@ -51,6 +58,7 @@ func heavyHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
+	attack_performed.emit(AttackTypeEnum.HEAVYATTACK, heavy_endlag)
 
 func specialHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used special hit")
@@ -58,6 +66,7 @@ func specialHit(target:Node2D, attack_damage:float,  knockback_direction:= Vecto
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
+	attack_performed.emit(AttackTypeEnum.SPECIALATTACK, special_endlag)
 
 func hit(target:Node2D, damage_mult: float = 1.0, knockback_direction:= Vector2.ZERO)-> void:
 	var attack : String = generate_item(attackTypes)

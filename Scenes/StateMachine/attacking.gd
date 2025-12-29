@@ -6,6 +6,8 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	owner.spriteNode.play_fighting_animation()
 
 func physics_update(_delta: float) -> void:
+	if owner.is_action_locked():
+		return  
 	if !owner.animationPlayerNode.is_playing():
 		owner.spriteNode.play_fighting_animation()
 	
@@ -23,7 +25,6 @@ func physics_update(_delta: float) -> void:
 			finished.emit(CASTING)
 	
 	if closest_target !=null and owner.can_hit() :
-		owner.spriteNode.play_lightHit_animation()
 		owner.attack(closest_target)
 		#print(str(closest_target) + " health = " + str(closest_target.health))
 		owner.last_attack_time = 0.0

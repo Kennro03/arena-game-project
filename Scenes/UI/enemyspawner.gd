@@ -81,7 +81,7 @@ func spawn_random_stickman(pos: Vector2, data: StickmanData):
 	var testhammer :Weapon = load("res://Scenes/Weapons/testhammer.tres")
 	var randWeapon : Array[Weapon] = [testdagger,testsword,testhammer]
 	unit.weapon = randWeapon.pick_random()
-	print("Stickman weapon chosen : " + str(unit.weapon.weaponName))
+	#print("Stickman weapon chosen : " + str(unit.weapon.weaponName))
 	
 	unit.sprite_color = rand_data.color
 	for skill in rand_data.skill_list:

@@ -20,6 +20,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	if owner.action_lock_time > 0.0:
+		owner.attack_lock_time -= delta
 	owner.last_attack_time += delta
 	owner.stats.health += owner.stats.current_health_regen * delta
 	state.update(delta)

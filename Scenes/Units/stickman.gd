@@ -13,6 +13,7 @@ var animationPlayerNode
 @export var weapon : Weapon = null
 @export var skillModule : Node
 
+var action_lock_time := 0.0
 var last_attack_time:= 0.0
 var is_casting: bool = false
 var is_stunned: bool = false
@@ -38,10 +39,13 @@ func _ready():
 	add_to_group(enemies_group_name)
 	
 	if weapon == null :
-		weapon = preload("res://Scenes/Weapons/fists.tres") 
+		equip_weapon()
 	
 	stats.connect("health_changed",update_healthBar)
 	stats.connect("health_depleted",die)
+
+func is_action_locked () -> bool:
+	return action_lock_time > 0.0
 
 func can_hit()-> bool :
 	if last_attack_time >= 1.0/weapon.attack_speed:
@@ -81,10 +85,11 @@ func target_proximity_check(target : Node2D, max_distance : float) :
 		return false
 
 func attack(target : Node2D):
+	if is_action_locked():
+		return
 	if not weapon:
 		printerr("Could not find a weapon.")
-		weapon = preload("res://Scenes/Weapons/fists.tres")
-	
+		equip_weapon()
 	var is_crit := randf() <= stats.current_crit_chance / 100.0
 	var crit_mult := stats.current_crit_damage if is_crit else 1.0
 	var target_direction : Vector2 = get_target_position_vector(target.global_position).normalized()
@@ -166,3 +171,15 @@ func apply_data(data: StickmanData) -> void:
 func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
 	queue_free()
+
+func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").duplicate(true)) -> void:
+	if weapon and weapon.attack_performed.is_connected(_on_weapon_attack):
+		weapon.attack_performed.disconnect(_on_weapon_attack)
+	print("Equipping weapon : " + str(_wep.weaponName))
+	weapon = _wep
+	_wep.attack_performed.connect(_on_weapon_attack)
+
+func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
+	print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
+	spriteNode.play_attack_animation(attack_type,weapon, 1.0, weapon.attack_speed)
+	action_lock_time = _endlag
