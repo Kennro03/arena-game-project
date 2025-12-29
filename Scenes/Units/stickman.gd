@@ -13,7 +13,7 @@ var animationPlayerNode
 @export var weapon : Weapon = null
 @export var skillModule : Node
 
-var action_lock_time := 0.0
+var is_action_locked := false
 var last_attack_time:= 0.0
 var is_casting: bool = false
 var is_stunned: bool = false
@@ -43,9 +43,10 @@ func _ready():
 	
 	stats.connect("health_changed",update_healthBar)
 	stats.connect("health_depleted",die)
+	animationPlayerNode.animation_finished.connect(_on_anim_finished)
 
-func is_action_locked () -> bool:
-	return action_lock_time > 0.0
+func _on_anim_finished(anim_name):
+	is_action_locked = false
 
 func can_hit()-> bool :
 	if last_attack_time >= 1.0/weapon.attack_speed:
@@ -85,7 +86,7 @@ func target_proximity_check(target : Node2D, max_distance : float) :
 		return false
 
 func attack(target : Node2D):
-	if is_action_locked():
+	if is_action_locked:
 		return
 	if not weapon:
 		printerr("Could not find a weapon.")
@@ -181,5 +182,5 @@ func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").dup
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
 	print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
-	spriteNode.play_attack_animation(attack_type,weapon, 1.0, weapon.attack_speed)
-	action_lock_time = _endlag
+	spriteNode.play_attack_animation(attack_type,weapon, weapon.attack_speed)
+	is_action_locked = true

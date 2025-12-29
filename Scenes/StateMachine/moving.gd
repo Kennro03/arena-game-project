@@ -6,8 +6,8 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	owner.animationPlayerNode.stop()
 
 func physics_update(_delta: float) -> void:
-	if owner.is_action_locked():
-		return  
+	if owner.is_action_locked:
+		return
 	closest_target = owner.get_closest_unit()
 	if closest_target != null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)

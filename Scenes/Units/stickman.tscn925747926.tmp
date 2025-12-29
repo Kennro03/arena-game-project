@@ -1,0 +1,85 @@
+[gd_scene load_steps=15 format=3 uid="uid://c8qwxekpq23e3"]
+
+[ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/Units/stickman.gd" id="1_j4fy3"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://scaling.gd" id="2_et0ph"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="2_g4boi"]
+[ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="2_s68di"]
+[ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="2_y784s"]
+[ext_resource type="PackedScene" uid="uid://dpm4plan27goy" path="res://Scenes/Units/stickman_sprite.tscn" id="4_g4boi"]
+[ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="4_to2s8"]
+[ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="5_omsj2"]
+[ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
+[ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="8_n38p5"]
+[ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="10_awmep"]
+[ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="11_awmep"]
+
+[sub_resource type="Resource" id="Resource_et0ph"]
+resource_local_to_scene = true
+script = ExtResource("2_g4boi")
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
+radius = 9.0
+height = 36.0
+
+[node name="Stickman" type="Node2D" node_paths=PackedStringArray("skillModule") groups=["Stickmen"]]
+script = ExtResource("1_j4fy3")
+stats = SubResource("Resource_et0ph")
+skillModule = NodePath("SkillModule")
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
+unique_name_in_owner = true
+script = ExtResource("2_y784s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4ub1n")
+debug_color = Color(0, 0.470588, 0.701961, 0.545098)
+
+[node name="StickmanSprite" parent="." instance=ExtResource("4_g4boi")]
+z_index = 1
+position = Vector2(0, -32)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_s68di")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_to2s8")
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("5_omsj2")
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("6_3vlyt")
+
+[node name="Casting" type="Node" parent="StateMachine"]
+script = ExtResource("8_n38p5")
+
+[node name="SkillModule" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("11_awmep")
+
+[node name="DamagePopupMarker" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -65)
+script = ExtResource("10_awmep")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+modulate = Color(0, 1, 0, 1)
+z_index = -1
+offset_left = -17.0
+offset_top = 9.0
+offset_right = 17.0
+offset_bottom = 15.0
+value = 100.0
+show_percentage = false
