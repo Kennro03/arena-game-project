@@ -138,6 +138,7 @@ func setup_base_stats_from_dict(dict : Dictionary) -> void :
 	base_percent_block_power = dict.get("percent_block_power",base_percent_block_power)
 	base_crit_chance = dict.get("crit_chance",base_crit_chance)
 	base_crit_damage = dict.get("crit_damage",base_crit_damage)
+	recalculate_stats()
 
 func add_buff(buff: StatBuff) -> void :
 	stat_buffs.append(buff)
@@ -279,8 +280,7 @@ func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dic
 			"crit_chance": base_crit_chance,
 			"crit_damage": base_crit_damage,
 
-			"level": level,
-			"health": health
+			"experience": experience,
 		}
 	else : 
 		printerr("Value type not valid, use a correct StatValueType")
