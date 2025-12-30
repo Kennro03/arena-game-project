@@ -57,33 +57,37 @@ signal health_changed(cur_health:float,max_health:float)
 	StatScaling.new(current_attunement, StatScaling.ScalingType.LINEAR, 1.5)
 ]
 @export var health_regen_scalings : Array[StatScaling] = [
-	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 0.15),
-	StatScaling.new(current_faith, StatScaling.ScalingType.LINEAR, 0.1)
+	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 0.12),
+	StatScaling.new(current_faith, StatScaling.ScalingType.LINEAR, 0.18),
 ]
 @export var movement_speed_scalings : Array[StatScaling] = [
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.LINEAR, 5.0, 0.95),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.LINEAR, 4.5, 0.9),
+	StatScaling.new(current_attunement, StatScaling.ScalingType.LINEAR, 2.5),
 ]
 @export var dodge_probability_scalings : Array[StatScaling] = [
 	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.6),
 	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.4),
 ]
 @export var parry_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.5),
-	StatScaling.new(current_strength, StatScaling.ScalingType.PERCENT, 0.25),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.2),
+	StatScaling.new(current_strength, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.4),
 ]
 @export var block_probability_scalings : Array[StatScaling] = [
 	StatScaling.new(current_endurance, StatScaling.ScalingType.PERCENT, 0.7),
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(current_faith, StatScaling.ScalingType.PERCENT, 0.2),
 ]
-@export var flat_block_power_scalings : Array[StatScaling]
+@export var flat_block_power_scalings : Array[StatScaling]= [
+	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 0.2,1.0),
+]
 @export var percent_block_power_scalings : Array[StatScaling]
 @export var crit_chance_scalings : Array[StatScaling] = [
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.4),
-	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.3),
+	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.3),
+	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.25),
 	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.2),
 ]
 @export var crit_damage_scalings : Array[StatScaling] = [
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.04),
+	StatScaling.new(current_strength, StatScaling.ScalingType.PERCENT, 0.05),
 	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.03),
 ]
 
