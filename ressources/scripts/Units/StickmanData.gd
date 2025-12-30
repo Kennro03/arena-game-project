@@ -15,7 +15,6 @@ class_name StickmanData
 @export var weapon : Weapon
 
 ## Testing / variation metadata
-@export var scale_multiplier: float = 1.0
 @export var random_seed: int = 0
 @export var tags: Array[String] = ["base"]   # e.g. ["test", "elite", "random"]
 var multiplier_array : Array[float] = []
@@ -32,14 +31,10 @@ func with_stats(_stats : Stats) -> StickmanData:
 
 func with_scale(multiplier: float) -> StickmanData:
 	var data := duplicate(true)
-	data.scale_multiplier = multiplier
 	
-	data.stats.base_strength = stats.base_strength * scale_multiplier 
-	data.stats.base_dexterity = stats.base_dexterity * scale_multiplier 
-	data.stats.base_endurance = stats.base_endurance * scale_multiplier 
-	data.stats.base_intellect = stats.base_intellect * scale_multiplier 
-	data.stats.base_faith = stats.base_faith * scale_multiplier 
-	data.stats.base_attunement = stats.base_attunement * scale_multiplier 
+	for prop in data.stats.get_property_list():
+		if prop.name.begins_with("base_") and prop.type in [TYPE_FLOAT]:
+			data.stats.set(prop.name, data.stats.get(prop.name) * multiplier)
 	
 	data.tags.append("scaled")
 	data.display_name = "%sx %.2f" % [display_name, multiplier]
@@ -63,26 +58,15 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 		seed(_seed)
 	match type : 
 		RandomizationType.ADD : 
-			var value := randi_range(int(min_value), int(max_value))
-			data.stats.base_strength += value
-			value = randi_range(int(min_value), int(max_value))
-			data.stats.base_dexterity += value
-			value = randi_range(int(min_value), int(max_value))
-			data.stats.base_endurance += value
-			value = randi_range(int(min_value), int(max_value))
-			data.stats.base_intellect += value
-			value = randi_range(int(min_value), int(max_value))
-			data.stats.base_faith += value
-			value = randi_range(int(min_value), int(max_value))
-			data.stats.base_attunement += value
+			for prop in data.stats.get_property_list():
+				if prop.name.begins_with("base_") and prop.type in [TYPE_INT, TYPE_FLOAT]:
+					var value := randf_range(min_value, max_value)
+					data.stats.set(prop.name, data.stats.get(prop.name) + value)
 		RandomizationType.MULTIPLY : 
-			var value := randf_range(min_value, max_value)
-			data.stats.base_strength = max(stats.base_strength * value,0)
-			data.stats.base_dexterity = max(stats.base_dexterity * value,0)
-			data.stats.base_endurance = max(stats.base_endurance * value,0)
-			data.stats.base_intellect = max(stats.base_intellect * value,0)
-			data.stats.base_faith = max(stats.base_faith * value,0)
-			data.stats.base_attunement = max(stats.base_attunement * value,0)
+			for prop in data.stats.get_property_list():
+				if prop.name.begins_with("base_") and prop.type in [TYPE_INT, TYPE_FLOAT]:
+					var value := randf_range(min_value, max_value)
+					data.stats.set(prop.name, data.stats.get(prop.name) * value)
 	
 	data.display_name = "Random %s" % [display_name]
 	data.tags.append("randomized")

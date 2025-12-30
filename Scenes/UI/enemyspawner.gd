@@ -55,7 +55,6 @@ func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
 	
 	var unit := stickman.instantiate()
 	unit.stats = data.stats.duplicate(true)
-	unit.stats.apply_scale(data.scale_multiplier)
 	unit.team = data.team
 	unit.weapon = data.weapon
 	unit.sprite_color = data.color

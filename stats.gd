@@ -192,9 +192,6 @@ func recalculate_stats() -> void :
 					stat_multipliers[stat_name] = 0.0
 	
 	var _stat_sample_pos: float = (float(level) / 100.0) - 0.01
-	body = current_strength + current_dexterity + current_endurance
-	mind = current_intellect + current_faith + current_attunement
-	
 	## Maybe apply scalings to base stats? 
 	current_strength = int(base_strength )
 	current_dexterity = int(base_dexterity)
@@ -210,39 +207,11 @@ func recalculate_stats() -> void :
 	for stat_name in stat_addends:
 		var cur_property_name : String = str("current_" + stat_name)
 		set(cur_property_name, get(cur_property_name) + stat_addends[stat_name])
+	
+	body = current_strength + current_dexterity + current_endurance
+	mind = current_intellect + current_faith + current_attunement
 
 
-func apply_scale(multiplier: float) -> void:
-	if multiplier == 1.0:
-		return
-
-	for stat in BuffableStats.values():
-		if stat in [
-			BuffableStats.STRENGTH,
-			BuffableStats.DEXTERITY,
-			BuffableStats.ENDURANCE,
-			BuffableStats.INTELLECT,
-			BuffableStats.FAITH,
-			BuffableStats.ATTUNEMENT,
-			
-			BuffableStats.MAX_HEALTH,
-			BuffableStats.HEALTH_REGEN,
-			BuffableStats.MOVEMENT_SPEED,
-			BuffableStats.DODGE_PROBABILITY,
-			BuffableStats.PARRY_PROBABILITY,
-			BuffableStats.BLOCK_PROBABILITY,
-			BuffableStats.FLAT_BLOCK_POWER,
-			BuffableStats.PERCENT_BLOCK_POWER,
-			BuffableStats.CRIT_CHANCE,
-			BuffableStats.CRIT_DAMAGE,
-		]:
-			add_buff(
-				StatBuff.new(
-					stat,
-					multiplier - 1.0,
-					StatBuff.BuffType.MULTIPLY
-				)
-			)
 
 func _on_health_set(new_value : float) -> void:
 	health = clampf(new_value, 0, current_max_health)
@@ -318,19 +287,22 @@ func get_current_attribute(attr: Attributes) -> int:
 	return 0
 
 func print_attributes()-> void:
-	print("Base Strength : " + str(base_strength))
-	print("Base Dexterity : " + str(base_dexterity))
-	print("Base Endurance : " + str(base_endurance))
-	print("Base Intellect : " + str(base_intellect))
-	print("Base Faith : " + str(base_faith))
-	print("Base Attunement : " + str(base_attunement))
-	
 	print("Current Strength : " + str(current_strength))
 	print("Current Dexterity : " + str(current_dexterity))
 	print("Current Endurance : " + str(current_endurance))
 	print("Current Intellect : " + str(current_intellect))
 	print("Current Faith : " + str(current_faith))
 	print("Current Attunement : " + str(current_attunement))
+
+func print_stats()-> void :
+	print("Current max health : " + str(current_max_health))
+	print("Current health regen : " + str(current_health_regen))
+	print("Current movement speed : " + str(current_movement_speed))
+	print("Current dodge chance : " + str(current_dodge_probability))
+	print("Current parry chance : " + str(current_parry_probability))
+	print("Current block chance : " + str(current_block_probability))
+	print("Current block (flat) power : " + str(current_flat_block_power))
+	print("Current block (percent) power : " + str(current_percent_block_power))
 
 func reset_current_stats() -> void:
 	current_strength = base_strength

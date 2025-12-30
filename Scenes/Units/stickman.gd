@@ -27,6 +27,7 @@ func _ready():
 	animationPlayerNode = $StickmanSprite/AnimationPlayer
 	spriteNode.bodyColor = sprite_color
 	spriteNode.selfmodulate()
+	
 	if team != null :
 		var flag: PackedScene = preload("res://Scenes/flag.tscn")
 		var flag_instance
@@ -35,17 +36,19 @@ func _ready():
 		flag_instance.modulate = team.team_color
 		add_child(flag_instance)
 	
-	%HealthBar.max_value = stats.health
-	add_to_group(enemies_group_name)
-	
 	if weapon == null :
 		equip_weapon()
 	
+	add_to_group(enemies_group_name)
+	update_healthBar(stats.health,stats.current_max_health)
 	stats.connect("health_changed",update_healthBar)
 	stats.connect("health_depleted",die)
 	animationPlayerNode.animation_finished.connect(_on_anim_finished)
+	
+	stats.print_attributes.call_deferred()
+	stats.print_stats.call_deferred()
 
-func _on_anim_finished(anim_name):
+func _on_anim_finished(_anim_name):
 	is_action_locked = false
 
 func can_hit()-> bool :
@@ -155,14 +158,14 @@ func update_healthBar(_health, _max_health):
 
 func apply_data(data: StickmanData) -> void:
 	#Replace all of this to use the new stat resource instead
-	self.stats.base_movement_speed = data.speed
-	self.stats.base_max_health = data.max_health
-	self.stats.base_health_regen = data.health_regen
-	self.stats.base_dodge_probability = data.dodge_probability
-	self.stats.base_parry_probability = data.parry_probability
-	self.stats.base_block_probability = data.block_probability
-	self.stats.base_flat_block_power = data.flat_block_power
-	self.stats.base_percent_block_power = data.percent_block_power
+	self.stats.base_movement_speed = data.stats.base_movement_speed
+	self.stats.base_max_health = data.stats.base_max_health
+	self.stats.base_health_regen = data.stats.base_health_regen
+	self.stats.base_dodge_probability = data.stats.base_dodge_probability
+	self.stats.base_parry_probability = data.stats.base_parry_probability
+	self.stats.base_block_probability = data.stats.base_block_probability
+	self.stats.base_flat_block_power = data.stats.base_flat_block_power
+	self.stats.base_percent_block_power = data.stats.base_percent_block_power
 	
 	self.sprite_color = data.color
 	self.team = data.team
@@ -181,6 +184,6 @@ func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").dup
 	_wep.attack_performed.connect(_on_weapon_attack)
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
-	print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
+	 #print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
 	spriteNode.play_attack_animation(attack_type,weapon, weapon.attack_speed)
 	is_action_locked = true
