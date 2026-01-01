@@ -22,6 +22,7 @@ movement_speed_scalings = null
 dodge_probability_scalings = null
 parry_probability_scalings = null
 block_probability_scalings = null
+flat_block_power_scalings = null
 crit_chance_scalings = null
 crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"

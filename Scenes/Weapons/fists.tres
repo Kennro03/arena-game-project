@@ -11,6 +11,4 @@ attack_speed = 1.0
 attack_range = 90.0
 damage = 8.0
 knockback = 100.0
-light_endlag = 0.1
-heavy_endlag = 0.5
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

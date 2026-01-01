@@ -158,19 +158,17 @@ func update_healthBar(_health, _max_health):
 
 func apply_data(data: StickmanData) -> void:
 	#Replace all of this to use the new stat resource instead
-	self.stats.base_movement_speed = data.stats.base_movement_speed
-	self.stats.base_max_health = data.stats.base_max_health
-	self.stats.base_health_regen = data.stats.base_health_regen
-	self.stats.base_dodge_probability = data.stats.base_dodge_probability
-	self.stats.base_parry_probability = data.stats.base_parry_probability
-	self.stats.base_block_probability = data.stats.base_block_probability
-	self.stats.base_flat_block_power = data.stats.base_flat_block_power
-	self.stats.base_percent_block_power = data.stats.base_percent_block_power
-	
+	self.id = data.id
+	self.display_name = data.display_name
+	self.description = data.description
+	self.icon = data.icon
 	self.sprite_color = data.color
 	self.team = data.team
 	
+	self.stats = data.stats
 	%SkillModule.skill_list = data.skill_list
+	self.weapon = data.weapon
+	
 
 func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
