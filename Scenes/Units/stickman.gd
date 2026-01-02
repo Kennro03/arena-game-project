@@ -73,7 +73,6 @@ func get_closest_unit(max_distance := INF, group_name : String = enemies_group_n
 func get_target_position_vector(target_position := Vector2()) -> Vector2:
 	var closest_target_vector : Vector2
 	closest_target_vector = target_position-self.position
-	
 	return closest_target_vector
 
 func position_proximity_check(target_position : Vector2, max_distance : float) :
@@ -98,7 +97,6 @@ func attack(target : Node2D):
 	var crit_mult := stats.current_crit_damage if is_crit else 1.0
 	var target_direction : Vector2 = get_target_position_vector(target.global_position).normalized()
 	weapon.hit(target, crit_mult, target_direction)
-	
 	# line used to check for crit :
 	# if randf_range(0.0,100.0)<=stats.current_crit_chance : 
 
@@ -166,9 +164,9 @@ func apply_data(data: StickmanData) -> void:
 	self.team = data.team
 	
 	self.stats = data.stats
-	%SkillModule.skill_list = data.skill_list
+	self.stat.setup_stats()
 	self.weapon = data.weapon
-	
+	%SkillModule.skill_list = data.skill_list
 
 func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)

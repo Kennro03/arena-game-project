@@ -3,23 +3,27 @@ class_name Weapon
 
 signal attack_performed(attack_type:AttackTypeEnum, endlag: float)
 
-enum WeaponTypeEnum { LIGHT, MEDIUM, HEAVY, SPECIAL }
+enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY, SPECIAL }
+enum WeaponTypeEnum { UNARMED, DAGGER, SWORD, HAMMER, STAFF }
 enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK, SPECIALATTACK}
 
 @export var weaponName : String
+@export var weaponType : WeaponTypeEnum
+@export var weaponCategory : WeaponCategoryEnum
+
 @export var description : String
 @export var icon : Texture2D
 
-@export var weaponType : WeaponTypeEnum
 @export var attack_speed : float
 @export var attack_range : float
 @export var damage: float
 @export var knockback : float
+
 @export var statChanges : Array[StatBuff]
 @export var attackTypes : Dictionary = {
-	"light" : 8,
-	"heavy" : 2,
-	"special" : 0
+	AttackTypeEnum.LIGHTATTACK : 8,
+	AttackTypeEnum.HEAVYATTACK : 2,
+	AttackTypeEnum.SPECIALATTACK : 0
 }
 
 @export var light_endlag :float = 0.15
@@ -69,14 +73,13 @@ func specialHit(target:Node2D, attack_damage:float,  knockback_direction:= Vecto
 	attack_performed.emit(AttackTypeEnum.SPECIALATTACK, special_endlag)
 
 func hit(target:Node2D, damage_mult: float = 1.0, knockback_direction:= Vector2.ZERO)-> void:
-	var attack : String = generate_item(attackTypes)
+	var attack : AttackTypeEnum = generate_item(attackTypes)
 	var final_damage := damage * damage_mult
-
-	if attack == "light" :
-		lightHit(target,final_damage,knockback_direction)
-	elif attack == "heavy" :
-		heavyHit(target,final_damage,knockback_direction)
-	elif attack == "special" :
-		specialHit(target,final_damage,knockback_direction)
-	else :
-		pass
+	
+	match attack :
+		AttackTypeEnum.LIGHTATTACK:
+			lightHit(target, final_damage, knockback_direction)
+		AttackTypeEnum.HEAVYATTACK:
+			heavyHit(target, final_damage, knockback_direction)
+		AttackTypeEnum.SPECIALATTACK:
+			specialHit(target, final_damage, knockback_direction)
