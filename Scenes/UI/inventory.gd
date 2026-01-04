@@ -13,10 +13,15 @@ var selected_unit_data: StickmanData = null
 var drag_data : StickmanData = null
 var dragged_slot : Button
 var dragged_slot_phantom : Sprite2D = Sprite2D.new()
-
+var phantom_sprite := Sprite2D.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	phantom_sprite.texture = preload("res://ressources/Sprites/Units/Stickman/Stickman White Tpose.png")
+	phantom_sprite.modulate.a = 0.5
+	add_child(phantom_sprite)
+	phantom_sprite.visible = false
+	
 	inventory.resize(inventory_size)
 	instantiate_inventory(inventory_size)
 	
@@ -33,7 +38,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	if drag_data != null:
+		phantom_sprite.modulate = Color(drag_data.color.r,drag_data.color.g,drag_data.color.b,0.5) 
+		phantom_sprite.visible = true
+		phantom_sprite.global_position = get_global_mouse_position()
+	else:
+		phantom_sprite.visible = false
 
 func instantiate_inventory(inv_size:int) -> void:
 	for i in range(inv_size):
@@ -115,8 +125,8 @@ func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_released() and event.button_index == MOUSE_BUTTON_LEFT:
 		var hovered = get_viewport().gui_get_hovered_control()
 		if hovered != null and hovered.get_class() == "Button" and dragged_slot and dragged_slot.stickman_data != hovered.stickman_data :
-			"Switching drag and release slot"
 			var temp : StickmanData = hovered.stickman_data
+			selected_unit_data = temp
 			hovered.stickman_data = drag_data
 			dragged_slot.stickman_data = temp
 			dragged_slot.update_sprite()
@@ -124,4 +134,3 @@ func _on_gui_input(event: InputEvent) -> void:
 		if drag_data :
 			dragged_slot = null
 			drag_data = null
-	pass # Replace with function body.

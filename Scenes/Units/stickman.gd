@@ -12,6 +12,7 @@ var animationPlayerNode
 @export var stats : Stats = Stats.new()
 @export var weapon : Weapon = null
 @export var skillModule : Node
+@export var default_weapon : Weapon = preload("res://Scenes/Weapons/fists.tres")
 
 var is_action_locked := false
 var last_attack_time:= 0.0
@@ -36,9 +37,7 @@ func _ready():
 		flag_instance.modulate = team.team_color
 		add_child(flag_instance)
 	
-	if weapon == null :
-		equip_weapon()
-	
+	ensure_weapon()
 	add_to_group(enemies_group_name)
 	update_healthBar(stats.health,stats.current_max_health)
 	stats.connect("health_changed",update_healthBar)
@@ -172,6 +171,10 @@ func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
 	queue_free()
 
+func ensure_weapon() -> void:
+	var wep : Weapon = weapon if weapon != null else default_weapon
+	equip_weapon(wep.duplicate(true))
+
 func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").duplicate(true)) -> void:
 	if weapon and weapon.attack_performed.is_connected(_on_weapon_attack):
 		weapon.attack_performed.disconnect(_on_weapon_attack)
@@ -181,5 +184,5 @@ func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").dup
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
 	 #print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
-	spriteNode.play_attack_animation(attack_type,weapon, weapon.attack_speed)
+	spriteNode.play_attack_animation(attack_type,weapon)
 	is_action_locked = true

@@ -307,6 +307,8 @@ func print_stats()-> void :
 	print("Current block chance : " + str(current_block_probability))
 	print("Current block (flat) power : " + str(current_flat_block_power))
 	print("Current block (percent) power : " + str(current_percent_block_power))
+	print("Current crit chance : " + str(current_crit_chance))
+	print("Current crit damage : " + str(current_crit_damage))
 
 func reset_current_stats() -> void:
 	current_strength = base_strength

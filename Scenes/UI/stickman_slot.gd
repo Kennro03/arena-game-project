@@ -21,7 +21,7 @@ func _on_pressed():
 
 func update_sprite() :
 	if stickman_data :
-		%StickmanSpriteIcon.texture = load("res://ressources/Sprites/Units/Stickman White Tpose.png")
+		%StickmanSpriteIcon.texture = load("res://ressources/Sprites/Units/Stickman/Stickman White Tpose.png")
 		%StickmanSpriteIcon.modulate = stickman_data.color
 		%StickmanSpriteIcon.visible = true
 	else : 

@@ -103,16 +103,16 @@ func play_specialHit_animation(animationSpeed : float = 1.0, animationName : Str
 		var anim = attack_animations[Weapon.AttackTypeEnum.SPECIALATTACK].pick_random()
 		$AnimationPlayer.play(anim, -1, animationSpeed)
 
-func play_attack_animation(attack_type: Weapon.AttackTypeEnum, weapon: Weapon, animationSpeed : float = 1.0) -> void:
+func play_attack_animation(attack_type: Weapon.AttackTypeEnum, weapon: Weapon) -> void:
 	var weapon_type_name : String = Weapon.WeaponTypeEnum.keys()[weapon.weaponType].to_lower()
 	var attack_name : String = Weapon.AttackTypeEnum.keys()[attack_type].to_lower()
-	var anim := "%s_%s" % [weapon_type_name, attack_name]
-	print("Searching animation player for " + str(anim))
+	var anim : String = "%s_%s" % [weapon_type_name, attack_name]
+	#print("Searching animation player for " + str(anim))
 	if $AnimationPlayer.has_animation(anim):
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		$AnimationPlayer.play(anim, -1, weapon.attack_speed)
 	else:
 		# fallback to generic
 		match attack_type:
-			Weapon.AttackTypeEnum.LIGHTATTACK: play_lightHit_animation(animationSpeed)
-			Weapon.AttackTypeEnum.HEAVYATTACK: play_heavyHit_animation(animationSpeed)
-			Weapon.AttackTypeEnum.SPECIALATTACK: play_specialHit_animation(animationSpeed)
+			Weapon.AttackTypeEnum.LIGHTATTACK: play_lightHit_animation(weapon.attack_speed)
+			Weapon.AttackTypeEnum.HEAVYATTACK: play_heavyHit_animation(weapon.attack_speed)
+			Weapon.AttackTypeEnum.SPECIALATTACK: play_specialHit_animation(weapon.attack_speed)

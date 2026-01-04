@@ -3,7 +3,7 @@ class_name Weapon
 
 signal attack_performed(attack_type:AttackTypeEnum, endlag: float)
 
-enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY, SPECIAL }
+enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
 enum WeaponTypeEnum { UNARMED, DAGGER, SWORD, HAMMER, STAFF }
 enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK, SPECIALATTACK}
 
@@ -35,12 +35,12 @@ func generate_item(_weightedDict : Dictionary):
 	for key in _weightedDict:
 		totalWeights += _weightedDict[key]
 	var accumulatedweight : int = 0
-	var randomWeight : float = randi_range(0, int(totalWeights)) ## Generate a random weight
+	var randomWeight : float = randi_range(0, int(totalWeights))
 	## Pick a random item based on the random weight
 	for key in _weightedDict: 
 		accumulatedweight += _weightedDict[key]
 		if randomWeight <= accumulatedweight:
-			return key
+			return int(key)
 	print("NO KEY MADE CHOSEN: REPEAT")
 
 func applyStatChanges()-> void:
