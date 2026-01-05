@@ -10,7 +10,7 @@ var animationPlayerNode
 @export var team: Team
 
 @export var stats : Stats = Stats.new()
-@export var weapon : Weapon = null
+@export var weapon : Weapon = null : set = _set_weapon
 @export var skillModule : Node
 @export var default_weapon : Weapon = preload("res://Scenes/Weapons/fists.tres")
 
@@ -37,7 +37,6 @@ func _ready():
 		flag_instance.modulate = team.team_color
 		add_child(flag_instance)
 	
-	ensure_weapon()
 	add_to_group(enemies_group_name)
 	update_healthBar(stats.health,stats.current_max_health)
 	stats.connect("health_changed",update_healthBar)
@@ -46,12 +45,13 @@ func _ready():
 	
 	stats.print_attributes.call_deferred()
 	stats.print_stats.call_deferred()
+	ensure_weapon()
 
 func _on_anim_finished(_anim_name):
 	is_action_locked = false
 
 func can_hit()-> bool :
-	if last_attack_time >= 1.0/weapon.attack_speed:
+	if last_attack_time >= 1.0/weapon.current_attack_speed :
 		return true
 	else : 
 		return false
@@ -74,14 +74,28 @@ func get_target_position_vector(target_position := Vector2()) -> Vector2:
 	closest_target_vector = target_position-self.position
 	return closest_target_vector
 
-func position_proximity_check(target_position : Vector2, max_distance : float) :
+func position_proximity_check(target_position : Vector2, max_distance : float) -> bool :
 	if self.position.distance_to(target_position) <= max_distance :
 		return true
 	else :
 		return false
 
-func target_proximity_check(target : Node2D, max_distance : float) :
+func target_proximity_check(target : Node2D, max_distance : float) -> bool :
 	if target != null and self.position.distance_to(target.position) <= max_distance :
+		return true
+	else :
+		return false
+
+#Returns true when stickman is close enought to a target to start attacking, to dictate when it should stop moving towards a target
+func melee_close_range_check(target : Node2D) -> bool : 
+	if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range/1.3) :
+		return true
+	else :
+		return false
+
+#Returns true as long as target is in melee range
+func melee_range_check(target : Node2D) -> bool : 
+	if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range) :
 		return true
 	else :
 		return false
@@ -171,15 +185,26 @@ func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
 	queue_free()
 
+func _set_weapon(_wep: Weapon) -> void:
+	equip_weapon.call_deferred(_wep)
+
 func ensure_weapon() -> void:
 	var wep : Weapon = weapon if weapon != null else default_weapon
 	equip_weapon(wep.duplicate(true))
 
 func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").duplicate(true)) -> void:
-	if weapon and weapon.attack_performed.is_connected(_on_weapon_attack):
-		weapon.attack_performed.disconnect(_on_weapon_attack)
 	print("Equipping weapon : " + str(_wep.weaponName))
+	if weapon and weapon.attack_performed.is_connected(_on_weapon_attack):
+		weapon.remove_owner_buffs(stats)
+		weapon.clear_weapon_buffs()
+		weapon.attack_performed.disconnect(_on_weapon_attack)
+		stats.changed.disconnect(weapon._on_owner_stats_change)
 	weapon = _wep
+	weapon.owner_stats = stats
+	weapon.apply_owner_buffs(stats)
+	weapon.setup_stats()
+	
+	stats.changed.connect(weapon._on_owner_stats_change)
 	_wep.attack_performed.connect(_on_weapon_attack)
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:

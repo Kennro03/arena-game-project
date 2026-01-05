@@ -157,7 +157,7 @@ func recalculate_stats() -> void :
 	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
 	var stat_addends: Dictionary = {} #Amount to add to included stats
 	
-	#Stat scaling logic will be calculated here, for each buffable stat, every scaling will be applied depending on its scaling stat and the current stat value
+	#Stat scaling logic
 	for scaling in max_health_scalings : 
 		current_max_health += scaling.compute(self)
 	for scaling in health_regen_scalings : 

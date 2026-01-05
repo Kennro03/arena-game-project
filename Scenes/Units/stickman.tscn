@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/Units/stickman.gd" id="1_j4fy3"]
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://scaling.gd" id="2_et0ph"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_et0ph"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="2_g4boi"]
 [ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="2_s68di"]
 [ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="2_y784s"]

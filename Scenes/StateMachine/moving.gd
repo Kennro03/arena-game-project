@@ -26,8 +26,9 @@ func physics_update(_delta: float) -> void:
 		if %SkillModule.check_any_usable_skill() : 
 			finished.emit(CASTING)
 	
+	if owner.melee_close_range_check(closest_target) :
+		finished.emit(IDLE)
+		return
+	
 	if closest_target_vector: 
 		owner.position = owner.position + closest_target_vector.normalized()*owner.stats.current_movement_speed*_delta
-	
-	if owner.target_proximity_check(closest_target,owner.weapon.attack_range/1.3) :
-		finished.emit(IDLE)

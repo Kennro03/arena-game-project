@@ -31,5 +31,5 @@ func physics_update(_delta: float) -> void:
 	
 	if !closest_target :
 		finished.emit(IDLE)
-	if closest_target != null and !owner.target_proximity_check(closest_target,owner.weapon.attack_range):
+	if !owner.melee_range_check(closest_target):
 		finished.emit(MOVING)

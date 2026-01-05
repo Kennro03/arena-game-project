@@ -6,6 +6,12 @@ signal attack_performed(attack_type:AttackTypeEnum, endlag: float)
 enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
 enum WeaponTypeEnum { UNARMED, DAGGER, SWORD, HAMMER, STAFF }
 enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK, SPECIALATTACK}
+enum BuffableStats {
+	ATTACK_SPEED,
+	ATTACK_RANGE,
+	DAMAGE,
+	KNOCKBACK,
+}
 
 @export var weaponName : String
 @export var weaponType : WeaponTypeEnum
@@ -14,12 +20,22 @@ enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK, SPECIALATTACK}
 @export var description : String
 @export var icon : Texture2D
 
-@export var attack_speed : float
-@export var attack_range : float
-@export var damage: float
-@export var knockback : float
+@export var base_attack_speed : float = 1.0
+@export var base_attack_range : float = 100.0
+@export var base_damage: float = 5.0
+@export var base_knockback : float = 50.0
 
-@export var statChanges : Array[StatBuff]
+var current_attack_speed : float
+var current_attack_range : float
+var current_damage: float
+var current_knockback : float
+
+@export var attack_speed_scalings : Array[StatScaling] = []
+@export var attack_range_scalings : Array[StatScaling] = []
+@export var damage_scalings : Array[StatScaling] = []
+@export var knockback_scalings : Array[StatScaling] = []
+
+@export var statChanges : Array[StatBuff] = []
 @export var attackTypes : Dictionary = {
 	AttackTypeEnum.LIGHTATTACK : 8,
 	AttackTypeEnum.HEAVYATTACK : 2,
@@ -30,27 +46,114 @@ enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK, SPECIALATTACK}
 @export var heavy_endlag :float = 0.6
 @export var special_endlag :float = 0.4
 
-func generate_item(_weightedDict : Dictionary):
+var weapon_stat_buffs: Array[WeaponStatBuff] = []
+var owner_stats: Stats
+
+func setup_stats() -> void :
+	if owner_stats == null:
+		printerr("No owner_stats!")
+		return
+	recalculate_stats() 
+
+func setup_base_stats_from_dict(dict : Dictionary) -> void : 
+	base_attack_speed = dict.get("attack_speed",base_attack_speed)
+	base_attack_range = dict.get("attack_range",base_attack_range)
+	base_damage = dict.get("damage",base_damage)
+	base_knockback = dict.get("knockback",base_knockback)
+	recalculate_stats()
+
+func add_weapon_buff(buff: WeaponStatBuff) -> void :
+	if buff in weapon_stat_buffs:
+		return
+	weapon_stat_buffs.append(buff)
+	recalculate_stats.call_deferred()
+
+func remove_weapon_buff(buff: WeaponStatBuff) -> void :
+	weapon_stat_buffs.erase(buff)
+	recalculate_stats.call_deferred()
+
+func clear_weapon_buffs() -> void:
+	weapon_stat_buffs.clear()
+	recalculate_stats()
+
+func _on_owner_stats_change() -> void:
+	recalculate_stats()
+
+func apply_owner_buffs(stats: Stats):
+	for buff in statChanges:
+		stats.add_buff(buff)
+
+func remove_owner_buffs(stats: Stats):
+	for buff in statChanges:
+		stats.remove_buff(buff)
+
+func recalculate_stats() -> void :
+	reset_current_stats()
+	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
+	var stat_addends: Dictionary = {} #Amount to add to included stats
+	
+	#Stat scaling logic
+	for scaling in attack_range_scalings : 
+		current_attack_range += scaling.compute(owner_stats)
+	for scaling in attack_speed_scalings : 
+		current_attack_speed += scaling.compute(owner_stats)
+	for scaling in damage_scalings : 
+		current_damage += scaling.compute(owner_stats)
+	for scaling in knockback_scalings : 
+		current_knockback += scaling.compute(owner_stats)
+	
+	#Weapon buffs
+	for buff in weapon_stat_buffs :
+		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
+		match buff.buff_type:
+			WeaponStatBuff.BuffType.ADD:
+				if not stat_addends.has(stat_name):
+					stat_addends[stat_name] = 0.0
+				stat_addends[stat_name] += buff.buff_amount
+			
+			WeaponStatBuff.BuffType.MULTIPLY:
+				if not stat_multipliers.has(stat_name):
+					stat_multipliers[stat_name] = 1.0
+				stat_multipliers[stat_name] += buff.buff_amount
+				
+				if stat_multipliers[stat_name] < 0.0:
+					stat_multipliers[stat_name] = 0.0
+	
+	for stat_name in stat_multipliers:
+		var cur_property_name : String = str("current_" + stat_name)
+		set(cur_property_name, get(cur_property_name) * stat_multipliers[stat_name])
+	
+	for stat_name in stat_addends:
+		var cur_property_name : String = str("current_" + stat_name)
+		set(cur_property_name, get(cur_property_name) + stat_addends[stat_name])
+
+func reset_current_stats() -> void:
+	current_attack_range = base_attack_range
+	current_attack_speed = base_attack_speed
+	current_damage = base_damage
+	current_knockback = base_knockback
+
+func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTATTACK):
 	var totalWeights : float = 0
+	var accumulatedweight : int = 0
 	for key in _weightedDict:
 		totalWeights += _weightedDict[key]
-	var accumulatedweight : int = 0
-	var randomWeight : float = randi_range(0, int(totalWeights))
+	#If no key made chosen error appears, error may come from here
+	var randomWeight : float = randi_range(1, int(totalWeights)) 
+	
+	if totalWeights <= 0:
+		return fallback
+	
 	## Pick a random item based on the random weight
 	for key in _weightedDict: 
 		accumulatedweight += _weightedDict[key]
 		if randomWeight <= accumulatedweight:
 			return int(key)
-	print("NO KEY MADE CHOSEN: REPEAT")
-
-func applyStatChanges()-> void:
-	for buff in statChanges : 
-		#apply stat changes to the stickman equipping the weapon
-		pass
+	printerr("NO KEY MADE CHOSEN")
 
 func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used light hit")
-	var hit_result = HitData.new(attack_damage, knockback_direction,knockback)
+	var hit_result = HitData.new(attack_damage, knockback_direction,current_knockback)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
@@ -58,7 +161,7 @@ func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.
 
 func heavyHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used heavy hit")
-	var hit_result = HitData.new(attack_damage*1.10, knockback_direction,knockback*3.5)
+	var hit_result = HitData.new(attack_damage*1.2, knockback_direction,current_knockback*3.5)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
@@ -66,15 +169,19 @@ func heavyHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2
 
 func specialHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used special hit")
-	var hit_result = HitData.new(attack_damage, knockback_direction,knockback)
+	var hit_result = HitData.new(attack_damage, knockback_direction,current_knockback)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 	attack_performed.emit(AttackTypeEnum.SPECIALATTACK, special_endlag)
 
 func hit(target:Node2D, damage_mult: float = 1.0, knockback_direction:= Vector2.ZERO)-> void:
+	if owner_stats == null:
+		printerr("No owner_stats ! Voiding hit")
+		return
+	
 	var attack : AttackTypeEnum = generate_item(attackTypes)
-	var final_damage := damage * damage_mult
+	var final_damage := current_damage * damage_mult
 	
 	match attack :
 		AttackTypeEnum.LIGHTATTACK:

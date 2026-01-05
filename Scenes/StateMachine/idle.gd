@@ -21,7 +21,7 @@ func physics_update(_delta: float) -> void:
 		if %SkillModule.check_any_usable_skill() : 
 			finished.emit(CASTING)
 	
-	if closest_target != null and owner.target_proximity_check(closest_target,owner.weapon.attack_range) :
+	if closest_target != null and owner.melee_range_check(closest_target) :
 		finished.emit(ATTACKING)
-	elif closest_target != null and !owner.target_proximity_check(closest_target,owner.weapon.attack_range):
+	elif closest_target != null and !owner.melee_range_check(closest_target):
 		finished.emit(MOVING)

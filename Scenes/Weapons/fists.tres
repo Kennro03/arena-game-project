@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://dfscer2qw0fdp"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=4 format=3 uid="uid://dfscer2qw0fdp"]
 
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_cvsv1"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapon.gd" id="1_datym"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_jfweh"]
 
@@ -7,8 +8,5 @@
 script = ExtResource("1_datym")
 weaponName = "Fists"
 description = "A stickman's bare fist. Usually used when nothing else is available."
-attack_speed = 1.0
-attack_range = 90.0
-damage = 8.0
-knockback = 100.0
+base_damage = 10.0
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

@@ -109,10 +109,10 @@ func play_attack_animation(attack_type: Weapon.AttackTypeEnum, weapon: Weapon) -
 	var anim : String = "%s_%s" % [weapon_type_name, attack_name]
 	#print("Searching animation player for " + str(anim))
 	if $AnimationPlayer.has_animation(anim):
-		$AnimationPlayer.play(anim, -1, weapon.attack_speed)
+		$AnimationPlayer.play(anim, -1, weapon.current_attack_speed)
 	else:
 		# fallback to generic
 		match attack_type:
-			Weapon.AttackTypeEnum.LIGHTATTACK: play_lightHit_animation(weapon.attack_speed)
-			Weapon.AttackTypeEnum.HEAVYATTACK: play_heavyHit_animation(weapon.attack_speed)
-			Weapon.AttackTypeEnum.SPECIALATTACK: play_specialHit_animation(weapon.attack_speed)
+			Weapon.AttackTypeEnum.LIGHTATTACK: play_lightHit_animation(weapon.current_attack_speed)
+			Weapon.AttackTypeEnum.HEAVYATTACK: play_heavyHit_animation(weapon.current_attack_speed)
+			Weapon.AttackTypeEnum.SPECIALATTACK: play_specialHit_animation(weapon.current_attack_speed)
