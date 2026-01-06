@@ -10,7 +10,7 @@ var animationPlayerNode
 @export var team: Team
 
 @export var stats : Stats = Stats.new()
-@export var weapon : Weapon = null : set = _set_weapon
+@export var weapon : Weapon = null
 @export var skillModule : Node
 @export var default_weapon : Weapon = preload("res://Scenes/Weapons/fists.tres")
 
@@ -45,7 +45,7 @@ func _ready():
 	
 	stats.print_attributes.call_deferred()
 	stats.print_stats.call_deferred()
-	ensure_weapon()
+	
 
 func _on_anim_finished(_anim_name):
 	is_action_locked = false
@@ -88,6 +88,7 @@ func target_proximity_check(target : Node2D, max_distance : float) -> bool :
 
 #Returns true when stickman is close enought to a target to start attacking, to dictate when it should stop moving towards a target
 func melee_close_range_check(target : Node2D) -> bool : 
+	ensure_weapon()
 	if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range/1.3) :
 		return true
 	else :
@@ -95,17 +96,16 @@ func melee_close_range_check(target : Node2D) -> bool :
 
 #Returns true as long as target is in melee range
 func melee_range_check(target : Node2D) -> bool : 
+	ensure_weapon()
 	if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range) :
 		return true
 	else :
 		return false
 
 func attack(target : Node2D):
+	ensure_weapon()
 	if is_action_locked:
 		return
-	if not weapon:
-		printerr("Could not find a weapon.")
-		equip_weapon()
 	var is_crit := randf() <= stats.current_crit_chance / 100.0
 	var crit_mult := stats.current_crit_damage if is_crit else 1.0
 	var target_direction : Vector2 = get_target_position_vector(target.global_position).normalized()
@@ -185,12 +185,10 @@ func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
 	queue_free()
 
-func _set_weapon(_wep: Weapon) -> void:
-	equip_weapon.call_deferred(_wep)
-
 func ensure_weapon() -> void:
 	var wep : Weapon = weapon if weapon != null else default_weapon
-	equip_weapon(wep.duplicate(true))
+	if wep != weapon :
+		equip_weapon(wep.duplicate(true))
 
 func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").duplicate(true)) -> void:
 	print("Equipping weapon : " + str(_wep.weaponName))
@@ -200,7 +198,7 @@ func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").dup
 		weapon.attack_performed.disconnect(_on_weapon_attack)
 		stats.changed.disconnect(weapon._on_owner_stats_change)
 	weapon = _wep
-	weapon.owner_stats = stats
+	weapon.owner_stats = self.stats
 	weapon.apply_owner_buffs(stats)
 	weapon.setup_stats()
 	

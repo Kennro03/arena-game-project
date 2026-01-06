@@ -25,15 +25,18 @@ func _ready() -> void:
 	inventory.resize(inventory_size)
 	instantiate_inventory(inventory_size)
 	
-	var kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres").duplicate(true)
-	var burst_skill = preload("res://Scenes/Skills/ActiveSkills/SmallBurst_Skill.tres").duplicate(true)
+	var _kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres").duplicate(true)
+	var _burst_skill = preload("res://Scenes/Skills/ActiveSkills/SmallBurst_Skill.tres").duplicate(true)
 	#var projectile_skill = preload("res://Scenes/Skills/ActiveSkills/BaseProjectile_Skill.tres").duplicate(true)
 	
 	add_unit(StickmanData.new())
 	add_unit(StickmanData.new().with_scale(0.5))
 	add_unit(StickmanData.new().with_scale(1.5))
 	add_unit(StickmanData.new().randomized(0.5, 2.0))
-	add_unit(StickmanData.new().with_skills([kick_skill, burst_skill]))
+	add_unit(StickmanData.new().with_points(10))
+	add_unit(StickmanData.new().with_points(50))
+	add_unit(StickmanData.new().with_points(150).with_scale(0.5))
+	add_unit(StickmanData.new().with_scale(0.5).with_points(150))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
