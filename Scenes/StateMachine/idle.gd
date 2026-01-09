@@ -13,6 +13,7 @@ func physics_update(_delta: float) -> void:
 		owner.spriteNode.play_idle_animation()
 	
 	closest_target = owner.get_closest_unit()
+	
 	if closest_target !=null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)
 	

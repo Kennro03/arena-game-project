@@ -19,6 +19,7 @@ enum BuffableStats {
 
 @export var description : String
 @export var icon : Texture2D
+@export var spriteSheet : CompressedTexture2D = preload("res://ressources/Sprites/Units/Stickman/UnarmedStickman.png")
 
 @export var base_attack_speed : float = 1.0
 @export var base_attack_range : float = 100.0
@@ -39,7 +40,6 @@ var current_knockback : float
 @export var attackTypes : Dictionary = {
 	AttackTypeEnum.LIGHTATTACK : 8,
 	AttackTypeEnum.HEAVYATTACK : 2,
-	AttackTypeEnum.SPECIALATTACK : 0
 }
 
 @export var light_endlag :float = 0.15

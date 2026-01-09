@@ -12,13 +12,12 @@ var legsColor : Color = Color("White")
 var feetColor : Color = Color("White")
 
 var idle_animations = ["idle"]
-var fighting_animations = ["fighting"]
+var fighting_animations = ["stance"]
 var dodge_animations = ["dodge1","dodge2"]
 var cast_animations = []
 @export var attack_animations := {
-	Weapon.AttackTypeEnum.LIGHTATTACK: ["unarmed_lightattack1", "unarmed_lightattack2"],
-	Weapon.AttackTypeEnum.HEAVYATTACK: ["unarmed_heavyattack1"],
-	Weapon.AttackTypeEnum.SPECIALATTACK: []
+	Weapon.AttackTypeEnum.LIGHTATTACK: ["lightattack1", "lightattack2"],
+	Weapon.AttackTypeEnum.HEAVYATTACK: ["heavyattack1", "heavyattack2"],
 }
 var light_combo_index : int = 0
 var heavy_combo_index : int = 0
@@ -29,12 +28,6 @@ func _ready() -> void:
 
 func selfmodulate() -> void : 
 	$BodySprite.self_modulate = bodyColor
-	$HeadSprite.self_modulate = headColor
-	$ArmsSprite.self_modulate = armsColor
-	$ChestSprite.self_modulate = chestColor
-	$HandsSprite.self_modulate = handsColor
-	$LegsSprite.self_modulate = legsColor
-	$FeetSprite.self_modulate = feetColor
 
 func flipSprite(flipped: bool) -> void:
 	if flip == flipped:
@@ -96,17 +89,9 @@ func play_heavyHit_animation(animationSpeed : float = 1.0, animationName : Strin
 		var anim = attack_animations[Weapon.AttackTypeEnum.HEAVYATTACK].pick_random()
 		$AnimationPlayer.play(anim, -1, animationSpeed)
 
-func play_specialHit_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
-	if attack_animations[Weapon.AttackTypeEnum.SPECIALATTACK].has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
-	else : 
-		var anim = attack_animations[Weapon.AttackTypeEnum.SPECIALATTACK].pick_random()
-		$AnimationPlayer.play(anim, -1, animationSpeed)
-
 func play_attack_animation(attack_type: Weapon.AttackTypeEnum, weapon: Weapon) -> void:
-	var weapon_type_name : String = Weapon.WeaponTypeEnum.keys()[weapon.weaponType].to_lower()
 	var attack_name : String = Weapon.AttackTypeEnum.keys()[attack_type].to_lower()
-	var anim : String = "%s_%s" % [weapon_type_name, attack_name]
+	var anim : String = "%s" % [attack_name]
 	#print("Searching animation player for " + str(anim))
 	if $AnimationPlayer.has_animation(anim):
 		$AnimationPlayer.play(anim, -1, weapon.current_attack_speed)
@@ -115,4 +100,3 @@ func play_attack_animation(attack_type: Weapon.AttackTypeEnum, weapon: Weapon) -
 		match attack_type:
 			Weapon.AttackTypeEnum.LIGHTATTACK: play_lightHit_animation(weapon.current_attack_speed)
 			Weapon.AttackTypeEnum.HEAVYATTACK: play_heavyHit_animation(weapon.current_attack_speed)
-			Weapon.AttackTypeEnum.SPECIALATTACK: play_specialHit_animation(weapon.current_attack_speed)

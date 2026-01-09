@@ -37,6 +37,8 @@ func _ready() -> void:
 	add_unit(StickmanData.new().with_points(50))
 	add_unit(StickmanData.new().with_points(150).with_scale(0.5))
 	add_unit(StickmanData.new().with_scale(0.5).with_points(150))
+	var sword = preload("res://Scenes/Weapons/testsword.tres").duplicate(true)
+	add_unit(StickmanData.new().with_weapon(sword))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

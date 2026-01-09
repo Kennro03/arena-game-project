@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6y5dcer5k3cu"
-path="res://.godot/imported/ModularStickman.png-7a6ecd956d664e6b33dbaea7026466e3.ctex"
+uid="uid://b21tep713spbo"
+path="res://.godot/imported/UnarmedStickman.png-1a086accc53bd40449364bba5c179a7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/Sprites/Units/Stickman/ModularStickman.png"
-dest_files=["res://.godot/imported/ModularStickman.png-7a6ecd956d664e6b33dbaea7026466e3.ctex"]
+source_file="res://ressources/Sprites/Units/Stickman/UnarmedStickman.png"
+dest_files=["res://.godot/imported/UnarmedStickman.png-1a086accc53bd40449364bba5c179a7b.ctex"]
 
 [params]
 

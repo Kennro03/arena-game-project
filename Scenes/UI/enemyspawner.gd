@@ -56,12 +56,16 @@ func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
 	var unit := stickman.instantiate()
 	unit.stats = data.stats.duplicate(true)
 	unit.team = data.team
-	unit.weapon = data.weapon
+	
 	unit.sprite_color = data.color
 	for skill in data.skill_list:
 		unit.skillModule.add_skill(skill.duplicate(true))
 	unit.position = pos
+	
+	unit.equip_weapon(data.weapon) 
+	
 	get_parent().add_child(unit)
+	
 
 func spawn_random_stickman(pos: Vector2, data: StickmanData):
 	if stickman == null or data == null:

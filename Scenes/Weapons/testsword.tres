@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=4 format=3 uid="uid://cpnr5mpvtakmp"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://cpnr5mpvtakmp"]
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_21hen"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapon.gd" id="1_80t4j"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_sy5po"]
+[ext_resource type="Texture2D" uid="uid://qibixba1bqrb" path="res://ressources/Sprites/Units/Stickman/SwordStickman.png" id="3_ne32m"]
 
 [resource]
 script = ExtResource("1_80t4j")
 weaponName = "TestSword"
 weaponType = 2
 description = "A basic sword used for testing"
+spriteSheet = ExtResource("3_ne32m")
 base_attack_range = 130.0
 base_damage = 14.0
 base_knockback = 75.0

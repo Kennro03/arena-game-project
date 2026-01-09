@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dpm4plan27goy"]
+[gd_scene load_steps=40 format=3 uid="uid://dpm4plan27goy"]
 
 [ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/stickman_sprite.gd" id="1_bt3t7"]
 [ext_resource type="Texture2D" uid="uid://b6y5dcer5k3cu" path="res://ressources/Sprites/Units/Stickman/ModularStickman.png" id="2_bt3t7"]
@@ -323,9 +323,9 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_k0oh5"]
-resource_name = "walk"
-length = 0.6665
+[sub_resource type="Animation" id="Animation_isgce"]
+resource_name = "unarmed_heavyattack1"
+length = 0.5
 step = 0.1333
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -334,10 +334,10 @@ tracks/0/path = NodePath("BodySprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.39990002, 0.5332, 0.6665),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(0, 1)]
+"values": [Vector2i(0, 6), Vector2i(6, 6), Vector2i(7, 6), Vector2i(5, 6)]
 }
 
 [sub_resource type="Animation" id="Animation_jfclq"]
@@ -374,8 +374,25 @@ tracks/0/keys = {
 "values": [Vector2i(3, 6), Vector2i(4, 6), Vector2i(5, 6), Vector2i(0, 6)]
 }
 
-[sub_resource type="Animation" id="Animation_isgce"]
-resource_name = "unarmed_heavyattack1"
+[sub_resource type="Animation" id="Animation_k0oh5"]
+resource_name = "walk"
+length = 0.6665
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.39990002, 0.5332, 0.6665),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1myyd"]
+resource_name = "sword_lightattack1"
 length = 0.5
 step = 0.1333
 tracks/0/type = "value"
@@ -385,10 +402,44 @@ tracks/0/path = NodePath("BodySprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 6), Vector2i(6, 6), Vector2i(7, 6), Vector2i(5, 6)]
+"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_w1lhq"]
+resource_name = "sword_lightattack2"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(3, 7), Vector2i(4, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_787if"]
+resource_name = "sword_heavyattack2"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(5, 7), Vector2i(6, 7)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_76fq2"]
@@ -402,6 +453,9 @@ _data = {
 &"idle": SubResource("Animation_ju7ab"),
 &"parry": SubResource("Animation_3pohh"),
 &"stunned": SubResource("Animation_bt3t7"),
+&"sword_heavyattack2": SubResource("Animation_787if"),
+&"sword_lightattack1": SubResource("Animation_1myyd"),
+&"sword_lightattack2": SubResource("Animation_w1lhq"),
 &"tpose": SubResource("Animation_pvatb"),
 &"unarmed_heavyattack1": SubResource("Animation_isgce"),
 &"unarmed_lightattack1": SubResource("Animation_jfclq"),
@@ -440,7 +494,7 @@ sprite_frames = SubResource("SpriteFrames_38inb")
 position = Vector2(0, -2)
 texture = ExtResource("2_bt3t7")
 hframes = 8
-vframes = 7
+vframes = 8
 frame = 8
 
 [node name="HeadSprite" type="AnimatedSprite2D" parent="."]

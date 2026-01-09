@@ -24,8 +24,8 @@ var enemies_group_name:= "Stickmen"
 var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]
 
 func _ready():
-	spriteNode = $StickmanSprite
-	animationPlayerNode = $StickmanSprite/AnimationPlayer
+	spriteNode = $SpriteModule
+	animationPlayerNode = $SpriteModule/AnimationPlayer
 	spriteNode.bodyColor = sprite_color
 	spriteNode.selfmodulate()
 	
@@ -202,8 +202,11 @@ func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").dup
 	weapon.apply_owner_buffs(stats)
 	weapon.setup_stats()
 	
+	$SpriteModule/BodySprite.texture = weapon.spriteSheet
+	
 	stats.changed.connect(weapon._on_owner_stats_change)
 	_wep.attack_performed.connect(_on_weapon_attack)
+	
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
 	 #print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
