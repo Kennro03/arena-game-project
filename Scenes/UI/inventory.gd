@@ -7,6 +7,7 @@ signal inventory_stickman_removed()
 @export var inventory_size : int = 20
 @export var HOTBAR_SIZE := 10
 
+
 var inventory: Array[Slot] = []
 var selected_unit_data: StickmanData = null
 
