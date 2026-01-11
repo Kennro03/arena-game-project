@@ -8,6 +8,7 @@ layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 script = ExtResource("1_4fwp0")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -16,6 +17,7 @@ custom_minimum_size = Vector2(192, 0)
 layout_mode = 1
 offset_right = 65.0
 offset_bottom = 165.0
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
