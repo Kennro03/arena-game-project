@@ -12,7 +12,7 @@ class_name StickmanData
 ## Core Gameplay
 @export var stats : Stats = Stats.new()
 @export var skill_list : Array[Skill] = []
-@export var weapon : Weapon = preload("res://Scenes/Weapons/fists.tres").duplicate(true)
+@export var weapon : Weapon = preload("res://ressources/Weapons/fists.tres").duplicate(true)
 
 ## Testing / variation metadata
 @export var random_seed: int = 0
@@ -26,7 +26,6 @@ func with_points(_stat_points : int) -> StickmanData:
 	for i in range(_stat_points):
 		var attr : String = Stats.Attributes.keys()[randi() % Stats.Attributes.size()]
 		var prop : String = "base_" + attr.to_lower()
-		print(prop)
 		data.stats.set(prop, data.stats.get(prop) + 1)
 	data.display_name = "RandomPoints(%d) %s" % [_stat_points,display_name]
 	return data

@@ -12,7 +12,7 @@ var animationPlayerNode
 @export var stats : Stats = Stats.new()
 @export var weapon : Weapon = null
 @export var skillModule : Node
-@export var default_weapon : Weapon = preload("res://Scenes/Weapons/fists.tres")
+@export var default_weapon : Weapon = preload("res://ressources/Weapons/fists.tres")
 
 var is_action_locked := false
 var last_attack_time:= 0.0
@@ -190,7 +190,7 @@ func ensure_weapon() -> void:
 	if wep != weapon :
 		equip_weapon(wep.duplicate(true))
 
-func equip_weapon(_wep : Weapon = preload("res://Scenes/Weapons/fists.tres").duplicate(true)) -> void:
+func equip_weapon(_wep : Weapon = preload("res://ressources/Weapons/fists.tres").duplicate(true)) -> void:
 	print("Equipping weapon : " + str(_wep.weaponName))
 	if weapon and weapon.attack_performed.is_connected(_on_weapon_attack):
 		weapon.remove_owner_buffs(stats)
