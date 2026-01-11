@@ -25,9 +25,11 @@ func initialize_statcontainers() -> void :
 			statcontainer.statPlaceholder = str(stickmanDictionnary[key])
 			$MarginContainer/VBoxContainer.add_child(statcontainer)
 	
+	
 	$MarginContainer/VBoxContainer.move_child($MarginContainer/VBoxContainer/ColorSelectionContainer, $MarginContainer/VBoxContainer.get_child_count() - 1)
 	$MarginContainer/VBoxContainer.move_child($MarginContainer/VBoxContainer/TeamSelectionContainer, $MarginContainer/VBoxContainer.get_child_count() - 1)
 	$MarginContainer/VBoxContainer.move_child($MarginContainer/VBoxContainer/CreateButton, $MarginContainer/VBoxContainer.get_child_count() - 1)
+	$MarginContainer/VBoxContainer.move_child($MarginContainer/VBoxContainer/WeaponSelectionContainer, 1)
 
 
 func _on_create_button_pressed() -> void:
@@ -43,7 +45,12 @@ func _on_create_button_pressed() -> void:
 	
 	stickmandata.display_name = $MarginContainer/VBoxContainer.get_node("display_name_Container/Input").text
 	
+	var weapon_options_button = $MarginContainer/VBoxContainer/WeaponSelectionContainer/WeaponOptions
+	var selected_weapon : Weapon = $MarginContainer/VBoxContainer/WeaponSelectionContainer.weapon_list[weapon_options_button.get_selected()]
+	stickmandata.weapon = selected_weapon
+	
 	stat_dict.set("color",$MarginContainer/VBoxContainer/ColorSelectionContainer/PopupPanel/VBoxContainer/ColorPicker.color)
+	
 	var team_options_button = $MarginContainer/VBoxContainer/TeamSelectionContainer/TeamOptions
 	var selected_team : String = team_options_button.get_item_text(team_options_button.get_selected())
 	if selected_team != "None" :
