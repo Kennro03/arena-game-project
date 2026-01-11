@@ -160,6 +160,7 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="UnitCreator" type="Control" parent="."]
+visible = false
 z_index = 2
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 1

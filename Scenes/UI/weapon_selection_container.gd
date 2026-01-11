@@ -7,7 +7,6 @@ func _ready() -> void:
 	for t in weapon_list :
 		#print("Adding weapon " + t.weaponName + " to weapon selector")
 		%WeaponOptions.add_item(t.weaponName)
-		pass
 
 func load_weapons():
 	if weapon_list == [] :
