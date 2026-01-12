@@ -5,7 +5,7 @@ signal attack_performed(attack_type:AttackTypeEnum, endlag: float)
 
 enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
 enum WeaponTypeEnum { UNARMED, DAGGER, SWORD, HAMMER, STAFF }
-enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK, SPECIALATTACK}
+enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK}
 enum BuffableStats {
 	ATTACK_SPEED,
 	ATTACK_RANGE,
@@ -167,14 +167,6 @@ func heavyHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2
 		target.resolve_hit(hit_result)
 	attack_performed.emit(AttackTypeEnum.HEAVYATTACK, heavy_endlag)
 
-func specialHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
-	#print(weaponName + " used special hit")
-	var hit_result = HitData.new(attack_damage, knockback_direction,current_knockback)
-	#also apply on hit passive and hediff effects once hediffs are in place
-	if target.has_method("resolve_hit") :
-		target.resolve_hit(hit_result)
-	attack_performed.emit(AttackTypeEnum.SPECIALATTACK, special_endlag)
-
 func hit(target:Node2D, damage_mult: float = 1.0, knockback_direction:= Vector2.ZERO)-> void:
 	if owner_stats == null:
 		printerr("No owner_stats ! Voiding hit")
@@ -188,5 +180,3 @@ func hit(target:Node2D, damage_mult: float = 1.0, knockback_direction:= Vector2.
 			lightHit(target, final_damage, knockback_direction)
 		AttackTypeEnum.HEAVYATTACK:
 			heavyHit(target, final_damage, knockback_direction)
-		AttackTypeEnum.SPECIALATTACK:
-			specialHit(target, final_damage, knockback_direction)

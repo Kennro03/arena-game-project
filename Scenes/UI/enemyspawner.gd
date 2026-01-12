@@ -11,6 +11,7 @@ var green_team = Team.new("Green",Color(0,255,0))
 var blue_team = Team.new("Blue",Color(0,0,255))
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -79,11 +80,8 @@ func spawn_random_stickman(pos: Vector2, data: StickmanData):
 	unit.stats = rand_data.stats
 	unit.team = rand_data.team
 	
-	var testdagger :Weapon = load("res://Scenes/Weapons/testdagger.tres")
-	var testsword :Weapon = load("res://Scenes/Weapons/testsword.tres")
-	var testhammer :Weapon = load("res://Scenes/Weapons/testhammer.tres")
-	var randWeapon : Array[Weapon] = [testdagger,testsword,testhammer]
-	unit.equip_weapon(randWeapon.pick_random()) 
+	var weapon_list : Array[Weapon] = load_weapons()
+	unit.equip_weapon(weapon_list.pick_random()) 
 	
 	#print("Stickman weapon chosen : " + str(unit.weapon.weaponName))
 	
@@ -92,3 +90,10 @@ func spawn_random_stickman(pos: Vector2, data: StickmanData):
 		unit.add_skill(skill.duplicate(true))
 	unit.position = pos
 	get_parent().add_child(unit)
+
+func load_weapons() -> Array[Weapon]:
+	var weps : Array[Weapon] = []
+	for file_name in DirAccess.get_files_at("res://ressources/Weapons/"):
+		if (file_name.get_extension() == "tres"):
+			weps.append(load("res://ressources/Weapons/"+file_name))
+	return weps

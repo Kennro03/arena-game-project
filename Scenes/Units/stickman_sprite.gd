@@ -4,17 +4,11 @@ class_name StickmanSprite
 var flip : bool = false
 
 @export var bodyColor : Color = Color("White")
-var headColor : Color = Color("White")
-var armsColor : Color = Color("White")
-var chestColor : Color = Color("White")
-var handsColor : Color = Color("White")
-var legsColor : Color = Color("White")
-var feetColor : Color = Color("White")
 
 var idle_animations = ["idle"]
 var fighting_animations = ["stance"]
 var dodge_animations = ["dodge1","dodge2"]
-var cast_animations = []
+var cast_animations = ["casting"]
 @export var attack_animations := {
 	Weapon.AttackTypeEnum.LIGHTATTACK: ["lightattack1", "lightattack2"],
 	Weapon.AttackTypeEnum.HEAVYATTACK: ["heavyattack1", "heavyattack2"],

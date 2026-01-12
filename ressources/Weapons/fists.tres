@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=4 format=3 uid="uid://dfscer2qw0fdp"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://dfscer2qw0fdp"]
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_cvsv1"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapon.gd" id="1_datym"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_jfweh"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cvsv1"]
+load_path = "res://.godot/imported/UnarmedStickman.png-1a086accc53bd40449364bba5c179a7b.ctex"
+
 [resource]
 script = ExtResource("1_datym")
-weaponName = "Fists"
+weaponName = "Unarmed"
 description = "A stickman's bare fist. Usually used when nothing else is available."
+spriteSheet = SubResource("CompressedTexture2D_cvsv1")
 base_damage = 10.0
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

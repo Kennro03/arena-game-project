@@ -197,7 +197,7 @@ func equip_weapon(_wep : Weapon = preload("res://ressources/Weapons/fists.tres")
 		weapon.clear_weapon_buffs()
 		weapon.attack_performed.disconnect(_on_weapon_attack)
 		stats.changed.disconnect(weapon._on_owner_stats_change)
-	weapon = _wep
+	weapon = _wep.duplicate(true)
 	weapon.owner_stats = self.stats
 	weapon.apply_owner_buffs(stats)
 	weapon.setup_stats()
@@ -205,10 +205,9 @@ func equip_weapon(_wep : Weapon = preload("res://ressources/Weapons/fists.tres")
 	$SpriteModule/BodySprite.texture = weapon.spriteSheet
 	
 	stats.changed.connect(weapon._on_owner_stats_change)
-	_wep.attack_performed.connect(_on_weapon_attack)
-	
+	weapon.attack_performed.connect(_on_weapon_attack)
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
-	 #print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
+	#print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
 	spriteNode.play_attack_animation(attack_type,weapon)
 	is_action_locked = true
