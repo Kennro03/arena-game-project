@@ -29,7 +29,6 @@ func physics_update(_delta: float) -> void:
 		#print(str(closest_target) + " health = " + str(closest_target.health))
 		owner.last_attack_time = 0.0
 	
-	if !closest_target :
-		finished.emit(IDLE)
+	
 	if !owner.melee_range_check(closest_target):
-		finished.emit(MOVING)
+		finished.emit(IDLE)
