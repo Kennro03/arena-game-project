@@ -133,23 +133,29 @@ func reset_current_stats() -> void:
 	current_damage = base_damage
 	current_knockback = base_knockback
 
-func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTATTACK):
+func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTATTACK) -> AttackTypeEnum :
 	var totalWeights : float = 0
 	var accumulatedweight : int = 0
-	for key in _weightedDict:
-		totalWeights += _weightedDict[key]
+	for weight in _weightedDict.values():
+		totalWeights += weight
+	
+	if totalWeights <= 0:
+		printerr("Returned fallback in generating item.")
+		return fallback
+	
 	#If no key made chosen error appears, error may come from here
 	var randomWeight : float = randi_range(1, int(totalWeights)) 
 	
-	if totalWeights <= 0:
-		return fallback
-	
 	## Pick a random item based on the random weight
 	for key in _weightedDict: 
-		accumulatedweight += _weightedDict[key]
+		var w : int = _weightedDict[key]
+		if w <= 0 :
+			continue
+		accumulatedweight += w
 		if randomWeight <= accumulatedweight:
-			return int(key)
+			return key
 	printerr("NO KEY MADE CHOSEN")
+	return fallback
 
 func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used light hit")
@@ -174,7 +180,7 @@ func hit(target:Node2D, damage_mult: float = 1.0, knockback_direction:= Vector2.
 	
 	var attack : AttackTypeEnum = generate_item(attackTypes)
 	var final_damage := current_damage * damage_mult
-	
+	#print ("Generated item : " + str(attack))
 	match attack :
 		AttackTypeEnum.LIGHTATTACK:
 			lightHit(target, final_damage, knockback_direction)

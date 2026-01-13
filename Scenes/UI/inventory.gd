@@ -31,15 +31,16 @@ func _ready() -> void:
 	#var projectile_skill = preload("res://Scenes/Skills/ActiveSkills/BaseProjectile_Skill.tres").duplicate(true)
 	
 	add_unit(StickmanData.new())
-	add_unit(StickmanData.new().with_scale(0.5))
-	add_unit(StickmanData.new().with_scale(1.5))
 	add_unit(StickmanData.new().randomized(0.5, 2.0))
-	add_unit(StickmanData.new().with_points(10))
 	add_unit(StickmanData.new().with_points(50))
 	add_unit(StickmanData.new().with_points(150).with_scale(0.5))
 	add_unit(StickmanData.new().with_scale(0.5).with_points(150))
 	var sword = preload("res://ressources/Weapons/testsword.tres").duplicate(true)
-	add_unit(StickmanData.new().with_weapon(sword))
+	var dagger = preload("res://ressources/Weapons/testdagger.tres").duplicate(true)
+	var hammer = preload("res://ressources/Weapons/testhammer.tres").duplicate(true)
+	add_unit(StickmanData.new().with_points(75).with_weapon(sword))
+	add_unit(StickmanData.new().with_points(75).with_weapon(dagger))
+	add_unit(StickmanData.new().with_points(75).with_weapon(hammer))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

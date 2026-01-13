@@ -17,8 +17,7 @@ base_attack_range = 130.0
 base_damage = 14.0
 base_knockback = 75.0
 attackTypes = {
-"heavy": 3,
-"light": 8,
-"special": 0
+0: 8,
+1: 6
 }
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
