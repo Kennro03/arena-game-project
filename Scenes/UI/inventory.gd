@@ -7,7 +7,6 @@ signal inventory_stickman_removed()
 @export var inventory_size : int = 20
 @export var HOTBAR_SIZE := 10
 
-
 var inventory: Array[Slot] = []
 var selected_unit_data: StickmanData = null
 
@@ -38,9 +37,10 @@ func _ready() -> void:
 	var sword = preload("res://ressources/Weapons/testsword.tres").duplicate(true)
 	var dagger = preload("res://ressources/Weapons/testdagger.tres").duplicate(true)
 	var hammer = preload("res://ressources/Weapons/testhammer.tres").duplicate(true)
-	add_unit(StickmanData.new().with_points(75).with_weapon(sword))
-	add_unit(StickmanData.new().with_points(75).with_weapon(dagger))
-	add_unit(StickmanData.new().with_points(75).with_weapon(hammer))
+	add_unit(StickmanData.new().with_points(25).with_weapon(dagger))
+	add_unit(StickmanData.new().with_points(25).with_weapon(sword))
+	add_unit(StickmanData.new().with_points(25).with_weapon(hammer))
+	add_unit(StickmanData.new().with_points(300).with_weapon(dagger))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

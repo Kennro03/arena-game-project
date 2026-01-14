@@ -40,7 +40,7 @@ signal health_changed(cur_health:float,max_health:float)
 @export var base_attunement : int = 0
 
 @export var base_max_health : float = 100.0
-@export var base_health_regen : float = 2.0
+@export var base_health_regen : float = 1.0
 @export var base_movement_speed : float = 100.0
 @export var base_dodge_probability : float = 10.0
 @export var base_parry_probability : float = 5.0
@@ -57,8 +57,8 @@ signal health_changed(cur_health:float,max_health:float)
 	StatScaling.new(current_attunement, StatScaling.ScalingType.LINEAR, 1.5)
 ]
 @export var health_regen_scalings : Array[StatScaling] = [
-	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 0.12),
-	StatScaling.new(current_faith, StatScaling.ScalingType.LINEAR, 0.18),
+	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 0.1),
+	StatScaling.new(current_faith, StatScaling.ScalingType.LINEAR, 0.08),
 ]
 @export var movement_speed_scalings : Array[StatScaling] = [
 	StatScaling.new(current_dexterity, StatScaling.ScalingType.LINEAR, 4.5, 0.9),
@@ -87,8 +87,8 @@ signal health_changed(cur_health:float,max_health:float)
 	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.2),
 ]
 @export var crit_damage_scalings : Array[StatScaling] = [
-	StatScaling.new(current_strength, StatScaling.ScalingType.PERCENT, 0.05),
-	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.03),
+	StatScaling.new(current_strength, StatScaling.ScalingType.PERCENT, 0.04, 0.8),
+	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.03, 0.8),
 ]
 
 var level : int : 
@@ -104,7 +104,7 @@ var current_faith : int = 0
 var current_attunement : int = 0
 
 var current_max_health : float = 100.0
-var current_health_regen : float = 2.0
+var current_health_regen : float = 1.0
 var current_movement_speed : float = 100.0
 var current_dodge_probability : float = 10.0
 var current_parry_probability : float = 5.0
