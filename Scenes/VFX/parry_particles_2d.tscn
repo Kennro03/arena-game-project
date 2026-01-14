@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8u8ucvl3bgxs"]
+
+[ext_resource type="Script" uid="uid://bu82nn8bheave" path="res://Scenes/VFX/parry_particles_2d.gd" id="1_ixjps"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qebry"]
+load_path = "res://.godot/imported/particle_parry.png-0de7c02ffab07d94a6e43bf01bb472c5.ctex"
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ixjps"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+angle_min = -179.99998
+angle_max = 180.00002
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 98, 0)
+
+[node name="ParryParticles2D" type="GPUParticles2D"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+emitting = false
+amount = 4
+texture = SubResource("CompressedTexture2D_qebry")
+lifetime = 0.35000000000000003
+one_shot = true
+explosiveness = 0.99
+draw_order = 2
+process_material = SubResource("ParticleProcessMaterial_ixjps")
+script = ExtResource("1_ixjps")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
