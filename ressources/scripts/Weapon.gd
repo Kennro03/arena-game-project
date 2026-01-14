@@ -47,11 +47,11 @@ var current_knockback : float
 @export var special_endlag :float = 0.4
 
 var weapon_stat_buffs: Array[WeaponStatBuff] = []
-var owner_stats: Stats
+var owner: Node2D
 
 func setup_stats() -> void :
-	if owner_stats == null:
-		printerr("No owner_stats!")
+	if owner == null:
+		printerr("No owner!")
 		return
 	recalculate_stats() 
 
@@ -94,13 +94,13 @@ func recalculate_stats() -> void :
 	
 	#Stat scaling logic
 	for scaling in attack_range_scalings : 
-		current_attack_range += scaling.compute(owner_stats)
+		current_attack_range += scaling.compute(owner.stats)
 	for scaling in attack_speed_scalings : 
-		current_attack_speed += scaling.compute(owner_stats)
+		current_attack_speed += scaling.compute(owner.stats)
 	for scaling in damage_scalings : 
-		current_damage += scaling.compute(owner_stats)
+		current_damage += scaling.compute(owner.stats)
 	for scaling in knockback_scalings : 
-		current_knockback += scaling.compute(owner_stats)
+		current_knockback += scaling.compute(owner.stats)
 	
 	#Weapon buffs
 	for buff in weapon_stat_buffs :
@@ -159,7 +159,7 @@ func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTA
 
 func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used light hit")
-	var hit_result = HitData.new(attack_damage, knockback_direction,current_knockback)
+	var hit_result = HitData.new(owner,attack_damage, knockback_direction,current_knockback)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
@@ -167,15 +167,15 @@ func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.
 
 func heavyHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used heavy hit")
-	var hit_result = HitData.new(attack_damage*1.2, knockback_direction,current_knockback*3.5)
+	var hit_result = HitData.new(owner,attack_damage*1.2, knockback_direction,current_knockback*3.5)
 	#also apply on hit passive and hediff effects once hediffs are in place
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 	attack_performed.emit(AttackTypeEnum.HEAVYATTACK, heavy_endlag)
 
 func hit(target:Node2D, damage_mult: float = 1.0, knockback_direction:= Vector2.ZERO)-> void:
-	if owner_stats == null:
-		printerr("No owner_stats ! Voiding hit")
+	if owner == null:
+		printerr("No owner ! Voiding hit")
 		return
 	
 	var attack : AttackTypeEnum = generate_item(attackTypes)

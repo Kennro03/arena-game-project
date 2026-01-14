@@ -12,6 +12,7 @@ var animationPlayerNode
 @export var stats : Stats = Stats.new()
 @export var weapon : Weapon = null
 @export var skillModule : Node
+@export var StatusEffectModule : Node2D
 @export var default_weapon : Weapon = preload("res://ressources/Weapons/fists.tres")
 
 var is_action_locked := false
@@ -134,16 +135,22 @@ func take_damage(incoming_damage) :
 	stats.health = stats.health - incoming_damage
 	%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
-func block(hit: HitData):
-	var flat_blocked_damage = maxf((hit.damage-stats.current_flat_block_power),0.0)
+func block(_hit: HitData):
+	var flat_blocked_damage = maxf((_hit.damage-stats.current_flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
 	take_damage(blocked_damage) 
 	animationPlayerNode.play("block")
+	
+	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
+		$ParticleModule.emit_block_particles()
 
 func parry(_hit: HitData):
 	animationPlayerNode.play("parry")
 	%DamagePopupMarker.damage_popup("Parry!", 1.0,Color("Gold"))
+	
+	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
+		$ParticleModule.emit_parry_particles()
 
 func dodge(_hit: HitData):
 	spriteNode.play_dodge_animation()
@@ -162,6 +169,9 @@ func resolve_hit(hit_result : HitData) :
 		take_damage(hit_result.damage)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
+		
+		if hit_result.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED :
+			$ParticleModule.emit_hit_particles()
 
 func update_healthBar(_health, _max_health):
 	%HealthBar.max_value = _max_health
@@ -198,7 +208,7 @@ func equip_weapon(_wep : Weapon = preload("res://ressources/Weapons/fists.tres")
 		weapon.attack_performed.disconnect(_on_weapon_attack)
 		stats.changed.disconnect(weapon._on_owner_stats_change)
 	weapon = _wep.duplicate(true)
-	weapon.owner_stats = self.stats
+	weapon.owner = self
 	weapon.apply_owner_buffs(stats)
 	weapon.setup_stats()
 	

@@ -101,7 +101,7 @@ func do_apply_effects(skill_caster, _context):
 		targets = targets.filter(func(t): return is_instance_valid(t))
 		hit_targets = hit_targets.filter(func(h): return is_instance_valid(h))
 		context.set("targets",targets.filter(func(t): return is_instance_valid(t) and not hit_targets.has(t))) #affect only targets that haven't been affected yet
-		var hit : HitData = HitData.new()
+		var hit : HitData = HitData.new(caster)
 		var hit_result : HitData
 		for eff in skill_data.apply_effects:
 			hit_result = eff.modify_hit(skill_caster,hit, _context)

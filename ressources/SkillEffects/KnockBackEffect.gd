@@ -16,7 +16,7 @@ func apply(_caster: Node2D, _context: Dictionary = {}) -> void:
 func modify_hit(_caster: Node2D, _hit_result: HitData, _context: Dictionary = {}) -> HitData:
 	if _hit_result == null:
 		printerr("modify_hit() received null hit_result, creating new one.")
-		_hit_result = HitData.new()
+		_hit_result = HitData.new(_caster)
 	for t in _context.get("targets"):
 		if t != _caster and t :
 			direction = t.position - _caster.position
