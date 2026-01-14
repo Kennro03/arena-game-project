@@ -134,6 +134,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HotbarRect" type="NinePatchRect" parent="Inventory module/Hotbar/HotbarContainer"]
+self_modulate = Color(1, 1, 1, 0.6862745)
 layout_mode = 2
 mouse_filter = 1
 texture = ExtResource("3_fo61o")
