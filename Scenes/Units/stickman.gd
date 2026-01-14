@@ -154,7 +154,7 @@ func parry(_hit: HitData):
 
 func dodge(_hit: HitData):
 	spriteNode.play_dodge_animation()
-	apply_knockback(self, Vector2(randf(),randf()), 250.0)
+	apply_knockback(self, Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0)), 250.0)
 
 func resolve_hit(hit_result : HitData) :
 	if randf_range(0.0,100.0)<=stats.current_dodge_probability and is_casting==false:
