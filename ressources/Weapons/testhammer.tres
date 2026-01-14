@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://cseh3bpxs7l8k"]
 
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_1nvm0"]
+[ext_resource type="Script" path="res://stat_scaling.gd" id="1_1nvm0"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapon.gd" id="1_tsmbr"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_ir4nk"]
 [ext_resource type="Texture2D" uid="uid://ck4eocf0abgok" path="res://ressources/Sprites/Units/Stickman/HammerStickman.png" id="3_26sdo"]
@@ -13,7 +13,7 @@ weaponCategory = 2
 description = "A basic hammer used for testing"
 spriteSheet = ExtResource("3_26sdo")
 base_attack_speed = 0.8
-base_attack_range = 175.0
+base_attack_range = 120.0
 base_damage = 16.0
 base_knockback = 120.0
 attackTypes = {

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://cpnr5mpvtakmp"]
 
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_21hen"]
+[ext_resource type="Script" path="res://stat_scaling.gd" id="1_21hen"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapon.gd" id="1_80t4j"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_sy5po"]
 
@@ -13,7 +13,7 @@ weaponName = "TestSword"
 weaponType = 2
 description = "A basic sword used for testing"
 spriteSheet = SubResource("CompressedTexture2D_21hen")
-base_attack_range = 130.0
+base_attack_range = 105.0
 base_damage = 14.0
 base_knockback = 75.0
 attackTypes = {

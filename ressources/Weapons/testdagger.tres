@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://dal5rgfowl103"]
 
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_g8v87"]
+[ext_resource type="Script" path="res://stat_scaling.gd" id="1_g8v87"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapon.gd" id="1_qjtvy"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_tr1kk"]
 [ext_resource type="Texture2D" uid="uid://c3kfv7w0xcef7" path="res://ressources/Sprites/Units/Stickman/DaggerStickman.png" id="3_osar1"]
@@ -12,7 +12,7 @@ weaponType = 1
 description = "A basic dagger used for testing"
 spriteSheet = ExtResource("3_osar1")
 base_attack_speed = 1.1
-base_attack_range = 110.0
+base_attack_range = 90.0
 base_damage = 11.0
 base_knockback = 60.0
 attackTypes = {
