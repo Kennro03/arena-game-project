@@ -84,3 +84,11 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 	data.stats.recalculate_stats()
 	#data.stats.print_attributes()
 	return data
+
+func with_onHit_weapon(status_effect : StatusEffect) -> StickmanData :
+	var data := duplicate(true)
+	
+	data.weapon.onHitEffects.append(status_effect)
+	
+	data.display_name = "OnHit %s" % [status_effect]
+	return data  

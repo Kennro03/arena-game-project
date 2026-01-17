@@ -37,6 +37,8 @@ var current_knockback : float
 @export var knockback_scalings : Array[StatScaling] = []
 
 @export var statChanges : Array[StatBuff] = []
+@export var onHitEffects : Array[StatusEffect]
+
 @export var attackTypes : Dictionary = {
 	AttackTypeEnum.LIGHTATTACK : 8,
 	AttackTypeEnum.HEAVYATTACK : 2,
@@ -160,7 +162,11 @@ func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTA
 func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used light hit")
 	var hit_result = HitData.new(owner,attack_damage, knockback_direction,current_knockback)
+	
 	#also apply on hit passive and hediff effects once hediffs are in place
+	for effect in onHitEffects :
+		hit_result.status_effects.append(effect)
+	
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 	attack_performed.emit(AttackTypeEnum.LIGHTATTACK, light_endlag)
@@ -168,7 +174,11 @@ func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.
 func heavyHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
 	#print(weaponName + " used heavy hit")
 	var hit_result = HitData.new(owner,attack_damage*1.2, knockback_direction,current_knockback*3.5)
+	
 	#also apply on hit passive and hediff effects once hediffs are in place
+	for effect in onHitEffects :
+		hit_result.status_effects.append(effect)
+	
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(hit_result)
 	attack_performed.emit(AttackTypeEnum.HEAVYATTACK, heavy_endlag)

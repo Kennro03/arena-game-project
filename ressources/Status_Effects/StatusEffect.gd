@@ -14,14 +14,21 @@ var tick_timer := 0.0
 var stacks : int = 0
 
 func update(target, delta) -> bool:
-	elapsed += delta
-	tick_timer += delta
+	if tick_interval >= 0.0 :
+		tick_timer += delta
+		
+		if tick_timer >= tick_interval:
+			tick_timer -= tick_interval
+			on_tick(target, self)
 	
-	if tick_timer >= tick_interval:
-		tick_timer -= tick_interval
-		on_tick(target, self)
+	if duration >= 0.0 :
+		elapsed += delta
+		
+		if elapsed >= duration:
+			on_expire(target, self)
+			return true # finished
 	
-	if elapsed >= duration:
+	if stacks <= 0 :
 		on_expire(target, self)
 		return true # finished
 	
@@ -34,6 +41,7 @@ func on_tick(_target, _effect): pass
 func on_expire(_target, _effect): pass
 
 func add_stack(target, amount :int= 1):
+	print(str(Status_effect_name) + " Adding stack " + str(amount) + " to current (" + str(stacks) + ")")
 	stacks = min(stacks + amount, max_stacks)
 	on_stack_changed(target, self)
 
@@ -42,5 +50,6 @@ func remove_stack(target, amount :int= 1):
 	on_stack_changed(target, self)
 
 func on_stack_changed(_target, _effect): 
+	print(str(Status_effect_name) + " changed stacks to " + str(stacks))
 	if stacks <= 0 :
 		elapsed = duration

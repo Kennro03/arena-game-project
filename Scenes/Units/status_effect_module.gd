@@ -12,15 +12,18 @@ func _process(delta: float) -> void:
 		if StatusEffects[i].update(owner, delta):
 			StatusEffects.remove_at(i)
 
-func apply_status_effect(status : StatusEffect) -> void:
-	for effect in StatusEffects :
-		if effect.Status_effect_name == status.Status_effect_name :
-			var inst = status.duplicate(true)
-			StatusEffects.append(inst)
-			inst.on_apply(owner)
-		else : 
-			var index := StatusEffects.find(status)
-			StatusEffects[index].add_stack(owner, status.stacks)
+func apply_status_effect(new_status : StatusEffect) -> void:
+	if StatusEffects == [] :
+		StatusEffects.append(new_status)
+	else : 
+		for effect in StatusEffects :
+			if effect.Status_effect_name == new_status.Status_effect_name :
+				var inst = new_status.duplicate(true)
+				StatusEffects.append(inst)
+				inst.on_apply(owner, new_status)
+			else : 
+				var index := StatusEffects.find(new_status)
+				StatusEffects[index].add_stack(owner, new_status.stacks)
 
 func remove_status_effect(status : StatusEffect) -> void:
 	if StatusEffects.has(status) :

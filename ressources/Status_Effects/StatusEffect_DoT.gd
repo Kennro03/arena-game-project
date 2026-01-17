@@ -1,5 +1,5 @@
 extends StatusEffect
-class_name Status_Burning
+class_name StatusEffect_DoT
 
 @export var damage_per_stack : float = 2.0
 
@@ -15,4 +15,4 @@ func on_tick(_target, _effect):
 		total_damage += dmg
 
 func on_expire(_target, _effect):
-	print("Burning status effect ended, dealt a total of " + str(total_damage) + " damage")
+	print(str(Status_effect_name) + " DoT status effect ended, dealt a total of " + str(total_damage) + " damage")

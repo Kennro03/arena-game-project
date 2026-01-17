@@ -41,7 +41,8 @@ func _ready() -> void:
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword))
 	add_unit(StickmanData.new().with_points(25).with_weapon(hammer))
 	add_unit(StickmanData.new().with_points(300).with_weapon(dagger))
-
+	var burn_enchant := preload("res://ressources/Status_Effects/Statuses/test_burn.tres").duplicate(true)
+	add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_weapon(burn_enchant))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

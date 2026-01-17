@@ -1,7 +1,7 @@
 [gd_scene load_steps=35 format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/Units/stickman.gd" id="1_j4fy3"]
-[ext_resource type="Script" path="res://stat_scaling.gd" id="2_et0ph"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_et0ph"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="2_g4boi"]
 [ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="2_s68di"]
 [ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="2_y784s"]
@@ -12,10 +12,10 @@
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="6_3vlyt"]
 [ext_resource type="Texture2D" uid="uid://b21tep713spbo" path="res://ressources/Sprites/Units/Stickman/UnarmedStickman.png" id="6_uwept"]
 [ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="8_n38p5"]
-[ext_resource type="Script" path="res://Scenes/Units/particle_module.gd" id="8_teyrl"]
+[ext_resource type="Script" uid="uid://5r2u3nk0unia" path="res://Scenes/Units/particle_module.gd" id="8_teyrl"]
 [ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="10_awmep"]
 [ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="11_awmep"]
-[ext_resource type="Script" path="res://Scenes/Units/status_effect_module.gd" id="16_2ff7h"]
+[ext_resource type="Script" uid="uid://7d8gxbgeksva" path="res://Scenes/Units/status_effect_module.gd" id="16_2ff7h"]
 
 [sub_resource type="Resource" id="Resource_et0ph"]
 resource_local_to_scene = true
@@ -389,4 +389,5 @@ value = 100.0
 show_percentage = false
 
 [node name="StatusEffectModule" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("16_2ff7h")
