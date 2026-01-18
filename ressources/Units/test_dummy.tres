@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="StickmanData" load_steps=8 format=3 uid="uid://clfjwjlbapbax"]
+
+[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/StickmanData.gd" id="1_pq4wo"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="2_aoubf"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="3_cmgdx"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="4_i16ca"]
+[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="5_u08nu"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d0473"]
+size = Vector2(32, 32)
+
+[sub_resource type="Resource" id="Resource_q0in1"]
+script = ExtResource("4_i16ca")
+base_max_health = 1000.0
+base_health_regen = 0.0
+base_movement_speed = 0.0
+base_dodge_probability = 0.0
+base_parry_probability = 0.0
+base_block_probability = 0.0
+base_percent_block_power = 0.0
+base_crit_chance = 0.0
+max_health_scalings = Array[Object]([])
+health_regen_scalings = Array[Object]([])
+movement_speed_scalings = Array[Object]([])
+dodge_probability_scalings = Array[Object]([])
+parry_probability_scalings = Array[Object]([])
+block_probability_scalings = Array[Object]([])
+flat_block_power_scalings = Array[Object]([])
+crit_chance_scalings = Array[Object]([])
+crit_damage_scalings = Array[Object]([])
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[resource]
+script = ExtResource("1_pq4wo")
+id = "test_dummy"
+display_name = "Test dummy"
+description = "This thing is barely alive, but it can take hits."
+icon = SubResource("PlaceholderTexture2D_d0473")
+color = Color(1, 1, 1, 1)
+stats = SubResource("Resource_q0in1")
+weapon = ExtResource("5_u08nu")
+metadata/_custom_type_script = "uid://cj80g8y6an50q"

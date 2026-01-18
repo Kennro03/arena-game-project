@@ -6,11 +6,13 @@ class_name StatusEffect_DoT
 var total_damage : float = 0.0
 
 func on_apply(_target, _effect):
-	stacks = max(1, stacks)
+	#print("Applying " + str(Status_effect_name))
+	stacks += max(0, _effect.stacks_affliction)
 
 func on_tick(_target, _effect):
 	var dmg : float = stacks * damage_per_stack
 	if _target.has_method("take_damage"):
+		print("Burning " + str(_target.display_name) + "for " + str(dmg) + " damage" )
 		_target.take_damage(dmg)
 		total_damage += dmg
 

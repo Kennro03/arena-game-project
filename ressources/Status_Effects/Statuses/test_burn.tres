@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Status_Burning" load_steps=3 format=3 uid="uid://ca8ri5wx8pnbn"]
+[gd_resource type="Resource" script_class="StatusEffect_DoT" load_steps=3 format=3 uid="uid://ca8ri5wx8pnbn"]
 
 [ext_resource type="Script" uid="uid://btpyi1bwhwy1g" path="res://ressources/Status_Effects/StatusEffect_DoT.gd" id="1_isqml"]
 
@@ -7,10 +7,12 @@ size = Vector2(16, 16)
 
 [resource]
 script = ExtResource("1_isqml")
-damage_per_stack = 2.5
+damage_per_stack = 3.0
 Status_effect_name = "TestBurn"
+status_ID = "test_burn"
 Status_effect_description = "This unit is on fire (for testing purposes)"
 status_icon = SubResource("PlaceholderTexture2D_e32ia")
-duration = 2.5
 max_stacks = 5
+duration = 2.5
+refresh_on_application = true
 metadata/_custom_type_script = "uid://btpyi1bwhwy1g"

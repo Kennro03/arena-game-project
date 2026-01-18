@@ -167,11 +167,13 @@ func resolve_hit(hit_result : HitData) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)
 	else :
 		take_damage(hit_result.damage)
+		
 		for effect in hit_result.status_effects :
+			print("Resolve step : Applying " + str(effect.Status_effect_name))
 			%StatusEffectModule.apply_status_effect(effect)
+		
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
-		
 		if hit_result.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED :
 			$ParticleModule.emit_hit_particles()
 

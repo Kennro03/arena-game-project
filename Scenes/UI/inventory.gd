@@ -28,21 +28,21 @@ func _ready() -> void:
 	var _kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres").duplicate(true)
 	var _burst_skill = preload("res://Scenes/Skills/ActiveSkills/SmallBurst_Skill.tres").duplicate(true)
 	#var projectile_skill = preload("res://Scenes/Skills/ActiveSkills/BaseProjectile_Skill.tres").duplicate(true)
-	
-	add_unit(StickmanData.new())
-	add_unit(StickmanData.new().randomized(0.5, 2.0))
-	add_unit(StickmanData.new().with_points(50))
-	add_unit(StickmanData.new().with_points(150).with_scale(0.5))
-	add_unit(StickmanData.new().with_scale(0.5).with_points(150))
 	var sword = preload("res://ressources/Weapons/testsword.tres").duplicate(true)
 	var dagger = preload("res://ressources/Weapons/testdagger.tres").duplicate(true)
 	var hammer = preload("res://ressources/Weapons/testhammer.tres").duplicate(true)
+	
+	var dummy = preload("res://ressources/Units/test_dummy.tres").duplicate(true)
+	add_unit(StickmanData.new())
+	add_unit(StickmanData.new().with_points(50))
+	
 	add_unit(StickmanData.new().with_points(25).with_weapon(dagger))
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword))
 	add_unit(StickmanData.new().with_points(25).with_weapon(hammer))
 	add_unit(StickmanData.new().with_points(300).with_weapon(dagger))
 	var burn_enchant := preload("res://ressources/Status_Effects/Statuses/test_burn.tres").duplicate(true)
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_weapon(burn_enchant))
+	add_unit(dummy)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

@@ -13,17 +13,20 @@ func _process(delta: float) -> void:
 			StatusEffects.remove_at(i)
 
 func apply_status_effect(new_status : StatusEffect) -> void:
+	var status_inst = new_status.duplicate(true)
 	if StatusEffects == [] :
-		StatusEffects.append(new_status)
+		StatusEffects.append(status_inst)
+		StatusEffects[0].on_apply(owner, status_inst)
 	else : 
 		for effect in StatusEffects :
-			if effect.Status_effect_name == new_status.Status_effect_name :
-				var inst = new_status.duplicate(true)
-				StatusEffects.append(inst)
-				inst.on_apply(owner, new_status)
+			if effect.status_ID == status_inst.status_ID :
+				var index := StatusEffects.find(status_inst)
+				StatusEffects[index].add_stack(owner, status_inst.stacks_affliction)
+				if StatusEffects[index].refresh_on_application == true :
+					StatusEffects[index].refresh_duration()
 			else : 
-				var index := StatusEffects.find(new_status)
-				StatusEffects[index].add_stack(owner, new_status.stacks)
+				StatusEffects.append(status_inst)
+				status_inst.on_apply(owner, status_inst)
 
 func remove_status_effect(status : StatusEffect) -> void:
 	if StatusEffects.has(status) :

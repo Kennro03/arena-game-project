@@ -90,5 +90,5 @@ func with_onHit_weapon(status_effect : StatusEffect) -> StickmanData :
 	
 	data.weapon.onHitEffects.append(status_effect)
 	
-	data.display_name = "OnHit %s" % [status_effect]
+	data.display_name = "%s-OnHit (%s)" % [weapon.weaponName,status_effect.Status_effect_name]
 	return data  

@@ -53,66 +53,71 @@ signal health_changed(cur_health:float,max_health:float)
 @export var experience : int = 0: set = _on_experience_set
 
 @export var max_health_scalings: Array[StatScaling] = [
-	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 2.5),
-	StatScaling.new(current_attunement, StatScaling.ScalingType.LINEAR, 1.5)
+	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.LINEAR, 2.5),
+	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 1.5)
 ]
 @export var health_regen_scalings : Array[StatScaling] = [
-	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 0.1),
-	StatScaling.new(current_faith, StatScaling.ScalingType.LINEAR, 0.08),
+	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.LINEAR, 0.1),
+	StatScaling.new(Attributes.FAITH, StatScaling.ScalingType.LINEAR, 0.08),
 ]
 @export var movement_speed_scalings : Array[StatScaling] = [
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.LINEAR, 4.5, 0.9),
-	StatScaling.new(current_attunement, StatScaling.ScalingType.LINEAR, 2.5),
+	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.LINEAR, 4.5, 0.9),
+	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 2.5),
 ]
 @export var dodge_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.6),
-	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.6),
+	StatScaling.new(Attributes.INTELLECT, StatScaling.ScalingType.PERCENT, 0.4),
 ]
 @export var parry_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.2),
-	StatScaling.new(current_strength, StatScaling.ScalingType.PERCENT, 0.4),
-	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.2),
+	StatScaling.new(Attributes.STRENGTH, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(Attributes.INTELLECT, StatScaling.ScalingType.PERCENT, 0.4),
 ]
 @export var block_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(current_endurance, StatScaling.ScalingType.PERCENT, 0.7),
-	StatScaling.new(current_faith, StatScaling.ScalingType.PERCENT, 0.2),
+	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.PERCENT, 0.6),
+	StatScaling.new(Attributes.FAITH, StatScaling.ScalingType.PERCENT, 0.2),
 ]
 @export var flat_block_power_scalings : Array[StatScaling]= [
-	StatScaling.new(current_endurance, StatScaling.ScalingType.LINEAR, 0.2,1.0),
+	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.LINEAR, 0.15),
 ]
 @export var percent_block_power_scalings : Array[StatScaling]
 @export var crit_chance_scalings : Array[StatScaling] = [
-	StatScaling.new(current_dexterity, StatScaling.ScalingType.PERCENT, 0.3),
-	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.25),
-	StatScaling.new(current_intellect, StatScaling.ScalingType.PERCENT, 0.2),
+	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.3),
+	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.PERCENT, 0.25),
+	StatScaling.new(Attributes.INTELLECT, StatScaling.ScalingType.PERCENT, 0.2),
 ]
 @export var crit_damage_scalings : Array[StatScaling] = [
-	StatScaling.new(current_strength, StatScaling.ScalingType.PERCENT, 0.04, 0.8),
-	StatScaling.new(current_attunement, StatScaling.ScalingType.PERCENT, 0.03, 0.8),
+	StatScaling.new(Attributes.STRENGTH, StatScaling.ScalingType.LINEAR, 0.008),
+	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 0.01),
 ]
 
 var level : int : 
 	get(): return floor(max(1.0, sqrt(experience / 100.0)+ 0.5))
 
-var body : int = 0
-var mind : int = 0
-var current_strength : int = 0
-var current_dexterity : int = 0
-var current_endurance : int = 0
-var current_intellect : int = 0
-var current_faith : int = 0
-var current_attunement : int = 0
+var body : int 
+var mind : int 
 
-var current_max_health : float = 100.0
-var current_health_regen : float = 1.0
-var current_movement_speed : float = 100.0
-var current_dodge_probability : float = 10.0
-var current_parry_probability : float = 5.0
-var current_block_probability : float = 40.0
-var current_flat_block_power : float = 0.0
-var current_percent_block_power : float = 50.0
-var current_crit_chance : float = 5.0
-var current_crit_damage : float = 1.5
+var current_strength : int 
+var current_dexterity : int 
+var current_endurance : int 
+var current_intellect : int
+var current_faith : int
+var current_attunement : int
+
+var current_max_health : float
+var current_health_regen : float
+var current_movement_speed : float
+var current_dodge_probability : float 
+var current_parry_probability : float 
+var current_block_probability : float 
+var current_flat_block_power : float 
+var current_percent_block_power : float 
+var current_crit_chance : float 
+var current_crit_damage : float
+
+var dodge_prob_cap := 90.0
+var block_prob_cap := 90.0
+var parry_prob_cap := 90.0
 
 var health : float = 0.0 : set = _on_health_set
 
@@ -157,27 +162,57 @@ func recalculate_stats() -> void :
 	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
 	var stat_addends: Dictionary = {} #Amount to add to included stats
 	
+	var _stat_sample_pos: float = (float(level) / 100.0) - 0.01
+	## Maybe apply scalings to base stats? 
+	current_strength = int(base_strength )
+	current_dexterity = int(base_dexterity)
+	current_endurance = int(base_endurance)
+	current_intellect = int(base_intellect)
+	current_faith = int(base_faith)
+	current_attunement = int(base_attunement)
+	
 	#Stat scaling logic
 	for scaling in max_health_scalings : 
 		current_max_health += scaling.compute(self)
+	current_max_health = snapped(current_max_health,0.01)
 	for scaling in health_regen_scalings : 
 		current_health_regen += scaling.compute(self)
+	current_health_regen = snapped(current_health_regen,0.01)
 	for scaling in movement_speed_scalings : 
 		current_movement_speed += scaling.compute(self)
-	for scaling in dodge_probability_scalings : 
-		current_dodge_probability += scaling.compute(self)
-	for scaling in parry_probability_scalings : 
-		current_parry_probability += scaling.compute(self)
-	for scaling in block_probability_scalings : 
-		current_block_probability += scaling.compute(self)
+	current_movement_speed = snapped(current_movement_speed,0.01)
 	for scaling in flat_block_power_scalings : 
 		current_flat_block_power += scaling.compute(self)
-	for scaling in percent_block_power_scalings : 
-		current_percent_block_power += scaling.compute(self)
+	current_flat_block_power = snapped(current_flat_block_power,0.01)
 	for scaling in crit_chance_scalings : 
 		current_crit_chance += scaling.compute(self)
+	current_crit_chance = snapped(current_crit_chance,0.01)
 	for scaling in crit_damage_scalings : 
 		current_crit_damage += scaling.compute(self)
+	current_crit_damage = snapped(current_crit_damage,0.01)
+	
+	var combined : float
+	combined = 1.0
+	for scaling in dodge_probability_scalings : 
+		combined *= (1.0 - scaling.compute(self))
+	current_dodge_probability = min(dodge_prob_cap,snapped((1.0 - combined) * 100.0,0.01)) 
+	
+	combined = 1.0
+	for scaling in parry_probability_scalings : 
+		combined *= (1.0 - scaling.compute(self))
+	current_parry_probability = min(parry_prob_cap, snapped((1.0 - combined) * 100.0,0.01)) 
+	
+	combined = 1.0
+	
+	for scaling in block_probability_scalings : 
+		combined *= (1.0 - scaling.compute(self))
+	current_block_probability = min(block_prob_cap, snapped((1.0 - combined) * 100.0,0.01)) 
+	
+	combined = 1.0
+	for scaling in percent_block_power_scalings : 
+		combined *= (1.0 - scaling.compute(self))
+	current_percent_block_power = snapped((1.0 - combined) * 100.0,0.01) 
+	
 	
 	for buff in stat_buffs :
 		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
@@ -194,15 +229,6 @@ func recalculate_stats() -> void :
 				
 				if stat_multipliers[stat_name] < 0.0:
 					stat_multipliers[stat_name] = 0.0
-	
-	var _stat_sample_pos: float = (float(level) / 100.0) - 0.01
-	## Maybe apply scalings to base stats? 
-	current_strength = int(base_strength )
-	current_dexterity = int(base_dexterity)
-	current_endurance = int(base_endurance)
-	current_intellect = int(base_intellect)
-	current_faith = int(base_faith)
-	current_attunement = int(base_attunement)
 	
 	for stat_name in stat_multipliers:
 		var cur_property_name : String = str("current_" + stat_name)

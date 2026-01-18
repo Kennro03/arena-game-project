@@ -57,7 +57,7 @@ func _on_create_button_pressed() -> void:
 		var stickman_team = Team.registry.filter(func(t): return t.team_name == selected_team)[0]
 		stat_dict.set("team",stickman_team)
 	
-	## Fix this >!!!<
+	
 	stickmandata.stats.setup_base_stats_from_dict(stat_dict)
 	print("Added stickman to inv : " + stickmandata.display_name)
 	owner.inventory_module.add_unit(stickmandata)
