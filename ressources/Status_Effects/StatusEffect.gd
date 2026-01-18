@@ -41,23 +41,25 @@ func update(target, delta) -> bool:
 	return false
 
 func on_apply(_target, _effect): 
-	print("Applying " + str(Status_effect_name))
+	#print("Applying " + str(Status_effect_name))
+	stacks += max(0, _effect.stacks_affliction)
 
 func on_tick(_target, _effect): pass
 
 func on_expire(_target, _effect): pass
 
 func add_stack(target, amount :int= 1):
-	print(str(Status_effect_name) + " Adding stack " + str(amount) + " to current (" + str(stacks) + ")")
-	stacks = min(stacks + amount, max_stacks)
-	on_stack_changed(target, self)
+	if stacks != max_stacks :
+		#print(str(Status_effect_name) + " Adding stack " + str(amount) + " to current (" + str(stacks) + ")")
+		stacks = min(stacks + amount, max_stacks)
+		on_stack_changed(target, self)
 
 func remove_stack(target, amount :int= 1):
 	stacks = min(stacks - amount, 0)
 	on_stack_changed(target, self)
 
 func on_stack_changed(_target, _effect): 
-	print(str(Status_effect_name) + " changed stacks to " + str(stacks))
+	#print(str(Status_effect_name) + " changed stacks to " + str(stacks))
 	if stacks <= 0 :
 		elapsed = duration
 

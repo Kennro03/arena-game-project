@@ -39,9 +39,12 @@ func _ready() -> void:
 	add_unit(StickmanData.new().with_points(25).with_weapon(dagger))
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword))
 	add_unit(StickmanData.new().with_points(25).with_weapon(hammer))
-	add_unit(StickmanData.new().with_points(300).with_weapon(dagger))
-	var burn_enchant := preload("res://ressources/Status_Effects/Statuses/test_burn.tres").duplicate(true)
-	add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_weapon(burn_enchant))
+	var test_burn_effect := preload("res://ressources/Status_Effects/Statuses/test_burn.tres").duplicate(true)
+	var test_slow_effect := preload("res://ressources/Status_Effects/Statuses/test_slow.tres").duplicate(true)
+	var test_stun_effect := preload("res://ressources/Status_Effects/Statuses/test_stun.tres").duplicate(true)
+	add_unit(StickmanData.new().with_points(10).with_weapon(dagger).with_onHit_weapon(test_burn_effect))
+	add_unit(StickmanData.new().with_points(10).with_weapon(sword).with_onHit_weapon(test_slow_effect))
+	add_unit(StickmanData.new().with_points(10).with_weapon(hammer).with_onHit_weapon(test_stun_effect))
 	add_unit(dummy)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

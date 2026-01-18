@@ -5,6 +5,7 @@ const MOVING = "Moving"
 const ATTACKING = "Attacking"
 const DYING = "Dying"
 const CASTING = "Casting"
+const STUNNED = "Stunned"
 
 var stickman: Stickman
 

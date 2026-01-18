@@ -9,6 +9,7 @@ var idle_animations = ["idle"]
 var fighting_animations = ["stance"]
 var dodge_animations = ["dodge1","dodge2"]
 var cast_animations = ["casting"]
+var stun_animations = ["stunned"]
 @export var attack_animations := {
 	Weapon.AttackTypeEnum.LIGHTATTACK: ["lightattack1", "lightattack2"],
 	Weapon.AttackTypeEnum.HEAVYATTACK: ["heavyattack1", "heavyattack2"],
@@ -56,6 +57,13 @@ func play_dodge_animation(animationSpeed : float = 1.0, animationName : String =
 		$AnimationPlayer.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = dodge_animations.pick_random()
+		$AnimationPlayer.play(anim, -1, animationSpeed)
+
+func play_stun_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
+	if stun_animations.has(animationName) :
+		$AnimationPlayer.play(animationName, -1, animationSpeed)
+	else : 
+		var anim = stun_animations.pick_random()
 		$AnimationPlayer.play(anim, -1, animationSpeed)
 
 func play_cast_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 

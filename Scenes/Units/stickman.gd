@@ -157,11 +157,11 @@ func dodge(_hit: HitData):
 	apply_knockback(self, Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0)), 250.0)
 
 func resolve_hit(hit_result : HitData) :
-	if randf_range(0.0,100.0)<=stats.current_dodge_probability and is_casting==false:
+	if randf_range(0.0,100.0)<=stats.current_dodge_probability and is_casting==false and is_stunned==false :
 		dodge(hit_result)
-	elif randf_range(0.0,100.0)<=stats.current_parry_probability and is_casting==false:
+	elif randf_range(0.0,100.0)<=stats.current_parry_probability and is_casting==false and is_stunned==false :
 		parry(hit_result)
-	elif randf_range(0.0,100.0)<=stats.current_block_probability and is_casting==false:
+	elif randf_range(0.0,100.0)<=stats.current_block_probability and is_casting==false and is_stunned==false :
 		block(hit_result)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)

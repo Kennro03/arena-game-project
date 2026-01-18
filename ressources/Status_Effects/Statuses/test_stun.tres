@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StatusEffect_Stun" load_steps=3 format=3 uid="uid://4xw1tohv0w42"]
+
+[ext_resource type="Script" uid="uid://dnfvvxu7oamd7" path="res://ressources/Status_Effects/StatusEffect_Stun.gd" id="1_to2l5"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wpa3r"]
+size = Vector2(16, 16)
+
+[resource]
+script = ExtResource("1_to2l5")
+Status_effect_name = "Test_stun"
+status_ID = "stun_test"
+Status_effect_description = "this unit is stunned"
+status_icon = SubResource("PlaceholderTexture2D_wpa3r")
+duration = 2.0
+tick_interval = 0.0
+metadata/_custom_type_script = "uid://dnfvvxu7oamd7"
