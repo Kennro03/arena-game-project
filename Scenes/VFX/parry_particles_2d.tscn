@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8u8ucvl3bgxs"]
 
-[ext_resource type="Script" uid="uid://bu82nn8bheave" path="res://Scenes/VFX/parry_particles_2d.gd" id="1_ixjps"]
+[ext_resource type="Script" uid="uid://c4sr2ctfmpsw5" path="res://Scenes/VFX/Oneshot_particle_2d.gd" id="1_ixjps"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qebry"]
 load_path = "res://.godot/imported/particle_parry.png-0de7c02ffab07d94a6e43bf01bb472c5.ctex"

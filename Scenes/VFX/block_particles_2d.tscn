@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1ch7wor880s7"]
 
 [ext_resource type="Texture2D" uid="uid://no0blq28v60r" path="res://ressources/Sprites/VFX/particle_block.png" id="1_mdqbj"]
-[ext_resource type="Script" uid="uid://c4sr2ctfmpsw5" path="res://Scenes/VFX/block_particles_2d.gd" id="2_72i7j"]
+[ext_resource type="Script" uid="uid://c4sr2ctfmpsw5" path="res://Scenes/VFX/Oneshot_particle_2d.gd" id="2_72i7j"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_72i7j"]
 lifetime_randomness = 0.3

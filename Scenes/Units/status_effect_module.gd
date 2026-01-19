@@ -17,6 +17,7 @@ func apply_status_effect(new_status : StatusEffect) -> void:
 	if StatusEffects == [] :
 		StatusEffects.append(status_inst)
 		StatusEffects[0].on_apply(owner, status_inst)
+		StatusEffects[0].connect("emit_particle",spawn_particle)
 	else : 
 		for effect in StatusEffects :
 			if effect.status_ID == status_inst.status_ID :
@@ -27,6 +28,7 @@ func apply_status_effect(new_status : StatusEffect) -> void:
 			else : 
 				StatusEffects.append(status_inst)
 				status_inst.on_apply(owner, status_inst)
+				StatusEffects[-1].connect("emit_particle",spawn_particle)
 
 func remove_status_effect(status : StatusEffect) -> void:
 	if StatusEffects.has(status) :
@@ -34,3 +36,9 @@ func remove_status_effect(status : StatusEffect) -> void:
 
 func cleanse_status_effects() -> void : 
 	StatusEffects.clear()
+
+func spawn_particle(particle_scene : PackedScene) -> void:
+	if particle_scene != null :
+		%ParticleModule.spawn_particle(particle_scene)
+	else :
+		printerr("No particle scene!")

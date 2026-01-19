@@ -13,17 +13,16 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func emit_block_particles()->void:
-	var inst = block_particle.instantiate().duplicate()
+func spawn_particle(particle_scene : PackedScene) -> void :
+	var inst = particle_scene.instantiate().duplicate()
 	self.add_child(inst)
 	inst.emitting = true
+
+func emit_block_particles()->void:
+	spawn_particle(block_particle)
 
 func emit_parry_particles()->void:
-	var inst = parry_particle.instantiate().duplicate()
-	self.add_child(inst)
-	inst.emitting = true
+	spawn_particle(parry_particle)
 
 func emit_hit_particles()->void:
-	var inst = hit_particle.instantiate().duplicate()
-	self.add_child(inst)
-	inst.emitting = true
+	spawn_particle(hit_particle)
