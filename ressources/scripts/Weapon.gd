@@ -46,7 +46,6 @@ var current_knockback : float
 
 @export var light_endlag :float = 0.15
 @export var heavy_endlag :float = 0.6
-@export var special_endlag :float = 0.4
 
 var weapon_stat_buffs: Array[WeaponStatBuff] = []
 var owner: Node2D

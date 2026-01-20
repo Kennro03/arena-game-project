@@ -18,11 +18,26 @@ func spawn_particle(particle_scene : PackedScene) -> void :
 	self.add_child(inst)
 	inst.emitting = true
 
-func emit_block_particles()->void:
-	spawn_particle(block_particle)
+func emit_block_particles(_hit_data : HitData = null)->void:
+	var inst = block_particle.instantiate().duplicate()
+	if _hit_data : 
+		#apply changed depending on hit data here
+		pass
+	self.add_child(inst)
+	inst.emitting = true
 
-func emit_parry_particles()->void:
-	spawn_particle(parry_particle)
+func emit_parry_particles(_hit_data : HitData = null)->void:
+	var inst = parry_particle.instantiate().duplicate()
+	if _hit_data : 
+		#apply changed depending on hit data here
+		pass
+	self.add_child(inst)
+	inst.emitting = true
 
-func emit_hit_particles()->void:
-	spawn_particle(hit_particle)
+func emit_hit_particles(_hit_data : HitData = null)->void:
+	var inst = hit_particle.instantiate().duplicate()
+	if _hit_data : 
+		#apply changed depending on hit data here
+		pass
+	self.add_child(inst)
+	inst.emitting = true

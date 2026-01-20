@@ -26,5 +26,5 @@ func physics_update(_delta: float) -> void:
 	
 	if closest_target != null and owner.melee_range_check(closest_target) :
 		finished.emit(ATTACKING)
-	elif closest_target != null and !owner.melee_range_check(closest_target):
+	elif closest_target != null and !owner.melee_range_check(closest_target) and owner.stats.current_movement_speed>0.0:
 		finished.emit(MOVING)

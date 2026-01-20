@@ -169,7 +169,7 @@ func resolve_hit(hit_result : HitData) :
 		take_damage(hit_result.damage)
 		
 		for effect in hit_result.status_effects :
-			print("Resolve step : Applying " + str(effect.Status_effect_name))
+			#print("Resolve step : Applying " + str(effect.Status_effect_name))
 			%StatusEffectModule.apply_status_effect(effect)
 		
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :

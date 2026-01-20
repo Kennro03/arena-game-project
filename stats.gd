@@ -44,7 +44,7 @@ signal health_changed(cur_health:float,max_health:float)
 @export var base_movement_speed : float = 100.0
 @export var base_dodge_probability : float = 10.0
 @export var base_parry_probability : float = 5.0
-@export var base_block_probability : float = 40.0
+@export var base_block_probability : float = 25.0
 @export var base_flat_block_power : float = 0.0
 @export var base_percent_block_power : float = 50.0
 @export var base_crit_chance : float = 5.0
@@ -126,10 +126,6 @@ var stat_buffs: Array[StatBuff]
 func _init() -> void:
 	setup_stats.call_deferred()
 
-func setup_stats() -> void :
-	recalculate_stats() 
-	health = current_max_health
-
 func setup_base_stats_from_dict(dict : Dictionary) -> void : 
 	base_strength = dict.get("strength",base_strength)
 	base_dexterity = dict.get("dexterity",base_dexterity)
@@ -157,6 +153,11 @@ func remove_buff(buff: StatBuff) -> void :
 	stat_buffs.erase(buff)
 	recalculate_stats.call_deferred()
 
+func setup_stats() -> void :
+	recalculate_stats() 
+	health = current_max_health
+
+
 func recalculate_stats() -> void :
 	reset_current_stats()
 	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
@@ -180,7 +181,7 @@ func recalculate_stats() -> void :
 	current_health_regen = snapped(current_health_regen,0.01)
 	for scaling in movement_speed_scalings : 
 		current_movement_speed += scaling.compute(self)
-	current_movement_speed = snapped(current_movement_speed,0.01)
+	current_movement_speed = max(0.0,snapped(current_movement_speed,0.01))
 	for scaling in flat_block_power_scalings : 
 		current_flat_block_power += scaling.compute(self)
 	current_flat_block_power = snapped(current_flat_block_power,0.01)

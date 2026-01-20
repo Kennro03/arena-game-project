@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="StatusEffect_DoT" load_steps=4 format=3 uid="uid://ca8ri5wx8pnbn"]
 
 [ext_resource type="Script" uid="uid://btpyi1bwhwy1g" path="res://ressources/Status_Effects/StatusEffect_DoT.gd" id="1_isqml"]
-[ext_resource type="PackedScene" uid="uid://ce2u453bjnybq" path="res://ressources/Status_Effects/Effects/flame_particles_2d.tscn" id="1_s7581"]
+[ext_resource type="PackedScene" uid="uid://ce2u453bjnybq" path="res://Scenes/VFX/flame_particles_2d.tscn" id="1_s7581"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e32ia"]
 size = Vector2(16, 16)

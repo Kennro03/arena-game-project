@@ -10,21 +10,19 @@ var red_team = Team.new("Red",Color(255,0,0))
 var green_team = Team.new("Green",Color(0,255,0))
 var blue_team = Team.new("Blue",Color(0,0,255))
 
+var random_spawn_toggle : bool = false
+@export var random_spawn_delay : float = 10.0
+var elapsed := 0.0
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	if random_spawn_toggle == true : 
+		elapsed += _delta
+		if elapsed >= random_spawn_delay :
+			elapsed -= random_spawn_delay
+			spawn_random_stickman()
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed :
-		
-		#print(selected_stickmandata)
-		#dont use spawning logic if clicking UI Elements
 		var hovered = get_viewport().gui_get_hovered_control()
 		if hovered != null && hovered.get_class() != "Control" :
 			#print("Mouse clicked on UI element : ", hovered.name)
@@ -57,35 +55,31 @@ func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
 	var unit := stickman.instantiate()
 	unit.stats = data.stats.duplicate(true)
 	unit.team = data.team
-	
 	unit.sprite_color = data.color
+	unit.position = pos
+	unit.equip_weapon(data.weapon) 
+	
 	for skill in data.skill_list:
 		unit.skillModule.add_skill(skill.duplicate(true))
-	unit.position = pos
-	
-	unit.equip_weapon(data.weapon) 
 	
 	get_parent().add_child(unit)
 	
 
-func spawn_random_stickman(pos: Vector2, data: StickmanData):
+func spawn_random_stickman(pos: Vector2 = Vector2(randf_range(0.0,1152.0),randf_range(0.0,648.0)), data: StickmanData = StickmanData.new()):
 	if stickman == null or data == null:
 		push_error("Missing stickman scene or data")
 		return
 	
+	#rewrite this to have random chance to have weapon, extra stats, onhit effects, etc
 	var rand_data := data.randomized(1.0, 10.0, StickmanData.RandomizationType.ADD).duplicated()
 	rand_data.team = Team.registry.pick_random()
-	
 	var unit := stickman.instantiate()
 	unit.stats = rand_data.stats
-	unit.team = rand_data.team
 	
 	var weapon_list : Array[Weapon] = load_weapons()
 	unit.equip_weapon(weapon_list.pick_random()) 
-	
-	#print("Stickman weapon chosen : " + str(unit.weapon.weaponName))
-	
 	unit.sprite_color = rand_data.color
+	
 	for skill in rand_data.skill_list:
 		unit.add_skill(skill.duplicate(true))
 	unit.position = pos
@@ -97,3 +91,6 @@ func load_weapons() -> Array[Weapon]:
 		if (file_name.get_extension() == "tres"):
 			weps.append(load("res://ressources/Weapons/"+file_name))
 	return weps
+
+func _on_random_spawn_button_pressed() -> void:
+	random_spawn_toggle = !random_spawn_toggle

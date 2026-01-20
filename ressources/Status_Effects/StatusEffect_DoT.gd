@@ -19,5 +19,5 @@ func on_tick(_target, _effect):
 		emit_particle.emit(particle_effect)
 
 func on_expire(_target, _effect):
-	print(str(Status_effect_name) + " DoT status effect ended, dealt a total of " + str(total_damage) + " damage")
+	print(str(Status_effect_name) + " DoT status effect duration ended, dealt a total of " + str(total_damage) + " damage")
 	pass
