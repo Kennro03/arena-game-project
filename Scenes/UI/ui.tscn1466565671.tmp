@@ -356,7 +356,7 @@ color = Color(0.6313726, 0.59607846, 0.6745098, 0.32156864)
 [node name="Enemyspawner" type="Node" parent="." node_paths=PackedStringArray("UI_node")]
 script = ExtResource("7_duuxe")
 UI_node = NodePath("..")
-random_spawn_delay = 3.0
+random_spawn_delay = 4.0
 
 [connection signal="gui_input" from="Inventory module" to="Inventory module" method="_on_gui_input"]
 [connection signal="pressed" from="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer/ColorPickerButton" to="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer" method="_on_color_picker_button_pressed"]

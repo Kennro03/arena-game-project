@@ -53,11 +53,8 @@ func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
 		return
 	
 	var unit := stickman.instantiate()
-	unit.stats = data.stats.duplicate(true)
-	unit.team = data.team
-	unit.sprite_color = data.color
 	unit.position = pos
-	unit.equip_weapon(data.weapon) 
+	unit.apply_data(data)
 	
 	for skill in data.skill_list:
 		unit.skillModule.add_skill(skill.duplicate(true))
@@ -71,17 +68,13 @@ func spawn_random_stickman(pos: Vector2 = Vector2(randf_range(0.0,1152.0),randf_
 		return
 	
 	#rewrite this to have random chance to have weapon, extra stats, onhit effects, etc
-	var rand_data := data.randomized(1.0, 10.0, StickmanData.RandomizationType.ADD).duplicated()
-	rand_data.team = Team.registry.pick_random()
+	var rand_data := data.with_random_modifiers(randi() % 3 + 1 )
+	
+	
+	#rand_data.team = Team.registry.pick_random()
+	
 	var unit := stickman.instantiate()
-	unit.stats = rand_data.stats
-	
-	var weapon_list : Array[Weapon] = load_weapons()
-	unit.equip_weapon(weapon_list.pick_random()) 
-	unit.sprite_color = rand_data.color
-	
-	for skill in rand_data.skill_list:
-		unit.add_skill(skill.duplicate(true))
+	unit.apply_data(rand_data)
 	unit.position = pos
 	get_parent().add_child(unit)
 

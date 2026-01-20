@@ -65,4 +65,3 @@ func on_stack_changed(_target, _effect):
 
 func refresh_duration()->void :
 	self.elapsed = 0.0
-	

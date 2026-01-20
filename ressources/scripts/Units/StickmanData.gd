@@ -4,6 +4,7 @@ class_name StickmanData
 ## Identity / UI
 @export var id: String = "stickman_default"
 @export var display_name: String = "Stickman"
+@export var show_name: bool = false
 @export var description: String = ""
 @export var icon: Texture2D
 @export var color: Color = Color.from_hsv(randf(), 0.8, 0.9)
@@ -27,19 +28,19 @@ func with_points(_stat_points : int) -> StickmanData:
 		var attr : String = Stats.Attributes.keys()[randi() % Stats.Attributes.size()]
 		var prop : String = "base_" + attr.to_lower()
 		data.stats.set(prop, data.stats.get(prop) + 1)
-	data.display_name = "RandomPoints(%d) %s" % [_stat_points,display_name]
+	data.display_name = "%s RandomPoints(%d)" % [display_name, _stat_points]
 	return data
 
 func with_weapon(_wep : Weapon) -> StickmanData:
 	var data := duplicate(true)
-	data.weapon = _wep
-	data.display_name = "Armed(%s) %s" % [_wep.weaponName,display_name]
+	data.weapon = _wep.duplicate(true)
+	data.display_name = "%s Armed(%s)" % [display_name, _wep.weaponName]
 	return data
 
 func with_stats(_stats : Stats) -> StickmanData:
 	var data := duplicate(true)
 	data.stats = _stats
-	data.display_name = "CustomStats %s" % [display_name]
+	data.display_name = "%s CustomStats" % [display_name]
 	return data
 
 func with_scale(multiplier: float) -> StickmanData:
@@ -49,14 +50,14 @@ func with_scale(multiplier: float) -> StickmanData:
 		if prop.name.begins_with("base_") and prop.type in [TYPE_FLOAT]:
 			data.stats.set(prop.name, data.stats.get(prop.name) * multiplier)
 	
-	data.display_name = "Scaled(%.2f) %s" % [multiplier, display_name]
+	data.display_name = "%s Scaled(%.2f)" % [display_name, multiplier]
 	return data
 
 func with_skills(skill_array: Array[Skill]) -> StickmanData:
 	var data := duplicate(true)
 	for s in skill_array:
 		data.skill_list.append(s.duplicate(true))
-	data.display_name = "Skilled %s" % [display_name]
+	data.display_name = "%s Skilled" % [display_name]
 	return data
 
 enum RandomizationType {
@@ -80,7 +81,7 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 					var value := randf_range(min_value, max_value)
 					data.stats.set(prop.name, data.stats.get(prop.name) * value)
 	
-	data.display_name = "Random %s" % [display_name]
+	data.display_name = "%s Random" % [display_name]
 	data.stats.recalculate_stats()
 	#data.stats.print_attributes()
 	return data
@@ -90,5 +91,34 @@ func with_onHit_weapon(status_effect : StatusEffect) -> StickmanData :
 	
 	data.weapon.onHitEffects.append(status_effect)
 	
-	data.display_name = "%s-OnHit (%s)" % [weapon.weaponName,status_effect.Status_effect_name]
+	data.display_name = "%s OnHit-%s " % [display_name,status_effect.Status_effect_name]
 	return data  
+
+func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
+	var data := duplicate(true)
+	while nb_modifiers >= 1 :
+		var rand := randi() % 3 + 1
+		match rand :
+			1 :
+				data = data.with_points(randi() % 25 + 26)
+			2 : 
+				if data.weapon.weaponName == "Unarmed" : 
+					var temp : Array[StatusEffect]= data.weapon.onHitEffects
+					var weps : Array[Weapon] = []
+					for file_name in DirAccess.get_files_at("res://ressources/Weapons/"):
+						if (file_name.get_extension() == "tres") and (load("res://ressources/Weapons/"+file_name).weaponName != "Unarmed"):
+							weps.append(load("res://ressources/Weapons/"+file_name))
+					data = data.with_weapon(weps.pick_random())
+					for effect in temp : 
+						data.weapon.onHitEffects.append(effect)
+				else :
+					nb_modifiers += 1
+			3 : 
+				var effects : Array[StatusEffect] = []
+				for file_name in DirAccess.get_files_at("res://ressources/Status_Effects/Statuses"):
+					if (file_name.get_extension() == "tres"):
+						effects.append(load("res://ressources/Status_Effects/Statuses/"+file_name))
+				data = data.with_onHit_weapon(effects.pick_random())
+		nb_modifiers -= 1
+	data.show_name = true
+	return data

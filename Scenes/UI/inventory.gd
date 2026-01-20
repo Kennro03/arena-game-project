@@ -31,23 +31,24 @@ func _ready() -> void:
 	var sword = preload("res://ressources/Weapons/testsword.tres").duplicate(true)
 	var dagger = preload("res://ressources/Weapons/testdagger.tres").duplicate(true)
 	var hammer = preload("res://ressources/Weapons/testhammer.tres").duplicate(true)
-	var dummy_hands = preload("res://ressources/Weapons/dummy_fists.tres").duplicate(true)
+	var dummy_hands = preload("res://ressources/DebugWeapons/dummy_fists.tres").duplicate(true)
 
 	var dummy = preload("res://ressources/Units/test_dummy.tres").duplicate(true)
-	add_unit(StickmanData.new())
-	add_unit(StickmanData.new().with_points(50))
+	dummy.show_name = true
+	var _test_burn_effect := preload("res://ressources/Status_Effects/Statuses/test_burn.tres").duplicate(true)
+	var _test_poison_effect := preload("res://ressources/Status_Effects/Statuses/test_poison.tres").duplicate(true)
+	var _test_slow_effect := preload("res://ressources/Status_Effects/Statuses/test_slow.tres").duplicate(true)
+	var _test_stun_effect := preload("res://ressources/Status_Effects/Statuses/test_stun.tres").duplicate(true)
 	
+	add_unit(dummy.with_weapon(dummy_hands))
+	add_unit(StickmanData.new())
 	add_unit(StickmanData.new().with_points(25).with_weapon(dagger))
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword))
 	add_unit(StickmanData.new().with_points(25).with_weapon(hammer))
-	var test_burn_effect := preload("res://ressources/Status_Effects/Statuses/test_burn.tres").duplicate(true)
-	var test_poison_effect := preload("res://ressources/Status_Effects/Statuses/test_poison.tres").duplicate(true)
-	var _test_slow_effect := preload("res://ressources/Status_Effects/Statuses/test_slow.tres").duplicate(true)
-	var test_stun_effect := preload("res://ressources/Status_Effects/Statuses/test_stun.tres").duplicate(true)
-	add_unit(StickmanData.new().with_points(10).with_weapon(dagger).with_onHit_weapon(test_burn_effect))
-	add_unit(StickmanData.new().with_points(10).with_weapon(sword).with_onHit_weapon(test_poison_effect))
-	add_unit(StickmanData.new().with_points(10).with_weapon(hammer).with_onHit_weapon(test_stun_effect))
-	add_unit(dummy.with_weapon(dummy_hands))
+	
+	add_unit(StickmanData.new().with_random_modifiers(3))
+	add_unit(StickmanData.new().with_random_modifiers(3))
+	add_unit(StickmanData.new().with_random_modifiers(3))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

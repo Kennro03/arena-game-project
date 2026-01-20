@@ -4,6 +4,7 @@ var animationPlayerNode
 
 @export var id: String = "stickman_default"
 @export var display_name: String = "Stickman"
+@export var show_name: bool = false
 @export var description: String = "A regular Stickman."
 @export var icon: Texture2D = null
 @export var sprite_color:= Color.WHITE
@@ -30,6 +31,10 @@ func _ready():
 	spriteNode.bodyColor = sprite_color
 	spriteNode.selfmodulate()
 	
+	if show_name : 
+		%NameLabel.text = display_name
+		%NameLabel.visible = true
+	
 	if team != null :
 		var flag: PackedScene = preload("res://Scenes/flag.tscn")
 		var flag_instance
@@ -46,7 +51,6 @@ func _ready():
 	
 	stats.print_attributes.call_deferred()
 	stats.print_stats.call_deferred()
-	
 
 func _on_anim_finished(_anim_name):
 	is_action_locked = false
@@ -185,14 +189,15 @@ func apply_data(data: StickmanData) -> void:
 	#Replace all of this to use the new stat resource instead
 	self.id = data.id
 	self.display_name = data.display_name
+	self.show_name = data.show_name
 	self.description = data.description
 	self.icon = data.icon
 	self.sprite_color = data.color
 	self.team = data.team
 	
 	self.stats = data.stats
-	self.stat.setup_stats()
-	self.weapon = data.weapon
+	self.stats.setup_stats()
+	equip_weapon(data.weapon) 
 	%SkillModule.skill_list = data.skill_list
 
 func die() -> void:

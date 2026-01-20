@@ -19,11 +19,11 @@ func apply_status_effect(new_status : StatusEffect) -> void:
 			if effect.refresh_on_application:
 				effect.refresh_duration()
 			return
-
 	var inst := new_status.duplicate(true)
 	StatusEffects.append(inst)
 	inst.on_apply(owner, inst)
-	inst.connect("emit_particle", spawn_particle)
+	if inst.get("particle_effect") != null :
+		inst.connect("emit_particle", spawn_particle)
 
 func remove_status_effect(status : StatusEffect) -> void:
 	if StatusEffects.has(status) :
