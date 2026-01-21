@@ -196,23 +196,23 @@ func recalculate_stats() -> void :
 	combined = 1.0
 	for scaling in dodge_probability_scalings : 
 		combined *= (1.0 - scaling.compute(self))
-	current_dodge_probability = min(dodge_prob_cap,snapped((1.0 - combined) * 100.0,0.01)) 
+	current_dodge_probability = min(dodge_prob_cap,snapped(current_dodge_probability+(1.0 - combined) * 100.0,0.01)) 
 	
 	combined = 1.0
 	for scaling in parry_probability_scalings : 
 		combined *= (1.0 - scaling.compute(self))
-	current_parry_probability = min(parry_prob_cap, snapped((1.0 - combined) * 100.0,0.01)) 
+	current_parry_probability = min(parry_prob_cap, snapped(current_parry_probability+(1.0 - combined) * 100.0,0.01)) 
 	
 	combined = 1.0
 	
 	for scaling in block_probability_scalings : 
 		combined *= (1.0 - scaling.compute(self))
-	current_block_probability = min(block_prob_cap, snapped((1.0 - combined) * 100.0,0.01)) 
+	current_block_probability = min(block_prob_cap, snapped(current_block_probability+(1.0 - combined) * 100.0,0.01)) 
 	
 	combined = 1.0
 	for scaling in percent_block_power_scalings : 
 		combined *= (1.0 - scaling.compute(self))
-	current_percent_block_power = snapped((1.0 - combined) * 100.0,0.01) 
+	current_percent_block_power = snapped(current_percent_block_power+(1.0 - combined) * 100.0,0.01) 
 	
 	
 	for buff in stat_buffs :
