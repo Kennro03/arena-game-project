@@ -22,9 +22,12 @@ func apply_status_effect(new_status : StatusEffect) -> void:
 	var inst := new_status.duplicate(true)
 	StatusEffects.append(inst)
 	
-	if inst.get("particle_effect") != null :
+	if inst.has_signal("emit_particle") : 
 		print("connecting emit_particle signal")
 		inst.connect("emit_particle", spawn_particle)
+	if inst.has_signal("stop_particle") :
+		print("connecting stop_particle signal")
+		inst.connect("stop_particle", remove_particle)
 	
 	inst.on_apply(owner, inst)
 	
