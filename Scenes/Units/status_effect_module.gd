@@ -21,9 +21,13 @@ func apply_status_effect(new_status : StatusEffect) -> void:
 			return
 	var inst := new_status.duplicate(true)
 	StatusEffects.append(inst)
-	inst.on_apply(owner, inst)
+	
 	if inst.get("particle_effect") != null :
+		print("connecting emit_particle signal")
 		inst.connect("emit_particle", spawn_particle)
+	
+	inst.on_apply(owner, inst)
+	
 
 func remove_status_effect(status : StatusEffect) -> void:
 	if StatusEffects.has(status) :
@@ -36,6 +40,13 @@ func cleanse_status_effects() -> void :
 
 func spawn_particle(particle_scene : PackedScene) -> void:
 	if particle_scene != null :
+		print("Spawning particle " + str(particle_scene))
 		%ParticleModule.spawn_particle(particle_scene)
+	else :
+		printerr("No particle scene!")
+
+func remove_particle(particle_scene : PackedScene) -> void:
+	if particle_scene != null :
+		%ParticleModule.remove_particle(particle_scene)
 	else :
 		printerr("No particle scene!")

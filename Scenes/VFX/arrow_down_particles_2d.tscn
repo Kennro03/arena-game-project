@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://njey8a1fxu3e"]
+
+[ext_resource type="Texture2D" uid="uid://d4baquq411mii" path="res://ressources/Sprites/VFX/minus_arrow.png" id="1_rykot"]
+
+[sub_resource type="Curve" id="Curve_vud21"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2487805, 1), 0.0, 0.0, 0, 0, Vector2(0.74634147, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_w852b"]
+curve = SubResource("Curve_vud21")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a0s4i"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -20, 0)
+emission_shape = 3
+emission_box_extents = Vector3(25, 20, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = -20.0
+initial_velocity_max = -15.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_w852b")
+
+[node name="ArrowDownParticles2D" type="GPUParticles2D"]
+texture_filter = 1
+amount = 4
+texture = ExtResource("1_rykot")
+lifetime = 1.75
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_a0s4i")

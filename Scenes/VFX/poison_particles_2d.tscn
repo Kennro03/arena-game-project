@@ -22,10 +22,12 @@ scale_min = 0.5
 scale_curve = SubResource("CurveTexture_jjwac")
 
 [node name="PoisonParticles2D" type="GPUParticles2D"]
+texture_filter = 1
 emitting = false
 amount = 6
 texture = ExtResource("1_xy0yx")
 lifetime = 0.6
 one_shot = true
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_ugs66")
 script = ExtResource("2_jjwac")

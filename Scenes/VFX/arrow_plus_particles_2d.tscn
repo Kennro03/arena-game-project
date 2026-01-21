@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp8e0bj146pk6"]
+
+[ext_resource type="Texture2D" uid="uid://35h84kahy4t6" path="res://ressources/Sprites/VFX/plus_arrow.png" id="1_amatf"]
+
+[sub_resource type="Curve" id="Curve_jkh0t"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2487805, 1), 0.0, 0.0, 0, 0, Vector2(0.74634147, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_q8vem"]
+curve = SubResource("Curve_jkh0t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wm618"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 20, 0)
+emission_shape = 3
+emission_box_extents = Vector3(20, 20, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_q8vem")
+
+[node name="ArrowPlusParticles2D" type="GPUParticles2D"]
+texture_filter = 1
+amount = 4
+texture = ExtResource("1_amatf")
+lifetime = 1.75
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_wm618")

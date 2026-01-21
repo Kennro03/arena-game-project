@@ -23,10 +23,12 @@ scale_min = 0.75
 scale_curve = SubResource("CurveTexture_sbctp")
 
 [node name="FlameParticles2D" type="GPUParticles2D"]
+texture_filter = 1
 emitting = false
 texture = ExtResource("1_mhopw")
 lifetime = 0.6
 one_shot = true
 explosiveness = 0.2
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_x6n1v")
 script = ExtResource("2_sbctp")
