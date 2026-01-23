@@ -322,70 +322,6 @@ weapon = ExtResource("4_goxn1")
 skillModule = NodePath("SkillModule")
 StatusEffectModule = NodePath("StatusEffectModule")
 
-[node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
-unique_name_in_owner = true
-script = ExtResource("2_y784s")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-visible = false
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_4ub1n")
-debug_color = Color(0, 0.470588, 0.701961, 0.545098)
-
-[node name="SpriteModule" type="Node2D" parent="."]
-script = ExtResource("5_uwept")
-
-[node name="BodySprite" type="Sprite2D" parent="SpriteModule"]
-texture_filter = 1
-position = Vector2(0, -2)
-texture = ExtResource("6_uwept")
-offset = Vector2(0, -30)
-hframes = 5
-vframes = 8
-frame = 5
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteModule"]
-libraries = {
-&"": SubResource("AnimationLibrary_76fq2")
-}
-
-[node name="ParticleModule" type="Node2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0, -40)
-script = ExtResource("8_teyrl")
-
-[node name="DamagePopupMarker" type="Marker2D" parent="ParticleModule"]
-unique_name_in_owner = true
-position = Vector2(0, -30)
-script = ExtResource("10_awmep")
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("2_s68di")
-initial_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("4_to2s8")
-
-[node name="Moving" type="Node" parent="StateMachine"]
-script = ExtResource("5_omsj2")
-
-[node name="Attacking" type="Node" parent="StateMachine"]
-script = ExtResource("6_3vlyt")
-
-[node name="Casting" type="Node" parent="StateMachine"]
-script = ExtResource("8_n38p5")
-
-[node name="Stunned" type="Node" parent="StateMachine"]
-script = ExtResource("15_goxn1")
-
-[node name="SkillModule" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("11_awmep")
-
-[node name="StatusEffectModule" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("17_goxn1")
-
 [node name="DisplayModule" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -430,3 +366,67 @@ theme_override_font_sizes/font_size = 10
 text = "Stickman"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
+unique_name_in_owner = true
+script = ExtResource("2_y784s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4ub1n")
+debug_color = Color(0, 0.470588, 0.701961, 0.545098)
+
+[node name="SpriteModule" type="Node2D" parent="."]
+script = ExtResource("5_uwept")
+
+[node name="BodySprite" type="Sprite2D" parent="SpriteModule"]
+texture_filter = 1
+position = Vector2(0, -2)
+texture = ExtResource("6_uwept")
+offset = Vector2(0, -30)
+hframes = 5
+vframes = 8
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteModule"]
+libraries = {
+&"": SubResource("AnimationLibrary_76fq2")
+}
+
+[node name="ParticleModule" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -40)
+script = ExtResource("8_teyrl")
+
+[node name="DamagePopupMarker" type="Marker2D" parent="ParticleModule"]
+unique_name_in_owner = true
+position = Vector2(0, -30)
+script = ExtResource("10_awmep")
+
+[node name="StatusEffectModule" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("17_goxn1")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_s68di")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_to2s8")
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("5_omsj2")
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("6_3vlyt")
+
+[node name="Casting" type="Node" parent="StateMachine"]
+script = ExtResource("8_n38p5")
+
+[node name="Stunned" type="Node" parent="StateMachine"]
+script = ExtResource("15_goxn1")
+
+[node name="SkillModule" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("11_awmep")
