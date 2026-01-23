@@ -70,7 +70,6 @@ func spawn_random_stickman(pos: Vector2 = Vector2(randf_range(0.0,1152.0),randf_
 	#rewrite this to have random chance to have weapon, extra stats, onhit effects, etc
 	var rand_data := data.with_random_modifiers(randi() % 3 + 1 )
 	
-	
 	#rand_data.team = Team.registry.pick_random()
 	
 	var unit := stickman.instantiate()

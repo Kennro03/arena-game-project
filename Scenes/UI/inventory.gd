@@ -39,6 +39,7 @@ func _ready() -> void:
 	var _test_poison_effect := preload("res://ressources/Status_Effects/Statuses/test_poison.tres").duplicate(true)
 	var _test_slow_effect := preload("res://ressources/Status_Effects/Statuses/test_slow.tres").duplicate(true)
 	var _test_stun_effect := preload("res://ressources/Status_Effects/Statuses/test_stun.tres").duplicate(true)
+	var _test_bleed_effect := preload("res://ressources/Status_Effects/Statuses/test_bleed.tres").duplicate(true)
 	
 	add_unit(dummy.with_weapon(dummy_hands))
 	add_unit(StickmanData.new())
@@ -46,7 +47,7 @@ func _ready() -> void:
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword))
 	add_unit(StickmanData.new().with_points(25).with_weapon(hammer))
 	
-	add_unit(StickmanData.new().with_points(25).with_weapon(hammer).with_onHit_weapon(_test_slow_effect))
+	add_unit(StickmanData.new().with_points(25).with_weapon(dagger).with_onHit_weapon(_test_bleed_effect))
 	
 	add_unit(StickmanData.new().with_random_modifiers(3))
 	add_unit(StickmanData.new().with_random_modifiers(3))

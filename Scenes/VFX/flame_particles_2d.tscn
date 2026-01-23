@@ -1,7 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce2u453bjnybq"]
+[gd_scene load_steps=7 format=3 uid="uid://ce2u453bjnybq"]
 
 [ext_resource type="Texture2D" uid="uid://85llnk3u84as" path="res://ressources/Sprites/VFX/flame.png" id="1_mhopw"]
 [ext_resource type="Script" uid="uid://c4sr2ctfmpsw5" path="res://Scenes/VFX/Oneshot_particle_2d.gd" id="2_sbctp"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mhopw"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = true
 
 [sub_resource type="Curve" id="Curve_mhopw"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.74693877, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -12.568943, 0.0, 0, 0]
@@ -21,9 +27,13 @@ initial_velocity_max = 25.0
 gravity = Vector3(0, -98, 0)
 scale_min = 0.75
 scale_curve = SubResource("CurveTexture_sbctp")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 1.0
 
 [node name="FlameParticles2D" type="GPUParticles2D"]
 texture_filter = 1
+material = SubResource("CanvasItemMaterial_mhopw")
 emitting = false
 texture = ExtResource("1_mhopw")
 lifetime = 0.6

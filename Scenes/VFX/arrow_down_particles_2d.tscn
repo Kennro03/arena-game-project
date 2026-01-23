@@ -1,6 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://njey8a1fxu3e"]
+[gd_scene load_steps=8 format=3 uid="uid://njey8a1fxu3e"]
 
 [ext_resource type="Texture2D" uid="uid://d4baquq411mii" path="res://ressources/Sprites/VFX/minus_arrow.png" id="1_rykot"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rykot"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="Curve" id="Curve_vud21"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2487805, 1), 0.0, 0.0, 0, 0, Vector2(0.74634147, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -8,6 +14,13 @@ point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_w852b"]
 curve = SubResource("Curve_vud21")
+
+[sub_resource type="Curve" id="Curve_rykot"]
+_data = [Vector2(0.39591834, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vud21"]
+curve = SubResource("Curve_rykot")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a0s4i"]
 lifetime_randomness = 0.3
@@ -21,10 +34,15 @@ initial_velocity_min = -20.0
 initial_velocity_max = -15.0
 gravity = Vector3(0, 0, 0)
 alpha_curve = SubResource("CurveTexture_w852b")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 1.0
+anim_offset_curve = SubResource("CurveTexture_vud21")
 
 [node name="ArrowDownParticles2D" type="GPUParticles2D"]
 texture_filter = 1
-amount = 4
+material = SubResource("CanvasItemMaterial_rykot")
+amount = 3
 texture = ExtResource("1_rykot")
 lifetime = 1.75
 local_coords = true

@@ -1,7 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1ch7wor880s7"]
+[gd_scene load_steps=6 format=3 uid="uid://d1ch7wor880s7"]
 
 [ext_resource type="Texture2D" uid="uid://no0blq28v60r" path="res://ressources/Sprites/VFX/particle_block.png" id="1_mdqbj"]
 [ext_resource type="Script" uid="uid://c4sr2ctfmpsw5" path="res://Scenes/VFX/Oneshot_particle_2d.gd" id="2_72i7j"]
+
+[sub_resource type="Curve" id="Curve_72i7j"]
+_data = [Vector2(0, 0.50561804), 0.0, 0.0, 0, 0, Vector2(0.49795914, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.49438208), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_mj1dm"]
+curve = SubResource("Curve_72i7j")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_72i7j"]
 lifetime_randomness = 0.3
@@ -12,13 +19,14 @@ spread = 180.0
 initial_velocity_min = 75.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 98, 0)
+scale_curve = SubResource("CurveTexture_mj1dm")
 
 [node name="BlockParticles2D" type="GPUParticles2D"]
 z_index = 1
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
 emitting = false
-amount = 6
+amount = 4
 texture = ExtResource("1_mdqbj")
 lifetime = 0.5
 one_shot = true

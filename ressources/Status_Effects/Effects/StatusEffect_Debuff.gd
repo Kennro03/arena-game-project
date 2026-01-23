@@ -11,10 +11,10 @@ func on_apply(_target, _effect):
 	#print("Applying " + str(Status_effect_name))
 	stacks += max(0, _effect.stacks_affliction)
 	if debuff :
-		print("Applying " + str(Status_effect_name) + " debuff = " + str(debuff))
+		#print("Applying " + str(Status_effect_name) + " debuff = " + str(debuff))
 		_target.stats.add_buff(debuff)
 	if particle_effect :
-		print("Emitting particle effect slow ")
+		#print("Emitting particle effect slow ")
 		emit_particle.emit(particle_effect)
 
 func on_expire(_target, _effect):

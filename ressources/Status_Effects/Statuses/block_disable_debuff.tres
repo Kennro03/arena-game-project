@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="StatusEffect_Debuff" load_steps=6 format=3 uid="uid://kiofnhajmehh"]
+
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="1_dt7f3"]
+[ext_resource type="PackedScene" uid="uid://njey8a1fxu3e" path="res://Scenes/VFX/arrow_down_particles_2d.tscn" id="2_rq3ai"]
+[ext_resource type="Script" uid="uid://57c0dh6futr" path="res://ressources/Status_Effects/Effects/StatusEffect_Debuff.gd" id="3_vf3um"]
+
+[sub_resource type="Resource" id="Resource_56co8"]
+script = ExtResource("1_dt7f3")
+stat = 11
+buff_amount = -1.0
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1s2k0"]
+size = Vector2(16, 16)
+
+[resource]
+script = ExtResource("3_vf3um")
+debuff = SubResource("Resource_56co8")
+particle_effect = ExtResource("2_rq3ai")
+Status_effect_name = "Block Disabling Debuff"
+status_ID = "block_disable"
+Status_effect_description = "A debuff used to disable a unit's block"
+status_icon = SubResource("PlaceholderTexture2D_1s2k0")
+tick_interval = 0.0
+refresh_on_application = true
+metadata/_custom_type_script = "uid://57c0dh6futr"

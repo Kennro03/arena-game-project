@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="10_awmep"]
 [ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="11_awmep"]
 [ext_resource type="Script" uid="uid://7xbnrxcgcsgo" path="res://Scenes/StateMachine/stunned.gd" id="15_goxn1"]
-[ext_resource type="Script" uid="uid://7d8gxbgeksva" path="res://Scenes/Units/status_effect_module.gd" id="16_2ff7h"]
+[ext_resource type="Script" uid="uid://cti6dobwwux2e" path="res://ressources/Status_Effects/StatusEffectModule.gd" id="17_goxn1"]
 
 [sub_resource type="Resource" id="Resource_et0ph"]
 resource_local_to_scene = true
@@ -382,34 +382,51 @@ script = ExtResource("15_goxn1")
 unique_name_in_owner = true
 script = ExtResource("11_awmep")
 
-[node name="HealthBar" type="ProgressBar" parent="."]
+[node name="StatusEffectModule" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("17_goxn1")
+
+[node name="DisplayModule" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HealthBar" type="ProgressBar" parent="DisplayModule"]
 unique_name_in_owner = true
 modulate = Color(0, 1, 0, 1)
 z_index = -1
-offset_left = -17.0
-offset_top = 9.0
-offset_right = 17.0
-offset_bottom = 15.0
+layout_mode = 0
+offset_left = -20.0
+offset_top = 4.0
+offset_right = 20.0
+offset_bottom = 10.0
 value = 100.0
 show_percentage = false
 
-[node name="NameLabel" type="Label" parent="."]
+[node name="ArmorBar" type="ProgressBar" parent="DisplayModule"]
 unique_name_in_owner = true
-visible = false
+modulate = Color(0, 0.654902, 1, 1)
+z_index = -1
+layout_mode = 0
+offset_left = -20.0
+offset_top = 12.0
+offset_right = 20.0
+offset_bottom = 18.0
+show_percentage = false
+
+[node name="NameLabel" type="Label" parent="DisplayModule"]
+unique_name_in_owner = true
 z_index = -1
 texture_filter = 1
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -39.0
-offset_top = 15.0
-offset_right = 39.0
-offset_bottom = 29.0
+offset_left = -100.0
+offset_top = 18.0
+offset_right = 100.0
+offset_bottom = 32.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
 text = "Stickman"
 horizontal_alignment = 1
-
-[node name="StatusEffectModule" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("16_2ff7h")
+autowrap_mode = 2

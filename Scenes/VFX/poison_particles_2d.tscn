@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://b37ulj7xndmqb"]
+[gd_scene load_steps=7 format=3 uid="uid://b37ulj7xndmqb"]
 
 [ext_resource type="Texture2D" uid="uid://52ojp6a2ovyv" path="res://ressources/Sprites/VFX/poisonbubble.png" id="1_xy0yx"]
 [ext_resource type="Script" uid="uid://c4sr2ctfmpsw5" path="res://Scenes/VFX/Oneshot_particle_2d.gd" id="2_jjwac"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xy0yx"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
 [sub_resource type="Curve" id="Curve_xy0yx"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.49795914, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.6966293), 0.0, 0.0, 0, 0, Vector2(0.49795914, 0.79775286), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_jjwac"]
@@ -20,9 +26,13 @@ initial_velocity_max = 10.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_jjwac")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 1.0
 
 [node name="PoisonParticles2D" type="GPUParticles2D"]
 texture_filter = 1
+material = SubResource("CanvasItemMaterial_xy0yx")
 emitting = false
 amount = 6
 texture = ExtResource("1_xy0yx")

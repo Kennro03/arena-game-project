@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StatusEffect_BurstOnStack" load_steps=3 format=3 uid="uid://cej4f0poktksg"]
+
+[ext_resource type="PackedScene" uid="uid://uc43ty7e30qn" path="res://Scenes/VFX/blood_particles_2d.tscn" id="1_hg27p"]
+[ext_resource type="Script" uid="uid://b72i4hqq7w8tv" path="res://ressources/Status_Effects/Effects/StatusEffect_BurstOnStack.gd" id="2_mf8ld"]
+
+[resource]
+script = ExtResource("2_mf8ld")
+damage_per_stack = 5.0
+damage_mult_full_stack = 1.3
+particle_effect = ExtResource("1_hg27p")
+Status_effect_name = "Test_Bleed"
+status_ID = "test_bleed"
+Status_effect_description = "this unit is bleeding, getting too many stacks will result in an hemoragea."
+max_stacks = 7
+tick_interval = 0.0
+refresh_on_application = true
+metadata/_custom_type_script = "uid://b72i4hqq7w8tv"

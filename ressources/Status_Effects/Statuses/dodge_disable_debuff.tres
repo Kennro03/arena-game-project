@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="StatusEffect_Debuff" load_steps=6 format=3 uid="uid://twgoxranq5ba"]
+
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="1_imunq"]
+[ext_resource type="PackedScene" uid="uid://njey8a1fxu3e" path="res://Scenes/VFX/arrow_down_particles_2d.tscn" id="2_7hdx3"]
+[ext_resource type="Script" uid="uid://57c0dh6futr" path="res://ressources/Status_Effects/Effects/StatusEffect_Debuff.gd" id="3_tyixh"]
+
+[sub_resource type="Resource" id="Resource_56co8"]
+script = ExtResource("1_imunq")
+stat = 9
+buff_amount = -1.0
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1s2k0"]
+size = Vector2(16, 16)
+
+[resource]
+script = ExtResource("3_tyixh")
+debuff = SubResource("Resource_56co8")
+particle_effect = ExtResource("2_7hdx3")
+Status_effect_name = "Dodge Disabling Debuff"
+status_ID = "dodge_disable"
+Status_effect_description = "A debuff used to disable a unit's dodge"
+status_icon = SubResource("PlaceholderTexture2D_1s2k0")
+tick_interval = 0.0
+refresh_on_application = true
+metadata/_custom_type_script = "uid://57c0dh6futr"

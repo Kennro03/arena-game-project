@@ -49,8 +49,8 @@ func _ready():
 	stats.connect("health_depleted",die)
 	animationPlayerNode.animation_finished.connect(_on_anim_finished)
 	
-	stats.print_attributes.call_deferred()
-	stats.print_stats.call_deferred()
+	#stats.print_attributes.call_deferred()
+	#stats.print_stats.call_deferred()
 
 func _on_anim_finished(_anim_name):
 	is_action_locked = false
@@ -210,7 +210,7 @@ func ensure_weapon() -> void:
 		equip_weapon(wep.duplicate(true))
 
 func equip_weapon(_wep : Weapon = preload("res://ressources/Weapons/fists.tres").duplicate(true)) -> void:
-	print("Equipping weapon : " + str(_wep.weaponName))
+	#print("Equipping weapon : " + str(_wep.weaponName))
 	if weapon and weapon.attack_performed.is_connected(_on_weapon_attack):
 		weapon.remove_owner_buffs(stats)
 		weapon.clear_weapon_buffs()

@@ -4,7 +4,7 @@ class_name StatusEffect
 @export var Status_effect_name : String
 @export var status_ID : String
 @export var Status_effect_description : String
-@export var status_icon : Texture2D
+@export var status_icon : Texture2D = PlaceholderTexture2D.new()
 
 @export var stacks_affliction : int = 1
 @export var max_stacks : int = 1

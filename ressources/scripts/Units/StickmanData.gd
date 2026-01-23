@@ -100,7 +100,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 		var rand := randi() % 3 + 1
 		match rand :
 			1 :
-				data = data.with_points(randi() % 25 + 26)
+				data = data.with_points(randi() % 100 + 1)
 			2 : 
 				if data.weapon.weaponName == "Unarmed" : 
 					var temp : Array[StatusEffect]= data.weapon.onHitEffects
