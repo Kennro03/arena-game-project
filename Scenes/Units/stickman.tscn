@@ -338,9 +338,10 @@ offset_bottom = 10.0
 value = 100.0
 show_percentage = false
 
-[node name="ArmorBar" type="ProgressBar" parent="DisplayModule"]
+[node name="ShieldBar" type="ProgressBar" parent="DisplayModule"]
 unique_name_in_owner = true
-modulate = Color(0, 0.654902, 1, 1)
+visible = false
+modulate = Color(1.92523e-06, 0.5792856, 0.88762516, 1)
 z_index = -1
 layout_mode = 0
 offset_left = -20.0

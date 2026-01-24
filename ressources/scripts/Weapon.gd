@@ -26,26 +26,26 @@ enum BuffableStats {
 @export var base_damage: float = 5.0
 @export var base_knockback : float = 50.0
 
-var current_attack_speed : float
-var current_attack_range : float
-var current_damage: float
-var current_knockback : float
-
 @export var attack_speed_scalings : Array[StatScaling] = []
 @export var attack_range_scalings : Array[StatScaling] = []
 @export var damage_scalings : Array[StatScaling] = []
 @export var knockback_scalings : Array[StatScaling] = []
 
 @export var statChanges : Array[StatBuff] = []
-@export var onHitEffects : Array[StatusEffect]
+
+@export var onHitStatusEffects : Array[StatusEffect] = []
+@export var onHitPassives : Array[OnHitEffect] = []
 
 @export var attackTypes : Dictionary = {
 	AttackTypeEnum.LIGHTATTACK : 8,
-	AttackTypeEnum.HEAVYATTACK : 2,
-}
-
+	AttackTypeEnum.HEAVYATTACK : 2,}
 @export var light_endlag :float = 0.15
 @export var heavy_endlag :float = 0.6
+
+var current_attack_speed : float
+var current_attack_range : float
+var current_damage: float
+var current_knockback : float
 
 var weapon_stat_buffs: Array[WeaponStatBuff] = []
 var owner: Node2D
@@ -158,40 +158,45 @@ func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTA
 	printerr("NO KEY MADE CHOSEN")
 	return fallback
 
-func lightHit(target:Node2D, attack_damage:float, knockback_direction:= Vector2.ZERO)-> void:
+func lightHit(target:Node2D, _hit: HitData)-> void:
 	#print(weaponName + " used light hit")
-	var hit_result = HitData.new(owner,attack_damage, knockback_direction,current_knockback)
 	
 	#also apply on hit passive and hediff effects once hediffs are in place
-	for effect in onHitEffects :
-		hit_result.status_effects.append(effect)
+	for effect in onHitStatusEffects :
+		_hit.status_effects.append(effect)
 	
 	if target.has_method("resolve_hit") :
-		target.resolve_hit(hit_result)
+		target.resolve_hit(_hit)
 	attack_performed.emit(AttackTypeEnum.LIGHTATTACK, light_endlag)
 
-func heavyHit(target:Node2D, attack_damage:float,  knockback_direction:= Vector2.ZERO)-> void:
+func heavyHit(target:Node2D, _hit: HitData)-> void:
 	#print(weaponName + " used heavy hit")
-	var hit_result = HitData.new(owner,attack_damage*1.2, knockback_direction,current_knockback*3.5)
+	
+	_hit.base_damage *= 1.2
+	_hit.knockback_force *= 3.0
 	
 	#also apply on hit passive and hediff effects once hediffs are in place
-	for effect in onHitEffects :
-		hit_result.status_effects.append(effect)
+	for effect in onHitStatusEffects :
+		_hit.status_effects.append(effect)
 	
 	if target.has_method("resolve_hit") :
-		target.resolve_hit(hit_result)
+		target.resolve_hit(_hit)
 	attack_performed.emit(AttackTypeEnum.HEAVYATTACK, heavy_endlag)
 
-func hit(target:Node2D, damage_mult: float = 1.0, knockback_direction:= Vector2.ZERO)-> void:
+func hit(target:Node2D, _hit: HitData)-> void:
 	if owner == null:
 		printerr("No owner ! Voiding hit")
 		return
 	
 	var attack : AttackTypeEnum = generate_item(attackTypes)
-	var final_damage := current_damage * damage_mult
+	
+	_hit.attack_type = attack
+	_hit.base_damage = current_damage
+	_hit.knockback_force = current_knockback
+	
 	#print ("Generated item : " + str(attack))
 	match attack :
 		AttackTypeEnum.LIGHTATTACK:
-			lightHit(target, final_damage, knockback_direction)
+			lightHit(target, _hit)
 		AttackTypeEnum.HEAVYATTACK:
-			heavyHit(target, final_damage, knockback_direction)
+			heavyHit(target, _hit)

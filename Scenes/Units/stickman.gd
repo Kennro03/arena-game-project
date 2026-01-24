@@ -52,6 +52,19 @@ func _ready():
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
+func update_healthBar(_health, _max_health) -> void :
+	%HealthBar.max_value = _max_health
+	%HealthBar.value = _health
+
+func update_shieldBar(_shield, _max_shield) -> void :
+	%ShieldBar.max_value = _max_shield
+	%ShieldBar.value = _shield
+	if %ShieldBar.visible == false :
+		%ShieldBar.visible = true
+
+func hide_shieldBar() -> void :
+	%ShieldBar.visible = false
+
 func _on_anim_finished(_anim_name):
 	is_action_locked = false
 
@@ -111,12 +124,13 @@ func attack(target : Node2D):
 	ensure_weapon()
 	if is_action_locked:
 		return
-	var is_crit := randf() <= stats.current_crit_chance / 100.0
-	var crit_mult := stats.current_crit_damage if is_crit else 1.0
-	var target_direction : Vector2 = get_target_position_vector(target.global_position).normalized()
-	weapon.hit(target, crit_mult, target_direction)
-	# line used to check for crit :
-	# if randf_range(0.0,100.0)<=stats.current_crit_chance : 
+	
+	var hit := HitData.new(owner)
+	hit.is_critical = randf() <= stats.current_crit_chance / 100.0
+	hit.crit_mult = stats.current_crit_damage
+	hit.knockback_direction = get_target_position_vector(target.global_position).normalized()
+	hit.hit_owner = self
+	weapon.hit(target, hit)
 
 func check_if_ally(target : Node2D) -> bool :
 	if is_instance_valid(team) and is_instance_valid(target.team) :
@@ -140,7 +154,7 @@ func take_damage(incoming_damage) :
 	%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
 func block(_hit: HitData):
-	var flat_blocked_damage = maxf((_hit.damage-stats.current_flat_block_power),0.0)
+	var flat_blocked_damage = maxf((_hit.base_damage-stats.current_flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
 	take_damage(blocked_damage) 
@@ -170,7 +184,7 @@ func resolve_hit(hit_result : HitData) :
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)
 	else :
-		take_damage(hit_result.damage)
+		take_damage(hit_result.base_damage)
 		
 		for effect in hit_result.status_effects :
 			#print("Resolve step : Applying " + str(effect.Status_effect_name))
@@ -180,10 +194,6 @@ func resolve_hit(hit_result : HitData) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
 		if hit_result.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED :
 			$ParticleModule.emit_hit_particles()
-
-func update_healthBar(_health, _max_health):
-	%HealthBar.max_value = _max_health
-	%HealthBar.value = _health
 
 func apply_data(data: StickmanData) -> void:
 	#Replace all of this to use the new stat resource instead

@@ -31,6 +31,8 @@ enum BuffableStats {
 
 signal health_depleted
 signal health_changed(cur_health:float,max_health:float)
+signal shield_depleted
+signal shield_changed(cur_shield:float,max_shield:float)
 
 @export var base_strength : int = 0
 @export var base_dexterity : int = 0
@@ -121,6 +123,9 @@ var parry_prob_cap := 90.0
 
 var health : float = 0.0 : set = _on_health_set
 
+var max_shield : float
+var shield : float = 0.0
+
 var stat_buffs: Array[StatBuff]
 
 func _init() -> void:
@@ -156,7 +161,7 @@ func remove_buff(buff: StatBuff) -> void :
 func setup_stats() -> void :
 	recalculate_stats() 
 	health = current_max_health
-
+	max_shield = current_max_health
 
 func recalculate_stats() -> void :
 	reset_current_stats()
@@ -243,12 +248,17 @@ func recalculate_stats() -> void :
 	mind = current_intellect + current_faith + current_attunement
 
 
-
 func _on_health_set(new_value : float) -> void:
 	health = clampf(new_value, 0, current_max_health)
 	health_changed.emit(health,current_max_health)
 	if health <=0:
 		health_depleted.emit()
+
+func _on_shield_set(new_value : float) -> void:
+	shield = clampf(new_value, 0, max_shield)
+	shield_changed.emit(shield,max_shield)
+	if shield <=0:
+		shield_depleted.emit()
 
 func _on_experience_set(new_value : int) -> void :
 	var old_level : int = level

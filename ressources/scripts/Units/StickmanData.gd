@@ -89,7 +89,7 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 func with_onHit_weapon(status_effect : StatusEffect) -> StickmanData :
 	var data := duplicate(true)
 	
-	data.weapon.onHitEffects.append(status_effect)
+	data.weapon.onHitStatusEffects.append(status_effect)
 	
 	data.display_name = "%s OnHit-%s " % [display_name,status_effect.Status_effect_name]
 	return data  
@@ -103,14 +103,14 @@ func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 				data = data.with_points(randi() % 100 + 1)
 			2 : 
 				if data.weapon.weaponName == "Unarmed" : 
-					var temp : Array[StatusEffect]= data.weapon.onHitEffects
+					var temp : Array[StatusEffect]= data.weapon.onHitStatusEffects
 					var weps : Array[Weapon] = []
 					for file_name in DirAccess.get_files_at("res://ressources/Weapons/"):
 						if (file_name.get_extension() == "tres") and (load("res://ressources/Weapons/"+file_name).weaponName != "Unarmed"):
 							weps.append(load("res://ressources/Weapons/"+file_name))
 					data = data.with_weapon(weps.pick_random())
 					for effect in temp : 
-						data.weapon.onHitEffects.append(effect)
+						data.weapon.onHitStatusEffects.append(effect)
 				else :
 					nb_modifiers += 1
 			3 : 

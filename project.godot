@@ -32,7 +32,8 @@ folder_colors={
 "res://ressources/Status_Effects/Statuses/": "red",
 "res://ressources/Units/": "teal",
 "res://ressources/Weapons/": "red",
-"res://ressources/scripts/": "purple"
+"res://ressources/scripts/": "purple",
+"res://ressources/scripts/Weapons/": "red"
 }
 
 [global_group]
