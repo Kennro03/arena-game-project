@@ -38,6 +38,7 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxfsq"]
 bg_color = Color(0.22176233, 0.71768534, 3.85046e-07, 1)
@@ -49,8 +50,10 @@ corner_radius_bottom_left = 5
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_goxn1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_teyrl"]
+bg_color = Color(0.13995996, 0.7271122, 0.8191232, 1)
 corner_radius_top_left = 5
 corner_radius_bottom_left = 5
+anti_aliasing = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
 
@@ -347,6 +350,7 @@ anchors_preset = 0
 [node name="HealthBar" type="ProgressBar" parent="DisplayModule"]
 unique_name_in_owner = true
 z_index = -1
+texture_filter = 1
 layout_mode = 0
 offset_left = -25.0
 offset_top = 4.0
@@ -354,11 +358,11 @@ offset_right = 25.0
 offset_bottom = 10.0
 theme_override_styles/background = SubResource("StyleBoxFlat_goxn1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_qxfsq")
+value = 100.0
 show_percentage = false
 
 [node name="ShieldBar" type="ProgressBar" parent="DisplayModule"]
 unique_name_in_owner = true
-modulate = Color(1.92523e-06, 0.5792856, 0.88762516, 1)
 z_index = -1
 texture_filter = 1
 layout_mode = 0
@@ -368,6 +372,7 @@ offset_right = 25.0
 offset_bottom = 10.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_goxn1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_teyrl")
+value = 50.0
 show_percentage = false
 
 [node name="NameLabel" type="Label" parent="DisplayModule"]
