@@ -34,7 +34,7 @@ func update(target, delta) -> bool:
 			return true # finished
 	
 	if stacks <= 0 :
-		print(str(Status_effect_name) + " stacks reached 0")
+		#print(str(Status_effect_name) + " stacks reached 0")
 		on_expire(target, self)
 		return true # finished
 	
