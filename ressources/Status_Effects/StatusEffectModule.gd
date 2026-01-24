@@ -33,7 +33,7 @@ func apply_status_effect(new_status : StatusEffect) -> void:
 	
 
 func remove_status_effect(status : StatusEffect) -> void:
-	if StatusEffects.has(status) :
+	if StatusEffects.has(status) and status.has_signal("emit_particle") and status.is_connected("emit_particle", spawn_particle) :
 		var index = StatusEffects.find(status)
 		StatusEffects[index].disconnect("emit_particle",spawn_particle)
 		StatusEffects.erase(status)

@@ -10,7 +10,6 @@ func spawn_particle(particle_scene : PackedScene) -> void :
 	var inst = particle_scene.instantiate().duplicate()
 	self.add_child(inst)
 	inst.emitting = true
-	inst.tree_exited.connect(func(): active_particles.erase(particle_scene))
 	active_particles[particle_scene] = inst
 	#print("Added child to particle module : " + str(inst))
 	#print("Active particles list = " + str(active_particles))

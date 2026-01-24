@@ -51,6 +51,7 @@ func _ready() -> void:
 	
 	add_unit(StickmanData.new().with_points(25).with_weapon(dagger).with_onHit_passive_inflictStatusEffect(_test_bleed_effect))
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_passive(_shield_onhit_passive))
+	add_unit(StickmanData.new().with_points(25).with_weapon(dagger).with_onHit_passive_inflictStatusEffect(_test_burn_effect))
 	
 	add_unit(StickmanData.new().with_random_modifiers(3))
 	add_unit(StickmanData.new().with_random_modifiers(3))

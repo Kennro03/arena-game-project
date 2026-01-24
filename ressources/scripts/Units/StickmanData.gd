@@ -108,7 +108,7 @@ func with_onHit_passive(passive_effect : OnHitPassive) -> StickmanData :
 func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 	var data := duplicate(true)
 	while nb_modifiers >= 1 :
-		var rand := randi() % 4 + 1
+		var rand := randi() % 3 + 1
 		match rand :
 			1 :
 				data = data.with_points(randi() % 100 + 1)

@@ -22,5 +22,4 @@ status_ID = "block_disable"
 Status_effect_description = "A debuff used to disable a unit's block"
 status_icon = SubResource("PlaceholderTexture2D_1s2k0")
 tick_interval = 0.0
-refresh_on_application = true
 metadata/_custom_type_script = "uid://57c0dh6futr"
