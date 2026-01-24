@@ -150,8 +150,18 @@ func receive_knockback(force: Vector2):
 
 func take_damage(incoming_damage) :
 	incoming_damage = round(incoming_damage * pow(10.0, 2)) / pow(10.0, 2)
-	stats.health = stats.health - incoming_damage
-	%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
+	if stats.shield > 0.0 and stats.shield > incoming_damage :
+		stats.shield -= incoming_damage
+		%DamagePopupMarker.damage_popup(str(incoming_damage),0.5+0.01*incoming_damage,Color(0.6, 0.8, 0.8, 1.0))
+	elif stats.shield > 0.0 and stats.shield < incoming_damage :
+		incoming_damage -= stats.shield
+		%DamagePopupMarker.damage_popup(str(incoming_damage),0.5+0.01*incoming_damage,Color(0.6, 0.8, 0.8, 1.0))
+		stats.shield = 0.0
+		stats.health = stats.health - incoming_damage
+		%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
+	else :
+		stats.health = stats.health - incoming_damage
+		%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
 func block(_hit: HitData):
 	var flat_blocked_damage = maxf((_hit.base_damage-stats.current_flat_block_power),0.0)
