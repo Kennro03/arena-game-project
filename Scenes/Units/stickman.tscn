@@ -33,7 +33,7 @@ crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_goxn1"]
-bg_color = Color(0.6, 0.6, 0.6, 0.6)
+bg_color = Color(0, 0, 0, 0.14901961)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -53,8 +53,6 @@ corner_radius_top_left = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
-radius = 9.0
-height = 36.0
 
 [sub_resource type="Animation" id="Animation_ykvpi"]
 length = 0.001
@@ -356,7 +354,6 @@ offset_right = 25.0
 offset_bottom = 10.0
 theme_override_styles/background = SubResource("StyleBoxFlat_goxn1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_qxfsq")
-value = 100.0
 show_percentage = false
 
 [node name="ShieldBar" type="ProgressBar" parent="DisplayModule"]

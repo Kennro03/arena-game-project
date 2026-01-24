@@ -86,12 +86,15 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 	#data.stats.print_attributes()
 	return data
 
-func with_onHit_status(status_effect : StatusEffect) -> StickmanData :
+func with_onHit_passive_inflictStatusEffect(status_effect: StatusEffect) -> StickmanData:
 	var data := duplicate(true)
-	
-	data.weapon.onHitStatusEffects.append(status_effect)
-	
-	data.display_name = "%s OnHit-%s " % [display_name,status_effect.Status_effect_name]
+
+	var passive := OnHitPassiveApplyStatusEffect.new().duplicate(true)
+	passive.status_effects.append(status_effect.duplicate(true))
+
+	data.weapon.onHitPassives.append(passive)
+
+	data.display_name = "%s OnHit-%s" % [display_name, status_effect.Status_effect_name]
 	return data  
 
 func with_onHit_passive(passive_effect : OnHitPassive) -> StickmanData :
@@ -111,14 +114,14 @@ func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 				data = data.with_points(randi() % 100 + 1)
 			2 : 
 				if data.weapon.weaponName == "Unarmed" : 
-					var temp : Array[StatusEffect]= data.weapon.onHitStatusEffects
+					var temp : Array[OnHitPassive] = data.weapon.onHitPassives
 					var weps : Array[Weapon] = []
 					for file_name in DirAccess.get_files_at("res://ressources/Weapons/"):
 						if (file_name.get_extension() == "tres") and (load("res://ressources/Weapons/"+file_name).weaponName != "Unarmed"):
 							weps.append(load("res://ressources/Weapons/"+file_name))
 					data = data.with_weapon(weps.pick_random())
 					for effect in temp : 
-						data.weapon.onHitStatusEffects.append(effect)
+						data = data.with_onHit_passive(effect)
 				else :
 					nb_modifiers += 1
 			3 : 
@@ -126,7 +129,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 				for file_name in DirAccess.get_files_at("res://ressources/Status_Effects/Statuses"):
 					if (file_name.get_extension() == "tres"):
 						effects.append(load("res://ressources/Status_Effects/Statuses/"+file_name))
-				data = data.with_onHit_status(effects.pick_random())
+				data = data.with_onHit_passive_inflictStatusEffect(effects.pick_random())
 			4 : 
 				var passives : Array[OnHitPassive] = []
 				for file_name in DirAccess.get_files_at("res://ressources/OnHit_Passives/"):

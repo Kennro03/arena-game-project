@@ -49,7 +49,7 @@ func _ready() -> void:
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword))
 	add_unit(StickmanData.new().with_points(25).with_weapon(hammer))
 	
-	add_unit(StickmanData.new().with_points(25).with_weapon(dagger).with_onHit_status(_test_bleed_effect))
+	add_unit(StickmanData.new().with_points(25).with_weapon(dagger).with_onHit_passive_inflictStatusEffect(_test_bleed_effect))
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_passive(_shield_onhit_passive))
 	
 	add_unit(StickmanData.new().with_random_modifiers(3))

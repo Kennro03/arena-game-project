@@ -33,7 +33,6 @@ enum BuffableStats {
 
 @export var statChanges : Array[StatBuff] = []
 
-@export var onHitStatusEffects : Array[StatusEffect] = []
 @export var onHitPassives : Array[OnHitPassive] = []
 
 @export var attackTypes : Dictionary = {
@@ -163,8 +162,6 @@ func lightHit(target:Node2D, _hit: HitData)-> void:
 	#On hit passive and hediff effects are applied here
 	for passive in onHitPassives :
 		passive.on_hit(_hit)
-	for effect in onHitStatusEffects :
-		_hit.status_effects.append(effect)
 	
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(_hit)
@@ -177,8 +174,6 @@ func heavyHit(target:Node2D, _hit: HitData)-> void:
 	#On hit passive and hediff effects are applied here
 	for passive in onHitPassives :
 		passive.on_hit(_hit)
-	for effect in onHitStatusEffects :
-		_hit.status_effects.append(effect)
 	
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(_hit)
