@@ -86,7 +86,7 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 	#data.stats.print_attributes()
 	return data
 
-func with_onHit_weapon(status_effect : StatusEffect) -> StickmanData :
+func with_onHit_status(status_effect : StatusEffect) -> StickmanData :
 	var data := duplicate(true)
 	
 	data.weapon.onHitStatusEffects.append(status_effect)
@@ -94,10 +94,18 @@ func with_onHit_weapon(status_effect : StatusEffect) -> StickmanData :
 	data.display_name = "%s OnHit-%s " % [display_name,status_effect.Status_effect_name]
 	return data  
 
+func with_onHit_passive(passive_effect : OnHitPassive) -> StickmanData :
+	var data := duplicate(true)
+	
+	data.weapon.onHitPassives.append(passive_effect)
+	
+	data.display_name = "%s OnHit-%s " % [display_name,passive_effect.onhit_passive_name]
+	return data  
+
 func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 	var data := duplicate(true)
 	while nb_modifiers >= 1 :
-		var rand := randi() % 3 + 1
+		var rand := randi() % 4 + 1
 		match rand :
 			1 :
 				data = data.with_points(randi() % 100 + 1)
@@ -118,7 +126,13 @@ func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 				for file_name in DirAccess.get_files_at("res://ressources/Status_Effects/Statuses"):
 					if (file_name.get_extension() == "tres"):
 						effects.append(load("res://ressources/Status_Effects/Statuses/"+file_name))
-				data = data.with_onHit_weapon(effects.pick_random())
+				data = data.with_onHit_status(effects.pick_random())
+			4 : 
+				var passives : Array[OnHitPassive] = []
+				for file_name in DirAccess.get_files_at("res://ressources/OnHit_Passives/"):
+					if (file_name.get_extension() == "tres"):
+						passives.append(load("res://ressources/OnHit_Passives/"+file_name))
+				data = data.with_onHit_passive(passives.pick_random())
 		nb_modifiers -= 1
 	data.show_name = true
 	return data

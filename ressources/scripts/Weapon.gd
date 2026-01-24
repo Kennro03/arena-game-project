@@ -34,7 +34,7 @@ enum BuffableStats {
 @export var statChanges : Array[StatBuff] = []
 
 @export var onHitStatusEffects : Array[StatusEffect] = []
-@export var onHitPassives : Array[OnHitEffect] = []
+@export var onHitPassives : Array[OnHitPassive] = []
 
 @export var attackTypes : Dictionary = {
 	AttackTypeEnum.LIGHTATTACK : 8,
@@ -160,8 +160,9 @@ func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTA
 
 func lightHit(target:Node2D, _hit: HitData)-> void:
 	#print(weaponName + " used light hit")
-	
-	#also apply on hit passive and hediff effects once hediffs are in place
+	#On hit passive and hediff effects are applied here
+	for passive in onHitPassives :
+		passive.on_hit(_hit)
 	for effect in onHitStatusEffects :
 		_hit.status_effects.append(effect)
 	
@@ -170,12 +171,12 @@ func lightHit(target:Node2D, _hit: HitData)-> void:
 	attack_performed.emit(AttackTypeEnum.LIGHTATTACK, light_endlag)
 
 func heavyHit(target:Node2D, _hit: HitData)-> void:
-	#print(weaponName + " used heavy hit")
-	
 	_hit.base_damage *= 1.2
 	_hit.knockback_force *= 3.0
-	
-	#also apply on hit passive and hediff effects once hediffs are in place
+	#print(weaponName + " used heavy hit")
+	#On hit passive and hediff effects are applied here
+	for passive in onHitPassives :
+		passive.on_hit(_hit)
 	for effect in onHitStatusEffects :
 		_hit.status_effects.append(effect)
 	

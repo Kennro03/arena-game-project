@@ -41,15 +41,17 @@ func _ready() -> void:
 	var _test_stun_effect := preload("res://ressources/Status_Effects/Statuses/test_stun.tres").duplicate(true)
 	var _test_bleed_effect := preload("res://ressources/Status_Effects/Statuses/test_bleed.tres").duplicate(true)
 	
+	var _shield_onhit_passive := preload("res://ressources/OnHit_Passives/Shield_on_hit.tres").duplicate(true)
+	
 	add_unit(dummy.with_weapon(dummy_hands))
 	add_unit(StickmanData.new())
 	add_unit(StickmanData.new().with_points(25).with_weapon(dagger))
 	add_unit(StickmanData.new().with_points(25).with_weapon(sword))
 	add_unit(StickmanData.new().with_points(25).with_weapon(hammer))
 	
-	add_unit(StickmanData.new().with_points(25).with_weapon(dagger).with_onHit_weapon(_test_bleed_effect))
+	add_unit(StickmanData.new().with_points(25).with_weapon(dagger).with_onHit_status(_test_bleed_effect))
+	add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_passive(_shield_onhit_passive))
 	
-	add_unit(StickmanData.new().with_random_modifiers(3))
 	add_unit(StickmanData.new().with_random_modifiers(3))
 	add_unit(StickmanData.new().with_random_modifiers(3))
 

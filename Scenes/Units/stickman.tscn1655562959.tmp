@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://c8qwxekpq23e3"]
+[gd_scene load_steps=36 format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/Units/stickman.gd" id="1_j4fy3"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_et0ph"]
@@ -31,26 +31,6 @@ flat_block_power_scalings = null
 crit_chance_scalings = null
 crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_goxn1"]
-bg_color = Color(0.6, 0.6, 0.6, 0.6)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxfsq"]
-bg_color = Color(0.22176233, 0.71768534, 3.85046e-07, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_goxn1"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_teyrl"]
-corner_radius_top_left = 5
-corner_radius_bottom_left = 5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
 radius = 9.0
@@ -348,29 +328,26 @@ anchors_preset = 0
 
 [node name="HealthBar" type="ProgressBar" parent="DisplayModule"]
 unique_name_in_owner = true
+modulate = Color(0, 1, 0, 1)
 z_index = -1
 layout_mode = 0
-offset_left = -25.0
+offset_left = -20.0
 offset_top = 4.0
-offset_right = 25.0
+offset_right = 20.0
 offset_bottom = 10.0
-theme_override_styles/background = SubResource("StyleBoxFlat_goxn1")
-theme_override_styles/fill = SubResource("StyleBoxFlat_qxfsq")
 value = 100.0
 show_percentage = false
 
 [node name="ShieldBar" type="ProgressBar" parent="DisplayModule"]
 unique_name_in_owner = true
+visible = false
 modulate = Color(1.92523e-06, 0.5792856, 0.88762516, 1)
 z_index = -1
-texture_filter = 1
 layout_mode = 0
-offset_left = -25.0
-offset_top = 4.0
-offset_right = 25.0
-offset_bottom = 10.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_goxn1")
-theme_override_styles/fill = SubResource("StyleBoxFlat_teyrl")
+offset_left = -20.0
+offset_top = 12.0
+offset_right = 20.0
+offset_bottom = 18.0
 show_percentage = false
 
 [node name="NameLabel" type="Label" parent="DisplayModule"]
@@ -382,9 +359,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -100.0
-offset_top = 10.0
+offset_top = 18.0
 offset_right = 100.0
-offset_bottom = 24.0
+offset_bottom = 32.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
 text = "Stickman"

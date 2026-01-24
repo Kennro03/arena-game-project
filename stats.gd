@@ -122,9 +122,8 @@ var block_prob_cap := 90.0
 var parry_prob_cap := 90.0
 
 var health : float = 0.0 : set = _on_health_set
-
+var shield : float = 0.0 : set = _on_shield_set
 var max_shield : float
-var shield : float = 0.0
 
 var stat_buffs: Array[StatBuff]
 

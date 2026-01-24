@@ -47,6 +47,8 @@ func _ready():
 	update_healthBar(stats.health,stats.current_max_health)
 	stats.connect("health_changed",update_healthBar)
 	stats.connect("health_depleted",die)
+	stats.connect("shield_changed",update_shieldBar)
+	stats.connect("shield_depleted",hide_shieldBar)
 	animationPlayerNode.animation_finished.connect(_on_anim_finished)
 	
 	#stats.print_attributes.call_deferred()
