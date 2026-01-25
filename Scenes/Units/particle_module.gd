@@ -7,7 +7,7 @@ var hit_particle : PackedScene = preload("res://Scenes/VFX/hit_particles_2d.tscn
 var active_particles := {}
 
 func spawn_particle(particle_scene : PackedScene) -> void :
-	var inst = particle_scene.instantiate().duplicate()
+	var inst = particle_scene.instantiate()
 	self.add_child(inst)
 	inst.emitting = true
 	active_particles[particle_scene] = inst
@@ -20,7 +20,7 @@ func remove_particle(particle_scene : PackedScene) -> void :
 		active_particles.erase(particle_scene)
 
 func emit_block_particles(_hit_data : HitData = null)->void:
-	var inst = block_particle.instantiate().duplicate()
+	var inst = block_particle.instantiate()
 	if _hit_data : 
 		#apply changed depending on hit data here
 		pass
@@ -28,7 +28,7 @@ func emit_block_particles(_hit_data : HitData = null)->void:
 	inst.emitting = true
 
 func emit_parry_particles(_hit_data : HitData = null)->void:
-	var inst = parry_particle.instantiate().duplicate()
+	var inst = parry_particle.instantiate()
 	if _hit_data : 
 		#apply changed depending on hit data here
 		pass
@@ -36,7 +36,7 @@ func emit_parry_particles(_hit_data : HitData = null)->void:
 	inst.emitting = true
 
 func emit_hit_particles(_hit_data : HitData = null)->void:
-	var inst = hit_particle.instantiate().duplicate()
+	var inst = hit_particle.instantiate()
 	if _hit_data : 
 		#apply changed depending on hit data here
 		pass
