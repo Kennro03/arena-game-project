@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="1_imunq"]
 [ext_resource type="PackedScene" uid="uid://njey8a1fxu3e" path="res://Scenes/VFX/arrow_down_particles_2d.tscn" id="2_7hdx3"]
-[ext_resource type="Script" uid="uid://57c0dh6futr" path="res://ressources/Status_Effects/Effects/StatusEffect_Debuff.gd" id="3_tyixh"]
+[ext_resource type="Script" uid="uid://57c0dh6futr" path="res://ressources/Status_Effects/Effects/StatusEffect_Stat_Buff.gd" id="3_tyixh"]
 
 [sub_resource type="Resource" id="Resource_56co8"]
 script = ExtResource("1_imunq")

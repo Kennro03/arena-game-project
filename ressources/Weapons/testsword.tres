@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=7 format=3 uid="uid://cpnr5mpvtakmp"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=6 format=3 uid="uid://cpnr5mpvtakmp"]
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_21hen"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapon.gd" id="1_80t4j"]
-[ext_resource type="Script" uid="uid://bvojxxt72ccf5" path="res://ressources/Status_Effects/StatusEffect.gd" id="2_2a3dr"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/scripts/Weapons/OnHitPassive.gd" id="2_5d3gw"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_sy5po"]
 

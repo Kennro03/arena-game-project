@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="1_cl6ln"]
 [ext_resource type="PackedScene" uid="uid://njey8a1fxu3e" path="res://Scenes/VFX/arrow_down_particles_2d.tscn" id="2_56co8"]
-[ext_resource type="Script" uid="uid://57c0dh6futr" path="res://ressources/Status_Effects/Effects/StatusEffect_Debuff.gd" id="3_v4t45"]
+[ext_resource type="Script" uid="uid://57c0dh6futr" path="res://ressources/Status_Effects/Effects/StatusEffect_Stat_Buff.gd" id="3_v4t45"]
 
 [sub_resource type="Resource" id="Resource_56co8"]
 script = ExtResource("1_cl6ln")
@@ -21,6 +21,9 @@ Status_effect_name = "Slow"
 status_ID = "test_slow"
 Status_effect_description = "A slowing debuff used for testing"
 status_icon = SubResource("PlaceholderTexture2D_1s2k0")
+stacks_affliction = null
+max_stacks = null
 duration = 6.0
 tick_interval = 0.0
+refresh_on_application = null
 metadata/_custom_type_script = "uid://57c0dh6futr"
