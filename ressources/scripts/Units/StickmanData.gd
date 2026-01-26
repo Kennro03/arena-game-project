@@ -130,7 +130,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 					if (file_name.get_extension() == "tres"):
 						effects.append(load("res://ressources/Status_Effects/Statuses/"+file_name))
 				var random_attribute_status_debuff : StatusEffect = StatusEffect_Stat_Buff.new().setup(StatBuff.new(Stats.Attributes.values().pick_random(), -(randi() % 10 + 11), StatBuff.BuffType.ADD))
-				print("randomly generated debuff : " + random_attribute_status_debuff.Status_effect_name)
+				#print("randomly generated debuff : " + random_attribute_status_debuff.Status_effect_name)
 				effects.append(random_attribute_status_debuff)
 				data = data.with_onHit_passive_inflictStatusEffect(effects.pick_random())
 			4 : 
