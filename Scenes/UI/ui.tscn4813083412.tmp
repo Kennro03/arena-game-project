@@ -1,0 +1,368 @@
+[gd_scene load_steps=10 format=3 uid="uid://sj5ga6f11ten"]
+
+[ext_resource type="Script" uid="uid://b62xw15kyeii8" path="res://Scenes/UI/ui.gd" id="1_bn11v"]
+[ext_resource type="Script" uid="uid://c7x60ii86djxy" path="res://Scenes/UI/inventory.gd" id="3_alcrr"]
+[ext_resource type="Texture2D" uid="uid://cuyqhcginxphp" path="res://ressources/Sprites/UI/hotbar_128.png" id="3_fo61o"]
+[ext_resource type="Script" uid="uid://b8vh8x3mgwpbu" path="res://Scenes/UI/unit_creator.gd" id="4_fo61o"]
+[ext_resource type="Script" uid="uid://be5bkbvcowbpn" path="res://Scenes/UI/color_selection_container.gd" id="5_alcrr"]
+[ext_resource type="Script" uid="uid://bql3o4djbwlgm" path="res://Scenes/UI/weapon_selection_container.gd" id="5_jfwrg"]
+[ext_resource type="Script" uid="uid://c4ul6sy50uhk4" path="res://Scenes/UI/team_selection_container.gd" id="6_1c2ca"]
+[ext_resource type="Script" uid="uid://b46o07dkbysm1" path="res://Scenes/UI/enemyspawner.gd" id="7_duuxe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fo61o"]
+font_size = 64
+font_color = Color(0, 0, 0, 1)
+outline_size = 12
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(5, 5)
+
+[node name="Player_UI" type="Control" node_paths=PackedStringArray("inventory_module")]
+process_mode = 3
+z_index = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+mouse_filter = 1
+script = ExtResource("1_bn11v")
+inventory_module = NodePath("Inventory module")
+
+[node name="Inventory module" type="Control" parent="."]
+unique_name_in_owner = true
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("3_alcrr")
+inventory_size = 90
+
+[node name="Inventory" type="Control" parent="Inventory module"]
+visible = false
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Container" type="PanelContainer" parent="Inventory module/Inventory"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -280.0
+offset_right = 400.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Inventory module/Inventory/Container"]
+layout_mode = 2
+color = Color(0.05882353, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Inventory module/Inventory/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Inventory module/Inventory/Container/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="InventoryGrid" type="GridContainer" parent="Inventory module/Inventory/Container/MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 10
+
+[node name="Hotbar" type="Control" parent="Inventory module"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -70.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="HotbarContainer" type="MarginContainer" parent="Inventory module/Hotbar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -64.0
+offset_right = 450.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HotbarRect" type="NinePatchRect" parent="Inventory module/Hotbar/HotbarContainer"]
+self_modulate = Color(1, 1, 1, 0.6862745)
+layout_mode = 2
+mouse_filter = 1
+texture = ExtResource("3_fo61o")
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="HotbarHBbox" type="HBoxContainer" parent="Inventory module/Hotbar/HotbarContainer/HotbarRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -38.25
+offset_right = 425.0
+offset_bottom = 37.75
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="UnitCreator" type="Control" parent="."]
+visible = false
+z_index = 2
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -276.0
+offset_right = 425.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_fo61o")
+
+[node name="ColorRect2" type="ColorRect" parent="UnitCreator"]
+layout_mode = 0
+offset_right = 850.0
+offset_bottom = 400.0
+color = Color(0, 0, 0.05882353, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UnitCreator"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 841.0
+offset_bottom = 392.0
+
+[node name="VBoxContainer" type="VFlowContainer" parent="UnitCreator/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+last_wrap_alignment = 1
+
+[node name="WeaponSelectionContainer" type="HBoxContainer" parent="UnitCreator/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+script = ExtResource("5_jfwrg")
+
+[node name="Label" type="Label" parent="UnitCreator/MarginContainer/VBoxContainer/WeaponSelectionContainer"]
+layout_mode = 2
+text = "Weapon"
+
+[node name="WeaponOptions" type="OptionButton" parent="UnitCreator/MarginContainer/VBoxContainer/WeaponSelectionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ColorSelectionContainer" type="HBoxContainer" parent="UnitCreator/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+script = ExtResource("5_alcrr")
+
+[node name="Label" type="Label" parent="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Color"
+
+[node name="ColorRect" type="ColorRect" parent="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer"]
+custom_minimum_size = Vector2(31, 31)
+layout_mode = 2
+
+[node name="ColorPickerButton" type="Button" parent="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer"]
+layout_mode = 2
+text = "Pick color"
+
+[node name="PopupPanel" type="PopupPanel" parent="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer"]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(306, 482)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer/PopupPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 302.0
+offset_bottom = 478.0
+
+[node name="ColorPicker" type="ColorPicker" parent="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer/PopupPanel/VBoxContainer"]
+layout_mode = 2
+edit_alpha = false
+edit_intensity = false
+picker_shape = 2
+can_add_swatches = false
+sampler_visible = false
+presets_visible = false
+
+[node name="ConfirmColorButton" type="Button" parent="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer/PopupPanel/VBoxContainer"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="TeamSelectionContainer" type="HBoxContainer" parent="UnitCreator/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+script = ExtResource("6_1c2ca")
+
+[node name="Label" type="Label" parent="UnitCreator/MarginContainer/VBoxContainer/TeamSelectionContainer"]
+layout_mode = 2
+text = "Team"
+
+[node name="TeamOptions" type="OptionButton" parent="UnitCreator/MarginContainer/VBoxContainer/TeamSelectionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "None"
+popup/item_0/id = 0
+
+[node name="CreateButton" type="Button" parent="UnitCreator/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Create Stickman"
+
+[node name="UnitCreatorButton" type="Button" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -24.0
+offset_right = -12.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+toggle_mode = true
+text = "Unit Creator"
+
+[node name="InventoryButton" type="Button" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = 16.0
+offset_right = -12.0
+offset_bottom = 48.0
+grow_horizontal = 0
+grow_vertical = 2
+toggle_mode = true
+text = "Inventory"
+
+[node name="RandomSpawnButton" type="Button" parent="."]
+z_index = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = 56.0
+offset_right = -12.0
+offset_bottom = 88.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+toggle_mode = true
+text = "Random spawn"
+
+[node name="PauseLabel" type="Label" parent="."]
+visible = false
+z_index = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.5
+offset_top = -44.0
+offset_right = 123.5
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_fo61o")
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="PauseLabel"]
+layout_mode = 0
+offset_left = -452.5
+offset_top = -280.0
+offset_right = 699.5
+offset_bottom = 368.0
+color = Color(0.6313726, 0.59607846, 0.6745098, 0.32156864)
+
+[node name="Enemyspawner" type="Node" parent="." node_paths=PackedStringArray("UI_node")]
+script = ExtResource("7_duuxe")
+UI_node = NodePath("..")
+random_spawn_delay = 3.0
+
+[connection signal="gui_input" from="Inventory module" to="Inventory module" method="_on_gui_input"]
+[connection signal="pressed" from="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer/ColorPickerButton" to="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer" method="_on_color_picker_button_pressed"]
+[connection signal="pressed" from="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer/PopupPanel/VBoxContainer/ConfirmColorButton" to="UnitCreator/MarginContainer/VBoxContainer/ColorSelectionContainer" method="_on_confirm_color_button_pressed"]
+[connection signal="pressed" from="UnitCreator/MarginContainer/VBoxContainer/CreateButton" to="UnitCreator" method="_on_create_button_pressed"]
+[connection signal="toggled" from="UnitCreatorButton" to="." method="_on_unit_creator_button_toggled"]
+[connection signal="toggled" from="InventoryButton" to="." method="_on_inventory_button_toggled"]
+[connection signal="pressed" from="RandomSpawnButton" to="Enemyspawner" method="_on_random_spawn_button_pressed"]
+[connection signal="toggled" from="RandomSpawnButton" to="Enemyspawner" method="_on_random_spawn_button_toggled"]

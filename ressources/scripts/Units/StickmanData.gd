@@ -28,19 +28,19 @@ func with_points(_stat_points : int) -> StickmanData:
 		var attr : String = Stats.Attributes.keys()[randi() % Stats.Attributes.size()]
 		var prop : String = "base_" + attr.to_lower()
 		data.stats.set(prop, data.stats.get(prop) + 1)
-	data.display_name = "%s RandomPoints(%d)" % [display_name, _stat_points]
+	data.display_name = "%s, RandomPoints(%d)" % [display_name, _stat_points]
 	return data
 
 func with_weapon(_wep : Weapon) -> StickmanData:
 	var data := duplicate(true)
 	data.weapon = _wep.duplicate(true)
-	data.display_name = "%s Armed(%s)" % [display_name, _wep.weaponName]
+	data.display_name = "%s, Armed(%s)" % [display_name, _wep.weaponName]
 	return data
 
 func with_stats(_stats : Stats) -> StickmanData:
 	var data := duplicate(true)
 	data.stats = _stats
-	data.display_name = "%s CustomStats" % [display_name]
+	data.display_name = "%s, CustomStats" % [display_name]
 	return data
 
 func with_scale(multiplier: float) -> StickmanData:
@@ -50,14 +50,14 @@ func with_scale(multiplier: float) -> StickmanData:
 		if prop.name.begins_with("base_") and prop.type in [TYPE_FLOAT]:
 			data.stats.set(prop.name, data.stats.get(prop.name) * multiplier)
 	
-	data.display_name = "%s Scaled(%.2f)" % [display_name, multiplier]
+	data.display_name = "%s, Scaled(%.2f)" % [display_name, multiplier]
 	return data
 
 func with_skills(skill_array: Array[Skill]) -> StickmanData:
 	var data := duplicate(true)
 	for s in skill_array:
 		data.skill_list.append(s.duplicate(true))
-	data.display_name = "%s Skilled" % [display_name]
+	data.display_name = "%s, Skilled" % [display_name]
 	return data
 
 enum RandomizationType {
@@ -81,20 +81,20 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 					var value := randf_range(min_value, max_value)
 					data.stats.set(prop.name, data.stats.get(prop.name) * value)
 	
-	data.display_name = "%s Random" % [display_name]
+	data.display_name = "%s, Random" % [display_name]
 	data.stats.recalculate_stats()
 	#data.stats.print_attributes()
 	return data
 
 func with_onHit_passive_inflictStatusEffect(status_effect: StatusEffect) -> StickmanData:
 	var data := duplicate(true)
-
-	var passive := OnHitPassiveApplyStatusEffect.new().duplicate(true)
-	passive.status_effects.append(status_effect.duplicate(true))
-
+	
+	var passive := OnHitPassiveApplyStatusEffects.new()
+	passive.setup([status_effect]) #error found, Cannot call method 'duplicate' on a null value.
+	
 	data.weapon.onHitPassives.append(passive)
 
-	data.display_name = "%s OnHit-%s" % [display_name, status_effect.Status_effect_name]
+	data.display_name = "%s, OnHit-%s" % [display_name, passive.onhit_passive_name]
 	return data  
 
 func with_onHit_passive(passive_effect : OnHitPassive) -> StickmanData :
@@ -102,7 +102,7 @@ func with_onHit_passive(passive_effect : OnHitPassive) -> StickmanData :
 	
 	data.weapon.onHitPassives.append(passive_effect)
 	
-	data.display_name = "%s OnHit-%s " % [display_name,passive_effect.onhit_passive_name]
+	data.display_name = "%s, OnHit-%s" % [display_name,passive_effect.onhit_passive_name]
 	return data  
 
 func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
@@ -129,6 +129,9 @@ func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 				for file_name in DirAccess.get_files_at("res://ressources/Status_Effects/Statuses"):
 					if (file_name.get_extension() == "tres"):
 						effects.append(load("res://ressources/Status_Effects/Statuses/"+file_name))
+				var random_attribute_status_debuff : StatusEffect = StatusEffect_Stat_Buff.new().setup(StatBuff.new(Stats.Attributes.values().pick_random(), -(randi() % 10 + 11), StatBuff.BuffType.ADD))
+				print("randomly generated debuff : " + random_attribute_status_debuff.Status_effect_name)
+				effects.append(random_attribute_status_debuff)
 				data = data.with_onHit_passive_inflictStatusEffect(effects.pick_random())
 			4 : 
 				var passives : Array[OnHitPassive] = []

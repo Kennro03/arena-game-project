@@ -7,6 +7,9 @@ signal stop_particle(particle_scene:PackedScene)
 @export var stat_buff : StatBuff
 @export var particle_effect : PackedScene
 
+var default_buff_particle_scene : PackedScene = preload("uid://bp8e0bj146pk6")
+var default_debuff_particle_scene : PackedScene = preload("uid://njey8a1fxu3e")
+
 func on_apply(_target, _effect):
 	#print("Applying " + str(Status_effect_name))
 	stacks += max(0, _effect.stacks_affliction)
@@ -24,24 +27,31 @@ func on_expire(_target, _effect):
 	if particle_effect :
 		stop_particle.emit(particle_effect)
 
-func get_random_attribute_stat_buff(_value : int = 0, _buff_type : StatBuff.BuffType = StatBuff.BuffType.ADD) -> StatBuff :
-	if _value == 0 and _buff_type == StatBuff.BuffType.ADD :
-		_value = randi() % 10 + 11
-		print("Using random value, turning 0 to " + str(_value))
-	var buff : StatBuff = StatBuff.new(Stats.Attributes.values().pick_random(), _value, _buff_type)
-	return buff 
+func setup(_stat_buff : StatBuff, _name : String = "", _id : String = "", _description : String = "") -> StatusEffect_Stat_Buff:
+	# random buff generation : 
+	#var buff : StatBuff = StatBuff.new(Stats.Attributes.values().pick_random(), randi() % 10 + 11, StatBuff.BuffType.ADD)
+	stat_buff = _stat_buff
+	Status_effect_name = _name
+	status_ID = _id
+	Status_effect_description = _description
+	_generate_metadata()
+	return self
 
-func _init(_stat_buff : StatBuff = null) -> void:
-	if _stat_buff == null :
-		_stat_buff = get_random_attribute_stat_buff()
-		print("Getting random Attribute stat buff : " + str(_stat_buff))
-	
+func _generate_metadata():
 	var ext : String
-	if (_stat_buff.buff_type == StatBuff.BuffType.ADD and _stat_buff.buff_amount > 0) or (_stat_buff.buff_type == StatBuff.BuffType.MULTIPLY and _stat_buff.buff_amount >= 1) :
+	if (stat_buff.buff_type == StatBuff.BuffType.ADD and stat_buff.buff_amount > 0) or (stat_buff.buff_type == StatBuff.BuffType.MULTIPLY and stat_buff.buff_amount >= 1) :
 		ext = "Buff"
+		if !particle_effect :
+			particle_effect = default_buff_particle_scene
 	else : 
 		ext = "Debuff"
-	Status_effect_name = Stats.BuffableStats.values()[_stat_buff.stat].to_upper() + " " + 
-	status_ID = Stats.BuffableStats.values()[_stat_buff.stat].to_lower() + "_Buff"
-	Status_effect_description = "An " + Stats.BuffableStats.values()[_stat_buff.stat] + " Buff"
-	pass
+		if !particle_effect :
+			particle_effect = default_debuff_particle_scene
+	
+	var stat_name : String = Stats.BuffableStats.keys()[stat_buff.stat]
+	if Status_effect_name == "":
+		Status_effect_name = stat_name + " " + ext
+	if status_ID == "":
+		status_ID = stat_name.to_lower() + "_" + ext
+	if Status_effect_description == "":
+		Status_effect_description = "An " + stat_name + " " + ext + " that affects stats temporarily."

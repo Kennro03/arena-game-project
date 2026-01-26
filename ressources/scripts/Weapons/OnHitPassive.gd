@@ -8,3 +8,6 @@ class_name OnHitPassive
 
 func on_hit(_hit: HitData) -> void:
 	pass
+
+func _init(_name : String = "", _id : String = "", _description : String = "", _icon : Texture2D = PlaceholderTexture2D.new() ) -> void:
+	pass
