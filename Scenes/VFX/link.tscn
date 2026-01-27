@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://can6ycwqf4x2g"]
+
+[ext_resource type="Texture2D" uid="uid://b8bc76emq7o5e" path="res://ressources/Sprites/VFX/placeholder-link.png" id="1_djlmx"]
+[ext_resource type="Script" uid="uid://cqwsqvmsnh0ld" path="res://ressources/scripts/link.gd" id="2_nf87t"]
+
+[node name="Link" type="Line2D" unique_id=1558866801]
+texture_filter = 1
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 40, 0)
+width = 32.0
+texture = ExtResource("1_djlmx")
+texture_mode = 1
+joint_mode = 1
+script = ExtResource("2_nf87t")

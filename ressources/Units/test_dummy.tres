@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StickmanData" load_steps=8 format=3 uid="uid://clfjwjlbapbax"]
+[gd_resource type="Resource" script_class="StickmanData" format=3 uid="uid://clfjwjlbapbax"]
 
 [ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/StickmanData.gd" id="1_pq4wo"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="2_aoubf"]

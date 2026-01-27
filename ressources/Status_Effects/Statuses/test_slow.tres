@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StatusEffect_Stat_Buff" load_steps=4 format=3 uid="uid://ms527l8s7n5h"]
+[gd_resource type="Resource" script_class="StatusEffect_Stat_Buff" format=3 uid="uid://ms527l8s7n5h"]
 
 [ext_resource type="PackedScene" uid="uid://njey8a1fxu3e" path="res://Scenes/VFX/arrow_minus_particles_2d.tscn" id="2_56co8"]
 [ext_resource type="Script" uid="uid://57c0dh6futr" path="res://ressources/Status_Effects/Effects/StatusEffect_Stat_Buff.gd" id="3_v4t45"]

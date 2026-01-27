@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StatusEffect_Stun" load_steps=3 format=3 uid="uid://4xw1tohv0w42"]
+[gd_resource type="Resource" script_class="StatusEffect_Stun" format=3 uid="uid://4xw1tohv0w42"]
 
 [ext_resource type="Script" uid="uid://dnfvvxu7oamd7" path="res://ressources/Status_Effects/Effects/StatusEffect_Stun.gd" id="1_to2l5"]
 

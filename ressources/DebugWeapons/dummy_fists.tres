@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=6 format=3 uid="uid://ddpk8npshslki"]
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://ddpk8npshslki"]
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_cso3o"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/scripts/Weapons/OnHitPassive.gd" id="2_me8hx"]

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StatusEffect_BurstOnStack" load_steps=4 format=3 uid="uid://cej4f0poktksg"]
+[gd_resource type="Resource" script_class="StatusEffect_BurstOnStack" format=3 uid="uid://cej4f0poktksg"]
 
 [ext_resource type="PackedScene" uid="uid://uc43ty7e30qn" path="res://Scenes/VFX/blood_particles_2d.tscn" id="1_hg27p"]
 [ext_resource type="Script" uid="uid://b72i4hqq7w8tv" path="res://ressources/Status_Effects/Effects/StatusEffect_BurstOnStack.gd" id="2_mf8ld"]
