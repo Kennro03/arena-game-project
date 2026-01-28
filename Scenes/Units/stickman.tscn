@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://c8qwxekpq23e3"]
+[gd_scene format=3 uid="uid://c8qwxekpq23e3"]
 
 [ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/Units/stickman.gd" id="1_j4fy3"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_et0ph"]
@@ -336,18 +336,18 @@ _data = {
 &"walk": SubResource("Animation_k0oh5")
 }
 
-[node name="Stickman" type="Node2D" node_paths=PackedStringArray("skillModule", "StatusEffectModule") groups=["Stickmen"]]
+[node name="Stickman" type="Node2D" unique_id=1699308279 node_paths=PackedStringArray("skillModule", "StatusEffectModule") groups=["Units"]]
 script = ExtResource("1_j4fy3")
 stats = SubResource("Resource_et0ph")
 weapon = ExtResource("4_goxn1")
 skillModule = NodePath("SkillModule")
 StatusEffectModule = NodePath("StatusEffectModule")
 
-[node name="DisplayModule" type="Control" parent="."]
+[node name="DisplayModule" type="Control" parent="." unique_id=634217768]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="HealthBar" type="ProgressBar" parent="DisplayModule"]
+[node name="HealthBar" type="ProgressBar" parent="DisplayModule" unique_id=1339135519]
 unique_name_in_owner = true
 z_index = -1
 texture_filter = 1
@@ -361,7 +361,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_qxfsq")
 value = 100.0
 show_percentage = false
 
-[node name="ShieldBar" type="ProgressBar" parent="DisplayModule"]
+[node name="ShieldBar" type="ProgressBar" parent="DisplayModule" unique_id=522023964]
 unique_name_in_owner = true
 z_index = -1
 texture_filter = 1
@@ -375,7 +375,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_teyrl")
 value = 50.0
 show_percentage = false
 
-[node name="NameLabel" type="Label" parent="DisplayModule"]
+[node name="NameLabel" type="Label" parent="DisplayModule" unique_id=1918836467]
 unique_name_in_owner = true
 z_index = -1
 texture_filter = 1
@@ -393,20 +393,20 @@ text = "Stickman"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Hurtbox" type="Area2D" parent="." groups=["Hurtbox"]]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1823285284 groups=["Hurtbox"]]
 unique_name_in_owner = true
 script = ExtResource("2_y784s")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=541966062]
 visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_4ub1n")
 debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
-[node name="SpriteModule" type="Node2D" parent="."]
+[node name="SpriteModule" type="Node2D" parent="." unique_id=492313823]
 script = ExtResource("5_uwept")
 
-[node name="BodySprite" type="Sprite2D" parent="SpriteModule"]
+[node name="BodySprite" type="Sprite2D" parent="SpriteModule" unique_id=828426807]
 texture_filter = 1
 position = Vector2(0, -2)
 texture = ExtResource("6_uwept")
@@ -415,44 +415,42 @@ hframes = 5
 vframes = 8
 frame = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteModule"]
-libraries = {
-&"": SubResource("AnimationLibrary_76fq2")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteModule" unique_id=370336773]
+libraries/ = SubResource("AnimationLibrary_76fq2")
 
-[node name="ParticleModule" type="Node2D" parent="."]
+[node name="ParticleModule" type="Node2D" parent="." unique_id=881602680]
 unique_name_in_owner = true
 position = Vector2(0, -40)
 script = ExtResource("8_teyrl")
 
-[node name="DamagePopupMarker" type="Marker2D" parent="ParticleModule"]
+[node name="DamagePopupMarker" type="Marker2D" parent="ParticleModule" unique_id=328668197]
 unique_name_in_owner = true
 position = Vector2(0, -30)
 script = ExtResource("10_awmep")
 
-[node name="StatusEffectModule" type="Node2D" parent="."]
+[node name="StatusEffectModule" type="Node2D" parent="." unique_id=1486147061]
 unique_name_in_owner = true
 script = ExtResource("17_goxn1")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=1979367263 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_s68di")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1815735905]
 script = ExtResource("4_to2s8")
 
-[node name="Moving" type="Node" parent="StateMachine"]
+[node name="Moving" type="Node" parent="StateMachine" unique_id=1784349616]
 script = ExtResource("5_omsj2")
 
-[node name="Attacking" type="Node" parent="StateMachine"]
+[node name="Attacking" type="Node" parent="StateMachine" unique_id=1238465535]
 script = ExtResource("6_3vlyt")
 
-[node name="Casting" type="Node" parent="StateMachine"]
+[node name="Casting" type="Node" parent="StateMachine" unique_id=1634345919]
 script = ExtResource("8_n38p5")
 
-[node name="Stunned" type="Node" parent="StateMachine"]
+[node name="Stunned" type="Node" parent="StateMachine" unique_id=1334006904]
 script = ExtResource("15_goxn1")
 
-[node name="SkillModule" type="Node" parent="."]
+[node name="SkillModule" type="Node" parent="." unique_id=1767487709]
 unique_name_in_owner = true
 script = ExtResource("11_awmep")

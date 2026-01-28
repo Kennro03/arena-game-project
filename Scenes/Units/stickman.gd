@@ -22,7 +22,6 @@ var is_casting: bool = false
 var is_stunned: bool = false
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay:= 1000.0 
-var enemies_group_name:= "Stickmen"
 var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]
 
 func _ready():
@@ -43,7 +42,7 @@ func _ready():
 		flag_instance.modulate = team.team_color
 		add_child(flag_instance)
 	
-	add_to_group(enemies_group_name)
+	add_to_group("Units")
 	update_healthBar(stats.health,stats.current_max_health)
 	stats.connect("health_changed",update_healthBar)
 	stats.connect("health_depleted",die)
@@ -76,18 +75,26 @@ func can_hit()-> bool :
 	else : 
 		return false
 
-func get_closest_unit(max_distance := INF, group_name : String = enemies_group_name) -> Node2D:
-	var closest = null
-	for other in get_tree().get_nodes_in_group(group_name):
+func get_units_in_group(group_name: String) -> Array:
+	return get_tree().get_nodes_in_group(group_name)
+
+func get_closest_unit(
+	units: Array,
+	max_distance := INF,
+	filter: Callable = Callable()
+) -> Node2D:
+	var closest_unit : Node2D = null
+	var closest_unit_dist := max_distance
+	for other in units:
 		if other == self:
 			continue
-		elif check_if_ally(other) :
+		if filter.is_valid() and not filter.call(other):
 			continue
-		var dist = position.distance_to(other.position)
-		if dist < max_distance:
-			max_distance = dist
-			closest = other
-	return closest
+		var dist := position.distance_to(other.position)
+		if dist < closest_unit_dist:
+			closest_unit_dist = dist
+			closest_unit = other
+	return closest_unit
 
 func get_target_position_vector(target_position := Vector2()) -> Vector2:
 	var closest_target_vector : Vector2

@@ -6,9 +6,7 @@
 [node name="Link" type="Line2D" unique_id=1558866801]
 texture_filter = 1
 texture_repeat = 2
-points = PackedVector2Array(0, 0, 40, 0)
 width = 32.0
 texture = ExtResource("1_djlmx")
 texture_mode = 1
-joint_mode = 1
 script = ExtResource("2_nf87t")

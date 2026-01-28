@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ShieldOnHit" format=3 uid="uid://b7yigmcye8pwn"]
 
-[ext_resource type="Script" uid="uid://c68f74o7272f2" path="res://ressources/scripts/Weapons/ShieldOnHit.gd" id="1_k7igp"]
+[ext_resource type="Script" uid="uid://c68f74o7272f2" path="res://ressources/OnHit_Passives/ShieldOnHit.gd" id="1_k7igp"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lwh5n"]
 size = Vector2(16, 16)

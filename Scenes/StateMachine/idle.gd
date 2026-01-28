@@ -14,7 +14,10 @@ func physics_update(_delta: float) -> void:
 	if !owner.animationPlayerNode.is_playing():
 		owner.spriteNode.play_idle_animation()
 	
-	closest_target = owner.get_closest_unit()
+	closest_target = owner.get_closest_unit(
+		owner.get_units_in_group("Units"),
+		INF,
+		func(u): return not owner.check_if_ally(u))
 	
 	if closest_target !=null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_21hen"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapon.gd" id="1_80t4j"]
-[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/scripts/Weapons/OnHitPassive.gd" id="2_5d3gw"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_5d3gw"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_sy5po"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_21hen"]
