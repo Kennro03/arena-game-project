@@ -42,6 +42,7 @@ func _ready() -> void:
 	var _test_bleed_effect := preload("res://ressources/Status_Effects/Statuses/test_bleed.tres").duplicate(true)
 	
 	var _shield_onhit_passive := preload("res://ressources/OnHit_Passives/Shield_on_hit.tres").duplicate(true)
+	var _chain_onhit_passive := preload("res://ressources/OnHit_Passives/Chain_on_hit.tres").duplicate(true)
 	
 	add_unit(dummy.with_weapon(dummy_hands))
 	add_unit(StickmanData.new())
@@ -55,6 +56,7 @@ func _ready() -> void:
 	
 	add_unit(StickmanData.new().with_random_modifiers(3))
 	add_unit(StickmanData.new().with_random_modifiers(3))
+	add_unit(StickmanData.new().with_weapon(hammer).with_onHit_passive(_chain_onhit_passive))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

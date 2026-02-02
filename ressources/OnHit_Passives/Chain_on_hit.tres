@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="OnHitPassiveChain" format=3 uid="uid://xed3x6gxcc7n"]
+
+[ext_resource type="Texture2D" uid="uid://c5ras1l0i6ffy" path="res://ressources/Sprites/VFX/lightning-link.png" id="1_mjaut"]
+[ext_resource type="Script" uid="uid://b00sokdpioqyp" path="res://ressources/OnHit_Passives/OnHitPassiveChain.gd" id="2_pkesu"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mjaut"]
+size = Vector2(16, 16)
+
+[resource]
+script = ExtResource("2_pkesu")
+link_texture = ExtResource("1_mjaut")
+chain_duration = 0.2
+damage = 8.0
+onhit_passive_name = "Chain_on_hit"
+onhit_passive_ID = "chain_on_hit"
+onhit_passive_description = "this passive chains the hit to a nearby target"
+onhit_passive_icon = SubResource("PlaceholderTexture2D_mjaut")
+metadata/_custom_type_script = "uid://b00sokdpioqyp"

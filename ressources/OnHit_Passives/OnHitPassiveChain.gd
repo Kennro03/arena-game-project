@@ -5,34 +5,60 @@ class_name OnHitPassiveChain
 @export var number_of_targets : int = 1  # number of extra targets hit by the chain
 @export var reuse_targets : bool = false # wheter targets can be hit again
 @export var link_texture : Texture2D = preload("res://ressources/Sprites/VFX/placeholder-link.png")
-@export var chain_duration : float = 0.75 # time the chain remains before disapearing
+@export var chain_duration : float = 0.75 # time the chain texture remains before disapearing
 
-var hit_data : HitData
+@export var chain_range : float
+
+@export var damage : float 
 
 func on_hit(hit : HitData) -> void:
 	var owner := hit.hit_owner
 	var closest_target : Node2D
 	var chain_targets : Array[Node2D] = []
+	var pts : PackedVector2Array = []
 	
-	if number_of_targets >= 1 and randf() > apply_chance:
+	print("Chain effect launched") 
+	
+	if number_of_targets >= 1 and randf() < apply_chance:
+		var t:= number_of_targets+1 
+		
 		if owner.has_method("get_closest_unit") :
-			var i:= number_of_targets
-			var link: Line2D = preload("res://Scenes/VFX/link.tscn").instantiate()
+			var link: Link = preload("res://Scenes/VFX/link.tscn").instantiate()
+			link.duration = chain_duration
 			link.texture = link_texture
 			
-			while i > 0 :
-				closest_target = owner.get_closest_unit(
-					owner.get_units_in_group("Units"),
-					INF,
-					func(u): return not owner.check_if_ally(u))
+			while t > 0 :
+				if !reuse_targets : 
+					#Only get targets not already in the target list
+					closest_target = owner.get_closest_unit(
+						owner.get_units_in_group("Units").filter(func(element): return element not in chain_targets),
+						chain_range if chain_range else INF,
+						func(u): return not owner.check_if_ally(u))
+				else : 
+					#Only get that aren't the last target in the target list
+					closest_target = owner.get_closest_unit(
+						owner.get_units_in_group("Units").filter(func(element): return element != chain_targets[-1]),
+						chain_range if chain_range else INF,
+						func(u): return not owner.check_if_ally(u))
 				chain_targets.append(closest_target)
-				i -= 1
+				t -= 1
 			
+			print("Chain effect " + str(onhit_passive_name) + " selected following targets = " + str(chain_targets))
+			link.targets = chain_targets
 			for target in chain_targets :
-				
-				pass
-		
-	
+				if target :
+					if target.has_method("resolve_hit") :
+						if target != chain_targets[0] :
+							if damage :
+								target.take_damage(damage)
+							else : 
+								target.resolve_hit(hit)
+				else : 
+					printerr("did not find a target!")
+			
+			link.points = pts
+			owner.get_tree().root.add_child(link)
+			link.queue_redraw()
 
 func setup(_name : String = "", _id : String  = "", _description : String  = "", _icon : Texture2D = PlaceholderTexture2D.new() ) -> void : 
 	onhit_passive_name = _name

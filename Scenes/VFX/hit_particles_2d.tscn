@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnh37jgvitkja"]
+[gd_scene format=3 uid="uid://cnh37jgvitkja"]
 
 [ext_resource type="Texture2D" uid="uid://craj7dhmbpgsy" path="res://ressources/Sprites/VFX/particle_hit.png" id="1_mrymq"]
 [ext_resource type="Script" uid="uid://c4sr2ctfmpsw5" path="res://Scenes/VFX/Oneshot_particle_2d.gd" id="2_m30p7"]
@@ -15,7 +15,7 @@ initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 98, 0)
 
-[node name="HitParticles2D" type="GPUParticles2D"]
+[node name="HitParticles2D" type="GPUParticles2D" unique_id=1580892130]
 z_index = -1
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
