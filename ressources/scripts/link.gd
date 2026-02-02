@@ -18,4 +18,3 @@ func _process(delta: float) -> void:
 	for t in targets:
 		if t:
 			add_point(to_local(t.global_position))
-	
