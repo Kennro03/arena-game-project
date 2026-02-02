@@ -17,33 +17,39 @@ func on_hit(hit : HitData) -> void:
 	var chain_targets : Array[Node2D] = []
 	var pts : PackedVector2Array = []
 	
-	print("Chain effect launched") 
+	#print("Chain effect launched") 
 	
 	if number_of_targets >= 1 and randf() < apply_chance:
-		var t:= number_of_targets+1 
-		
 		if owner.has_method("get_closest_unit") :
-			var link: Link = preload("res://Scenes/VFX/link.tscn").instantiate()
+			var link: Link = preload("res://Scenes/VFX/link.tscn").instantiate().duplicate()
 			link.duration = chain_duration
 			link.texture = link_texture
+			var t:= number_of_targets 
+			
+			var first_target = owner.get_closest_unit(
+						owner.get_units_in_group("Units").filter(func(element): return element not in chain_targets),
+						chain_range if chain_range else INF,
+						func(u): return not owner.check_if_ally(u))
+			chain_targets.append(first_target)
+			var source = chain_targets[0]
 			
 			while t > 0 :
 				if !reuse_targets : 
 					#Only get targets not already in the target list
-					closest_target = owner.get_closest_unit(
-						owner.get_units_in_group("Units").filter(func(element): return element not in chain_targets),
+					closest_target = source.get_closest_unit(
+						owner.get_units_in_group("Units").filter(func(element): return element not in chain_targets).filter(func(element): return element != hit.hit_owner),
 						chain_range if chain_range else INF,
 						func(u): return not owner.check_if_ally(u))
 				else : 
 					#Only get that aren't the last target in the target list
-					closest_target = owner.get_closest_unit(
-						owner.get_units_in_group("Units").filter(func(element): return element != chain_targets[-1]),
+					closest_target = source.get_closest_unit(
+						owner.get_units_in_group("Units").filter(func(element): return element != chain_targets[-1]).filter(func(element): return element != hit.hit_owner),
 						chain_range if chain_range else INF,
 						func(u): return not owner.check_if_ally(u))
 				chain_targets.append(closest_target)
 				t -= 1
 			
-			print("Chain effect " + str(onhit_passive_name) + " selected following targets = " + str(chain_targets))
+			#print("Chain effect " + str(onhit_passive_name) + " selected following targets = " + str(chain_targets))
 			link.targets = chain_targets
 			for target in chain_targets :
 				if target :
@@ -54,7 +60,8 @@ func on_hit(hit : HitData) -> void:
 							else : 
 								target.resolve_hit(hit)
 				else : 
-					printerr("did not find a target!")
+					#printerr("did not find a target!")
+					pass
 			
 			link.points = pts
 			owner.get_tree().root.add_child(link)

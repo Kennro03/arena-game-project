@@ -8,9 +8,9 @@ size = Vector2(16, 16)
 
 [resource]
 script = ExtResource("2_pkesu")
-number_of_targets = 2
 link_texture = ExtResource("1_mjaut")
-chain_duration = 1.0
+chain_duration = 0.2
+chain_range = 400.0
 damage = 8.0
 onhit_passive_name = "Chain_on_hit"
 onhit_passive_ID = "chain_on_hit"
