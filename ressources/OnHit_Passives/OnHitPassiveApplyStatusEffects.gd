@@ -3,6 +3,7 @@ class_name OnHitPassiveApplyStatusEffects
 
 @export var status_effects : Array[StatusEffect]
 @export var apply_chance := 1.0  # 0..1 chance
+@export var apply_to_self : bool = false #if true, status effects are applied to self on hit
 
 func on_hit(hit : HitData) -> void:
 	if randf() > apply_chance:
@@ -11,9 +12,13 @@ func on_hit(hit : HitData) -> void:
 	if status_effects == null:
 		return
 	
-	for status_effect in status_effects : 
-		var to_add = status_effect.duplicate(true)
-		hit.status_effects.append(to_add)
+	if apply_to_self == false : 
+		for status_effect in status_effects : 
+			var to_add = status_effect.duplicate(true)
+			hit.status_effects.append(to_add)
+	else : 
+		for status_effect in status_effects :
+			hit.hit_owner.StatusEffectModule.apply_status_effect(status_effect)
 
 func setup(_status_effects : Array[StatusEffect] = [], _name : String = "", _id : String  = "", _description : String  = "", _icon : Texture2D = PlaceholderTexture2D.new() ) -> void : 
 	status_effects = _status_effects
