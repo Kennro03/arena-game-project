@@ -20,13 +20,14 @@ func on_hit(hit : HitData) -> void:
 		for status_effect in status_effects :
 			hit.hit_owner.StatusEffectModule.apply_status_effect(status_effect)
 
-func setup(_status_effects : Array[StatusEffect] = [], _name : String = "", _id : String  = "", _description : String  = "", _icon : Texture2D = PlaceholderTexture2D.new() ) -> void : 
+func setup(_status_effects : Array[StatusEffect] = [], _name : String = "", _id : String  = "", _description : String  = "", _icon : Texture2D = PlaceholderTexture2D.new() ) -> OnHitPassiveApplyStatusEffects : 
 	status_effects = _status_effects
 	onhit_passive_name = _name
 	onhit_passive_ID = _id
 	onhit_passive_description = _description
 	onhit_passive_icon = _icon
 	_generate_metadata()
+	return self
 
 func _generate_metadata():
 	if onhit_passive_name == "" :

@@ -108,7 +108,7 @@ func with_onHit_passive(passive_effect : OnHitPassive) -> StickmanData :
 func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 	var data := duplicate(true)
 	while nb_modifiers >= 1 :
-		var rand := randi() % 3 + 1
+		var rand := randi() % 4 + 1
 		match rand :
 			1 :
 				data = data.with_points(randi() % 100 + 1)
@@ -138,6 +138,13 @@ func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 				for file_name in DirAccess.get_files_at("res://ressources/OnHit_Passives/"):
 					if (file_name.get_extension() == "tres"):
 						passives.append(load("res://ressources/OnHit_Passives/"+file_name))
+		
+				var random_attribute_status_buff : StatusEffect = StatusEffect_Stat_Buff.new().setup(StatBuff.new(Stats.Attributes.values().pick_random(), (randi() % 10 + 11), StatBuff.BuffType.ADD))
+				var random_attribute_self_buff_onhit : OnHitPassive = OnHitPassiveApplyStatusEffects.new().setup([random_attribute_status_buff])
+				random_attribute_self_buff_onhit.apply_to_self = true
+				random_attribute_self_buff_onhit.apply_chance = 0.25
+				print("randomly generated self-buff : " + random_attribute_status_buff.Status_effect_name)
+				passives.append(random_attribute_self_buff_onhit)
 				data = data.with_onHit_passive(passives.pick_random())
 		nb_modifiers -= 1
 	data.show_name = true

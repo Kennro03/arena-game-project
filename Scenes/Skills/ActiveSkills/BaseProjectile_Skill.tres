@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ActiveSkill" load_steps=13 format=3 uid="uid://bojk3a754bpf3"]
+[gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://bojk3a754bpf3"]
 
 [ext_resource type="Script" uid="uid://blk4ddp3rw3vw" path="res://ressources/SkillEffects/ComponentResources/ApplyEffect.gd" id="1_3b1wv"]
 [ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://ressources/SkillEffects/ComponentResources/SpawnEffect.gd" id="1_6tb1w"]
