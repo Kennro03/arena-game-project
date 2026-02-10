@@ -160,9 +160,6 @@ func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTA
 func lightHit(target:Node2D, _hit: HitData)-> void:
 	#print(weaponName + " used light hit")
 	#On hit passive and hediff effects are applied here
-	for passive in onHitPassives :
-		passive.on_hit(_hit)
-	
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(_hit)
 	attack_performed.emit(AttackTypeEnum.LIGHTATTACK, light_endlag)
@@ -172,8 +169,6 @@ func heavyHit(target:Node2D, _hit: HitData)-> void:
 	_hit.knockback_force *= 3.0
 	#print(weaponName + " used heavy hit")
 	#On hit passive and hediff effects are applied here
-	for passive in onHitPassives :
-		passive.on_hit(_hit)
 	
 	if target.has_method("resolve_hit") :
 		target.resolve_hit(_hit)

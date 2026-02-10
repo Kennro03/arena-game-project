@@ -142,7 +142,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
 				var random_attribute_status_buff : StatusEffect = StatusEffect_Stat_Buff.new().setup(StatBuff.new(Stats.Attributes.values().pick_random(), (randi() % 10 + 11), StatBuff.BuffType.ADD))
 				var random_attribute_self_buff_onhit : OnHitPassive = OnHitPassiveApplyStatusEffects.new().setup([random_attribute_status_buff])
 				random_attribute_self_buff_onhit.apply_to_self = true
-				random_attribute_self_buff_onhit.apply_chance = 0.25
+				random_attribute_self_buff_onhit.apply_chance = 0.5
 				print("randomly generated self-buff : " + random_attribute_status_buff.Status_effect_name)
 				passives.append(random_attribute_self_buff_onhit)
 				data = data.with_onHit_passive(passives.pick_random())

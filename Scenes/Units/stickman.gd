@@ -202,9 +202,12 @@ func resolve_hit(hit_result : HitData) :
 		block(hit_result)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)
+		for passive in hit_result.hit_owner.weapon.onHitPassives :
+			passive.on_hit(hit_result)
 	else :
 		take_damage(hit_result.base_damage)
-		
+		for passive in hit_result.hit_owner.weapon.onHitPassives :
+			passive.on_hit(hit_result)
 		for effect in hit_result.status_effects :
 			#print("Resolve step : Applying " + str(effect.Status_effect_name))
 			%StatusEffectModule.apply_status_effect(effect)
