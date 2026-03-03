@@ -64,6 +64,7 @@ func setup_base_stats_from_dict(dict : Dictionary) -> void :
 
 func add_weapon_buff(buff: WeaponStatBuff) -> void :
 	if buff in weapon_stat_buffs:
+		print("Buff already present, ignoring")
 		return
 	weapon_stat_buffs.append(buff)
 	recalculate_stats.call_deferred()

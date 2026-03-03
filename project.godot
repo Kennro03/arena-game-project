@@ -31,6 +31,7 @@ folder_colors={
 "res://ressources/": "green",
 "res://ressources/OnHit_Passives/": "teal",
 "res://ressources/SkillEffects/": "orange",
+"res://ressources/Sprites/Icons/": "yellow",
 "res://ressources/Sprites/Units/": "teal",
 "res://ressources/Sprites/VFX/": "pink",
 "res://ressources/Status_Effects/": "yellow",

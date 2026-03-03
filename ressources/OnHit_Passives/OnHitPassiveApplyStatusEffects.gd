@@ -9,6 +9,7 @@ func on_hit(hit : HitData) -> void:
 	if randf() > apply_chance:
 		#Generates a random number between 0 and 1, if bigger than apply_chance then don't apply statuses
 		return
+	
 	if status_effects == null:
 		return
 	
