@@ -59,7 +59,7 @@ func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
 	for skill in data.skill_list:
 		unit.skillModule.add_skill(skill.duplicate(true))
 	
-	get_parent().add_child(unit)
+	get_tree().root.add_child(unit)
 	
 
 func spawn_random_stickman(pos: Vector2 = Vector2(randf_range(0.0,1152.0),randf_range(0.0,648.0)), data: StickmanData = StickmanData.new()):
@@ -75,7 +75,7 @@ func spawn_random_stickman(pos: Vector2 = Vector2(randf_range(0.0,1152.0),randf_
 	var unit := stickman.instantiate()
 	unit.apply_data(rand_data.duplicated())
 	unit.position = pos
-	get_parent().add_child(unit)
+	get_tree().root.add_child(unit)
 
 func load_weapons() -> Array[Weapon]:
 	var weps : Array[Weapon] = []
