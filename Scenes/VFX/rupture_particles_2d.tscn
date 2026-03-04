@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ub6ti3nxgr48"]
+
+[ext_resource type="Texture2D" uid="uid://yqw8015n1gkk" path="res://ressources/Sprites/VFX/rupture.png" id="1_1p2ux"]
+[ext_resource type="Script" uid="uid://c4sr2ctfmpsw5" path="res://Scenes/VFX/Oneshot_particle_2d.gd" id="2_4a7dd"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7vt7n"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Curve" id="Curve_1p2ux"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(0.501, 2), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_4a7dd"]
+curve = SubResource("Curve_1p2ux")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p3e6d"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 180.0
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_4a7dd")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 1.0
+
+[node name="HitParticles2D" type="GPUParticles2D" unique_id=1571702738]
+z_index = 1
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_7vt7n")
+scale = Vector2(0.5, 0.5)
+emitting = false
+amount = 1
+texture = ExtResource("1_1p2ux")
+lifetime = 0.45
+one_shot = true
+explosiveness = 0.95
+randomness = 0.15
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_p3e6d")
+script = ExtResource("2_4a7dd")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

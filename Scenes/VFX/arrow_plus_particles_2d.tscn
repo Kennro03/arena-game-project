@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bp8e0bj146pk6"]
+[gd_scene format=3 uid="uid://bp8e0bj146pk6"]
 
 [ext_resource type="Texture2D" uid="uid://35h84kahy4t6" path="res://ressources/Sprites/VFX/plus_arrow.png" id="1_amatf"]
 
@@ -39,7 +39,7 @@ anim_speed_max = 1.0
 anim_offset_max = 1.0
 anim_offset_curve = SubResource("CurveTexture_wm618")
 
-[node name="ArrowPlusParticles2D" type="GPUParticles2D"]
+[node name="ArrowPlusParticles2D" type="GPUParticles2D" unique_id=891880845]
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_amatf")
 amount = 3

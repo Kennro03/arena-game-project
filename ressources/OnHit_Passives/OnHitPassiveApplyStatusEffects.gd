@@ -31,19 +31,18 @@ func setup(_status_effects : Array[StatusEffect] = [], _name : String = "", _id 
 	return self
 
 func _generate_metadata():
+	var effect_names := " & ".join(status_effects.map(func(e): return e.Status_effect_name))
+	
 	if onhit_passive_name == "" :
 		for i in status_effects.size():
 			onhit_passive_name += status_effects[i].Status_effect_name
 			if i < status_effects.size() - 1:
 				onhit_passive_name += " & "
+	
 	if onhit_passive_ID == "" :
 		#THIS DOES NOT GENERATE A UNIQUE ID, CHANGE THIS LATER
 		onhit_passive_ID = str(randi_range(1,9999999))
-		#print("Generated OnHitPassiveApplyStatusEffects id = " + onhit_passive_ID)
+	
 	if onhit_passive_description == "" :
-		onhit_passive_description = "A onHit passive that inflicts the following status effects : "
-		for i in status_effects.size():
-			onhit_passive_description += status_effects[i].Status_effect_name
-			if i < status_effects.size() - 1:
-				onhit_passive_name += ", "
+		onhit_passive_description = "A onHit passive that inflicts: " + effect_names.replace(" & ", ", ")
 		#print("Generated OnHitPassiveApplyStatusEffects description = " + onhit_passive_description)

@@ -10,6 +10,14 @@ enum Attributes {
 	FAITH,
 	ATTUNEMENT,
 }
+static var attribute_icons : Dictionary = {
+	Attributes.STRENGTH: preload("res://ressources/Sprites/Icons/strength_icon.png"),
+	Attributes.DEXTERITY: preload("res://ressources/Sprites/Icons/dexterity_icon.png"),
+	Attributes.ENDURANCE: preload("res://ressources/Sprites/Icons/endurance_icon.png"),
+	Attributes.INTELLECT: preload("res://ressources/Sprites/Icons/intelligence_icon.png"),
+	Attributes.FAITH: preload("res://ressources/Sprites/Icons/faith_icon.png"),
+	Attributes.ATTUNEMENT: preload("res://ressources/Sprites/Icons/attunement_icon.png"),
+}
 enum BuffableStats {
 	STRENGTH,
 	DEXTERITY,
@@ -27,6 +35,9 @@ enum BuffableStats {
 	PERCENT_BLOCK_POWER,
 	CRIT_CHANCE,
 	CRIT_DAMAGE,
+}
+static var buffable_stat_icons : Dictionary = {
+	# To be added later
 }
 
 signal health_depleted

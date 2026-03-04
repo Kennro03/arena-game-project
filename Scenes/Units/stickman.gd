@@ -24,6 +24,8 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay:= 1000.0 
 var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]
 
+signal hit_received(hit_data: HitData)
+
 func _ready():
 	spriteNode = $SpriteModule
 	animationPlayerNode = $SpriteModule/AnimationPlayer
@@ -204,6 +206,7 @@ func resolve_hit(hit_result : HitData) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)
 		for passive in hit_result.hit_owner.weapon.onHitPassives :
 			passive.on_hit(hit_result)
+		hit_received.emit(hit_result)
 	else :
 		take_damage(hit_result.base_damage)
 		for passive in hit_result.hit_owner.weapon.onHitPassives :
@@ -216,6 +219,7 @@ func resolve_hit(hit_result : HitData) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
 		if hit_result.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED :
 			$ParticleModule.emit_hit_particles()
+		hit_received.emit(hit_result)
 
 func apply_data(data: StickmanData) -> void:
 	#Replace all of this to use the new stat resource instead

@@ -12,6 +12,12 @@ enum BuffableStats {
 	DAMAGE,
 	KNOCKBACK,
 }
+static var buffable_stat_icons : Dictionary = {
+	BuffableStats.DAMAGE: preload("res://ressources/Sprites/Icons/weapon_damage_icon.png"),
+	BuffableStats.ATTACK_SPEED: preload("res://ressources/Sprites/Icons/weapon_attackspeed_icon.png"),
+	BuffableStats.ATTACK_RANGE: preload("res://ressources/Sprites/Icons/weapon_attackrange_icon.png"),
+	BuffableStats.KNOCKBACK: preload("res://ressources/Sprites/Icons/weapon_knockback_icon.png"),
+}
 
 @export var weaponName : String
 @export var weaponType : WeaponTypeEnum
@@ -71,6 +77,8 @@ func add_weapon_buff(buff: WeaponStatBuff) -> void :
 
 func remove_weapon_buff(buff: WeaponStatBuff) -> void :
 	weapon_stat_buffs.erase(buff)
+	print("Removed weapon buff : " + str(buff))
+	print("Weapons buffs : " + str(weapon_stat_buffs))
 	recalculate_stats.call_deferred()
 
 func clear_weapon_buffs() -> void:
@@ -115,7 +123,7 @@ func recalculate_stats() -> void :
 			WeaponStatBuff.BuffType.MULTIPLY:
 				if not stat_multipliers.has(stat_name):
 					stat_multipliers[stat_name] = 1.0
-				stat_multipliers[stat_name] += buff.buff_amount
+				stat_multipliers[stat_name] *= buff.buff_amount
 				
 				if stat_multipliers[stat_name] < 0.0:
 					stat_multipliers[stat_name] = 0.0

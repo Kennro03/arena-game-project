@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="StatusEffect_DamageOnHit" format=3 uid="uid://n4ak8gyhsesh"]
+
+[ext_resource type="PackedScene" uid="uid://ub6ti3nxgr48" path="res://Scenes/VFX/rupture_particles_2d.tscn" id="1_1vd1f"]
+[ext_resource type="Script" uid="uid://cuy65job64arh" path="res://ressources/Status_Effects/Effects/StatusEffect_DamageOnHit.gd" id="1_mrma0"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1vd1f"]
+
+[resource]
+script = ExtResource("1_mrma0")
+particle_effect = ExtResource("1_1vd1f")
+Status_effect_name = "test_rupture"
+status_ID = "test_rupture"
+Status_effect_description = "damages target on hit"
+status_icon = SubResource("PlaceholderTexture2D_1vd1f")
+stacks_affliction = 2
+max_stacks = 5
+duration = 0.0
+tick_interval = 0.0
+metadata/_custom_type_script = "uid://cuy65job64arh"
