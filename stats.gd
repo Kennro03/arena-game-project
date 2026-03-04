@@ -63,7 +63,7 @@ signal shield_changed(cur_shield:float,max_shield:float)
 @export var base_flat_block_power : float = 0.0
 @export var base_percent_block_power : float = 50.0
 @export var base_crit_chance : float = 5.0
-@export var base_crit_damage : float = 1.0
+@export var base_crit_damage : float = 1.25
 @export var base_flat_damage_taken: float = 0.0
 @export var base_percent_damage_taken: float = 1.0  
 

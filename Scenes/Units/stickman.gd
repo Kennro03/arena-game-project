@@ -199,10 +199,13 @@ func dodge(_hit: HitData):
 
 func resolve_hit(hit_result : HitData) :
 	if randf_range(0.0,100.0)<=stats.current_dodge_probability and is_casting==false and is_stunned==false :
+		hit_result.outcome = HitData.HitOutcome.DODGE
 		dodge(hit_result)
 	elif randf_range(0.0,100.0)<=stats.current_parry_probability and is_casting==false and is_stunned==false :
+		hit_result.outcome = HitData.HitOutcome.PARRY
 		parry(hit_result)
 	elif randf_range(0.0,100.0)<=stats.current_block_probability and is_casting==false and is_stunned==false :
+		hit_result.outcome = HitData.HitOutcome.BLOCK
 		block(hit_result)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force/2)
@@ -210,9 +213,9 @@ func resolve_hit(hit_result : HitData) :
 			passive.on_hit(hit_result)
 		hit_received.emit(hit_result)
 	else :
+		hit_result.outcome = HitData.HitOutcome.HIT
 		take_damage(hit_result.base_damage)
-		for passive in hit_result.hit_owner.weapon.onHitPassives :
-			passive.on_hit(hit_result)
+		_apply_passives(hit_result)
 		for effect in hit_result.status_effects :
 			#print("Resolve step : Applying " + str(effect.Status_effect_name))
 			%StatusEffectModule.apply_status_effect(effect)
@@ -222,6 +225,11 @@ func resolve_hit(hit_result : HitData) :
 		if hit_result.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED :
 			$ParticleModule.emit_hit_particles()
 		hit_received.emit(hit_result)
+
+func _apply_passives(hit_result: HitData) -> void:
+	for passive in hit_result.hit_owner.weapon.onHitPassives:
+		if _passive_clears_outcome(passive, hit_result.outcome):
+			passive.on_hit(hit_result)
 
 func apply_data(data: StickmanData) -> void:
 	#Replace all of this to use the new stat resource instead
@@ -268,3 +276,13 @@ func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0)
 	#print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
 	spriteNode.play_attack_animation(attack_type,weapon)
 	is_action_locked = true
+
+func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome) -> bool:
+	match outcome:
+		HitData.HitOutcome.DODGE: 
+			return passive.triggers_on_dodge
+		HitData.HitOutcome.BLOCK: 
+			return passive.triggers_on_block
+		HitData.HitOutcome.PARRY: 
+			return passive.triggers_on_parry
+		_: return true  # HIT always triggers

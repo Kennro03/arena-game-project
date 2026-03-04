@@ -8,10 +8,9 @@ class_name OnHitPassiveChain
 @export var chain_duration : float = 0.75 # time the chain texture remains before disapearing
 
 @export var chain_range : float
-
 @export var damage : float 
 
-func on_hit(hit : HitData) -> void:
+func _on_hit_effect(hit : HitData) -> void:
 	var owner := hit.hit_owner
 	var closest_target : Node2D
 	var chain_targets : Array[Node2D] = []

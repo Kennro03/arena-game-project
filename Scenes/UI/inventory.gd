@@ -57,7 +57,10 @@ func _ready() -> void:
 
 	add_unit(StickmanData.new().with_random_modifiers(3))
 	add_unit(StickmanData.new().with_random_modifiers(3))
-	add_unit(StickmanData.new().with_weapon(hammer).with_onHit_passive(_chain_onhit_passive))
+	var test_chain_hammer := StickmanData.new().with_weapon(hammer).with_onHit_passive(_chain_onhit_passive)
+	test_chain_hammer.stats.base_crit_chance = 25.0
+	test_chain_hammer.stats.recalculate_stats()
+	add_unit(test_chain_hammer)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

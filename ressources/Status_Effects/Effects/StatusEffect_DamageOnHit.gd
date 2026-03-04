@@ -22,7 +22,7 @@ func on_expire(_target, _effect):
 			_target_ref.hit_received.disconnect(_on_target_hit)
 	_target_ref = null
 
-func _on_target_hit(hit_data: HitData) -> void:
+func _on_target_hit(_hit_data: HitData) -> void:
 	if not is_instance_valid(_target_ref):
 		return
 	if _target_ref.has_method("take_damage"):

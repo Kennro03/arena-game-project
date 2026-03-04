@@ -5,7 +5,7 @@ class_name OnHitPassiveApplyStatusEffects
 @export var apply_chance := 1.0  # 0..1 chance
 @export var apply_to_self : bool = false #if true, status effects are applied to self on hit
 
-func on_hit(hit : HitData) -> void:
+func _on_hit_effect(hit : HitData) -> void:
 	if randf() > apply_chance:
 		#Generates a random number between 0 and 1, if bigger than apply_chance then don't apply statuses
 		return

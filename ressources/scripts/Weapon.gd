@@ -70,15 +70,12 @@ func setup_base_stats_from_dict(dict : Dictionary) -> void :
 
 func add_weapon_buff(buff: WeaponStatBuff) -> void :
 	if buff in weapon_stat_buffs:
-		print("Buff already present, ignoring")
 		return
 	weapon_stat_buffs.append(buff)
 	recalculate_stats.call_deferred()
 
 func remove_weapon_buff(buff: WeaponStatBuff) -> void :
 	weapon_stat_buffs.erase(buff)
-	print("Removed weapon buff : " + str(buff))
-	print("Weapons buffs : " + str(weapon_stat_buffs))
 	recalculate_stats.call_deferred()
 
 func clear_weapon_buffs() -> void:
@@ -189,10 +186,12 @@ func hit(target:Node2D, _hit: HitData)-> void:
 		return
 	
 	var attack : AttackTypeEnum = generate_item(attackTypes)
-	
 	_hit.attack_type = attack
 	_hit.base_damage = current_damage
 	_hit.knockback_force = current_knockback
+	
+	if _hit.is_critical :
+		_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
 	
 	#print ("Generated item : " + str(attack))
 	match attack :

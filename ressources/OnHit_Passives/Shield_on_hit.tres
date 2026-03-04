@@ -7,9 +7,9 @@ size = Vector2(16, 16)
 
 [resource]
 script = ExtResource("1_k7igp")
-only_on_crit = true
 onhit_passive_name = "Shield on hit onCrit"
 onhit_passive_ID = "shield_on_hit_oncrit"
 onhit_passive_description = "This weapon grants a shield upon critting"
 onhit_passive_icon = SubResource("PlaceholderTexture2D_lwh5n")
+hit_type_filter = 2
 metadata/_custom_type_script = "uid://c68f74o7272f2"

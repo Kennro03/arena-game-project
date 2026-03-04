@@ -21,8 +21,6 @@ func on_apply(_target, _effect):
 		emit_particle.emit(particle_effect)
 
 func on_expire(_target, _effect):
-	#print("Target stat buffs list = " + str(_target.stats.stat_buffs))
-	print("Weapon Stat buff expired, " + str(self))
 	if _target.weapon.weapon_stat_buffs.any(func(b): return b == weapon_stat_buff):
 		_target.weapon.remove_weapon_buff(weapon_stat_buff)
 	if particle_effect :

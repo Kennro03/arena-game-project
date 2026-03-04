@@ -5,12 +5,14 @@ var hit_owner : Node2D
 var is_critical : bool = false
 var attack_type : Weapon.AttackTypeEnum
 
+enum HitOutcome { NONE, HIT, BLOCK, PARRY, DODGE }
+var outcome : HitOutcome = HitOutcome.NONE
+
 @export var base_damage : float = 0.0
-@export var crit_mult : float
+var crit_mult : float = 1.0
 @export var knockback_direction : Vector2 = Vector2(0,0)
 @export var knockback_force : float = 0.0
 @export var status_effects: Array[StatusEffect] = [] # optional, e.g. "Burn", "Stun"
-
 
 func _init(_hit_owner : Node2D, _damage_or_data = null, _dir: Vector2 = Vector2.ZERO, _force: float = 0.0, _effects: Array[StatusEffect] = [], _is_critical: bool = false):
 	if typeof(_damage_or_data) == TYPE_DICTIONARY:
