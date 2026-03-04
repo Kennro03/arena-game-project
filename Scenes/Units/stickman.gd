@@ -160,6 +160,8 @@ func receive_knockback(force: Vector2):
 	knockback_velocity += force
 
 func take_damage(incoming_damage) :
+	incoming_damage += stats.current_flat_damage_taken
+	incoming_damage *= stats.current_percent_damage_taken
 	incoming_damage = round(incoming_damage * pow(10.0, 2)) / pow(10.0, 2)
 	if stats.shield > 0.0 and stats.shield > incoming_damage :
 		stats.shield -= incoming_damage

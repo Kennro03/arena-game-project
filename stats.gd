@@ -35,6 +35,8 @@ enum BuffableStats {
 	PERCENT_BLOCK_POWER,
 	CRIT_CHANCE,
 	CRIT_DAMAGE,
+	FLAT_DAMAGE_TAKEN,
+	PERCENT_DAMAGE_TAKEN,
 }
 static var buffable_stat_icons : Dictionary = {
 	# To be added later
@@ -62,6 +64,8 @@ signal shield_changed(cur_shield:float,max_shield:float)
 @export var base_percent_block_power : float = 50.0
 @export var base_crit_chance : float = 5.0
 @export var base_crit_damage : float = 1.0
+@export var base_flat_damage_taken: float = 0.0
+@export var base_percent_damage_taken: float = 1.0  
 
 @export var experience : int = 0: set = _on_experience_set
 
@@ -127,6 +131,8 @@ var current_flat_block_power : float
 var current_percent_block_power : float 
 var current_crit_chance : float 
 var current_crit_damage : float
+var current_flat_damage_taken : float
+var current_percent_damage_taken : float
 
 var dodge_prob_cap := 90.0
 var block_prob_cap := 90.0
@@ -158,6 +164,8 @@ func setup_base_stats_from_dict(dict : Dictionary) -> void :
 	base_percent_block_power = dict.get("percent_block_power",base_percent_block_power)
 	base_crit_chance = dict.get("crit_chance",base_crit_chance)
 	base_crit_damage = dict.get("crit_damage",base_crit_damage)
+	base_flat_damage_taken = dict.get("flat_damage_taken",base_flat_damage_taken)
+	base_percent_damage_taken = dict.get("percent_damage_taken",base_percent_damage_taken)
 	recalculate_stats()
 
 func add_buff(buff: StatBuff) -> void :
@@ -301,6 +309,8 @@ func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dic
 			"percent_block_power": base_percent_block_power,
 			"crit_chance": base_crit_chance,
 			"crit_damage": base_crit_damage,
+			"flat_damage_taken": base_flat_damage_taken,
+			"percent_damage_taken": base_percent_damage_taken,
 
 			"experience": experience,
 		}
@@ -324,6 +334,8 @@ func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dic
 			"percent_block_power": current_percent_block_power,
 			"crit_chance": current_crit_chance,
 			"crit_damage": current_crit_damage,
+			"flat_damage_taken": current_flat_damage_taken,
+			"percent_damage_taken": current_percent_damage_taken,
 
 			"level": level,
 			"health": health
@@ -358,6 +370,8 @@ func print_stats()-> void :
 	print("Current block (percent) power : " + str(current_percent_block_power))
 	print("Current crit chance : " + str(current_crit_chance))
 	print("Current crit damage : " + str(current_crit_damage))
+	print("Current flat damage taken : " + str(current_flat_damage_taken))
+	print("Current percent damage taken : " + str(current_percent_damage_taken))
 
 func reset_current_stats() -> void:
 	current_strength = base_strength
@@ -377,3 +391,5 @@ func reset_current_stats() -> void:
 	current_percent_block_power = base_percent_block_power
 	current_crit_chance = base_crit_chance
 	current_crit_damage = base_crit_damage
+	current_flat_damage_taken = base_flat_damage_taken
+	current_percent_damage_taken = base_percent_damage_taken
