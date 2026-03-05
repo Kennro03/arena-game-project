@@ -338,14 +338,9 @@ _data = {
 
 [node name="BaseUnit" type="Node2D" unique_id=1699308279 groups=["Units"]]
 script = ExtResource("1_m87p7")
-id = null
-display_name = null
 show_name = true
-description = null
-sprite_color = null
 stats = SubResource("Resource_et0ph")
 weapon = ExtResource("4_g30pe")
-default_weapon = null
 
 [node name="DisplayModule" type="Control" parent="." unique_id=634217768]
 layout_mode = 3

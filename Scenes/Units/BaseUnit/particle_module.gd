@@ -24,9 +24,6 @@ func remove_particle(particle_scene : PackedScene) -> void :
 			instances.remove_at(0)
 		if instances.is_empty():
 			active_particles.erase(particle_scene)
-		
-		active_particles[particle_scene].queue_free()
-		active_particles.erase(particle_scene)
 
 func emit_block_particles(_hit_data : HitData = null)->void:
 	var inst = block_particle.instantiate()
