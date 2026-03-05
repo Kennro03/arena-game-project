@@ -8,14 +8,23 @@ var active_particles := {}
 
 func spawn_particle(particle_scene : PackedScene) -> void :
 	var inst = particle_scene.instantiate()
-	self.add_child(inst)
+	add_child(inst)
 	inst.emitting = true
-	active_particles[particle_scene] = inst
+	if not active_particles.has(particle_scene):
+		active_particles[particle_scene] = []
+	active_particles[particle_scene].append(inst)
 	#print("Added child to particle module : " + str(inst))
 	#print("Active particles list = " + str(active_particles))
 
 func remove_particle(particle_scene : PackedScene) -> void :
 	if active_particles.has(particle_scene):
+		var instances : Array = active_particles[particle_scene]
+		if instances.size() > 0:
+			instances[0].queue_free()
+			instances.remove_at(0)
+		if instances.is_empty():
+			active_particles.erase(particle_scene)
+		
 		active_particles[particle_scene].queue_free()
 		active_particles.erase(particle_scene)
 
