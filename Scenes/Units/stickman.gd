@@ -55,15 +55,23 @@ func _ready():
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
+const BASE_BAR_WIDTH : float = 50.0
+const MIN_BAR_WIDTH : float = 25.0
+const MAX_BAR_WIDTH : float = 100.0
+const HEALTH_SCALE_REFERENCE : float = 100.0 
+
 func update_healthBar(_health, _max_health) -> void :
 	%HealthBar.max_value = _max_health
 	%HealthBar.value = _health
+	var scaled_width := BASE_BAR_WIDTH * sqrt(_max_health / HEALTH_SCALE_REFERENCE)
+	%HealthBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
 
 func update_shieldBar(_shield, _max_shield) -> void :
 	%ShieldBar.max_value = _max_shield
 	%ShieldBar.value = _shield
-	if %ShieldBar.visible == false :
-		%ShieldBar.visible = true
+	%ShieldBar.visible = _shield > 0.0
+	var scaled_width := BASE_BAR_WIDTH * sqrt(_max_shield / HEALTH_SCALE_REFERENCE)
+	%ShieldBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
 
 func hide_shieldBar() -> void :
 	%ShieldBar.visible = false
