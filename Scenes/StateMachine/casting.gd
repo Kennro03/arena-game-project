@@ -1,4 +1,4 @@
-extends StickmanState
+extends BaseUnitState
 
 var closest_target
 var closest_target_vector

@@ -2,7 +2,7 @@ extends Control
 signal inventory_stickman_added(unit_data : StickmanData)
 signal inventory_stickman_removed()
 
-@export var stickman_scene := preload("res://Scenes/Units/stickman.tscn")
+@export var base_unit_scene := preload("res://Scenes/Units/BaseUnit/baseUnit.gd")
 @export var Slot_scene := preload("res://Scenes/UI/stickman_slot.tscn")
 @export var inventory_size : int = 20
 @export var HOTBAR_SIZE := 10

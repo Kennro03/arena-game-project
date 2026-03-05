@@ -1,7 +1,7 @@
 extends Node
 
 @export var UI_node : Control 
-var stickman: PackedScene = preload("res://Scenes/Units/stickman.tscn")
+var stickman: PackedScene = preload("res://Scenes/Units/Stickman/stickman.tscn")
 var stickman_data_resource: StickmanData = StickmanData.new()
 var selected_stickmandata : StickmanData 
 var selected_team : Team

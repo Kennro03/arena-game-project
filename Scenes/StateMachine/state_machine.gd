@@ -1,4 +1,5 @@
-class_name StateMachine extends Node
+extends Node
+class_name StateMachine 
 
 @export var initial_state: State = null
 
@@ -25,7 +26,7 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	%Hurtbox.stickman_body_knockback()
+	%Hurtbox.body_knockback()
 	border_knockback()
 	
 	if owner.knockback_velocity.length() > 0.1:

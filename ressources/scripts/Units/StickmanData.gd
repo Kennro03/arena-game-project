@@ -4,7 +4,7 @@ class_name StickmanData
 ## Identity / UI
 @export var id: String = "stickman_default"
 @export var display_name: String = "Stickman"
-@export var show_name: bool = false
+@export var show_name: bool = true
 @export var description: String = ""
 @export var icon: Texture2D
 @export var color: Color = Color.from_hsv(randf(), 0.8, 0.9)

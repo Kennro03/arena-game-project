@@ -10,7 +10,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func stickman_body_knockback() -> void:
+func body_knockback() -> void:
 	for targetarea in %Hurtbox.get_overlapping_areas_in_area("Hurtbox") : 
 		owner.apply_knockback(targetarea.owner, targetarea.owner.position - owner.position , 10.0)
 

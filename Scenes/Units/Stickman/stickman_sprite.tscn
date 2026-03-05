@@ -1,7 +1,7 @@
-[gd_scene load_steps=40 format=3 uid="uid://dpm4plan27goy"]
+[gd_scene format=3 uid="uid://dpm4plan27goy"]
 
-[ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/stickman_sprite.gd" id="1_bt3t7"]
-[ext_resource type="Texture2D" uid="uid://b6y5dcer5k3cu" path="res://ressources/Sprites/Units/Stickman/ModularStickman.png" id="2_bt3t7"]
+[ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/Stickman/stickman_sprite.gd" id="1_bt3t7"]
+[ext_resource type="Texture2D" path="res://ressources/Sprites/Units/Stickman/ModularStickman.png" id="2_bt3t7"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bt3t7"]
 load_path = "res://.godot/imported/ModularStickmanTpose-Sheet.png-f77af84470a9c44b317646f6f440db2f.ctex"

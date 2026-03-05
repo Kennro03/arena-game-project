@@ -9,7 +9,7 @@ var context : Dictionary = {}
 var check_skill_timepassed : float = 0.0
 
 func add_skill(skill: Skill, slot: int = -1):
-	print("Adding skill " + str(skill) + " to " + str(Stickman))
+	print("Adding skill " + str(skill) + " to " + str(BaseUnit))
 	if skill_runtimes.has(skill.skill_name):
 		push_warning("Skill " + skill.skill_name + " already added." )
 		return

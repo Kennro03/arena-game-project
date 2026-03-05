@@ -1,19 +1,24 @@
-class_name Stickman extends Node2D
-var spriteNode
-var animationPlayerNode
+extends Node2D
+class_name BaseUnit
+signal hit_received(hit_data: HitData)
 
-@export var id: String = "stickman_default"
-@export var display_name: String = "Stickman"
+@onready var spriteNode = $SpriteModule
+@onready var animationPlayerNode = $SpriteModule/AnimationPlayer
+@onready var healthBar := %HealthBar
+@onready var shieldBar := %ShieldBar
+@onready var StatusEffectModule : Node2D = $StatusEffectModule
+@onready var skillModule : Node = $SkillModule
+
+@export var id: String = "Basic_Unit"
+@export var display_name: String = "Unit"
 @export var show_name: bool = false
-@export var description: String = "A regular Stickman."
+@export var description: String = "A regular unit."
 @export var icon: Texture2D = null
 @export var sprite_color:= Color.WHITE
 @export var team: Team
 
 @export var stats : Stats = Stats.new()
 @export var weapon : Weapon = null
-@export var skillModule : Node
-@export var StatusEffectModule : Node2D
 @export var default_weapon : Weapon = preload("res://ressources/Weapons/fists.tres")
 
 var is_action_locked := false
@@ -24,17 +29,17 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay:= 1000.0 
 var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]
 
-signal hit_received(hit_data: HitData)
+const BASE_BAR_WIDTH : float = 50.0
+const MIN_BAR_WIDTH : float = 25.0
+const MAX_BAR_WIDTH : float = 100.0
+const HEALTH_SCALE_REFERENCE : float = 100.0 
 
 func _ready():
-	spriteNode = $SpriteModule
-	animationPlayerNode = $SpriteModule/AnimationPlayer
 	spriteNode.bodyColor = sprite_color
 	spriteNode.selfmodulate()
 	
-	if show_name : 
-		%NameLabel.text = display_name
-		%NameLabel.visible = true
+	%NameLabel.text = display_name
+	%NameLabel.visible = show_name
 	
 	if team != null :
 		var flag: PackedScene = preload("res://Scenes/flag.tscn")
@@ -55,26 +60,21 @@ func _ready():
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
-const BASE_BAR_WIDTH : float = 50.0
-const MIN_BAR_WIDTH : float = 25.0
-const MAX_BAR_WIDTH : float = 100.0
-const HEALTH_SCALE_REFERENCE : float = 100.0 
-
 func update_healthBar(_health, _max_health) -> void :
-	%HealthBar.max_value = _max_health
-	%HealthBar.value = _health
+	healthBar.max_value = _max_health
+	healthBar.value = _health
 	var scaled_width := BASE_BAR_WIDTH * sqrt(_max_health / HEALTH_SCALE_REFERENCE)
-	%HealthBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
+	healthBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
 
 func update_shieldBar(_shield, _max_shield) -> void :
-	%ShieldBar.max_value = _max_shield
-	%ShieldBar.value = _shield
-	%ShieldBar.visible = _shield > 0.0
+	shieldBar.max_value = _max_shield
+	shieldBar.value = _shield
+	shieldBar.visible = _shield > 0.0
 	var scaled_width := BASE_BAR_WIDTH * sqrt(_max_shield / HEALTH_SCALE_REFERENCE)
-	%ShieldBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
+	shieldBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
 
 func hide_shieldBar() -> void :
-	%ShieldBar.visible = false
+	shieldBar.visible = false
 
 func _on_anim_finished(_anim_name):
 	is_action_locked = false

@@ -4,7 +4,7 @@ class_name Slot
 @export var tooltip_scene: PackedScene
 var tooltip
 
-signal stickman_selected(_stickman_data: Stickman)
+signal stickman_selected(_stickman_data: BaseUnit)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

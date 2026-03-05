@@ -1,0 +1,459 @@
+[gd_scene format=3 uid="uid://c8qwxekpq23e3"]
+
+[ext_resource type="Script" uid="uid://dy0oyw5dy2hwx" path="res://Scenes/Units/BaseUnit/baseUnit.gd" id="1_m87p7"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_qodw4"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="3_ehlrc"]
+[ext_resource type="Resource" uid="uid://ddpk8npshslki" path="res://ressources/DebugWeapons/dummy_fists.tres" id="4_g30pe"]
+[ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="5_baptd"]
+[ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/Stickman/stickman_sprite.gd" id="6_fot73"]
+[ext_resource type="Texture2D" uid="uid://b21tep713spbo" path="res://ressources/Sprites/Units/Stickman/UnarmedStickman.png" id="7_ih6fc"]
+[ext_resource type="Script" uid="uid://5r2u3nk0unia" path="res://Scenes/Units/BaseUnit/particle_module.gd" id="8_8w8nr"]
+[ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="9_ilac3"]
+[ext_resource type="Script" uid="uid://cti6dobwwux2e" path="res://ressources/Status_Effects/StatusEffectModule.gd" id="10_omahv"]
+[ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="11_wug4w"]
+[ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="12_iql0a"]
+[ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="13_03u68"]
+[ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="14_4skrk"]
+[ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="15_yrn6x"]
+[ext_resource type="Script" uid="uid://7xbnrxcgcsgo" path="res://Scenes/StateMachine/stunned.gd" id="16_7uoxq"]
+[ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="17_504nd"]
+
+[sub_resource type="Resource" id="Resource_et0ph"]
+resource_local_to_scene = true
+script = ExtResource("3_ehlrc")
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_goxn1"]
+bg_color = Color(0, 0, 0, 0.14901961)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxfsq"]
+bg_color = Color(0.22176233, 0.71768534, 3.85046e-07, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_goxn1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_teyrl"]
+bg_color = Color(0.13995996, 0.7271122, 0.8191232, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+anti_aliasing = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
+
+[sub_resource type="Animation" id="Animation_ykvpi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BodySprite:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_38inb"]
+resource_name = "block"
+length = 0.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(3, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_w7fw7"]
+resource_name = "casting"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_j7ym2"]
+resource_name = "dodge1"
+length = 0.5
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_o0mns"]
+resource_name = "dodge2"
+length = 0.5
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_isgce"]
+resource_name = "heavyattack1"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6)]
+}
+
+[sub_resource type="Animation" id="Animation_uwept"]
+resource_name = "heavyattack2"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_ju7ab"]
+resource_name = "idle"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jfclq"]
+resource_name = "lightattack1"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_gyor6"]
+resource_name = "lightattack2"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 5), Vector2i(1, 5), Vector2i(2, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_3pohh"]
+resource_name = "parry"
+length = 0.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_76fq2"]
+resource_name = "stance"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_bt3t7"]
+resource_name = "stunned"
+length = 0.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(2, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pvatb"]
+resource_name = "tpose"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_k0oh5"]
+resource_name = "walk"
+length = 0.6665
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1333, 0.2666, 0.39990002, 0.5332, 0.6665),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_76fq2"]
+_data = {
+&"RESET": SubResource("Animation_ykvpi"),
+&"block": SubResource("Animation_38inb"),
+&"casting": SubResource("Animation_w7fw7"),
+&"dodge1": SubResource("Animation_j7ym2"),
+&"dodge2": SubResource("Animation_o0mns"),
+&"heavyattack1": SubResource("Animation_isgce"),
+&"heavyattack2": SubResource("Animation_uwept"),
+&"idle": SubResource("Animation_ju7ab"),
+&"lightattack1": SubResource("Animation_jfclq"),
+&"lightattack2": SubResource("Animation_gyor6"),
+&"parry": SubResource("Animation_3pohh"),
+&"stance": SubResource("Animation_76fq2"),
+&"stunned": SubResource("Animation_bt3t7"),
+&"tpose": SubResource("Animation_pvatb"),
+&"walk": SubResource("Animation_k0oh5")
+}
+
+[node name="BaseUnit" type="Node2D" unique_id=1699308279 groups=["Units"]]
+script = ExtResource("1_m87p7")
+show_name = true
+stats = SubResource("Resource_et0ph")
+weapon = ExtResource("4_g30pe")
+
+[node name="DisplayModule" type="Control" parent="." unique_id=634217768]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 4.0
+offset_bottom = 4.0
+
+[node name="HealthBar" type="ProgressBar" parent="DisplayModule" unique_id=1339135519]
+unique_name_in_owner = true
+z_index = -1
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_right = 25.0
+offset_bottom = 6.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_goxn1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qxfsq")
+value = 100.0
+show_percentage = false
+
+[node name="ShieldBar" type="ProgressBar" parent="DisplayModule" unique_id=522023964]
+unique_name_in_owner = true
+z_index = -1
+texture_filter = 1
+layout_mode = 0
+offset_left = -25.0
+offset_right = 25.0
+offset_bottom = 6.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_goxn1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_teyrl")
+value = 50.0
+show_percentage = false
+
+[node name="NameLabel" type="Label" parent="DisplayModule" unique_id=1918836467]
+unique_name_in_owner = true
+z_index = -1
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 6.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Display_name"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1823285284 groups=["Hurtbox"]]
+unique_name_in_owner = true
+script = ExtResource("5_baptd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=541966062]
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4ub1n")
+debug_color = Color(0, 0.470588, 0.701961, 0.545098)
+
+[node name="SpriteModule" type="Node2D" parent="." unique_id=492313823]
+script = ExtResource("6_fot73")
+
+[node name="BodySprite" type="Sprite2D" parent="SpriteModule" unique_id=828426807]
+texture_filter = 1
+position = Vector2(0, -2)
+texture = ExtResource("7_ih6fc")
+offset = Vector2(0, -30)
+hframes = 5
+vframes = 8
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteModule" unique_id=370336773]
+libraries/ = SubResource("AnimationLibrary_76fq2")
+
+[node name="ParticleModule" type="Node2D" parent="." unique_id=881602680]
+unique_name_in_owner = true
+position = Vector2(0, -40)
+script = ExtResource("8_8w8nr")
+
+[node name="DamagePopupMarker" type="Marker2D" parent="ParticleModule" unique_id=328668197]
+unique_name_in_owner = true
+position = Vector2(0, -30)
+script = ExtResource("9_ilac3")
+
+[node name="StatusEffectModule" type="Node2D" parent="." unique_id=1486147061]
+unique_name_in_owner = true
+script = ExtResource("10_omahv")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1979367263 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("11_wug4w")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1815735905]
+script = ExtResource("12_iql0a")
+
+[node name="Moving" type="Node" parent="StateMachine" unique_id=1784349616]
+script = ExtResource("13_03u68")
+
+[node name="Attacking" type="Node" parent="StateMachine" unique_id=1238465535]
+script = ExtResource("14_4skrk")
+
+[node name="Casting" type="Node" parent="StateMachine" unique_id=1634345919]
+script = ExtResource("15_yrn6x")
+
+[node name="Stunned" type="Node" parent="StateMachine" unique_id=1334006904]
+script = ExtResource("16_7uoxq")
+
+[node name="SkillModule" type="Node" parent="." unique_id=1767487709]
+unique_name_in_owner = true
+script = ExtResource("17_504nd")
