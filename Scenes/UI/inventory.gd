@@ -1,5 +1,5 @@
 extends Control
-signal inventory_stickman_added(unit_data : StickmanData)
+signal inventory_stickman_added(unit_data : UnitData)
 signal inventory_stickman_removed()
 
 @export var base_unit_scene := preload("res://Scenes/Units/BaseUnit/baseUnit.gd")
@@ -8,9 +8,9 @@ signal inventory_stickman_removed()
 @export var HOTBAR_SIZE := 10
 
 var inventory: Array[Slot] = []
-var selected_unit_data: StickmanData = null
+var selected_unit_data: UnitData = null
 
-var drag_data : StickmanData = null
+var drag_data : UnitData = null
 var dragged_slot : Button
 var dragged_slot_phantom : Sprite2D = Sprite2D.new()
 var phantom_sprite := Sprite2D.new()
@@ -46,18 +46,18 @@ func _ready() -> void:
 	var _chain_onhit_passive := preload("res://ressources/OnHit_Passives/Chain_on_hit.tres").duplicate(true)
 	
 	add_unit(dummy.with_weapon(dummy_hands))
-	add_unit(StickmanData.new())
-	add_unit(StickmanData.new().with_points(25).with_weapon(dagger))
-	add_unit(StickmanData.new().with_points(25).with_weapon(sword))
-	add_unit(StickmanData.new().with_points(25).with_weapon(hammer))
+	add_unit(UnitData.new())
+	add_unit(UnitData.new().with_points(25).with_weapon(dagger))
+	add_unit(UnitData.new().with_points(25).with_weapon(sword))
+	add_unit(UnitData.new().with_points(25).with_weapon(hammer))
 	
-	add_unit(StickmanData.new().with_points(25).with_weapon(dagger).with_onHit_passive(StickmanData.make_status_passive([_test_bleed_effect])))
+	add_unit(UnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(UnitData.make_status_passive([_test_bleed_effect])))
 	#add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_passive(_shield_onhit_passive))
-	add_unit(StickmanData.new().with_points(25).with_weapon(dagger).with_onHit_passive(StickmanData.make_status_passive([_test_rupture_effect])))
+	add_unit(UnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(UnitData.make_status_passive([_test_rupture_effect])))
 
-	add_unit(StickmanData.new().with_random_modifiers(3))
-	add_unit(StickmanData.new().with_random_modifiers(3))
-	var test_chain_hammer := StickmanData.new().with_weapon(hammer).with_onHit_passive(_chain_onhit_passive)
+	add_unit(UnitData.new().with_random_modifiers(3))
+	add_unit(UnitData.new().with_random_modifiers(3))
+	var test_chain_hammer := UnitData.new().with_weapon(hammer).with_onHit_passive(_chain_onhit_passive)
 	test_chain_hammer.stats.base_crit_chance = 25.0
 	test_chain_hammer.stats.recalculate_stats()
 	add_unit(test_chain_hammer)
@@ -84,7 +84,7 @@ func instantiate_inventory(inv_size:int) -> void:
 			%InventoryGrid.add_child(new_slot)
 		inventory[i] = new_slot 
 
-func add_unit(unit_data: StickmanData, _slot: int = -1):
+func add_unit(unit_data: UnitData, _slot: int = -1):
 	if _slot != -1 && _slot < inventory.size():
 		inventory[_slot].stickman_data = unit_data
 	else :
@@ -101,7 +101,7 @@ func free_slot(_slot: int):
 	if _slot >= 0 and _slot <= inventory.size():
 		inventory[_slot] = null
 	
-func remove_unit(unit_data: StickmanData, _slot: int = -1):
+func remove_unit(unit_data: UnitData, _slot: int = -1):
 	if _slot != -1 && _slot < inventory.size():
 		inventory[_slot] = null
 	else : 
@@ -125,7 +125,7 @@ func print_inv() -> void:
 			pass
 			#print("Slot (index) " + str(i) + " is empty or invalid!")
 
-func _on_stickman_slot_stickman_selected(unit_data: StickmanData) -> void:
+func _on_stickman_slot_stickman_selected(unit_data: UnitData) -> void:
 	if unit_data : 
 		print("Unit ID : " + unit_data.id + " \nUnit DisplayName = " + unit_data.display_name)
 	selected_unit_data = unit_data
@@ -151,7 +151,7 @@ func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_released() and event.button_index == MOUSE_BUTTON_LEFT:
 		var hovered = get_viewport().gui_get_hovered_control()
 		if hovered != null and hovered.get_class() == "Button" and dragged_slot and dragged_slot.stickman_data != hovered.stickman_data :
-			var temp : StickmanData = hovered.stickman_data
+			var temp : UnitData = hovered.stickman_data
 			selected_unit_data = temp
 			hovered.stickman_data = drag_data
 			dragged_slot.stickman_data = temp

@@ -31,6 +31,8 @@ crit_chance_scalings = null
 crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_goxn1"]
 bg_color = Color(0, 0, 0, 0.14901961)
 corner_radius_top_left = 5
@@ -53,8 +55,6 @@ bg_color = Color(0.13995996, 0.7271122, 0.8191232, 1)
 corner_radius_top_left = 5
 corner_radius_bottom_left = 5
 anti_aliasing = false
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bkx2x"]
 size = Vector2(64, 64)
@@ -344,7 +344,17 @@ show_name = true
 stats = SubResource("Resource_et0ph")
 weapon = ExtResource("4_g30pe")
 
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1823285284 groups=["Hurtbox"]]
+unique_name_in_owner = true
+script = ExtResource("5_baptd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=541966062]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4ub1n")
+debug_color = Color(0, 0.470588, 0.701961, 0.545098)
+
 [node name="DisplayModule" type="Control" parent="." unique_id=634217768]
+z_index = 1
 layout_mode = 3
 anchors_preset = 0
 offset_top = 4.0
@@ -397,16 +407,6 @@ theme_override_font_sizes/font_size = 10
 text = "Display_name"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1823285284 groups=["Hurtbox"]]
-unique_name_in_owner = true
-script = ExtResource("5_baptd")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=541966062]
-visible = false
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_4ub1n")
-debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
 [node name="SpriteModule" type="Node2D" parent="." unique_id=492313823]
 script = ExtResource("6_fot73")

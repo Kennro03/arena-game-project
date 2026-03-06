@@ -33,7 +33,7 @@ func initialize_statcontainers() -> void :
 
 
 func _on_create_button_pressed() -> void:
-	var stickmandata := StickmanData.new()
+	var stickmandata := UnitData.new()
 	var stat_dict : Dictionary = {}
 	
 	for key in stickmanDictionnary.keys() :

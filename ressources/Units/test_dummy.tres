@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StickmanData" format=3 uid="uid://clfjwjlbapbax"]
 
-[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/StickmanData.gd" id="1_pq4wo"]
+[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/UnitData.gd" id="1_pq4wo"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="2_aoubf"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="3_cmgdx"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="4_i16ca"]

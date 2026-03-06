@@ -260,7 +260,7 @@ func _apply_passives(hit_result: HitData) -> void:
 		if _passive_clears_outcome(passive, hit_result.outcome):
 			passive.on_hit(hit_result)
 
-func apply_data(data: StickmanData) -> void:
+func apply_data(data: UnitData) -> void:
 	self.id = data.id
 	self.display_name = data.display_name
 	self.show_name = data.show_name

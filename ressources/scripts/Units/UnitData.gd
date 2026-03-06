@@ -1,9 +1,9 @@
 extends Resource
-class_name StickmanData
+class_name UnitData
 
 ## Identity / UI
-@export var id: String = "stickman_default"
-@export var display_name: String = "Stickman"
+@export var id: String = "Default_Unit"
+@export var display_name: String = "Default Unit"
 @export var show_name: bool = true
 @export var description: String = ""
 @export var icon: Texture2D
@@ -19,12 +19,12 @@ class_name StickmanData
 @export var random_seed: int = 0
 var multiplier_array : Array[float] = []
 
-func duplicated() -> StickmanData:
+func duplicated() -> UnitData:
 	var copy := duplicate(true)
 	copy.team = team  
 	return copy
 
-func with_points(_stat_points : int) -> StickmanData:
+func with_points(_stat_points : int) -> UnitData:
 	var data := duplicate(true)
 	for i in range(_stat_points):
 		var attr : String = Stats.Attributes.keys()[randi() % Stats.Attributes.size()]
@@ -33,19 +33,19 @@ func with_points(_stat_points : int) -> StickmanData:
 	data.display_name = "%s, RandomPoints(%d)" % [display_name, _stat_points]
 	return data
 
-func with_weapon(_wep : Weapon) -> StickmanData:
+func with_weapon(_wep : Weapon) -> UnitData:
 	var data := duplicate(true)
 	data.weapon = _wep.duplicate(true)
 	data.display_name = "%s, Armed(%s)" % [display_name, _wep.weaponName]
 	return data
 
-func with_stats(_stats : Stats) -> StickmanData:
+func with_stats(_stats : Stats) -> UnitData:
 	var data := duplicate(true)
 	data.stats = _stats
 	data.display_name = "%s, CustomStats" % [display_name]
 	return data
 
-func with_scale(multiplier: float) -> StickmanData:
+func with_scale(multiplier: float) -> UnitData:
 	var data := duplicate(true)
 	
 	for prop in data.stats.get_property_list():
@@ -55,7 +55,7 @@ func with_scale(multiplier: float) -> StickmanData:
 	data.display_name = "%s, Scaled(%.2f)" % [display_name, multiplier]
 	return data
 
-func with_skills(skill_array: Array[Skill]) -> StickmanData:
+func with_skills(skill_array: Array[Skill]) -> UnitData:
 	var data := duplicate(true)
 	for s in skill_array:
 		data.skill_list.append(s.duplicate(true))
@@ -66,7 +66,7 @@ enum RandomizationType {
 	ADD,
 	MULTIPLY,
 }
-func randomized(min_value: float, max_value: float,type : RandomizationType = RandomizationType.ADD, _seed := -1) -> StickmanData:
+func randomized(min_value: float, max_value: float,type : RandomizationType = RandomizationType.ADD, _seed := -1) -> UnitData:
 	var data := duplicate(true)
 	if _seed >= 0:
 		data.random_seed = _seed
@@ -88,7 +88,7 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 	#data.stats.print_attributes()
 	return data
 
-func with_onHit_passive(passive_effect: OnHitPassive) -> StickmanData:
+func with_onHit_passive(passive_effect: OnHitPassive) -> UnitData:
 	var data := duplicate(true)
 	data.weapon.onHitPassives.append(passive_effect)
 	data.display_name = "%s, OnHit-%s" % [display_name, passive_effect.onhit_passive_name]
@@ -105,7 +105,7 @@ static func make_status_passive(
 	passive.setup(effects)  # setup called AFTER flags set, so name generates correctly
 	return passive
 
-func with_random_modifiers(nb_modifiers : int = 1) -> StickmanData :
+func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 	var data := duplicate(true)
 	while nb_modifiers >= 1 :
 		var rand := randi() % 6 + 1

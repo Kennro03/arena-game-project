@@ -2,13 +2,9 @@ extends Node
 
 @export var UI_node : Control 
 var stickman: PackedScene = preload("res://Scenes/Units/Stickman/stickman.tscn")
-var stickman_data_resource: StickmanData = StickmanData.new()
-var selected_stickmandata : StickmanData 
+var stickman_data_resource: UnitData = UnitData.new()
+var selected_stickmandata : UnitData 
 var selected_team : Team
-
-var red_team = Team.new("Red",Color(255,0,0))
-var green_team = Team.new("Green",Color(0,255,0))
-var blue_team = Team.new("Blue",Color(0,0,255))
 
 var random_spawn_toggle : bool = false
 @export var random_spawn_delay : float = 10.0
@@ -40,14 +36,14 @@ func _input(event):
 				spawn_from_data(event.position, selected_stickmandata)
 			else :
 				print("No stickmanData provided, spawning default stickman")
-				spawn_from_data(event.position, StickmanData.new())
+				spawn_from_data(event.position, UnitData.new())
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT :
 			#print("Spawned a random stickman at " + str(event.position))
-			spawn_random_stickman(event.position, StickmanData.new())
+			spawn_random_stickman(event.position, UnitData.new())
 
 
-func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
+func spawn_from_data(pos: Vector2, data: UnitData) -> void:
 	if stickman == null or data == null:
 		push_error("Missing stickman scene or data")
 		return
@@ -62,7 +58,7 @@ func spawn_from_data(pos: Vector2, data: StickmanData) -> void:
 	get_tree().root.add_child(unit)
 	
 
-func spawn_random_stickman(pos: Vector2 = Vector2(randf_range(0.0,1152.0),randf_range(0.0,648.0)), data: StickmanData = StickmanData.new()):
+func spawn_random_stickman(pos: Vector2 = Vector2(randf_range(0.0,1152.0),randf_range(0.0,648.0)), data: UnitData = UnitData.new()):
 	if stickman == null or data == null:
 		push_error("Missing stickman scene or data")
 		return

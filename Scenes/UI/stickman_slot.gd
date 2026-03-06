@@ -1,6 +1,6 @@
 extends Button
 class_name Slot
-@export var stickman_data: StickmanData = null
+@export var stickman_data: UnitData = null
 @export var tooltip_scene: PackedScene
 var tooltip
 
