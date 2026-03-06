@@ -20,7 +20,9 @@ class_name StickmanData
 var multiplier_array : Array[float] = []
 
 func duplicated() -> StickmanData:
-	return duplicate(true)
+	var copy := duplicate(true)
+	copy.team = team  
+	return copy
 
 func with_points(_stat_points : int) -> StickmanData:
 	var data := duplicate(true)

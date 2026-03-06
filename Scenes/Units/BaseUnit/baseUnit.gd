@@ -16,11 +16,11 @@ signal hit_received(hit_data: HitData)
 @export var icon: Texture2D = null
 @export var sprite_color:= Color.WHITE
 @export var team: Team
-
 @export var stats : Stats = Stats.new()
 @export var weapon : Weapon = null
 @export var default_weapon : Weapon = preload("res://ressources/Weapons/fists.tres")
 
+var summoner : BaseUnit = null  
 var is_action_locked := false
 var last_attack_time:= 0.0
 var is_casting: bool = false
@@ -151,14 +151,35 @@ func attack(target : Node2D):
 	hit.hit_owner = self
 	weapon.hit(target, hit)
 
+func get_effective_team() -> Team:
+	if summoner != null:
+		return summoner.get_effective_team()  # inherit summoner's team dynamically
+	return team
+
+# Returns the top-level non-summoned unit in the chain
+func get_summoner_root() -> BaseUnit:
+	if summoner == null:
+		return self
+	return summoner.get_summoner_root()
+
 func check_if_ally(target : Node2D) -> bool :
-	if is_instance_valid(team) and is_instance_valid(target.team) :
-		if team.team_name == target.team.team_name :
-			return true
-		else :
-			return false
-	else : 
+	if not is_instance_valid(target):
+		printerr("Instance not valid during ally check")
 		return false
+	
+	var my_root := get_summoner_root()
+	var their_root : BaseUnit = target.get_summoner_root() if target.has_method("get_summoner_root") else target
+	if my_root == their_root and my_root != null:
+		print("same root")
+		return true
+	
+	var my_team := get_effective_team()
+	var their_team : Team = target.get_effective_team() if target.has_method("get_effective_team") else target.team
+	if not is_instance_valid(my_team) or not is_instance_valid(their_team):
+		return false
+	return my_team.team_name == their_team.team_name
+
+
 
 func apply_knockback(target: Node2D, direction: Vector2, force: float):
 	if target.has_method("receive_knockback"):
@@ -240,7 +261,6 @@ func _apply_passives(hit_result: HitData) -> void:
 			passive.on_hit(hit_result)
 
 func apply_data(data: StickmanData) -> void:
-	#Replace all of this to use the new stat resource instead
 	self.id = data.id
 	self.display_name = data.display_name
 	self.show_name = data.show_name

@@ -39,25 +39,21 @@ func _on_create_button_pressed() -> void:
 	for key in stickmanDictionnary.keys() :
 		if key in ["color", "team", "skill_list"]:
 			continue
-		
 		var line_input : String = $MarginContainer/VBoxContainer.get_node("base_%s_Container/Input" % key).text
 		stat_dict[key] = float(line_input) 
 	
 	stickmandata.display_name = $MarginContainer/VBoxContainer.get_node("display_name_Container/Input").text
 	
 	var weapon_options_button = $MarginContainer/VBoxContainer/WeaponSelectionContainer/WeaponOptions
-	var selected_weapon : Weapon = $MarginContainer/VBoxContainer/WeaponSelectionContainer.weapon_list[weapon_options_button.get_selected()]
-	stickmandata.weapon = selected_weapon
+	stickmandata.weapon = $MarginContainer/VBoxContainer/WeaponSelectionContainer.weapon_list[weapon_options_button.get_selected()]
 	
-	stat_dict.set("color",$MarginContainer/VBoxContainer/ColorSelectionContainer/PopupPanel/VBoxContainer/ColorPicker.color)
+	stickmandata.color=$MarginContainer/VBoxContainer/ColorSelectionContainer/PopupPanel/VBoxContainer/ColorPicker.color
 	
 	var team_options_button = $MarginContainer/VBoxContainer/TeamSelectionContainer/TeamOptions
 	var selected_team : String = team_options_button.get_item_text(team_options_button.get_selected())
 	if selected_team != "None" :
-		var stickman_team = Team.registry.filter(func(t): return t.team_name == selected_team)[0]
-		stat_dict.set("team",stickman_team)
-	
+		stickmandata.team = Team.registry.filter(func(t): return t.team_name == selected_team)[0]
 	
 	stickmandata.stats.setup_base_stats_from_dict(stat_dict)
-	print("Added stickman to inv : " + stickmandata.display_name)
+	print("Added " + stickmandata.display_name +" to inventory")
 	owner.inventory_module.add_unit(stickmandata)
