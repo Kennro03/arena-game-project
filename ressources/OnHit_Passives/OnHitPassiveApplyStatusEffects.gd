@@ -21,6 +21,9 @@ func _on_hit_effect(hit : HitData) -> void:
 		for status_effect in status_effects :
 			hit.hit_owner.StatusEffectModule.apply_status_effect(status_effect)
 
+func _init() -> void:
+	onhit_passive_ID = UIDGenerator.generate("onhit_status_passive")
+
 func setup(_status_effects : Array[StatusEffect] = [], _name : String = "", _id : String  = "", _description : String  = "", _icon : Texture2D = PlaceholderTexture2D.new() ) -> OnHitPassiveApplyStatusEffects : 
 	status_effects = _status_effects
 	onhit_passive_name = _name
@@ -41,7 +44,7 @@ func _generate_metadata():
 	
 	if onhit_passive_ID == "" :
 		#THIS DOES NOT GENERATE A UNIQUE ID, CHANGE THIS LATER
-		onhit_passive_ID = str(randi_range(1,9999999))
+		onhit_passive_ID = UIDGenerator.generate("onhit_status_passive")
 	
 	if onhit_passive_description == "" :
 		onhit_passive_description = "A onHit passive that inflicts: " + effect_names.replace(" & ", ", ")

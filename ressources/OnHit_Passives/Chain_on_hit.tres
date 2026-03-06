@@ -14,7 +14,6 @@ chain_duration = 0.2
 chain_range = 400.0
 damage = 15.0
 onhit_passive_name = "Chain_on_hit"
-onhit_passive_ID = "chain_on_hit"
 onhit_passive_description = "this passive chains the hit to a nearby target"
 onhit_passive_icon = SubResource("PlaceholderTexture2D_mjaut")
 crit_filter = 1

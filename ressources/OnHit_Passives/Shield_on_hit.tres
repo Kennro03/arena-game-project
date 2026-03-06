@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ShieldOnHit" format=3 uid="uid://b7yigmcye8pwn"]
 
-[ext_resource type="Script" uid="uid://c68f74o7272f2" path="res://ressources/OnHit_Passives/ShieldOnHit.gd" id="1_k7igp"]
+[ext_resource type="Script" uid="uid://c68f74o7272f2" path="res://ressources/OnHit_Passives/OnHitPassiveShield.gd" id="1_k7igp"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lwh5n"]
 size = Vector2(16, 16)
@@ -8,7 +8,6 @@ size = Vector2(16, 16)
 [resource]
 script = ExtResource("1_k7igp")
 onhit_passive_name = "Shield On-HeavyHit"
-onhit_passive_ID = "shield_on_hit"
 onhit_passive_description = "This weapon grants a shield upon critting"
 onhit_passive_icon = SubResource("PlaceholderTexture2D_lwh5n")
 hit_type_filter = 2

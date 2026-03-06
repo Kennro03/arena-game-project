@@ -1,9 +1,9 @@
 extends Resource
 class_name OnHitPassive
 
-@export var onhit_passive_name : String
-@export var onhit_passive_ID : String
-@export var onhit_passive_description : String
+@export var onhit_passive_name : String = ""
+@export var onhit_passive_ID : String = ""
+@export var onhit_passive_description : String = ""
 @export var onhit_passive_icon : Texture2D = PlaceholderTexture2D.new()
 
 enum HitTypeFilter { ANY, LIGHT_ONLY, HEAVY_ONLY }

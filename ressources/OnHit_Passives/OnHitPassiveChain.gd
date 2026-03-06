@@ -66,6 +66,9 @@ func _on_hit_effect(hit : HitData) -> void:
 			owner.get_tree().root.add_child(link)
 			link.queue_redraw()
 
+func _init() -> void:
+	onhit_passive_ID = UIDGenerator.generate("onhit_chain_passive")
+
 func setup(_name : String = "", _id : String  = "", _description : String  = "", _icon : Texture2D = PlaceholderTexture2D.new() ) -> void : 
 	onhit_passive_name = _name
 	onhit_passive_ID = _id
@@ -76,10 +79,6 @@ func setup(_name : String = "", _id : String  = "", _description : String  = "",
 func _generate_metadata():
 	if onhit_passive_name == "" :
 		onhit_passive_name = "On-hit " + str(number_of_targets) + "_target_chain"
-	if onhit_passive_ID == "" :
-		#THIS DOES NOT GENERATE A UNIQUE ID, CHANGE THIS LATER
-		onhit_passive_ID = str(randi_range(1,9999999))
-		#print("Generated OnHitPassiveApplyStatusEffects id = " + onhit_passive_ID)
 	if onhit_passive_description == "" :
 		onhit_passive_description = "A onHit passive that chains the hit to nearby targets, has : " 
 		onhit_passive_description += "\n" + str(apply_chance*100) + "% chance to proc"
