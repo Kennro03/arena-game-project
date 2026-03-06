@@ -2,12 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://c8qwxekpq23e3" path="res://Scenes/Units/BaseUnit/BaseUnit.tscn" id="1_5bx5w"]
 [ext_resource type="Script" uid="uid://bkvp5ngp40teo" path="res://Scenes/Units/Stickman/stickman.gd" id="2_j5rhf"]
+[ext_resource type="Texture2D" uid="uid://b21tep713spbo" path="res://ressources/Sprites/Units/Stickman/UnarmedStickman.png" id="3_5bx5w"]
 
 [node name="Stickman" unique_id=1699308279 instance=ExtResource("1_5bx5w")]
 script = ExtResource("2_j5rhf")
 id = "Stickman"
 display_name = "Stickman"
-show_name = true
 description = "A regular stickman."
 stats = null
 weapon = null
+
+[node name="BodySprite" parent="SpriteModule" parent_id_path=PackedInt32Array(492313823) index="0" unique_id=828426807]
+texture = ExtResource("3_5bx5w")
+hframes = 5
+vframes = 8
+frame = 5
