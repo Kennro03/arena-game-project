@@ -1,4 +1,5 @@
 extends Control
+class_name UnitCreator
 
 var statcontainerscene := load("res://Scenes/UI/stat_container.tscn")
 var stickmanDictionnary : Dictionary

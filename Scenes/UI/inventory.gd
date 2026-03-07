@@ -1,4 +1,6 @@
 extends Control
+class_name InventoryModule
+
 signal inventory_stickman_added(unit_data : UnitData)
 signal inventory_stickman_removed()
 
@@ -47,10 +49,6 @@ func _ready() -> void:
 	
 	add_unit(dummy.with_weapon(dummy_hands))
 	add_unit(UnitData.new())
-	add_unit(UnitData.new().with_points(25).with_weapon(dagger))
-	add_unit(UnitData.new().with_points(25).with_weapon(sword))
-	add_unit(UnitData.new().with_points(25).with_weapon(hammer))
-	
 	add_unit(UnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(UnitData.make_status_passive([_test_bleed_effect])))
 	#add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_passive(_shield_onhit_passive))
 	add_unit(UnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(UnitData.make_status_passive([_test_rupture_effect])))

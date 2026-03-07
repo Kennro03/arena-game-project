@@ -38,6 +38,12 @@ func with_points(_stat_points : int) -> UnitData:
 	return data
 
 func with_weapon(_wep : Weapon) -> UnitData:
+	if _wep == null : 
+		var weps : Array[Weapon] = []
+		for file_name in DirAccess.get_files_at("res://ressources/Weapons/"):
+			if (file_name.get_extension() == "tres") and (load("res://ressources/Weapons/"+file_name).weaponName != "Unarmed"):
+				weps.append(load("res://ressources/Weapons/"+file_name))
+		_wep = weps.pick_random()
 	var data := duplicate(true)
 	data.weapon = _wep.duplicate(true)
 	data.display_name = "%s, Armed(%s)" % [display_name, _wep.weaponName]
