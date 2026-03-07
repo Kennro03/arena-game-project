@@ -1,7 +1,7 @@
 extends RefCounted
 class_name HitData
 
-var hit_owner : Node2D
+var hit_owner : BaseUnit
 var is_critical : bool = false
 var attack_type : Weapon.AttackTypeEnum
 

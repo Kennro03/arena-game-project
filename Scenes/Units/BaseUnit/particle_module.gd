@@ -1,8 +1,11 @@
 extends Node2D
+class_name ParticleModule
 
 var block_particle : PackedScene = preload("res://Scenes/VFX/block_particles_2d.tscn")
 var parry_particle : PackedScene = preload("res://Scenes/VFX/parry_particles_2d.tscn")
 var hit_particle : PackedScene = preload("res://Scenes/VFX/hit_particles_2d.tscn")
+
+@onready var DamagePopupMarker : Marker2D = $DamagePopupMarker
 
 var active_particles := {}
 

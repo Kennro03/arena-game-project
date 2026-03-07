@@ -2,16 +2,19 @@ extends Node2D
 class_name BaseUnit
 signal hit_received(hit_data: HitData)
 
-@onready var spriteNode = $SpriteModule
-@onready var animationPlayerNode = $SpriteModule/AnimationPlayer
+@onready var animationPlayer = $SpriteModule/AnimationPlayer
 @onready var healthBar := %HealthBar
 @onready var shieldBar := %ShieldBar
-@onready var StatusEffectModule : Node2D = $StatusEffectModule
-@onready var skillModule : Node = $SkillModule
+@onready var spriteModule = $SpriteModule
+@onready var statusEffectModule : StatusEffectModule = $StatusEffectModule
+@onready var skillModule : SkillModule = $SkillModule
+@onready var displayModule : DisplayModule = $DisplayModule
+@onready var particleModule : ParticleModule = $ParticleModule
 
 @export var id: String = "Basic_Unit"
 @export var display_name: String = "Unit"
-@export var show_name: bool = false
+@export var show_name: bool = true
+@export var show_health: bool = true
 @export var description: String = "A regular unit."
 @export var icon: Texture2D = null
 @export var sprite_color:= Color.WHITE
@@ -35,30 +38,37 @@ const MAX_BAR_WIDTH : float = 100.0
 const HEALTH_SCALE_REFERENCE : float = 100.0 
 
 func _ready():
-	spriteNode.bodyColor = sprite_color
-	spriteNode.selfmodulate()
+	ensure_weapon()
+	add_to_group("Units")
+	spriteModule.bodyColor = sprite_color
+	spriteModule.selfmodulate()
 	
 	%NameLabel.text = display_name
 	%NameLabel.visible = show_name
 	
 	if team != null :
-		var flag: PackedScene = preload("res://Scenes/flag.tscn")
-		var flag_instance
-		flag_instance = flag.instantiate()
-		flag_instance.position.y -= 80
-		flag_instance.modulate = team.team_color
-		add_child(flag_instance)
+		set_team_flag()
 	
-	add_to_group("Units")
-	update_healthBar(stats.health,stats.current_max_health)
-	stats.connect("health_changed",update_healthBar)
+	set_healthbar_visibility(show_health)
+	if show_health :
+		update_healthBar(stats.health,stats.current_max_health)
+		stats.connect("health_changed",update_healthBar)
+		stats.connect("shield_changed",update_shieldBar)
+		stats.connect("shield_depleted",hide_shieldBar)
+	
 	stats.connect("health_depleted",die)
-	stats.connect("shield_changed",update_shieldBar)
-	stats.connect("shield_depleted",hide_shieldBar)
-	animationPlayerNode.animation_finished.connect(_on_anim_finished)
+	animationPlayer.animation_finished.connect(_on_anim_finished)
 	
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
+
+func set_team_flag()->void:
+	var flag: PackedScene = preload("res://Scenes/flag.tscn")
+	var flag_instance
+	flag_instance = flag.instantiate()
+	flag_instance.position.y -= 80
+	flag_instance.modulate = team.team_color
+	add_child(flag_instance)
 
 func update_healthBar(_health, _max_health) -> void :
 	healthBar.max_value = _max_health
@@ -72,6 +82,9 @@ func update_shieldBar(_shield, _max_shield) -> void :
 	shieldBar.visible = _shield > 0.0
 	var scaled_width := BASE_BAR_WIDTH * sqrt(_max_shield / HEALTH_SCALE_REFERENCE)
 	shieldBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
+
+func set_healthbar_visibility(vis : bool)->void:
+	healthBar.visible = vis
 
 func hide_shieldBar() -> void :
 	shieldBar.visible = false
@@ -125,7 +138,7 @@ func target_proximity_check(target : Node2D, max_distance : float) -> bool :
 
 #Returns true when stickman is close enought to a target to start attacking, to dictate when it should stop moving towards a target
 func melee_close_range_check(target : Node2D) -> bool : 
-	ensure_weapon()
+	
 	if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range/1.3) :
 		return true
 	else :
@@ -133,14 +146,14 @@ func melee_close_range_check(target : Node2D) -> bool :
 
 #Returns true as long as target is in melee range
 func melee_range_check(target : Node2D) -> bool : 
-	ensure_weapon()
+	
 	if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range) :
 		return true
 	else :
 		return false
 
 func attack(target : Node2D):
-	ensure_weapon()
+	
 	if is_action_locked:
 		return
 	
@@ -210,20 +223,20 @@ func block(_hit: HitData):
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
 	take_damage(blocked_damage) 
-	animationPlayerNode.play("block")
+	animationPlayer.play("block")
 	
 	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
-		$ParticleModule.emit_block_particles()
+		particleModule.emit_block_particles()
 
 func parry(_hit: HitData):
-	animationPlayerNode.play("parry")
-	%DamagePopupMarker.damage_popup("Parry!", 1.0,Color("Gold"))
+	animationPlayer.play("parry")
+	particleModule.DamagePopupMarker.damage_popup("Parry!", 1.0,Color("Gold"))
 	
 	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
-		$ParticleModule.emit_parry_particles()
+		particleModule.emit_parry_particles()
 
 func dodge(_hit: HitData):
-	spriteNode.play_dodge_animation()
+	spriteModule.play_dodge_animation()
 	apply_knockback(self, Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0)), 250.0)
 
 func resolve_hit(hit_result : HitData) :
@@ -247,12 +260,12 @@ func resolve_hit(hit_result : HitData) :
 		_apply_passives(hit_result)
 		for effect in hit_result.status_effects :
 			#print("Resolve step : Applying " + str(effect.Status_effect_name))
-			%StatusEffectModule.apply_status_effect(effect)
+			statusEffectModule.apply_status_effect(effect)
 		
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
 		if hit_result.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED :
-			$ParticleModule.emit_hit_particles()
+			particleModule.emit_hit_particles()
 		hit_received.emit(hit_result)
 
 func _apply_passives(hit_result: HitData) -> void:
@@ -264,6 +277,7 @@ func apply_data(data: UnitData) -> void:
 	self.id = data.id
 	self.display_name = data.display_name
 	self.show_name = data.show_name
+	self.show_health = data.show_health
 	self.description = data.description
 	self.icon = data.icon
 	self.sprite_color = data.color
@@ -272,24 +286,27 @@ func apply_data(data: UnitData) -> void:
 	self.stats = data.stats
 	self.stats.setup_stats()
 	equip_weapon(data.weapon) 
-	%SkillModule.skill_list = data.skill_list
+	#skillModule.skill_list = data.skill_list
 
 func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
 	queue_free()
 
 func ensure_weapon() -> void:
-	var wep : Weapon = weapon if weapon != null else default_weapon
-	if wep != weapon :
-		equip_weapon(wep.duplicate(true))
+	if weapon == null:
+		equip_weapon(default_weapon.duplicate(true))
 
-func equip_weapon(_wep : Weapon = preload("res://ressources/Weapons/fists.tres").duplicate(true)) -> void:
+func equip_weapon(_wep : Weapon = null) -> void:
 	#print("Equipping weapon : " + str(_wep.weaponName))
+	if _wep == null:
+		_wep = preload("res://ressources/Weapons/fists.tres").duplicate(true)
+	
 	if weapon and weapon.attack_performed.is_connected(_on_weapon_attack):
 		weapon.remove_owner_buffs(stats)
 		weapon.clear_weapon_buffs()
 		weapon.attack_performed.disconnect(_on_weapon_attack)
 		stats.changed.disconnect(weapon._on_owner_stats_change)
+	
 	weapon = _wep.duplicate(true)
 	weapon.owner = self
 	weapon.apply_owner_buffs(stats)
@@ -302,7 +319,7 @@ func equip_weapon(_wep : Weapon = preload("res://ressources/Weapons/fists.tres")
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
 	#print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
-	spriteNode.play_attack_animation(attack_type,weapon)
+	spriteModule.play_attack_animation(attack_type,weapon)
 	is_action_locked = true
 
 func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome) -> bool:

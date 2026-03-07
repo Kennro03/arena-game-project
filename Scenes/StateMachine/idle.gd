@@ -11,8 +11,8 @@ func physics_update(_delta: float) -> void:
 	if owner.is_stunned:
 		finished.emit(STUNNED)
 	
-	if !owner.animationPlayerNode.is_playing():
-		owner.spriteNode.play_idle_animation()
+	if !owner.animationPlayer.is_playing():
+		owner.spriteModule.play_idle_animation()
 	
 	closest_target = owner.get_closest_unit(
 		owner.get_units_in_group("Units"),

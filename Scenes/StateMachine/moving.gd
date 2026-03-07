@@ -3,7 +3,7 @@ var closest_target
 var closest_target_vector
 
 func enter(_previous_state_path: String, _data := {}) -> void:
-	owner.animationPlayerNode.stop()
+	owner.animationPlayer.stop()
 
 func physics_update(_delta: float) -> void:
 	if owner.is_action_locked:
@@ -19,14 +19,14 @@ func physics_update(_delta: float) -> void:
 	if closest_target != null :
 		closest_target_vector = owner.get_target_position_vector(closest_target.position)
 		if closest_target_vector.x > 0 :
-			owner.spriteNode.flipSprite(false)
+			owner.spriteModule.flipSprite(false)
 		else : 
-			owner.spriteNode.flipSprite(true)
+			owner.spriteModule.flipSprite(true)
 	else : 
 		finished.emit(IDLE)
 	
-	if !owner.animationPlayerNode.is_playing():
-		owner.spriteNode.play_walk_animation()
+	if !owner.animationPlayer.is_playing():
+		owner.spriteModule.play_walk_animation()
 	
 	%SkillModule.check_skill_timepassed += _delta
 	if %SkillModule.check_skill_timepassed >= %SkillModule.skill_check_delay : 

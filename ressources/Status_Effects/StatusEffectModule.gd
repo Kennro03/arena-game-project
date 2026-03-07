@@ -1,4 +1,5 @@
 extends Node2D
+class_name StatusEffectModule
 
 @export var StatusEffects : Array[StatusEffect] = []
 

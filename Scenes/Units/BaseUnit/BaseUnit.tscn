@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="3_ehlrc"]
 [ext_resource type="Resource" uid="uid://ddpk8npshslki" path="res://ressources/DebugWeapons/dummy_fists.tres" id="4_g30pe"]
 [ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="5_baptd"]
+[ext_resource type="Script" uid="uid://cmd6etkryt0xs" path="res://Scenes/Units/BaseUnit/display_module.gd" id="6_bksgy"]
 [ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/Stickman/stickman_sprite.gd" id="6_fot73"]
 [ext_resource type="Script" uid="uid://5r2u3nk0unia" path="res://Scenes/Units/BaseUnit/particle_module.gd" id="8_8w8nr"]
 [ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="9_ilac3"]
@@ -340,7 +341,6 @@ _data = {
 
 [node name="BaseUnit" type="Node2D" unique_id=1699308279 groups=["Units"]]
 script = ExtResource("1_m87p7")
-show_name = true
 stats = SubResource("Resource_et0ph")
 weapon = ExtResource("4_g30pe")
 
@@ -359,6 +359,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_top = 4.0
 offset_bottom = 4.0
+script = ExtResource("6_bksgy")
 
 [node name="HealthBar" type="ProgressBar" parent="DisplayModule" unique_id=1339135519]
 unique_name_in_owner = true

@@ -5,6 +5,7 @@ class_name UnitData
 @export var id: String = "Default_Unit"
 @export var display_name: String = "Default Unit"
 @export var show_name: bool = true
+@export var show_health: bool = true
 @export var description: String = ""
 @export var icon: Texture2D
 @export var color: Color = Color.from_hsv(randf(), 0.8, 0.9)
@@ -13,11 +14,14 @@ class_name UnitData
 ## Core Gameplay
 @export var stats : Stats = Stats.new()
 @export var skill_list : Array[Skill] = []
-@export var weapon : Weapon = preload("res://ressources/Weapons/fists.tres").duplicate(true)
+@export var weapon : Weapon = null
 
 ## Testing / variation metadata
 @export var random_seed: int = 0
 var multiplier_array : Array[float] = []
+
+func _init() -> void:
+	weapon = load("res://ressources/Weapons/fists.tres").duplicate(true)
 
 func duplicated() -> UnitData:
 	var copy := duplicate(true)

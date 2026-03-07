@@ -1,7 +1,9 @@
 extends Node2D
-class_name StickmanSprite
+class_name SpriteModule
 
 var flip : bool = false
+
+@onready var bodySprite : Sprite2D = $BodySprite
 
 @export var bodyColor : Color = Color("White")
 

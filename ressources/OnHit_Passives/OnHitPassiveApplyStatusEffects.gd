@@ -19,7 +19,7 @@ func _on_hit_effect(hit : HitData) -> void:
 			hit.status_effects.append(to_add)
 	else : 
 		for status_effect in status_effects :
-			hit.hit_owner.StatusEffectModule.apply_status_effect(status_effect)
+			hit.hit_owner.statusEffectModule.apply_status_effect(status_effect)
 
 func _init() -> void:
 	onhit_passive_ID = UIDGenerator.generate("onhit_status_passive")
