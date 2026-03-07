@@ -8,7 +8,7 @@ size = Vector2(32, 32)
 
 [node name="Elemental" unique_id=1699308279 instance=ExtResource("1_hn4uy")]
 script = ExtResource("2_gg4k1")
-show_name = false
+element = false
 stats = null
 weapon = null
 
