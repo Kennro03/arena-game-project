@@ -2,13 +2,14 @@ extends Resource
 class_name UnitData
 
 ## Identity / UI
-@export var id: String = "Default_Unit"
-@export var display_name: String = "Default Unit"
-@export var show_name: bool = true
-@export var show_health: bool = true
-@export var description: String = ""
+@export var id: String = "BaseUnit"
+@export var display_name: String = "BaseUnit"
+@export var description: String = "The template used to create units."
+
 @export var icon: Texture2D
 @export var color: Color = Color.from_hsv(randf(), 0.8, 0.9)
+@export var show_name: bool = true
+@export var show_health: bool = true
 @export var team: Team = null
 
 ## Core Gameplay

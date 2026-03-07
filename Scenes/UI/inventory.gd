@@ -48,14 +48,14 @@ func _ready() -> void:
 	var _chain_onhit_passive := preload("res://ressources/OnHit_Passives/Chain_on_hit.tres").duplicate(true)
 	
 	add_unit(dummy.with_weapon(dummy_hands))
-	add_unit(UnitData.new())
-	add_unit(UnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(UnitData.make_status_passive([_test_bleed_effect])))
+	add_unit(stickmanUnitData.new())
+	add_unit(stickmanUnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(stickmanUnitData.make_status_passive([_test_bleed_effect])))
 	#add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_passive(_shield_onhit_passive))
-	add_unit(UnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(UnitData.make_status_passive([_test_rupture_effect])))
+	add_unit(stickmanUnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(stickmanUnitData.make_status_passive([_test_rupture_effect])))
 
-	add_unit(UnitData.new().with_random_modifiers(3))
-	add_unit(UnitData.new().with_random_modifiers(3))
-	var test_chain_hammer := UnitData.new().with_weapon(hammer).with_onHit_passive(_chain_onhit_passive)
+	add_unit(stickmanUnitData.new().with_random_modifiers(3))
+	add_unit(stickmanUnitData.new().with_random_modifiers(3))
+	var test_chain_hammer := stickmanUnitData.new().with_weapon(hammer).with_onHit_passive(_chain_onhit_passive)
 	test_chain_hammer.stats.base_crit_chance = 25.0
 	test_chain_hammer.stats.recalculate_stats()
 	add_unit(test_chain_hammer)

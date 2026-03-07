@@ -11,13 +11,15 @@ signal hit_received(hit_data: HitData)
 @onready var displayModule : DisplayModule = $DisplayModule
 @onready var particleModule : ParticleModule = $ParticleModule
 
-@export var id: String = "Basic_Unit"
-@export var display_name: String = "Unit"
-@export var show_name: bool = true
-@export var show_health: bool = true
-@export var description: String = "A regular unit."
+@export var id: String = "BaseUnit"
+@export var display_name: String = "BaseUnit"
+@export var description: String = "The template used to create units."
+@export_group("Visuals")
 @export var icon: Texture2D = null
 @export var sprite_color:= Color.WHITE
+@export var show_name: bool = true
+@export var show_health: bool = true
+@export_group("Interactions")
 @export var team: Team
 @export var stats : Stats = Stats.new()
 @export var weapon : Weapon = null
