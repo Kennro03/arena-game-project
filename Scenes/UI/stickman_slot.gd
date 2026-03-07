@@ -34,7 +34,8 @@ func _on_mouse_entered():
 		tooltip = tooltip_scene.instantiate()
 		get_tree().root.add_child(tooltip)
 		tooltip.set_text("Display name : " + stickman_data.display_name)
-		tooltip.add_line("Weapon : " + str(stickman_data.weapon.weaponName) + " (" + Weapon.WeaponTypeEnum.keys()[stickman_data.weapon.weaponType] + ")")
+		if stickman_data.weapon :
+			tooltip.add_line("Weapon : " + str(stickman_data.weapon.weaponName) + " (" + Weapon.WeaponTypeEnum.keys()[stickman_data.weapon.weaponType] + ")")
 		tooltip.add_line("STR = " + str(stickman_data.stats.current_strength))
 		tooltip.add_line("END = " + str(stickman_data.stats.current_endurance))
 		tooltip.add_line("DEX = " + str(stickman_data.stats.current_dexterity))

@@ -14,16 +14,18 @@ signal hit_received(hit_data: HitData)
 @export var id: String = "BaseUnit"
 @export var display_name: String = "BaseUnit"
 @export var description: String = "The template used to create units."
+
 @export_group("Visuals")
 @export var icon: Texture2D = null
 @export var sprite_color:= Color.WHITE
 @export var show_name: bool = true
 @export var show_health: bool = true
+
 @export_group("Interactions")
 @export var team: Team
 @export var stats : Stats = Stats.new()
 @export var weapon : Weapon = null
-@export var default_weapon : Weapon = preload("res://ressources/Weapons/fists.tres")
+@export var default_weapon : Weapon = null
 
 var summoner : BaseUnit = null  
 var is_action_locked := false
@@ -140,22 +142,19 @@ func target_proximity_check(target : Node2D, max_distance : float) -> bool :
 
 #Returns true when stickman is close enought to a target to start attacking, to dictate when it should stop moving towards a target
 func melee_close_range_check(target : Node2D) -> bool : 
-	
-	if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range/1.3) :
-		return true
-	else :
-		return false
+	if weapon :
+		if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range/1.3) :
+			return true
+	return false
 
 #Returns true as long as target is in melee range
 func melee_range_check(target : Node2D) -> bool : 
-	
-	if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range) :
-		return true
-	else :
-		return false
+	if weapon :
+		if target != null and self.position.distance_to(target.position) <= max(50,weapon.current_attack_range) :
+			return true
+	return false
 
 func attack(target : Node2D):
-	
 	if is_action_locked:
 		return
 	
@@ -295,13 +294,15 @@ func die() -> void:
 	queue_free()
 
 func ensure_weapon() -> void:
-	if weapon == null:
+	if weapon == null and default_weapon != null :
 		equip_weapon(default_weapon.duplicate(true))
+	else : 
+		printerr("No weapon provided and no default weapon for " + str(self))
 
 func equip_weapon(_wep : Weapon = null) -> void:
 	#print("Equipping weapon : " + str(_wep.weaponName))
 	if _wep == null:
-		_wep = preload("res://ressources/Weapons/fists.tres").duplicate(true)
+		_wep = default_weapon
 	
 	if weapon and weapon.attack_performed.is_connected(_on_weapon_attack):
 		weapon.remove_owner_buffs(stats)
@@ -309,15 +310,15 @@ func equip_weapon(_wep : Weapon = null) -> void:
 		weapon.attack_performed.disconnect(_on_weapon_attack)
 		stats.changed.disconnect(weapon._on_owner_stats_change)
 	
-	weapon = _wep.duplicate(true)
-	weapon.owner = self
-	weapon.apply_owner_buffs(stats)
-	weapon.setup_stats()
-	
-	$SpriteModule/BodySprite.texture = weapon.spriteSheet
-	
-	stats.changed.connect(weapon._on_owner_stats_change)
-	weapon.attack_performed.connect(_on_weapon_attack)
+	if _wep :
+		weapon = _wep.duplicate(true)
+		weapon.owner = self
+		weapon.apply_owner_buffs(stats)
+		weapon.setup_stats()
+		
+		$SpriteModule/BodySprite.texture = weapon.spriteSheet
+		stats.changed.connect(weapon._on_owner_stats_change)
+		weapon.attack_performed.connect(_on_weapon_attack)
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
 	#print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())

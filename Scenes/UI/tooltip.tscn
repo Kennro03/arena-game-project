@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dl6uqqmn28cya"]
+[gd_scene format=3 uid="uid://dl6uqqmn28cya"]
 
 [ext_resource type="Script" uid="uid://k1fgvcmh4574" path="res://Scenes/UI/tooltip.gd" id="1_4fwp0"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1608019069]
 z_index = 4
 layout_mode = 3
 anchors_preset = 0
@@ -11,7 +11,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 script = ExtResource("1_4fwp0")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1361402994]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 1
@@ -19,14 +19,14 @@ offset_right = 65.0
 offset_bottom = 165.0
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1649822666]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="TextLabel" type="Label" parent="PanelContainer/MarginContainer"]
+[node name="TextLabel" type="Label" parent="PanelContainer/MarginContainer" unique_id=113624638]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 2
