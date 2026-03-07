@@ -28,11 +28,12 @@ func _input(event):
 			
 			if  UI_node.inventory_module.selected_unit_data : 
 				selected_UnitData = UI_node.inventory_module.selected_unit_data
-				var temp_message : Array
-				for i in selected_UnitData.skill_list :
-					temp_message.append(i.skill_name)
-				#print("Stickmandata skill list = " +  str(temp_message))
+				
 				spawn_from_data(event.position, selected_UnitData)
+				#var temp_message : Array
+				#for i in selected_UnitData.skill_list :
+				#	temp_message.append(i.skill_name)
+				#print("Stickmandata skill list = " +  str(temp_message))
 			else :
 				print("No stickmanData provided, spawning default stickman")
 				spawn_from_data(event.position, UnitData.new())
