@@ -23,6 +23,13 @@ var special_combo_index : int = 0
 func _ready() -> void:
 	selfmodulate()
 
+func update_spritesheet() -> void:
+	var type = owner.weapon.weaponType if owner.weapon else 0
+	if owner.weapon_spritesheets.has(type):
+		$BodySprite.texture = owner.weapon_spritesheets[type]
+	else:
+		$BodySprite.texture = owner.weapon_spritesheets[Weapon.WeaponTypeEnum.UNARMED]
+
 func selfmodulate() -> void : 
 	$BodySprite.self_modulate = bodyColor
 

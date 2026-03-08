@@ -48,6 +48,7 @@ func _ready() -> void:
 	var _chain_onhit_passive := preload("res://ressources/OnHit_Passives/Chain_on_hit.tres").duplicate(true)
 	
 	add_unit(dummy.with_weapon(dummy_hands))
+	add_unit(UnitData.new())
 	add_unit(stickmanUnitData.new())
 	add_unit(stickmanUnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(stickmanUnitData.make_status_passive([_test_bleed_effect])))
 	#add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_passive(_shield_onhit_passive))

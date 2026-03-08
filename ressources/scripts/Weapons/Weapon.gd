@@ -25,7 +25,6 @@ static var buffable_stat_icons : Dictionary = {
 
 @export var description : String
 @export var icon : Texture2D
-@export var spriteSheet : CompressedTexture2D = preload("res://ressources/Sprites/Units/Stickman/UnarmedStickman.png")
 
 @export var base_attack_speed : float = 1.0
 @export var base_attack_range : float = 100.0

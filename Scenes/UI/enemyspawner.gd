@@ -26,21 +26,15 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT :
 			print("Spawned a stickman at " + str(event.position))
 			
-			if  UI_node.inventory_module.selected_unit_data : 
-				selected_UnitData = UI_node.inventory_module.selected_unit_data
-				
-				spawn_from_data(event.position, selected_UnitData)
-				#var temp_message : Array
-				#for i in selected_UnitData.skill_list :
-				#	temp_message.append(i.skill_name)
-				#print("Stickmandata skill list = " +  str(temp_message))
-			else :
-				print("No stickmanData provided, spawning default stickman")
-				spawn_from_data(event.position, UnitData.new())
+			var data : UnitData = UI_node.inventory_module.selected_unit_data
+			if data == null:
+				data = stickmanUnitData.new()
+				print("No unitData provided, spawning default stickman")
+			spawn_from_data(event.position, data)
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT :
 			#print("Spawned a random stickman at " + str(event.position))
-			spawn_random(event.position, UnitData.new())
+			spawn_random(event.position)
 
 
 func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
@@ -62,9 +56,8 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 	return spawned
 
 func spawn_random(pos: Vector2, data: UnitData = null) -> BaseUnit:
-	if unit == null or data == null:
-		push_error("Missing stickman scene or data")
-		return
+	if data == null:
+		data = stickmanUnitData.new()
 	var rand_data := data.with_random_modifiers(randi() % 3 + 1 )
 	
 	return spawn_from_data(pos, rand_data)

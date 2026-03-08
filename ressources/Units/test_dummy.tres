@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="UnitData" format=3 uid="uid://clfjwjlbapbax"]
+[gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://clfjwjlbapbax"]
 
-[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/UnitData.gd" id="1_pq4wo"]
+[ext_resource type="Resource" uid="uid://ddpk8npshslki" path="res://ressources/DebugWeapons/dummy_fists.tres" id="1_aoubf"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="2_aoubf"]
+[ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="2_pq4wo"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="3_cmgdx"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="4_i16ca"]
-[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="5_u08nu"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d0473"]
 size = Vector2(32, 32)
@@ -31,12 +31,13 @@ crit_damage_scalings = Array[Object]([])
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [resource]
-script = ExtResource("1_pq4wo")
+script = ExtResource("2_pq4wo")
 id = "test_dummy"
 display_name = "Test dummy"
 description = "This thing is barely alive, but it can take hits."
 icon = SubResource("PlaceholderTexture2D_d0473")
 color = Color(1, 1, 1, 1)
 stats = SubResource("Resource_q0in1")
-weapon = ExtResource("5_u08nu")
+weapon = ExtResource("1_aoubf")
+default_weapon = ExtResource("1_aoubf")
 metadata/_custom_type_script = "uid://cj80g8y6an50q"

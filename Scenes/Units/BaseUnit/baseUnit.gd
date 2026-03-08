@@ -20,6 +20,9 @@ signal hit_received(hit_data: HitData)
 @export var sprite_color:= Color.WHITE
 @export var show_name: bool = true
 @export var show_health: bool = true
+@export var weapon_spritesheets: Dictionary = {
+	Weapon.WeaponTypeEnum.UNARMED: PlaceholderTexture2D.new(),
+}
 
 @export_group("Interactions")
 @export var team: Team
@@ -42,10 +45,10 @@ const MAX_BAR_WIDTH : float = 100.0
 const HEALTH_SCALE_REFERENCE : float = 100.0 
 
 func _ready():
-	ensure_weapon()
 	add_to_group("Units")
 	spriteModule.bodyColor = sprite_color
 	spriteModule.selfmodulate()
+	ensure_weapon()
 	
 	%NameLabel.text = display_name
 	%NameLabel.visible = show_name
@@ -62,7 +65,6 @@ func _ready():
 	
 	stats.connect("health_depleted",die)
 	animationPlayer.animation_finished.connect(_on_anim_finished)
-	
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
@@ -294,10 +296,11 @@ func die() -> void:
 	queue_free()
 
 func ensure_weapon() -> void:
-	if weapon == null and default_weapon != null :
-		equip_weapon(default_weapon.duplicate(true))
-	else : 
-		printerr("No weapon provided and no default weapon for " + str(self))
+	if weapon == null :
+		if default_weapon != null :
+			equip_weapon(default_weapon.duplicate(true))
+		else : 
+			printerr("No weapon and no default_weapon set for " + str(self))
 
 func equip_weapon(_wep : Weapon = null) -> void:
 	#print("Equipping weapon : " + str(_wep.weaponName))
@@ -316,7 +319,7 @@ func equip_weapon(_wep : Weapon = null) -> void:
 		weapon.apply_owner_buffs(stats)
 		weapon.setup_stats()
 		
-		$SpriteModule/BodySprite.texture = weapon.spriteSheet
+		$SpriteModule.update_spritesheet.call_deferred()
 		stats.changed.connect(weapon._on_owner_stats_change)
 		weapon.attack_performed.connect(_on_weapon_attack)
 

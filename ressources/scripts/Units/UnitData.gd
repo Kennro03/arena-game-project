@@ -104,7 +104,7 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 
 func with_onHit_passive(passive_effect: OnHitPassive) -> UnitData:
 	var data := duplicate(true)
-	if data.weapon :
+	if data.weapon != null :
 		data.weapon.onHitPassives.append(passive_effect)
 		data.display_name = "%s, OnHit-%s" % [display_name, passive_effect.onhit_passive_name]
 	else : 
