@@ -30,7 +30,7 @@ func _ready() -> void:
 	var _kick_skill = preload("res://Scenes/Skills/ActiveSkills/Kick_Skill.tres").duplicate(true)
 	var _burst_skill = preload("res://Scenes/Skills/ActiveSkills/SmallBurst_Skill.tres").duplicate(true)
 	#var projectile_skill = preload("res://Scenes/Skills/ActiveSkills/BaseProjectile_Skill.tres").duplicate(true)
-	var sword = preload("res://ressources/Weapons/testsword.tres").duplicate(true)
+	var _sword = preload("res://ressources/Weapons/testsword.tres").duplicate(true)
 	var dagger = preload("res://ressources/Weapons/testdagger.tres").duplicate(true)
 	var hammer = preload("res://ressources/Weapons/testhammer.tres").duplicate(true)
 	var dummy_hands = preload("res://ressources/DebugWeapons/dummy_fists.tres").duplicate(true)

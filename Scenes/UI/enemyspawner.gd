@@ -47,7 +47,7 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 	
 	var spawned : BaseUnit = data.unit_scene.instantiate()
 	spawned.position = pos
-	spawned.apply_data(data.duplicated())
+	spawned.apply_data(data._make_copy())
 	
 	for skill in data.skill_list:
 		spawned.skillModule.add_skill(skill.duplicate(true))

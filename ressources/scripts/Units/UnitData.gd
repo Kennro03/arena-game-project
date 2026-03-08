@@ -27,13 +27,13 @@ var multiplier_array : Array[float] = []
 func _init() -> void:
 	pass
 
-func duplicated() -> UnitData:
+func _make_copy() -> UnitData:
 	var copy := duplicate(true)
-	copy.team = team  
+	copy.team = team  # preserve reference
 	return copy
 
 func with_points(_stat_points : int) -> UnitData:
-	var data := duplicate(true)
+	var data := _make_copy()  
 	for i in range(_stat_points):
 		var attr : String = Stats.Attributes.keys()[randi() % Stats.Attributes.size()]
 		var prop : String = "base_" + attr.to_lower()
@@ -48,19 +48,19 @@ func with_weapon(_wep : Weapon) -> UnitData:
 			if (file_name.get_extension() == "tres") and (load("res://ressources/Weapons/"+file_name).weaponName != "Unarmed"):
 				weps.append(load("res://ressources/Weapons/"+file_name))
 		_wep = weps.pick_random()
-	var data := duplicate(true)
+	var data := _make_copy()  
 	data.weapon = _wep.duplicate(true)
 	data.display_name = "%s, Armed(%s)" % [display_name, _wep.weaponName]
 	return data
 
 func with_stats(_stats : Stats) -> UnitData:
-	var data := duplicate(true)
+	var data := _make_copy()  
 	data.stats = _stats
 	data.display_name = "%s, CustomStats" % [display_name]
 	return data
 
 func with_scale(multiplier: float) -> UnitData:
-	var data := duplicate(true)
+	var data := _make_copy()  
 	
 	for prop in data.stats.get_property_list():
 		if prop.name.begins_with("base_") and prop.type in [TYPE_FLOAT]:
@@ -70,7 +70,7 @@ func with_scale(multiplier: float) -> UnitData:
 	return data
 
 func with_skills(skill_array: Array[Skill]) -> UnitData:
-	var data := duplicate(true)
+	var data := _make_copy()  
 	for s in skill_array:
 		data.skill_list.append(s.duplicate(true))
 	data.display_name = "%s, Skilled" % [display_name]
@@ -81,7 +81,7 @@ enum RandomizationType {
 	MULTIPLY,
 }
 func randomized(min_value: float, max_value: float,type : RandomizationType = RandomizationType.ADD, _seed := -1) -> UnitData:
-	var data := duplicate(true)
+	var data := _make_copy()  
 	if _seed >= 0:
 		data.random_seed = _seed
 		seed(_seed)
@@ -103,8 +103,8 @@ func randomized(min_value: float, max_value: float,type : RandomizationType = Ra
 	return data
 
 func with_onHit_passive(passive_effect: OnHitPassive) -> UnitData:
-	var data := duplicate(true)
-	if data.weapon != null :
+	var data := _make_copy()
+	if data.weapon :
 		data.weapon.onHitPassives.append(passive_effect)
 		data.display_name = "%s, OnHit-%s" % [display_name, passive_effect.onhit_passive_name]
 	else : 
@@ -123,7 +123,7 @@ static func make_status_passive(
 	return passive
 
 func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
-	var data := duplicate(true)
+	var data := _make_copy()
 	while nb_modifiers >= 1 :
 		var rand := randi() % 6 + 1
 		match rand :
@@ -156,7 +156,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 				#print("randomly generated debuff : " + random_attribute_status_debuff.Status_effect_name)
 				effects.append(random_attribute_status_debuff)
 				var picked : Array[StatusEffect] = [effects.pick_random()]
-				var passive : OnHitPassiveApplyStatusEffects = data.make_status_passive(picked)
+				var passive : OnHitPassiveApplyStatusEffects = UnitData.make_status_passive(picked)
 				
 				data = data.with_onHit_passive(passive)
 			4 : 
@@ -173,7 +173,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 				var weapon_stat_debuff : StatusEffect_WeaponStat_Buff = StatusEffect_WeaponStat_Buff.new().setup(
 					WeaponStatBuff.new(random_weapon_stat, debuff_amount, WeaponStatBuff.BuffType.MULTIPLY))
 				var effects : Array[StatusEffect] = [weapon_stat_debuff]
-				var passive : OnHitPassiveApplyStatusEffects = data.make_status_passive(effects,false,0.75)
+				var passive : OnHitPassiveApplyStatusEffects = UnitData.make_status_passive(effects,false,0.75)
 				data = data.with_onHit_passive(passive)
 			6 :
 				# On-hit: apply a random weapon stat buff to self
@@ -182,7 +182,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 				var weapon_stat_self_buff : StatusEffect_WeaponStat_Buff = StatusEffect_WeaponStat_Buff.new().setup(
 					WeaponStatBuff.new(random_weapon_stat, buff_amount, WeaponStatBuff.BuffType.MULTIPLY))
 				var effects : Array[StatusEffect] = [weapon_stat_self_buff]
-				var passive : OnHitPassiveApplyStatusEffects = data.make_status_passive(effects,true,0.75)
+				var passive : OnHitPassiveApplyStatusEffects = UnitData.make_status_passive(effects,true,0.75)
 				data = data.with_onHit_passive(passive)
 		nb_modifiers -= 1
 	data.show_name = true
