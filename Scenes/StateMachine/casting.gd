@@ -1,4 +1,5 @@
 extends BaseUnitState
+class_name BaseUnitCasting
 
 var closest_target
 var closest_target_vector

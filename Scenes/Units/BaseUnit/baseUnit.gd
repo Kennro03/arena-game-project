@@ -222,19 +222,17 @@ func take_damage(incoming_damage) :
 		%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
 func block(_hit: HitData):
+	spriteModule.play_block_animation()
 	var flat_blocked_damage = maxf((_hit.base_damage-stats.current_flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
 	take_damage(blocked_damage) 
-	animationPlayer.play("block")
-	
 	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
 		particleModule.emit_block_particles()
 
 func parry(_hit: HitData):
-	animationPlayer.play("parry")
+	spriteModule.play_parry_animation()
 	particleModule.DamagePopupMarker.damage_popup("Parry!", 1.0,Color("Gold"))
-	
 	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
 		particleModule.emit_parry_particles()
 

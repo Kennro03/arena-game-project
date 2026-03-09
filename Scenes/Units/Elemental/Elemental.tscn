@@ -9,8 +9,10 @@ size = Vector2(32, 32)
 [node name="Elemental" unique_id=1699308279 instance=ExtResource("1_hn4uy")]
 script = ExtResource("2_gg4k1")
 element = false
+id = "Elemental"
+display_name = "Elemental"
+description = "An elemental spirit given form."
 stats = null
-weapon = null
 
 [node name="BodySprite" parent="SpriteModule" parent_id_path=PackedInt32Array(492313823) index="0" unique_id=828426807]
 texture = SubResource("PlaceholderTexture2D_ee8kn")

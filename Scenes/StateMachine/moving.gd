@@ -1,4 +1,6 @@
 extends BaseUnitState
+class_name BaseUnitMoving
+
 var closest_target
 var closest_target_vector
 
