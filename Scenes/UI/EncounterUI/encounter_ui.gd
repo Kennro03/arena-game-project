@@ -11,3 +11,5 @@ func _on_start_fight_button_pressed() -> void:
 
 func _on_begin_fight() -> void:
 	animationPlayer.play("hide_start_fight_button")
+	await animationPlayer.animation_finished
+	introEnded.emit()

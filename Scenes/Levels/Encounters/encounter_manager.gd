@@ -40,6 +40,7 @@ func start_fight() ->void :
 		print("Starting fight...")
 		state = LevelState.FIGHTING
 		UI_node.emit_signal("BeginFight")
+		await UI_node.introEnded
 		for unit in %Units.get_children() :
 			unit.active = true
 	pass
