@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://32iwvd3dtseu"]
+
+[ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Encounters/encounter_manager.gd" id="1_lkayr"]
+[ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Encounters/Spawner.gd" id="2_muisw"]
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="2_vdn87"]
+[ext_resource type="Resource" uid="uid://cpnr5mpvtakmp" path="res://ressources/Weapons/testsword.tres" id="3_a7xnc"]
+[ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="3_bbnb2"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="3_vhjgo"]
+[ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/levelData.gd" id="4_bbnb2"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="6_bxnae"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_x1l6v"]
+[ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="8_r68bt"]
+[ext_resource type="Resource" uid="uid://d4fvbe67ufh8v" path="res://ressources/Units/DaggerBandit.tres" id="9_u5b5j"]
+[ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/HammerBandit.tres" id="10_3tumn"]
+[ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/EncounterUI/encounter_ui.tscn" id="13_bxnae"]
+
+[sub_resource type="Resource" id="Resource_ep224"]
+script = ExtResource("7_x1l6v")
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="Resource" id="Resource_gu2a6"]
+script = ExtResource("3_bbnb2")
+id = "SwordBandit"
+display_name = "Bandit (sword)"
+description = "A random bandit wielding a sword."
+color = Color(0.5372549, 0, 0, 1)
+show_name = false
+team = ExtResource("8_r68bt")
+stats = SubResource("Resource_ep224")
+default_weapon = ExtResource("3_a7xnc")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"
+
+[sub_resource type="Resource" id="Resource_flfjc"]
+script = ExtResource("2_vdn87")
+unit_data = SubResource("Resource_gu2a6")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+
+[sub_resource type="Resource" id="Resource_055dj"]
+script = ExtResource("2_vdn87")
+unit_data = ExtResource("9_u5b5j")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+
+[sub_resource type="Resource" id="Resource_8b4n7"]
+script = ExtResource("2_vdn87")
+unit_data = ExtResource("10_3tumn")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+
+[sub_resource type="Resource" id="Resource_xxb1t"]
+script = ExtResource("4_bbnb2")
+enemy_force = 20.0
+enemy_pool = Array[ExtResource("2_vdn87")]([SubResource("Resource_flfjc"), SubResource("Resource_055dj"), SubResource("Resource_8b4n7")])
+metadata/_custom_type_script = "uid://b2x5b5wxr3o6d"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_muisw"]
+size = Vector2(192, 520)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qowf6"]
+size = Vector2(192, 520)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8da8d"]
+size = Vector2(1152, 648)
+
+[node name="EncounterScene" type="Node2D" unique_id=1541201406]
+
+[node name="EncounterManager" type="Node" parent="." unique_id=1861640648 node_paths=PackedStringArray("spawner")]
+script = ExtResource("1_lkayr")
+level_data = SubResource("Resource_xxb1t")
+spawner = NodePath("Spawner")
+
+[node name="Spawner" type="Node" parent="EncounterManager" unique_id=1283150222]
+script = ExtResource("2_muisw")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1532648521]
+
+[node name="SpawnZones" type="Node2D" parent="." unique_id=1229860022]
+
+[node name="PlayerZone" type="Area2D" parent="SpawnZones" unique_id=2117915562]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZones/PlayerZone" unique_id=1415221449]
+position = Vector2(160, 324)
+shape = SubResource("RectangleShape2D_muisw")
+debug_color = Color(0.30980393, 0.7529412, 0.3019608, 0.19607843)
+
+[node name="EnemyZone" type="Area2D" parent="SpawnZones" unique_id=237068058]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZones/EnemyZone" unique_id=1695760327]
+position = Vector2(992, 324)
+shape = SubResource("RectangleShape2D_qowf6")
+debug_color = Color(1, 0.40392157, 0.2901961, 0.19607843)
+
+[node name="NeutralZone" type="Area2D" parent="SpawnZones" unique_id=728318312]
+unique_name_in_owner = true
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZones/NeutralZone" unique_id=1294050169]
+position = Vector2(576, 324)
+shape = SubResource("RectangleShape2D_8da8d")
+debug_color = Color(0.5254902, 0.5411765, 0.5137255, 0.039215688)
+
+[node name="Units" type="Node2D" parent="." unique_id=146914120]
+unique_name_in_owner = true
+
+[node name="Obstacles" type="Node2D" parent="." unique_id=1585831173]
+unique_name_in_owner = true
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=2001671820]
+
+[node name="EncounterUI" parent="UI" unique_id=307533690 instance=ExtResource("13_bxnae")]
+unique_name_in_owner = true
+
+[connection signal="mouse_entered" from="SpawnZones/PlayerZone" to="EncounterManager/Spawner" method="_on_player_zone_mouse_entered"]
+[connection signal="mouse_exited" from="SpawnZones/PlayerZone" to="EncounterManager/Spawner" method="_on_player_zone_mouse_exited"]
+[connection signal="mouse_entered" from="SpawnZones/NeutralZone" to="EncounterManager/Spawner" method="_on_neutral_zone_mouse_entered"]
+[connection signal="mouse_exited" from="SpawnZones/NeutralZone" to="EncounterManager/Spawner" method="_on_neutral_zone_mouse_exited"]

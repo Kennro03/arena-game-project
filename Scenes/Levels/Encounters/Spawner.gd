@@ -1,11 +1,21 @@
 extends Node
-class_name DebugSpawner
+class_name EncounterSpawner
 
-@export var UI_node : Control 
 @export var random_spawn_delay : float = 10.0
+
+var player_team : Team = preload("res://ressources/Teams/PlayerTeam.tres")
+@onready var PlayerSpawnZone : Area2D = %PlayerZone
+
+@onready var NeutralSpawnZone : Area2D = %NeutralZone
+@onready var UnitLayer : Node2D = %Units
+@onready var ObstaclesLayer : Node2D = %Obstacles
 
 var unit: PackedScene = preload("res://Scenes/Units/BaseUnit/BaseUnit.tscn")
 var default_data: UnitData = UnitData.new()
+
+var in_player_zone : bool = false
+var in_neutral_zone : bool = false
+
 var selected_UnitData : UnitData 
 var random_spawn_toggle : bool = false
 var elapsed := 0.0
@@ -24,28 +34,28 @@ func _input(event):
 			#print("Mouse clicked on UI element : ", hovered.name)
 			return
 		
-		if event.button_index == MOUSE_BUTTON_LEFT :
-			print("Spawned a stickman at " + str(event.position))
-			
-			var data : UnitData = UI_node.inventory_module.selected_unit_data
-			if data == null:
-				data = stickmanUnitData.new()
+		if in_player_zone : 
+			if event.button_index == MOUSE_BUTTON_LEFT :
+				print("Spawned a stickman at " + str(event.position))
+				
+				var data = stickmanUnitData.new()
 				print("No unitData provided, spawning default stickman")
-			spawn_from_data(event.position, data)
-		
-		if event.button_index == MOUSE_BUTTON_RIGHT :
-			#print("Spawned a random stickman at " + str(event.position))
-			spawn_random(event.position)
+				spawn_from_data(event.position, data, player_team)
+			
+			if event.button_index == MOUSE_BUTTON_RIGHT :
+				#print("Spawned a random stickman at " + str(event.position))
+				spawn_random(event.position)
 
 func _random_point_in_zone(zone: Area2D) -> Vector2:
-	var shape : RectangleShape2D = zone.get_node("CollisionShape2D").shape
+	var col : CollisionShape2D = zone.get_node("CollisionShape2D") as CollisionShape2D
+	var shape : RectangleShape2D = col.shape 
 	var extents := shape.size / 2.0
-	return zone.global_position + Vector2(
+	return col.global_position + Vector2(
 		randf_range(-extents.x, extents.x),
 		randf_range(-extents.y, extents.y)
 	)
 
-func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
+func spawn_from_data(pos: Vector2, data: UnitData, team : Team = preload("res://ressources/Teams/EnemyTeam.tres")) -> BaseUnit:
 	if data == null:
 		push_error("Missing data")
 		return null
@@ -56,18 +66,19 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 	var spawned : BaseUnit = data.unit_scene.instantiate()
 	spawned.position = pos
 	spawned.apply_data(data._make_copy())
+	spawned.team = team
+	spawned.active = false
 	
 	for skill in data.skill_list:
 		spawned.skillModule.add_skill(skill.duplicate(true))
 	
-	get_tree().root.add_child(spawned)
+	UnitLayer.add_child(spawned)
 	return spawned
 
 func spawn_random(pos: Vector2, data: UnitData = null) -> BaseUnit:
 	if data == null:
 		data = stickmanUnitData.new()
 	var rand_data := data.with_random_modifiers(randi() % 3 + 1 )
-	
 	return spawn_from_data(pos, rand_data)
 
 func load_weapons() -> Array[Weapon]:
@@ -79,3 +90,16 @@ func load_weapons() -> Array[Weapon]:
 
 func _on_random_spawn_button_pressed() -> void:
 	random_spawn_toggle = !random_spawn_toggle
+
+
+func _on_player_zone_mouse_entered() -> void:
+	in_player_zone = true
+
+func _on_player_zone_mouse_exited() -> void:
+	in_player_zone = false
+
+func _on_neutral_zone_mouse_entered() -> void:
+	in_neutral_zone = true
+
+func _on_neutral_zone_mouse_exited() -> void:
+	in_neutral_zone = false

@@ -5,15 +5,12 @@
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_5d3gw"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_sy5po"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_21hen"]
-load_path = "res://.godot/imported/SwordStickman.png-5b4f0d4f9ac465f8592b6f89174c79e9.ctex"
-
 [resource]
 script = ExtResource("1_80t4j")
 weaponName = "TestSword"
 weaponType = 2
+weaponCategory = 1
 description = "A basic sword used for testing"
-spriteSheet = SubResource("CompressedTexture2D_21hen")
 base_attack_range = 105.0
 base_damage = 14.0
 base_knockback = 75.0

@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://d4fvbe67ufh8v"]
+
+[ext_resource type="Resource" uid="uid://dal5rgfowl103" path="res://ressources/Weapons/testdagger.tres" id="1_1xb20"]
+[ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="2_46pw2"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="3_hvujw"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_g5iyb"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="5_w678u"]
+[ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="6_4hhb4"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="7_g5iyb"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="8_w678u"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="9_4hhb4"]
+
+[sub_resource type="Resource" id="Resource_1xb20"]
+script = ExtResource("5_w678u")
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="Resource" id="Resource_8wlfk"]
+script = ExtResource("8_w678u")
+weaponName = "TestDagger"
+weaponType = 1
+description = "A basic dagger used for testing"
+base_attack_speed = 1.1
+base_attack_range = 90.0
+base_damage = 11.0
+base_knockback = 60.0
+attackTypes = {
+0: 10,
+1: 2
+}
+light_endlag = 0.1
+heavy_endlag = 0.5
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[resource]
+script = ExtResource("2_46pw2")
+id = "DaggerBandit"
+display_name = "Bandit (dagger)"
+description = "A random bandit wielding a dagger."
+color = Color(0.5372549, 0, 0, 1)
+show_name = false
+team = ExtResource("6_4hhb4")
+stats = SubResource("Resource_1xb20")
+weapon = SubResource("Resource_8wlfk")
+default_weapon = ExtResource("1_1xb20")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"

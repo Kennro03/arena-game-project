@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Team" format=3 uid="uid://bwm88212g4k6l"]
+
+[ext_resource type="Script" uid="uid://ba2sw8ajyas5p" path="res://Scenes/Units/BaseUnit/team.gd" id="1_vnb87"]
+
+[resource]
+script = ExtResource("1_vnb87")
+team_name = "PlayerTeam"
+team_color = Color(1, 1, 1, 1)
+flagVisible = false
+metadata/_custom_type_script = "uid://ba2sw8ajyas5p"

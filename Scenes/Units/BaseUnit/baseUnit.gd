@@ -38,6 +38,13 @@ var is_stunned: bool = false
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay:= 1000.0 
 var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]
+var active: bool = true:
+	set(value):
+		active = value
+		if active:
+			_on_activated()
+		else:
+			_on_deactivated()
 
 const BASE_BAR_WIDTH : float = 50.0
 const MIN_BAR_WIDTH : float = 25.0
@@ -53,8 +60,7 @@ func _ready():
 	%NameLabel.text = display_name
 	%NameLabel.visible = show_name
 	
-	if team != null :
-		set_team_flag()
+	set_team_flag()
 	
 	set_healthbar_visibility(show_health)
 	if show_health :
@@ -68,13 +74,23 @@ func _ready():
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
+func _on_activated() -> void:
+	print("Activated")
+	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
+
+func _on_deactivated() -> void:
+	print("Deactivated")
+	$StateMachine.process_mode = Node.PROCESS_MODE_DISABLED
+	#animationPlayer.play("BaseUnit/idle")
+
 func set_team_flag()->void:
-	var flag: PackedScene = preload("res://Scenes/flag.tscn")
-	var flag_instance
-	flag_instance = flag.instantiate()
-	flag_instance.position.y -= 80
-	flag_instance.modulate = team.team_color
-	add_child(flag_instance)
+	if team != null and team.flagVisible == true :
+		var flag: PackedScene = preload("res://Scenes/flag.tscn")
+		var flag_instance
+		flag_instance = flag.instantiate()
+		flag_instance.position.y -= 80
+		flag_instance.modulate = team.team_color
+		add_child(flag_instance)
 
 func update_healthBar(_health, _max_health) -> void :
 	healthBar.max_value = _max_health
