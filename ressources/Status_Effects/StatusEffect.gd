@@ -1,6 +1,11 @@
 extends Resource
 class_name StatusEffect
 
+signal effect_applied
+signal effect_ticket
+signal effect_stack_changed
+signal effect_expired
+
 @export var Status_effect_name : String
 @export var status_ID : String
 @export var Status_effect_description : String
@@ -25,7 +30,7 @@ func update(target, delta) -> bool:
 			tick_timer -= tick_interval
 			on_tick(target, self)
 	
-	if duration >= 0.0 :
+	if duration > 0.0 :
 		elapsed += delta
 		#print(self, " elapsed=", elapsed)
 		
@@ -65,3 +70,16 @@ func on_stack_changed(_target, _effect):
 
 func refresh_duration()->void :
 	self.elapsed = 0.0
+
+func get_relevant_properties()->Dictionary :
+	var dict : Dictionary 
+	if max_stacks > 1 :
+		dict.assign({
+		"stacks" : stacks,
+	})
+	
+	if duration > 0.0 :
+		dict.assign({
+		"remaining duration" : duration-elapsed
+	}) 
+	return dict

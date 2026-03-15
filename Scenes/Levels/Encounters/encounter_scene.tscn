@@ -110,6 +110,7 @@ debug_color = Color(0.5254902, 0.5411765, 0.5137255, 0.039215688)
 
 [node name="Units" type="Node2D" parent="." unique_id=146914120]
 unique_name_in_owner = true
+y_sort_enabled = true
 
 [node name="Obstacles" type="Node2D" parent="." unique_id=1585831173]
 unique_name_in_owner = true

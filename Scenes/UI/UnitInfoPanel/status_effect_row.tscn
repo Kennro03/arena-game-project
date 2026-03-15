@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://dofk34fycohsp"]
+
+[ext_resource type="Script" uid="uid://io75wewmythl" path="res://Scenes/UI/UnitInfoPanel/status_effect_row.gd" id="1_2bg6t"]
+[ext_resource type="PackedScene" uid="uid://eynpuscdhlly" path="res://Scenes/UI/UnitInfoPanel/property_label.tscn" id="2_4kwel"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5jgkb"]
+size = Vector2(32, 32)
+
+[node name="StatusEffectRow" type="MarginContainer" unique_id=988949793]
+texture_filter = 1
+offset_right = 400.0
+offset_bottom = 60.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_2bg6t")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1689803610]
+layout_mode = 2
+color = Color(0, 0, 0, 0.09803922)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2088515194]
+clip_contents = true
+custom_minimum_size = Vector2(392, 0)
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 2
+
+[node name="IconTextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1365298158]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("PlaceholderTexture2D_5jgkb")
+stretch_mode = 2
+
+[node name="StatusEffectNameLabel" type="Label" parent="HBoxContainer" unique_id=1057820495]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Status n"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="PropertiesScrollContainer2" type="ScrollContainer" parent="HBoxContainer" unique_id=2023144304]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="StatusEffectDescriptionLabel" type="Label" parent="HBoxContainer/PropertiesScrollContainer2" unique_id=1939073250]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 8
+text = "Description of the status and uhhh mmmmmmmm youknow ehhhhh iuhhhhhhh mmmmmmmmmmmmm fglmfglmfglmfgmlfglmf gmmlfg lm fglmfglflm gml fglm fglmf glmlf "
+autowrap_mode = 2
+
+[node name="PropertiesScrollContainer" type="ScrollContainer" parent="HBoxContainer" unique_id=2112087860]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="PropertiesVBoxContainer" type="VBoxContainer" parent="HBoxContainer/PropertiesScrollContainer" unique_id=1139673813]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PropertyLabel" parent="HBoxContainer/PropertiesScrollContainer/PropertiesVBoxContainer" unique_id=1568031176 instance=ExtResource("2_4kwel")]
+layout_mode = 2
+text = "Property labelxxxxxxxxxxxx..."

@@ -55,3 +55,11 @@ func _generate_metadata():
 		status_ID = stat_name.to_lower() + "_" + ext
 	if Status_effect_description == "":
 		Status_effect_description = "An " + stat_name + " " + ext + " that affects stats temporarily."
+
+func get_relevant_properties()->Dictionary :
+	var dict : Dictionary = super.get_relevant_properties()
+	dict.assign({
+		"buff_type" : stat_buff.buff_type,
+		"buff_amount" : stat_buff.buff_amount,
+	})
+	return dict

@@ -35,3 +35,13 @@ func on_expire(_target, _effect):
 		
 		if particle_effect :
 			emit_particle.emit(particle_effect)
+
+func get_relevant_properties()->Dictionary :
+	var dict : Dictionary = super.get_relevant_properties()
+	dict.assign({
+		"damage_per_stack" : damage_per_stack,
+		"damage_mult_full_stack" : damage_mult_full_stack,
+		"damage_dealt" : total_damage
+	})
+	
+	return dict

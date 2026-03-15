@@ -33,3 +33,11 @@ func _on_target_hit(_hit_data: HitData) -> void:
 			emit_particle.emit(particle_effect)
 	if stack_loss_on_hit > 0:
 		remove_stack(_target_ref, stack_loss_on_hit)
+
+func get_relevant_properties()->Dictionary :
+	var dict : Dictionary = super.get_relevant_properties()
+	dict.assign({
+		"damage" : damage,
+		"stack loss onhit" : stack_loss_on_hit
+	})
+	return dict

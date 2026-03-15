@@ -21,3 +21,12 @@ func on_tick(_target, _effect):
 func on_expire(_target, _effect):
 	#print(str(Status_effect_name) + " DoT status effect duration ended, dealt a total of " + str(total_damage) + " damage")
 	pass
+
+func get_relevant_properties()->Dictionary :
+	var dict : Dictionary = super.get_relevant_properties()
+	dict.assign({
+		"damage" : damage_per_stack,
+		"tick_interval" : tick_interval,
+		"damage_dealt" : total_damage
+	})
+	return dict

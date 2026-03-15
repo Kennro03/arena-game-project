@@ -46,6 +46,9 @@ signal health_depleted
 signal health_changed(cur_health:float,max_health:float)
 signal shield_depleted
 signal shield_changed(cur_shield:float,max_shield:float)
+signal stats_recalculated
+signal exp_changed(old_exp:int,new_exp:int)
+signal level_changed(new_level:int)
 
 @export var base_strength : int = 0
 @export var base_dexterity : int = 0
@@ -188,7 +191,6 @@ func recalculate_stats() -> void :
 	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
 	var stat_addends: Dictionary = {} #Amount to add to included stats
 	
-	var _stat_sample_pos: float = (float(level) / 100.0) - 0.01
 	## Maybe apply scalings to base stats? 
 	current_strength = int(base_strength )
 	current_dexterity = int(base_dexterity)
@@ -266,7 +268,7 @@ func recalculate_stats() -> void :
 	
 	body = current_strength + current_dexterity + current_endurance
 	mind = current_intellect + current_faith + current_attunement
-
+	stats_recalculated.emit()
 
 func _on_health_set(new_value : float) -> void:
 	health = clampf(new_value, 0, current_max_health)
@@ -282,41 +284,32 @@ func _on_shield_set(new_value : float) -> void:
 
 func _on_experience_set(new_value : int) -> void :
 	var old_level : int = level
+	var old_exp : int = experience
 	experience = new_value
-	
+	exp_changed.emit(old_exp,experience)
 	if not old_level == level :
+		level_changed.emit(level)
 		recalculate_stats() 
 
+func get_xp_for_level(target_level: int) -> int:
+	return int(pow(max(0, target_level - 0.5), 2) * 100.0)
+
+func get_level_progress() -> float:
+	var xp_current_level := get_xp_for_level(level)
+	var xp_next_level := get_xp_for_level(level + 1)
+	return float(experience - xp_current_level) / float(xp_next_level - xp_current_level)
+
+func get_xp_in_current_level() -> int:
+	return experience - get_xp_for_level(level)
+
+func get_xp_needed_for_next_level() -> int:
+	return get_xp_for_level(level + 1) - get_xp_for_level(level)
 
 enum StatValueType { BASE, CURRENT }
 func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dictionary:
-	if value_type == StatValueType.BASE : 
-		return {
-			"strength": base_strength,
-			"dexterity": base_dexterity,
-			"endurance": base_endurance,
-			"intellect": base_intellect,
-			"faith": base_faith,
-			"attunement": base_attunement,
-
-			"max_health": base_max_health,
-			"health_regen": base_health_regen,
-			"movement_speed": base_movement_speed,
-			"dodge_probability": base_dodge_probability,
-			"parry_probability": base_parry_probability,
-			"block_probability": base_block_probability,
-			"flat_block_power": base_flat_block_power,
-			"percent_block_power": base_percent_block_power,
-			"crit_chance": base_crit_chance,
-			"crit_damage": base_crit_damage,
-			"flat_damage_taken": base_flat_damage_taken,
-			"percent_damage_taken": base_percent_damage_taken,
-
-			"experience": experience,
-		}
-	else : 
-		printerr("Value type not valid, use a correct StatValueType")
-		return {
+	match value_type :
+		StatValueType.CURRENT :
+			return {
 			"strength": current_strength,
 			"dexterity": current_dexterity,
 			"endurance": current_endurance,
@@ -340,6 +333,33 @@ func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dic
 			"level": level,
 			"health": health
 		}
+		StatValueType.BASE :
+			return {
+				"strength": base_strength,
+				"dexterity": base_dexterity,
+				"endurance": base_endurance,
+				"intellect": base_intellect,
+				"faith": base_faith,
+				"attunement": base_attunement,
+
+				"max_health": base_max_health,
+				"health_regen": base_health_regen,
+				"movement_speed": base_movement_speed,
+				"dodge_probability": base_dodge_probability,
+				"parry_probability": base_parry_probability,
+				"block_probability": base_block_probability,
+				"flat_block_power": base_flat_block_power,
+				"percent_block_power": base_percent_block_power,
+				"crit_chance": base_crit_chance,
+				"crit_damage": base_crit_damage,
+				"flat_damage_taken": base_flat_damage_taken,
+				"percent_damage_taken": base_percent_damage_taken,
+
+				"experience": experience,
+			}
+		_: 
+			printerr("Value type not valid, use a correct StatValueType")
+	return {}
 
 func get_current_attribute(attr: Attributes) -> int:
 	match attr:
@@ -349,6 +369,28 @@ func get_current_attribute(attr: Attributes) -> int:
 		Attributes.INTELLECT: return current_intellect
 		Attributes.FAITH: return current_faith
 		Attributes.ATTUNEMENT: return current_attunement
+	return 0
+
+func get_current_stat(stat: BuffableStats) -> float:
+	match stat:
+		BuffableStats.STRENGTH: return current_strength
+		BuffableStats.DEXTERITY: return current_dexterity
+		BuffableStats.ENDURANCE: return current_endurance
+		BuffableStats.INTELLECT: return current_intellect
+		BuffableStats.FAITH: return current_faith
+		BuffableStats.ATTUNEMENT: return current_attunement
+		BuffableStats.MAX_HEALTH: return current_max_health
+		BuffableStats.HEALTH_REGEN: return current_health_regen
+		BuffableStats.MOVEMENT_SPEED: return current_movement_speed
+		BuffableStats.DODGE_PROBABILITY: return current_block_probability
+		BuffableStats.PARRY_PROBABILITY: return current_parry_probability
+		BuffableStats.BLOCK_PROBABILITY: return current_block_probability
+		BuffableStats.FLAT_BLOCK_POWER: return current_flat_block_power
+		BuffableStats.PERCENT_BLOCK_POWER: return current_percent_block_power
+		BuffableStats.CRIT_CHANCE: return current_crit_chance
+		BuffableStats.CRIT_DAMAGE: return current_crit_damage
+		BuffableStats.FLAT_DAMAGE_TAKEN: return current_flat_damage_taken
+		BuffableStats.PERCENT_DAMAGE_TAKEN: return current_percent_damage_taken
 	return 0
 
 func print_attributes()-> void:

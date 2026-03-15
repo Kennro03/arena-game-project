@@ -339,6 +339,7 @@ _data = {
 }
 
 [node name="BaseUnit" type="Node2D" unique_id=1699308279 groups=["Units"]]
+y_sort_enabled = true
 script = ExtResource("1_m87p7")
 stats = SubResource("Resource_et0ph")
 

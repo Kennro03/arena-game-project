@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://cjibi7hws0y7b"]
+
+[ext_resource type="Script" uid="uid://d1ywcpwm2exd2" path="res://Scenes/UI/UnitInfoPanel/unit_info_panel.gd" id="1_7u7gd"]
+[ext_resource type="PackedScene" uid="uid://dofk34fycohsp" path="res://Scenes/UI/UnitInfoPanel/status_effect_row.tscn" id="2_cptsl"]
+[ext_resource type="Script" uid="uid://btpyi1bwhwy1g" path="res://ressources/Status_Effects/Effects/StatusEffect_DoT.gd" id="3_o75cb"]
+[ext_resource type="Script" uid="uid://dnfvvxu7oamd7" path="res://ressources/Status_Effects/Effects/StatusEffect_Stun.gd" id="4_5dpdn"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v6ryx"]
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_o75cb"]
+size = Vector2(32, 32)
+
+[sub_resource type="Resource" id="Resource_5dpdn"]
+script = ExtResource("3_o75cb")
+damage_per_stack = 3.0
+Status_effect_name = "test"
+status_ID = "ssss"
+Status_effect_description = "it deals... damage..... uohhhhhhhh so much damage... mkgflmkgdkmlgfmkgkmgfklm mhmmhmmfmfmffh..."
+status_icon = SubResource("PlaceholderTexture2D_o75cb")
+metadata/_custom_type_script = "uid://btpyi1bwhwy1g"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5dpdn"]
+size = Vector2(32, 32)
+
+[sub_resource type="Resource" id="Resource_rp5dg"]
+script = ExtResource("4_5dpdn")
+Status_effect_name = "Stunned hehehe"
+status_ID = "testiiii..."
+Status_effect_description = "This actually doesn't stun the target, you moron. You dumb stupid son of a bitch. Buffon even."
+status_icon = SubResource("PlaceholderTexture2D_5dpdn")
+duration = 10.0
+metadata/_custom_type_script = "uid://dnfvvxu7oamd7"
+
+[node name="PanelContainer" type="PanelContainer" unique_id=1287558197]
+texture_filter = 1
+clip_contents = true
+custom_minimum_size = Vector2(110, 0)
+offset_right = 400.0
+offset_bottom = 200.0
+mouse_filter = 2
+script = ExtResource("1_7u7gd")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=239782206]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=57497687]
+layout_mode = 2
+
+[node name="HboxHeader" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1072448097]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="UnitIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HboxHeader" unique_id=267631308]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_v6ryx")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HboxHeader" unique_id=1514207632]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UnitNameLabel" type="Label" parent="MarginContainer/VBoxContainer/HboxHeader/VBoxContainer" unique_id=752978947]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "UnitName"
+
+[node name="UnitTypeLabel" type="Label" parent="MarginContainer/VBoxContainer/HboxHeader/VBoxContainer" unique_id=1082408927]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "unit type {Tier if enemy?}"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HboxHeader/VBoxContainer" unique_id=824851955]
+layout_mode = 2
+theme_override_constants/separation = 36
+
+[node name="UnitLevelLabel" type="Label" parent="MarginContainer/VBoxContainer/HboxHeader/VBoxContainer/HBoxContainer" unique_id=1060661034]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Unit Level : 67"
+
+[node name="LevelProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/HboxHeader/VBoxContainer/HBoxContainer" unique_id=1651556904]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 50.0
+show_percentage = false
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1462090470]
+layout_mode = 2
+
+[node name="UnitDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=144012581]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "The unit description goes here."
+autowrap_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1870841488]
+layout_mode = 2
+
+[node name="StatScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=224118626]
+custom_minimum_size = Vector2(0, 125)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatScrollContainer" unique_id=1521040555]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/StatScrollContainer/VBoxContainer" unique_id=306216493]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="AttributesContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatScrollContainer/VBoxContainer/HBoxContainer" unique_id=1700561587]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="StatsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatScrollContainer/VBoxContainer/HBoxContainer" unique_id=1278675228]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=635335664]
+layout_mode = 2
+
+[node name="StatusEffectsScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=411614559]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="StatusEffectsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer" unique_id=1150385892]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = -2
+
+[node name="StatusEffectRow" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer/StatusEffectsContainer" unique_id=988949793 instance=ExtResource("2_cptsl")]
+layout_mode = 2
+status_effect = SubResource("Resource_5dpdn")
+
+[node name="StatusEffectRow2" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer/StatusEffectsContainer" unique_id=1142036958 instance=ExtResource("2_cptsl")]
+layout_mode = 2
+status_effect = SubResource("Resource_rp5dg")
+
+[node name="StatusEffectRow3" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer/StatusEffectsContainer" unique_id=1518428013 instance=ExtResource("2_cptsl")]
+layout_mode = 2
+status_effect = SubResource("Resource_5dpdn")
+
+[node name="StatusEffectRow4" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer/StatusEffectsContainer" unique_id=1074139942 instance=ExtResource("2_cptsl")]
+layout_mode = 2
+status_effect = SubResource("Resource_rp5dg")

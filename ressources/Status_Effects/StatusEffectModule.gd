@@ -1,6 +1,8 @@
 extends Node2D
 class_name StatusEffectModule
 
+signal effects_changed
+
 @export var StatusEffects : Array[StatusEffect] = []
 
 # Called when the node enters the scene tree for the first time.

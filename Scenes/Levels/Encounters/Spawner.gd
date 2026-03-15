@@ -9,6 +9,7 @@ var player_team : Team = preload("res://ressources/Teams/PlayerTeam.tres")
 @onready var NeutralSpawnZone : Area2D = %NeutralZone
 @onready var UnitLayer : Node2D = %Units
 @onready var ObstaclesLayer : Node2D = %Obstacles
+@onready var Manager : EncounterManager = get_parent()
 
 var unit: PackedScene = preload("res://Scenes/Units/BaseUnit/BaseUnit.tscn")
 var default_data: UnitData = UnitData.new()
@@ -34,7 +35,7 @@ func _input(event):
 			#print("Mouse clicked on UI element : ", hovered.name)
 			return
 		
-		if in_player_zone : 
+		if in_player_zone and Manager.state == EncounterManager.LevelState.SPAWNING : 
 			if event.button_index == MOUSE_BUTTON_LEFT :
 				print("Spawned a stickman at " + str(event.position))
 				
