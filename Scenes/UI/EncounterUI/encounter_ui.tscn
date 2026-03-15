@@ -2,6 +2,21 @@
 
 [ext_resource type="Script" uid="uid://cn62wcad747vn" path="res://Scenes/UI/EncounterUI/encounter_ui.gd" id="1_dgqyh"]
 
+[sub_resource type="Animation" id="Animation_yenpq"]
+resource_name = "LostAnimation"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LosingPanel:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 0),
+"points": PackedFloat32Array(680, -0.25, 0, 0.25, 0, 619, -0.18233971, -1.8233972, 0.2, 2, 642, -0.23333329, 1, 0.15492049, -0.66394514, 282, -0.16666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.33333334, 0.9, 1.5)
+}
+
 [sub_resource type="Animation" id="Animation_dgqyh"]
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -12,6 +27,174 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 2),
 "points": PackedFloat32Array(20, -0.25, 0, 0.23333333, 69, -80, -0.16666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WinningPanel:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1200, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WinningPanel:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(700, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WinningPanel:size:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(563, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WinningPanel:size:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(88, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WinningPanel:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("WinningPanel:scale:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("WinningPanel:scale:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("LosingPanel:position:y")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(700, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_rx3ca"]
+resource_name = "WinAnimation"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinningPanel:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1500, 0, 0, 0.16666667, -200.91667, 294.5, -0.93333334, 15.5, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WinningPanel:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(750, 0, 0, 0.8, -18, 280, -0.06666666, 302, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WinningPanel:size:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(563, -0.25, 0, 0.25, 0, 563, -0.16666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WinningPanel:size:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(88, -0.25, 0, 0.25, 0, 88, -0.16666667, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WinningPanel:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(-31, 0, 0, 0.1, 0, 0, -0.3, -17, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WinningPanel:scale:x")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0.1, -0.25, 0, 0.5, 0.4, 1, -0.16666667, -0.15, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("WinningPanel:scale:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0.1, -0.25, 0, 0.25, 0, 1, -0.16666667, -0.15, 0, 0),
 "times": PackedFloat32Array(0, 1)
 }
 
@@ -31,9 +214,26 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rx3ca"]
 _data = {
+&"LostAnimation": SubResource("Animation_yenpq"),
 &"RESET": SubResource("Animation_dgqyh"),
+&"WinAnimation": SubResource("Animation_rx3ca"),
 &"hide_start_fight_button": SubResource("Animation_yujsy")
 }
+
+[sub_resource type="Gradient" id="Gradient_dgqyh"]
+offsets = PackedFloat32Array(0, 0.53136533, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0.5686275, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yujsy"]
+gradient = SubResource("Gradient_dgqyh")
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rx3ca"]
+texture = SubResource("GradientTexture2D_yujsy")
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
 
 [node name="EncounterUI" type="Control" unique_id=307533690]
 texture_filter = 1
@@ -54,7 +254,7 @@ anchor_right = 0.5
 offset_left = -64.0
 offset_top = 20.0
 offset_right = 64.0
-offset_bottom = 70.00006
+offset_bottom = 70.00009
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
 text = "Start Fight"
@@ -62,5 +262,35 @@ text = "Start Fight"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1749400674]
 libraries/ = SubResource("AnimationLibrary_rx3ca")
 
-[connection signal="BeginFight" from="." to="." method="_on_begin_fight"]
+[node name="WinningPanel" type="PanelContainer" parent="." unique_id=1889037389]
+layout_mode = 0
+offset_left = 1200.0
+offset_top = 700.0
+offset_right = 1763.0
+offset_bottom = 788.0
+scale = Vector2(0.1, 0.1)
+theme_override_styles/panel = SubResource("StyleBoxTexture_rx3ca")
+
+[node name="Label" type="Label" parent="WinningPanel" unique_id=1602206717]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "YOU WINED!!!!1!1!"
+
+[node name="LosingPanel" type="PanelContainer" parent="." unique_id=1405901199]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.049
+anchor_right = 0.5
+anchor_bottom = 1.049
+offset_left = -117.0
+offset_top = 20.247986
+offset_right = 117.0
+offset_bottom = 108.24768
+
+[node name="Label" type="Label" parent="LosingPanel" unique_id=1756275155]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Losted......"
+
 [connection signal="pressed" from="StartFightButton" to="." method="_on_start_fight_button_pressed"]

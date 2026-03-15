@@ -1,22 +1,35 @@
 extends Node
 class_name EncounterManager
 
+signal BeginEncounter
+signal WonEncounter
+signal LostEncounter
+
+var enemies_alive : int = 0
+var players_alive : int = 0
+
 enum LevelState { LOADING, SPAWNING, FIGHTING, RESOLVING, COMPLETE }
 
+@export var spawner : EncounterSpawner
 @export var level_data: LevelData
-var player_units: Array[UnitData] = []
+@export var player_units: Array[UnitData] = []
+@export var enemy_units : Array[EnemyData] = []
+
 var state: LevelState = LevelState.LOADING
 
-@export var spawner : EncounterSpawner
 
 @onready var UI_node : Control = %EncounterUI
 @onready var player_zone : Area2D = %PlayerZone
 @onready var neutral_zone : Area2D = %NeutralZone
 @onready var enemy_zone : Area2D = %EnemyZone
 
+
 func _ready() -> void:
 	UI_node.connect("StartEncounterPressed",start_fight)
-	load_level(level_data,[])
+	BeginEncounter.connect(UI_node._on_begin_encounter)
+	WonEncounter.connect(UI_node._on_won_encounter)
+	LostEncounter.connect(UI_node._on_lost_encounter)
+	load_level(level_data,player_units)
 
 func _process(_delta: float) -> void:
 	pass
@@ -39,7 +52,7 @@ func start_fight() ->void :
 	if state == LevelState.SPAWNING :
 		print("Starting fight...")
 		state = LevelState.FIGHTING
-		UI_node.emit_signal("BeginFight")
+		emit_signal("BeginEncounter")
 		await UI_node.introEnded
 		for unit in %Units.get_children() :
 			unit.active = true
@@ -47,15 +60,22 @@ func start_fight() ->void :
 
 func _spawn_player_units() -> void:
 	for unit_data in player_units:
-		spawner.spawn_from_data(spawner._random_point_in_zone(player_zone), unit_data)
+		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(player_zone), unit_data,load("res://ressources/Teams/PlayerTeam.tres"))
+		if unit:
+			players_alive += 1
+			unit.stats.health_depleted.connect(_on_player_unit_died)
 
 func _spawn_enemy_units() -> void:
-	var enemies : Array[EnemyData] = _generate_enemy_list()
-	for enemy_data in enemies:
-		spawner.spawn_from_data(spawner._random_point_in_zone(enemy_zone), enemy_data.unit_data)
+	if enemy_units == [] :
+		enemy_units = _generate_enemy_list()
+	for enemy_data in enemy_units:
+		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(enemy_zone), enemy_data.unit_data)
+		if unit:
+			enemies_alive += 1
+			unit.stats.health_depleted.connect(_on_enemy_unit_died)
 
 func _generate_enemy_list() -> Array[EnemyData]:
-	var enemies: Array[EnemyData] = []
+	var enemies_array: Array[EnemyData] = [] 
 	var budget := level_data.enemy_force  # "points" to spend
 	print("Budget = " + str(budget))
 	var pool := level_data.enemy_pool
@@ -80,13 +100,24 @@ func _generate_enemy_list() -> Array[EnemyData]:
 			#var modified := candidate.with_random_modifiers(randi() % level_data.max_enemy_modifiers + 1) as EnemyData
 			var final_cost : float = candidate.get_cost()
 			if final_cost <= budget:
-				enemies.append(candidate)
+				enemies_array.append(candidate)
 				budget -= final_cost
 		attempts += 1
 	
-	print(str(enemies))
-	return enemies
+	print(str(enemies_array))
+	return enemies_array
 
-func _watch_for_completion() -> void:
-	# poll or use signals to detect when all enemies or all players are dead
-	pass
+func _on_enemy_unit_died() -> void:
+	enemies_alive -= 1
+	print("Enemies remaining = " + str(enemies_alive))
+	if enemies_alive <= 0 :
+		state = LevelState.RESOLVING
+		print("Won fight")
+		WonEncounter.emit()  # players win
+
+func _on_player_unit_died() -> void:
+	players_alive -= 1
+	if players_alive <= 0 :
+		state = LevelState.RESOLVING
+		print("Lost fight")
+		LostEncounter.emit()  # players lose

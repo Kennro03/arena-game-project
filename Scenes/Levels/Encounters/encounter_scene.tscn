@@ -12,7 +12,11 @@
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="8_r68bt"]
 [ext_resource type="Resource" uid="uid://d4fvbe67ufh8v" path="res://ressources/Units/DaggerBandit.tres" id="9_u5b5j"]
 [ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/HammerBandit.tres" id="10_3tumn"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="13_3tumn"]
 [ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/EncounterUI/encounter_ui.tscn" id="13_bxnae"]
+[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/UnitData.gd" id="13_r68bt"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="14_gu2a6"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="15_055dj"]
 
 [sub_resource type="Resource" id="Resource_ep224"]
 script = ExtResource("7_x1l6v")
@@ -60,6 +64,68 @@ enemy_force = 20.0
 enemy_pool = Array[ExtResource("2_vdn87")]([SubResource("Resource_flfjc"), SubResource("Resource_055dj"), SubResource("Resource_8b4n7")])
 metadata/_custom_type_script = "uid://b2x5b5wxr3o6d"
 
+[sub_resource type="Resource" id="Resource_e6bm7"]
+script = ExtResource("14_gu2a6")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_s0pr7"]
+script = ExtResource("7_x1l6v")
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="Resource" id="Resource_ppxuw"]
+script = ExtResource("14_gu2a6")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_buiti"]
+script = ExtResource("3_bbnb2")
+id = "HammerBandit"
+display_name = "Bandit (hammer)"
+description = "A random bandit wielding a hammer."
+color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
+show_name = false
+team = ExtResource("8_r68bt")
+stats = SubResource("Resource_s0pr7")
+weapon = SubResource("Resource_ppxuw")
+default_weapon = SubResource("Resource_e6bm7")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_muisw"]
 size = Vector2(192, 520)
 
@@ -73,8 +139,9 @@ size = Vector2(1152, 648)
 
 [node name="EncounterManager" type="Node" parent="." unique_id=1861640648 node_paths=PackedStringArray("spawner")]
 script = ExtResource("1_lkayr")
-level_data = SubResource("Resource_xxb1t")
 spawner = NodePath("Spawner")
+level_data = SubResource("Resource_xxb1t")
+player_units = Array[ExtResource("13_r68bt")]([SubResource("Resource_buiti")])
 
 [node name="Spawner" type="Node" parent="EncounterManager" unique_id=1283150222]
 script = ExtResource("2_muisw")
