@@ -1,9 +1,7 @@
 extends Resource
-class_name LevelData
+class_name EncounterData
 
-enum LevelType { NORMAL, ELITE, BOSS, AMBUSH, SHOP, EVENT }
-
-@export var level_type: LevelType = LevelType.NORMAL
+@export_group("Encounter data")
 @export var enemy_force: float = 1.0        # multiplier for enemy strength/count
 @export var forced_enemies: Array[EnemyData] = [] # enemies that are guaranteed to spawn
 @export var random_enemy_pool: Array[EnemyData] = [] # which enemies can spawn

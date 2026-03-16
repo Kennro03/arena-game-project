@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="2_vdn87"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="3_bbnb2"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="3_vhjgo"]
-[ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/levelData.gd" id="4_bbnb2"]
+[ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/encounterData.gd" id="4_bbnb2"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="6_bxnae"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_x1l6v"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="8_r68bt"]

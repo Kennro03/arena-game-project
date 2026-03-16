@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c33jh116bvc4"]
+
+[ext_resource type="Script" uid="uid://xnupixjio2sc" path="res://Scenes/Map/map_generator.gd" id="1_xtf6f"]
+
+[node name="Map" type="Control" unique_id=831943558]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_vertical_guides_ = [-552.0]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=760829719]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19434929, 0.19434926, 0.19434926, 1)
+
+[node name="MapGenerator" type="Node" parent="." unique_id=126815908]
+script = ExtResource("1_xtf6f")

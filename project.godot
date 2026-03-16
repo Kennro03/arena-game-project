@@ -28,6 +28,8 @@ UIDGenerator="*uid://da6fniahcnhro"
 folder_colors={
 "res://Scenes/": "blue",
 "res://Scenes/Hitboxes/": "red",
+"res://Scenes/Levels/": "yellow",
+"res://Scenes/Map/": "green",
 "res://Scenes/Skills/": "orange",
 "res://Scenes/StateMachine/": "yellow",
 "res://Scenes/UI/": "green",
