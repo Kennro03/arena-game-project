@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Encounters/encounter_manager.gd" id="1_lkayr"]
 [ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Encounters/Spawner.gd" id="2_muisw"]
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="2_vdn87"]
-[ext_resource type="Resource" uid="uid://cpnr5mpvtakmp" path="res://ressources/Weapons/testsword.tres" id="3_a7xnc"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="3_bbnb2"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="3_vhjgo"]
 [ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/levelData.gd" id="4_bbnb2"]
@@ -12,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="8_r68bt"]
 [ext_resource type="Resource" uid="uid://d4fvbe67ufh8v" path="res://ressources/Units/DaggerBandit.tres" id="9_u5b5j"]
 [ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/HammerBandit.tres" id="10_3tumn"]
+[ext_resource type="Resource" uid="uid://ca3ago2wj5osb" path="res://ressources/Units/SwordBandit.tres" id="11_8b4n7"]
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="11_055dj"]
 [ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Weapons/testhammer.tres" id="12_8b4n7"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="13_3tumn"]
@@ -19,46 +19,6 @@
 [ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/UnitData.gd" id="13_r68bt"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="14_gu2a6"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="15_055dj"]
-
-[sub_resource type="Resource" id="Resource_ep224"]
-script = ExtResource("7_x1l6v")
-max_health_scalings = null
-health_regen_scalings = null
-movement_speed_scalings = null
-dodge_probability_scalings = null
-parry_probability_scalings = null
-block_probability_scalings = null
-flat_block_power_scalings = null
-crit_chance_scalings = null
-crit_damage_scalings = null
-metadata/_custom_type_script = "uid://3ilvdjppydrs"
-
-[sub_resource type="Resource" id="Resource_gu2a6"]
-script = ExtResource("3_bbnb2")
-id = "SwordBandit"
-display_name = "Bandit (sword)"
-description = "A random bandit wielding a sword."
-color = Color(0.5372549, 0, 0, 1)
-show_name = false
-team = ExtResource("8_r68bt")
-stats = SubResource("Resource_ep224")
-default_weapon = ExtResource("3_a7xnc")
-metadata/_custom_type_script = "uid://gk2b37nd41oy"
-
-[sub_resource type="Resource" id="Resource_flfjc"]
-script = ExtResource("2_vdn87")
-unit_data = SubResource("Resource_gu2a6")
-metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
-
-[sub_resource type="Resource" id="Resource_055dj"]
-script = ExtResource("2_vdn87")
-unit_data = ExtResource("9_u5b5j")
-metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
-
-[sub_resource type="Resource" id="Resource_8b4n7"]
-script = ExtResource("2_vdn87")
-unit_data = ExtResource("10_3tumn")
-metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 
 [sub_resource type="Resource" id="Resource_oloho"]
 script = ExtResource("7_x1l6v")
@@ -78,7 +38,7 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 [sub_resource type="Resource" id="Resource_6nyc0"]
 script = ExtResource("3_bbnb2")
 id = "Bigguy"
-display_name = "Big guy"
+display_name = "Bigguy"
 description = "That's a big guy..."
 color = Color(1, 1, 0, 1)
 stats = SubResource("Resource_oloho")
@@ -93,11 +53,26 @@ base_cost = 20.0
 enemy_tier = 1
 metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 
+[sub_resource type="Resource" id="Resource_okyky"]
+script = ExtResource("2_vdn87")
+unit_data = ExtResource("9_u5b5j")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+
+[sub_resource type="Resource" id="Resource_okjdk"]
+script = ExtResource("2_vdn87")
+unit_data = ExtResource("10_3tumn")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+
+[sub_resource type="Resource" id="Resource_0ybvj"]
+script = ExtResource("2_vdn87")
+unit_data = ExtResource("11_8b4n7")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+
 [sub_resource type="Resource" id="Resource_xxb1t"]
 script = ExtResource("4_bbnb2")
-enemy_force = 30.0
+enemy_force = 20.0
 forced_enemies = Array[ExtResource("2_vdn87")]([SubResource("Resource_r8sx5")])
-enemy_pool = Array[ExtResource("2_vdn87")]([SubResource("Resource_flfjc"), SubResource("Resource_055dj"), SubResource("Resource_8b4n7")])
+random_enemy_pool = Array[ExtResource("2_vdn87")]([SubResource("Resource_okyky"), SubResource("Resource_okjdk"), SubResource("Resource_0ybvj")])
 metadata/_custom_type_script = "uid://b2x5b5wxr3o6d"
 
 [sub_resource type="Resource" id="Resource_e6bm7"]

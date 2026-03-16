@@ -78,11 +78,11 @@ func _generate_enemy_list() -> Array[EnemyData]:
 	var enemies_array: Array[EnemyData] = level_data.forced_enemies
 	var budget := level_data.enemy_force  # "points" to spend
 	print("Budget = " + str(budget))
-	var pool := level_data.enemy_pool
+	var pool := level_data.random_enemy_pool
 	print("Pool = " + str(pool))
 	
-	if pool.size() <= 0 : 
-		printerr("No enemy pool to pull from !")
+	if enemies_array == [] and pool.size() <= 0 : 
+		printerr("No forced enemies and enemy pool to pull from !")
 		return []
 	
 	for forced_enemy in enemies_array :
