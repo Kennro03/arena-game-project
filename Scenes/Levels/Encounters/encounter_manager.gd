@@ -66,8 +66,8 @@ func _spawn_player_units() -> void:
 			unit.stats.health_depleted.connect(_on_player_unit_died)
 
 func _spawn_enemy_units() -> void:
-	if enemy_units == [] :
-		enemy_units = _generate_enemy_list()
+	enemy_units = _generate_enemy_list()
+	
 	for enemy_data in enemy_units:
 		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(enemy_zone), enemy_data.unit_data)
 		if unit:
@@ -75,7 +75,7 @@ func _spawn_enemy_units() -> void:
 			unit.stats.health_depleted.connect(_on_enemy_unit_died)
 
 func _generate_enemy_list() -> Array[EnemyData]:
-	var enemies_array: Array[EnemyData] = [] 
+	var enemies_array: Array[EnemyData] = level_data.forced_enemies
 	var budget := level_data.enemy_force  # "points" to spend
 	print("Budget = " + str(budget))
 	var pool := level_data.enemy_pool
@@ -84,6 +84,9 @@ func _generate_enemy_list() -> Array[EnemyData]:
 	if pool.size() <= 0 : 
 		printerr("No enemy pool to pull from !")
 		return []
+	
+	for forced_enemy in enemies_array :
+		budget-= forced_enemy.get_cost()
 	
 	var attempts : int = 0
 	var max_attempts : int = 50  
