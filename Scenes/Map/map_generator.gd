@@ -21,9 +21,6 @@ var random_room_type_weights = {
 var random_room_type_total_weight := 0
 var map_data : Array[Array]
 
-func _ready() -> void:
-	generate_map()
-
 func generate_map() -> Array[Array]:
 	map_data = _generate_initial_grid()
 	var starting_points := _get_random_starting_points()
