@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://x1utpfq4w5ju"]
+
+[sub_resource type="Gradient" id="Gradient_4i54n"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a4qki"]
+gradient = SubResource("Gradient_4i54n")
+
+[node name="MapLine" type="Line2D" unique_id=1350831996]
+texture_repeat = 2
+texture = SubResource("GradientTexture2D_a4qki")
+texture_mode = 1
