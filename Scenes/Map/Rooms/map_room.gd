@@ -5,7 +5,7 @@ signal selected(room: Room)
 
 const ICONS := {
 	Room.Type.NOT_ASSIGNED : [null,Vector2.ONE],
-	Room.Type.BATTLE : [null,Vector2.ONE],
+	Room.Type.BATTLE : [preload("res://ressources/Sprites/UI/Sword_Icon.png"),Vector2.ONE],
 	Room.Type.AMBUSH : [null,Vector2.ONE],
 	Room.Type.SHOP : [null,Vector2.ONE],
 	Room.Type.TREASURE : [null,Vector2.ONE],
