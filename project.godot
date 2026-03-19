@@ -54,7 +54,8 @@ folder_colors={
 "res://ressources/Units/": "teal",
 "res://ressources/Weapons/": "red",
 "res://ressources/scripts/": "purple",
-"res://ressources/scripts/Weapons/": "red"
+"res://ressources/scripts/Weapons/": "red",
+"res://scripts/": "purple"
 }
 
 [global_group]

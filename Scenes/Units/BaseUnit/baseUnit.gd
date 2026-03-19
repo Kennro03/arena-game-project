@@ -32,9 +32,9 @@ signal hit_received(hit_data: HitData)
 
 var summoner : BaseUnit = null  
 var is_action_locked := false
-var last_attack_time:= 0.0
 var is_casting: bool = false
 var is_stunned: bool = false
+var last_attack_time:= 0.0
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay:= 1000.0 
 var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]

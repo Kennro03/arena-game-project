@@ -1,9 +1,12 @@
 extends Node
 class_name EventBus
 
+@warning_ignore_start("unused_signal")
+
 #economy related
 signal gain_gold(value: int)
 signal lose_gold(value: int)
+
 signal gold_changed(new_total: int)
 
 #item related

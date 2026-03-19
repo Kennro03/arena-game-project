@@ -2,7 +2,7 @@ extends Resource
 class_name StatusEffect
 
 signal effect_applied
-signal effect_ticket
+signal effect_ticked
 signal effect_stack_changed
 signal effect_expired
 
@@ -48,10 +48,13 @@ func update(target, delta) -> bool:
 func on_apply(_target, _effect): 
 	#print("Applying " + str(Status_effect_name))
 	stacks += max(0, _effect.stacks_affliction)
+	effect_applied.emit()
 
-func on_tick(_target, _effect): pass
+func on_tick(_target, _effect): 
+	effect_ticked.emit()
 
-func on_expire(_target, _effect): pass
+func on_expire(_target, _effect): 
+	effect_expired.emit()
 
 func add_stack(target, amount :int= 1):
 	if stacks != max_stacks :
@@ -67,6 +70,7 @@ func on_stack_changed(_target, _effect):
 	#print(str(Status_effect_name) + " changed stacks to " + str(stacks))
 	if stacks <= 0 :
 		elapsed = duration
+	effect_stack_changed.emit()
 
 func refresh_duration()->void :
 	self.elapsed = 0.0
