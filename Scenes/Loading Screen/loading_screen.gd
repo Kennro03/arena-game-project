@@ -8,10 +8,9 @@ func _ready() -> void:
 	animation_player.play("transition")
 	await animation_player.animation_finished
 	loading_screen_ready.emit()
-	
 
 func _on_progress_changed(_new_value: float) -> void:
-	pass
+	%ProgressBar.value = _new_value
 
 func _on_loading_finished() -> void:
 	animation_player.play_backwards("transition")
