@@ -137,14 +137,14 @@ weapon = SubResource("Resource_ppxuw")
 default_weapon = SubResource("Resource_e6bm7")
 metadata/_custom_type_script = "uid://gk2b37nd41oy"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8da8d"]
+size = Vector2(1280, 616)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_muisw"]
 size = Vector2(192, 520)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qowf6"]
 size = Vector2(192, 520)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8da8d"]
-size = Vector2(1152, 648)
 
 [node name="EncounterScene" type="Node2D" unique_id=1541201406]
 
@@ -161,11 +161,20 @@ script = ExtResource("2_muisw")
 
 [node name="SpawnZones" type="Node2D" parent="." unique_id=1229860022]
 
+[node name="NeutralZone" type="Area2D" parent="SpawnZones" unique_id=728318312]
+unique_name_in_owner = true
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZones/NeutralZone" unique_id=1294050169]
+position = Vector2(640, 360)
+shape = SubResource("RectangleShape2D_8da8d")
+debug_color = Color(0.5254902, 0.5411765, 0.5137255, 0.039215688)
+
 [node name="PlayerZone" type="Area2D" parent="SpawnZones" unique_id=2117915562]
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZones/PlayerZone" unique_id=1415221449]
-position = Vector2(160, 324)
+position = Vector2(104, 360)
 shape = SubResource("RectangleShape2D_muisw")
 debug_color = Color(0.30980393, 0.7529412, 0.3019608, 0.19607843)
 
@@ -173,18 +182,9 @@ debug_color = Color(0.30980393, 0.7529412, 0.3019608, 0.19607843)
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZones/EnemyZone" unique_id=1695760327]
-position = Vector2(992, 324)
+position = Vector2(1176, 360)
 shape = SubResource("RectangleShape2D_qowf6")
 debug_color = Color(1, 0.40392157, 0.2901961, 0.19607843)
-
-[node name="NeutralZone" type="Area2D" parent="SpawnZones" unique_id=728318312]
-unique_name_in_owner = true
-z_index = -1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZones/NeutralZone" unique_id=1294050169]
-position = Vector2(576, 324)
-shape = SubResource("RectangleShape2D_8da8d")
-debug_color = Color(0.5254902, 0.5411765, 0.5137255, 0.039215688)
 
 [node name="Units" type="Node2D" parent="." unique_id=146914120]
 unique_name_in_owner = true
@@ -198,7 +198,7 @@ unique_name_in_owner = true
 [node name="EncounterUI" parent="UI" unique_id=307533690 instance=ExtResource("13_bxnae")]
 unique_name_in_owner = true
 
-[connection signal="mouse_entered" from="SpawnZones/PlayerZone" to="EncounterManager/Spawner" method="_on_player_zone_mouse_entered"]
-[connection signal="mouse_exited" from="SpawnZones/PlayerZone" to="EncounterManager/Spawner" method="_on_player_zone_mouse_exited"]
 [connection signal="mouse_entered" from="SpawnZones/NeutralZone" to="EncounterManager/Spawner" method="_on_neutral_zone_mouse_entered"]
 [connection signal="mouse_exited" from="SpawnZones/NeutralZone" to="EncounterManager/Spawner" method="_on_neutral_zone_mouse_exited"]
+[connection signal="mouse_entered" from="SpawnZones/PlayerZone" to="EncounterManager/Spawner" method="_on_player_zone_mouse_entered"]
+[connection signal="mouse_exited" from="SpawnZones/PlayerZone" to="EncounterManager/Spawner" method="_on_player_zone_mouse_exited"]

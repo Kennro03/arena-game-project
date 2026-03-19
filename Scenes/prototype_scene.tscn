@@ -9,7 +9,7 @@ colors = PackedColorArray(0.16206557, 0.1620656, 0.16206557, 1, 0.5071072, 0.000
 gradient = SubResource("Gradient_xtf6f")
 width = 32
 
-[node name="Node2D" type="Node2D" unique_id=1252659035]
+[node name="Prototype_Scene" type="Node2D" unique_id=1252659035]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=650539702]
 

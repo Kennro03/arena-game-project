@@ -263,11 +263,16 @@ text = "Start Fight"
 libraries/ = SubResource("AnimationLibrary_rx3ca")
 
 [node name="WinningPanel" type="PanelContainer" parent="." unique_id=1889037389]
-layout_mode = 0
-offset_left = 1200.0
-offset_top = 700.0
-offset_right = 1763.0
-offset_bottom = 788.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.8750001
+anchor_top = 1.9330001
+anchor_right = 1.8750001
+anchor_bottom = 1.9330001
+offset_left = -0.00012207031
+offset_top = 4.119995
+offset_right = 562.9999
+offset_bottom = 92.119995
 scale = Vector2(0.1, 0.1)
 theme_override_styles/panel = SubResource("StyleBoxTexture_rx3ca")
 
@@ -284,9 +289,9 @@ anchor_top = 1.049
 anchor_right = 0.5
 anchor_bottom = 1.049
 offset_left = -117.0
-offset_top = 20.247986
+offset_top = 322.36
 offset_right = 117.0
-offset_bottom = 108.24768
+offset_bottom = 410.35968
 
 [node name="Label" type="Label" parent="LosingPanel" unique_id=1756275155]
 layout_mode = 2
