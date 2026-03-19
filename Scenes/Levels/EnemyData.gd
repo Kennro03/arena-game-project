@@ -8,6 +8,14 @@ class_name EnemyData
 enum EnemyTier { COMMON, ELITE, BOSS }
 
 func get_cost() -> float:
+	print("Unit data : " + str(unit_data) + "  unit stats : "  + str(unit_data))
+	
+	if unit_data == null:
+		printerr("EnemyData has no unit_data: " + resource_path)
+		return base_cost
+	if unit_data.stats == null:
+		printerr("unit_data has no stats: " + unit_data.display_name)
+		return base_cost
 	# compute how much stronger this unit is vs its base stats
 	var current_stats_total : int = unit_data.stats.body + unit_data.stats.mind
 	var base_reference : int = unit_data.stats.base_strength + unit_data.stats.base_dexterity + unit_data.stats.base_endurance + unit_data.stats.base_intellect + unit_data.stats.base_faith + unit_data.stats.base_attunement

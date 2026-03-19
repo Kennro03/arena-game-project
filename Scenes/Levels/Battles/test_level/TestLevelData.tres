@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EncounterData" format=3 uid="uid://sshw11e24ays"]
+
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="1_xp3ne"]
+[ext_resource type="Resource" uid="uid://ciep7c7clyrq2" path="res://Scenes/Levels/Battles/test_level/BigGuy.tres" id="2_8f02a"]
+[ext_resource type="Resource" uid="uid://d4fvbe67ufh8v" path="res://ressources/Units/DaggerBandit.tres" id="8_q10s1"]
+[ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/HammerBandit.tres" id="9_8pwko"]
+[ext_resource type="Resource" uid="uid://ca3ago2wj5osb" path="res://ressources/Units/SwordBandit.tres" id="10_1vfnc"]
+[ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/battleData.gd" id="11_ayrm8"]
+
+[sub_resource type="Resource" id="Resource_okyky"]
+script = ExtResource("1_xp3ne")
+unit_data = ExtResource("8_q10s1")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+
+[sub_resource type="Resource" id="Resource_okjdk"]
+script = ExtResource("1_xp3ne")
+unit_data = ExtResource("9_8pwko")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+
+[sub_resource type="Resource" id="Resource_0ybvj"]
+script = ExtResource("1_xp3ne")
+unit_data = ExtResource("10_1vfnc")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+
+[resource]
+script = ExtResource("11_ayrm8")
+enemy_force = 0.0
+forced_enemies = Array[ExtResource("1_xp3ne")]([ExtResource("2_8f02a")])
+random_enemy_pool = Array[ExtResource("1_xp3ne")]([SubResource("Resource_okyky"), SubResource("Resource_okjdk"), SubResource("Resource_0ybvj")])
+metadata/_custom_type_script = "uid://b2x5b5wxr3o6d"

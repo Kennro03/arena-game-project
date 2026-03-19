@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://ciep7c7clyrq2"]
+
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="1_8c5qt"]
+[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="2_s2dnq"]
+[ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="3_5mu1x"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_j68s8"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_bvte7"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="6_8qaf5"]
+[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Weapons/testhammer.tres" id="7_621hb"]
+
+[sub_resource type="Resource" id="Resource_oloho"]
+script = ExtResource("6_8qaf5")
+base_endurance = 10
+base_max_health = 200.0
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="Resource" id="Resource_6nyc0"]
+script = ExtResource("3_5mu1x")
+id = "Bigguy"
+display_name = "Bigguy"
+description = "That's a big guy..."
+color = Color(1, 1, 0, 1)
+stats = SubResource("Resource_oloho")
+weapon = ExtResource("7_621hb")
+default_weapon = ExtResource("2_s2dnq")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"
+
+[resource]
+script = ExtResource("1_8c5qt")
+unit_data = SubResource("Resource_6nyc0")
+base_cost = 20.0
+enemy_tier = 1
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"

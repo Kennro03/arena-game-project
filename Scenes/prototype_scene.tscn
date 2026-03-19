@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://hlb8w8j5gs7u"]
 
+[ext_resource type="Script" uid="uid://d17ldv2j14q3l" path="res://Scenes/prototype_scene.gd" id="1_3a2rb"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="1_lci7e"]
 
 [sub_resource type="Gradient" id="Gradient_xtf6f"]
@@ -10,6 +11,8 @@ gradient = SubResource("Gradient_xtf6f")
 width = 32
 
 [node name="Prototype_Scene" type="Node2D" unique_id=1252659035]
+script = ExtResource("1_3a2rb")
+battle_scene = &"uid://32iwvd3dtseu"
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=650539702]
 
@@ -32,33 +35,39 @@ grow_vertical = 2
 theme_override_constants/separation = 12
 
 [node name="ExpeditionButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=1558611713]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "Expedition"
 
 [node name="BattleButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=1004729945]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Battle"
 
 [node name="ShopButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=1129290411]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Shop"
 
 [node name="EventButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=375047219]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Event"
 
 [node name="CampButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=1368259702]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Camp
 "
 
-[node name="Team setup" type="Button" parent="UI/UI/VBoxContainer" unique_id=587094646]
+[node name="TeamSetupButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=587094646]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Team"
@@ -80,3 +89,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_po2h6")
+
+[connection signal="pressed" from="UI/UI/VBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]

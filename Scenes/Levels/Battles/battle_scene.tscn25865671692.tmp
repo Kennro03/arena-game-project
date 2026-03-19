@@ -1,27 +1,27 @@
 [gd_scene format=3 uid="uid://32iwvd3dtseu"]
 
-[ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Encounters/encounter_manager.gd" id="1_lkayr"]
-[ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Encounters/Spawner.gd" id="2_muisw"]
-[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="2_vdn87"]
-[ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="3_bbnb2"]
-[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="3_vhjgo"]
-[ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/encounterData.gd" id="4_bbnb2"]
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="6_bxnae"]
-[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_x1l6v"]
-[ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="8_r68bt"]
-[ext_resource type="Resource" uid="uid://d4fvbe67ufh8v" path="res://ressources/Units/DaggerBandit.tres" id="9_u5b5j"]
-[ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/HammerBandit.tres" id="10_3tumn"]
-[ext_resource type="Resource" uid="uid://ca3ago2wj5osb" path="res://ressources/Units/SwordBandit.tres" id="11_8b4n7"]
-[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="11_055dj"]
-[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Weapons/testhammer.tres" id="12_8b4n7"]
-[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="13_3tumn"]
-[ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/EncounterUI/encounter_ui.tscn" id="13_bxnae"]
-[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/UnitData.gd" id="13_r68bt"]
-[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="14_gu2a6"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="15_055dj"]
+[ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Battles/battle_manager.gd" id="1_qxkfb"]
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="2_j6bb8"]
+[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="3_u0p1r"]
+[ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="4_tjawy"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="5_0v3t4"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="6_g7q8n"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_13xth"]
+[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Weapons/testhammer.tres" id="8_smp6j"]
+[ext_resource type="Resource" uid="uid://d4fvbe67ufh8v" path="res://ressources/Units/DaggerBandit.tres" id="9_dic4i"]
+[ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/HammerBandit.tres" id="10_2ytxn"]
+[ext_resource type="Resource" uid="uid://ca3ago2wj5osb" path="res://ressources/Units/SwordBandit.tres" id="11_kdi4h"]
+[ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/battleData.gd" id="12_ehlel"]
+[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/UnitData.gd" id="13_1xitb"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="14_p3wx7"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="15_ccjn6"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="16_dgus7"]
+[ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="17_ykt3d"]
+[ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Battles/Spawner.gd" id="18_3mj8a"]
+[ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/BattleUI/battle_ui.tscn" id="19_c652g"]
 
 [sub_resource type="Resource" id="Resource_oloho"]
-script = ExtResource("7_x1l6v")
+script = ExtResource("7_13xth")
 base_endurance = 10
 base_max_health = 200.0
 max_health_scalings = null
@@ -36,47 +36,47 @@ crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_6nyc0"]
-script = ExtResource("3_bbnb2")
+script = ExtResource("4_tjawy")
 id = "Bigguy"
 display_name = "Bigguy"
 description = "That's a big guy..."
 color = Color(1, 1, 0, 1)
 stats = SubResource("Resource_oloho")
-weapon = ExtResource("12_8b4n7")
-default_weapon = ExtResource("11_055dj")
+weapon = ExtResource("8_smp6j")
+default_weapon = ExtResource("3_u0p1r")
 metadata/_custom_type_script = "uid://gk2b37nd41oy"
 
 [sub_resource type="Resource" id="Resource_r8sx5"]
-script = ExtResource("2_vdn87")
+script = ExtResource("2_j6bb8")
 unit_data = SubResource("Resource_6nyc0")
 base_cost = 20.0
 enemy_tier = 1
 metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 
 [sub_resource type="Resource" id="Resource_okyky"]
-script = ExtResource("2_vdn87")
-unit_data = ExtResource("9_u5b5j")
+script = ExtResource("2_j6bb8")
+unit_data = ExtResource("9_dic4i")
 metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 
 [sub_resource type="Resource" id="Resource_okjdk"]
-script = ExtResource("2_vdn87")
-unit_data = ExtResource("10_3tumn")
+script = ExtResource("2_j6bb8")
+unit_data = ExtResource("10_2ytxn")
 metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 
 [sub_resource type="Resource" id="Resource_0ybvj"]
-script = ExtResource("2_vdn87")
-unit_data = ExtResource("11_8b4n7")
+script = ExtResource("2_j6bb8")
+unit_data = ExtResource("11_kdi4h")
 metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 
 [sub_resource type="Resource" id="Resource_xxb1t"]
-script = ExtResource("4_bbnb2")
-enemy_force = 20.0
-forced_enemies = Array[ExtResource("2_vdn87")]([SubResource("Resource_r8sx5")])
-random_enemy_pool = Array[ExtResource("2_vdn87")]([SubResource("Resource_okyky"), SubResource("Resource_okjdk"), SubResource("Resource_0ybvj")])
+script = ExtResource("12_ehlel")
+enemy_force = 0.0
+forced_enemies = Array[ExtResource("2_j6bb8")]([SubResource("Resource_r8sx5")])
+random_enemy_pool = Array[ExtResource("2_j6bb8")]([SubResource("Resource_okyky"), SubResource("Resource_okjdk"), SubResource("Resource_0ybvj")])
 metadata/_custom_type_script = "uid://b2x5b5wxr3o6d"
 
 [sub_resource type="Resource" id="Resource_e6bm7"]
-script = ExtResource("14_gu2a6")
+script = ExtResource("15_ccjn6")
 weaponName = "TestHammer"
 weaponType = 3
 weaponCategory = 2
@@ -94,7 +94,7 @@ heavy_endlag = 0.7
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_s0pr7"]
-script = ExtResource("7_x1l6v")
+script = ExtResource("7_13xth")
 max_health_scalings = null
 health_regen_scalings = null
 movement_speed_scalings = null
@@ -107,7 +107,7 @@ crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_ppxuw"]
-script = ExtResource("14_gu2a6")
+script = ExtResource("15_ccjn6")
 weaponName = "TestHammer"
 weaponType = 3
 weaponCategory = 2
@@ -125,13 +125,13 @@ heavy_endlag = 0.7
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_buiti"]
-script = ExtResource("3_bbnb2")
+script = ExtResource("4_tjawy")
 id = "HammerBandit"
 display_name = "Bandit (hammer)"
 description = "A random bandit wielding a hammer."
 color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
 show_name = false
-team = ExtResource("8_r68bt")
+team = ExtResource("17_ykt3d")
 stats = SubResource("Resource_s0pr7")
 weapon = SubResource("Resource_ppxuw")
 default_weapon = SubResource("Resource_e6bm7")
@@ -149,13 +149,14 @@ size = Vector2(192, 520)
 [node name="EncounterScene" type="Node2D" unique_id=1541201406]
 
 [node name="EncounterManager" type="Node" parent="." unique_id=1861640648 node_paths=PackedStringArray("spawner")]
-script = ExtResource("1_lkayr")
+script = ExtResource("1_qxkfb")
 spawner = NodePath("Spawner")
 level_data = SubResource("Resource_xxb1t")
-player_units = Array[ExtResource("13_r68bt")]([SubResource("Resource_buiti")])
+player_units = Array[ExtResource("13_1xitb")]([SubResource("Resource_buiti")])
 
 [node name="Spawner" type="Node" parent="EncounterManager" unique_id=1283150222]
-script = ExtResource("2_muisw")
+script = ExtResource("18_3mj8a")
+random_spawn_delay = null
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1532648521]
 
@@ -195,7 +196,7 @@ unique_name_in_owner = true
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2001671820]
 
-[node name="EncounterUI" parent="UI" unique_id=307533690 instance=ExtResource("13_bxnae")]
+[node name="EncounterUI" parent="UI" unique_id=307533690 instance=ExtResource("19_c652g")]
 unique_name_in_owner = true
 
 [connection signal="mouse_entered" from="SpawnZones/NeutralZone" to="EncounterManager/Spawner" method="_on_neutral_zone_mouse_entered"]

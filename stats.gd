@@ -184,7 +184,6 @@ func setup_stats() -> void :
 	health = current_max_health
 	max_shield = current_max_health
 	shield = 0.0
-	
 
 func recalculate_stats() -> void :
 	reset_current_stats()

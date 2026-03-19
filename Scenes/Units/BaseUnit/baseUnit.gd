@@ -75,11 +75,9 @@ func _ready():
 	#stats.print_stats.call_deferred()
 
 func _on_activated() -> void:
-	print("Activated")
 	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
 
 func _on_deactivated() -> void:
-	print("Deactivated")
 	$StateMachine.process_mode = Node.PROCESS_MODE_DISABLED
 	#animationPlayer.play("BaseUnit/idle")
 

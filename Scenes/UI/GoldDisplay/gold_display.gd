@@ -7,3 +7,10 @@ func _ready() -> void:
 
 func update_display(new_value:int)->void:
 	%GoldValueDisplay.text = str(new_value)
+
+func _on_gain_gold_button_pressed() -> void:
+	Player.gold += 10
+
+
+func _on_lose_gold_button_pressed() -> void:
+	Player.gold -= 10

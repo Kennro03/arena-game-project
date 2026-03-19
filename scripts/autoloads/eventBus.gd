@@ -4,9 +4,8 @@ class_name EventBus
 @warning_ignore_start("unused_signal")
 
 #economy related
-signal gain_gold(value: int)
-signal lose_gold(value: int)
-
+signal gold_gained(value: int)
+signal gold_lost(value: int)
 signal gold_changed(new_total: int)
 
 #item related
