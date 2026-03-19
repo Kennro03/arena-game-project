@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ditrafceaeowg"]
+
+[ext_resource type="Script" uid="uid://b8bluhcevlhg0" path="res://Scenes/UI/GoldDisplay/gold_display.gd" id="1_vc882"]
+
+[node name="GoldDisplay" type="Control" unique_id=148004886]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vc882")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1279359624]
+layout_mode = 0
+offset_right = 41.0
+offset_bottom = 23.0
+theme_override_constants/separation = 0
+
+[node name="GoldDisplay" type="Label" parent="HBoxContainer" unique_id=352889270]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Gold : "
+
+[node name="GoldValueDisplay" type="Label" parent="HBoxContainer" unique_id=1998441490]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "NONE LOL"

@@ -22,6 +22,15 @@ config/icon="res://icon.svg"
 [autoload]
 
 UIDGenerator="*uid://da6fniahcnhro"
+Events="*uid://d2tyhp4hm40eu"
+Player="*uid://deh7i6v33nj12"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
 
 [file_customization]
 
