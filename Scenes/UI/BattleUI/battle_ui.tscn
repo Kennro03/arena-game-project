@@ -252,8 +252,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -64.0
+offset_top = 20.0
 offset_right = 64.0
-offset_bottom = 50.00009
+offset_bottom = 70.00009
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 24
 text = "Start Fight"
@@ -288,9 +289,9 @@ anchor_top = 1.049
 anchor_right = 0.5
 anchor_bottom = 1.049
 offset_left = -117.0
-offset_top = 20.247986
+offset_top = 322.36
 offset_right = 117.0
-offset_bottom = 108.24768
+offset_bottom = 410.35968
 
 [node name="Label" type="Label" parent="LosingPanel" unique_id=1756275155]
 layout_mode = 2

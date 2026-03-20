@@ -29,6 +29,8 @@ func _process(_delta: float) -> void:
 			spawn_random(Vector2(randf_range(0.0,get_window().GetVisibleRect().Size.x),randf_range(0.0,get_window().GetVisibleRect().Size.y)))
 
 func _input(event):
+	return
+	
 	if event is InputEventMouseButton and event.pressed :
 		var hovered = get_viewport().gui_get_hovered_control()
 		if hovered != null && hovered.get_class() != "Control" :

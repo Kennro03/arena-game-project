@@ -16,6 +16,7 @@ func _on_begin_encounter() -> void:
 	introEnded.emit()
 
 func _input(event):
+	return 
 	if event is InputEventMouseButton and event.pressed :
 		var space := get_viewport().world_2d.direct_space_state
 		var query := PhysicsPointQueryParameters2D.new()

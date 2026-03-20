@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="15_yrn6x"]
 [ext_resource type="Script" uid="uid://7xbnrxcgcsgo" path="res://Scenes/StateMachine/stunned.gd" id="16_7uoxq"]
 [ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="17_504nd"]
+[ext_resource type="PackedScene" uid="uid://d3wfn3qh5yuqd" path="res://Scenes/Components/drag_and_drop_component.tscn" id="17_bksgy"]
 
 [sub_resource type="Resource" id="Resource_et0ph"]
 resource_local_to_scene = true
@@ -32,6 +33,9 @@ crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0wwk"]
+size = Vector2(40, 72)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_goxn1"]
 bg_color = Color(0, 0, 0, 0.14901961)
@@ -352,6 +356,15 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_4ub1n")
 debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
+[node name="SelectionArea" type="Area2D" parent="." unique_id=533222703]
+unique_name_in_owner = true
+script = ExtResource("5_baptd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea" unique_id=357291790]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_s0wwk")
+debug_color = Color(0, 0.470588, 0.701961, 0.545098)
+
 [node name="DisplayModule" type="Control" parent="." unique_id=634217768]
 z_index = 1
 layout_mode = 3
@@ -458,3 +471,8 @@ script = ExtResource("16_7uoxq")
 [node name="SkillModule" type="Node" parent="." unique_id=1767487709]
 unique_name_in_owner = true
 script = ExtResource("17_504nd")
+
+[node name="DragAndDropComponent" parent="." unique_id=2081409483 node_paths=PackedStringArray("target_area", "target") instance=ExtResource("17_bksgy")]
+unique_name_in_owner = true
+target_area = NodePath("../SelectionArea")
+target = NodePath("..")

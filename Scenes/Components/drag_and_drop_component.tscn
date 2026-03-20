@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d3wfn3qh5yuqd"]
+
+[ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/drag_and_drop_component.gd" id="1_hapic"]
+
+[node name="DragAndDropComponent" type="Node" unique_id=2081409483]
+script = ExtResource("1_hapic")
