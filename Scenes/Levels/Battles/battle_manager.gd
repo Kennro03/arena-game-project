@@ -31,16 +31,17 @@ func _ready() -> void:
 	print("level data = " + str(level_data))
 	print("level data forced ennemies = " + str(level_data.forced_enemies))
 	print("level data pool = " + str(level_data.random_enemy_pool))
-	load_level(level_data,player_units)
+	load_level_data(level_data)
 
 func _process(_delta: float) -> void:
 	pass
 
-func load_level(data: EncounterData, units: Array[UnitData]) -> void:
+func load_level_data(data: EncounterData) -> void:
 	print("Loading...")
 	state = LevelState.LOADING
 	level_data = data
-	player_units = units
+	player_units += Player.team
+	print("player units : " + str(player_units))
 	#_apply_modifiers()
 	spawn_units()
 
