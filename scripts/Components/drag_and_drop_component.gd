@@ -43,6 +43,12 @@ func _drop() -> void:
 	_end_dragging()
 	dropped.emit(starting_position)
 
+func _input(event: InputEvent) -> void:
+	if dragging and event.is_action_pressed("cancel_drag"):
+		_cancel_dragging()
+	elif dragging and event.is_action_released("select"):
+		_drop()
+
 func _on_target_input_event(_viewport: Node, event: InputEvent) -> void :
 	if not enabled :
 		return
@@ -52,9 +58,6 @@ func _on_target_input_event(_viewport: Node, event: InputEvent) -> void :
 	if not dragging and dragging_object :
 		return
 	
-	if dragging and event.is_action_pressed("cancel_drag"):
-		_cancel_dragging()
-	elif not dragging and event.is_action_pressed("select"):
+	if not dragging and event.is_action_pressed("select"):
 		_start_dragging()
-	elif dragging and event.is_action_released("select"):
-		_drop()
+	

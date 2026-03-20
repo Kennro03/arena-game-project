@@ -11,7 +11,7 @@ var players_alive : int = 0
 enum LevelState { LOADING, SPAWNING, FIGHTING, RESOLVING, COMPLETE }
 
 @export var spawner : EncounterSpawner
-@export var level_data: EncounterData
+@export var level_data: BattleData
 @export var player_units: Array[UnitData] = []
 @export var enemy_units : Array[EnemyData] = []
 
@@ -36,7 +36,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func load_level_data(data: EncounterData) -> void:
+func load_level_data(data: BattleData) -> void:
 	print("Loading...")
 	state = LevelState.LOADING
 	level_data = data

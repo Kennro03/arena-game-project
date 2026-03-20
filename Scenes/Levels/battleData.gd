@@ -1,7 +1,7 @@
 extends Resource
-class_name EncounterData
+class_name BattleData
 
-@export_group("Encounter data")
+@export_group("Battle data")
 @export var enemy_force: float = 1.0        # multiplier for enemy strength/count
 @export var forced_enemies: Array[EnemyData] = [] # enemies that are guaranteed to spawn
 @export var random_enemy_pool: Array[EnemyData] = [] # which enemies can spawn

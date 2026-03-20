@@ -77,10 +77,12 @@ func _ready():
 func _on_activated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
 	%DragAndDropComponent.enabled = false
+	%VelocityBasedRotationComponent.enabled = false
 
 func _on_deactivated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_DISABLED
 	%DragAndDropComponent.enabled = true
+	%VelocityBasedRotationComponent.enabled = true
 	#animationPlayer.play("BaseUnit/idle")
 
 func set_team_flag()->void:
