@@ -492,8 +492,9 @@ target = NodePath("..")
 unique_name_in_owner = true
 script = ExtResource("18_s0wwk")
 target = NodePath("../SpriteModule")
-lerp_seconds = 0.8
-rotation_multiplier = 50
+lerp_seconds = 1.5
+rotation_multiplier = 30
+x_velocity_threshold = 5.0
 
 [node name="OutlineHighlightComponent" type="Node" parent="." unique_id=727382155 node_paths=PackedStringArray("target")]
 unique_name_in_owner = true

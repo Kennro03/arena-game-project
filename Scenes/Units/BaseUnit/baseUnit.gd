@@ -62,8 +62,11 @@ func _ready():
 	
 	%NameLabel.text = display_name
 	%NameLabel.visible = show_name
-	
 	set_team_flag()
+	
+	if not Engine.is_editor_hint():
+		drag_and_drop_component.drag_started.connect(_on_drag_started)
+		drag_and_drop_component.drag_canceled.connect(_on_drag_canceled)
 	
 	set_healthbar_visibility(show_health)
 	if show_health :
@@ -79,12 +82,10 @@ func _ready():
 
 func _on_activated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
-	drag_and_drop_component.enabled = false
 	velocity_based_rotation_component.enabled = false
 
 func _on_deactivated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_DISABLED
-	drag_and_drop_component.enabled = true
 	velocity_based_rotation_component.enabled = true
 	#animationPlayer.play("BaseUnit/idle")
 
@@ -215,8 +216,6 @@ func check_if_ally(target : Node2D) -> bool :
 	if not is_instance_valid(my_team) or not is_instance_valid(their_team):
 		return false
 	return my_team.team_name == their_team.team_name
-
-
 
 func apply_knockback(target: Node2D, direction: Vector2, force: float):
 	if target.has_method("receive_knockback"):
@@ -360,13 +359,21 @@ func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome)
 func _on_selection_area_mouse_entered() -> void:
 	if drag_and_drop_component.dragging :
 		return
-	
 	outline_highlight_component.highlight()
 	z_index = 1
 
 func _on_selection_area_mouse_exited() -> void:
 	if drag_and_drop_component.dragging :
 		return
-	
 	outline_highlight_component.clear_highlight()
 	z_index = 0
+
+func _on_drag_started()-> void:
+	velocity_based_rotation_component.enabled = true
+
+func _on_drag_canceled(starting_position: Vector2)-> void:
+	reset_after_dragging(starting_position)
+
+func reset_after_dragging(starting_position: Vector2) -> void:
+	velocity_based_rotation_component.enabled = false
+	global_position = starting_position

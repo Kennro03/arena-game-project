@@ -5,13 +5,16 @@ class_name OutlineHighlighter
 @export var outline_color: Color
 @export var default_outline_color: Color
 @export_range(1,10) var outline_thickness: int
+@export_range(1,10) var default_outline_thickness: int
 
 func _ready() -> void:
 	target.material = target.material.duplicate()  
-	target.material.set_shader_parameter("line_thickness",outline_thickness)
+	target.material.set_shader_parameter("line_thickness",default_outline_thickness)
 
 func clear_highlight()->void :
 	target.material.set_shader_parameter("line_colour",default_outline_color)
+	target.material.set_shader_parameter("line_thickness",default_outline_thickness)
 
 func highlight()->void :
 	target.material.set_shader_parameter("line_colour",outline_color)
+	target.material.set_shader_parameter("line_thickness",outline_thickness)
