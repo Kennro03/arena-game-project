@@ -7,7 +7,6 @@ var flip : bool = false
 @export var bodyColor : Color = Color("White")
 @export var animation_library_name: String = "Stickman"
 
-
 var idle_animations = ["idle"]
 var fighting_animations = ["stance"]
 var dodge_animations = ["dodge1","dodge2"]

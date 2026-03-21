@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EncounterData" format=3 uid="uid://sshw11e24ays"]
+[gd_resource type="Resource" script_class="BattleData" format=3 uid="uid://sshw11e24ays"]
 
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="1_xp3ne"]
 [ext_resource type="Resource" uid="uid://ciep7c7clyrq2" path="res://Scenes/Levels/Battles/test_level/BigGuy.tres" id="2_8f02a"]

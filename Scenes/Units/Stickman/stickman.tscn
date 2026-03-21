@@ -4,19 +4,36 @@
 [ext_resource type="Script" uid="uid://bkvp5ngp40teo" path="res://Scenes/Units/Stickman/stickman.gd" id="2_j5rhf"]
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="3_0tgqw"]
 [ext_resource type="Texture2D" uid="uid://b21tep713spbo" path="res://ressources/Sprites/Units/Stickman/UnarmedStickman.png" id="3_5bx5w"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="3_p13pb"]
 [ext_resource type="Script" uid="uid://dchw8cs1125p4" path="res://Scenes/Units/Stickman/sprite_module.gd" id="4_5gf63"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="4_e1erb"]
 [ext_resource type="AnimationLibrary" uid="uid://oymicds2otf5" path="res://ressources/Sprites/Units/Stickman/StickmanAnimations.res" id="5_2w7fq"]
+
+[sub_resource type="Resource" id="Resource_07882"]
+script = ExtResource("4_e1erb")
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [node name="Stickman" unique_id=1699308279 instance=ExtResource("1_5bx5w")]
 script = ExtResource("2_j5rhf")
 id = "Stickman"
 display_name = "Stickman"
 description = "A regular stickman."
-stats = null
+sprite_color = Color(0, 0, 0.7764706, 1)
+stats = SubResource("Resource_07882")
 weapon = ExtResource("3_0tgqw")
 default_weapon = ExtResource("3_0tgqw")
 
-[node name="SpriteModule" parent="." index="2" unique_id=492313823]
+[node name="SpriteModule" parent="." index="3" unique_id=108877224]
+position = Vector2(-1, 0)
 script = ExtResource("4_5gf63")
 animation_library_name = "Stickman"
 

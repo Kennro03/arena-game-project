@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_qodw4"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="3_ehlrc"]
 [ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="5_baptd"]
+[ext_resource type="Shader" uid="uid://b6liultsai3xq" path="res://Shaders/OutlineShader/canvasGroupOutline.gdshader" id="6_4yvry"]
 [ext_resource type="Script" uid="uid://cmd6etkryt0xs" path="res://Scenes/Units/BaseUnit/display_module.gd" id="6_bksgy"]
 [ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/Stickman/stickman_sprite.gd" id="6_fot73"]
 [ext_resource type="Script" uid="uid://5r2u3nk0unia" path="res://Scenes/Units/BaseUnit/particle_module.gd" id="8_8w8nr"]
@@ -18,6 +19,7 @@
 [ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="17_504nd"]
 [ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/drag_and_drop_component.gd" id="17_bksgy"]
 [ext_resource type="Script" uid="uid://de3oub0ll741a" path="res://scripts/Components/velocity_based_rotation.gd" id="18_s0wwk"]
+[ext_resource type="Script" uid="uid://dnriefm5vyac4" path="res://scripts/Components/OutlineHighlighter.gd" id="21_3qbi7"]
 
 [sub_resource type="Resource" id="Resource_et0ph"]
 resource_local_to_scene = true
@@ -60,6 +62,11 @@ bg_color = Color(0.13995996, 0.7271122, 0.8191232, 1)
 corner_radius_top_left = 5
 corner_radius_bottom_left = 5
 anti_aliasing = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4yvry"]
+shader = ExtResource("6_4yvry")
+shader_parameter/line_colour = Color(0, 0, 0, 1)
+shader_parameter/line_thickness = 2
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bkx2x"]
 size = Vector2(640, 640)
@@ -359,7 +366,6 @@ debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
 [node name="SelectionArea" type="Area2D" parent="." unique_id=533222703]
 unique_name_in_owner = true
-script = ExtResource("5_baptd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea" unique_id=357291790]
 position = Vector2(0, -32)
@@ -422,7 +428,8 @@ text = "Display_name"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="SpriteModule" type="Node2D" parent="." unique_id=492313823]
+[node name="SpriteModule" type="CanvasGroup" parent="." unique_id=108877224]
+material = SubResource("ShaderMaterial_4yvry")
 script = ExtResource("6_fot73")
 animation_library_name = "BaseUnit"
 
@@ -432,8 +439,10 @@ texture = SubResource("PlaceholderTexture2D_bkx2x")
 offset = Vector2(0, -30)
 hframes = 10
 vframes = 10
+frame = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteModule" unique_id=370336773]
+unique_name_in_owner = true
 libraries/BaseUnit = SubResource("AnimationLibrary_76fq2")
 
 [node name="ParticleModule" type="Node2D" parent="." unique_id=881602680]
@@ -485,3 +494,13 @@ script = ExtResource("18_s0wwk")
 target = NodePath("../SpriteModule")
 lerp_seconds = 0.8
 rotation_multiplier = 50
+
+[node name="OutlineHighlightComponent" type="Node" parent="." unique_id=727382155 node_paths=PackedStringArray("target")]
+unique_name_in_owner = true
+script = ExtResource("21_3qbi7")
+target = NodePath("../SpriteModule")
+outline_color = Color(1, 1, 1, 1)
+outline_thickness = 1
+
+[connection signal="mouse_entered" from="SelectionArea" to="." method="_on_selection_area_mouse_entered"]
+[connection signal="mouse_exited" from="SelectionArea" to="." method="_on_selection_area_mouse_exited"]

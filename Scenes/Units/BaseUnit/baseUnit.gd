@@ -2,7 +2,7 @@ extends Node2D
 class_name BaseUnit
 signal hit_received(hit_data: HitData)
 
-@onready var animationPlayer = $SpriteModule/AnimationPlayer
+@onready var animationPlayer = %AnimationPlayer
 @onready var healthBar := %HealthBar
 @onready var shieldBar := %ShieldBar
 @onready var spriteModule = $SpriteModule
@@ -10,6 +10,9 @@ signal hit_received(hit_data: HitData)
 @onready var skillModule : SkillModule = $SkillModule
 @onready var displayModule : DisplayModule = $DisplayModule
 @onready var particleModule : ParticleModule = $ParticleModule
+@onready var drag_and_drop_component: DragAndDrop = %DragAndDropComponent
+@onready var velocity_based_rotation_component: VelocityBasedRotation = %VelocityBasedRotationComponent
+@onready var outline_highlight_component: OutlineHighlighter = %OutlineHighlightComponent
 
 @export var id: String = "BaseUnit"
 @export var display_name: String = "BaseUnit"
@@ -42,9 +45,9 @@ var active: bool = true:
 	set(value):
 		active = value
 		if active:
-			_on_activated()
+			_on_activated.call_deferred()
 		else:
-			_on_deactivated()
+			_on_deactivated.call_deferred()
 
 const BASE_BAR_WIDTH : float = 50.0
 const MIN_BAR_WIDTH : float = 25.0
@@ -68,21 +71,21 @@ func _ready():
 		stats.connect("health_changed",update_healthBar)
 		stats.connect("shield_changed",update_shieldBar)
 		stats.connect("shield_depleted",hide_shieldBar)
-	
 	stats.connect("health_depleted",die)
+	
 	animationPlayer.animation_finished.connect(_on_anim_finished)
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
 func _on_activated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
-	%DragAndDropComponent.enabled = false
-	%VelocityBasedRotationComponent.enabled = false
+	drag_and_drop_component.enabled = false
+	velocity_based_rotation_component.enabled = false
 
 func _on_deactivated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_DISABLED
-	%DragAndDropComponent.enabled = true
-	%VelocityBasedRotationComponent.enabled = true
+	drag_and_drop_component.enabled = true
+	velocity_based_rotation_component.enabled = true
 	#animationPlayer.play("BaseUnit/idle")
 
 func set_team_flag()->void:
@@ -353,3 +356,17 @@ func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome)
 		HitData.HitOutcome.PARRY: 
 			return passive.triggers_on_parry
 		_: return true  # HIT always triggers
+
+func _on_selection_area_mouse_entered() -> void:
+	if drag_and_drop_component.dragging :
+		return
+	
+	outline_highlight_component.highlight()
+	z_index = 1
+
+func _on_selection_area_mouse_exited() -> void:
+	if drag_and_drop_component.dragging :
+		return
+	
+	outline_highlight_component.clear_highlight()
+	z_index = 0
