@@ -29,6 +29,7 @@ metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_s0pr7"]
 script = ExtResource("7_23v6u")
+base_dexterity = 20
 max_health_scalings = null
 health_regen_scalings = null
 movement_speed_scalings = null
@@ -62,7 +63,7 @@ metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 script = ExtResource("5_nba2t")
 id = "pablo"
 display_name = "Pablo"
-description = "A random bandit wielding a hammer."
+description = "That's your buddy pablo !! "
 color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
 team = ExtResource("8_iq0tl")
 stats = SubResource("Resource_s0pr7")

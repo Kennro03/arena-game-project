@@ -2,9 +2,116 @@
 
 [ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Battles/battle_manager.gd" id="1_qxkfb"]
 [ext_resource type="Resource" uid="uid://sshw11e24ays" path="res://Scenes/Levels/Battles/test_level/TestLevelData.tres" id="2_57vkc"]
+[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/UnitData.gd" id="4_w3d5s"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_0xk5e"]
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="5_qeo1e"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="6_jgp7d"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="7_hvyff"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="8_qpo3t"]
+[ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="9_yeqs3"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="10_eetsg"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="11_llnxj"]
+[ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="12_yabm0"]
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="13_pcjji"]
+[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="14_6nvuq"]
+[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Weapons/testhammer.tres" id="15_u8sey"]
 [ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Battles/Spawner.gd" id="18_3mj8a"]
 [ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/BattleUI/battle_ui.tscn" id="19_c652g"]
+
+[sub_resource type="Resource" id="Resource_e6bm7"]
+script = ExtResource("7_hvyff")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_s0pr7"]
+script = ExtResource("11_llnxj")
+base_dexterity = 40
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="Resource" id="Resource_ppxuw"]
+script = ExtResource("7_hvyff")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_1k1hr"]
+script = ExtResource("9_yeqs3")
+id = "pablo"
+display_name = "Pablo"
+description = "A random bandit wielding a hammer."
+color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
+team = ExtResource("12_yabm0")
+stats = SubResource("Resource_s0pr7")
+weapon = SubResource("Resource_ppxuw")
+default_weapon = SubResource("Resource_e6bm7")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"
+
+[sub_resource type="Resource" id="Resource_oloho"]
+script = ExtResource("11_llnxj")
+base_endurance = 10
+base_max_health = 200.0
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="Resource" id="Resource_6nyc0"]
+script = ExtResource("9_yeqs3")
+id = "Bigguy"
+display_name = "Bigguy"
+description = "That's a big guy..."
+color = Color(1, 1, 0, 1)
+stats = SubResource("Resource_oloho")
+weapon = ExtResource("15_u8sey")
+default_weapon = ExtResource("14_6nvuq")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"
+
+[sub_resource type="Resource" id="Resource_qdmgy"]
+script = ExtResource("13_pcjji")
+unit_data = SubResource("Resource_6nyc0")
+base_cost = 20.0
+enemy_tier = 1
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8da8d"]
 size = Vector2(1280, 616)
@@ -17,10 +124,16 @@ size = Vector2(192, 520)
 
 [node name="BattleScene" type="Node2D" unique_id=1541201406]
 
+[node name="SelectionManager" type="Node" parent="." unique_id=850775496]
+unique_name_in_owner = true
+script = ExtResource("5_qeo1e")
+
 [node name="BattleManager" type="Node" parent="." unique_id=1861640648 node_paths=PackedStringArray("spawner")]
 script = ExtResource("1_qxkfb")
 spawner = NodePath("Spawner")
 level_data = ExtResource("2_57vkc")
+player_units = Array[ExtResource("4_w3d5s")]([SubResource("Resource_1k1hr")])
+enemy_units = Array[ExtResource("13_pcjji")]([SubResource("Resource_qdmgy")])
 
 [node name="Spawner" type="Node" parent="BattleManager" unique_id=1283150222]
 script = ExtResource("18_3mj8a")
@@ -62,12 +175,10 @@ y_sort_enabled = true
 unique_name_in_owner = true
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2001671820]
+unique_name_in_owner = true
 
 [node name="EncounterUI" parent="UI" unique_id=307533690 instance=ExtResource("19_c652g")]
 unique_name_in_owner = true
-
-[node name="SelectionManager" type="Node" parent="." unique_id=850775496]
-script = ExtResource("5_qeo1e")
 
 [connection signal="mouse_entered" from="SpawnZones/NeutralZone" to="BattleManager/Spawner" method="_on_neutral_zone_mouse_entered"]
 [connection signal="mouse_exited" from="SpawnZones/NeutralZone" to="BattleManager/Spawner" method="_on_neutral_zone_mouse_exited"]

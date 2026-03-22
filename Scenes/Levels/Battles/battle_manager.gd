@@ -21,7 +21,7 @@ var state: LevelState = LevelState.LOADING
 @onready var player_zone : Area2D = %PlayerZone
 @onready var neutral_zone : Area2D = %NeutralZone
 @onready var enemy_zone : Area2D = %EnemyZone
-
+@onready var selection_manager: SelectionManager = %SelectionManager
 
 func _ready() -> void:
 	UI_node.connect("StartEncounterPressed",start_fight)
@@ -67,6 +67,7 @@ func _spawn_player_units() -> void:
 		if unit:
 			players_alive += 1
 			unit.stats.health_depleted.connect(_on_player_unit_died)
+			selection_manager.register_unit(unit)
 
 func _spawn_enemy_units() -> void:
 	print("Spawning enemy units...")
@@ -77,6 +78,7 @@ func _spawn_enemy_units() -> void:
 		if unit:
 			enemies_alive += 1
 			unit.stats.health_depleted.connect(_on_enemy_unit_died)
+			selection_manager.register_unit(unit)
 
 func _generate_enemy_list() -> Array[EnemyData]:
 	var enemies_array: Array[EnemyData] = level_data.forced_enemies

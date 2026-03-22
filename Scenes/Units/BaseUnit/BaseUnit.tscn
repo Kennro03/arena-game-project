@@ -501,7 +501,8 @@ unique_name_in_owner = true
 script = ExtResource("21_3qbi7")
 target = NodePath("../SpriteModule")
 outline_color = Color(1, 1, 1, 1)
-outline_thickness = 1
+outline_thickness = 2
+default_outline_thickness = 1
 
 [connection signal="input_event" from="SelectionArea" to="." method="_on_selection_area_input_event"]
 [connection signal="mouse_entered" from="SelectionArea" to="." method="_on_selection_area_mouse_entered"]

@@ -40,7 +40,6 @@ folder_colors={
 "res://Scenes/Hitboxes/": "red",
 "res://Scenes/Levels/": "yellow",
 "res://Scenes/Map/": "green",
-"res://Scenes/Prototype/": "gray",
 "res://Scenes/Skills/": "orange",
 "res://Scenes/StateMachine/": "yellow",
 "res://Scenes/UI/": "green",

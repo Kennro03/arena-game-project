@@ -1,37 +1,16 @@
 [gd_scene format=3 uid="uid://cjibi7hws0y7b"]
 
 [ext_resource type="Script" uid="uid://d1ywcpwm2exd2" path="res://Scenes/UI/UnitInfoPanel/unit_info_panel.gd" id="1_7u7gd"]
-[ext_resource type="PackedScene" uid="uid://dofk34fycohsp" path="res://Scenes/UI/UnitInfoPanel/status_effect_row.tscn" id="2_cptsl"]
-[ext_resource type="Script" uid="uid://btpyi1bwhwy1g" path="res://ressources/Status_Effects/Effects/StatusEffect_DoT.gd" id="3_o75cb"]
-[ext_resource type="Script" uid="uid://dnfvvxu7oamd7" path="res://ressources/Status_Effects/Effects/StatusEffect_Stun.gd" id="4_5dpdn"]
 [ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/drag_and_drop_component.gd" id="5_rp5dg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v6ryx"]
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_o75cb"]
-size = Vector2(32, 32)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cptsl"]
+bg_color = Color(0, 0, 0, 0.14901961)
 
-[sub_resource type="Resource" id="Resource_5dpdn"]
-script = ExtResource("3_o75cb")
-damage_per_stack = 3.0
-Status_effect_name = "test"
-status_ID = "ssss"
-Status_effect_description = "it deals... damage..... uohhhhhhhh so much damage... mkgflmkgdkmlgfmkgkmgfklm mhmmhmmfmfmffh..."
-status_icon = SubResource("PlaceholderTexture2D_o75cb")
-metadata/_custom_type_script = "uid://btpyi1bwhwy1g"
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5dpdn"]
-size = Vector2(32, 32)
-
-[sub_resource type="Resource" id="Resource_rp5dg"]
-script = ExtResource("4_5dpdn")
-Status_effect_name = "Stunned hehehe"
-status_ID = "testiiii..."
-Status_effect_description = "This actually doesn't stun the target, you moron. You dumb stupid son of a bitch. Buffon even."
-status_icon = SubResource("PlaceholderTexture2D_5dpdn")
-duration = 10.0
-metadata/_custom_type_script = "uid://dnfvvxu7oamd7"
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o75cb"]
+bg_color = Color(0.22352941, 0.7176471, 0, 1)
 
 [node name="PanelContainer" type="PanelContainer" unique_id=1287558197]
 z_index = 1
@@ -97,7 +76,22 @@ size_flags_vertical = 1
 value = 50.0
 show_percentage = false
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1462090470]
+[node name="HSeparator1" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=438004936]
+layout_mode = 2
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/VBoxContainer" unique_id=32913791]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_cptsl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o75cb")
+value = 50.0
+rounded = true
+show_percentage = false
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1462090470]
 layout_mode = 2
 
 [node name="UnitDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=144012581]
@@ -108,7 +102,7 @@ theme_override_font_sizes/font_size = 8
 text = "The unit description goes here."
 autowrap_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1870841488]
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1870841488]
 layout_mode = 2
 
 [node name="StatScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=224118626]
@@ -132,7 +126,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=635335664]
+[node name="HSeparator4" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=635335664]
 layout_mode = 2
 
 [node name="StatusEffectsScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=411614559]
@@ -146,23 +140,17 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = -2
 
-[node name="StatusEffectRow" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer/StatusEffectsContainer" unique_id=988949793 instance=ExtResource("2_cptsl")]
-layout_mode = 2
-status_effect = SubResource("Resource_5dpdn")
-
-[node name="StatusEffectRow2" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer/StatusEffectsContainer" unique_id=1142036958 instance=ExtResource("2_cptsl")]
-layout_mode = 2
-status_effect = SubResource("Resource_rp5dg")
-
-[node name="StatusEffectRow3" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer/StatusEffectsContainer" unique_id=1518428013 instance=ExtResource("2_cptsl")]
-layout_mode = 2
-status_effect = SubResource("Resource_5dpdn")
-
-[node name="StatusEffectRow4" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer/StatusEffectsContainer" unique_id=1074139942 instance=ExtResource("2_cptsl")]
-layout_mode = 2
-status_effect = SubResource("Resource_rp5dg")
-
 [node name="DragAndDropComponent" type="Node" parent="." unique_id=2009158535 node_paths=PackedStringArray("target_area", "target")]
 script = ExtResource("5_rp5dg")
 target_area = NodePath("../MarginContainer")
 target = NodePath("..")
+
+[node name="CloseButton" type="Button" parent="." unique_id=905965588]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "x"
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

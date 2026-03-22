@@ -13,6 +13,7 @@ var placeholderTarget : BaseUnit = unit_scene.instantiate()
 @onready var levelLabel := %UnitLevelLabel
 @onready var levelProgressBar := %LevelProgressBar
 
+@onready var health_bar: ProgressBar = %HealthBar
 
 @onready var attributesList := %AttributesContainer
 @onready var statsList := %StatsContainer
@@ -23,6 +24,9 @@ var status_effect_row : PackedScene = preload("res://Scenes/UI/UnitInfoPanel/sta
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	set_unit.call_deferred(unit)
+	return
+	
 	placeholderTarget.stats = Stats.new()
 	placeholderTarget.stats.experience = 220
 	placeholderTarget.position = Vector2(500.0,100.0)
@@ -35,19 +39,16 @@ func _process(_delta: float) -> void:
 	pass
 
 func set_unit(target: BaseUnit) -> void:
-	if unit and is_instance_valid(unit):
-		unit.stats.stats_recalculated.disconnect(_on_stats_changed)
-		unit.stats.exp_changed.disconnect(_on_experience_changed)
-		unit.statusEffectModule.effects_changed.disconnect(set_status_effects)
-	
 	unit = target
 	
 	unit.stats.stats_recalculated.connect(_on_stats_changed)
 	unit.stats.exp_changed.connect(_on_experience_changed)
+	unit.stats.health_changed.connect(_on_health_changed)
 	unit.statusEffectModule.effects_changed.connect(set_status_effects)
 	
 	set_info()
 	set_experience()
+	set_health()
 	set_stats()
 	set_status_effects()
 
@@ -69,6 +70,10 @@ func set_experience() -> void:
 		unit.stats.get_xp_in_current_level(),
 		unit.stats.get_xp_needed_for_next_level()
 	]
+
+func set_health() -> void:
+	health_bar.max_value = unit.stats.current_max_health
+	health_bar.value = unit.stats.health
 
 func _on_stats_changed() -> void :
 	set_info()   # for name and info
@@ -103,3 +108,10 @@ func set_status_effects() ->void :
 			var row := status_effect_row.instantiate()
 			row.status_effect = status
 			statusesList.add_child(row)
+
+func _on_health_changed(health : float,max_health : float) -> void :
+	health_bar.max_value = max_health
+	health_bar.value = health
+
+func _on_close_button_pressed() -> void:
+	queue_free()

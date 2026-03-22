@@ -381,7 +381,7 @@ func get_current_stat(stat: BuffableStats) -> float:
 		BuffableStats.MAX_HEALTH: return current_max_health
 		BuffableStats.HEALTH_REGEN: return current_health_regen
 		BuffableStats.MOVEMENT_SPEED: return current_movement_speed
-		BuffableStats.DODGE_PROBABILITY: return current_block_probability
+		BuffableStats.DODGE_PROBABILITY: return current_dodge_probability
 		BuffableStats.PARRY_PROBABILITY: return current_parry_probability
 		BuffableStats.BLOCK_PROBABILITY: return current_block_probability
 		BuffableStats.FLAT_BLOCK_POWER: return current_flat_block_power
