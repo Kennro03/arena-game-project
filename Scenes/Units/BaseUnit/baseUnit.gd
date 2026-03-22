@@ -1,6 +1,8 @@
 extends Node2D
 class_name BaseUnit
 signal hit_received(hit_data: HitData)
+signal unit_clicked(unit: BaseUnit)
+signal unit_died(unit: BaseUnit)
 
 @onready var animationPlayer = %AnimationPlayer
 @onready var healthBar := %HealthBar
@@ -377,3 +379,7 @@ func _on_drag_canceled(starting_position: Vector2)-> void:
 func reset_after_dragging(starting_position: Vector2) -> void:
 	velocity_based_rotation_component.enabled = false
 	global_position = starting_position
+
+
+func _on_selection_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	pass # Replace with function body.

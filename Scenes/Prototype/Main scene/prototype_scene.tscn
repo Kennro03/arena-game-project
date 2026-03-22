@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://hlb8w8j5gs7u"]
 
-[ext_resource type="Script" uid="uid://d17ldv2j14q3l" path="res://Scenes/prototype_scene.gd" id="1_3a2rb"]
+[ext_resource type="Script" uid="uid://d17ldv2j14q3l" path="res://Scenes/Prototype/Main scene/prototype_scene.gd" id="1_3a2rb"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="1_lci7e"]
 
 [sub_resource type="Gradient" id="Gradient_xtf6f"]

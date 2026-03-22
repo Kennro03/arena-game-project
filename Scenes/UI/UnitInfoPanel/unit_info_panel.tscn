@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dofk34fycohsp" path="res://Scenes/UI/UnitInfoPanel/status_effect_row.tscn" id="2_cptsl"]
 [ext_resource type="Script" uid="uid://btpyi1bwhwy1g" path="res://ressources/Status_Effects/Effects/StatusEffect_DoT.gd" id="3_o75cb"]
 [ext_resource type="Script" uid="uid://dnfvvxu7oamd7" path="res://ressources/Status_Effects/Effects/StatusEffect_Stun.gd" id="4_5dpdn"]
+[ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/drag_and_drop_component.gd" id="5_rp5dg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v6ryx"]
 size = Vector2(32, 32)
@@ -33,6 +34,7 @@ duration = 10.0
 metadata/_custom_type_script = "uid://dnfvvxu7oamd7"
 
 [node name="PanelContainer" type="PanelContainer" unique_id=1287558197]
+z_index = 1
 texture_filter = 1
 clip_contents = true
 custom_minimum_size = Vector2(110, 0)
@@ -159,3 +161,8 @@ status_effect = SubResource("Resource_5dpdn")
 [node name="StatusEffectRow4" parent="MarginContainer/VBoxContainer/StatusEffectsScrollContainer/StatusEffectsContainer" unique_id=1074139942 instance=ExtResource("2_cptsl")]
 layout_mode = 2
 status_effect = SubResource("Resource_rp5dg")
+
+[node name="DragAndDropComponent" type="Node" parent="." unique_id=2009158535 node_paths=PackedStringArray("target_area", "target")]
+script = ExtResource("5_rp5dg")
+target_area = NodePath("../MarginContainer")
+target = NodePath("..")
