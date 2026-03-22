@@ -313,6 +313,7 @@ func apply_data(data: UnitData) -> void:
 
 func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
+	unit_died.emit(self)
 	queue_free()
 
 func ensure_weapon() -> void:
@@ -381,5 +382,7 @@ func reset_after_dragging(starting_position: Vector2) -> void:
 	global_position = starting_position
 
 
-func _on_selection_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	pass # Replace with function body.
+func _on_selection_area_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
+	if _event is InputEventMouseButton and _event.pressed:
+		if _event.button_index == MOUSE_BUTTON_LEFT:
+			unit_clicked.emit(self)
