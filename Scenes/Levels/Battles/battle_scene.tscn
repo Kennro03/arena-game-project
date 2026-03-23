@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="10_eetsg"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="11_llnxj"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="12_yabm0"]
+[ext_resource type="Resource" uid="uid://bwm88212g4k6l" path="res://ressources/Teams/PlayerTeam.tres" id="13_jgp7d"]
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="13_pcjji"]
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="14_6nvuq"]
 [ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Weapons/testhammer.tres" id="15_u8sey"]
@@ -80,6 +81,192 @@ weapon = SubResource("Resource_ppxuw")
 default_weapon = SubResource("Resource_e6bm7")
 metadata/_custom_type_script = "uid://gk2b37nd41oy"
 
+[sub_resource type="Resource" id="Resource_qpo3t"]
+script = ExtResource("7_hvyff")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_yeqs3"]
+script = ExtResource("11_llnxj")
+base_dexterity = 20
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="Resource" id="Resource_eetsg"]
+script = ExtResource("7_hvyff")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_llnxj"]
+script = ExtResource("9_yeqs3")
+id = "pablo"
+display_name = "Pablo"
+description = "That's your buddy pablo !! "
+color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
+team = ExtResource("13_jgp7d")
+stats = SubResource("Resource_yeqs3")
+weapon = SubResource("Resource_eetsg")
+default_weapon = SubResource("Resource_qpo3t")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"
+
+[sub_resource type="Resource" id="Resource_yabm0"]
+script = ExtResource("7_hvyff")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_pcjji"]
+script = ExtResource("11_llnxj")
+base_dexterity = 20
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="Resource" id="Resource_u8sey"]
+script = ExtResource("7_hvyff")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_56wbp"]
+script = ExtResource("9_yeqs3")
+id = "pablo"
+display_name = "Pablo"
+description = "That's your buddy pablo !! "
+color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
+team = ExtResource("13_jgp7d")
+stats = SubResource("Resource_pcjji")
+weapon = SubResource("Resource_u8sey")
+default_weapon = SubResource("Resource_yabm0")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"
+
+[sub_resource type="Resource" id="Resource_0y2b7"]
+script = ExtResource("7_hvyff")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_od8bp"]
+script = ExtResource("11_llnxj")
+base_dexterity = 20
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="Resource" id="Resource_i0dlv"]
+script = ExtResource("7_hvyff")
+weaponName = "TestHammer"
+weaponType = 3
+weaponCategory = 2
+description = "A basic hammer used for testing"
+base_attack_speed = 0.8
+base_attack_range = 120.0
+base_damage = 16.0
+base_knockback = 120.0
+attackTypes = {
+0: 8,
+1: 10
+}
+light_endlag = 0.3
+heavy_endlag = 0.7
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_585rw"]
+script = ExtResource("9_yeqs3")
+id = "pablo"
+display_name = "Pablo"
+description = "That's your buddy pablo !! "
+color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
+team = ExtResource("13_jgp7d")
+stats = SubResource("Resource_od8bp")
+weapon = SubResource("Resource_i0dlv")
+default_weapon = SubResource("Resource_0y2b7")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"
+
 [sub_resource type="Resource" id="Resource_oloho"]
 script = ExtResource("11_llnxj")
 base_endurance = 10
@@ -132,7 +319,7 @@ script = ExtResource("5_qeo1e")
 script = ExtResource("1_qxkfb")
 spawner = NodePath("Spawner")
 level_data = ExtResource("2_57vkc")
-player_units = Array[ExtResource("4_w3d5s")]([SubResource("Resource_1k1hr")])
+player_units = Array[ExtResource("4_w3d5s")]([SubResource("Resource_1k1hr"), SubResource("Resource_llnxj"), SubResource("Resource_56wbp"), SubResource("Resource_585rw")])
 enemy_units = Array[ExtResource("13_pcjji")]([SubResource("Resource_qdmgy")])
 
 [node name="Spawner" type="Node" parent="BattleManager" unique_id=1283150222]

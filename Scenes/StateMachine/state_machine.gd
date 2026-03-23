@@ -49,11 +49,11 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 
 
 func border_knockback() -> void:
-	if owner.position.x > get_window().GetVisibleRect().Size.x :
+	if owner.position.x > 640.0 :
 		owner.apply_knockback(owner,Vector2(-1,0),500)
 	elif owner.position.x < 0.0 :
 		owner.apply_knockback(owner,Vector2(1,0),500)
-	if owner.position.y > get_window().GetVisibleRect().Size.y :
+	if owner.position.y > 360.0 :
 		owner.apply_knockback(owner,Vector2(0,-1),500)
 	elif owner.position.y < 0.0 :
 		owner.apply_knockback(owner,Vector2(0,1),500)

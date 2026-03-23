@@ -24,7 +24,7 @@ metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 
 [resource]
 script = ExtResource("11_ayrm8")
-enemy_force = 60.0
+enemy_force = 50.0
 forced_enemies = Array[ExtResource("1_xp3ne")]([ExtResource("2_8f02a")])
 random_enemy_pool = Array[ExtResource("1_xp3ne")]([SubResource("Resource_okyky"), SubResource("Resource_okjdk"), SubResource("Resource_0ybvj")])
 metadata/_custom_type_script = "uid://b2x5b5wxr3o6d"

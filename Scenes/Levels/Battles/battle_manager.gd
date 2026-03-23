@@ -53,6 +53,7 @@ func spawn_units() ->void :
 
 func start_fight() ->void : 
 	if state == LevelState.SPAWNING :
+		print("Allies : " + str(players_alive) + "\nEnnemies : " + str(enemies_alive))
 		print("Starting fight...")
 		state = LevelState.FIGHTING
 		emit_signal("BeginEncounter")
