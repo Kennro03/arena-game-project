@@ -7,7 +7,7 @@ func damage_popup(popupdamage: String, textscale : float = 1.0, text_color : Col
 		var tween = get_tree().create_tween()
 		
 		damage_popup_label.position = owner.find_child("DamagePopupMarker").global_position
-		tween.tween_property(damage_popup_label,"position",global_position + get_direction()*movementmultiplier,0.75)
+		tween.tween_property(damage_popup_label,"position",global_position + get_direction()*movementmultiplier,0.5)
 		
 		damage_popup_label.scale = Vector2(textscale, textscale)
 		damage_popup_label.modulate = text_color

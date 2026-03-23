@@ -59,7 +59,7 @@ signal level_changed(new_level:int)
 
 @export var base_max_health : float = 100.0
 @export var base_health_regen : float = 1.0
-@export var base_movement_speed : float = 60.0
+@export var base_movement_speed : float = 50.0
 @export var base_dodge_probability : float = 10.0
 @export var base_parry_probability : float = 5.0
 @export var base_block_probability : float = 25.0
@@ -81,8 +81,8 @@ signal level_changed(new_level:int)
 	StatScaling.new(Attributes.FAITH, StatScaling.ScalingType.LINEAR, 0.08),
 ]
 @export var movement_speed_scalings : Array[StatScaling] = [
-	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.LINEAR, 2.5, 0.9),
-	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 2.5),
+	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.LINEAR, 1.25, 0.9),
+	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 0.75),
 ]
 @export var dodge_probability_scalings : Array[StatScaling] = [
 	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.6),

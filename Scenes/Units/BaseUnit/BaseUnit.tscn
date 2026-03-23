@@ -36,9 +36,11 @@ crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ub1n"]
+radius = 5.0
+height = 32.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0wwk"]
-size = Vector2(40, 72)
+size = Vector2(34, 40)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_goxn1"]
 bg_color = Color(0, 0, 0, 0.14901961)
@@ -352,7 +354,6 @@ _data = {
 
 [node name="BaseUnit" type="Node2D" unique_id=1699308279 groups=["Units"]]
 y_sort_enabled = true
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_m87p7")
 stats = SubResource("Resource_et0ph")
 
@@ -369,7 +370,7 @@ debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea" unique_id=357291790]
-position = Vector2(0, -32)
+position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_s0wwk")
 debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
@@ -389,9 +390,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -25.0
-offset_right = 25.0
-offset_bottom = 6.0
+offset_left = -16.0
+offset_right = 16.0
+offset_bottom = 4.0
 grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_goxn1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_qxfsq")
@@ -402,10 +403,14 @@ show_percentage = false
 unique_name_in_owner = true
 z_index = -1
 texture_filter = 1
-layout_mode = 0
-offset_left = -25.0
-offset_right = 25.0
-offset_bottom = 6.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_right = 16.0
+offset_bottom = 4.0
+grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_goxn1")
 theme_override_styles/fill = SubResource("StyleBoxFlat_teyrl")
 value = 50.0
@@ -419,18 +424,19 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -100.0
-offset_top = 6.0
-offset_right = 100.0
-offset_bottom = 20.0
+offset_left = -50.0
+offset_top = 4.0
+offset_right = 50.0
+offset_bottom = 18.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 6
 text = "Display_name"
 horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="SpriteModule" type="CanvasGroup" parent="." unique_id=108877224]
 material = SubResource("ShaderMaterial_4yvry")
+scale = Vector2(0.5, 0.5)
 script = ExtResource("6_fot73")
 animation_library_name = "BaseUnit"
 
@@ -448,12 +454,13 @@ libraries/BaseUnit = SubResource("AnimationLibrary_76fq2")
 
 [node name="ParticleModule" type="Node2D" parent="." unique_id=881602680]
 unique_name_in_owner = true
-position = Vector2(0, -40)
+position = Vector2(0, -20)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("8_8w8nr")
 
 [node name="DamagePopupMarker" type="Marker2D" parent="ParticleModule" unique_id=328668197]
 unique_name_in_owner = true
-position = Vector2(0, -30)
+position = Vector2(0, -16)
 script = ExtResource("9_ilac3")
 
 [node name="StatusEffectModule" type="Node2D" parent="." unique_id=1486147061]

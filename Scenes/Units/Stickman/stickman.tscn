@@ -22,6 +22,9 @@ crit_chance_scalings = null
 crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p13pb"]
+size = Vector2(20, 40)
+
 [node name="Stickman" unique_id=1699308279 instance=ExtResource("1_5bx5w")]
 script = ExtResource("2_j5rhf")
 id = "Stickman"
@@ -31,6 +34,9 @@ sprite_color = Color(0, 0, 0.7764706, 1)
 stats = SubResource("Resource_07882")
 weapon = ExtResource("3_0tgqw")
 default_weapon = ExtResource("3_0tgqw")
+
+[node name="CollisionShape2D" parent="SelectionArea" parent_id_path=PackedInt32Array(533222703) index="0" unique_id=357291790]
+shape = SubResource("RectangleShape2D_p13pb")
 
 [node name="SpriteModule" parent="." index="3" unique_id=108877224]
 position = Vector2(-1, 0)

@@ -25,9 +25,9 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_6nyc0"]
 script = ExtResource("3_5mu1x")
-id = "Bigguy"
-display_name = "Bigguy"
-description = "That's a big guy..."
+id = "Big_guy"
+display_name = "Big guy"
+description = "That's a... *gulp*... big guy..."
 color = Color(1, 1, 0, 1)
 stats = SubResource("Resource_oloho")
 weapon = ExtResource("7_621hb")

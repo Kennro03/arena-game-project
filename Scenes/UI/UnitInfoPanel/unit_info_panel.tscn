@@ -19,6 +19,7 @@ clip_contents = true
 custom_minimum_size = Vector2(110, 0)
 offset_right = 400.0
 offset_bottom = 200.0
+scale = Vector2(0.6, 0.6)
 mouse_filter = 2
 script = ExtResource("1_7u7gd")
 

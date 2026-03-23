@@ -3,7 +3,7 @@ class_name UnitInfoPanel
 
 var unit_scene := preload("res://Scenes/Units/Stickman/stickman.tscn")
 var placeholderTarget : BaseUnit = unit_scene.instantiate()
-@export var unit : BaseUnit
+@export var unit : BaseUnit = null
 
 @onready var iconRect := %UnitIcon
 @onready var nameLabel := %UnitNameLabel
@@ -24,15 +24,16 @@ var status_effect_row : PackedScene = preload("res://Scenes/UI/UnitInfoPanel/sta
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if unit == null :
+		return
 	set_unit.call_deferred(unit)
-	return
 	
-	placeholderTarget.stats = Stats.new()
-	placeholderTarget.stats.experience = 220
-	placeholderTarget.position = Vector2(500.0,100.0)
-	get_tree().root.add_child.call_deferred(placeholderTarget)
+	#placeholderTarget.stats = Stats.new()
+	#placeholderTarget.stats.experience = 220
+	#placeholderTarget.position = Vector2(500.0,100.0)
+	#get_tree().root.add_child.call_deferred(placeholderTarget)
 	
-	set_unit.call_deferred(placeholderTarget)
+	#set_unit.call_deferred(placeholderTarget)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

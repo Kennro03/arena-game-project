@@ -51,9 +51,9 @@ var active: bool = true:
 		else:
 			_on_deactivated.call_deferred()
 
-const BASE_BAR_WIDTH : float = 50.0
-const MIN_BAR_WIDTH : float = 25.0
-const MAX_BAR_WIDTH : float = 100.0
+const BASE_BAR_WIDTH : float = 32.0
+const MIN_BAR_WIDTH : float = 16.0
+const MAX_BAR_WIDTH : float = 80.0
 const HEALTH_SCALE_REFERENCE : float = 100.0 
 
 func _ready():

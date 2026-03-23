@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://3o1geleuhue0"]
+[gd_scene format=3 uid="uid://3o1geleuhue0"]
 
 [sub_resource type="Animation" id="Animation_78v0x"]
 length = 0.001
@@ -75,9 +75,9 @@ _data = {
 &"popup": SubResource("Animation_6eie4")
 }
 
-[node name="FloatingNumber" type="Marker2D"]
+[node name="FloatingNumber" type="Marker2D" unique_id=1108716353]
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=638030764]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -92,12 +92,11 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
 text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_78v0x")
-}
-autoplay = "popup"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2028330867]
+libraries/ = SubResource("AnimationLibrary_78v0x")
+autoplay = &"popup"
