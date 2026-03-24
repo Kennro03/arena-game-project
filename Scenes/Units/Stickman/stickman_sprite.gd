@@ -25,6 +25,7 @@ var special_combo_index : int = 0
 @onready var prefix : String = animation_library_name + "/"
 
 func _ready() -> void:
+	bodyColor = owner.sprite_color
 	selfmodulate()
 
 func update_spritesheet() -> void:

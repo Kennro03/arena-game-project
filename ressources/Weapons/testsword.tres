@@ -7,10 +7,8 @@
 
 [resource]
 script = ExtResource("1_80t4j")
-weaponName = "TestSword"
 weaponType = 2
 weaponCategory = 1
-description = "A basic sword used for testing"
 base_attack_range = 105.0
 base_damage = 14.0
 base_knockback = 45.0
@@ -18,4 +16,7 @@ attackTypes = {
 0: 8,
 1: 6
 }
+item_id = "test_sword"
+item_name = "TestSword"
+description = "A basic sword used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

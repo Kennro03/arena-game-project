@@ -21,10 +21,8 @@
 
 [sub_resource type="Resource" id="Resource_e6bm7"]
 script = ExtResource("7_hvyff")
-weaponName = "TestHammer"
-weaponType = 3
 weaponCategory = 2
-description = "A basic hammer used for testing"
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -35,6 +33,7 @@ attackTypes = {
 }
 light_endlag = 0.3
 heavy_endlag = 0.7
+description = "A basic hammer used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_s0pr7"]
@@ -53,10 +52,8 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_ppxuw"]
 script = ExtResource("7_hvyff")
-weaponName = "TestHammer"
-weaponType = 3
 weaponCategory = 2
-description = "A basic hammer used for testing"
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -67,6 +64,7 @@ attackTypes = {
 }
 light_endlag = 0.3
 heavy_endlag = 0.7
+description = "A basic hammer used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_1k1hr"]
@@ -83,10 +81,8 @@ metadata/_custom_type_script = "uid://gk2b37nd41oy"
 
 [sub_resource type="Resource" id="Resource_qpo3t"]
 script = ExtResource("7_hvyff")
-weaponName = "TestHammer"
-weaponType = 3
 weaponCategory = 2
-description = "A basic hammer used for testing"
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -97,6 +93,7 @@ attackTypes = {
 }
 light_endlag = 0.3
 heavy_endlag = 0.7
+description = "A basic hammer used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_yeqs3"]
@@ -115,10 +112,8 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_eetsg"]
 script = ExtResource("7_hvyff")
-weaponName = "TestHammer"
-weaponType = 3
 weaponCategory = 2
-description = "A basic hammer used for testing"
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -129,6 +124,7 @@ attackTypes = {
 }
 light_endlag = 0.3
 heavy_endlag = 0.7
+description = "A basic hammer used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_llnxj"]
@@ -145,10 +141,8 @@ metadata/_custom_type_script = "uid://gk2b37nd41oy"
 
 [sub_resource type="Resource" id="Resource_yabm0"]
 script = ExtResource("7_hvyff")
-weaponName = "TestHammer"
-weaponType = 3
 weaponCategory = 2
-description = "A basic hammer used for testing"
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -159,6 +153,7 @@ attackTypes = {
 }
 light_endlag = 0.3
 heavy_endlag = 0.7
+description = "A basic hammer used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_pcjji"]
@@ -177,10 +172,8 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_u8sey"]
 script = ExtResource("7_hvyff")
-weaponName = "TestHammer"
-weaponType = 3
 weaponCategory = 2
-description = "A basic hammer used for testing"
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -191,6 +184,7 @@ attackTypes = {
 }
 light_endlag = 0.3
 heavy_endlag = 0.7
+description = "A basic hammer used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_56wbp"]
@@ -207,10 +201,8 @@ metadata/_custom_type_script = "uid://gk2b37nd41oy"
 
 [sub_resource type="Resource" id="Resource_0y2b7"]
 script = ExtResource("7_hvyff")
-weaponName = "TestHammer"
-weaponType = 3
 weaponCategory = 2
-description = "A basic hammer used for testing"
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -221,6 +213,7 @@ attackTypes = {
 }
 light_endlag = 0.3
 heavy_endlag = 0.7
+description = "A basic hammer used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_od8bp"]
@@ -239,10 +232,8 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_i0dlv"]
 script = ExtResource("7_hvyff")
-weaponName = "TestHammer"
-weaponType = 3
 weaponCategory = 2
-description = "A basic hammer used for testing"
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -253,6 +244,7 @@ attackTypes = {
 }
 light_endlag = 0.3
 heavy_endlag = 0.7
+description = "A basic hammer used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_585rw"]

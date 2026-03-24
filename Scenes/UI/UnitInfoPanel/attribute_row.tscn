@@ -19,10 +19,10 @@ stretch_mode = 2
 
 [node name="StatName" type="Label" parent="." unique_id=1256047050]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 8
 text = "statName : "
 
 [node name="StatValue" type="Label" parent="." unique_id=1784491430]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 8
 text = "statValue"

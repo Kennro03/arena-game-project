@@ -1,4 +1,4 @@
-extends Resource
+extends Item
 class_name Weapon
 
 signal attack_performed(attack_type:AttackTypeEnum, endlag: float)
@@ -19,32 +19,33 @@ static var buffable_stat_icons : Dictionary = {
 	BuffableStats.KNOCKBACK: preload("res://ressources/Sprites/Icons/weapon_knockback_icon.png"),
 }
 
-@export var weaponName : String
-@export var weaponType : WeaponTypeEnum
+@export_group("Weapon data")
 @export var weaponCategory : WeaponCategoryEnum
+@export var weaponType : WeaponTypeEnum
 
-@export var description : String
-@export var icon : Texture2D
-
+@export_subgroup("Base weapon Stats","base_")
 @export var base_attack_speed : float = 1.0
 @export var base_attack_range : float = 100.0
 @export var base_damage: float = 5.0
 @export var base_knockback : float = 50.0
 
+@export_subgroup("Passives")
+@export var statChanges : Array[StatBuff] = []
+@export var onHitPassives : Array[OnHitPassive] = []
+
+@export_subgroup("Scalings")
 @export var attack_speed_scalings : Array[StatScaling] = []
 @export var attack_range_scalings : Array[StatScaling] = []
 @export var damage_scalings : Array[StatScaling] = []
 @export var knockback_scalings : Array[StatScaling] = []
 
-@export var statChanges : Array[StatBuff] = []
-
-@export var onHitPassives : Array[OnHitPassive] = []
-
+@export_subgroup("Attack_types")
 @export var attackTypes : Dictionary = {
 	AttackTypeEnum.LIGHTATTACK : 8,
 	AttackTypeEnum.HEAVYATTACK : 2,}
 @export var light_endlag :float = 0.15
 @export var heavy_endlag :float = 0.6
+
 
 var current_attack_speed : float
 var current_attack_range : float

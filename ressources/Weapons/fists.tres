@@ -7,9 +7,10 @@
 
 [resource]
 script = ExtResource("1_datym")
-weaponName = "Unarmed"
-description = "A stickman's bare fist. Usually used when nothing else is available."
 base_attack_range = 80.0
 base_damage = 10.0
 base_knockback = 35.0
+item_id = "fists"
+item_name = "Fists"
+description = "A stickman's bare fist. Usually used when nothing else is available."
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

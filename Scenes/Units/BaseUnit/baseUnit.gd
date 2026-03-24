@@ -58,40 +58,21 @@ const HEALTH_SCALE_REFERENCE : float = 100.0
 
 func _ready():
 	add_to_group("Units")
-	spriteModule.bodyColor = sprite_color
-	spriteModule.selfmodulate()
 	ensure_weapon()
-	
-	%NameLabel.text = display_name
-	%NameLabel.visible = show_name
-	set_team_flag()
 	
 	if not Engine.is_editor_hint():
 		drag_and_drop_component.drag_started.connect(_on_drag_started)
 		drag_and_drop_component.drag_canceled.connect(_on_drag_canceled)
 	
-	set_healthbar_visibility(show_health)
-	if show_health :
-		update_healthBar(stats.health,stats.current_max_health)
-		stats.connect("health_changed",update_healthBar)
-		stats.connect("shield_changed",update_shieldBar)
-		stats.connect("shield_depleted",hide_shieldBar)
-	stats.connect("health_depleted",die)
+	set_display_Module()
 	
 	animationPlayer.animation_finished.connect(_on_anim_finished)
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
-func _on_activated() -> void:
-	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
-	velocity_based_rotation_component.enabled = false
-
-func _on_deactivated() -> void:
-	$StateMachine.process_mode = Node.PROCESS_MODE_DISABLED
-	velocity_based_rotation_component.enabled = true
-	#animationPlayer.play("BaseUnit/idle")
-
-func set_team_flag()->void:
+func set_display_Module()->void:
+	%NameLabel.text = display_name
+	%NameLabel.visible = show_name
 	if team != null and team.flagVisible == true :
 		var flag: PackedScene = preload("res://Scenes/flag.tscn")
 		var flag_instance
@@ -99,6 +80,24 @@ func set_team_flag()->void:
 		flag_instance.position.y -= 80
 		flag_instance.modulate = team.team_color
 		add_child(flag_instance)
+	set_healthbar_visibility(show_health)
+	if show_health :
+		update_healthBar(stats.health,stats.current_max_health)
+		stats.connect("health_changed",update_healthBar)
+		stats.connect("shield_changed",update_shieldBar)
+		stats.connect("shield_depleted",hide_shieldBar)
+	stats.connect("health_depleted",die)
+
+func _on_activated() -> void:
+	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
+	drag_and_drop_component.enabled = false
+	velocity_based_rotation_component.enabled = false
+
+func _on_deactivated() -> void:
+	$StateMachine.process_mode = Node.PROCESS_MODE_DISABLED
+	drag_and_drop_component.enabled = true
+	velocity_based_rotation_component.enabled = true
+	#animationPlayer.play("BaseUnit/idle")
 
 func update_healthBar(_health, _max_health) -> void :
 	healthBar.max_value = _max_health
