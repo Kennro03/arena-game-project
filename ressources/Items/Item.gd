@@ -15,12 +15,12 @@ enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, CURSED }
 
 #Used to select item border for inventory
 const item_borders : Dictionary = {
-	Rarity.COMMON : null,
-	Rarity.UNCOMMON : null,
-	Rarity.RARE : null,
-	Rarity.EPIC : null,
-	Rarity.LEGENDARY : null,
-	Rarity.CURSED : null,
+	Rarity.COMMON : preload("uid://bevk6u7cdgmgw"),
+	Rarity.UNCOMMON : preload("uid://6a8vcs48wg3e"),
+	Rarity.RARE : preload("uid://b46bdvep7q3jl"),
+	Rarity.EPIC : preload("uid://w0jbb5f3lxr3"),
+	Rarity.LEGENDARY : preload("uid://fb7mkuai6jba"),
+	Rarity.CURSED : preload("uid://56svy7l72gac"),
 } 
 
 func _generate_metadata() -> void :

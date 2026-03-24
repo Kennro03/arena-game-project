@@ -25,10 +25,8 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_f25ym"]
 script = ExtResource("8_nbici")
-weaponName = "TestSword"
-weaponType = 2
 weaponCategory = 1
-description = "A basic sword used for testing"
+weaponType = 2
 base_attack_range = 105.0
 base_damage = 14.0
 base_knockback = 75.0
@@ -36,6 +34,7 @@ attackTypes = {
 0: 8,
 1: 6
 }
+description = "A basic sword used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [resource]

@@ -25,10 +25,8 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_fdw1w"]
 script = ExtResource("8_aueru")
-weaponName = "TestHammer"
-weaponType = 3
 weaponCategory = 2
-description = "A basic hammer used for testing"
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -39,6 +37,7 @@ attackTypes = {
 }
 light_endlag = 0.3
 heavy_endlag = 0.7
+description = "A basic hammer used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [resource]

@@ -3,12 +3,13 @@
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_1nvm0"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="1_tsmbr"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_4hfct"]
+[ext_resource type="Texture2D" uid="uid://c1vlut6hc1sd8" path="res://ressources/Sprites/Icons/Items/Weapons/TestHammer_Icon.png" id="2_5bmkb"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_ir4nk"]
 
 [resource]
 script = ExtResource("1_tsmbr")
-weaponType = 3
 weaponCategory = 2
+weaponType = 3
 base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
@@ -22,4 +23,5 @@ heavy_endlag = 0.7
 item_id = "test_hammer"
 item_name = "Test Hammer"
 description = "A basic hammer used for testing"
+icon = ExtResource("2_5bmkb")
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

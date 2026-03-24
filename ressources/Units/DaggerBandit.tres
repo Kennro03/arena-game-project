@@ -25,9 +25,7 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_8wlfk"]
 script = ExtResource("8_w678u")
-weaponName = "TestDagger"
 weaponType = 1
-description = "A basic dagger used for testing"
 base_attack_speed = 1.1
 base_attack_range = 90.0
 base_damage = 11.0
@@ -38,6 +36,7 @@ attackTypes = {
 }
 light_endlag = 0.1
 heavy_endlag = 0.5
+description = "A basic dagger used for testing"
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [resource]

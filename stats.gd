@@ -11,12 +11,12 @@ enum Attributes {
 	ATTUNEMENT,
 }
 static var attribute_icons : Dictionary = {
-	Attributes.STRENGTH: preload("res://ressources/Sprites/Icons/strength_icon.png"),
-	Attributes.DEXTERITY: preload("res://ressources/Sprites/Icons/dexterity_icon.png"),
-	Attributes.ENDURANCE: preload("res://ressources/Sprites/Icons/endurance_icon.png"),
-	Attributes.INTELLECT: preload("res://ressources/Sprites/Icons/intelligence_icon.png"),
-	Attributes.FAITH: preload("res://ressources/Sprites/Icons/faith_icon.png"),
-	Attributes.ATTUNEMENT: preload("res://ressources/Sprites/Icons/attunement_icon.png"),
+	Attributes.STRENGTH: preload("uid://dt0cp2f30m45t"),
+	Attributes.DEXTERITY: preload("uid://cfyw7y21dyaf"),
+	Attributes.ENDURANCE: preload("uid://jxl80ycljrt3"),
+	Attributes.INTELLECT: preload("uid://rf3mtgwbnq6s"),
+	Attributes.FAITH: preload("uid://c3uo37cadvvc8"),
+	Attributes.ATTUNEMENT: preload("uid://rmmxh6vrcjbf"),
 }
 enum BuffableStats {
 	STRENGTH,

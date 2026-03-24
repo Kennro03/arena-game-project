@@ -17,6 +17,7 @@ battle_scene = &"uid://32iwvd3dtseu"
 [node name="UI" type="CanvasLayer" parent="." unique_id=650539702]
 
 [node name="UI" type="Control" parent="UI" unique_id=1316981568]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +25,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/UI" unique_id=1632270817]
+[node name="ButtonsVBoxContainer" type="VBoxContainer" parent="UI/UI" unique_id=1632270817]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -34,39 +35,39 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
 
-[node name="ExpeditionButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=1558611713]
+[node name="ExpeditionButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=1558611713]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "Expedition"
 
-[node name="BattleButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=1004729945]
+[node name="BattleButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=1004729945]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Battle"
 
-[node name="ShopButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=1129290411]
+[node name="ShopButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=1129290411]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Shop"
 
-[node name="EventButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=375047219]
+[node name="EventButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=375047219]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Event"
 
-[node name="CampButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=1368259702]
+[node name="CampButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=1368259702]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Camp
 "
 
-[node name="TeamSetupButton" type="Button" parent="UI/UI/VBoxContainer" unique_id=587094646]
+[node name="TeamSetupButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=587094646]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -90,4 +91,4 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_po2h6")
 
-[connection signal="pressed" from="UI/UI/VBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]
+[connection signal="pressed" from="UI/UI/ButtonsVBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]

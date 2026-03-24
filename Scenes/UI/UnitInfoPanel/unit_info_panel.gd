@@ -89,10 +89,11 @@ func set_stats() ->void :
 		child.queue_free()
 	for child in statsList.get_children():
 		child.queue_free()
-	for attribute in unit.stats.Attributes :
+	for attribute in unit.stats.Attributes.values() :
 		var row := attribute_row_scene.instantiate()
-		row.attributeName = str(attribute) + " : "
-		row.attributeValue = str(unit.stats.get_current_attribute(unit.stats.Attributes[attribute])) if unit.stats else "..."
+		row.iconTexture = Stats.attribute_icons[attribute]
+		row.attributeName = Stats.Attributes.keys()[attribute] + " : "
+		row.attributeValue = str(unit.stats.get_current_attribute(attribute)) if unit.stats else "..."
 		attributesList.add_child(row)
 	for stat in unit.stats.BuffableStats :
 		if !unit.stats.Attributes.has(stat) :

@@ -13,10 +13,10 @@ enum BuffableStats {
 	KNOCKBACK,
 }
 static var buffable_stat_icons : Dictionary = {
-	BuffableStats.DAMAGE: preload("res://ressources/Sprites/Icons/weapon_damage_icon.png"),
-	BuffableStats.ATTACK_SPEED: preload("res://ressources/Sprites/Icons/weapon_attackspeed_icon.png"),
-	BuffableStats.ATTACK_RANGE: preload("res://ressources/Sprites/Icons/weapon_attackrange_icon.png"),
-	BuffableStats.KNOCKBACK: preload("res://ressources/Sprites/Icons/weapon_knockback_icon.png"),
+	BuffableStats.DAMAGE: preload("uid://br85td3jaqel7"),
+	BuffableStats.ATTACK_SPEED: preload("uid://w6i0f1b7rffo"),
+	BuffableStats.ATTACK_RANGE: preload("uid://d0tjxydbev5m4"),
+	BuffableStats.KNOCKBACK: preload("uid://brfm5e6515tqd"),
 }
 
 @export_group("Weapon data")

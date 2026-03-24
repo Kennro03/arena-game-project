@@ -13,10 +13,10 @@ const EVENT_ROOM_WEIGHT := 2.0
 const CAMP_ROOM_WEIGHT := 3.0
 
 var random_room_type_weights = {
-	Room.Type.BATTLE: 0.0,
-	Room.Type.SHOP: 0.0,
-	Room.Type.EVENT: 0.0,
-	Room.Type.CAMP: 0.0,
+	Room.Type.BATTLE: 7.0,
+	Room.Type.SHOP: 2.0,
+	Room.Type.EVENT: 4.0,
+	Room.Type.CAMP: 2.0,
 }
 var random_room_type_total_weight := 0
 var map_data : Array[Array]

@@ -27,11 +27,13 @@ text = "NONE LOL"
 [node name="GainGoldButton" type="Button" parent="HBoxContainer" unique_id=1734741149]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "+gold"
 
 [node name="LoseGoldButton" type="Button" parent="HBoxContainer" unique_id=863486922]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "-gold"
 
 [connection signal="pressed" from="HBoxContainer/GainGoldButton" to="." method="_on_gain_gold_button_pressed"]

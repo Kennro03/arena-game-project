@@ -19,7 +19,8 @@ var reserve: Array[UnitData] = []     # bench, uncapped or larger cap, capped by
 var reserve_size: int = 20
 
 # Inventory
-var inventory: Array[Item] = []
+@onready var testing_knife : Weapon = preload("res://ressources/Weapons/testdagger.tres")
+var inventory: Array[Item] = [testing_knife]
 var inventory_size: int = 50
 
 # Run state

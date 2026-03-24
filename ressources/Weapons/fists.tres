@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_cvsv1"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="1_datym"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_b5c5v"]
+[ext_resource type="Texture2D" uid="uid://bwsxoouw568gv" path="res://ressources/Sprites/Icons/Items/Weapons/Fist_Icon.png" id="2_dyl5h"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_jfweh"]
 
 [resource]
@@ -13,4 +14,5 @@ base_knockback = 35.0
 item_id = "fists"
 item_name = "Fists"
 description = "A stickman's bare fist. Usually used when nothing else is available."
+icon = ExtResource("2_dyl5h")
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

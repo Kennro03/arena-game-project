@@ -11,10 +11,10 @@ enum BuffType {
 @export var buff_type : BuffType
 
 static var stat_icons : Dictionary = {
-	Weapon.BuffableStats.DAMAGE: preload("res://ressources/Sprites/Icons/weapon_damage_icon.png"),
-	Weapon.BuffableStats.ATTACK_SPEED: preload("res://ressources/Sprites/Icons/weapon_damage_icon.png"),
-	Weapon.BuffableStats.ATTACK_RANGE: preload("res://ressources/Sprites/Icons/weapon_damage_icon.png"),
-	Weapon.BuffableStats.KNOCKBACK: preload("res://ressources/Sprites/Icons/weapon_damage_icon.png"),
+	Weapon.BuffableStats.DAMAGE: preload("uid://br85td3jaqel7"),
+	Weapon.BuffableStats.ATTACK_SPEED: preload("uid://w6i0f1b7rffo"),
+	Weapon.BuffableStats.ATTACK_RANGE: preload("uid://d0tjxydbev5m4"),
+	Weapon.BuffableStats.KNOCKBACK: preload("uid://brfm5e6515tqd"),
 }
 
 func _init(_stat: Weapon.BuffableStats = Weapon.BuffableStats.DAMAGE, 

@@ -4,11 +4,12 @@
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="1_80t4j"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_5d3gw"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_sy5po"]
+[ext_resource type="Texture2D" uid="uid://b7lg7y6nura7b" path="res://ressources/Sprites/Icons/Items/Weapons/TestSword_Icon.png" id="2_x4vtj"]
 
 [resource]
 script = ExtResource("1_80t4j")
-weaponType = 2
 weaponCategory = 1
+weaponType = 2
 base_attack_range = 105.0
 base_damage = 14.0
 base_knockback = 45.0
@@ -19,4 +20,5 @@ attackTypes = {
 item_id = "test_sword"
 item_name = "TestSword"
 description = "A basic sword used for testing"
+icon = ExtResource("2_x4vtj")
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
