@@ -26,7 +26,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1681142117]
-offset = Vector2(576, 324)
+offset = Vector2(320, 180)
 
 [node name="MapBackground" type="CanvasLayer" parent="." unique_id=183590296]
 layer = -1

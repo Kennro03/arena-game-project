@@ -18,7 +18,7 @@ var camera_edge_y: float
 
 func _ready() -> void:
 	camera_edge_y = MapGenerator.Y_DIST * (MapGenerator.FLOORS - 1)
-	
+	generate_new_map()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("scroll_up"):

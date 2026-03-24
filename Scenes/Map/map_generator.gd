@@ -1,9 +1,9 @@
 extends Node
 class_name MapGenerator
 
-const X_DIST := 30
-const Y_DIST := 25
-const PLACEMENT_RANDOMNESS := 5
+const X_DIST := 60
+const Y_DIST := 60
+const PLACEMENT_RANDOMNESS := 20
 const FLOORS := 15
 const MAP_WIDTH := 7
 const PATHS := 6 
@@ -216,11 +216,3 @@ func _get_random_room_type_by_weight() -> Room.Type :
 			return type
 	
 	return Room.Type.BATTLE
-
-	
-	
-	
-	
-	
-	
-	
