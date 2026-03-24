@@ -13,10 +13,10 @@ const EVENT_ROOM_WEIGHT := 2.0
 const CAMP_ROOM_WEIGHT := 3.0
 
 var random_room_type_weights = {
-	Room.Type.BATTLE: 7.0,
-	Room.Type.SHOP: 2.0,
-	Room.Type.EVENT: 4.0,
-	Room.Type.CAMP: 2.0,
+	Room.Type.BATTLE: BATTLE_ROOM_WEIGHT,
+	Room.Type.SHOP: SHOP_ROOM_WEIGHT,
+	Room.Type.EVENT: EVENT_ROOM_WEIGHT,
+	Room.Type.CAMP: CAMP_ROOM_WEIGHT,
 }
 var random_room_type_total_weight := 0
 var map_data : Array[Array]
@@ -31,7 +31,6 @@ func generate_map() -> Array[Array]:
 			current_j = _setup_connection(i,current_j)
 	
 	_setup_boss_room()
-	_setup_random_room_weigths()
 	_setup_room_types()
 	
 	var i:= 0
@@ -104,7 +103,7 @@ func _would_cross_existing_path(i: int, j: int, room : Room) -> bool:
 	if j > 0 :
 		left_neighbour = map_data[i][j - 1]
 	if j < MAP_WIDTH -1 :
-		left_neighbour = map_data[i][j + 1]
+		right_neighbour = map_data[i][j + 1]
 	
 	if right_neighbour and room.column > j :
 		for next_room: Room in right_neighbour.next_rooms :
@@ -130,14 +129,6 @@ func _setup_boss_room() -> void:
 			curren_room.next_rooms.append(boss_room)
 	
 	boss_room.type = Room.Type.BOSS
-
-func _setup_random_room_weigths() -> void:
-	random_room_type_weights[Room.Type.BATTLE] = BATTLE_ROOM_WEIGHT
-	random_room_type_weights[Room.Type.EVENT] = EVENT_ROOM_WEIGHT + BATTLE_ROOM_WEIGHT
-	random_room_type_weights[Room.Type.CAMP] = CAMP_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + BATTLE_ROOM_WEIGHT
-	random_room_type_weights[Room.Type.SHOP] = SHOP_ROOM_WEIGHT + CAMP_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + BATTLE_ROOM_WEIGHT
-	
-	random_room_type_total_weight = random_room_type_weights[Room.Type.SHOP]
 
 func _setup_room_types() -> void :
 	# first floor is always a battle
@@ -207,12 +198,19 @@ func _room_has_parent_of_type(room:Room, type:Room.Type) -> bool :
 	
 	return false
 
-
 func _get_random_room_type_by_weight() -> Room.Type :
-	var roll := randf_range(0.0,random_room_type_total_weight)
+	var weights := {
+		Room.Type.BATTLE: BATTLE_ROOM_WEIGHT,
+		Room.Type.EVENT: EVENT_ROOM_WEIGHT,
+		Room.Type.CAMP: CAMP_ROOM_WEIGHT,
+		Room.Type.SHOP: SHOP_ROOM_WEIGHT,
+		}
+	var total := BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + CAMP_ROOM_WEIGHT + SHOP_ROOM_WEIGHT
+	var roll := randf_range(0.0, total)
 	
-	for type: Room.Type in random_room_type_weights:
-		if random_room_type_weights[type] > roll:
+	for type in weights:
+		roll -= weights[type]
+		if roll <= 0:
 			return type
 	
 	return Room.Type.BATTLE
