@@ -51,7 +51,6 @@ script = ExtResource("3_alcrr")
 inventory_size = 90
 
 [node name="Inventory" type="Control" parent="Inventory module" unique_id=1696099132]
-visible = false
 custom_minimum_size = Vector2(850, 0)
 layout_mode = 1
 anchors_preset = 8

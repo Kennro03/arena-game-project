@@ -19,8 +19,8 @@ var reserve: Array[UnitData] = []     # bench, uncapped or larger cap, capped by
 var reserve_size: int = 20
 
 # Inventory
-var inventory: Array = []   # To implement : weapons, artifacts, consumables, etc.
-var inventory_size: int = 30
+var inventory: Array[Item] = []
+var inventory_size: int = 50
 
 # Run state
 var current_map: Map = null
@@ -31,7 +31,6 @@ var run_modifiers: Array = [] # To implement : persistent effects on the run
 var run_seed: int = 0
 var run_number: int = 0
 
-
 func add_unit_to_team(unit: UnitData) -> void:
 	team.append(unit)
 	Events.unit_moved_to_team.emit(unit)
@@ -39,6 +38,17 @@ func add_unit_to_team(unit: UnitData) -> void:
 func add_to_reserve(unit: UnitData) -> void:
 	reserve.append(unit)
 	Events.unit_recruited.emit(unit)
+
+func add_to_inventory(item: Item) -> void:
+	inventory.append(item)
+	Events.item_gained.emit(item)
+
+func remove_from_inventory(item: Item) -> void:
+	if not item in inventory :
+		printerr("%s not in inventory !" % [item.item_name])
+		return
+	inventory.erase(item)
+	Events.item_removed.emit(item)
 
 func add_to_team(unit: UnitData) -> void:
 	if unit not in reserve:

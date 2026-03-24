@@ -9,10 +9,11 @@ signal gold_lost(value: int)
 signal gold_changed(new_total: int)
 
 #item related
-signal gain_item()
-signal lose_item()
-signal item_equipped()
-signal item_unequipped()
+signal item_gained(item: Item)
+signal item_removed(item: Item)
+signal item_sold(item: Item)
+signal item_equipped(item: Item)
+signal item_unequipped(item: Item)
 
 # Unit related
 signal unit_recruited(unit: UnitData)
