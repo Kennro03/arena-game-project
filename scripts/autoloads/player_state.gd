@@ -19,7 +19,6 @@ var reserve: Array[UnitData] = []     # bench, uncapped or larger cap, capped by
 var reserve_size: int = 20
 
 # Inventory
-@onready var testing_knife : Weapon = preload("res://ressources/Weapons/testdagger.tres")
 var inventory: Array[Item] = []
 var inventory_size: int = 50
 
@@ -32,8 +31,12 @@ var run_modifiers: Array = [] # To implement : persistent effects on the run
 var run_seed: int = 0
 var run_number: int = 0
 
+@onready var testing_knife : Weapon = preload("res://ressources/Weapons/testdagger.tres")
+@onready var testing_pablo : UnitData = preload("res://ressources/Units/Pablo.tres")
+
 func _ready() -> void:
-	inventory.append(testing_knife)  #Insert a knife
+	inventory.append(testing_knife)
+	reserve.append(testing_pablo)
 
 func add_unit_to_team(unit: UnitData) -> void:
 	team.append(unit)

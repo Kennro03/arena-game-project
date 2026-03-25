@@ -5,26 +5,30 @@ extends Node2D
 @onready var ui: Control = %UI
 
 const inventory_scene : PackedScene = preload("res://Scenes/UI/inventory/inventory.tscn")
+const reserve_scene : PackedScene = preload("res://Scenes/UI/reserve/reserve.tscn")
 
-var inventory_instance 
+var inventory_instance
+var reserve_instance
 
 func _ready() -> void:
-	var pablo:stickmanUnitData = preload("res://Scenes/Levels/Battles/test_level/Pablo.tres").duplicate(true)
-	Player.add_to_reserve(pablo)
-	Player.add_to_team(pablo)
+	pass
 
 func _on_battle_button_pressed() -> void:
 	SceneLoader.load_scene(battle_scene)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Inventory") :
-		toggle_inventory()
+		inventory_instance = toggle_scene_instance(inventory_scene,inventory_instance)
+	if Input.is_action_just_pressed("Reserve") :
+		reserve_instance = toggle_scene_instance(reserve_scene,reserve_instance)
 
-func toggle_inventory() -> void :
+func toggle_scene_instance(scene : PackedScene, instance) -> Node :
 	var ui_children := ui.get_children()
-	if not inventory_instance in ui_children :
-		inventory_instance = inventory_scene.instantiate()
-		ui.add_child(inventory_instance)
+	if is_instance_valid(instance) :
+		instance.queue_free()
+		instance = null
+		return null
 	else :
-		inventory_instance.queue_free()
-		inventory_instance = null
+		var new_instance := scene.instantiate()
+		ui.add_child(new_instance)
+		return new_instance

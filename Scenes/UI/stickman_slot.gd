@@ -1,5 +1,5 @@
 extends Button
-class_name Slot
+class_name oldSlot
 @export var stickman_data: UnitData = null
 @export var tooltip_scene: PackedScene
 var tooltip
