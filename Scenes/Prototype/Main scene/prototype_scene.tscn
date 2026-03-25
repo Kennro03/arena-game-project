@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d17ldv2j14q3l" path="res://Scenes/Prototype/Main scene/prototype_scene.gd" id="1_3a2rb"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="1_lci7e"]
+[ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="2_oi3tf"]
 
 [sub_resource type="Gradient" id="Gradient_xtf6f"]
 colors = PackedColorArray(0.16206557, 0.1620656, 0.16206557, 1, 0.5071072, 0.0005638277, 0.0003089994, 1)
@@ -14,9 +15,13 @@ width = 32
 script = ExtResource("1_3a2rb")
 battle_scene = &"uid://32iwvd3dtseu"
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=650539702]
+[node name="InventoryReserveManager" type="Node" parent="." unique_id=703109437]
+script = ExtResource("2_oi3tf")
 
-[node name="UI" type="Control" parent="UI" unique_id=1316981568]
+[node name="UI" type="CanvasLayer" parent="." unique_id=650539702]
+unique_name_in_owner = true
+
+[node name="UiRootNode" type="Control" parent="UI" unique_id=1316981568]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -25,7 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ButtonsVBoxContainer" type="VBoxContainer" parent="UI/UI" unique_id=1632270817]
+[node name="ButtonsVBoxContainer" type="VBoxContainer" parent="UI/UiRootNode" unique_id=1632270817]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -35,45 +40,45 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
 
-[node name="ExpeditionButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=1558611713]
+[node name="ExpeditionButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=1558611713]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "Expedition"
 
-[node name="BattleButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=1004729945]
+[node name="BattleButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=1004729945]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Battle"
 
-[node name="ShopButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=1129290411]
+[node name="ShopButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=1129290411]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Shop"
 
-[node name="EventButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=375047219]
+[node name="EventButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=375047219]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Event"
 
-[node name="CampButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=1368259702]
+[node name="CampButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=1368259702]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Camp
 "
 
-[node name="TeamSetupButton" type="Button" parent="UI/UI/ButtonsVBoxContainer" unique_id=587094646]
+[node name="TeamSetupButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=587094646]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Team"
 
-[node name="GoldDisplay" parent="UI/UI" unique_id=148004886 instance=ExtResource("1_lci7e")]
+[node name="GoldDisplay" parent="UI/UiRootNode" unique_id=148004886 instance=ExtResource("1_lci7e")]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -91,4 +96,4 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_po2h6")
 
-[connection signal="pressed" from="UI/UI/ButtonsVBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]
+[connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]

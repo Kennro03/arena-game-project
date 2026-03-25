@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://32iwvd3dtseu"]
 
+[ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="1_jgp7d"]
 [ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Battles/battle_manager.gd" id="1_qxkfb"]
 [ext_resource type="Resource" uid="uid://sshw11e24ays" path="res://Scenes/Levels/Battles/test_level/TestLevelData.tres" id="2_57vkc"]
 [ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/UnitData.gd" id="4_w3d5s"]
@@ -302,6 +303,9 @@ size = Vector2(144, 330)
 size = Vector2(144, 330)
 
 [node name="BattleScene" type="Node2D" unique_id=1541201406]
+
+[node name="InventoryReserveManager" type="Node" parent="." unique_id=1775805781]
+script = ExtResource("1_jgp7d")
 
 [node name="SelectionManager" type="Node" parent="." unique_id=850775496]
 unique_name_in_owner = true
