@@ -39,5 +39,9 @@ func fill_slots_with_player_inventory() -> void:
 			break
 		item_slots[i].set_item(Player.inventory[i])
 
+func print_slots() -> void :
+	for slot in item_slots :
+		print(str(slot))
+
 func _on_close_button_pressed() -> void:
 	queue_free()

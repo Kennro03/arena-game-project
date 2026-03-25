@@ -20,7 +20,7 @@ var reserve_size: int = 20
 
 # Inventory
 @onready var testing_knife : Weapon = preload("res://ressources/Weapons/testdagger.tres")
-var inventory: Array[Item] = [testing_knife]
+var inventory: Array[Item] = []
 var inventory_size: int = 50
 
 # Run state
@@ -31,6 +31,9 @@ var run_modifiers: Array = [] # To implement : persistent effects on the run
 # Meta
 var run_seed: int = 0
 var run_number: int = 0
+
+func _ready() -> void:
+	inventory.append(testing_knife)  #Insert a knife
 
 func add_unit_to_team(unit: UnitData) -> void:
 	team.append(unit)
