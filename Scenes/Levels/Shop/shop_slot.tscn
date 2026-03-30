@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://4r817bx6l281"]
+
+[ext_resource type="Script" uid="uid://3qktshcvrvx7" path="res://Scenes/Levels/Shop/shop_slot.gd" id="1_aj0y4"]
+
+[node name="ShopSlot" type="Panel" unique_id=62567015]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+script = ExtResource("1_aj0y4")
+
+[node name="SlotBorder" type="Sprite2D" parent="." unique_id=1291859160]
+unique_name_in_owner = true
+position = Vector2(16, 16)
+
+[node name="SlotSprite" type="Sprite2D" parent="." unique_id=1183071005]
+unique_name_in_owner = true
+position = Vector2(16, 16)
+
+[node name="PriceLabel" type="Label" parent="." unique_id=858147677]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "67g"
+horizontal_alignment = 1
+vertical_alignment = 2

@@ -21,7 +21,7 @@ func get_border() -> Texture2D:
 
 func set_texture() -> void:
 	var icon := get_icon()
-	icon_sprite.texture = icon
+	icon_sprite.texture = icon 
 	icon_sprite.visible = icon != null
 
 func set_border() -> void:

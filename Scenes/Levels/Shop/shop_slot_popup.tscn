@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cajle3i4rtcl6"]
+
+[node name="ShopSlotPopup" type="Control" unique_id=2110637555]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=1671672034]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+offset_right = 100.0
+offset_bottom = 75.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1063077940]
+clip_contents = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 108.0
+offset_bottom = 73.0
+theme_override_constants/separation = 0
+
+[node name="CostLabel" type="Label" parent="Panel/VBoxContainer" unique_id=581129348]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Cost in gold ($) ssssssssssss"
+
+[node name="ItemNameLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1723211016]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 8
+text = "Item name (rarity)"
+autowrap_mode = 3
+
+[node name="ItemStatsLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1920183964]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 8
+text = "Item stats (if weapon)"
+autowrap_mode = 3
+
+[node name="DescriptionLabel" type="Label" parent="Panel/VBoxContainer" unique_id=781348203]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 8
+text = "Item description"
+autowrap_mode = 3
