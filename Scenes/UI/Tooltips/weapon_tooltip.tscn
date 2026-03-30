@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ql7wevwt1ii3"]
+
+[ext_resource type="PackedScene" uid="uid://dl6uqqmn28cya" path="res://Scenes/UI/Tooltips/tooltip.tscn" id="1_66ir6"]
+[ext_resource type="Script" uid="uid://cfxcpj3vx2u8g" path="res://Scenes/UI/Tooltips/weapon_tooltip.gd" id="2_sy1a2"]
+
+[node name="WeaponTooltip" unique_id=1274604875 instance=ExtResource("1_66ir6")]
+script = ExtResource("2_sy1a2")
+
+[node name="TextLabel" parent="MarginContainer/MarginContainer2" parent_id_path=PackedInt32Array(1649822666) index="1" unique_id=870861970]
+custom_minimum_size = Vector2(100, 0)

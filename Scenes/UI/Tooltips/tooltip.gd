@@ -6,7 +6,7 @@ const MOUSE_OFFSET : Vector2 = Vector2(8, 8)
 @onready var text_label: RichTextLabel = %TextLabel
 @onready var tooltip_container: Control = %MarginContainer
 
-@export var freeze_tooltip_delay : float = 15.75
+@export var freeze_tooltip_delay : float = 1.5
 
 var is_frozen : bool = false
 var hovered : bool = true
