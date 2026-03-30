@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3idiedqayhbf" path="res://Scenes/UI/stickman_slot.gd" id="1_71i4w"]
 [ext_resource type="Texture2D" uid="uid://ccpr8mltdglbp" path="res://ressources/Sprites/Units/Stickman/Stickman White Tpose.png" id="1_fsf6l"]
-[ext_resource type="PackedScene" uid="uid://dl6uqqmn28cya" path="res://Scenes/UI/tooltip.tscn" id="2_lnwsd"]
+[ext_resource type="PackedScene" uid="uid://dl6uqqmn28cya" path="res://Scenes/UI/Tooltips/tooltip.tscn" id="2_lnwsd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsf6l"]
 bg_color = Color(0.13333334, 0.13333334, 0.13333334, 0.9411765)

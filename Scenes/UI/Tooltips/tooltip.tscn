@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dl6uqqmn28cya"]
+
+[ext_resource type="Script" uid="uid://k1fgvcmh4574" path="res://Scenes/UI/Tooltips/tooltip.gd" id="1_4fwp0"]
+
+[node name="Tooltip" type="Control" unique_id=1274604875]
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_4fwp0")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=485723106]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="Panel" parent="MarginContainer" unique_id=1118558859]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer" unique_id=1649822666]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer2" unique_id=495282890]
+layout_mode = 2
+
+[node name="TextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer2" unique_id=870861970]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_font_sizes/normal_font_size = 8
+theme_override_font_sizes/bold_font_size = 8
+theme_override_font_sizes/bold_italics_font_size = 8
+theme_override_font_sizes/italics_font_size = 8
+theme_override_font_sizes/mono_font_size = 8
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[connection signal="mouse_entered" from="MarginContainer" to="." method="_on_margin_container_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer" to="." method="_on_margin_container_mouse_exited"]
+[connection signal="mouse_entered" from="MarginContainer/PanelContainer" to="." method="_on_panel_container_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/PanelContainer" to="." method="_on_panel_container_mouse_exited"]
