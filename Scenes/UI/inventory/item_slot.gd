@@ -2,6 +2,7 @@ extends Slot
 class_name ItemSlot
 
 @export var item: Item = null
+var tooltip : Tooltip = null
 
 func set_item(_item: Item) -> void:
 	item = _item
@@ -17,8 +18,19 @@ func _to_string() -> String:
 	return item.item_name if item else "empty"
 
 func _on_mouse_entered() -> void:
-	pass # Replace with function body.
-
+	print("Slot %s Entered" % [self.name])
+	if item == null :
+		return
+	if item is Weapon :
+		tooltip = weapon_tooltip_scene.instantiate()
+		add_child(tooltip)
+		tooltip.setup(item)
+	else : 
+		tooltip = item_tooltip_scene.instantiate()
+		add_child(tooltip)
+		tooltip.setup(item)
 
 func _on_mouse_exited() -> void:
-	pass # Replace with function body.
+	if tooltip != null :
+		tooltip.queue_free()
+		tooltip = null

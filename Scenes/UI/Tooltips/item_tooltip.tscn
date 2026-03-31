@@ -6,9 +6,6 @@
 [node name="ItemTooltip" unique_id=1608019069 instance=ExtResource("1_urcsp")]
 script = ExtResource("2_mc1ln")
 
-[node name="PanelContainer" parent="." index="0" unique_id=1361402994]
-offset_bottom = 38.0
-
-[node name="TextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(495282890) index="0" unique_id=870861970]
+[node name="TextLabel" parent="MarginContainer/MarginContainer2" parent_id_path=PackedInt32Array(1649822666) index="1" unique_id=870861970]
 custom_minimum_size = Vector2(80, 30)
 text = "Item tooltip text goes here."

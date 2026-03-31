@@ -1,23 +1,17 @@
 extends Tooltip
 class_name WeaponToolTip
 
-var test_dagger := preload("res://ressources/Weapons/testdagger.tres")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	text_label.text = ""
-	#var stat_buff : StatBuff = StatBuff.new(Stats.BuffableStats.STRENGTH,5,StatBuff.BuffType.ADD) 
-	#var stat_scaling : StatScaling = StatScaling.new(Stats.Attributes.DEXTERITY,StatScaling.ScalingType.LINEAR,1.0,1.0)
-	#test_dagger.statChanges.append(stat_buff)
-	#test_dagger.damage_scalings.append(stat_scaling)
-	setup(test_dagger)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	super._process(delta)
 
 func setup(weapon: Weapon) -> void:
+	print("Setting up weapon : " + str(weapon.item_name))
 	add_weapon_name(weapon)
 	add_weapon_type(weapon)
 	#add_weapon_description(weapon)
@@ -88,11 +82,13 @@ func add_weapon_stats_scalings(weapon: Weapon) -> void:
 		"Attack Range": weapon.attack_range_scalings,
 		"Knockback": weapon.knockback_scalings,
 	}
-	text_label.append_text("[b]Weapon Scalings :[/b]")
-	text_label.newline()
-	for stat_scaling_name in stats_scalings :
-		text_label.append_text("%s - " % [stat_scaling_name])
-		for stat_scaling in stats_scalings[stat_scaling_name] :
-			text_label.append_text("%s" % [stat_scaling_name])
-			text_label.newline()
+	if stats_scalings.values().any(func(arr): return not arr.is_empty()) :
+		text_label.append_text("[b]Weapon Scalings :[/b]")
 		text_label.newline()
+		for stat_scaling_name in stats_scalings :
+			if stats_scalings[stat_scaling_name] != [] :
+				text_label.append_text("%s - " % [stat_scaling_name])
+				for stat_scaling in stats_scalings[stat_scaling_name] :
+					text_label.append_text("%s" % [stat_scaling_name])
+					text_label.newline()
+			text_label.newline()
