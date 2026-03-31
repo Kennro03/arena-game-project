@@ -24,4 +24,5 @@ item_id = "test_hammer"
 item_name = "Test Hammer"
 description = "A basic hammer used for testing"
 icon = ExtResource("2_5bmkb")
+value = 5
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

@@ -21,4 +21,5 @@ item_id = "test_sword"
 item_name = "TestSword"
 description = "A basic sword used for testing"
 icon = ExtResource("2_x4vtj")
+value = 5
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

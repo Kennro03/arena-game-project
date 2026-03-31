@@ -25,4 +25,5 @@ item_name = "Rare test Hammer"
 description = "A rare hammer used for testing"
 icon = ExtResource("2_wtolx")
 rarity = 2
+value = 15
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

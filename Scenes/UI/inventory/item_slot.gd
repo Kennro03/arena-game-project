@@ -23,14 +23,15 @@ func _on_mouse_entered() -> void:
 		return
 	if item is Weapon :
 		tooltip = weapon_tooltip_scene.instantiate()
-		add_child(tooltip)
+		self.add_child(tooltip)
 		tooltip.setup(item)
 	else : 
 		tooltip = item_tooltip_scene.instantiate()
-		add_child(tooltip)
+		self.add_child(tooltip)
 		tooltip.setup(item)
 
 func _on_mouse_exited() -> void:
+	print("Slot %s left" % [self.name])
 	if tooltip != null :
 		tooltip.queue_free()
 		tooltip = null

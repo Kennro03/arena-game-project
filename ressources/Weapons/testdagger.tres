@@ -23,4 +23,5 @@ item_id = "test_dagger"
 item_name = "Test Dagger"
 description = "A basic dagger used for testing"
 icon = ExtResource("2_26o8q")
+value = 5
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
