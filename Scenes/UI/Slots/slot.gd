@@ -1,6 +1,10 @@
 extends Panel
 class_name Slot
 
+const item_tooltip_scene := preload("res://Scenes/UI/Tooltips/item_tooltip.tscn")
+const weapon_tooltip_scene := preload("res://Scenes/UI/Tooltips/weapon_tooltip.tscn")
+const unit_tooltip_scene := preload("res://Scenes/UI/Tooltips/unit_tooltip.tscn")
+
 @onready var icon_sprite: Sprite2D = %SlotSprite
 @onready var border_sprite: Sprite2D = %SlotBorder
 

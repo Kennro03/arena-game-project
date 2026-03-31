@@ -15,3 +15,10 @@ func get_border() -> Texture2D:
 
 func _to_string() -> String:
 	return item.item_name if item else "empty"
+
+func _on_mouse_entered() -> void:
+	pass # Replace with function body.
+
+
+func _on_mouse_exited() -> void:
+	pass # Replace with function body.

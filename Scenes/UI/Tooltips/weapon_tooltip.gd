@@ -7,8 +7,10 @@ var test_dagger := preload("res://ressources/Weapons/testdagger.tres")
 func _ready() -> void:
 	super._ready()
 	text_label.text = ""
-	var stat_buff : StatBuff = StatBuff.new(Stats.BuffableStats.STRENGTH,5,StatBuff.BuffType.ADD) 
+	#var stat_buff : StatBuff = StatBuff.new(Stats.BuffableStats.STRENGTH,5,StatBuff.BuffType.ADD) 
+	#var stat_scaling : StatScaling = StatScaling.new(Stats.Attributes.DEXTERITY,StatScaling.ScalingType.LINEAR,1.0,1.0)
 	#test_dagger.statChanges.append(stat_buff)
+	#test_dagger.damage_scalings.append(stat_scaling)
 	setup(test_dagger)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,9 +20,10 @@ func _process(delta: float) -> void:
 func setup(weapon: Weapon) -> void:
 	add_weapon_name(weapon)
 	add_weapon_type(weapon)
-	add_weapon_description(weapon)
+	#add_weapon_description(weapon)
 	add_weapon_passives(weapon)
 	add_weapon_stats(weapon)
+	add_weapon_stats_scalings(weapon)
 	
 	pass
 
@@ -76,4 +79,20 @@ func add_weapon_passives(weapon: Weapon) -> void:
 		text_label.newline()
 	for passive in weapon.onHitPassives :
 		text_label.append_text("%s : %s" % [passive.onhit_passive_name,passive.onhit_passive_description])
+		text_label.newline()
+
+func add_weapon_stats_scalings(weapon: Weapon) -> void:
+	var stats_scalings := {
+		"Damage": weapon.damage_scalings,
+		"Attack Speed": weapon.attack_speed_scalings,
+		"Attack Range": weapon.attack_range_scalings,
+		"Knockback": weapon.knockback_scalings,
+	}
+	text_label.append_text("[b]Weapon Scalings :[/b]")
+	text_label.newline()
+	for stat_scaling_name in stats_scalings :
+		text_label.append_text("%s - " % [stat_scaling_name])
+		for stat_scaling in stats_scalings[stat_scaling_name] :
+			text_label.append_text("%s" % [stat_scaling_name])
+			text_label.newline()
 		text_label.newline()

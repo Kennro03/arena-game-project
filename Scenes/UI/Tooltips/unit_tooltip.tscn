@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cixf1hv3trhuv"]
+
+[ext_resource type="PackedScene" uid="uid://dl6uqqmn28cya" path="res://Scenes/UI/Tooltips/tooltip.tscn" id="1_0wcfd"]
+[ext_resource type="Script" uid="uid://qfy7dixp83ry" path="res://Scenes/UI/Tooltips/unit_tooltip.gd" id="2_p5ref"]
+
+[node name="UnitTooltip" unique_id=1274604875 instance=ExtResource("1_0wcfd")]
+script = ExtResource("2_p5ref")
