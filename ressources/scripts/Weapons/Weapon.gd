@@ -46,7 +46,6 @@ static var buffable_stat_icons : Dictionary = {
 @export var light_endlag :float = 0.15
 @export var heavy_endlag :float = 0.6
 
-
 var current_attack_speed : float
 var current_attack_range : float
 var current_damage: float
@@ -54,6 +53,9 @@ var current_knockback : float
 
 var weapon_stat_buffs: Array[WeaponStatBuff] = []
 var owner: Node2D
+
+func _init() -> void:
+	item_type = Item.ItemType.WEAPON
 
 func setup_stats() -> void :
 	if owner == null:

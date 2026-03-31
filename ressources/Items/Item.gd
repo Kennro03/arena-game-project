@@ -1,7 +1,7 @@
 extends Resource
 class_name Item
 
-enum ItemType { WEAPON, ARMOR, ACCESSORY, CONSUMABLE, ARTIFACT, QUEST, MISC }
+enum ItemType { WEAPON, MISC, ARMOR, ACCESSORY, CONSUMABLE, ARTIFACT, QUEST }
 enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, CURSED }
 
 @export_group("Item Data")

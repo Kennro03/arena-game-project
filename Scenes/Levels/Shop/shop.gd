@@ -3,6 +3,8 @@ class_name Shop
 
 const SHOP_SLOT_SCENE := preload("res://Scenes/Levels/Shop/shop_slot.tscn")
 
+@export var prototype_scene : StringName = &"" 
+
 @onready var items_row: HBoxContainer = %ItemsRow
 @onready var weapons_row: HBoxContainer = $Panel/MarginContainer/VBoxContainer/WeaponsSection/WeaponsRow
 @onready var refresh_button: Button = %RefreshButton
@@ -71,5 +73,10 @@ func load_weapon_list() -> void :
 	var dagger := preload("res://ressources/Weapons/testdagger.tres")
 	var sword := preload("res://ressources/Weapons/testsword.tres")
 	var hammer := preload("res://ressources/Weapons/testhammer.tres")
+	var uncommonsword := preload("res://ressources/Weapons/uncommontestsword.tres")
 	var rarehammer := preload("res://ressources/Weapons/raretesthammer.tres")
-	weapon_list = [dagger,sword,hammer,rarehammer]
+	weapon_list = [dagger,sword,hammer,uncommonsword,rarehammer]
+
+
+func _on_exit_shop_button_pressed() -> void:
+	SceneLoader.load_scene(prototype_scene)

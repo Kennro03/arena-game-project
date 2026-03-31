@@ -14,6 +14,7 @@ width = 32
 [node name="Prototype_Scene" type="Node2D" unique_id=1252659035]
 script = ExtResource("1_3a2rb")
 battle_scene = &"uid://32iwvd3dtseu"
+shop_scene = &"uid://n6ib3torqc3t"
 
 [node name="InventoryReserveManager" type="Node" parent="." unique_id=703109437]
 script = ExtResource("2_oi3tf")
@@ -97,3 +98,4 @@ grow_vertical = 2
 texture = SubResource("GradientTexture1D_po2h6")
 
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]
+[connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]

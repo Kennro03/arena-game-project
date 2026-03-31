@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dlhcap3ipacyj"]
+
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_46vrd"]
+[ext_resource type="Texture2D" uid="uid://b7lg7y6nura7b" path="res://ressources/Sprites/Icons/Items/Weapons/TestSword_Icon.png" id="2_dbio8"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_mtd1r"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="4_xttin"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="5_cymao"]
+
+[resource]
+script = ExtResource("4_xttin")
+weaponCategory = 1
+weaponType = 2
+base_attack_speed = 1.05
+base_attack_range = 115.0
+base_damage = 16.0
+attackTypes = {
+0: 8,
+1: 6
+}
+item_id = "uncommon_test_sword"
+item_name = "TestSword"
+description = "A basic sword used for testing"
+icon = ExtResource("2_dbio8")
+rarity = 1
+value = 10
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
