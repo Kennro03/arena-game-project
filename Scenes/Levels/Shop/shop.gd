@@ -20,10 +20,8 @@ var weapon_list : Array[Weapon] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	clear_items()
-	clear_weapons()
-	load_weapon_list()
-	fill_weapons()
+	refresh_button.text = "Refresh (%dg)" % [refresh_cost]
+	refresh_shop()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,11 +31,18 @@ func _process(delta: float) -> void:
 func _on_refresh_button_pressed() -> void:
 	if Player.gold >= refresh_cost :
 		refresh_shop()
+		Player.gold -= refresh_cost
+		refresh_cost += refresh_cost_increment
+		refresh_button.text = "Refresh (%dg)" % [refresh_cost]
+		
 	else : 
 		pass #add little warning animation
 
 func refresh_shop()-> void:
-	pass
+	clear_items()
+	clear_weapons()
+	load_weapon_list()
+	fill_weapons()
 
 func clear_items() -> void :
 	for c in items_row.get_children() :

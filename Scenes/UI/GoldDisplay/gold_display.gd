@@ -11,6 +11,5 @@ func update_display(new_value:int)->void:
 func _on_gain_gold_button_pressed() -> void:
 	Player.gold += 10
 
-
 func _on_lose_gold_button_pressed() -> void:
 	Player.gold -= 10
