@@ -16,7 +16,7 @@ func _ready() -> void:
 	Events.item_removed.connect(func(_item): fill_slots_with_player_inventory())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func clear_inventory() -> void:

@@ -11,7 +11,6 @@ func _process(delta: float) -> void:
 	super._process(delta)
 
 func setup(weapon: Weapon) -> void:
-	print("Setting up weapon : " + str(weapon.item_name))
 	add_weapon_name(weapon)
 	add_weapon_type(weapon)
 	#add_weapon_description(weapon)

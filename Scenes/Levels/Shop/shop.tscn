@@ -1,11 +1,18 @@
 [gd_scene format=3 uid="uid://n6ib3torqc3t"]
 
 [ext_resource type="Script" uid="uid://3w1kvqjscmgf" path="res://Scenes/Levels/Shop/shop.gd" id="1_k1r4k"]
-[ext_resource type="PackedScene" uid="uid://4r817bx6l281" path="res://Scenes/Levels/Shop/shop_slot.tscn" id="2_ygl7r"]
-[ext_resource type="Resource" uid="uid://dal5rgfowl103" path="res://ressources/Weapons/testdagger.tres" id="3_ygl7r"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="4_ntui6"]
+[ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="5_0hnpw"]
 
-[node name="Shop" type="Control" unique_id=2102212196]
+[node name="Node2D" type="Node2D" unique_id=205335097]
+
+[node name="InventoryReserveManager" type="Node" parent="." unique_id=688751289]
+script = ExtResource("5_0hnpw")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=788694377]
+unique_name_in_owner = true
+
+[node name="Shop" type="Control" parent="UI" unique_id=2102212196]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +24,7 @@ mouse_filter = 2
 script = ExtResource("1_k1r4k")
 prototype_scene = &"uid://hlb8w8j5gs7u"
 
-[node name="Panel" type="Panel" parent="." unique_id=943147749]
+[node name="Panel" type="Panel" parent="UI/Shop" unique_id=943147749]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -32,7 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1415304314]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Shop/Panel" unique_id=1415304314]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,120 +52,83 @@ theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=200167152]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Shop/Panel/MarginContainer" unique_id=200167152]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="Label" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1368741022]
+[node name="Label" type="HBoxContainer" parent="UI/Shop/Panel/MarginContainer/VBoxContainer" unique_id=1368741022]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Label" unique_id=95624315]
+[node name="Label" type="Label" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/Label" unique_id=95624315]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "SHoP!!!"
 
-[node name="ItemsSection" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=498025502]
+[node name="ItemsSection" type="VBoxContainer" parent="UI/Shop/Panel/MarginContainer/VBoxContainer" unique_id=498025502]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/ItemsSection" unique_id=1890452664]
+[node name="Label2" type="HBoxContainer" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/ItemsSection" unique_id=1890452664]
 layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/ItemsSection/Label2" unique_id=688786996]
+[node name="Label" type="Label" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/ItemsSection/Label2" unique_id=688786996]
 layout_mode = 2
 text = "items"
 
-[node name="ItemsRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/ItemsSection" unique_id=962713057]
+[node name="ItemsRow" type="HBoxContainer" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/ItemsSection" unique_id=962713057]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="ShopSlot" parent="Panel/MarginContainer/VBoxContainer/ItemsSection/ItemsRow" unique_id=62567015 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="ShopSlot5" parent="Panel/MarginContainer/VBoxContainer/ItemsSection/ItemsRow" unique_id=1269412071 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="ShopSlot2" parent="Panel/MarginContainer/VBoxContainer/ItemsSection/ItemsRow" unique_id=171028388 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="ShopSlot3" parent="Panel/MarginContainer/VBoxContainer/ItemsSection/ItemsRow" unique_id=1695211301 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="ShopSlot4" parent="Panel/MarginContainer/VBoxContainer/ItemsSection/ItemsRow" unique_id=1950082562 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="WeaponsSection" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=498019511]
+[node name="WeaponsSection" type="VBoxContainer" parent="UI/Shop/Panel/MarginContainer/VBoxContainer" unique_id=498019511]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/WeaponsSection" unique_id=184168702]
+[node name="Label2" type="HBoxContainer" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/WeaponsSection" unique_id=184168702]
 layout_mode = 2
 size_flags_horizontal = 4
 alignment = 1
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/WeaponsSection/Label2" unique_id=1068807283]
+[node name="Label" type="Label" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/WeaponsSection/Label2" unique_id=1068807283]
 layout_mode = 2
 text = "Weapons"
 
-[node name="WeaponsRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/WeaponsSection" unique_id=1206230712]
+[node name="WeaponsRow" type="HBoxContainer" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/WeaponsSection" unique_id=1206230712]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="ShopSlot4" parent="Panel/MarginContainer/VBoxContainer/WeaponsSection/WeaponsRow" unique_id=1175042618 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="ShopSlot8" parent="Panel/MarginContainer/VBoxContainer/WeaponsSection/WeaponsRow" unique_id=124525824 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="ShopSlot5" parent="Panel/MarginContainer/VBoxContainer/WeaponsSection/WeaponsRow" unique_id=402211274 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="ShopSlot6" parent="Panel/MarginContainer/VBoxContainer/WeaponsSection/WeaponsRow" unique_id=1710681642 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="ShopSlot7" parent="Panel/MarginContainer/VBoxContainer/WeaponsSection/WeaponsRow" unique_id=588249366 instance=ExtResource("2_ygl7r")]
-layout_mode = 2
-item = ExtResource("3_ygl7r")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=2050125741]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Shop/Panel/MarginContainer/VBoxContainer" unique_id=2050125741]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="RefreshButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1318308334]
+[node name="RefreshButton" type="Button" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1318308334]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 8
 text = "Refresh (...g)"
 
-[node name="ExitShopButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=733083961]
+[node name="ExitShopButton" type="Button" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=733083961]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 8
 text = "Exit shop"
 
-[node name="GoldDisplay" parent="." unique_id=148004886 instance=ExtResource("4_ntui6")]
+[node name="GoldDisplay" parent="UI/Shop" unique_id=148004886 instance=ExtResource("4_ntui6")]
 layout_mode = 0
 
-[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
-[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/ExitShopButton" to="." method="_on_exit_shop_button_pressed"]
+[node name="Background" type="CanvasLayer" parent="." unique_id=534923900]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="UI/Shop/Panel/MarginContainer/VBoxContainer/HBoxContainer/RefreshButton" to="UI/Shop" method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="UI/Shop/Panel/MarginContainer/VBoxContainer/HBoxContainer/ExitShopButton" to="UI/Shop" method="_on_exit_shop_button_pressed"]

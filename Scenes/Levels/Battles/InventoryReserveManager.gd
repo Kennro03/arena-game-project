@@ -9,14 +9,14 @@ const reserve_scene : PackedScene = preload("res://Scenes/UI/reserve/reserve.tsc
 var inventory_instance
 var reserve_instance
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Inventory") :
 		inventory_instance = toggle_scene_instance(inventory_scene,inventory_instance)
 	if Input.is_action_just_pressed("Reserve") :
 		reserve_instance = toggle_scene_instance(reserve_scene,reserve_instance)
 
 func toggle_scene_instance(scene : PackedScene, instance) -> Node :
-	var ui_children := ui.get_children()
+	var _ui_children := ui.get_children()
 	if is_instance_valid(instance) :
 		instance.queue_free()
 		instance = null

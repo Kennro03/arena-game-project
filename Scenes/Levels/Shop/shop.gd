@@ -27,7 +27,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _on_refresh_button_pressed() -> void:
@@ -42,16 +42,20 @@ func _on_refresh_button_pressed() -> void:
 
 func refresh_shop()-> void:
 	clear_items()
+	#load_item_list()
+	#fill_items()
 	clear_weapons()
 	load_weapon_list()
 	fill_weapons()
 
 func clear_items() -> void :
 	for c in items_row.get_children() :
+		c.disconnect("slot_clicked",purchase_from_slot)
 		c.queue_free()
 
 func clear_weapons() -> void :
 	for c in weapons_row.get_children() :
+		c.disconnect("slot_clicked",purchase_from_slot)
 		c.queue_free()
 
 func fill_items() -> void :
@@ -68,6 +72,7 @@ func fill_weapons() -> void :
 		var new_slot : ShopSlot = SHOP_SLOT_SCENE.instantiate()
 		weapons_row.add_child(new_slot)
 		new_slot.set_item(wep)
+		new_slot.connect("slot_clicked",purchase_from_slot.unbind(1))
 
 func load_weapon_list() -> void :
 	var dagger := preload("res://ressources/Weapons/testdagger.tres")
@@ -77,6 +82,14 @@ func load_weapon_list() -> void :
 	var rarehammer := preload("res://ressources/Weapons/raretesthammer.tres")
 	weapon_list = [dagger,sword,hammer,uncommonsword,rarehammer]
 
-
 func _on_exit_shop_button_pressed() -> void:
 	SceneLoader.load_scene(prototype_scene)
+
+func purchase_from_slot(slot:ShopSlot) -> void:
+	if slot.cost <= Player.gold :
+		Player.gold -= slot.cost
+		Player.add_to_inventory(slot.item)
+		#animation to grey out the slot, and make it unavailable for future purchase
+	else : 
+		#animation to shake the slot
+		pass 

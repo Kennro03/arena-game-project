@@ -5,6 +5,8 @@ class_name ShopSlot
 
 @export var cost: int : set = _on_cost_changed
 
+var inside_slot : bool = false
+
 func _ready() -> void:
 	super._ready()
 	if item :

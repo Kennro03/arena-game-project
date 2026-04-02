@@ -18,7 +18,8 @@ func _to_string() -> String:
 	return item.item_name if item else "empty"
 
 func _on_mouse_entered() -> void:
-	print("Slot %s Entered" % [self.name])
+	super._on_mouse_entered()
+	#print("Slot %s Entered" % [self.name])
 	if item == null :
 		return
 	if item is Weapon :
@@ -31,7 +32,8 @@ func _on_mouse_entered() -> void:
 		tooltip.setup(item)
 
 func _on_mouse_exited() -> void:
-	print("Slot %s left" % [self.name])
+	super._on_mouse_exited()
+	#print("Slot %s left" % [self.name])
 	if tooltip != null :
 		tooltip.queue_free()
 		tooltip = null

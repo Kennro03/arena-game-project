@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://3qktshcvrvx7" path="res://Scenes/Levels/Shop/shop_slot.gd" id="1_aj0y4"]
 
 [node name="ShopSlot" unique_id=62567015 instance=ExtResource("1_757q7")]
+mouse_filter = 1
 script = ExtResource("1_aj0y4")
 cost = 0
 
@@ -24,6 +25,8 @@ mouse_filter = 1
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.29411766)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 8
-text = "Xg"
+text = "...g"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[connection signal="slot_clicked" from="." to="." method="_on_slot_clicked"]

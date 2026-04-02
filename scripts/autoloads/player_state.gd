@@ -48,7 +48,7 @@ func add_to_reserve(unit: UnitData) -> void:
 
 func add_to_inventory(item: Item) -> void:
 	inventory.append(item)
-	Events.item_gained.emit(item)
+	Events.item_added.emit(item)
 
 func remove_from_inventory(item: Item) -> void:
 	if not item in inventory :
