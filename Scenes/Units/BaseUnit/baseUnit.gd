@@ -34,6 +34,10 @@ signal unit_died(unit: BaseUnit)
 @export var stats : Stats = Stats.new()
 @export var weapon : Weapon = null
 @export var default_weapon : Weapon = null
+@export var armor : Armor = null
+@export var accessory_limit : int = 0
+@export var accessories : Array[Accessory] = []
+
 
 var summoner : BaseUnit = null  
 var is_action_locked := false
@@ -307,7 +311,7 @@ func apply_data(data: UnitData) -> void:
 	
 	self.stats = data.stats
 	self.stats.setup_stats()
-	equip_weapon(data.weapon) 
+	equip(data.weapon) 
 	#skillModule.skill_list = data.skill_list
 
 func die() -> void:
@@ -318,9 +322,20 @@ func die() -> void:
 func ensure_weapon() -> void:
 	if weapon == null :
 		if default_weapon != null :
-			equip_weapon(default_weapon.duplicate(true))
+			equip(default_weapon.duplicate(true))
 		else : 
 			printerr("No weapon and no default_weapon set for " + str(self))
+
+func equip(_item: Item = null) -> void:
+	match _item.get_script().get_global_name() :
+		"Weapon" :
+			equip_weapon(_item)
+		"Armor" :
+			equip_armor(_item)
+		"Accessory" :
+			equip_accessory(_item)
+		_:
+			printerr("Could not find item's %s item class ! class = %s" % [_item.item_name,_item.get_script().get_global_name()])
 
 func equip_weapon(_wep : Weapon = null) -> void:
 	#print("Equipping weapon : " + str(_wep.weaponName))
@@ -342,6 +357,31 @@ func equip_weapon(_wep : Weapon = null) -> void:
 		$SpriteModule.update_spritesheet.call_deferred()
 		stats.changed.connect(weapon._on_owner_stats_change)
 		weapon.attack_performed.connect(_on_weapon_attack)
+
+func equip_armor(_arm : Armor = null) -> void:
+	#print("Equipping armor : " + str(_arm.weaponName))
+	if _arm == null:
+		return
+	
+	if armor :
+		armor.remove_owner_buffs(stats)
+	
+	armor = _arm.duplicate(true)
+	armor.owner = self
+	armor.apply_owner_buffs(stats)
+
+func equip_accessory(_acc : Accessory = null) -> void:
+	#print("Equipping armor : " + str(_arm.weaponName))
+	if _acc == null:
+		return
+	
+	#if accessories.has(_acc) :
+	#	accessories[_acc].remove_owner_buffs(stats)
+	
+	#armor = _acc.duplicate(true)
+	#armor.owner = self
+	#armor.apply_owner_buffs(stats)
+
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
 	#print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
