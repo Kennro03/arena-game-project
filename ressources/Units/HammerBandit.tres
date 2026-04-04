@@ -4,12 +4,9 @@
 [ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Weapons/testhammer.tres" id="1_meg0n"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="2_eueq3"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="3_hi4y6"]
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_qbx3c"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="5_aueru"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="6_b2l36"]
-[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="7_qbx3c"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="8_aueru"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="9_b2l36"]
 
 [sub_resource type="Resource" id="Resource_eueq3"]
 script = ExtResource("5_aueru")

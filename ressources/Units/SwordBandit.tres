@@ -4,12 +4,9 @@
 [ext_resource type="Resource" uid="uid://cpnr5mpvtakmp" path="res://ressources/Weapons/testsword.tres" id="1_ji5ce"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://ressources/Items/Accesssory.gd" id="1_nbici"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="2_m66i2"]
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="3_mq7t4"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="4_ji5ce"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="5_nbici"]
-[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="7_ji5ce"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="8_nbici"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="9_ptmw5"]
 
 [sub_resource type="Resource" id="Resource_ep224"]
 script = ExtResource("4_ji5ce")
