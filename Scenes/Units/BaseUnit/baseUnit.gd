@@ -1,5 +1,6 @@
 extends Node2D
 class_name BaseUnit
+
 signal hit_received(hit_data: HitData)
 signal unit_clicked(unit: BaseUnit)
 signal unit_died(unit: BaseUnit)

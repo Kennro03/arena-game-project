@@ -19,6 +19,9 @@ var unit_scene : PackedScene = preload("res://Scenes/Units/BaseUnit/BaseUnit.tsc
 @export var skill_list : Array[Skill] = []
 @export var weapon : Weapon = null
 @export var default_weapon : Weapon = null
+@export var armor : Armor = null
+@export var accessory_limit : int = 0
+@export var accessories : Array[Accessory] = []
 
 ## Testing / variation metadata
 @export var random_seed: int = 0
