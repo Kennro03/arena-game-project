@@ -53,7 +53,7 @@ func spawn_units() ->void :
 
 func start_fight() ->void : 
 	if state == LevelState.SPAWNING :
-		print("Allies : " + str(players_alive) + "\nEnnemies : " + str(enemies_alive))
+		#print("Allies : " + str(players_alive) + "\nEnnemies : " + str(enemies_alive))
 		print("Starting fight...")
 		state = LevelState.FIGHTING
 		emit_signal("BeginEncounter")
@@ -71,7 +71,7 @@ func _spawn_player_units() -> void:
 			selection_manager.register_unit(unit)
 
 func _spawn_enemy_units() -> void:
-	print("Spawning enemy units...")
+	#print("Spawning enemy units...")
 	enemy_units = _generate_enemy_list()
 	
 	for enemy_data in enemy_units:
@@ -92,7 +92,7 @@ func _generate_enemy_list() -> Array[EnemyData]:
 		printerr("No forced enemies and enemy pool to pull from !")
 		return []
 	
-	print("getting cost of forced ennemies")
+	#print("getting cost of forced ennemies")
 	for forced_enemy in enemies_array :
 		budget-= forced_enemy.get_cost()
 	
@@ -101,15 +101,15 @@ func _generate_enemy_list() -> Array[EnemyData]:
 	while budget > 0 and attempts < max_attempts :
 		
 		var affordable : Array[EnemyData] = pool.filter(func(e): return e.base_cost <= budget)
-		print("Attempt n°" + str(attempts) + ", affordable enemies : " + str(affordable))
+		#print("Attempt n°" + str(attempts) + ", affordable enemies : " + str(affordable))
 		if affordable.is_empty() : 
-			print("No affordable ennemies, exiting loop.")
+			#print("No affordable ennemies, exiting loop.")
 			attempts += max_attempts
 		else : 
 			var candidate: EnemyData = affordable.pick_random()
-			print("Selected candidate : " + str(candidate.unit_data.display_name))
+			#print("Selected candidate : " + str(candidate.unit_data.display_name))
 			#var modified := candidate.with_random_modifiers(randi() % level_data.max_enemy_modifiers + 1) as EnemyData
-			print("getting final cost")
+			#print("getting final cost")
 			var final_cost : float = candidate.get_cost()
 			if final_cost <= budget:
 				enemies_array.append(candidate)

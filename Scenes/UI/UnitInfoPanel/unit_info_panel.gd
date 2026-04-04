@@ -25,6 +25,7 @@ var status_effect_row : PackedScene = preload("res://Scenes/UI/UnitInfoPanel/sta
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if unit == null :
+		printerr("No unit provided to UnitInfoPanel ! Give it one before spawning.")
 		return
 	set_unit.call_deferred(unit)
 	

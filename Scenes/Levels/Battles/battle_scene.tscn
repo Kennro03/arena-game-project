@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="1_jgp7d"]
 [ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Battles/battle_manager.gd" id="1_qxkfb"]
 [ext_resource type="Resource" uid="uid://sshw11e24ays" path="res://Scenes/Levels/Battles/test_level/TestLevelData.tres" id="2_57vkc"]
+[ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/inspection_manager.gd" id="3_qpo3t"]
 [ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://ressources/scripts/Units/UnitData.gd" id="4_w3d5s"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_0xk5e"]
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="5_qeo1e"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://ressources/Items/Accesssory.gd" id="6_hvyff"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="6_jgp7d"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="7_hvyff"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="8_qpo3t"]
@@ -311,6 +313,10 @@ script = ExtResource("1_jgp7d")
 unique_name_in_owner = true
 script = ExtResource("5_qeo1e")
 
+[node name="InspectionManager" type="Node" parent="." unique_id=543603997 node_paths=PackedStringArray("ui_root")]
+script = ExtResource("3_qpo3t")
+ui_root = NodePath("../UI/EncounterUI")
+
 [node name="BattleManager" type="Node" parent="." unique_id=1861640648 node_paths=PackedStringArray("spawner")]
 script = ExtResource("1_qxkfb")
 spawner = NodePath("Spawner")
@@ -360,8 +366,10 @@ unique_name_in_owner = true
 [node name="UI" type="CanvasLayer" parent="." unique_id=2001671820]
 unique_name_in_owner = true
 
-[node name="EncounterUI" parent="UI" unique_id=307533690 instance=ExtResource("19_c652g")]
+[node name="EncounterUI" parent="UI" unique_id=307533690 node_paths=PackedStringArray("selection_manager", "ui_root") instance=ExtResource("19_c652g")]
 unique_name_in_owner = true
+selection_manager = NodePath("../../SelectionManager")
+ui_root = NodePath("..")
 
 [connection signal="mouse_entered" from="SpawnZones/NeutralZone" to="BattleManager/Spawner" method="_on_neutral_zone_mouse_entered"]
 [connection signal="mouse_exited" from="SpawnZones/NeutralZone" to="BattleManager/Spawner" method="_on_neutral_zone_mouse_exited"]
