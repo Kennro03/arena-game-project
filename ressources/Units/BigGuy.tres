@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://ciep7c7clyrq2"]
 
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="1_8c5qt"]
-[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://ressources/Items/Accesssory.gd" id="2_3epot"]
-[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="2_s2dnq"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="2_3epot"]
+[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="2_s2dnq"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="3_5mu1x"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_j68s8"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="6_8qaf5"]
-[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Weapons/testhammer.tres" id="7_621hb"]
+[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testhammer.tres" id="7_621hb"]
 
 [sub_resource type="Resource" id="Resource_oloho"]
 script = ExtResource("6_8qaf5")
@@ -26,8 +26,6 @@ base_flat_block_power = null
 base_percent_block_power = null
 base_crit_chance = null
 base_crit_damage = null
-base_flat_damage_taken = null
-base_percent_damage_taken = null
 experience = null
 max_health_scalings = null
 health_regen_scalings = null

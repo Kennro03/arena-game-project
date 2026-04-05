@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c8qwxekpq23e3" path="res://Scenes/Units/BaseUnit/BaseUnit.tscn" id="1_5bx5w"]
 [ext_resource type="Script" uid="uid://bkvp5ngp40teo" path="res://Scenes/Units/Stickman/stickman.gd" id="2_j5rhf"]
-[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Weapons/fists.tres" id="3_0tgqw"]
+[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="3_0tgqw"]
 [ext_resource type="Texture2D" uid="uid://b21tep713spbo" path="res://ressources/Sprites/Units/Stickman/UnarmedStickman.png" id="3_5bx5w"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="3_p13pb"]
 [ext_resource type="Script" uid="uid://dchw8cs1125p4" path="res://Scenes/Units/Stickman/sprite_module.gd" id="4_5gf63"]

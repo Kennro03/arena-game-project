@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_f63d0"]
 [ext_resource type="Texture2D" uid="uid://c1vlut6hc1sd8" path="res://ressources/Sprites/Icons/Items/Weapons/TestHammer_Icon.png" id="2_wtolx"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_brdei"]
-[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="4_qsd5e"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_qsd5e"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="5_b7emw"]
 
 [resource]

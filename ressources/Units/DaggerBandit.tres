@@ -1,14 +1,13 @@
 [gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://d4fvbe67ufh8v"]
 
-[ext_resource type="Resource" uid="uid://dal5rgfowl103" path="res://ressources/Weapons/testdagger.tres" id="1_1xb20"]
-[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://ressources/Items/Accesssory.gd" id="1_w678u"]
+[ext_resource type="Resource" uid="uid://dal5rgfowl103" path="res://ressources/Items/Weapons/testdagger.tres" id="1_1xb20"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_w678u"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="2_46pw2"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="3_hvujw"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="5_w678u"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="6_4hhb4"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="7_w678u"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="8_4hhb4"]
-[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="8_w678u"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="10_8wlfk"]
 
 [sub_resource type="Resource" id="Resource_1xb20"]
@@ -29,8 +28,6 @@ base_flat_block_power = null
 base_percent_block_power = null
 base_crit_chance = null
 base_crit_damage = null
-base_flat_damage_taken = null
-base_percent_damage_taken = null
 experience = null
 max_health_scalings = null
 health_regen_scalings = null
@@ -44,8 +41,214 @@ crit_chance_scalings = null
 crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
+[sub_resource type="GDScript" id="GDScript_hvyff"]
+script/source = "extends Item
+class_name Weapon
+
+signal attack_performed(attack_type:AttackTypeEnum, endlag: float)
+
+enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
+enum WeaponTypeEnum { UNARMED, DAGGER, SWORD, HAMMER, STAFF }
+enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK}
+enum BuffableStats {
+	ATTACK_SPEED,
+	ATTACK_RANGE,
+	DAMAGE,
+	KNOCKBACK,
+}
+static var buffable_stat_icons : Dictionary = {
+	BuffableStats.DAMAGE: preload(\"uid://br85td3jaqel7\"),
+	BuffableStats.ATTACK_SPEED: preload(\"uid://w6i0f1b7rffo\"),
+	BuffableStats.ATTACK_RANGE: preload(\"uid://d0tjxydbev5m4\"),
+	BuffableStats.KNOCKBACK: preload(\"uid://brfm5e6515tqd\"),
+}
+
+@export_group(\"Weapon data\")
+@export var weaponCategory : WeaponCategoryEnum
+@export var weaponType : WeaponTypeEnum
+
+@export_subgroup(\"Base weapon Stats\",\"base_\")
+@export var base_attack_speed : float = 1.0
+@export var base_attack_range : float = 100.0
+@export var base_damage: float = 5.0
+@export var base_knockback : float = 50.0
+
+@export_subgroup(\"Passives\")
+@export var statChanges : Array[StatBuff] = []
+@export var onHitPassives : Array[OnHitPassive] = []
+
+@export_subgroup(\"Scalings\")
+@export var attack_speed_scalings : Array[StatScaling] = []
+@export var attack_range_scalings : Array[StatScaling] = []
+@export var damage_scalings : Array[StatScaling] = []
+@export var knockback_scalings : Array[StatScaling] = []
+
+@export_subgroup(\"Attack_types\")
+@export var attackTypes : Dictionary = {
+	AttackTypeEnum.LIGHTATTACK : 8,
+	AttackTypeEnum.HEAVYATTACK : 2,}
+@export var light_endlag :float = 0.15
+@export var heavy_endlag :float = 0.6
+
+var current_attack_speed : float
+var current_attack_range : float
+var current_damage: float
+var current_knockback : float
+
+var weapon_stat_buffs: Array[WeaponStatBuff] = []
+var owner: Node2D
+
+func _init() -> void:
+	item_type = Item.ItemType.WEAPON
+
+func setup_stats() -> void :
+	if owner == null:
+		printerr(\"No owner!\")
+		return
+	recalculate_stats() 
+
+func setup_base_stats_from_dict(dict : Dictionary) -> void : 
+	base_attack_speed = dict.get(\"attack_speed\",base_attack_speed)
+	base_attack_range = dict.get(\"attack_range\",base_attack_range)
+	base_damage = dict.get(\"damage\",base_damage)
+	base_knockback = dict.get(\"knockback\",base_knockback)
+	recalculate_stats()
+
+func add_weapon_buff(buff: WeaponStatBuff) -> void :
+	if buff in weapon_stat_buffs:
+		return
+	weapon_stat_buffs.append(buff)
+	recalculate_stats.call_deferred()
+
+func remove_weapon_buff(buff: WeaponStatBuff) -> void :
+	weapon_stat_buffs.erase(buff)
+	recalculate_stats.call_deferred()
+
+func clear_weapon_buffs() -> void:
+	weapon_stat_buffs.clear()
+	recalculate_stats()
+
+func _on_owner_stats_change() -> void:
+	recalculate_stats()
+
+func apply_owner_buffs(stats: Stats):
+	for buff in statChanges:
+		stats.add_buff(buff)
+
+func remove_owner_buffs(stats: Stats):
+	for buff in statChanges:
+		stats.remove_buff(buff)
+
+func recalculate_stats() -> void :
+	reset_current_stats()
+	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
+	var stat_addends: Dictionary = {} #Amount to add to included stats
+	
+	#Stat scaling logic
+	for scaling in attack_range_scalings : 
+		current_attack_range += scaling.compute(owner.stats)
+	for scaling in attack_speed_scalings : 
+		current_attack_speed += scaling.compute(owner.stats)
+	for scaling in damage_scalings : 
+		current_damage += scaling.compute(owner.stats)
+	for scaling in knockback_scalings : 
+		current_knockback += scaling.compute(owner.stats)
+	
+	#Weapon buffs
+	for buff in weapon_stat_buffs :
+		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
+		match buff.buff_type:
+			WeaponStatBuff.BuffType.ADD:
+				if not stat_addends.has(stat_name):
+					stat_addends[stat_name] = 0.0
+				stat_addends[stat_name] += buff.buff_amount
+			
+			WeaponStatBuff.BuffType.MULTIPLY:
+				if not stat_multipliers.has(stat_name):
+					stat_multipliers[stat_name] = 1.0
+				stat_multipliers[stat_name] *= buff.buff_amount
+				
+				if stat_multipliers[stat_name] < 0.0:
+					stat_multipliers[stat_name] = 0.0
+	
+	for stat_name in stat_multipliers:
+		var cur_property_name : String = str(\"current_\" + stat_name)
+		set(cur_property_name, get(cur_property_name) * stat_multipliers[stat_name])
+	
+	for stat_name in stat_addends:
+		var cur_property_name : String = str(\"current_\" + stat_name)
+		set(cur_property_name, get(cur_property_name) + stat_addends[stat_name])
+
+func reset_current_stats() -> void:
+	current_attack_range = base_attack_range
+	current_attack_speed = base_attack_speed
+	current_damage = base_damage
+	current_knockback = base_knockback
+
+func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTATTACK) -> AttackTypeEnum :
+	var totalWeights : float = 0
+	var accumulatedweight : int = 0
+	for weight in _weightedDict.values():
+		totalWeights += weight
+	
+	if totalWeights <= 0:
+		printerr(\"Returned fallback in generating item.\")
+		return fallback
+	
+	#If no key made chosen error appears, error may come from here
+	var randomWeight : float = randi_range(1, int(totalWeights)) 
+	
+	## Pick a random item based on the random weight
+	for key in _weightedDict: 
+		var w : int = _weightedDict[key]
+		if w <= 0 :
+			continue
+		accumulatedweight += w
+		if randomWeight <= accumulatedweight:
+			return key
+	printerr(\"NO KEY MADE CHOSEN\")
+	return fallback
+
+func lightHit(target:Node2D, _hit: HitData)-> void:
+	#print(weaponName + \" used light hit\")
+	#On hit passive and hediff effects are applied here
+	if target.has_method(\"resolve_hit\") :
+		target.resolve_hit(_hit)
+	attack_performed.emit(AttackTypeEnum.LIGHTATTACK, light_endlag)
+
+func heavyHit(target:Node2D, _hit: HitData)-> void:
+	_hit.base_damage *= 1.2
+	_hit.knockback_force *= 3.0
+	#print(weaponName + \" used heavy hit\")
+	#On hit passive and hediff effects are applied here
+	
+	if target.has_method(\"resolve_hit\") :
+		target.resolve_hit(_hit)
+	attack_performed.emit(AttackTypeEnum.HEAVYATTACK, heavy_endlag)
+
+func hit(target:Node2D, _hit: HitData)-> void:
+	if owner == null:
+		printerr(\"No owner ! Voiding hit\")
+		return
+	
+	var attack : AttackTypeEnum = generate_item(attackTypes)
+	_hit.attack_type = attack
+	_hit.base_damage = current_damage
+	_hit.knockback_force = current_knockback
+	
+	if _hit.is_critical :
+		_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
+	
+	#print (\"Generated item : \" + str(attack))
+	match attack :
+		AttackTypeEnum.LIGHTATTACK:
+			lightHit(target, _hit)
+		AttackTypeEnum.HEAVYATTACK:
+			heavyHit(target, _hit)
+"
+
 [sub_resource type="Resource" id="Resource_8wlfk"]
-script = ExtResource("8_w678u")
+script = SubResource("GDScript_hvyff")
 weaponType = 1
 base_attack_speed = 1.1
 base_attack_range = 90.0

@@ -16,3 +16,17 @@ func _init(_stat: Stats.BuffableStats = Stats.BuffableStats.MAX_HEALTH,
 	stat = _stat
 	buff_type = _buff_type
 	buff_amount = _buff_amount
+
+static func random_flat_attribute_buff(min_amount: int = 1, max_amount: int = 15) -> StatBuff:
+	return StatBuff.new(
+		Stats.Attributes.values().pick_random(),
+		randi_range(min_amount, max_amount),
+		StatBuff.BuffType.ADD
+	)
+
+static func random_multiplier_stat_buff(min_amount: float = 0.1, max_amount: float = 0.3) -> StatBuff:
+	return StatBuff.new(
+		Stats.BuffableStats.values().pick_random(),
+		randf_range(min_amount, max_amount),
+		StatBuff.BuffType.MULTIPLY
+	)

@@ -45,6 +45,9 @@ folder_colors={
 "res://Scenes/UI/": "green",
 "res://Scenes/Units/": "teal",
 "res://ressources/": "green",
+"res://ressources/Items/Accessories/": "teal",
+"res://ressources/Items/Armors/": "blue",
+"res://ressources/Items/Weapons/": "red",
 "res://ressources/OnHit_Passives/": "teal",
 "res://ressources/SkillEffects/": "orange",
 "res://ressources/Sprites/Icons/": "yellow",
@@ -53,9 +56,7 @@ folder_colors={
 "res://ressources/Status_Effects/": "yellow",
 "res://ressources/Status_Effects/Statuses/": "red",
 "res://ressources/Units/": "teal",
-"res://ressources/Weapons/": "red",
 "res://ressources/scripts/": "purple",
-"res://ressources/scripts/Weapons/": "red",
 "res://scripts/": "purple"
 }
 
