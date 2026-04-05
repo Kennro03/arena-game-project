@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/Stickman/stickman_sprite.gd" id="6_fot73"]
 [ext_resource type="Script" uid="uid://5r2u3nk0unia" path="res://Scenes/Units/BaseUnit/particle_module.gd" id="8_8w8nr"]
 [ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="9_ilac3"]
-[ext_resource type="Script" uid="uid://cti6dobwwux2e" path="res://ressources/Status_Effects/StatusEffectModule.gd" id="10_omahv"]
+[ext_resource type="Script" uid="uid://cti6dobwwux2e" path="res://scripts/Status_Effects/StatusEffectModule.gd" id="10_omahv"]
 [ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="11_wug4w"]
 [ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="12_iql0a"]
 [ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="13_03u68"]

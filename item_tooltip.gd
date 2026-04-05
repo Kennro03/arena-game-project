@@ -1,7 +1,7 @@
 extends Tooltip
 class_name ItemToolTip
 
-var test_dagger := preload("res://ressources/Weapons/testdagger.tres")
+var test_dagger := preload("uid://dal5rgfowl103")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

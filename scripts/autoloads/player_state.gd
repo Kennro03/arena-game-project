@@ -31,7 +31,7 @@ var run_modifiers: Array = [] # To implement : persistent effects on the run
 var run_seed: int = 0
 var run_number: int = 0
 
-@onready var testing_knife : Weapon = preload("res://ressources/Weapons/testdagger.tres")
+@onready var testing_knife : Weapon = preload("uid://dal5rgfowl103")
 @onready var testing_pablo : UnitData = preload("res://ressources/Units/Pablo.tres")
 
 func _ready() -> void:

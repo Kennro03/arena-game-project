@@ -32,7 +32,6 @@ display_name = "Stickman"
 description = "A regular stickman."
 sprite_color = Color(0, 0, 0.7764706, 1)
 stats = SubResource("Resource_07882")
-weapon = ExtResource("3_0tgqw")
 default_weapon = ExtResource("3_0tgqw")
 
 [node name="CollisionShape2D" parent="SelectionArea" parent_id_path=PackedInt32Array(533222703) index="0" unique_id=357291790]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://80bxtshwkh26"]
 
 [ext_resource type="Texture2D" uid="uid://dt0cp2f30m45t" path="res://ressources/Sprites/Icons/Stats/strength_icon.png" id="1_xi3l8"]
-[ext_resource type="Texture2D" uid="uid://bs1mc3esdqgae" path="res://ressources/Sprites/Icons/attribute_buff_icon.png" id="2_ni642"]
+[ext_resource type="Texture2D" uid="uid://bs1mc3esdqgae" path="res://ressources/Sprites/Icons/Stats/attribute_buff_icon.png" id="2_ni642"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_orjvg"]
 atlas = ExtResource("2_ni642")

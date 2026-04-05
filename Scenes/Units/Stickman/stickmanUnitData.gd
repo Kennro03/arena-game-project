@@ -6,7 +6,7 @@ func _init() -> void:
 	id = UIDGenerator.generate("Stickman")
 	display_name = "Stickman"
 	description = "A regular stickman."
-	default_weapon = preload("res://ressources/Weapons/fists.tres").duplicate(true)
+	default_weapon = preload("uid://dfscer2qw0fdp").duplicate(true)
 	weapon = default_weapon.duplicate(true)  
 
 func _make_copy() -> stickmanUnitData:

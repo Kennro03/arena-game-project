@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="StatusEffect_BurstOnStack" format=3 uid="uid://cej4f0poktksg"]
 
 [ext_resource type="PackedScene" uid="uid://uc43ty7e30qn" path="res://Scenes/VFX/blood_particles_2d.tscn" id="1_hg27p"]
-[ext_resource type="Script" uid="uid://b72i4hqq7w8tv" path="res://ressources/Status_Effects/Effects/StatusEffect_BurstOnStack.gd" id="2_mf8ld"]
+[ext_resource type="Script" uid="uid://b72i4hqq7w8tv" path="res://scripts/Status_Effects/StatusEffect_BurstOnStack.gd" id="2_mf8ld"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hg27p"]
 size = Vector2(16, 16)

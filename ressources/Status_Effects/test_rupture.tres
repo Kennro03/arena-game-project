@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="StatusEffect_DamageOnHit" format=3 uid="uid://n4ak8gyhsesh"]
 
 [ext_resource type="PackedScene" uid="uid://ub6ti3nxgr48" path="res://Scenes/VFX/rupture_particles_2d.tscn" id="1_1vd1f"]
-[ext_resource type="Script" uid="uid://cuy65job64arh" path="res://ressources/Status_Effects/Effects/StatusEffect_DamageOnHit.gd" id="1_mrma0"]
+[ext_resource type="Script" uid="uid://cuy65job64arh" path="res://scripts/Status_Effects/StatusEffect_DamageOnHit.gd" id="1_mrma0"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1vd1f"]
 

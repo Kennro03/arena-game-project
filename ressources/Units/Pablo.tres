@@ -1,31 +1,11 @@
 [gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://ps2wy7q88f5b"]
 
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_4lw15"]
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_4lw15"]
-[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="3_46oik"]
-[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_p7jqk"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="5_emxr6"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="5_nba2t"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="6_d0eu4"]
+[ext_resource type="Resource" uid="uid://cpnr5mpvtakmp" path="res://ressources/Items/Weapons/testsword.tres" id="6_luac1"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_23v6u"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="8_iq0tl"]
-
-[sub_resource type="Resource" id="Resource_e6bm7"]
-script = ExtResource("3_46oik")
-weaponCategory = 2
-weaponType = 3
-base_attack_speed = 0.8
-base_attack_range = 120.0
-base_damage = 16.0
-base_knockback = 120.0
-attackTypes = {
-0: 8,
-1: 10
-}
-light_endlag = 0.3
-heavy_endlag = 0.7
-description = "A basic hammer used for testing"
-metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_s0pr7"]
 script = ExtResource("7_23v6u")
@@ -45,8 +25,6 @@ base_flat_block_power = null
 base_percent_block_power = null
 base_crit_chance = null
 base_crit_damage = null
-base_flat_damage_taken = null
-base_percent_damage_taken = null
 experience = null
 max_health_scalings = null
 health_regen_scalings = null
@@ -60,23 +38,6 @@ crit_chance_scalings = null
 crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
-[sub_resource type="Resource" id="Resource_ppxuw"]
-script = ExtResource("3_46oik")
-weaponCategory = 2
-weaponType = 3
-base_attack_speed = 0.8
-base_attack_range = 120.0
-base_damage = 16.0
-base_knockback = 120.0
-attackTypes = {
-0: 8,
-1: 10
-}
-light_endlag = 0.3
-heavy_endlag = 0.7
-description = "A basic hammer used for testing"
-metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
-
 [resource]
 script = ExtResource("5_nba2t")
 id = "pablo"
@@ -85,6 +46,5 @@ description = "That's your buddy pablo !! "
 color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
 team = ExtResource("8_iq0tl")
 stats = SubResource("Resource_s0pr7")
-weapon = SubResource("Resource_ppxuw")
-default_weapon = SubResource("Resource_e6bm7")
+weapon = ExtResource("6_luac1")
 metadata/_custom_type_script = "uid://gk2b37nd41oy"

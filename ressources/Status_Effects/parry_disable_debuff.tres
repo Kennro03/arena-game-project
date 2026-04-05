@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="StatusEffect_Stat_Buff" format=3 uid="uid://b8pxwhpvqpw7y"]
 
 [ext_resource type="PackedScene" uid="uid://njey8a1fxu3e" path="res://Scenes/VFX/arrow_minus_particles_2d.tscn" id="2_nhhht"]
-[ext_resource type="Script" uid="uid://57c0dh6futr" path="res://ressources/Status_Effects/Effects/StatusEffect_Stat_Buff.gd" id="3_810y0"]
+[ext_resource type="Script" uid="uid://57c0dh6futr" path="res://scripts/Status_Effects/StatusEffect_Stat_Buff.gd" id="3_810y0"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="3_e363y"]
 
 [sub_resource type="Resource" id="Resource_nhhht"]
