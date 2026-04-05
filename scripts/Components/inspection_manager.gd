@@ -3,11 +3,12 @@ class_name InspectionManager
 
 const InspectMenuScene := preload("res://Scenes/UI/InspectMenu/inspect_menu.tscn")
 var current_menu: InspectMenu = null
-@export var ui_root: Control
+@export var ui_root: CanvasLayer
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
+			print("unhandled click registered")
 			var target := _get_inspect_target()
 			if target:
 				open(target)
@@ -53,6 +54,7 @@ func _get_hovered_unit() -> BaseUnit:
 
 func open(target: Object) -> void:
 	close()  # close existing
+	print("opening")
 	current_menu = InspectMenuScene.instantiate()
 	current_menu.target = target
 	ui_root.add_child(current_menu)

@@ -44,4 +44,4 @@ func set_border() -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		slot_clicked.emit(self, event.button_index)
-		accept_event()
+		#accept_event()
