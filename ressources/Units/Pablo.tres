@@ -1,7 +1,10 @@
 [gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://ps2wy7q88f5b"]
 
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://ressources/Items/Accesssory.gd" id="1_4lw15"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_4lw15"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://ressources/scripts/Weapons/Weapon.gd" id="3_46oik"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_p7jqk"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="5_emxr6"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="5_nba2t"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="6_d0eu4"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_23v6u"]
@@ -26,7 +29,25 @@ metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [sub_resource type="Resource" id="Resource_s0pr7"]
 script = ExtResource("7_23v6u")
+base_strength = null
 base_dexterity = 20
+base_endurance = null
+base_intellect = null
+base_faith = null
+base_attunement = null
+base_max_health = null
+base_health_regen = null
+base_movement_speed = null
+base_dodge_probability = null
+base_parry_probability = null
+base_block_probability = null
+base_flat_block_power = null
+base_percent_block_power = null
+base_crit_chance = null
+base_crit_damage = null
+base_flat_damage_taken = null
+base_percent_damage_taken = null
+experience = null
 max_health_scalings = null
 health_regen_scalings = null
 movement_speed_scalings = null
@@ -34,6 +55,7 @@ dodge_probability_scalings = null
 parry_probability_scalings = null
 block_probability_scalings = null
 flat_block_power_scalings = null
+percent_block_power_scalings = null
 crit_chance_scalings = null
 crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
