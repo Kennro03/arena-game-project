@@ -14,13 +14,13 @@ func _init() -> void:
 func with_attribute_buffs(nb_buffs: int = 1) -> Item:
 	var result := duplicate(true)
 	for i in nb_buffs:
-		result.passive_buffs.append(StatBuff.random_flat_attribute_buff())
+		result.statChanges.append(StatBuff.random_flat_attribute_buff())
 	return result
 
 func with_stat_buffs(nb_buffs: int = 1) -> Item:
 	var result := duplicate(true)
 	for i in nb_buffs:
-		result.passive_buffs.append(StatBuff.random_multiplier_stat_buff())
+		result.statChanges.append(StatBuff.random_multiplier_stat_buff())
 	return result
 
 func apply_owner_buffs(stats: Stats):

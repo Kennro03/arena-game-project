@@ -26,6 +26,10 @@ func _on_mouse_entered() -> void:
 		tooltip = weapon_tooltip_scene.instantiate()
 		self.add_child(tooltip)
 		tooltip.setup(item)
+	elif item is Accessory :
+		tooltip = accessory_tooltip_scene.instantiate()
+		self.add_child(tooltip)
+		tooltip.setup(item)
 	else : 
 		tooltip = item_tooltip_scene.instantiate()
 		self.add_child(tooltip)

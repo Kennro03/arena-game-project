@@ -63,10 +63,10 @@ func fill_items() -> void :
 	var i : int = 0
 	while i < items_sold :
 		i += 1
-		var _item : Item = item_list.pick_random()
+		var _item : Accessory = item_list.pick_random()
 		var new_slot : ShopSlot = SHOP_SLOT_SCENE.instantiate()
 		items_row.add_child(new_slot)
-		new_slot.set_item(_item)
+		new_slot.set_item(_item.with_attribute_buffs())
 		new_slot.connect("slot_clicked",purchase_from_slot)
 
 func fill_weapons() -> void :
@@ -81,17 +81,19 @@ func fill_weapons() -> void :
 
 func get_item_list() -> Array[Item] :
 	var _items : Array[Item] = []
-	var dagger := preload("res://ressources/Weapons/testdagger.tres")
-	_items = [dagger]
+	var b_necklace := preload("uid://ctntn4ue3i1mh")
+	var s_necklace := preload("uid://03y5161jwt2a")
+	var g_necklace := preload("uid://338lnw5ndk41")
+	_items = [b_necklace, s_necklace, g_necklace]
 	return _items
 
 func get_weapon_list() -> Array[Weapon] :
 	var _weps : Array[Weapon] = []
-	var dagger := preload("res://ressources/Weapons/testdagger.tres")
-	var sword := preload("res://ressources/Weapons/testsword.tres")
-	var hammer := preload("res://ressources/Weapons/testhammer.tres")
-	var uncommonsword := preload("res://ressources/Weapons/uncommontestsword.tres")
-	var rarehammer := preload("res://ressources/Weapons/raretesthammer.tres")
+	var dagger := preload("uid://dal5rgfowl103")
+	var sword := preload("uid://cpnr5mpvtakmp")
+	var hammer := preload("uid://cseh3bpxs7l8k")
+	var uncommonsword := preload("uid://dlhcap3ipacyj")
+	var rarehammer := preload("uid://2gvcwm08oqgb")
 	_weps = [dagger,sword,hammer,uncommonsword,rarehammer]
 	return _weps
 

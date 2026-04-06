@@ -18,6 +18,7 @@ static var attribute_icons : Dictionary = {
 	Attributes.FAITH: preload("uid://c3uo37cadvvc8"),
 	Attributes.ATTUNEMENT: preload("uid://rmmxh6vrcjbf"),
 }
+
 enum BuffableStats {
 	STRENGTH,
 	DEXTERITY,
@@ -38,6 +39,14 @@ enum BuffableStats {
 	DAMAGE_TAKEN_BONUS,
 	DAMAGE_TAKEN_MULTIPLIER,
 	ACCESSORY_LIMIT,
+}
+static var stat_text_colors : Dictionary = {
+	BuffableStats.STRENGTH: Color(0.91, 0.231, 0.231, 1.0),
+	BuffableStats.DEXTERITY: Color(0.561, 0.827, 1.0, 1.0),
+	BuffableStats.ENDURANCE: Color(0.569, 0.859, 0.412, 1.0),
+	BuffableStats.INTELLECT: Color(0.565, 0.369, 0.663, 1.0),
+	BuffableStats.FAITH: Color(0.976, 0.761, 0.169, 1.0),
+	BuffableStats.ATTUNEMENT: Color(0.78, 0.863, 0.816, 1.0),
 }
 static var buffable_stat_icons : Dictionary = {
 	# To be added later

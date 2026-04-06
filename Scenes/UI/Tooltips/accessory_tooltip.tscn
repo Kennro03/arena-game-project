@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c328s85mtc7ip"]
+
+[ext_resource type="PackedScene" uid="uid://bcomdobw6ugfd" path="res://Scenes/UI/Tooltips/item_tooltip.tscn" id="1_0moba"]
+[ext_resource type="Script" uid="uid://dfeq42fmmfvb8" path="res://Scenes/UI/Tooltips/accessory_tooltip.gd" id="2_b21cy"]
+
+[node name="AccessoryTooltip" unique_id=1608019069 instance=ExtResource("1_0moba")]
+script = ExtResource("2_b21cy")
