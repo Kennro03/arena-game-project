@@ -18,10 +18,11 @@ func _ready() -> void:
 	assert(target, "No target set for DragAndDrop Component!")
 	assert(target_area, "No target_area set for DragAndDrop Component!")
 	if target_area is Area2D :
+		print("Area2D")
 		target_area.input_event.connect(_on_target_input_event.unbind(1))
-	elif target is Control :
+	elif target_area is Control :
+		print("Control")
 		target_area.gui_input.connect(_on_target_gui_event)
-		
 
 func _process(_delta: float) -> void:
 	if dragging and target:

@@ -1,7 +1,7 @@
 extends Slot
 class_name UnitSlot
 
-var unit_data: UnitData = null
+@export var unit_data: UnitData = null
 
 func set_unit(_unit: UnitData) -> void:
 	unit_data = _unit

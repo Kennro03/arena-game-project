@@ -1,14 +1,15 @@
 extends Tooltip
 class_name WeaponToolTip
 
+var wep : Weapon = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	text_label.text = ""
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	super._process(delta)
+	if wep == null :
+		printerr("No weapon provided to spawn tooltip !!")
+	setup(wep)
 
 func setup(weapon: Weapon) -> void:
 	add_weapon_name(weapon)
@@ -18,7 +19,6 @@ func setup(weapon: Weapon) -> void:
 	add_weapon_stats(weapon)
 	add_weapon_stats_scalings(weapon)
 	
-	pass
 
 func add_weapon_name(weapon: Weapon) -> void:
 	var rarity_color := {

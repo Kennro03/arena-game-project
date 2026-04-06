@@ -4,9 +4,8 @@ class_name EventBus
 @warning_ignore_start("unused_signal")
 
 # UI related
-## add item tooltips signal
-## add weapon tooltips signal
-## add unit tooltips signal
+signal tooltip_requested(tip: Tooltip)
+signal tooltip_cleared(tip: Tooltip)
 signal open_unit_info_requested(unit: BaseUnit)
 signal open_unit_slot_info_requested(unit_data: UnitData)
 signal open_item_info_requested(item: Item)

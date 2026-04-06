@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d17ldv2j14q3l" path="res://Scenes/Prototype/Main scene/prototype_scene.gd" id="1_3a2rb"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="1_lci7e"]
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="2_oi3tf"]
+[ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="4_iy8ah"]
 
 [sub_resource type="Gradient" id="Gradient_xtf6f"]
 colors = PackedColorArray(0.16206557, 0.1620656, 0.16206557, 1, 0.5071072, 0.0005638277, 0.0003089994, 1)
@@ -15,6 +16,10 @@ width = 32
 script = ExtResource("1_3a2rb")
 battle_scene = &"uid://32iwvd3dtseu"
 shop_scene = &"uid://n6ib3torqc3t"
+
+[node name="TooltipHandler" type="Node" parent="." unique_id=795041103 node_paths=PackedStringArray("ui_root")]
+script = ExtResource("4_iy8ah")
+ui_root = NodePath("../UI")
 
 [node name="InventoryReserveManager" type="Node" parent="." unique_id=703109437]
 script = ExtResource("2_oi3tf")

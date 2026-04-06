@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3w1kvqjscmgf" path="res://Scenes/Levels/Shop/shop.gd" id="1_k1r4k"]
 [ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="2_ntui6"]
+[ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="3_0hnpw"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="4_ntui6"]
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="5_0hnpw"]
 
@@ -22,6 +23,10 @@ script = ExtResource("5_0hnpw")
 
 [node name="InspectionManager" type="Node" parent="." unique_id=1625464565 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("2_ntui6")
+ui_root = NodePath("../UI")
+
+[node name="TooltipHandler" type="Node" parent="." unique_id=1355867057 node_paths=PackedStringArray("ui_root")]
+script = ExtResource("3_0hnpw")
 ui_root = NodePath("../UI")
 
 [node name="Background" type="CanvasLayer" parent="." unique_id=534923900]

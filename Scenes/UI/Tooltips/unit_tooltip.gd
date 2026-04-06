@@ -1,17 +1,15 @@
 extends Tooltip
 class_name UnitTooltip
 
-var pablo : UnitData = preload("res://ressources/Units/Pablo.tres")
+var unit_data : UnitData = preload("res://ressources/Units/Pablo.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	text_label.text = ""
-	setup(pablo)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	super._process(delta)
+	if unit_data == null :
+		printerr("No unit_data provided to spawn tooltip !!")
+	setup(unit_data)
 
 func setup(unit: UnitData) -> void:
 	add_unit_name(unit)
@@ -19,7 +17,6 @@ func setup(unit: UnitData) -> void:
 	#add_weapon_description(weapon)
 	add_unit_attributes(unit)
 	
-	pass
 
 func add_unit_name(unit: UnitData) -> void:
 	text_label.append_text("[center][font_size=10]%s[/font_size][/center]" % [unit.display_name])

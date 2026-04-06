@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://5kkucdb6pt57"]
 
-[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_aueru"]
-[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testHammer.tres" id="1_meg0n"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_eueq3"]
+[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testhammer.tres" id="1_meg0n"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="2_eueq3"]
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="2_hi4y6"]
-[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="3_hi4y6"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_hi4y6"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="5_aueru"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="6_b2l36"]
 

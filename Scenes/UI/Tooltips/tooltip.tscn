@@ -6,7 +6,7 @@
 z_index = 4
 layout_mode = 3
 anchors_preset = 0
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_4fwp0")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=485723106]

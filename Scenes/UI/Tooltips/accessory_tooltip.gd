@@ -1,15 +1,20 @@
 extends ItemToolTip
 class_name AccessoryTooltip
 
+var acc : Accessory = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
+	text_label.text = ""
+	if acc == null :
+		printerr("No accessory provided to spawn tooltip !!")
+	setup(acc)
 
 func setup(item: Item) -> void:
 	super.setup(item)
 	text_label.newline()
 	add_item_stat_buffs(item)
-	pass
 
 func add_item_stat_buffs(item: Item) -> void:
 	var stat_changes : Array[StatBuff] = item.statChanges

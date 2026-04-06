@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Battles/battle_manager.gd" id="1_qxkfb"]
 [ext_resource type="Resource" uid="uid://sshw11e24ays" path="res://Scenes/Levels/Battles/test_level/TestLevelData.tres" id="2_57vkc"]
 [ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="3_qpo3t"]
+[ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="4_b1ohq"]
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="5_qeo1e"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="6_hvyff"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="8_qpo3t"]
@@ -12,7 +13,7 @@
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="11_llnxj"]
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="13_pcjji"]
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="14_6nvuq"]
-[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testHammer.tres" id="15_u8sey"]
+[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testhammer.tres" id="15_u8sey"]
 [ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Battles/Spawner.gd" id="18_3mj8a"]
 [ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/BattleUI/battle_ui.tscn" id="19_c652g"]
 
@@ -69,6 +70,10 @@ script = ExtResource("5_qeo1e")
 
 [node name="InspectionManager" type="Node" parent="." unique_id=543603997 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("3_qpo3t")
+ui_root = NodePath("../UI")
+
+[node name="TooltipHandler" type="Node" parent="." unique_id=309827960 node_paths=PackedStringArray("ui_root")]
+script = ExtResource("4_b1ohq")
 ui_root = NodePath("../UI")
 
 [node name="BattleManager" type="Node" parent="." unique_id=1861640648 node_paths=PackedStringArray("spawner")]

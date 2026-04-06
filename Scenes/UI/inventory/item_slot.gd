@@ -24,16 +24,16 @@ func _on_mouse_entered() -> void:
 		return
 	if item is Weapon :
 		tooltip = weapon_tooltip_scene.instantiate()
-		self.add_child(tooltip)
-		tooltip.setup(item)
+		tooltip.wep = item
+		Events.tooltip_requested.emit(tooltip)
 	elif item is Accessory :
 		tooltip = accessory_tooltip_scene.instantiate()
-		self.add_child(tooltip)
-		tooltip.setup(item)
+		tooltip.acc = item
+		Events.tooltip_requested.emit(tooltip)
 	else : 
 		tooltip = item_tooltip_scene.instantiate()
-		self.add_child(tooltip)
-		tooltip.setup(item)
+		tooltip.unit_data = item
+		Events.tooltip_requested.emit(tooltip)
 
 func _on_mouse_exited() -> void:
 	super._on_mouse_exited()

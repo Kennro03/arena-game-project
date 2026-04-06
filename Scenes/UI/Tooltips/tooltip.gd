@@ -12,8 +12,9 @@ var is_frozen : bool = false
 var hovered : bool = true
 
 func _ready() -> void:
-	await get_tree().create_timer(freeze_tooltip_delay).timeout
-	is_frozen = true
+	#await get_tree().create_timer(freeze_tooltip_delay).timeout
+	#is_frozen = true
+	pass
 
 func _process(_delta: float) -> void:
 	if not is_frozen :
