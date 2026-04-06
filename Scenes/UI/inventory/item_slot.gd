@@ -2,7 +2,6 @@ extends Slot
 class_name ItemSlot
 
 @export var item: Item = null
-var tooltip : Tooltip = null
 
 func set_item(_item: Item) -> void:
 	item = _item

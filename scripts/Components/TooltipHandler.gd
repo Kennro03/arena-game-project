@@ -9,9 +9,9 @@ func _ready() -> void:
 	Events.tooltip_cleared.connect(_on_tooltip_cleared)
 
 func _on_tooltip_requested(tip: Tooltip)-> void :
-	print("tip script: ", tip.get_script())
-	print("is Tooltip: ", tip is Tooltip)
-	print("tip: ", tip)
+	#print("tip script: ", tip.get_script())
+	#print("is Tooltip: ", tip is Tooltip)
+	#print("tip: ", tip)
 	_clear()
 	current_tooltip = tip
 	ui_root.add_child(tip)

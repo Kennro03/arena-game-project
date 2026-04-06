@@ -53,6 +53,9 @@ func load_unit_inspect_buttons() -> void :
 func load_unit_slot_inspect_buttons() -> void :
 	#load buttons regarding unitData slots
 	var _slot := target as UnitSlot
+	if _slot._unit_data == null :
+		close()
+	
 	_add_button("Inspect Unit", func():
 		Events.open_unit_slot_info_requested.emit(_slot.unit_data)
 		)
@@ -60,30 +63,33 @@ func load_unit_slot_inspect_buttons() -> void :
 
 func load_item_slot_inspect_buttons() -> void :
 	#load buttons regarding item slots
-	var slot := target as ItemSlot
+	var _slot := target as ItemSlot
+	if _slot.item == null :
+		close()
+	
 	_add_button("Inspect Item", func():
-		Events.open_item_info_requested.emit(slot.item)
+		Events.open_item_info_requested.emit(_slot.item)
 		)
 	
 	_add_button("Discard", func():
-		Player.remove_from_inventory(slot.item)
+		Player.remove_from_inventory(_slot.item)
 		close())
 
 func load_shop_slot_inspect_buttons() -> void :
 	#load buttons regarding shop slots
 	var _slot := target as ItemSlot
+	if _slot.item == null :
+		close()
 	_add_button("Inspect Item", func():
 		Events.open_item_info_requested.emit(_slot.item)
 		#UnitInfoPanel.open(slot.item)
 		)
-	pass
 	
 	_add_button("Buy [%d]" % _slot.item.value, func():
 		if _slot.cost <= Player.gold :
 			Player.gold -= _slot.cost
 			Player.add_to_inventory(_slot.item)
 			close())
-		
 
 func _add_button(label: String, action: Callable) -> void:
 	var button := INSPECT_MENU_BUTTON.instantiate() as InspectMenuButton
