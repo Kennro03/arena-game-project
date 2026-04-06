@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Accessory" format=3 uid="uid://03y5161jwt2a"]
+
+[ext_resource type="Texture2D" uid="uid://btym86ag2c70s" path="res://ressources/Sprites/Icons/Items/Accessory/jewelry_sprite_pngs/necklace_silver.png" id="1_t2scp"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="2_1sb7w"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="3_vvtut"]
+
+[resource]
+script = ExtResource("2_1sb7w")
+item_name = "Silver necklace"
+description = "A necklace made out of silver."
+icon = ExtResource("1_t2scp")
+item_type = 2
+value = 7
+metadata/_custom_type_script = "uid://c4fibwo0c6337"

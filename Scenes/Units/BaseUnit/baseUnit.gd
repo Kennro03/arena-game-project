@@ -36,7 +36,6 @@ signal unit_died(unit: BaseUnit)
 @export var weapon : Weapon = null
 @export var default_weapon : Weapon = null
 @export var armor : Armor = null
-@export var accessory_limit : int = 0
 @export var accessories : Array[Accessory] = []
 
 
@@ -313,6 +312,10 @@ func apply_data(data: UnitData) -> void:
 	self.stats = data.stats
 	self.stats.setup_stats()
 	equip(data.weapon) 
+	equip(data.armor)
+	## Rework accessories equipping
+	#for a in data.accessories :
+		#equip(a)
 	#skillModule.skill_list = data.skill_list
 
 func die() -> void:
@@ -376,13 +379,35 @@ func equip_accessory(_acc : Accessory = null) -> void:
 	if _acc == null:
 		return
 	
-	#if accessories.has(_acc) :
-	#	accessories[_acc].remove_owner_buffs(stats)
+	if accessories.size() >= accessory_limit:
+		printerr("No free accessory slots for " + display_name)
+		return
 	
-	#armor = _acc.duplicate(true)
-	#armor.owner = self
-	#armor.apply_owner_buffs(stats)
+	var acc := _acc.duplicate(true)
+	acc.owner = self
+	acc.apply_owner_buffs(stats)
+	accessories.append(acc)
 
+func unequip_accessory(_acc: Accessory) -> void:
+	if _acc not in accessories:
+		printerr("Accessory not equipped: " + _acc.item_name)
+		return
+	_acc.remove_owner_buffs(stats)
+	accessories.erase(_acc)
+
+func unequip_accessory_at(index: int) -> void:
+	if index >= accessories.size():
+		return
+	accessories[index].remove_owner_buffs(stats)
+	accessories.remove_at(index)
+
+func has_free_accessory_slot() -> bool:
+	return accessories.size() < accessory_limit
+
+func get_accessory_at(index: int) -> Accessory:
+	if index >= accessories.size():
+		return null
+	return accessories[index]
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
 	#print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())

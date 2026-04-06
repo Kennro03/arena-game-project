@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://ps2wy7q88f5b"]
 
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_4lw15"]
+[ext_resource type="Resource" uid="uid://ctntn4ue3i1mh" path="res://ressources/Items/Accessories/bronzeNecklace.tres" id="2_281ff"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="5_nba2t"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="6_d0eu4"]
-[ext_resource type="Resource" uid="uid://cpnr5mpvtakmp" path="res://ressources/Items/Weapons/testsword.tres" id="6_luac1"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_23v6u"]
+[ext_resource type="Resource" uid="uid://cpnr5mpvtakmp" path="res://ressources/Items/Weapons/testSword.tres" id="7_ua3ti"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="8_iq0tl"]
 
 [sub_resource type="Resource" id="Resource_s0pr7"]
@@ -46,5 +47,7 @@ description = "That's your buddy pablo !! "
 color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
 team = ExtResource("8_iq0tl")
 stats = SubResource("Resource_s0pr7")
-weapon = ExtResource("6_luac1")
+weapon = ExtResource("7_ua3ti")
+accessory_limit = 1
+accessories = Array[ExtResource("1_4lw15")]([ExtResource("2_281ff")])
 metadata/_custom_type_script = "uid://gk2b37nd41oy"

@@ -15,12 +15,19 @@ var placeholderTarget : BaseUnit = unit_scene.instantiate()
 
 @onready var health_bar: ProgressBar = %HealthBar
 
+@onready var gear_slots: HBoxContainer = %GearSlots
+@onready var accessories_slots: HBoxContainer = %AccessoriesSlots
+
 @onready var attributesList := %AttributesContainer
 @onready var statsList := %StatsContainer
 @onready var statusesList := %StatusEffectsContainer
 
-var attribute_row_scene : PackedScene = preload("res://Scenes/UI/UnitInfoPanel/attribute_row.tscn")
-var status_effect_row : PackedScene = preload("res://Scenes/UI/UnitInfoPanel/status_effect_row.tscn")
+const attribute_row_scene : PackedScene = preload("uid://dpwd2brx4n2vh")
+const status_effect_row : PackedScene = preload("uid://dofk34fycohsp")
+const item_slot_scene : PackedScene = preload("uid://dnm02uo4msg2e")
+const weapon_slot_scene : PackedScene = preload("uid://cr0ku2232m77j")
+const armor_slot_scene : PackedScene = preload("uid://bpkurgfb4csud")
+const accessory_slot_scene : PackedScene = preload("uid://dd2psrpeofhbi")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -51,9 +58,9 @@ func set_unit(target: BaseUnit) -> void:
 	set_info()
 	set_experience()
 	set_health()
+	set_gear()
 	set_stats()
 	set_status_effects()
-
 
 func set_info() ->void :
 	iconRect.texture = unit.icon if unit.icon else null
@@ -84,6 +91,29 @@ func _on_stats_changed() -> void :
 func _on_experience_changed() -> void :
 	set_experience()
 	pass
+
+func clear_gear() -> void :
+	for c in gear_slots.get_children() :
+		c.queue_free()
+	
+	for c in accessories_slots.get_children() :
+		c.queue_free()
+
+func set_gear() -> void :
+	clear_gear()
+	var weapon_slot : WeaponSlot = weapon_slot_scene.instantiate()
+	weapon_slot.item = unit.weapon
+	gear_slots.add_child(weapon_slot)
+	var armor_slot : ArmorSlot = armor_slot_scene.instantiate()
+	armor_slot.item = unit.armor
+	gear_slots.add_child(armor_slot)
+	
+	var i : int = 0
+	while i < unit.accessory_limit :
+		var accessory_slot : AccessorySlot = accessory_slot_scene.instantiate()
+		accessory_slot.item = unit.accessories[i]
+		gear_slots.add_child(accessory_slot)
+		i += 1
 
 func set_stats() ->void :
 	for child in attributesList.get_children():

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://ca3ago2wj5osb"]
 
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="1_btv6v"]
-[ext_resource type="Resource" uid="uid://cpnr5mpvtakmp" path="res://ressources/Items/Weapons/testsword.tres" id="1_ji5ce"]
+[ext_resource type="Resource" uid="uid://cpnr5mpvtakmp" path="res://ressources/Items/Weapons/testSword.tres" id="1_ji5ce"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_nbici"]
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="2_dijgw"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="2_m66i2"]

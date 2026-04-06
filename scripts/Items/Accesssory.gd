@@ -30,3 +30,15 @@ func apply_owner_buffs(stats: Stats):
 func remove_owner_buffs(stats: Stats):
 	for buff in statChanges:
 		stats.remove_buff(buff)
+
+func _generate_metadata() -> void :
+	if item_id == "" :
+		printerr("No assigned item_id !")
+		item_id = UIDGenerator.generate("accessory")
+	
+	if item_name == "" :
+		printerr("No assigned item_name !")
+		item_name = "Unnamed accessory"
+	
+	if description == "" :
+		description = "An accessory."

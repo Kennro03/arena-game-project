@@ -37,6 +37,7 @@ enum BuffableStats {
 	CRIT_DAMAGE,
 	DAMAGE_TAKEN_BONUS,
 	DAMAGE_TAKEN_MULTIPLIER,
+	ACCESSORY_LIMIT,
 }
 static var buffable_stat_icons : Dictionary = {
 	# To be added later
@@ -69,6 +70,7 @@ signal level_changed(new_level:int)
 @export var base_crit_damage : float = 1.25
 @export var base_damage_taken_bonus: float = 0.0
 @export var base_damage_taken_multiplier: float = 1.0  
+@export var base_accessory_limit : int = 0
 
 @export var experience : int = 0: set = _on_experience_set
 
@@ -136,6 +138,7 @@ var current_crit_chance : float
 var current_crit_damage : float
 var current_damage_taken_bonus : float
 var current_damage_taken_multiplier : float
+var current_accessory_limit : int
 
 var dodge_prob_cap := 90.0
 var block_prob_cap := 90.0
@@ -169,6 +172,7 @@ func setup_base_stats_from_dict(dict : Dictionary) -> void :
 	base_crit_damage = dict.get("crit_damage",base_crit_damage)
 	base_damage_taken_bonus = dict.get("damage_taken_bonus",base_damage_taken_bonus)
 	base_damage_taken_multiplier = dict.get("damage_taken_multiplier",base_damage_taken_multiplier)
+	base_accessory_limit = dict.get("accessory_limit",base_accessory_limit)
 	recalculate_stats()
 
 func add_buff(buff: StatBuff) -> void :
@@ -328,6 +332,7 @@ func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dic
 			"crit_damage": current_crit_damage,
 			"damage_taken_bonus": current_damage_taken_bonus,
 			"damage_taken_multiplier": current_damage_taken_multiplier,
+			"accessory_limit": current_accessory_limit,
 
 			"level": level,
 			"health": health
@@ -353,6 +358,7 @@ func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dic
 				"crit_damage": base_crit_damage,
 				"damage_taken_bonus": base_damage_taken_bonus,
 				"damage_taken_multiplier": base_damage_taken_multiplier,
+				"accessory_limit" : base_accessory_limit,
 
 				"experience": experience,
 			}
@@ -390,6 +396,7 @@ func get_current_stat(stat: BuffableStats) -> float:
 		BuffableStats.CRIT_DAMAGE: return current_crit_damage
 		BuffableStats.DAMAGE_TAKEN_BONUS: return current_damage_taken_bonus
 		BuffableStats.DAMAGE_TAKEN_MULTIPLIER: return current_damage_taken_multiplier
+		BuffableStats.ACCESSORY_LIMIT: return current_accessory_limit
 	return 0
 
 func print_attributes()-> void:
@@ -413,6 +420,7 @@ func print_stats()-> void :
 	print("Current crit damage : " + str(current_crit_damage))
 	print("Current damage taken bonus : " + str(current_damage_taken_bonus))
 	print("Current percent damage taken : " + str(current_damage_taken_multiplier))
+	print("Current max number of accessories : " + str(current_accessory_limit))
 
 func reset_current_stats() -> void:
 	current_strength = base_strength
@@ -434,3 +442,4 @@ func reset_current_stats() -> void:
 	current_crit_damage = base_crit_damage
 	current_damage_taken_bonus = base_damage_taken_bonus
 	current_damage_taken_multiplier = base_damage_taken_multiplier
+	current_accessory_limit = base_accessory_limit

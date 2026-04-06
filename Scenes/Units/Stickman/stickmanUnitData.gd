@@ -22,6 +22,9 @@ func _make_copy() -> stickmanUnitData:
 	copy.stats = stats.duplicate(true)
 	copy.weapon = weapon.duplicate(true) if weapon else null
 	copy.default_weapon = default_weapon
+	copy.armor = armor.duplicate(true) if armor else null
+	copy.accessories = accessories
+	copy.accessory_limit = accessory_limit
 	copy.skill_list = skill_list.duplicate(true)
 	copy.random_seed = random_seed
 	return copy
