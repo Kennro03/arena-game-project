@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Accessory" format=3 uid="uid://bbxf6b6qxaqrv"]
+
+[ext_resource type="Texture2D" uid="uid://dpg3642fvickn" path="res://ressources/Sprites/Icons/Items/Accessory/jewelry_sprite_pngs/ring_gold.png" id="1_ocvf1"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="2_pnwcl"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="3_ihts0"]
+
+[resource]
+script = ExtResource("2_pnwcl")
+item_name = "Golden Ring"
+description = "A ring made out of gold."
+icon = ExtResource("1_ocvf1")
+item_type = 2
+rarity = 2
+value = 7
+metadata/_custom_type_script = "uid://c4fibwo0c6337"

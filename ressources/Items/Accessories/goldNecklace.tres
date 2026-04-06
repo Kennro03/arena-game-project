@@ -10,6 +10,6 @@ item_name = "Gold necklace"
 description = "A necklace made out of gold."
 icon = ExtResource("1_i7p0n")
 item_type = 2
-rarity = 1
+rarity = 2
 value = 13
 metadata/_custom_type_script = "uid://c4fibwo0c6337"

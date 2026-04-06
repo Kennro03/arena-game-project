@@ -81,10 +81,10 @@ func fill_weapons() -> void :
 
 func get_item_list() -> Array[Item] :
 	var _items : Array[Item] = []
-	var b_necklace := preload("uid://ctntn4ue3i1mh")
-	var s_necklace := preload("uid://03y5161jwt2a")
-	var g_necklace := preload("uid://338lnw5ndk41")
-	_items = [b_necklace, s_necklace, g_necklace]
+	for file_name in DirAccess.get_files_at("res://ressources/Items/Accessories/"):
+		if (file_name.get_extension() == "tres"):
+			_items.append(load("res://ressources/Items/Accessories/"+file_name))
+	print("Items = " + str(_items))
 	return _items
 
 func get_weapon_list() -> Array[Weapon] :

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Accessory" format=3 uid="uid://l4x5xnp1h5xm"]
+
+[ext_resource type="Texture2D" uid="uid://b6hf7d02ccjp2" path="res://ressources/Sprites/Icons/Items/Accessory/jewelry_sprite_pngs/ring_silver.png" id="1_oqcxd"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="2_w5qk3"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="3_gk1qn"]
+
+[resource]
+script = ExtResource("2_w5qk3")
+item_name = "Silver Ring"
+description = "A ring made out of silver."
+icon = ExtResource("1_oqcxd")
+item_type = 2
+rarity = 1
+value = 5
+metadata/_custom_type_script = "uid://c4fibwo0c6337"
