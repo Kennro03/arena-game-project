@@ -40,9 +40,14 @@ func load_button_list() -> void :
 func load_unit_inspect_buttons() -> void :
 	#load buttons regarding live units
 	var _unit := target as BaseUnit
-	_add_button("Inspect Unit", func():
+	_add_button("Inspect unit", func():
 		Events.open_unit_info_requested.emit(_unit)
 		)
+	if _unit in Player.deployed_units :
+		_add_button("Send unit to reserve", func():
+			Player.recall_unit(_unit)
+			close()
+			)
 	pass
 
 func load_unit_slot_inspect_buttons() -> void :

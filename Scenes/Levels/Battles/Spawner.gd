@@ -68,6 +68,7 @@ func spawn_from_data(pos: Vector2, data: UnitData, team : Team = preload("res://
 	
 	var spawned : BaseUnit = data.unit_scene.instantiate()
 	spawned.position = pos
+	spawned.unit_data = data
 	spawned.apply_data(data._make_copy())
 	spawned.team = team
 	spawned.active = false

@@ -24,11 +24,14 @@ signal item_equipped(item: Item)
 signal item_unequipped(item: Item)
 
 # Unit related
+signal player_unit_deployed(unit: BaseUnit) #unit spawned from player's team at battle preparation or from player reserve
+signal unit_recalled(unit: UnitData)        #unit sent from the field to reserve
+signal unit_deployed(unit: BaseUnit)
 signal unit_recruited(unit: UnitData)
-signal unit_lost(unit: UnitData)        # permadeath
+signal unit_removed(unit: UnitData)     # permadeath
 signal unit_promoted(unit: UnitData)    # level threshold, class change, etc.
-signal unit_moved_to_team(unit: UnitData)
-signal unit_moved_to_reserve(unit: UnitData)
+signal unit_added_to_team(unit: UnitData)
+signal unit_added_to_reserve(unit: UnitData)
 
 # Slot related
 signal slot_hovered(slot: Slot)

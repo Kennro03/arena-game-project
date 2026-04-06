@@ -4,10 +4,8 @@
 [ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Battles/battle_manager.gd" id="1_qxkfb"]
 [ext_resource type="Resource" uid="uid://sshw11e24ays" path="res://Scenes/Levels/Battles/test_level/TestLevelData.tres" id="2_57vkc"]
 [ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="3_qpo3t"]
-[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://scripts/Units/UnitData.gd" id="4_w3d5s"]
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="5_qeo1e"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="6_hvyff"]
-[ext_resource type="Resource" uid="uid://ps2wy7q88f5b" path="res://ressources/Units/Pablo.tres" id="7_w3d5s"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="8_qpo3t"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="9_yeqs3"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="10_eetsg"]
@@ -77,7 +75,6 @@ ui_root = NodePath("../UI")
 script = ExtResource("1_qxkfb")
 spawner = NodePath("Spawner")
 level_data = ExtResource("2_57vkc")
-player_units = Array[ExtResource("4_w3d5s")]([ExtResource("7_w3d5s"), ExtResource("7_w3d5s"), ExtResource("7_w3d5s"), ExtResource("7_w3d5s")])
 enemy_units = Array[ExtResource("13_pcjji")]([SubResource("Resource_qdmgy")])
 
 [node name="Spawner" type="Node" parent="BattleManager" unique_id=1283150222]

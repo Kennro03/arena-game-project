@@ -13,9 +13,10 @@ var gold: int = 0:
 		Events.gold_changed.emit(gold)
 
 # Units
-var team: Array[UnitData] = []        # units actively deployed, capped by team_size
+var deployed_units: Array[BaseUnit] = []   # reference of units that are deployed on the field from team, capped by team_size
+var team: Array[UnitData] = []             # units that get automatically deployed, capped by team_size
 var team_size: int = 5
-var reserve: Array[UnitData] = []     # bench, uncapped or larger cap, capped by reserve_size
+var reserve: Array[UnitData] = []          # bench, uncapped or larger cap, capped by reserve_size
 var reserve_size: int = 20
 
 # Inventory
@@ -32,32 +33,62 @@ var run_seed: int = 0
 var run_number: int = 0
 
 @onready var testing_knife : Weapon = preload("uid://dal5rgfowl103")
-@onready var testing_pablo : UnitData = preload("res://ressources/Units/Pablo.tres")
+@onready var testing_pablo : UnitData = preload("uid://ps2wy7q88f5b")
 
 func _ready() -> void:
-	inventory.append(testing_knife)
-	reserve.append(testing_pablo)
+	add_item_to_inventory(testing_knife)
+	add_unit_to_reserve(testing_pablo.duplicate(true))
+	add_unit_to_team(testing_pablo.duplicate(true))
+	add_unit_to_team(testing_pablo.duplicate(true))
+	add_unit_to_team(testing_pablo.duplicate(true))
+	add_unit_to_team(testing_pablo.duplicate(true))
+
+func recall_unit(unit: BaseUnit) -> void:
+	if unit.unit_data == null:
+		printerr("Unit has no associated UnitData: " + unit.display_name)
+		return
+	
+	# move data from team to reserve
+	if unit.unit_data in team:
+		team.erase(unit.unit_data)
+	
+	unit.save_changes_to_data() # transfer things like exp to unit_data before moving
+	add_unit_to_reserve(unit.unit_data)
+	deployed_units.erase(unit)
+	
+	Events.unit_recalled.emit(unit.unit_data)
+	unit.queue_free()
+
+func register_deployed_unit(unit:BaseUnit) -> void:
+	deployed_units.append(unit)
+	unit.unit_died.connect(_on_deployed_unit_died.bind(unit))
+
+func _on_deployed_unit_died(unit: BaseUnit) -> void:
+	deployed_units.erase(unit)
+
+func clear_deployed_units() -> void:
+	deployed_units.clear()
 
 func add_unit_to_team(unit: UnitData) -> void:
 	team.append(unit)
-	Events.unit_moved_to_team.emit(unit)
+	Events.unit_added_to_team.emit(unit)
 
-func add_to_reserve(unit: UnitData) -> void:
+func add_unit_to_reserve(unit: UnitData) -> void:
 	reserve.append(unit)
-	Events.unit_recruited.emit(unit)
+	Events.unit_added_to_reserve.emit(unit)
 
-func add_to_inventory(item: Item) -> void:
+func add_item_to_inventory(item: Item) -> void:
 	inventory.append(item)
 	Events.item_added.emit(item)
 
-func remove_from_inventory(item: Item) -> void:
+func remove_item_from_inventory(item: Item) -> void:
 	if not item in inventory :
 		printerr("%s not in inventory !" % [item.item_name])
 		return
 	inventory.erase(item)
 	Events.item_removed.emit(item)
 
-func add_to_team(unit: UnitData) -> void:
+func move_unit_to_team(unit: UnitData) -> void:
 	if unit not in reserve:
 		printerr("Cannot add to team: unit not in reserve")
 		return
@@ -67,16 +98,24 @@ func add_to_team(unit: UnitData) -> void:
 	if unit in team:
 		printerr("Unit already in team")
 		return
-	team.append(unit)
-	Events.unit_moved_to_team.emit(unit)
+	add_unit_to_team(unit)
 
-func remove_from_team(unit: UnitData) -> void:
+func move_unit_to_reserve(unit: UnitData) -> void:
+	if unit not in team:
+		printerr("Cannot add to team: unit not in reserve")
+		return
+	add_unit_to_reserve(unit)
 	team.erase(unit)
-	Events.unit_moved_to_reserve.emit(unit)
+	
 
-func remove_from_reserve(unit: UnitData) -> void:
-	# also remove from team if present
-	if unit in team:
-		remove_from_team(unit)
-	reserve.erase(unit)
-	Events.unit_lost.emit(unit)
+func remove_unit(unit: UnitData) -> void:
+	if unit in team :
+		inventory.erase(unit)
+		print("Removed %s from team" % [unit.display_name])
+	elif unit in reserve :
+		reserve.erase(unit)
+		print("Removed %s from team" % [unit.display_name])
+	else :
+		printerr("Could not remove unit, not found in team or reserve!")
+		return
+	Events.unit_removed.emit(unit)

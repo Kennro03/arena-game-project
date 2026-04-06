@@ -69,6 +69,7 @@ func _spawn_player_units() -> void:
 	for unit_data in player_units:
 		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(player_zone), unit_data,load("res://ressources/Teams/PlayerTeam.tres"))
 		if unit:
+			Player.register_deployed_unit(unit)
 			players_alive += 1
 			unit.stats.health_depleted.connect(_on_player_unit_died)
 			selection_manager.register_unit(unit)
@@ -144,3 +145,7 @@ func _on_player_unit_died() -> void:
 		state = LevelState.RESOLVING
 		print("Lost fight")
 		LostEncounter.emit()  # players lose
+
+func _on_exit_battle(victory: bool) -> void:
+	print("Leaving battle...")
+	Player.clear_deployed_units()

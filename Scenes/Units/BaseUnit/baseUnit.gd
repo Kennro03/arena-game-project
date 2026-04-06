@@ -38,7 +38,7 @@ signal unit_died(unit: BaseUnit)
 @export var armor : Armor = null
 @export var accessories : Array[Accessory] = []
 
-
+var unit_data: UnitData = null #reference to unit own's unit data
 var summoner : BaseUnit = null  
 var is_action_locked := false
 var is_casting: bool = false
@@ -73,6 +73,12 @@ func _ready():
 	animationPlayer.animation_finished.connect(_on_anim_finished)
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
+
+func save_changes_to_data() -> void:
+	if unit_data == null :
+		printerr("Cannot save changes to data, unit has no unit_data.")
+		return
+	unit_data.stats.experience = stats.experience
 
 func set_display_Module()->void:
 	%NameLabel.text = display_name
