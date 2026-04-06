@@ -1,13 +1,10 @@
 extends Tooltip
 class_name ItemToolTip
 
-var test_dagger := preload("uid://dal5rgfowl103")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	text_label.text = ""
-	setup(test_dagger)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
