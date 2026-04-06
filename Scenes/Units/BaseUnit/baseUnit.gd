@@ -311,11 +311,15 @@ func apply_data(data: UnitData) -> void:
 	
 	self.stats = data.stats
 	self.stats.setup_stats()
+	
 	equip(data.weapon) 
 	equip(data.armor)
-	## Rework accessories equipping
-	#for a in data.accessories :
-		#equip(a)
+	
+	stats.recalculate_stats()
+	
+	for a in data.accessories :
+		equip(a)
+	
 	#skillModule.skill_list = data.skill_list
 
 func die() -> void:
@@ -331,18 +335,20 @@ func ensure_weapon() -> void:
 			printerr("No weapon and no default_weapon set for " + str(self))
 
 func equip(_item: Item = null) -> void:
-	match _item.get_script().get_global_name() :
-		"Weapon" :
-			equip_weapon(_item)
-		"Armor" :
-			equip_armor(_item)
-		"Accessory" :
-			equip_accessory(_item)
-		_:
-			printerr("Could not find item's %s item class ! class = %s" % [_item.item_name,_item.get_script().get_global_name()])
+	if _item != null :
+		print("Equipping %s to %s" % [_item.item_name, display_name])
+		match _item.get_script().get_global_name() :
+			"Weapon" :
+				equip_weapon(_item)
+			"Armor" :
+				equip_armor(_item)
+			"Accessory" :
+				equip_accessory(_item)
+			_:
+				printerr("Could not find item's %s item class ! class = %s" % [_item.item_name,_item.get_script().get_global_name()])
+		stats.recalculate_stats()  
 
 func equip_weapon(_wep : Weapon = null) -> void:
-	#print("Equipping weapon : " + str(_wep.weaponName))
 	if _wep == null:
 		_wep = default_weapon
 	
@@ -363,7 +369,6 @@ func equip_weapon(_wep : Weapon = null) -> void:
 		weapon.attack_performed.connect(_on_weapon_attack)
 
 func equip_armor(_arm : Armor = null) -> void:
-	#print("Equipping armor : " + str(_arm.weaponName))
 	if _arm == null:
 		return
 	
@@ -375,18 +380,20 @@ func equip_armor(_arm : Armor = null) -> void:
 	armor.apply_owner_buffs(stats)
 
 func equip_accessory(_acc : Accessory = null) -> void:
-	#print("Equipping armor : " + str(_arm.weaponName))
 	if _acc == null:
 		return
 	
-	if accessories.size() >= accessory_limit:
+	if accessories.size() >= stats.current_accessory_limit:
 		printerr("No free accessory slots for " + display_name)
 		return
 	
+	print("Before equip - stat_buffs count: ", stats.stat_buffs.size())
 	var acc := _acc.duplicate(true)
 	acc.owner = self
 	acc.apply_owner_buffs(stats)
 	accessories.append(acc)
+	print("After equip - stat_buffs count: ", stats.stat_buffs.size())
+	print("Accessory statChanges: ", acc.statChanges)
 
 func unequip_accessory(_acc: Accessory) -> void:
 	if _acc not in accessories:
@@ -402,7 +409,7 @@ func unequip_accessory_at(index: int) -> void:
 	accessories.remove_at(index)
 
 func has_free_accessory_slot() -> bool:
-	return accessories.size() < accessory_limit
+	return accessories.size() < stats.current_accessory_limit
 
 func get_accessory_at(index: int) -> Accessory:
 	if index >= accessories.size():

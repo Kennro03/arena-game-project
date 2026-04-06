@@ -101,17 +101,19 @@ func clear_gear() -> void :
 
 func set_gear() -> void :
 	clear_gear()
+	
 	var weapon_slot : WeaponSlot = weapon_slot_scene.instantiate()
 	weapon_slot.item = unit.weapon
 	gear_slots.add_child(weapon_slot)
+	
 	var armor_slot : ArmorSlot = armor_slot_scene.instantiate()
 	armor_slot.item = unit.armor
 	gear_slots.add_child(armor_slot)
 	
 	var i : int = 0
-	while i < unit.accessory_limit :
+	while i < unit.stats.current_accessory_limit :
 		var accessory_slot : AccessorySlot = accessory_slot_scene.instantiate()
-		accessory_slot.item = unit.accessories[i]
+		accessory_slot.item = unit.accessories[i] if i < unit.accessories.size() else null
 		gear_slots.add_child(accessory_slot)
 		i += 1
 

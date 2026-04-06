@@ -70,7 +70,7 @@ signal level_changed(new_level:int)
 @export var base_crit_damage : float = 1.25
 @export var base_damage_taken_bonus: float = 0.0
 @export var base_damage_taken_multiplier: float = 1.0  
-@export var base_accessory_limit : int = 0
+@export var base_accessory_limit : int = 1
 
 @export var experience : int = 0: set = _on_experience_set
 
@@ -177,11 +177,11 @@ func setup_base_stats_from_dict(dict : Dictionary) -> void :
 
 func add_buff(buff: StatBuff) -> void :
 	stat_buffs.append(buff)
-	recalculate_stats.call_deferred()
+	recalculate_stats()
 
 func remove_buff(buff: StatBuff) -> void :
 	stat_buffs.erase(buff)
-	recalculate_stats.call_deferred()
+	recalculate_stats()
 
 func setup_stats() -> void :
 	recalculate_stats() 
@@ -247,6 +247,9 @@ func recalculate_stats() -> void :
 	
 	for buff in stat_buffs :
 		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
+		print("Processing buff: stat=%s, amount=%s, type=%s" % [stat_name, buff.buff_amount, buff.buff_type])
+		var cur_property_name := "current_" + stat_name
+		print("Property exists: ", get(cur_property_name) != null)
 		match buff.buff_type:
 			StatBuff.BuffType.ADD:
 				if not stat_addends.has(stat_name):

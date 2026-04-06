@@ -10,7 +10,7 @@ enum BuffType {
 @export var buff_amount: float
 @export var buff_type : BuffType
 
-func _init(_stat: Stats.BuffableStats = Stats.BuffableStats.MAX_HEALTH, 
+func _init(_stat: Stats.BuffableStats = Stats.BuffableStats.STRENGTH, 
 			_buff_amount: float = 1.0,
 			_buff_type: StatBuff.BuffType = BuffType.MULTIPLY) -> void:
 	stat = _stat
@@ -18,8 +18,9 @@ func _init(_stat: Stats.BuffableStats = Stats.BuffableStats.MAX_HEALTH,
 	buff_amount = _buff_amount
 
 static func random_flat_attribute_buff(min_amount: int = 1, max_amount: int = 15) -> StatBuff:
+	var attribute : int = Stats.Attributes.values().pick_random()
 	return StatBuff.new(
-		Stats.Attributes.values().pick_random(),
+		Stats.BuffableStats.values()[attribute],
 		randi_range(min_amount, max_amount),
 		StatBuff.BuffType.ADD
 	)
