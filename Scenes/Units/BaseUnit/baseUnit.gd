@@ -336,7 +336,7 @@ func ensure_weapon() -> void:
 
 func equip(_item: Item = null) -> void:
 	if _item != null :
-		print("Equipping %s to %s" % [_item.item_name, display_name])
+		#print("Equipping %s to %s" % [_item.item_name, display_name])
 		match _item.get_script().get_global_name() :
 			"Weapon" :
 				equip_weapon(_item)
@@ -387,13 +387,13 @@ func equip_accessory(_acc : Accessory = null) -> void:
 		printerr("No free accessory slots for " + display_name)
 		return
 	
-	print("Before equip - stat_buffs count: ", stats.stat_buffs.size())
+	#print("Before equip - stat_buffs count: ", stats.stat_buffs.size())
 	var acc := _acc.duplicate(true)
 	acc.owner = self
 	acc.apply_owner_buffs(stats)
 	accessories.append(acc)
-	print("After equip - stat_buffs count: ", stats.stat_buffs.size())
-	print("Accessory statChanges: ", acc.statChanges)
+	#print("After equip - stat_buffs count: ", stats.stat_buffs.size())
+	#print("Accessory statChanges: ", acc.statChanges)
 
 func unequip_accessory(_acc: Accessory) -> void:
 	if _acc not in accessories:

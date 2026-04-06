@@ -8,13 +8,13 @@ class_name EnemyData
 enum EnemyTier { COMMON, ELITE, BOSS }
 
 func get_cost() -> float:
-	print("Unit data : " + str(unit_data) + "  unit stats : "  + str(unit_data))
+	#print("Unit data : " + str(unit_data) + "  unit stats : "  + str(unit_data))
 	
 	if unit_data == null:
-		printerr("EnemyData has no unit_data: " + resource_path)
+		printerr("Cannot get ennemy cost, enemyData has no unit_data: " + resource_path)
 		return base_cost
 	if unit_data.stats == null:
-		printerr("unit_data has no stats: " + unit_data.display_name)
+		printerr("Cannot get ennemy cost, enemy unit_data has no stats: " + unit_data.display_name)
 		return base_cost
 	# compute how much stronger this unit is vs its base stats
 	var current_stats_total : int = unit_data.stats.body + unit_data.stats.mind
@@ -26,7 +26,7 @@ func get_cost() -> float:
 	#var weapon_multiplier : float = _get_weapon_cost_multiplier()
 	#var passive_multiplier : float = 1.0 + (0.15 * weapon.onHitPassives.size()) if weapon else 1.0
 	var final_cost : float = base_cost * stat_multiplier 
-	print("Stats total = " + str(current_stats_total) + ", base reference = " + str(base_reference) + ", stat_multiplier = " + str(stat_multiplier) + ", final cost = " + str(final_cost))
+	#print("Stats total = " + str(current_stats_total) + ", base reference = " + str(base_reference) + ", stat_multiplier = " + str(stat_multiplier) + ", final cost = " + str(final_cost))
 	return final_cost
 
 func _get_weapon_cost_multiplier() -> float:

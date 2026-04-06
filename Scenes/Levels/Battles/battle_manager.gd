@@ -28,9 +28,9 @@ func _ready() -> void:
 	BeginEncounter.connect(UI_node._on_begin_encounter)
 	WonEncounter.connect(UI_node._on_won_encounter)
 	LostEncounter.connect(UI_node._on_lost_encounter)
-	print("level data = " + str(level_data))
-	print("level data forced ennemies = " + str(level_data.forced_enemies))
-	print("level data pool = " + str(level_data.random_enemy_pool))
+	#print("level data = " + str(level_data))
+	#print("level data forced ennemies = " + str(level_data.forced_enemies))
+	#print("level data pool = " + str(level_data.random_enemy_pool))
 	load_level_data(level_data)
 
 func _process(_delta: float) -> void:
@@ -41,7 +41,10 @@ func load_level_data(data: BattleData) -> void:
 	state = LevelState.LOADING
 	level_data = data
 	player_units += Player.team
-	print("player units : " + str(player_units))
+	print("Player units = [")
+	for u in player_units :
+		print("	%s" % [u.display_name])
+	print("]")
 	#_apply_modifiers()
 	spawn_units()
 
@@ -71,7 +74,7 @@ func _spawn_player_units() -> void:
 			selection_manager.register_unit(unit)
 
 func _spawn_enemy_units() -> void:
-	#print("Spawning enemy units...")
+	print("Spawning enemy units...")
 	enemy_units = _generate_enemy_list()
 	
 	for enemy_data in enemy_units:
@@ -84,9 +87,18 @@ func _spawn_enemy_units() -> void:
 func _generate_enemy_list() -> Array[EnemyData]:
 	var enemies_array: Array[EnemyData] = level_data.forced_enemies
 	var budget := level_data.enemy_force  # "points" to spend
-	print("Budget = " + str(budget))
+	#print("Budget = " + str(budget))
 	var pool := level_data.random_enemy_pool
-	#print("Pool = " + str(pool))
+	
+	print("Enemy pool = [")
+	for e in pool :
+		print("	%s" % [e.unit_data.display_name])
+	print("]")
+	
+	print("Forced ennemies = [")
+	for e in level_data.forced_enemies :
+		print("	%s" % [e.unit_data.display_name])
+	print("]")
 	
 	if enemies_array == [] and pool.size() <= 0 : 
 		printerr("No forced enemies and enemy pool to pull from !")
