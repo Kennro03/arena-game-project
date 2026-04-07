@@ -1,6 +1,8 @@
 extends Node
 class_name PlayerState
 
+const PLAYER_TEAM := preload("res://ressources/Teams/PlayerTeam.tres")
+
 # Economy
 var gold: int = 0:
 	set(value):
@@ -43,40 +45,6 @@ func _ready() -> void:
 	add_unit_to_team(testing_pablo.duplicate(true))
 	add_unit_to_team(testing_pablo.duplicate(true))
 
-func recall_unit(unit: BaseUnit) -> void:
-	if unit.unit_data == null:
-		printerr("Unit has no associated UnitData: " + unit.display_name)
-		return
-	
-	# move data from team to reserve
-	if unit.unit_data in team:
-		team.erase(unit.unit_data)
-	
-	unit.save_changes_to_data() # transfer things like exp to unit_data before moving
-	add_unit_to_reserve(unit.unit_data)
-	deployed_units.erase(unit)
-	
-	Events.unit_recalled.emit(unit.unit_data)
-	unit.queue_free()
-
-func register_deployed_unit(unit:BaseUnit) -> void:
-	deployed_units.append(unit)
-	unit.unit_died.connect(_on_deployed_unit_died.bind(unit))
-
-func _on_deployed_unit_died(unit: BaseUnit) -> void:
-	deployed_units.erase(unit)
-
-func clear_deployed_units() -> void:
-	deployed_units.clear()
-
-func add_unit_to_team(unit: UnitData) -> void:
-	team.append(unit)
-	Events.unit_added_to_team.emit(unit)
-
-func add_unit_to_reserve(unit: UnitData) -> void:
-	reserve.append(unit)
-	Events.unit_added_to_reserve.emit(unit)
-
 func add_item_to_inventory(item: Item) -> void:
 	inventory.append(item)
 	Events.item_added.emit(item)
@@ -88,6 +56,59 @@ func remove_item_from_inventory(item: Item) -> void:
 	inventory.erase(item)
 	Events.item_removed.emit(item)
 
+func recall_unit(unit: BaseUnit) -> void:
+	if not is_instance_valid(unit):
+		printerr("Cannot recall invalid unit")
+		return
+	if unit.unit_data == null:
+		printerr("Unit has no associated UnitData: " + unit.display_name)
+		return
+	
+	unit.save_changes_to_data() # transfer things like exp to unit_data before moving
+	
+	deployed_units.erase(unit) # remove from deployed
+	
+	# move data from team to reserve
+	if unit.unit_data in team:
+		team.erase(unit.unit_data)
+	
+	add_unit_to_reserve(unit.unit_data)
+	Events.unit_recalled.emit(unit.unit_data)
+	unit.queue_free()
+
+func register_deployed_unit(unit:BaseUnit) -> void:
+	deployed_units.append(unit)
+	unit.unit_died.connect(_on_deployed_unit_died.bind(unit))
+
+func _on_deployed_unit_died(unit: BaseUnit) -> void:
+	deployed_units.erase(unit)
+	print("%s was downed !" % [unit.display_name])
+
+func clear_deployed_units() -> void:
+	deployed_units.clear()
+
+func add_unit_to_team(unit: UnitData) -> void:
+	if team.size() >= team_size:
+		printerr("Team is full")
+		return
+	if unit in team:
+		printerr("Unit already in team: " + unit.display_name)
+		return
+	unit.team = PLAYER_TEAM
+	team.append(unit)
+	Events.unit_added_to_team.emit(unit)
+
+func add_unit_to_reserve(unit: UnitData) -> void:
+	if reserve.size() >= reserve_size:
+		printerr("Reserve is full")
+		return
+	if unit in reserve:
+		printerr("Unit already in reserve: " + unit.display_name)
+		return
+	unit.team = PLAYER_TEAM
+	reserve.append(unit)
+	Events.unit_added_to_reserve.emit(unit)
+
 func move_unit_to_team(unit: UnitData) -> void:
 	if unit not in reserve:
 		printerr("Cannot add to team: unit not in reserve")
@@ -98,24 +119,37 @@ func move_unit_to_team(unit: UnitData) -> void:
 	if unit in team:
 		printerr("Unit already in team")
 		return
+	
+	## Add removing unit from reserve/team
+	reserve.erase(unit)
 	add_unit_to_team(unit)
+	Events.unit_removed_from_reserve.emit(unit)
+	Events.unit_added_to_team.emit(unit)
 
 func move_unit_to_reserve(unit: UnitData) -> void:
 	if unit not in team:
-		printerr("Cannot add to team: unit not in reserve")
+		printerr("Cannot move to reserve: unit not in team")
 		return
-	add_unit_to_reserve(unit)
+	if reserve.size() >= reserve_size:
+		printerr("Reserve is full")
+		return
 	team.erase(unit)
-	
+	Events.unit_removed_from_team.emit(unit)
+	add_unit_to_reserve(unit)
 
 func remove_unit(unit: UnitData) -> void:
+	var found : bool = false
 	if unit in team :
 		inventory.erase(unit)
+		found = true
+		Events.unit_removed_from_team.emit(unit)
 		print("Removed %s from team" % [unit.display_name])
-	elif unit in reserve :
+	if unit in reserve :
 		reserve.erase(unit)
+		found = true
+		Events.unit_removed_from_reserve.emit(unit)
 		print("Removed %s from team" % [unit.display_name])
-	else :
-		printerr("Could not remove unit, not found in team or reserve!")
+	if not found:
+		printerr("Could not remove unit, not found anywhere: " + unit.display_name)
 		return
 	Events.unit_removed.emit(unit)

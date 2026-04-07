@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://d3h4afwsp5p4g"]
 
 [ext_resource type="Script" uid="uid://dgl57qr825pjr" path="res://Scenes/UI/reserve/unit_slot.gd" id="1_uswj8"]
+[ext_resource type="Script" uid="uid://hohdnviatck1" path="res://scripts/Components/slot_drag_visual.gd" id="3_ah15m"]
 
 [node name="UnitSlot" type="Panel" unique_id=62567015]
 custom_minimum_size = Vector2(32, 32)
 offset_right = 32.0
 offset_bottom = 32.0
-mouse_filter = 1
 script = ExtResource("1_uswj8")
 
 [node name="SlotBorder" type="Sprite2D" parent="." unique_id=1291859160]
@@ -16,6 +16,10 @@ position = Vector2(16, 16)
 [node name="SlotSprite" type="Sprite2D" parent="." unique_id=1183071005]
 unique_name_in_owner = true
 position = Vector2(16, 16)
+
+[node name="DragVisual" type="Node" parent="." unique_id=1127672295 node_paths=PackedStringArray("slot")]
+script = ExtResource("3_ah15m")
+slot = NodePath("..")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

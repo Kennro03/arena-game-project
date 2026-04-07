@@ -28,27 +28,6 @@ func _process(_delta: float) -> void:
 			elapsed -= random_spawn_delay
 			spawn_random(Vector2(randf_range(0.0,get_window().GetVisibleRect().Size.x),randf_range(0.0,get_window().GetVisibleRect().Size.y)))
 
-func _input(event):
-	return
-	
-	if event is InputEventMouseButton and event.pressed :
-		var hovered = get_viewport().gui_get_hovered_control()
-		if hovered != null && hovered.get_class() != "Control" :
-			#print("Mouse clicked on UI element : ", hovered.name)
-			return
-		
-		if in_player_zone and Manager.state == BattleManager.LevelState.SPAWNING : 
-			if event.button_index == MOUSE_BUTTON_LEFT :
-				print("Spawned a stickman at " + str(event.position))
-				
-				var data = stickmanUnitData.new()
-				print("No unitData provided, spawning default stickman")
-				spawn_from_data(event.position, data, player_team)
-			
-			if event.button_index == MOUSE_BUTTON_RIGHT :
-				#print("Spawned a random stickman at " + str(event.position))
-				spawn_random(event.position)
-
 func _random_point_in_zone(zone: Area2D) -> Vector2:
 	var col : CollisionShape2D = zone.get_node("CollisionShape2D") as CollisionShape2D
 	var shape : RectangleShape2D = col.shape 
@@ -58,7 +37,7 @@ func _random_point_in_zone(zone: Area2D) -> Vector2:
 		randf_range(-extents.y, extents.y)
 	)
 
-func spawn_from_data(pos: Vector2, data: UnitData, team : Team = preload("res://ressources/Teams/EnemyTeam.tres")) -> BaseUnit:
+func spawn_from_data(pos: Vector2, data: UnitData, ) -> BaseUnit:
 	if data == null:
 		push_error("Missing data")
 		return null
@@ -70,7 +49,6 @@ func spawn_from_data(pos: Vector2, data: UnitData, team : Team = preload("res://
 	spawned.position = pos
 	spawned.unit_data = data
 	spawned.apply_data(data._make_copy())
-	spawned.team = team
 	spawned.active = false
 	
 	for skill in data.skill_list:

@@ -23,17 +23,22 @@ signal item_equipped(item: Item)
 signal item_unequipped(item: Item)
 
 # Unit related
-signal player_unit_deployed(unit: BaseUnit) #unit spawned from player's team at battle preparation or from player reserve
-signal unit_recalled(unit: UnitData)        #unit sent from the field to reserve
-signal unit_deployed(unit: BaseUnit)
-signal unit_recruited(unit: UnitData)
-signal unit_removed(unit: UnitData)     # permadeath
-signal unit_promoted(unit: UnitData)    # level threshold, class change, etc.
-signal unit_added_to_team(unit: UnitData)
-signal unit_added_to_reserve(unit: UnitData)
+signal unit_recalled(unit: UnitData)            # sent from field to reserve
+signal unit_deployed(unit: BaseUnit)            # any unit spawned on field
+signal unit_deployment_failed(reason: String)   # spawning unit failed
+signal unit_recruited(unit: UnitData)           # added to reserve for the first time
+signal unit_removed(unit: UnitData)             # permadeath
+signal unit_promoted(unit: UnitData)            # levelup, class change, etc.
+signal unit_added_to_team(unit: UnitData)       # added to team from reserve
+signal unit_removed_from_team(unit: UnitData)   # added to reserve from team (non-death)
+signal unit_added_to_reserve(unit: UnitData)    
+signal unit_removed_from_reserve(unit: UnitData)
 
 # Slot related
 signal slot_hovered(slot: Slot)
+signal slot_drag_started(slot: Slot)
+signal slot_drag_ended(slot: Slot, screen_positon: Vector2)
+signal slot_drag_canceled(slot: Slot)
 
 #adventure related
 signal adventure_started

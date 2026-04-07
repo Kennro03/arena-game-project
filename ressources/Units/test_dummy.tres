@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://clfjwjlbapbax"]
 
 [ext_resource type="Resource" uid="uid://ddpk8npshslki" path="res://ressources/Items/Weapons/DebugWeapons/dummy_fists.tres" id="1_aoubf"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_cmgdx"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="2_pq4wo"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="3_cmgdx"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="4_i16ca"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_u08nu"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_d0473"]
 size = Vector2(32, 32)

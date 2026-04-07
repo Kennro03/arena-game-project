@@ -23,6 +23,7 @@ var state: LevelState = LevelState.LOADING
 @onready var enemy_zone : Area2D = %EnemyZone
 @onready var selection_manager: SelectionManager = %SelectionManager
 
+
 func _ready() -> void:
 	UI_node.connect("StartEncounterPressed",start_fight)
 	BeginEncounter.connect(UI_node._on_begin_encounter)
@@ -32,6 +33,7 @@ func _ready() -> void:
 	#print("level data forced ennemies = " + str(level_data.forced_enemies))
 	#print("level data pool = " + str(level_data.random_enemy_pool))
 	load_level_data(level_data)
+	Events.slot_drag_ended.connect(_on_slot_drag_ended)
 
 func _process(_delta: float) -> void:
 	pass
@@ -67,7 +69,7 @@ func start_fight() ->void :
 func _spawn_player_units() -> void:
 	print("Spawning player units...")
 	for unit_data in player_units:
-		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(player_zone), unit_data,load("res://ressources/Teams/PlayerTeam.tres"))
+		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(player_zone),unit_data)
 		if unit:
 			Player.register_deployed_unit(unit)
 			players_alive += 1
@@ -79,6 +81,7 @@ func _spawn_enemy_units() -> void:
 	enemy_units = _generate_enemy_list()
 	
 	for enemy_data in enemy_units:
+		enemy_data.unit_data.team = preload("res://ressources/Teams/EnemyTeam.tres")  # Set enemy unit team to consistent team
 		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(enemy_zone), enemy_data.unit_data)
 		if unit:
 			enemies_alive += 1
@@ -145,6 +148,27 @@ func _on_player_unit_died() -> void:
 		state = LevelState.RESOLVING
 		print("Lost fight")
 		LostEncounter.emit()  # players lose
+
+
+func _on_slot_drag_ended(slot: Slot, world_pos: Vector2) -> void:
+	if slot is UnitSlot and slot._unit_data != null:
+		_try_deploy_unit(slot._unit_data, world_pos)
+	elif slot is ItemSlot and slot.item != null:
+		pass
+		#_try_equip_or_drop_item(slot.item, world_pos)
+
+func _try_deploy_unit(data: UnitData, world_pos: Vector2) -> void:
+	#if not _is_in_player_zone(world_pos):
+		#return
+	if Player.team.size() >= Player.team_size:
+		Events.unit_deployment_failed.emit("Team is full")
+		return
+	
+	Player.move_unit_to_team(data)
+	var deployed_unit := spawner.spawn_from_data(world_pos, data)
+	Player.register_deployed_unit(deployed_unit)
+	Events.unit_deployed.emit(data)
+
 
 func _on_exit_battle(victory: bool) -> void:
 	print("Leaving battle...")

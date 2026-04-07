@@ -10,10 +10,10 @@ var unit_slots : Array[UnitSlot] = []
 func _ready() -> void:
 	clear_inventory()
 	create_empty_slots()
-	fill_slots_with_player_inventory()
+	fill_slots_with_player_reserve()
 	
-	Events.item_added.connect(func(_item): fill_slots_with_player_inventory())
-	Events.item_removed.connect(func(_item): fill_slots_with_player_inventory())
+	Events.unit_added_to_reserve.connect(func(_item): fill_slots_with_player_reserve())
+	Events.unit_removed_from_reserve.connect(func(_item): fill_slots_with_player_reserve())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -32,10 +32,13 @@ func create_empty_slots() -> void :
 		unit_slots.append(new_slot)
 		i += 1
 
-func fill_slots_with_player_inventory() -> void:
+func fill_slots_with_player_reserve() -> void:
+	for slot in unit_slots:
+		slot.set_unit(null)
+	
 	for i in Player.reserve.size():
 		if i >= unit_slots.size():
-			printerr("More items than slots ! breaking slot filling function.")
+			printerr("More units than reserve slots ! breaking slot filling function.")
 			break
 		unit_slots[i].set_unit(Player.reserve[i])
 

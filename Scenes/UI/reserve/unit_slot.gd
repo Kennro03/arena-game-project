@@ -23,7 +23,7 @@ func get_border() -> Texture2D:
 
 func _on_mouse_entered() -> void:
 	super._on_mouse_entered()
-	print("mouse entered ! ")
+	#print("mouse entered ! ")
 	if _unit_data != null : 
 		print("data not null ! ")
 		tooltip = unit_tooltip_scene.instantiate()

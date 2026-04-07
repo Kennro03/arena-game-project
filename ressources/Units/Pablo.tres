@@ -7,6 +7,9 @@
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_23v6u"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="8_iq0tl"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_luac1"]
+size = Vector2(16, 16)
+
 [sub_resource type="Resource" id="Resource_s0pr7"]
 script = ExtResource("7_23v6u")
 base_dexterity = 20
@@ -29,6 +32,7 @@ script = ExtResource("5_nba2t")
 id = "pablo"
 display_name = "Pablo"
 description = "That's your buddy pablo !! "
+icon = SubResource("PlaceholderTexture2D_luac1")
 color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
 team = ExtResource("8_iq0tl")
 stats = SubResource("Resource_s0pr7")
