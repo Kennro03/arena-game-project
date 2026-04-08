@@ -2,6 +2,7 @@ extends Slot
 class_name ItemSlot
 
 @export var item: Item = null
+@onready var drag_visual: SlotDragVisual = $DragVisual
 
 func set_item(_item: Item) -> void:
 	item = _item

@@ -34,9 +34,9 @@ func generate_map() -> Array[Array]:
 	_setup_room_types()
 	
 	var i:= 0
-	for floor in map_data:
+	for _floor in map_data:
 		print("floor %s" % i)
-		var used_rooms = floor.filter(
+		var used_rooms = _floor.filter(
 			func(room: Room): return room.next_rooms.size()>0
 		)
 		print(used_rooms)
@@ -87,6 +87,7 @@ func _setup_connection(i:int, j:int)->int:
 	var next_room: Room
 	var current_room := map_data[i][j] as Room
 	
+	@warning_ignore("unassigned_variable")
 	while not next_room or _would_cross_existing_path(i,j,next_room):
 		var random_j := clampi(randi_range(j - 1, j + 1), 0, MAP_WIDTH - 1)
 		next_room = map_data[i + 1][random_j]
@@ -137,7 +138,7 @@ func _setup_room_types() -> void :
 			room.type = Room.Type.BATTLE
 	
 	# middle floor is always treasure
-	for room: Room in map_data[FLOORS / 2]:
+	for room: Room in map_data[FLOORS / 2.0]:
 		if room.next_rooms.size() > 0:
 			room.type = Room.Type.TREASURE
 	
@@ -185,7 +186,7 @@ func _room_has_parent_of_type(room:Room, type:Room.Type) -> bool :
 			parents.append(parent_candidate)
 	#parent below
 	if room.row > 0 :
-		var parent_candidate := map_data[room.row - 1][room.column] as Room
+		var _parent_candidate := map_data[room.row - 1][room.column] as Room
 	#right parent
 	if room.column < MAP_WIDTH-1 and room.row > 0 :
 		var parent_candidate := map_data[room.row - 1][room.column + 1] as Room

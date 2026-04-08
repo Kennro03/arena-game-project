@@ -3,7 +3,7 @@ class_name SlotDragVisual
 
 @export var enabled: bool = true
 @export var slot: Slot
-@export var mouse_offset : Vector2 = Vector2(8.0,8.0)
+@export var mouse_offset : Vector2 = Vector2(0.0,0.0)
 
 var _drag_ghost: Control = null
 var _is_dragging: bool = false
@@ -58,7 +58,7 @@ func _spawn_ghost() -> void:
 	
 	var ghost_icon := TextureRect.new()
 	ghost_icon.texture = slot.icon_sprite.texture
-	ghost_icon.size = slot.icon_sprite.texture.size
+	ghost_icon.size = slot.icon_sprite.texture.get_size()
 	ghost_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_drag_ghost.add_child(ghost_icon)
 	

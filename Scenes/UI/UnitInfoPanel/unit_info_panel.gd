@@ -43,10 +43,6 @@ func _ready() -> void:
 	
 	#set_unit.call_deferred(placeholderTarget)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
 func set_unit(target: BaseUnit) -> void:
 	unit = target
 	
@@ -54,6 +50,10 @@ func set_unit(target: BaseUnit) -> void:
 	unit.stats.exp_changed.connect(_on_experience_changed)
 	unit.stats.health_changed.connect(_on_health_changed)
 	unit.statusEffectModule.effects_changed.connect(set_status_effects)
+	
+	unit.weapon_changed.connect(set_gear)
+	unit.armor_changed.connect(set_gear)
+	unit.accessories_changed.connect(set_gear)
 	
 	set_info()
 	set_experience()
@@ -105,16 +105,19 @@ func set_gear() -> void :
 	var weapon_slot : WeaponSlot = weapon_slot_scene.instantiate()
 	weapon_slot.item = unit.weapon
 	gear_slots.add_child(weapon_slot)
+	weapon_slot.drag_visual.enabled = false
 	
 	var armor_slot : ArmorSlot = armor_slot_scene.instantiate()
 	armor_slot.item = unit.armor
 	gear_slots.add_child(armor_slot)
+	armor_slot.drag_visual.enabled = false
 	
 	var i : int = 0
 	while i < unit.stats.current_accessory_limit :
 		var accessory_slot : AccessorySlot = accessory_slot_scene.instantiate()
 		accessory_slot.item = unit.accessories[i] if i < unit.accessories.size() else null
 		gear_slots.add_child(accessory_slot)
+		accessory_slot.drag_visual.enabled = false
 		i += 1
 
 func set_stats() ->void :

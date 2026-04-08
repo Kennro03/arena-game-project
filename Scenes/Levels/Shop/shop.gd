@@ -104,7 +104,7 @@ func purchase_from_slot(slot:ShopSlot, _mouse_button_index : int) -> void:
 	if _mouse_button_index == MOUSE_BUTTON_LEFT :
 		if slot.cost <= Player.gold :
 			Player.gold -= slot.cost
-			Player.add_to_inventory(slot.item)
+			Player.add_item_to_inventory(slot.item)
 			#animation to grey out the slot, and make it unavailable for future purchase
 		else : 
 			#animation to shake the slot

@@ -4,6 +4,9 @@ class_name BaseUnit
 signal hit_received(hit_data: HitData)
 signal unit_clicked(unit: BaseUnit)
 signal unit_died(unit: BaseUnit)
+signal weapon_changed(weapon: Weapon)
+signal armor_changed(armor: Armor)
+signal accessories_changed(accessories: Array[Accessory])
 
 @onready var animationPlayer = %AnimationPlayer
 @onready var healthBar := %HealthBar
@@ -383,9 +386,11 @@ func equip_weapon(_wep : Weapon = null) -> void:
 		weapon.apply_owner_buffs(stats)
 		weapon.setup_stats()
 		
+		
 		$SpriteModule.update_spritesheet.call_deferred()
 		stats.changed.connect(weapon._on_owner_stats_change)
 		weapon.attack_performed.connect(_on_weapon_attack)
+		weapon_changed.emit()
 
 func equip_armor(_arm : Armor = null) -> void:
 	if _arm == null:
@@ -397,6 +402,7 @@ func equip_armor(_arm : Armor = null) -> void:
 	armor = _arm.duplicate(true)
 	armor.owner = self
 	armor.apply_owner_buffs(stats)
+	armor_changed.emit()
 
 func equip_accessory(_acc : Accessory = null) -> void:
 	if _acc == null:
@@ -411,6 +417,7 @@ func equip_accessory(_acc : Accessory = null) -> void:
 	acc.owner = self
 	acc.apply_owner_buffs(stats)
 	accessories.append(acc)
+	accessories_changed.emit()
 	#print("After equip - stat_buffs count: ", stats.stat_buffs.size())
 	#print("Accessory statChanges: ", acc.statChanges)
 

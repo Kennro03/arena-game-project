@@ -30,15 +30,22 @@ func _ready() -> void:
 	BeginEncounter.connect(UI_node._on_begin_encounter)
 	WonEncounter.connect(UI_node._on_won_encounter)
 	LostEncounter.connect(UI_node._on_lost_encounter)
+	Events.slot_drag_ended.connect(_on_slot_drag_ended)
+	Events.unit_recalled.connect(_on_unit_recalled)
+	
+	load_level_data(level_data)
+	
 	#print("level data = " + str(level_data))
 	#print("level data forced ennemies = " + str(level_data.forced_enemies))
 	#print("level data pool = " + str(level_data.random_enemy_pool))
-	load_level_data(level_data)
-	Events.slot_drag_ended.connect(_on_slot_drag_ended)
-	Events.unit_recalled.connect(_on_unit_recalled)
 
-func _process(_delta: float) -> void:
-	pass
+static func get_instance(node: Node) -> BattleManager:
+	var managers := node.get_tree().get_nodes_in_group("BattleManager")
+	return managers[0] as BattleManager if not managers.is_empty() else null
+
+static func get_state(node: Node) -> LevelState:
+	var manager := get_instance(node)
+	return manager.state if manager else LevelState.COMPLETE
 
 func load_level_data(data: BattleData) -> void:
 	print("Loading...")
@@ -143,9 +150,22 @@ func _generate_enemy_list() -> Array[EnemyData]:
 func _on_slot_drag_ended(slot: Slot, world_pos: Vector2) -> void:
 	if slot is UnitSlot and slot._unit_data != null:
 		_try_deploy_unit(slot._unit_data, world_pos)
-	elif slot is ItemSlot and slot.item != null:
-		pass
-		#_try_equip_or_drop_item(slot.item, world_pos)
+	if slot is ItemSlot and slot.item != null :
+		_try_equip_item(slot.item,world_pos)
+
+func _try_equip_item(item: Item, world_pos: Vector2) -> void:
+	# check if dropped on a deployed unit
+	var target_unit := _get_unit_at_position(world_pos)
+	if target_unit and target_unit in Player.deployed_units :
+		if item is Weapon and target_unit.weapon.item_id != target_unit.default_weapon.item_id :
+			Player.add_item_to_inventory(target_unit.weapon)
+		if item is Armor and target_unit.armor != null :
+			Player.add_item_to_inventory(target_unit.armor)
+		if item is Accessory and target_unit.accessories.size() == target_unit.stats.current_accessory_limit :
+			return
+			## !!! Need special logic to determine which accessories to replace
+		target_unit.equip(item)
+		Player.remove_item_from_inventory(item)
 
 func _try_deploy_unit(data: UnitData, world_pos: Vector2) -> void:
 	#if not _is_in_player_zone(world_pos):
@@ -195,7 +215,7 @@ func is_mouse_in_neutral_zone() -> bool:
 func is_mouse_in_ennemy_zone() -> bool:
 	return is_in_zone(enemy_zone, get_world_mouse_position())
 
-func _on_exit_battle(victory: bool) -> void:
+func _on_exit_battle(_victory: bool) -> void:
 	print("Leaving battle...")
 	Player.clear_deployed_units()
 
@@ -211,13 +231,6 @@ func _get_unit_at_position(world_pos: Vector2) -> BaseUnit :
 		if parent is BaseUnit:
 			return parent
 	return null
-
-func _try_equip_item(item: Item, world_pos: Vector2) -> void:
-	# check if dropped on a deployed unit
-	var target_unit := _get_unit_at_position(world_pos)
-	if target_unit:
-		target_unit.equip(item)
-		Player.remove_item_from_inventory(item)
 
 func _on_unit_recalled(unit: BaseUnit) -> void:
 	player_units_alive.erase(unit)

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dt6wkqyq6ujku" path="res://Scenes/UI/inventory/item_slot.gd" id="1_24rpm"]
 [ext_resource type="Texture2D" uid="uid://bd0wci1wv4sfa" path="res://ressources/Sprites/UI/Borders/empty_border.png" id="2_5yy68"]
+[ext_resource type="Script" uid="uid://hohdnviatck1" path="res://scripts/Components/slot_drag_visual.gd" id="3_nk143"]
 
 [node name="ItemSlot" type="Panel" unique_id=62567015]
 custom_minimum_size = Vector2(32, 32)
@@ -17,6 +18,10 @@ texture = ExtResource("2_5yy68")
 [node name="SlotSprite" type="Sprite2D" parent="." unique_id=1183071005]
 unique_name_in_owner = true
 position = Vector2(16, 16)
+
+[node name="DragVisual" type="Node" parent="." unique_id=1130805394 node_paths=PackedStringArray("slot")]
+script = ExtResource("3_nk143")
+slot = NodePath("..")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,6 +1,7 @@
 extends Node2D
 class_name StatusEffectModule
 
+@warning_ignore("unused_signal")
 signal effects_changed
 
 @export var StatusEffects : Array[StatusEffect] = []

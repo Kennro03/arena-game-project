@@ -43,7 +43,10 @@ func load_unit_inspect_buttons() -> void :
 	_add_button("Inspect unit", func():
 		Events.open_unit_info_requested.emit(_unit)
 		)
-	if _unit in Player.deployed_units :
+	
+	var battle_state := BattleManager.get_state(self)
+	
+	if _unit in Player.deployed_units and battle_state == BattleManager.LevelState.SPAWNING :
 		_add_button("Send unit to reserve", func():
 			Player.recall_unit(_unit)
 			close()

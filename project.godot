@@ -65,6 +65,7 @@ Hurtbox=""
 PlayerSpawnZone="Zones where the player can spawn and drag and drop units during preparation phase"
 NeutralSpawnZone=""
 EnemySpawnZone=""
+BattleManager=""
 
 [input]
 

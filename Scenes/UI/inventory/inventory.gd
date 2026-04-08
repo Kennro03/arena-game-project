@@ -33,6 +33,9 @@ func create_empty_slots() -> void :
 		i += 1
 
 func fill_slots_with_player_inventory() -> void:
+	for slot in item_slots:
+		slot.set_item(null)
+	
 	for i in Player.inventory.size():
 		if i >= item_slots.size():
 			printerr("More items than slots ! breaking slot filling function.")

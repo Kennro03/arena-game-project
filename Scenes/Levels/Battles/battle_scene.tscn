@@ -61,6 +61,15 @@ size = Vector2(144, 330)
 
 [node name="BattleScene" type="Node2D" unique_id=1541201406]
 
+[node name="BattleManager" type="Node" parent="." unique_id=1861640648 node_paths=PackedStringArray("spawner") groups=["BattleManager"]]
+script = ExtResource("1_qxkfb")
+spawner = NodePath("Spawner")
+level_data = ExtResource("2_57vkc")
+enemy_units = Array[ExtResource("13_pcjji")]([SubResource("Resource_qdmgy")])
+
+[node name="Spawner" type="Node" parent="BattleManager" unique_id=1283150222]
+script = ExtResource("18_3mj8a")
+
 [node name="InventoryReserveManager" type="Node" parent="." unique_id=1775805781]
 script = ExtResource("1_jgp7d")
 
@@ -75,15 +84,6 @@ ui_root = NodePath("../UI")
 [node name="TooltipHandler" type="Node" parent="." unique_id=309827960 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("4_b1ohq")
 ui_root = NodePath("../UI")
-
-[node name="BattleManager" type="Node" parent="." unique_id=1861640648 node_paths=PackedStringArray("spawner")]
-script = ExtResource("1_qxkfb")
-spawner = NodePath("Spawner")
-level_data = ExtResource("2_57vkc")
-enemy_units = Array[ExtResource("13_pcjji")]([SubResource("Resource_qdmgy")])
-
-[node name="Spawner" type="Node" parent="BattleManager" unique_id=1283150222]
-script = ExtResource("18_3mj8a")
 
 [node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1532648521]
 
