@@ -78,7 +78,7 @@ func recall_unit(unit: BaseUnit) -> void:
 
 func register_deployed_unit(unit:BaseUnit) -> void:
 	deployed_units.append(unit)
-	unit.unit_died.connect(_on_deployed_unit_died.bind(unit))
+	unit.unit_died.connect(_on_deployed_unit_died.unbind(1).bind(unit))
 
 func _on_deployed_unit_died(unit: BaseUnit) -> void:
 	deployed_units.erase(unit)

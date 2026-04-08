@@ -5,8 +5,9 @@ signal BeginEncounter
 signal WonEncounter
 signal LostEncounter
 
-var enemies_alive : int = 0
-var players_alive : int = 0
+var ennemy_units_alive : Array[BaseUnit]
+var neutral_units_alive : Array[BaseUnit]
+var player_units_alive : Array[BaseUnit]
 
 enum LevelState { LOADING, SPAWNING, FIGHTING, RESOLVING, COMPLETE }
 
@@ -72,8 +73,8 @@ func _spawn_player_units() -> void:
 		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(player_zone),unit_data)
 		if unit:
 			Player.register_deployed_unit(unit)
-			players_alive += 1
-			unit.stats.health_depleted.connect(_on_player_unit_died)
+			player_units_alive.append(unit)
+			unit.stats.health_depleted.connect(_on_player_unit_died.bind(unit))
 			selection_manager.register_unit(unit)
 
 func _spawn_enemy_units() -> void:
@@ -84,8 +85,8 @@ func _spawn_enemy_units() -> void:
 		enemy_data.unit_data.team = preload("res://ressources/Teams/EnemyTeam.tres")  # Set enemy unit team to consistent team
 		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(enemy_zone), enemy_data.unit_data)
 		if unit:
-			enemies_alive += 1
-			unit.stats.health_depleted.connect(_on_enemy_unit_died)
+			ennemy_units_alive.append(unit)
+			unit.stats.health_depleted.connect(_on_enemy_unit_died.bind(unit))
 			selection_manager.register_unit(unit)
 
 func _generate_enemy_list() -> Array[EnemyData]:
@@ -134,21 +135,21 @@ func _generate_enemy_list() -> Array[EnemyData]:
 	
 	return enemies_array
 
-func _on_enemy_unit_died() -> void:
-	enemies_alive -= 1
-	print("Enemies remaining = " + str(enemies_alive))
-	if enemies_alive <= 0 :
+func _on_enemy_unit_died(unit: BaseUnit) -> void:
+	ennemy_units_alive.erase(unit)
+	print("Enemies remaining = " + str(ennemy_units_alive.size()))
+	if ennemy_units_alive.size() <= 0 :
 		state = LevelState.RESOLVING
 		print("Won fight")
 		WonEncounter.emit()  # players win
 
-func _on_player_unit_died() -> void:
-	players_alive -= 1
-	if players_alive <= 0 :
+func _on_player_unit_died(unit: BaseUnit) -> void:
+	player_units_alive.erase(unit)
+	print("Allies remaining = " + str(player_units_alive.size()))
+	if player_units_alive.size() <= 0 :
 		state = LevelState.RESOLVING
 		print("Lost fight")
 		LostEncounter.emit()  # players lose
-
 
 func _on_slot_drag_ended(slot: Slot, world_pos: Vector2) -> void:
 	if slot is UnitSlot and slot._unit_data != null:
@@ -160,6 +161,11 @@ func _on_slot_drag_ended(slot: Slot, world_pos: Vector2) -> void:
 func _try_deploy_unit(data: UnitData, world_pos: Vector2) -> void:
 	#if not _is_in_player_zone(world_pos):
 		#return
+	
+	if state != LevelState.SPAWNING :
+		Events.unit_deployment_failed.emit("Cannot deploy outside of deployment phase")
+		return
+	
 	if Player.team.size() >= Player.team_size:
 		Events.unit_deployment_failed.emit("Team is full")
 		return
@@ -200,3 +206,23 @@ func is_mouse_in_ennemy_zone() -> bool:
 func _on_exit_battle(victory: bool) -> void:
 	print("Leaving battle...")
 	Player.clear_deployed_units()
+
+func _get_unit_at_position(world_pos: Vector2) -> BaseUnit :
+	var space := get_viewport().world_2d.direct_space_state
+	var query := PhysicsPointQueryParameters2D.new()
+	query.position = world_pos
+	query.collide_with_areas = true
+	query.collide_with_bodies = false
+	var results := space.intersect_point(query)
+	for result in results:
+		var parent : Node = result.collider.get_parent()
+		if parent is BaseUnit:
+			return parent
+	return null
+
+func _try_equip_item(item: Item, world_pos: Vector2) -> void:
+	# check if dropped on a deployed unit
+	var target_unit := _get_unit_at_position(world_pos)
+	if target_unit:
+		target_unit.equip(item)
+		Player.remove_item_from_inventory(item)
