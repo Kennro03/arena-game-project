@@ -14,6 +14,8 @@ func _ready() -> void:
 	
 	Events.unit_added_to_reserve.connect(func(_item): fill_slots_with_player_reserve())
 	Events.unit_removed_from_reserve.connect(func(_item): fill_slots_with_player_reserve())
+	Events.unit_added_to_team.connect(func(_u): fill_slots_with_player_reserve())
+	Events.unit_removed_from_team.connect(func(_u): fill_slots_with_player_reserve())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
