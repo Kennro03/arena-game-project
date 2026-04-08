@@ -73,7 +73,7 @@ func recall_unit(unit: BaseUnit) -> void:
 		team.erase(unit.unit_data)
 	
 	add_unit_to_reserve(unit.unit_data)
-	Events.unit_recalled.emit(unit.unit_data)
+	Events.unit_recalled.emit(unit)
 	unit.queue_free()
 
 func register_deployed_unit(unit:BaseUnit) -> void:

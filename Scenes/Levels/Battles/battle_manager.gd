@@ -35,6 +35,7 @@ func _ready() -> void:
 	#print("level data pool = " + str(level_data.random_enemy_pool))
 	load_level_data(level_data)
 	Events.slot_drag_ended.connect(_on_slot_drag_ended)
+	Events.unit_recalled.connect(_on_unit_recalled)
 
 func _process(_delta: float) -> void:
 	pass
@@ -133,23 +134,11 @@ func _generate_enemy_list() -> Array[EnemyData]:
 				budget -= final_cost
 		attempts += 1
 	
+	print("Ennemies = [")
+	for e in enemies_array :
+		print("	%s" % [e.unit_data.display_name])
+	print("]")
 	return enemies_array
-
-func _on_enemy_unit_died(unit: BaseUnit) -> void:
-	ennemy_units_alive.erase(unit)
-	print("Enemies remaining = " + str(ennemy_units_alive.size()))
-	if ennemy_units_alive.size() <= 0 :
-		state = LevelState.RESOLVING
-		print("Won fight")
-		WonEncounter.emit()  # players win
-
-func _on_player_unit_died(unit: BaseUnit) -> void:
-	player_units_alive.erase(unit)
-	print("Allies remaining = " + str(player_units_alive.size()))
-	if player_units_alive.size() <= 0 :
-		state = LevelState.RESOLVING
-		print("Lost fight")
-		LostEncounter.emit()  # players lose
 
 func _on_slot_drag_ended(slot: Slot, world_pos: Vector2) -> void:
 	if slot is UnitSlot and slot._unit_data != null:
@@ -171,13 +160,16 @@ func _try_deploy_unit(data: UnitData, world_pos: Vector2) -> void:
 		return
 	
 	if is_in_zone(player_zone,get_world_mouse_position()) != true :
-		printerr("Cursor not in player zone")
+		printerr("Can't deploy unit outside of player zone")
 		Events.unit_deployment_failed.emit("Cursor not in player zone")
 		return
 	
 	Player.move_unit_to_team(data)
 	var deployed_unit := spawner.spawn_from_data(world_pos, data)
 	Player.register_deployed_unit(deployed_unit)
+	player_units_alive.append(deployed_unit)
+	deployed_unit.stats.health_depleted.connect(_on_player_unit_died.bind(deployed_unit))
+	#print("Player units : " + str(player_units_alive))
 	Events.unit_deployed.emit(data)
 
 func is_in_zone(zone: Area2D, world_pos: Vector2) -> bool:
@@ -226,3 +218,31 @@ func _try_equip_item(item: Item, world_pos: Vector2) -> void:
 	if target_unit:
 		target_unit.equip(item)
 		Player.remove_item_from_inventory(item)
+
+func _on_unit_recalled(unit: BaseUnit) -> void:
+	player_units_alive.erase(unit)
+	#print("Player unit recalled, remaining: %d" % player_units_alive.size())
+	if player_units_alive.is_empty() and state == LevelState.FIGHTING:
+		state = LevelState.RESOLVING
+		LostEncounter.emit()
+
+func _on_enemy_unit_died(unit: BaseUnit) -> void:
+	ennemy_units_alive.erase(unit)
+	#print("Enemies remaining = " + str(ennemy_units_alive.size()))
+	_check_victory_conditions()
+
+func _on_player_unit_died(unit: BaseUnit) -> void:
+	player_units_alive.erase(unit)
+	#print("Allies remaining = " + str(player_units_alive.size()))
+	_check_victory_conditions()
+
+func _check_victory_conditions() -> void:
+	# clean up any stale references first
+	player_units_alive = player_units_alive.filter(func(u): return is_instance_valid(u))
+	ennemy_units_alive = ennemy_units_alive.filter(func(u): return is_instance_valid(u))
+	if ennemy_units_alive.is_empty():
+		state = LevelState.RESOLVING
+		WonEncounter.emit()
+	elif player_units_alive.is_empty():
+		state = LevelState.RESOLVING
+		LostEncounter.emit()

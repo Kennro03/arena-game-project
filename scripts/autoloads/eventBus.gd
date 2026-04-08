@@ -23,7 +23,7 @@ signal item_equipped(item: Item)
 signal item_unequipped(item: Item)
 
 # Unit related
-signal unit_recalled(unit: UnitData)            # sent from field to reserve
+signal unit_recalled(unit: BaseUnit)            # sent from field to reserve
 signal unit_deployed(unit: BaseUnit)            # any unit spawned on field
 signal unit_deployment_failed(reason: String)   # spawning unit failed
 signal unit_recruited(unit: UnitData)           # added to reserve for the first time
