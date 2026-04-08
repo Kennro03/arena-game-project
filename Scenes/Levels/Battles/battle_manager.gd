@@ -164,11 +164,38 @@ func _try_deploy_unit(data: UnitData, world_pos: Vector2) -> void:
 		Events.unit_deployment_failed.emit("Team is full")
 		return
 	
+	if is_in_zone(player_zone,get_world_mouse_position()) != true :
+		printerr("Cursor not in player zone")
+		Events.unit_deployment_failed.emit("Cursor not in player zone")
+		return
+	
 	Player.move_unit_to_team(data)
 	var deployed_unit := spawner.spawn_from_data(world_pos, data)
 	Player.register_deployed_unit(deployed_unit)
 	Events.unit_deployed.emit(data)
 
+func is_in_zone(zone: Area2D, world_pos: Vector2) -> bool:
+	var col := zone.get_node("CollisionShape2D") as CollisionShape2D
+	if col == null:
+		return false
+	var shape := col.shape as RectangleShape2D
+	if shape == null:
+		printerr("no shape defined for zone " + str(zone))
+		return false
+	var rect := Rect2(col.global_position - shape.size / 2.0, shape.size)
+	return rect.has_point(world_pos)
+
+func get_world_mouse_position() -> Vector2:
+	return get_viewport().get_canvas_transform().affine_inverse() * get_viewport().get_mouse_position()
+
+func is_mouse_in_player_zone() -> bool:
+	return is_in_zone(player_zone, get_world_mouse_position())
+
+func is_mouse_in_neutral_zone() -> bool:
+	return is_in_zone(neutral_zone, get_world_mouse_position())
+
+func is_mouse_in_ennemy_zone() -> bool:
+	return is_in_zone(enemy_zone, get_world_mouse_position())
 
 func _on_exit_battle(victory: bool) -> void:
 	print("Leaving battle...")

@@ -13,7 +13,7 @@ signal unit_died(unit: BaseUnit)
 @onready var skillModule : SkillModule = $SkillModule
 @onready var displayModule : DisplayModule = $DisplayModule
 @onready var particleModule : ParticleModule = $ParticleModule
-@onready var drag_and_drop_component: DragAndDrop = %DragAndDropComponent
+@onready var drag_and_drop_component: UnitDragAndDrop = %UnitDragAndDropComponent
 @onready var velocity_based_rotation_component: VelocityBasedRotation = %VelocityBasedRotationComponent
 @onready var outline_highlight_component: OutlineHighlighter = %OutlineHighlightComponent
 
@@ -105,9 +105,22 @@ func _on_activated() -> void:
 
 func _on_deactivated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_DISABLED
-	drag_and_drop_component.enabled = true
+	drag_and_drop_component.enabled = _is_player_unit()
+	drag_and_drop_component.allowed_zones = _get_allowed_zones()
 	velocity_based_rotation_component.enabled = true
 	#animationPlayer.play("BaseUnit/idle")
+
+func _is_player_unit() -> bool:
+	return unit_data in Player.team or unit_data in Player.deployed_units.map(
+		func(u): return u.unit_data)
+
+func _get_allowed_zones() -> Array[Area2D]:
+	# find player zone from scene
+	var player_zone := get_tree().get_first_node_in_group("PlayerSpawnZone") as Area2D
+	if player_zone:
+		return [player_zone]
+	printerr("No player spawn zone found in scene")
+	return []
 
 func update_healthBar(_health, _max_health) -> void :
 	healthBar.max_value = _max_health
@@ -458,7 +471,6 @@ func _on_drag_canceled(starting_position: Vector2)-> void:
 func reset_after_dragging(starting_position: Vector2) -> void:
 	velocity_based_rotation_component.enabled = false
 	global_position = starting_position
-
 
 func _on_selection_area_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if _event is InputEventMouseButton and _event.pressed:

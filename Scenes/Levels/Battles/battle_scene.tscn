@@ -89,7 +89,7 @@ script = ExtResource("18_3mj8a")
 
 [node name="SpawnZones" type="Node2D" parent="." unique_id=1229860022]
 
-[node name="NeutralZone" type="Area2D" parent="SpawnZones" unique_id=728318312]
+[node name="NeutralZone" type="Area2D" parent="SpawnZones" unique_id=728318312 groups=["NeutralSpawnZone"]]
 unique_name_in_owner = true
 z_index = -1
 
@@ -98,7 +98,7 @@ position = Vector2(320, 181)
 shape = SubResource("RectangleShape2D_8da8d")
 debug_color = Color(0.5254902, 0.5411765, 0.5137255, 0.039215688)
 
-[node name="PlayerZone" type="Area2D" parent="SpawnZones" unique_id=2117915562]
+[node name="PlayerZone" type="Area2D" parent="SpawnZones" unique_id=2117915562 groups=["PlayerSpawnZone"]]
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZones/PlayerZone" unique_id=1415221449]
@@ -106,7 +106,7 @@ position = Vector2(88, 181)
 shape = SubResource("RectangleShape2D_muisw")
 debug_color = Color(0.30980393, 0.7529412, 0.3019608, 0.19607843)
 
-[node name="EnemyZone" type="Area2D" parent="SpawnZones" unique_id=237068058]
+[node name="EnemyZone" type="Area2D" parent="SpawnZones" unique_id=237068058 groups=["EnemySpawnZone"]]
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZones/EnemyZone" unique_id=1695760327]
@@ -136,3 +136,5 @@ ui_root = NodePath("..")
 [connection signal="mouse_exited" from="SpawnZones/NeutralZone" to="BattleManager/Spawner" method="_on_neutral_zone_mouse_exited"]
 [connection signal="mouse_entered" from="SpawnZones/PlayerZone" to="BattleManager/Spawner" method="_on_player_zone_mouse_entered"]
 [connection signal="mouse_exited" from="SpawnZones/PlayerZone" to="BattleManager/Spawner" method="_on_player_zone_mouse_exited"]
+[connection signal="body_entered" from="SpawnZones/EnemyZone" to="BattleManager/Spawner" method="_on_enemy_zone_body_entered"]
+[connection signal="body_exited" from="SpawnZones/EnemyZone" to="BattleManager/Spawner" method="_on_enemy_zone_body_exited"]

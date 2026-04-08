@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="15_yrn6x"]
 [ext_resource type="Script" uid="uid://7xbnrxcgcsgo" path="res://Scenes/StateMachine/stunned.gd" id="16_7uoxq"]
 [ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="17_504nd"]
-[ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/drag_and_drop_component.gd" id="17_bksgy"]
+[ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="17_bksgy"]
 [ext_resource type="Script" uid="uid://de3oub0ll741a" path="res://scripts/Components/velocity_based_rotation.gd" id="18_s0wwk"]
 [ext_resource type="Script" uid="uid://dnriefm5vyac4" path="res://scripts/Components/OutlineHighlighter.gd" id="21_3qbi7"]
 
@@ -490,7 +490,7 @@ script = ExtResource("16_7uoxq")
 unique_name_in_owner = true
 script = ExtResource("17_504nd")
 
-[node name="DragAndDropComponent" type="Node" parent="." unique_id=992038815 node_paths=PackedStringArray("target_area", "target")]
+[node name="UnitDragAndDropComponent" type="Node" parent="." unique_id=992038815 node_paths=PackedStringArray("target_area", "target")]
 unique_name_in_owner = true
 script = ExtResource("17_bksgy")
 target_area = NodePath("../SelectionArea")

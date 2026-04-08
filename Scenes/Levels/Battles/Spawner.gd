@@ -14,9 +14,6 @@ var player_team : Team = preload("res://ressources/Teams/PlayerTeam.tres")
 var unit: PackedScene = preload("res://Scenes/Units/BaseUnit/BaseUnit.tscn")
 var default_data: UnitData = UnitData.new()
 
-var in_player_zone : bool = false
-var in_neutral_zone : bool = false
-
 var selected_UnitData : UnitData 
 var random_spawn_toggle : bool = false
 var elapsed := 0.0
@@ -37,7 +34,7 @@ func _random_point_in_zone(zone: Area2D) -> Vector2:
 		randf_range(-extents.y, extents.y)
 	)
 
-func spawn_from_data(pos: Vector2, data: UnitData, ) -> BaseUnit:
+func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 	if data == null:
 		push_error("Missing data")
 		return null
@@ -72,16 +69,3 @@ func load_weapons() -> Array[Weapon]:
 
 func _on_random_spawn_button_pressed() -> void:
 	random_spawn_toggle = !random_spawn_toggle
-
-
-func _on_player_zone_mouse_entered() -> void:
-	in_player_zone = true
-
-func _on_player_zone_mouse_exited() -> void:
-	in_player_zone = false
-
-func _on_neutral_zone_mouse_entered() -> void:
-	in_neutral_zone = true
-
-func _on_neutral_zone_mouse_exited() -> void:
-	in_neutral_zone = false

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cr0ku2232m77j" path="res://Scenes/UI/Slots/weapon_slot.tscn" id="3_rp5dg"]
 [ext_resource type="PackedScene" uid="uid://bpkurgfb4csud" path="res://Scenes/UI/Slots/armor_slot.tscn" id="4_orfmt"]
 [ext_resource type="PackedScene" uid="uid://dd2psrpeofhbi" path="res://Scenes/UI/Slots/accessory_slot.tscn" id="5_orfmt"]
-[ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/drag_and_drop_component.gd" id="5_rp5dg"]
+[ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="5_rp5dg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v6ryx"]
 size = Vector2(32, 32)
