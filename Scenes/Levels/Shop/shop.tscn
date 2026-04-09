@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://3w1kvqjscmgf" path="res://Scenes/Levels/Shop/shop.gd" id="1_k1r4k"]
 [ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="2_ntui6"]
 [ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="3_0hnpw"]
+[ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="4_bd5oq"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="4_ntui6"]
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="5_0hnpw"]
 
@@ -52,6 +53,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 mouse_filter = 2
+theme = ExtResource("4_bd5oq")
 script = ExtResource("1_k1r4k")
 prototype_scene = &"uid://hlb8w8j5gs7u"
 
@@ -96,7 +98,7 @@ alignment = 1
 [node name="Label" type="Label" parent="UI/Shop/Panel/MarginContainer/VBoxContainer/Label" unique_id=95624315]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "SHoP!!!"
+text = "Shop"
 
 [node name="ItemsSection" type="VBoxContainer" parent="UI/Shop/Panel/MarginContainer/VBoxContainer" unique_id=498025502]
 layout_mode = 2

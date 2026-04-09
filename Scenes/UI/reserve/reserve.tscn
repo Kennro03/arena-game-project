@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://buquhmksgk22a"]
 
+[ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="1_0bb6q"]
 [ext_resource type="Script" uid="uid://cv4mygccopc87" path="res://Scenes/UI/reserve/reserve.gd" id="1_kyj30"]
 [ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="1_o6yq8"]
 
@@ -12,6 +13,7 @@ offset_right = 234.0
 offset_bottom = 200.0
 size_flags_horizontal = 0
 mouse_filter = 2
+theme = ExtResource("1_0bb6q")
 script = ExtResource("1_kyj30")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=239782206]
@@ -72,5 +74,6 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 8
 text = "x"
+icon_alignment = 1
 
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

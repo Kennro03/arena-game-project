@@ -54,6 +54,7 @@ folder_colors={
 "res://ressources/Sprites/Units/": "teal",
 "res://ressources/Sprites/VFX/": "pink",
 "res://ressources/Status_Effects/": "yellow",
+"res://ressources/Theme/": "gray",
 "res://ressources/Units/": "teal",
 "res://scripts/": "purple"
 }

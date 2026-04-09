@@ -1,0 +1,61 @@
+[gd_resource type="Theme" format=3 uid="uid://cgpx5w31026n2"]
+
+[ext_resource type="Texture2D" uid="uid://cuyqhcginxphp" path="res://ressources/Sprites/UI/hotbar_128.png" id="1_rjgay"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb28r"]
+bg_color = Color(0.07762883, 0.07762881, 0.07762881, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3764706, 0.3764706, 0.4392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0l03"]
+bg_color = Color(0.2469503, 0.2469503, 0.2469503, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bb6q"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3764706, 0.3764706, 0.4392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ffhj"]
+bg_color = Color(0.8192276, 0.81922776, 0.8192277, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3764706, 0.3764706, 0.4392157, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_0bb6q"]
+color = Color(0.3764706, 0.3764706, 0.4392157, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m0l03"]
+texture = ExtResource("1_rjgay")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_noihr"]
+bg_color = Color(0.3764706, 0.3764706, 0.4392157, 1)
+
+[resource]
+Button/styles/disabled = SubResource("StyleBoxFlat_bb28r")
+Button/styles/hover = SubResource("StyleBoxFlat_m0l03")
+Button/styles/normal = SubResource("StyleBoxFlat_0bb6q")
+Button/styles/pressed = SubResource("StyleBoxFlat_0ffhj")
+HSeparator/styles/separator = SubResource("StyleBoxLine_0bb6q")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_m0l03")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_noihr")
+VScrollBar/styles/scroll = null
