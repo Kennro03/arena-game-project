@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://chor5kpubfe5y"]
+
+[ext_resource type="Script" uid="uid://bj6tnrre6rk2n" path="res://Scenes/UI/BattleReward/battle_rewards.gd" id="1_mf7o4"]
+
+[node name="BattleRewards" type="Control" unique_id=912546353]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mf7o4")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=832559159]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -125.0
+offset_right = 250.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
