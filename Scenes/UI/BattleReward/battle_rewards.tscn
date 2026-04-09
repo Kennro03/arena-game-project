@@ -11,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mf7o4")
+gold_reward = 50
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=832559159]
 layout_mode = 1
@@ -19,9 +20,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
+offset_left = -100.0
 offset_top = -125.0
-offset_right = 250.0
+offset_right = 100.0
 offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -36,8 +37,10 @@ size_flags_vertical = 0
 alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HeaderHBox" unique_id=500135344]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-text = "B A T T L E    R E W A R D S"
+text = "BATTLE REWARDS"
+vertical_alignment = 1
 
 [node name="RewardsNinePatchRect" type="NinePatchRect" parent="PanelContainer/VBoxContainer" unique_id=1745818401]
 layout_mode = 2
@@ -56,66 +59,80 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer" unique_id=214925979]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer" unique_id=1911624548]
 layout_mode = 2
-vertical_scroll_mode = 2
+alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer" unique_id=397529145]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer" unique_id=214925979]
 layout_mode = 2
-columns = 13
+size_flags_horizontal = 3
 
-[node name="ItemSlot2" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=62567015 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=968320653 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot3" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=2104234209 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot4" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=2061583197 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot5" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=167648048 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot6" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=1358498540 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot7" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=482163010 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot8" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=812926534 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot9" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=1553009622 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot10" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=653565669 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot11" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=1877787879 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot12" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=1209570500 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot13" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=607415882 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot14" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=1064951591 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot15" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=539776668 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="ItemSlot16" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/ScrollContainer/GridContainer" unique_id=989724714 instance=ExtResource("2_0o6rs")]
-layout_mode = 2
-
-[node name="CloseButton" type="Button" parent="PanelContainer" unique_id=98597124]
+[node name="RewardContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer" unique_id=397529145]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-text = "x"
+size_flags_horizontal = 6
+columns = 5
+
+[node name="ItemSlot2" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=62567015 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=968320653 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot3" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=2104234209 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot4" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=2061583197 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot5" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=167648048 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot6" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=1358498540 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot7" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=482163010 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot8" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=812926534 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot9" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=1553009622 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot10" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=653565669 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot11" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=1877787879 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot12" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=1209570500 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot13" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=607415882 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot14" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=1064951591 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot15" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=539776668 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="ItemSlot16" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/RewardContainer" unique_id=989724714 instance=ExtResource("2_0o6rs")]
+layout_mode = 2
+
+[node name="CloseButtonContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer" unique_id=1142383519]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/CloseButtonContainer" unique_id=605620159]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 8
+text = "Close rewards"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/CloseButtonContainer/CloseButton" to="." method="_on_close_button_pressed"]
