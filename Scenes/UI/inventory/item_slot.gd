@@ -4,7 +4,9 @@ class_name ItemSlot
 @export var item: Item = null
 @onready var drag_visual: SlotDragVisual = $DragVisual
 
-@onready var rich_text_label: RichTextLabel = $RichTextLabel
+@onready var rich_text_label: RichTextLabel = $TextLabel
+@onready var text_label: RichTextLabel = $TextLabel
+
 
 func set_item(_item: Item) -> void:
 	item = _item
@@ -34,6 +36,7 @@ func _on_mouse_entered() -> void:
 		Events.tooltip_requested.emit(tooltip)
 	else : 
 		tooltip = item_tooltip_scene.instantiate()
+		tooltip.item = item
 		Events.tooltip_requested.emit(tooltip)
 
 func _on_mouse_exited() -> void:
@@ -43,5 +46,6 @@ func _on_mouse_exited() -> void:
 		tooltip.queue_free()
 		tooltip = null
 
-func set_label_text(new_text: String) -> void :
+func set_label_text(new_text: String, font_size:int = 8) -> void :
 	rich_text_label.append_text(new_text)
+	rich_text_label.add_theme_font_size_override("normal_font_size",font_size)

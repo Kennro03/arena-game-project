@@ -12,8 +12,8 @@ const weapon_tooltip_scene := preload("res://Scenes/UI/Tooltips/weapon_tooltip.t
 const accessory_tooltip_scene := preload("res://Scenes/UI/Tooltips/accessory_tooltip.tscn")
 const unit_tooltip_scene := preload("res://Scenes/UI/Tooltips/unit_tooltip.tscn")
 
-@onready var icon_sprite: Sprite2D = %SlotSprite
-@onready var border_sprite: Sprite2D = %SlotBorder
+@onready var icon_sprite: TextureRect = %SlotSprite
+@onready var border_sprite: TextureRect = %SlotBorder
 
 const EMPTY_BORDER := preload("res://ressources/Sprites/UI/Borders/empty_border.png")
 

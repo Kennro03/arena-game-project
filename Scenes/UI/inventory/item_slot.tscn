@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dt6wkqyq6ujku" path="res://Scenes/UI/inventory/item_slot.gd" id="1_24rpm"]
 [ext_resource type="Texture2D" uid="uid://bd0wci1wv4sfa" path="res://ressources/Sprites/UI/Borders/empty_border.png" id="2_5yy68"]
+[ext_resource type="Resource" uid="uid://bbxf6b6qxaqrv" path="res://ressources/Items/Accessories/goldenRing.tres" id="2_s8i6o"]
 [ext_resource type="Script" uid="uid://hohdnviatck1" path="res://scripts/Components/slot_drag_visual.gd" id="3_nk143"]
 
 [node name="ItemSlot" type="Panel" unique_id=62567015]
@@ -9,20 +10,34 @@ custom_minimum_size = Vector2(32, 32)
 offset_right = 32.0
 offset_bottom = 32.0
 script = ExtResource("1_24rpm")
+item = ExtResource("2_s8i6o")
 
-[node name="SlotBorder" type="Sprite2D" parent="." unique_id=1291859160]
+[node name="SlotBorder" type="TextureRect" parent="." unique_id=1173665362]
 unique_name_in_owner = true
-position = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_5yy68")
 
-[node name="SlotSprite" type="Sprite2D" parent="." unique_id=1183071005]
+[node name="SlotSprite" type="TextureRect" parent="." unique_id=1870196024]
 unique_name_in_owner = true
-position = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=419522652]
-layout_mode = 0
-offset_right = 32.0
-offset_bottom = 32.0
+[node name="TextLabel" type="RichTextLabel" parent="." unique_id=419522652]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 6
 theme_override_font_sizes/bold_font_size = 6
