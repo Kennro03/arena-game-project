@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="Accessory" format=3 uid="uid://bcgx8j8wdnce3"]
+
+[ext_resource type="Texture2D" uid="uid://bd3ycprdgbf0l" path="res://ressources/Sprites/Icons/Items/Accessory/jewelry_sprite_pngs/necklace_gold.png" id="1_j5tmd"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="2_0nvks"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="3_53w05"]
+
+[sub_resource type="Resource" id="Resource_2jn8c"]
+script = ExtResource("3_53w05")
+buff_amount = 15.0
+buff_type = 1
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_f512p"]
+script = ExtResource("3_53w05")
+stat = 1
+buff_amount = 15.0
+buff_type = 1
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_wuhvh"]
+script = ExtResource("3_53w05")
+stat = 5
+buff_amount = 15.0
+buff_type = 1
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[resource]
+script = ExtResource("2_0nvks")
+statChanges = Array[ExtResource("3_53w05")]([SubResource("Resource_2jn8c"), SubResource("Resource_f512p"), SubResource("Resource_wuhvh")])
+item_name = "Big guy's gold necklace"
+description = "A kick-ass necklace made out of gold."
+icon = ExtResource("1_j5tmd")
+item_type = 2
+rarity = 4
+value = 99
+metadata/_custom_type_script = "uid://c4fibwo0c6337"

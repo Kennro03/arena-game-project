@@ -4,6 +4,7 @@ class_name EnemyData
 @export var unit_data: UnitData  # can be stickmanUnitData, SlimeData, etc.
 @export var base_cost: float = 10.0
 @export var enemy_tier: EnemyTier = EnemyTier.COMMON
+@export var loot_table: LootTable = LootTable.new()
 
 enum EnemyTier { COMMON, ELITE, BOSS }
 

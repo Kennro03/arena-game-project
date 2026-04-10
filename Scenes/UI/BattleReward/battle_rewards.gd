@@ -19,6 +19,12 @@ func update_rewards() -> void :
 	clear_rewards()
 	add_gold_reward()
 	add_item_rewards()
+	print("Total battle rewards = [")
+	if gold_reward > 0 :
+		print(str(gold_reward)+ " gold\n")
+	for item in item_reward :
+		print(item.item_name + "\n")
+	print("]")
 
 func clear_rewards() -> void : 
 	for r in reward_container.get_children() :

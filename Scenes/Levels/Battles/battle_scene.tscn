@@ -5,8 +5,11 @@
 [ext_resource type="Resource" uid="uid://sshw11e24ays" path="res://Scenes/Levels/Battles/test_level/TestLevelData.tres" id="2_57vkc"]
 [ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="3_qpo3t"]
 [ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="4_b1ohq"]
+[ext_resource type="Script" uid="uid://ciafbkaty1yix" path="res://scripts/Items/Item.gd" id="4_hvyff"]
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="5_qeo1e"]
+[ext_resource type="Script" uid="uid://drfgc7i6bgn41" path="res://scripts/Units/LootEntry.gd" id="5_qpo3t"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="6_hvyff"]
+[ext_resource type="Script" uid="uid://pnd2x204n7v3" path="res://scripts/Units/LootTable.gd" id="6_yeqs3"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="8_qpo3t"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="9_yeqs3"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="10_eetsg"]
@@ -17,6 +20,11 @@
 [ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="17_w3d5s"]
 [ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Battles/Spawner.gd" id="18_3mj8a"]
 [ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/BattleUI/battle_ui.tscn" id="19_c652g"]
+
+[sub_resource type="Resource" id="Resource_eetsg"]
+script = ExtResource("6_yeqs3")
+guaranteed_gold_max = 1
+metadata/_custom_type_script = "uid://pnd2x204n7v3"
 
 [sub_resource type="Resource" id="Resource_oloho"]
 script = ExtResource("11_llnxj")
@@ -49,6 +57,7 @@ script = ExtResource("13_pcjji")
 unit_data = SubResource("Resource_6nyc0")
 base_cost = 20.0
 enemy_tier = 1
+loot_table = SubResource("Resource_eetsg")
 metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8da8d"]

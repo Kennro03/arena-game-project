@@ -7,25 +7,7 @@
 script = ExtResource("1_aj0y4")
 cost = 0
 
-[node name="PriceLabel" type="Label" parent="." index="2" unique_id=303475822]
+[node name="TextLabel" parent="." index="2" unique_id=419522652]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -32.0
-offset_right = 16.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 1
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.29411766)
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 8
-text = "...g"
-horizontal_alignment = 1
-vertical_alignment = 2
 
 [connection signal="slot_clicked" from="." to="." method="_on_slot_clicked"]

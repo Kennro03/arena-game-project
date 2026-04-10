@@ -29,14 +29,17 @@ func _on_mouse_entered() -> void:
 	if item is Weapon :
 		tooltip = weapon_tooltip_scene.instantiate()
 		tooltip.wep = item
+		#print("Requested weapon tooltip")
 		Events.tooltip_requested.emit(tooltip)
 	elif item is Accessory :
 		tooltip = accessory_tooltip_scene.instantiate()
 		tooltip.acc = item
+		#print("Requested accessory tooltip")
 		Events.tooltip_requested.emit(tooltip)
 	else : 
 		tooltip = item_tooltip_scene.instantiate()
 		tooltip.item = item
+		#print("Requested item tooltip")
 		Events.tooltip_requested.emit(tooltip)
 
 func _on_mouse_exited() -> void:

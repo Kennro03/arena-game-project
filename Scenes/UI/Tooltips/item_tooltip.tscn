@@ -2,23 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://dl6uqqmn28cya" path="res://Scenes/UI/Tooltips/tooltip.tscn" id="1_urcsp"]
 [ext_resource type="Script" uid="uid://fhgtpllm11y3" path="res://item_tooltip.gd" id="2_mc1ln"]
-[ext_resource type="Script" uid="uid://c2o2ooupgl4do" path="res://scripts/Items/GoldReward.gd" id="3_mc1ln"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ljuk4"]
-size = Vector2(16, 16)
-
-[sub_resource type="Resource" id="Resource_1exvc"]
-script = ExtResource("3_mc1ln")
-item_id = "gold"
-item_name = "Gold"
-description = "Some gold. This has a longer description. I can fit a lot of words in here."
-icon = SubResource("PlaceholderTexture2D_ljuk4")
-item_type = 3
-metadata/_custom_type_script = "uid://c2o2ooupgl4do"
 
 [node name="ItemTooltip" unique_id=1608019069 instance=ExtResource("1_urcsp")]
 script = ExtResource("2_mc1ln")
-item = SubResource("Resource_1exvc")
+item = null
 
 [node name="MarginContainer" parent="." index="0" unique_id=485723106]
 offset_right = 88.0

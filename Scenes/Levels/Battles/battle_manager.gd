@@ -8,6 +8,7 @@ signal LostEncounter
 var ennemy_units_alive : Array[BaseUnit]
 var neutral_units_alive : Array[BaseUnit]
 var player_units_alive : Array[BaseUnit]
+var _defeated_enemies: Array[EnemyData] = []
 
 enum LevelState { LOADING, SPAWNING, FIGHTING, RESOLVING, COMPLETE }
 
@@ -24,6 +25,7 @@ var state: LevelState = LevelState.LOADING
 @onready var enemy_zone : Area2D = %EnemyZone
 @onready var selection_manager: SelectionManager = %SelectionManager
 
+const BATTLE_REWARDS_SCENE = preload("uid://chor5kpubfe5y")
 
 func _ready() -> void:
 	UI_node.connect("StartEncounterPressed",start_fight)
@@ -241,13 +243,23 @@ func _on_unit_recalled(unit: BaseUnit) -> void:
 
 func _on_enemy_unit_died(unit: BaseUnit) -> void:
 	ennemy_units_alive.erase(unit)
-	#print("Enemies remaining = " + str(ennemy_units_alive.size()))
+	
+	var enemy_data := _get_enemy_data_for_unit(unit)
+	
+	if enemy_data:
+		_defeated_enemies.append(enemy_data)
+		
 	_check_victory_conditions()
 
 func _on_player_unit_died(unit: BaseUnit) -> void:
 	player_units_alive.erase(unit)
-	#print("Allies remaining = " + str(player_units_alive.size()))
 	_check_victory_conditions()
+
+func _get_enemy_data_for_unit(unit: BaseUnit) -> EnemyData:
+	for enemy in enemy_units:
+		if enemy.unit_data == unit.unit_data:
+			return enemy
+	return null
 
 func _check_victory_conditions() -> void:
 	# clean up any stale references first
@@ -255,7 +267,19 @@ func _check_victory_conditions() -> void:
 	ennemy_units_alive = ennemy_units_alive.filter(func(u): return is_instance_valid(u))
 	if ennemy_units_alive.is_empty():
 		state = LevelState.RESOLVING
+		process_and_spawn_loot()
 		WonEncounter.emit()
 	elif player_units_alive.is_empty():
 		state = LevelState.RESOLVING
 		LostEncounter.emit()
+
+func process_and_spawn_loot() -> void:
+	var total_loot := LootResult.new()
+	for enemy in _defeated_enemies:
+		if enemy.loot_table:
+			total_loot.merge(enemy.loot_table.roll())
+	
+	var rewards_window : BattleRewards = BATTLE_REWARDS_SCENE.instantiate()
+	rewards_window.gold_reward = total_loot.gold
+	rewards_window.item_reward = total_loot.items
+	%UI.add_child(rewards_window)
