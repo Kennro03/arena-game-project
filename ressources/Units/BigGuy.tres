@@ -5,12 +5,12 @@
 [ext_resource type="Script" uid="uid://drfgc7i6bgn41" path="res://scripts/Units/LootEntry.gd" id="2_aua4c"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="2_mprgc"]
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="2_s2dnq"]
-[ext_resource type="Resource" uid="uid://338lnw5ndk41" path="res://ressources/Items/Accessories/goldNecklace.tres" id="2_wxvxn"]
+[ext_resource type="Resource" uid="uid://bcgx8j8wdnce3" path="res://ressources/Items/Accessories/BigGuyGoldNecklace.tres" id="2_wxvxn"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="3_5mu1x"]
 [ext_resource type="Script" uid="uid://pnd2x204n7v3" path="res://scripts/Units/LootTable.gd" id="3_wxvxn"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="5_3epot"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="6_8qaf5"]
-[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testhammer.tres" id="7_621hb"]
+[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testHammer.tres" id="7_621hb"]
 
 [sub_resource type="Resource" id="Resource_gn5ar"]
 script = ExtResource("3_wxvxn")

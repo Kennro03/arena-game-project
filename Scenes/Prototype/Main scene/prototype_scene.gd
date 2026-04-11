@@ -4,10 +4,10 @@ extends Node2D
 @export var shop_scene : StringName = &"" 
 
 func _ready() -> void:
-	pass
+	Player.current_scene = "uid://hlb8w8j5gs7u"
 
 func _on_battle_button_pressed() -> void:
-	SceneLoader.load_scene(battle_scene)
+	Player.go_to_scene(battle_scene)
 
 func _on_shop_button_pressed() -> void:
-	SceneLoader.load_scene(shop_scene)
+	Player.go_to_scene(shop_scene)

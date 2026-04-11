@@ -43,7 +43,7 @@ func add_item_rewards() -> void :
 		item_slot.set_label_text(i.item_name, slot_font_size)
 
 func _on_close_button_pressed() -> void:
-	queue_free()
+	Player.return_to_previous_scene()
 
 func _add_reward_slot(item: Item, is_gold: bool) -> ItemSlot:
 	var slot := ITEM_SLOT_SCENE.instantiate() as ItemSlot

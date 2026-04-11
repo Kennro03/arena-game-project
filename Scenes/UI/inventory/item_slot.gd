@@ -7,10 +7,11 @@ class_name ItemSlot
 @onready var rich_text_label: RichTextLabel = $TextLabel
 @onready var text_label: RichTextLabel = $TextLabel
 
-
 func set_item(_item: Item) -> void:
 	item = _item
 	set_visuals()
+	if _item != null :
+		drag_visual.enabled = true
 
 func get_icon() -> Texture2D:
 	return item.icon if item else null

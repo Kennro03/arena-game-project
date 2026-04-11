@@ -20,11 +20,13 @@ func _get_inspect_target() -> Object:
 	# check UI slots first (they're on top visually)
 	var ui_target := _get_hovered_slot()
 	if ui_target:
+		print("UI target : " + str(ui_target))
 		return ui_target
 	
 	# then check 2D units via physics query
 	var physics_target := _get_hovered_unit()
 	if physics_target:
+		print("UI target : " + str(physics_target))
 		return physics_target
 	
 	return null

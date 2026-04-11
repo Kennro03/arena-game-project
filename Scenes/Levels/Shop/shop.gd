@@ -3,8 +3,6 @@ class_name Shop
 
 const SHOP_SLOT_SCENE := preload("res://Scenes/Levels/Shop/shop_slot.tscn")
 
-@export var prototype_scene : StringName = &"" 
-
 @onready var items_row: HBoxContainer = %ItemsRow
 @onready var weapons_row: HBoxContainer = $Panel/MarginContainer/VBoxContainer/WeaponsSection/WeaponsRow
 @onready var refresh_button: Button = %RefreshButton
@@ -98,7 +96,7 @@ func get_weapon_list() -> Array[Weapon] :
 	return _weps
 
 func _on_exit_shop_button_pressed() -> void:
-	SceneLoader.load_scene(prototype_scene)
+	Player.return_to_previous_scene()
 
 func purchase_from_slot(slot:ShopSlot, _mouse_button_index : int) -> void:
 	if _mouse_button_index == MOUSE_BUTTON_LEFT :

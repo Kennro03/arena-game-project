@@ -1,7 +1,8 @@
 extends Control
 
-signal StartEncounterPressed()
+signal StartEncounterPressed
 signal introEnded
+signal WinAnimationEnded
 
 const UnitInfoPanelScene := preload("res://Scenes/UI/UnitInfoPanel/unit_info_panel.tscn")
 
@@ -47,3 +48,7 @@ func _on_lost_encounter() -> void:
 
 func _on_won_encounter() -> void:
 	animationPlayer.play("WinAnimation")
+
+func _on_win_animation_ended() -> void:
+	print("Win animation ended")
+	WinAnimationEnded.emit()

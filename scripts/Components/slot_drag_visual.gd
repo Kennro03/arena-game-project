@@ -1,7 +1,7 @@
 extends Node
 class_name SlotDragVisual
 
-@export var enabled: bool = true
+@export var enabled: bool = false
 @export var slot: Slot
 @export var mouse_offset : Vector2 = Vector2(0.0,0.0)
 

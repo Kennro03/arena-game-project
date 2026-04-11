@@ -60,7 +60,8 @@ func load_unit_slot_inspect_buttons() -> void :
 		close()
 	
 	_add_button("Inspect Unit", func():
-		Events.open_unit_slot_info_requested.emit(_slot.unit_data)
+		if is_instance_valid(_slot) :
+			Events.open_unit_slot_info_requested.emit(_slot.unit_data)
 		)
 	pass
 
@@ -71,11 +72,13 @@ func load_item_slot_inspect_buttons() -> void :
 		close()
 	
 	_add_button("Inspect Item", func():
-		Events.open_item_info_requested.emit(_slot.item)
+		if is_instance_valid(_slot) :
+			Events.open_item_info_requested.emit(_slot.item)
 		)
 	
 	_add_button("Discard", func():
-		Player.remove_from_inventory(_slot.item)
+		if is_instance_valid(_slot) :
+			Player.remove_from_inventory(_slot.item)
 		close())
 
 func load_shop_slot_inspect_buttons() -> void :

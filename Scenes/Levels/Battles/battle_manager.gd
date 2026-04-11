@@ -29,6 +29,7 @@ const BATTLE_REWARDS_SCENE = preload("uid://chor5kpubfe5y")
 
 func _ready() -> void:
 	UI_node.connect("StartEncounterPressed",start_fight)
+	UI_node.connect("WinAnimationEnded",process_and_spawn_loot)
 	BeginEncounter.connect(UI_node._on_begin_encounter)
 	WonEncounter.connect(UI_node._on_won_encounter)
 	LostEncounter.connect(UI_node._on_lost_encounter)
@@ -267,7 +268,6 @@ func _check_victory_conditions() -> void:
 	ennemy_units_alive = ennemy_units_alive.filter(func(u): return is_instance_valid(u))
 	if ennemy_units_alive.is_empty():
 		state = LevelState.RESOLVING
-		process_and_spawn_loot()
 		WonEncounter.emit()
 	elif player_units_alive.is_empty():
 		state = LevelState.RESOLVING

@@ -30,6 +30,9 @@ var current_map: Map = null
 var current_room: Room = null
 var run_modifiers: Array = [] # To implement : persistent effects on the run
 
+var previous_scene: StringName = &""
+var current_scene: StringName = &""
+
 # Meta
 var run_seed: int = 0
 var run_number: int = 0
@@ -48,6 +51,18 @@ func _ready() -> void:
 func add_item_to_inventory(item: Item) -> void:
 	inventory.append(item)
 	Events.item_added.emit(item)
+
+func go_to_scene(scene_path: StringName) -> void:
+	print("Moving scenes : \nCurrent scene = %s \nPrevious scene = %s \nTarget scene = %s" % [current_scene,previous_scene,scene_path])
+	previous_scene = current_scene
+	current_scene = scene_path
+	SceneLoader.load_scene(scene_path)
+
+func return_to_previous_scene() -> void:
+	if previous_scene == &"":
+		printerr("No previous scene to return to")
+		return
+	go_to_scene(previous_scene)
 
 func remove_item_from_inventory(item: Item) -> void:
 	if not item in inventory :

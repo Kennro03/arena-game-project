@@ -55,7 +55,6 @@ size_flags_horizontal = 0
 mouse_filter = 2
 theme = ExtResource("4_bd5oq")
 script = ExtResource("1_k1r4k")
-prototype_scene = &"uid://hlb8w8j5gs7u"
 
 [node name="Panel" type="Panel" parent="UI/Shop" unique_id=943147749]
 layout_mode = 1

@@ -26,6 +26,7 @@ offset_right = 16.0
 offset_bottom = 16.0
 
 [node name="DragVisual" type="Node" parent="." unique_id=1127672295 node_paths=PackedStringArray("slot")]
+unique_name_in_owner = true
 script = ExtResource("3_ah15m")
 slot = NodePath("..")
 

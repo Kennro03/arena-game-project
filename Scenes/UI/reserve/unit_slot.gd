@@ -2,10 +2,13 @@ extends Slot
 class_name UnitSlot
 
 @export var _unit_data: UnitData = null
+@onready var drag_visual: SlotDragVisual = %DragVisual
 
 func set_unit(_unit: UnitData) -> void:
 	_unit_data = _unit
 	set_visuals()
+	if _unit != null :
+		drag_visual.enabled = true
 
 func get_icon() -> Texture2D:
 	if _unit_data :
