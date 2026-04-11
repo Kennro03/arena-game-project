@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://chor5kpubfe5y"]
 
-[ext_resource type="Script" uid="uid://bj6tnrre6rk2n" path="res://Scenes/UI/BattleReward/battle_rewards.gd" id="1_mf7o4"]
+[ext_resource type="Script" uid="uid://bj6tnrre6rk2n" path="res://Scenes/UI/BattleUI/BattleReward/battle_rewards.gd" id="1_mf7o4"]
 [ext_resource type="PackedScene" uid="uid://dnm02uo4msg2e" path="res://Scenes/UI/inventory/item_slot.tscn" id="2_0o6rs"]
 
 [node name="BattleRewards" type="Control" unique_id=912546353]

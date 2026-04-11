@@ -4,6 +4,7 @@
 
 [sub_resource type="Animation" id="Animation_yenpq"]
 resource_name = "LostAnimation"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -11,10 +12,24 @@ tracks/0/path = NodePath("LosingPanel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.4, 1),
+"times": PackedFloat32Array(0, 0.7, 1.5, 2),
+"transitions": PackedFloat32Array(0.4, 1, 1, 1),
 "update": 0,
-"values": [Vector2(203, 400), Vector2(203, 136.00014)]
+"values": [Vector2(203, 400), Vector2(203, 136.00014), Vector2(203, 136.00014), Vector2(203, -56)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_lost_animation_ended"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_dgqyh"]
@@ -312,7 +327,7 @@ anchor_bottom = 0.5
 offset_left = -117.0
 offset_top = 220.0
 offset_right = 83.0
-offset_bottom = 270.00018
+offset_bottom = 270.0002
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lx68j")

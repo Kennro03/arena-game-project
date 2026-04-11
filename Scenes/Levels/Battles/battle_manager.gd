@@ -26,10 +26,12 @@ var state: LevelState = LevelState.LOADING
 @onready var selection_manager: SelectionManager = %SelectionManager
 
 const BATTLE_REWARDS_SCENE = preload("uid://chor5kpubfe5y")
+const BATTLE_LOST_SCREEN = preload("uid://dlunlwsre6qn5")
 
 func _ready() -> void:
 	UI_node.connect("StartEncounterPressed",start_fight)
 	UI_node.connect("WinAnimationEnded",process_and_spawn_loot)
+	UI_node.connect("LostAnimationEnded",spawn_loss_options)
 	BeginEncounter.connect(UI_node._on_begin_encounter)
 	WonEncounter.connect(UI_node._on_won_encounter)
 	LostEncounter.connect(UI_node._on_lost_encounter)
@@ -283,3 +285,7 @@ func process_and_spawn_loot() -> void:
 	rewards_window.gold_reward = total_loot.gold
 	rewards_window.item_reward = total_loot.items
 	%UI.add_child(rewards_window)
+
+func spawn_loss_options() -> void:
+	var loss_screen : BattleLostScreen = BATTLE_LOST_SCREEN.instantiate()
+	%UI.add_child(loss_screen)
