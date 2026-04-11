@@ -44,7 +44,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 32)
 layout_mode = 2
 bbcode_enabled = true
-text = "Say wallahi bro...."
+text = "Lost battle...."
 horizontal_alignment = 1
 
 [node name="RetryButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1270187573]
@@ -63,7 +63,7 @@ text = "Continue with reserve"
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Give up fight (lmao) "
+text = "Give up fight"
 
 [node name="QuitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=593474427]
 unique_name_in_owner = true

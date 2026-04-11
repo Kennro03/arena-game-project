@@ -8,7 +8,7 @@ class_name BattleLostScreen
 @onready var give_up_button: Button = %GiveUpButton
 @onready var quit_button: Button = %QuitButton
 
-signal _retry       #Reset the battle, bringing units back to their state before the fight
+signal _retry       #Reset the battle, bringing units back to their state before the fight (should consider disabling this or limiting it in real game)
 signal _continue    #Keep enemy and unit state, reseting combat phases and allowing player to deploy from reserve, blocked if no units in reserve
 signal _give_up     #Signals defeat in battle, during expeditions, this signals the end/defeat of an expedition
 signal _quit        #Exit the game, upon reloading, player is brought back to battle start
@@ -24,5 +24,4 @@ func _on_give_up_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	_quit.emit()
-	print("LMAO")
 	get_tree().quit() 
