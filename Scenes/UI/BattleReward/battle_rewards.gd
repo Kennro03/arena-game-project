@@ -48,6 +48,7 @@ func _on_close_button_pressed() -> void:
 func _add_reward_slot(item: Item, is_gold: bool) -> ItemSlot:
 	var slot := ITEM_SLOT_SCENE.instantiate() as ItemSlot
 	slot.custom_minimum_size = slot_size
+	slot.slot_context = ItemSlot.SlotContext.REWARD
 	#slot.is_inventory_slot                ##disable dragging 
 	 
 	if slot.has_node("DragVisual"):

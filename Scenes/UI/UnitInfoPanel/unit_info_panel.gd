@@ -104,11 +104,15 @@ func set_gear() -> void :
 	
 	var weapon_slot : WeaponSlot = weapon_slot_scene.instantiate()
 	weapon_slot.item = unit.weapon
+	weapon_slot.slot_context = ItemSlot.SlotContext.UNIT_GEAR
+	weapon_slot.owner_unit = unit
 	gear_slots.add_child(weapon_slot)
 	weapon_slot.drag_visual.enabled = false
 	
 	var armor_slot : ArmorSlot = armor_slot_scene.instantiate()
 	armor_slot.item = unit.armor
+	armor_slot.slot_context = ItemSlot.SlotContext.UNIT_GEAR
+	armor_slot.owner_unit = unit
 	gear_slots.add_child(armor_slot)
 	armor_slot.drag_visual.enabled = false
 	
@@ -116,6 +120,8 @@ func set_gear() -> void :
 	while i < unit.stats.current_accessory_limit :
 		var accessory_slot : AccessorySlot = accessory_slot_scene.instantiate()
 		accessory_slot.item = unit.accessories[i] if i < unit.accessories.size() else null
+		accessory_slot.slot_context = ItemSlot.SlotContext.UNIT_GEAR
+		accessory_slot.owner_unit = unit
 		gear_slots.add_child(accessory_slot)
 		accessory_slot.drag_visual.enabled = false
 		i += 1

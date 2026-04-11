@@ -1,6 +1,11 @@
 extends Slot
 class_name ItemSlot
 
+enum SlotContext { INVENTORY, UNIT_GEAR, REWARD, SHOP, DISPLAY }
+
+var slot_context: SlotContext = SlotContext.DISPLAY
+var owner_unit: BaseUnit = null  
+
 @export var item: Item = null
 @onready var drag_visual: SlotDragVisual = $DragVisual
 

@@ -5,10 +5,10 @@ const InspectMenuScene := preload("res://Scenes/UI/InspectMenu/inspect_menu.tscn
 var current_menu: InspectMenu = null
 @export var ui_root: CanvasLayer
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
-			print("unhandled click registered")
+			print("click registered")
 			var target := _get_inspect_target()
 			if target:
 				open(target)

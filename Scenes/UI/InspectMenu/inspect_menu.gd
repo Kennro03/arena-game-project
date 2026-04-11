@@ -71,15 +71,31 @@ func load_item_slot_inspect_buttons() -> void :
 	if _slot.item == null :
 		close()
 	
-	_add_button("Inspect Item", func():
-		if is_instance_valid(_slot) :
-			Events.open_item_info_requested.emit(_slot.item)
-		)
-	
-	_add_button("Discard", func():
-		if is_instance_valid(_slot) :
-			Player.remove_from_inventory(_slot.item)
-		close())
+	match _slot.slot_context:
+		ItemSlot.SlotContext.INVENTORY:
+			_add_button("Inspect Item", func():
+				if is_instance_valid(_slot) :
+					Events.open_item_info_requested.emit(_slot.item)
+				)
+			_add_button("Discard", func():
+				if is_instance_valid(_slot):
+					Player.remove_item_from_inventory(_slot.item)
+				close())
+			
+		ItemSlot.SlotContext.UNIT_GEAR:
+			if is_instance_valid(_slot.owner_unit):
+				_add_button("Inspect Item", func():
+					if is_instance_valid(_slot) :
+						Events.open_item_info_requested.emit(_slot.item)
+					)
+				if _slot.owner_unit in Player.deployed_units and _slot.item.item_id != _slot.owner_unit.default_weapon.item_id :
+					_add_button("Unequip", func():
+						if is_instance_valid(_slot) and is_instance_valid(_slot.owner_unit):
+							_unequip_from_unit(_slot)
+							pass
+						close())
+		ItemSlot.SlotContext.REWARD:
+			pass  
 
 func load_shop_slot_inspect_buttons() -> void :
 	#load buttons regarding shop slots
@@ -108,3 +124,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func close() -> void:
 	queue_free()
+
+func _unequip_from_unit(slot: ItemSlot) -> void:
+	var unit := slot.owner_unit
+	if slot.item is Weapon :
+		unit.equip(unit.default_weapon)
+		Player.add_item_to_inventory(slot.item)
+	elif slot.item is Armor:
+		unit.armor.remove_owner_buffs(unit.stats)
+		unit.armor = null
+		Player.add_item_to_inventory(slot.item)
+	elif slot.item is Accessory:
+		unit.unequip_accessory(slot.item as Accessory)
+		Player.add_item_to_inventory(slot.item)
