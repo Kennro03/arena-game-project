@@ -1,4 +1,5 @@
 extends Control
+class_name BattleUI
 
 signal StartEncounterPressed
 signal introEnded
@@ -12,11 +13,12 @@ const UnitInfoPanelScene := preload("res://Scenes/UI/UnitInfoPanel/unit_info_pan
 
 var unit_info_panel: Control = null
 
-@onready var animationPlayer := $AnimationPlayer
+@export var animationPlayer : AnimationPlayer
 
 func _ready() -> void:
-	selection_manager.unit_selected.connect(_on_unit_selected)
-	selection_manager.unit_deselected.connect(_on_unit_deselected)
+	if selection_manager : 
+		selection_manager.unit_selected.connect(_on_unit_selected)
+		selection_manager.unit_deselected.connect(_on_unit_deselected)
 	Events.open_unit_info_requested.connect(_spawn_unit_info_panel)
 	#Events.open_item_info_requested.connect(_spawn_item_info_panel)
 

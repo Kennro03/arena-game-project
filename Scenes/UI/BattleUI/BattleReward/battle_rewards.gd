@@ -68,4 +68,5 @@ func _add_reward_slot(item: Item, is_gold: bool) -> ItemSlot:
 		)
 	reward_container.add_child(slot)
 	slot.set_item(item)
+	slot.drag_visual.enabled = false
 	return slot

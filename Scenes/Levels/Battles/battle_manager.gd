@@ -5,25 +5,27 @@ signal BeginEncounter
 signal WonEncounter
 signal LostEncounter
 
+enum LevelState { LOADING, SPAWNING, FIGHTING, RESOLVING, COMPLETE }
+
+var state: LevelState = LevelState.LOADING
 var ennemy_units_alive : Array[BaseUnit]
 var neutral_units_alive : Array[BaseUnit]
 var player_units_alive : Array[BaseUnit]
 var _defeated_enemies: Array[EnemyData] = []
-
-enum LevelState { LOADING, SPAWNING, FIGHTING, RESOLVING, COMPLETE }
+var _pre_battle_team_snapshot: Array[UnitData] = []
+var _pre_battle_reserve_snapshot: Array[UnitData] = []
 
 @export var spawner : EncounterSpawner
 @export var level_data: BattleData
 @export var player_units: Array[UnitData] = []
 @export var enemy_units : Array[EnemyData] = []
 
-var state: LevelState = LevelState.LOADING
-
 @onready var UI_node : Control = %EncounterUI
 @onready var player_zone : Area2D = %PlayerZone
 @onready var neutral_zone : Area2D = %NeutralZone
 @onready var enemy_zone : Area2D = %EnemyZone
 @onready var selection_manager: SelectionManager = %SelectionManager
+@onready var encounter_ui: BattleUI = %EncounterUI
 
 const BATTLE_REWARDS_SCENE = preload("uid://chor5kpubfe5y")
 const BATTLE_LOST_SCREEN = preload("uid://dlunlwsre6qn5")
@@ -61,7 +63,9 @@ func load_level_data(data: BattleData) -> void:
 	for u in player_units :
 		print("	%s" % [u.display_name])
 	print("]")
-	#_apply_modifiers()
+	
+	_pre_battle_team_snapshot.assign(Player.team.map(func(u): return u.duplicate(true)))
+	_pre_battle_reserve_snapshot.assign(Player.reserve.map(func(u): return u.duplicate(true)))
 	spawn_units()
 
 func spawn_units() ->void : 
@@ -71,7 +75,7 @@ func spawn_units() ->void :
 	_spawn_enemy_units.call_deferred()
 
 func start_fight() ->void : 
-	if state == LevelState.SPAWNING :
+	if state == LevelState.SPAWNING and not Player.deployed_units.is_empty():
 		#print("Allies : " + str(players_alive) + "\nEnnemies : " + str(enemies_alive))
 		print("Starting fight...")
 		state = LevelState.FIGHTING
@@ -79,6 +83,8 @@ func start_fight() ->void :
 		await UI_node.introEnded
 		for unit in %Units.get_children() :
 			unit.active = true
+	else :
+		encounter_ui.animationPlayer.play("start_fight_failed_animation")
 
 func _spawn_player_units() -> void:
 	print("Spawning player units...")
@@ -313,8 +319,14 @@ func _on_retry() -> void:
 	ennemy_units_alive.clear()
 	_defeated_enemies.clear()
 	
+	# reset player team and reserve to pre-battle state
+	Player.team.assign(_pre_battle_team_snapshot.map(func(u): return u.duplicate(true)))
+	Player.reserve.assign(_pre_battle_reserve_snapshot.map(func(u): return u.duplicate(true)))
+	
+	# reset battle ui
+	encounter_ui.animationPlayer.play("RESET")
+	
 	# respawn everything
-	state = LevelState.SPAWNING
 	spawn_units()
 
 func _on_continue() -> void:
@@ -323,16 +335,24 @@ func _on_continue() -> void:
 		# disable continue button - handled in loss screen
 		return
 	
-	# keep enemies as-is, reset player side only
+	# reset player side
 	for unit in player_units_alive.duplicate():
 		if is_instance_valid(unit):
 			unit.queue_free()
+	
+	# deactivate enemies
+	for unit in ennemy_units_alive.duplicate():
+		if is_instance_valid(unit):
+			unit.active = false
+	
 	player_units_alive.clear()
 	Player.deployed_units.clear()
 	
+	# reset battle ui
+	encounter_ui.animationPlayer.play("RESET")
+	
 	# go back to spawning phase so player can deploy from reserve
 	state = LevelState.SPAWNING
-	_spawn_player_units()
 
 func _on_give_up() -> void:
 	Player.return_to_previous_scene()
