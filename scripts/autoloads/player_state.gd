@@ -155,7 +155,7 @@ func move_unit_to_reserve(unit: UnitData) -> void:
 func remove_unit(unit: UnitData) -> void:
 	var found : bool = false
 	if unit in team :
-		inventory.erase(unit)
+		team.erase(unit)
 		found = true
 		Events.unit_removed_from_team.emit(unit)
 		print("Removed %s from team" % [unit.display_name])

@@ -9,6 +9,8 @@ func set_unit(_unit: UnitData) -> void:
 	set_visuals()
 	if _unit != null :
 		drag_visual.enabled = true
+	else : 
+		drag_visual.enabled = false
 
 func get_icon() -> Texture2D:
 	if _unit_data :

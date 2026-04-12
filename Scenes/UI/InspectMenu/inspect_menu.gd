@@ -59,9 +59,10 @@ func load_unit_slot_inspect_buttons() -> void :
 	if _slot._unit_data == null :
 		close()
 	
-	_add_button("Inspect Unit", func():
+	_add_button("Remove Unit", func():
 		if is_instance_valid(_slot) :
-			Events.open_unit_slot_info_requested.emit(_slot.unit_data)
+			Player.remove_unit(_slot._unit_data)
+			close()
 		)
 	pass
 

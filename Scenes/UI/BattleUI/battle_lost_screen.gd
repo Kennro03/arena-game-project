@@ -15,12 +15,15 @@ signal _quit        #Exit the game, upon reloading, player is brought back to ba
 
 func _on_retry_button_pressed() -> void:
 	_retry.emit()
+	queue_free()
 
 func _on_continue_button_pressed() -> void:
 	_continue.emit()
+	queue_free()
 
 func _on_give_up_button_pressed() -> void:
 	_give_up.emit()
+	queue_free()
 
 func _on_quit_button_pressed() -> void:
 	_quit.emit()

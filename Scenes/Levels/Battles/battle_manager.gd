@@ -288,4 +288,51 @@ func process_and_spawn_loot() -> void:
 
 func spawn_loss_options() -> void:
 	var loss_screen : BattleLostScreen = BATTLE_LOST_SCREEN.instantiate()
+	loss_screen._retry.connect(_on_retry)
+	loss_screen._continue.connect(_on_continue)
+	loss_screen._give_up.connect(_on_give_up)
+	
+	if Player.reserve.is_empty():
+		loss_screen.continue_button.disabled = true
+		loss_screen.continue_button.tooltip_text = "No units in reserve"
+	
 	%UI.add_child(loss_screen)
+
+func _on_retry() -> void:
+	# restore units to pre-battle state from Player.team UnitData
+	# clear current deployed units
+	for unit in player_units_alive.duplicate():
+		if is_instance_valid(unit):
+			unit.queue_free()
+	player_units_alive.clear()
+	Player.deployed_units.clear()
+	# reset enemy state
+	for unit in ennemy_units_alive.duplicate():
+		if is_instance_valid(unit):
+			unit.queue_free()
+	ennemy_units_alive.clear()
+	_defeated_enemies.clear()
+	
+	# respawn everything
+	state = LevelState.SPAWNING
+	spawn_units()
+
+func _on_continue() -> void:
+	# check if there are reserve units to deploy
+	if Player.reserve.is_empty():
+		# disable continue button - handled in loss screen
+		return
+	
+	# keep enemies as-is, reset player side only
+	for unit in player_units_alive.duplicate():
+		if is_instance_valid(unit):
+			unit.queue_free()
+	player_units_alive.clear()
+	Player.deployed_units.clear()
+	
+	# go back to spawning phase so player can deploy from reserve
+	state = LevelState.SPAWNING
+	_spawn_player_units()
+
+func _on_give_up() -> void:
+	Player.return_to_previous_scene()
