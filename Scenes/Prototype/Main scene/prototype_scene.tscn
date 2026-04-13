@@ -16,6 +16,7 @@ width = 32
 script = ExtResource("1_3a2rb")
 battle_scene = &"uid://32iwvd3dtseu"
 shop_scene = &"uid://n6ib3torqc3t"
+event_scene = &"uid://bscmpqjoie8iu"
 
 [node name="TooltipHandler" type="Node" parent="." unique_id=795041103 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("4_iy8ah")
@@ -104,3 +105,4 @@ texture = SubResource("GradientTexture1D_po2h6")
 
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/EventButton" to="." method="_on_event_button_pressed"]

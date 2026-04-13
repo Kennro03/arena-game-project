@@ -1,0 +1,364 @@
+[gd_scene format=3 uid="uid://bscmpqjoie8iu"]
+
+[ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="1_fcwh7"]
+[ext_resource type="Script" uid="uid://dotn3devmi3ya" path="res://Scenes/Levels/RandomEvent/random_event.gd" id="1_v2k3f"]
+[ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="2_0f3d3"]
+[ext_resource type="Script" uid="uid://b4vufvrel0ohb" path="res://ressources/RandomEvents/EventChoice.gd" id="2_vv4y6"]
+[ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="3_v2k3f"]
+[ext_resource type="Script" uid="uid://bb5c6lbw3x7mq" path="res://ressources/RandomEvents/EventEffect.gd" id="3_xf0ir"]
+[ext_resource type="Script" uid="uid://cl887rr5gipeb" path="res://ressources/RandomEvents/EventEffect_GainGold.gd" id="4_p2bfy"]
+[ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="4_txe1f"]
+[ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="5_0f3d3"]
+[ext_resource type="Resource" uid="uid://2gvcwm08oqgb" path="res://ressources/Items/Weapons/raretesthammer.tres" id="5_howa4"]
+[ext_resource type="Script" uid="uid://b0q6ppt1daljd" path="res://ressources/RandomEvents/EventEffect_GainItem.gd" id="6_cj5l2"]
+[ext_resource type="Script" uid="uid://c7y0et8cd3tso" path="res://ressources/RandomEvents/EventResource.gd" id="7_6egqh"]
+
+[sub_resource type="Resource" id="Resource_278u7"]
+script = ExtResource("4_p2bfy")
+amount = 15
+metadata/_custom_type_script = "uid://cl887rr5gipeb"
+
+[sub_resource type="Resource" id="Resource_urivk"]
+script = ExtResource("2_vv4y6")
+label = "Grab a handful of coins"
+description = "Gain 15 gold."
+effects = Array[ExtResource("3_xf0ir")]([SubResource("Resource_278u7")])
+is_locked_if_requirements_not_met = false
+metadata/_custom_type_script = "uid://b4vufvrel0ohb"
+
+[sub_resource type="Resource" id="Resource_e7op0"]
+script = ExtResource("6_cj5l2")
+item = ExtResource("5_howa4")
+metadata/_custom_type_script = "uid://b0q6ppt1daljd"
+
+[sub_resource type="Resource" id="Resource_wigft"]
+script = ExtResource("2_vv4y6")
+label = "Grab the large shiny object"
+description = "Gain a rare hammer."
+effects = Array[ExtResource("3_xf0ir")]([SubResource("Resource_e7op0")])
+is_locked_if_requirements_not_met = false
+metadata/_custom_type_script = "uid://b4vufvrel0ohb"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vv4y6"]
+size = Vector2(32, 32)
+
+[sub_resource type="Resource" id="Resource_qnkh4"]
+script = ExtResource("7_6egqh")
+event_id = "cool_event"
+title = "The COOL event"
+description = "You walk up to a fountain. A COOL fountain. Approaching the running water, you notice something shining beneath the water's surface..."
+image = SubResource("PlaceholderTexture2D_vv4y6")
+choices = Array[ExtResource("2_vv4y6")]([SubResource("Resource_urivk"), SubResource("Resource_wigft")])
+metadata/_custom_type_script = "uid://c7y0et8cd3tso"
+
+[sub_resource type="Animation" id="Animation_vv4y6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/EventControlNode:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/EventControlNode:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/EventTitle:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/EventImage:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/EventDescriptionLabel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xf0ir"]
+resource_name = "reveal_event_animation"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/EventControlNode:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2.0000062, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/EventControlNode:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(0, 30), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/EventTitle:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/EventImage:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.75, 1.75),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/EventDescriptionLabel:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.75, 1.75),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_howa4"]
+_data = {
+&"RESET": SubResource("Animation_vv4y6"),
+&"reveal_event_animation": SubResource("Animation_xf0ir")
+}
+
+[sub_resource type="Gradient" id="Gradient_ygl7r"]
+offsets = PackedFloat32Array(0.4059406, 1)
+colors = PackedColorArray(0.24313726, 0, 0.14509805, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ntui6"]
+gradient = SubResource("Gradient_ygl7r")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v2k3f"]
+
+[node name="RandomEvent" type="Node2D" unique_id=205335097]
+script = ExtResource("1_v2k3f")
+event = SubResource("Resource_qnkh4")
+
+[node name="InventoryReserveManager" type="Node" parent="." unique_id=688751289]
+script = ExtResource("1_fcwh7")
+
+[node name="InspectionManager" type="Node" parent="." unique_id=1625464565 node_paths=PackedStringArray("ui_root")]
+script = ExtResource("2_0f3d3")
+ui_root = NodePath("../UI")
+
+[node name="TooltipHandler" type="Node" parent="." unique_id=1355867057 node_paths=PackedStringArray("ui_root")]
+script = ExtResource("3_v2k3f")
+ui_root = NodePath("../UI")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=805594657]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_howa4")
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=534923900]
+unique_name_in_owner = true
+
+[node name="TextureRect" type="TextureRect" parent="Background" unique_id=1013730131]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ntui6")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=788694377]
+unique_name_in_owner = true
+
+[node name="GoldDisplay" parent="UI" unique_id=148004886 instance=ExtResource("4_txe1f")]
+
+[node name="EventControlNode" type="Control" parent="UI" unique_id=396803358]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_0f3d3")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/EventControlNode" unique_id=863439687]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_right = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/EventControlNode/MarginContainer" unique_id=1792377905]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/EventControlNode/MarginContainer/PanelContainer" unique_id=451154385]
+layout_mode = 2
+
+[node name="EventTitle" type="RichTextLabel" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer" unique_id=1229976685]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+bbcode_enabled = true
+text = "The big scary event..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer" unique_id=575696477]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer2" unique_id=905850247]
+layout_mode = 2
+alignment = 1
+
+[node name="EventImage" type="TextureRect" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=913703476]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("PlaceholderTexture2D_v2k3f")
+stretch_mode = 5
+
+[node name="EventDescriptionLabel" type="RichTextLabel" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1065826041]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 8
+theme_override_font_sizes/bold_font_size = 8
+theme_override_font_sizes/bold_italics_font_size = 8
+theme_override_font_sizes/italics_font_size = 8
+theme_override_font_sizes/mono_font_size = 8
+text = "asdasdasdadsds
+adsads
+ds
+ad
+s
+z
+dz
+dz
+zd
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer" unique_id=119255894]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ChoiceButtonsContainer" type="VBoxContainer" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer" unique_id=1811969905]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/ChoiceButtonsContainer" unique_id=213260051]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Take the necklace"
+
+[node name="Button2" type="Button" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/ChoiceButtonsContainer" unique_id=1563469305]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "drink from the fountain"
+
+[node name="Button3" type="Button" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/ChoiceButtonsContainer" unique_id=612984371]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Run away (50% chance)"

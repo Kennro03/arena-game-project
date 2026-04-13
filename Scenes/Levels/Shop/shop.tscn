@@ -7,12 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="4_ntui6"]
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="5_0hnpw"]
 
-[sub_resource type="Gradient" id="Gradient_ygl7r"]
+[sub_resource type="Gradient" id="Gradient_bd5oq"]
 offsets = PackedFloat32Array(0.4059406, 1)
-colors = PackedColorArray(0.40659446, 0.32336733, 0, 1, 0, 0, 0, 1)
+colors = PackedColorArray(0.67700267, 0.45743567, 1.92523e-07, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ntui6"]
-gradient = SubResource("Gradient_ygl7r")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vjh1n"]
+gradient = SubResource("Gradient_bd5oq")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
@@ -39,7 +39,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_ntui6")
+texture = SubResource("GradientTexture2D_vjh1n")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=788694377]
 unique_name_in_owner = true

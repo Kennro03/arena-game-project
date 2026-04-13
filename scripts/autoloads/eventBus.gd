@@ -69,3 +69,6 @@ signal battle_reward_exited
 #teasure related
 signal treasure_room_entered
 signal treasure_room_exited
+
+#Event node related
+signal event_choice_made(choice: EventChoice)

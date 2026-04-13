@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dcfqippkqghlj" path="res://Scenes/UI/BattleUI/battle_lost_screen.gd" id="2_g52ov"]
 
 [node name="BattleLostScreen" type="Control" unique_id=740052338]
+z_index = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
