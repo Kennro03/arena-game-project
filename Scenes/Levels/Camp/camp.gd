@@ -1,15 +1,6 @@
 extends Node2D
 class_name Camp
 
-@warning_ignore_start("unused_signal")
-signal camp_party_rested
-signal camp_looted
-signal camp_trained
-signal camp_enchanted
-signal camp_smithed
-@warning_ignore_restore("unused_signal")
-
-
 @export var end_rest_on_action : bool = true
 
 @onready var button_container: VBoxContainer = %ButtonContainer
@@ -21,6 +12,7 @@ signal camp_smithed
 @onready var smith_button: Button = %SmithButton
 
 func _ready() -> void:
+	Events.camp_entered.emit()
 	enchant_button.queue_free() 
 	smith_button.queue_free() 
 
@@ -30,7 +22,8 @@ func rest() -> void:
 		var heal_amount := unit.stats.current_max_health * 0.3  # heal 30%
 		unit.stats.health = min(unit.stats.health + heal_amount, unit.stats.current_max_health)
 	Events.camp_party_rested.emit()
-	if end_rest_on_action:
+	if end_rest_on_action == true:
+		Events.camp_exited.emit()
 		Player.return_to_previous_scene()
 
 func loot() -> void :
@@ -41,9 +34,19 @@ func loot() -> void :
 	for item in result.items:
 		Player.add_item_to_inventory(item)
 	Events.camp_looted.emit()
-	if end_rest_on_action:
+	if end_rest_on_action == true :
+		Events.camp_exited.emit()
 		Player.return_to_previous_scene()
 
 func train() -> void :
 	# select a few units to train, this gives them exp
 	pass
+
+func _on_rest_button_pressed() -> void:
+	rest()
+
+func _on_loot_button_pressed() -> void:
+	loot()
+
+func _on_train_button_pressed() -> void:
+	train()

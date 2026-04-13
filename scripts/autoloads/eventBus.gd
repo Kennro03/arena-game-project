@@ -62,6 +62,11 @@ signal shop_exited
 #Camp related
 signal camp_entered
 signal camp_exited
+signal camp_party_rested
+signal camp_looted
+signal camp_trained
+signal camp_enchanted
+signal camp_smithed
 
 #Battle reward related
 signal battle_reward_exited
