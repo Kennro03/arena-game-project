@@ -17,6 +17,8 @@ func set_item(_item: Item) -> void:
 	set_visuals()
 	if _item != null :
 		drag_visual.enabled = true
+	else : 
+		drag_visual.enabled = false
 
 func get_icon() -> Texture2D:
 	return item.icon if item else null
