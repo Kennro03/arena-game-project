@@ -23,11 +23,13 @@ script = ExtResource("1_j0bqv")
 [node name="InventoryReserveManager" type="Node" parent="." unique_id=1682732072]
 script = ExtResource("1_vjsnb")
 
-[node name="InspectionManager" type="Node" parent="." unique_id=44950813]
+[node name="InspectionManager" type="Node" parent="." unique_id=44950813 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("2_2c0rd")
+ui_root = NodePath("../UI")
 
-[node name="TooltipHandler" type="Node" parent="." unique_id=1212481905]
+[node name="TooltipHandler" type="Node" parent="." unique_id=1212481905 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("3_5doml")
+ui_root = NodePath("../UI")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=590986174]
 unique_name_in_owner = true

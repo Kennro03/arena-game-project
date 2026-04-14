@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://bc68feb6xmw2o"]
+
+[ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="1_cu1mk"]
+[ext_resource type="Script" uid="uid://dcgb8dffjqkjj" path="res://Scenes/UI/SelectionPanel/selection_panel.gd" id="1_drs8i"]
+[ext_resource type="PackedScene" uid="uid://dnm02uo4msg2e" path="res://Scenes/UI/inventory/item_slot.tscn" id="3_b6fcl"]
+
+[node name="SelectionPanel" type="Control" unique_id=379688858]
+z_index = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_cu1mk")
+script = ExtResource("1_drs8i")
+max_selections = 2
+selection_type = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=472570176]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -166.0
+offset_top = -125.0
+offset_right = 166.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1006153003]
+layout_mode = 2
+
+[node name="HeaderHBox" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1922719878]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="SelectionTitle" type="Label" parent="PanelContainer/VBoxContainer/HeaderHBox" unique_id=1576393756]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Select between x and y number of (thing) :"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+justification_flags = 162
+
+[node name="RewardsNinePatchRect" type="NinePatchRect" parent="PanelContainer/VBoxContainer" unique_id=2127744367]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RewardsMarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect" unique_id=1974130349]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer" unique_id=1980571977]
+layout_mode = 2
+alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer" unique_id=1190132105]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SelectionContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer" unique_id=1351589329]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+columns = 8
+
+[node name="ItemSlot2" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=62567015 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=790663373 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot3" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=1834720373 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot4" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=121857778 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot5" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=372216053 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot6" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=185575777 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot7" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=1146869179 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot8" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=518031658 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot9" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=573136912 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot10" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=1935956051 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot11" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=1923710522 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot12" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=1121636241 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot13" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=683639438 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot14" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=236956534 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot15" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=711903947 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="ItemSlot16" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=700057698 instance=ExtResource("3_b6fcl")]
+layout_mode = 2
+
+[node name="CloseButtonContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer" unique_id=422383258]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/CloseButtonContainer" unique_id=637858706]
+layout_mode = 2
+alignment = 1
+
+[node name="SelectionCounterLabel" type="Label" parent="PanelContainer/VBoxContainer/CloseButtonContainer/HBoxContainer" unique_id=437899359]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "0 / 500"
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 162
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="ConfirmButton" type="Button" parent="PanelContainer/VBoxContainer/CloseButtonContainer/HBoxContainer" unique_id=272325170]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 8
+text = "Confirm"

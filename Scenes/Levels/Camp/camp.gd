@@ -1,6 +1,9 @@
 extends Node2D
 class_name Camp
 
+@export var max_units_to_train : int = 3
+@export var min_units_to_train : int = 1
+
 @export var end_rest_on_action : bool = true
 
 @onready var button_container: VBoxContainer = %ButtonContainer
@@ -10,6 +13,8 @@ class_name Camp
 ## Enchant and smith are options that will only be made available with certain passives/skills/items 
 @onready var enchant_button: Button = %EnchantButton
 @onready var smith_button: Button = %SmithButton
+
+const SELECTION_PANEL_SCENE : PackedScene = preload("res://Scenes/UI/SelectionPanel/selection_panel.tscn")
 
 func _ready() -> void:
 	Events.camp_entered.emit()
@@ -39,8 +44,18 @@ func loot() -> void :
 		Player.return_to_previous_scene()
 
 func train() -> void :
-	# select a few units to train, this gives them exp
-	pass
+	var panel := SELECTION_PANEL_SCENE.instantiate() as SelectionPanel
+	panel.setup(SelectionPanel.SelectionType.UNIT, max_units_to_train, min_units_to_train)  # pick 1-2 units
+	panel.confirm_button_label = "Train Selected Units"
+	panel.selection_confirmed.connect(_on_train_units_selected)
+	%UI.add_child(panel)
+
+func _on_train_units_selected(units: Array) -> void:
+	for unit_data in units:
+		unit_data.stats.experience += 50  # or however much training gives
+	Events.camp_trained.emit()
+	if end_rest_on_action:
+		Player.return_to_previous_scene()
 
 func _on_rest_button_pressed() -> void:
 	rest()
