@@ -11,13 +11,13 @@ func _ready() -> void:
 		printerr("No accessory provided to spawn tooltip !!")
 	setup(acc)
 
-func setup(item: Item) -> void:
-	super.setup(item)
+func setup(_item: Item) -> void:
+	super.setup(_item)
 	text_label.newline()
-	add_item_stat_buffs(item)
+	add_item_stat_buffs(_item)
 
-func add_item_stat_buffs(item: Item) -> void:
-	var stat_changes : Array[StatBuff] = item.statChanges
+func add_item_stat_buffs(_item: Item) -> void:
+	var stat_changes : Array[StatBuff] = _item.statChanges
 	if stat_changes.size() > 0 :
 		text_label.append_text("Stat changes : ")
 	for b in stat_changes :

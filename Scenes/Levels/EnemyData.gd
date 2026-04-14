@@ -5,6 +5,7 @@ class_name EnemyData
 @export var base_cost: float = 10.0
 @export var enemy_tier: EnemyTier = EnemyTier.COMMON
 @export var loot_table: LootTable = LootTable.new()
+@export var exp_scaling_multiplier: float = 1.0
 
 enum EnemyTier { COMMON, ELITE, BOSS }
 

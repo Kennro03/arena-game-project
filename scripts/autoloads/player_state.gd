@@ -28,6 +28,7 @@ var inventory_size: int = 50
 # Run state
 var current_map: Map = null
 var current_room: Room = null
+var enemy_exp_bonus: int = 0  
 var run_modifiers: Array = [] # To implement : persistent effects on the run
 
 var previous_scene: StringName = &""
@@ -168,3 +169,7 @@ func remove_unit(unit: UnitData) -> void:
 		printerr("Could not remove unit, not found anywhere: " + unit.display_name)
 		return
 	Events.unit_removed.emit(unit)
+
+func advance_exp_bonus(amount: int) -> void:
+	enemy_exp_bonus += amount
+	Events.enemy_exp_bonus_changed.emit(enemy_exp_bonus)

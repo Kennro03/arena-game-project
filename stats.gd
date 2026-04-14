@@ -83,6 +83,10 @@ signal level_changed(new_level:int)
 
 @export var experience : int = 0: set = _on_experience_set
 
+@export var attribute_points_per_level: int = 2        # points gained per level
+@export var all_attributes_bonus_every: int = 5        # every X levels, all attrs +1
+@export var tuning_every: int = 3                      # every X levels, get a tuning
+
 @export var max_health_scalings: Array[StatScaling] = [
 	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.LINEAR, 2.5),
 	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 1.5)
@@ -124,6 +128,15 @@ signal level_changed(new_level:int)
 
 var level : int : 
 	get(): return floor(max(1.0, sqrt(experience / 100.0)+ 0.5))
+
+var attribute_spend_history: Array[Stats.Attributes] = []
+var total_attribute_points_gained: int = 0
+var attribute_points_spent: int = 0
+var attribute_points_available: int:
+	get(): return total_attribute_points_gained - attribute_points_spent
+
+var tunings_available: int = 0
+var tunings_used: int = 0
 
 var body : int 
 var mind : int 
@@ -316,14 +329,36 @@ func _on_shield_set(new_value : float) -> void:
 	if shield <=0:
 		shield_depleted.emit()
 
-func _on_experience_set(new_value : int) -> void :
+func _on_experience_set(new_value: int) -> void:
 	var old_level : int = level
 	var old_exp : int = experience
 	experience = new_value
-	exp_changed.emit(old_exp,experience)
-	if not old_level == level :
+	exp_changed.emit(old_exp, experience)
+	
+	if level != old_level:
+		_on_level_changed(old_level, level)
 		level_changed.emit(level)
-		recalculate_stats() 
+		recalculate_stats()
+
+func _on_level_changed(old_level: int, new_level: int) -> void:
+	for lvl in range(old_level + 1, new_level + 1):
+		total_attribute_points_gained += attribute_points_per_level
+		
+		# all attributes bonus every X levels
+		if lvl % all_attributes_bonus_every == 0:
+			base_strength += 1
+			base_dexterity += 1
+			base_endurance += 1
+			base_intellect += 1
+			base_faith += 1
+			base_attunement += 1
+		
+		# tuning every X levels
+		if lvl % tuning_every == 0:
+			tunings_available += 1
+			# Events.tuning_available.emit(self) -- for later
+	
+	Events.unit_leveled_up.emit(self, old_level, new_level)
 
 func get_xp_for_level(target_level: int) -> int:
 	return int(pow(max(0, target_level - 0.5), 2) * 100.0)
@@ -338,6 +373,47 @@ func get_xp_in_current_level() -> int:
 
 func get_xp_needed_for_next_level() -> int:
 	return get_xp_for_level(level + 1) - get_xp_for_level(level)
+
+func spend_attribute_point(attr: Attributes) -> bool:
+	if attribute_points_available <= 0:
+		return false
+	
+	match attr:
+		Attributes.STRENGTH: base_strength += 1
+		Attributes.DEXTERITY: base_dexterity += 1
+		Attributes.ENDURANCE: base_endurance += 1
+		Attributes.INTELLECT: base_intellect += 1
+		Attributes.FAITH: base_faith += 1
+		Attributes.ATTUNEMENT: base_attunement += 1
+	
+	attribute_points_spent += 1
+	attribute_spend_history.append(attr)
+	recalculate_stats()
+	return true
+
+func refund_last_attribute_point() -> bool:
+	if attribute_spend_history.is_empty():
+		return false
+	
+	var last_attr : Attributes = attribute_spend_history.pop_back()
+	match last_attr:
+		Attributes.STRENGTH: base_strength -= 1
+		Attributes.DEXTERITY: base_dexterity -= 1
+		Attributes.ENDURANCE: base_endurance -= 1
+		Attributes.INTELLECT: base_intellect -= 1
+		Attributes.FAITH: base_faith -= 1
+		Attributes.ATTUNEMENT: base_attunement -= 1
+	
+	attribute_points_spent -= 1
+	recalculate_stats()
+	return true
+
+func refund_all_attribute_points() -> void:
+	while not attribute_spend_history.is_empty():
+		refund_last_attribute_point()
+
+func get_spent_on_attribute(attr: Attributes) -> int:
+	return attribute_spend_history.count(attr)
 
 enum StatValueType { BASE, CURRENT }
 func get_stats_dictionary(value_type: StatValueType = StatValueType.BASE) -> Dictionary:

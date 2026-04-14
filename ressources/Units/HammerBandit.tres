@@ -6,27 +6,11 @@
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="2_hi4y6"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_hi4y6"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="5_aueru"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_hi4y6"]
 [ext_resource type="Resource" uid="uid://b747llv6f81ip" path="res://ressources/Teams/EnemyTeam.tres" id="6_b2l36"]
 
 [sub_resource type="Resource" id="Resource_eueq3"]
 script = ExtResource("5_aueru")
-base_strength = null
-base_dexterity = null
-base_endurance = null
-base_intellect = null
-base_faith = null
-base_attunement = null
-base_max_health = null
-base_health_regen = null
-base_movement_speed = null
-base_dodge_probability = null
-base_parry_probability = null
-base_block_probability = null
-base_flat_block_power = null
-base_percent_block_power = null
-base_crit_chance = null
-base_crit_damage = null
-experience = null
 max_health_scalings = null
 health_regen_scalings = null
 movement_speed_scalings = null
@@ -34,7 +18,6 @@ dodge_probability_scalings = null
 parry_probability_scalings = null
 block_probability_scalings = null
 flat_block_power_scalings = null
-percent_block_power_scalings = null
 crit_chance_scalings = null
 crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"

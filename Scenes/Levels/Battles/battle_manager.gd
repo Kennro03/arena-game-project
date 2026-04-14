@@ -15,15 +15,13 @@ var _defeated_enemies: Array[EnemyData] = []
 var _pre_battle_team_snapshot: Array[UnitData] = []
 var _pre_battle_reserve_snapshot: Array[UnitData] = []
 
-@export var spawner : EncounterSpawner
+@export var spawner : BattleSpawner
 @export var level_data: BattleData
 @export var player_units: Array[UnitData] = []
 @export var enemy_units : Array[EnemyData] = []
 
 @onready var UI_node : Control = %EncounterUI
-@onready var player_zone : Area2D = %PlayerZone
-@onready var neutral_zone : Area2D = %NeutralZone
-@onready var enemy_zone : Area2D = %EnemyZone
+
 @onready var selection_manager: SelectionManager = %SelectionManager
 @onready var encounter_ui: BattleUI = %EncounterUI
 
@@ -37,7 +35,6 @@ func _ready() -> void:
 	BeginEncounter.connect(UI_node._on_begin_encounter)
 	WonEncounter.connect(UI_node._on_won_encounter)
 	LostEncounter.connect(UI_node._on_lost_encounter)
-	Events.slot_drag_ended.connect(_on_slot_drag_ended)
 	Events.unit_recalled.connect(_on_unit_recalled)
 	
 	load_level_data(level_data)
@@ -86,10 +83,11 @@ func start_fight() ->void :
 	else :
 		encounter_ui.animationPlayer.play("start_fight_failed_animation")
 
+
 func _spawn_player_units() -> void:
 	print("Spawning player units...")
 	for unit_data in player_units:
-		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(player_zone),unit_data)
+		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(spawner.player_zone),unit_data)
 		if unit:
 			Player.register_deployed_unit(unit)
 			player_units_alive.append(unit)
@@ -102,7 +100,7 @@ func _spawn_enemy_units() -> void:
 	
 	for enemy_data in enemy_units:
 		enemy_data.unit_data.team = preload("res://ressources/Teams/EnemyTeam.tres")  # Set enemy unit team to consistent team
-		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(enemy_zone), enemy_data.unit_data)
+		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(spawner.enemy_zone), enemy_data.unit_data)
 		if unit:
 			ennemy_units_alive.append(unit)
 			unit.stats.health_depleted.connect(_on_enemy_unit_died.bind(unit))
@@ -158,90 +156,9 @@ func _generate_enemy_list() -> Array[EnemyData]:
 	print("]")
 	return enemies_array
 
-func _on_slot_drag_ended(slot: Slot, world_pos: Vector2) -> void:
-	if slot is UnitSlot and slot._unit_data != null:
-		_try_deploy_unit(slot._unit_data, world_pos)
-	if slot is ItemSlot and slot.item != null :
-		_try_equip_item(slot.item,world_pos)
-
-func _try_equip_item(item: Item, world_pos: Vector2) -> void:
-	# check if dropped on a deployed unit
-	var target_unit := _get_unit_at_position(world_pos)
-	if target_unit and target_unit in Player.deployed_units :
-		if item is Weapon and target_unit.weapon.item_id != target_unit.default_weapon.item_id :
-			Player.add_item_to_inventory(target_unit.weapon)
-		if item is Armor and target_unit.armor != null :
-			Player.add_item_to_inventory(target_unit.armor)
-		if item is Accessory and target_unit.accessories.size() == target_unit.stats.current_accessory_limit :
-			return
-			## !!! Need special logic to determine which accessories to replace
-		target_unit.equip(item)
-		Player.remove_item_from_inventory(item)
-
-func _try_deploy_unit(data: UnitData, world_pos: Vector2) -> void:
-	#if not _is_in_player_zone(world_pos):
-		#return
-	
-	if state != LevelState.SPAWNING :
-		Events.unit_deployment_failed.emit("Cannot deploy outside of deployment phase")
-		return
-	
-	if Player.team.size() >= Player.team_size:
-		Events.unit_deployment_failed.emit("Team is full")
-		return
-	
-	if is_in_zone(player_zone,get_world_mouse_position()) != true :
-		printerr("Can't deploy unit outside of player zone")
-		Events.unit_deployment_failed.emit("Cursor not in player zone")
-		return
-	
-	Player.move_unit_to_team(data)
-	var deployed_unit := spawner.spawn_from_data(world_pos, data)
-	Player.register_deployed_unit(deployed_unit)
-	player_units_alive.append(deployed_unit)
-	deployed_unit.stats.health_depleted.connect(_on_player_unit_died.bind(deployed_unit))
-	#print("Player units : " + str(player_units_alive))
-	Events.unit_deployed.emit(data)
-
-func is_in_zone(zone: Area2D, world_pos: Vector2) -> bool:
-	var col := zone.get_node("CollisionShape2D") as CollisionShape2D
-	if col == null:
-		return false
-	var shape := col.shape as RectangleShape2D
-	if shape == null:
-		printerr("no shape defined for zone " + str(zone))
-		return false
-	var rect := Rect2(col.global_position - shape.size / 2.0, shape.size)
-	return rect.has_point(world_pos)
-
-func get_world_mouse_position() -> Vector2:
-	return get_viewport().get_canvas_transform().affine_inverse() * get_viewport().get_mouse_position()
-
-func is_mouse_in_player_zone() -> bool:
-	return is_in_zone(player_zone, get_world_mouse_position())
-
-func is_mouse_in_neutral_zone() -> bool:
-	return is_in_zone(neutral_zone, get_world_mouse_position())
-
-func is_mouse_in_ennemy_zone() -> bool:
-	return is_in_zone(enemy_zone, get_world_mouse_position())
-
 func _on_exit_battle(_victory: bool) -> void:
 	print("Leaving battle...")
 	Player.clear_deployed_units()
-
-func _get_unit_at_position(world_pos: Vector2) -> BaseUnit :
-	var space := get_viewport().world_2d.direct_space_state
-	var query := PhysicsPointQueryParameters2D.new()
-	query.position = world_pos
-	query.collide_with_areas = true
-	query.collide_with_bodies = false
-	var results := space.intersect_point(query)
-	for result in results:
-		var parent : Node = result.collider.get_parent()
-		if parent is BaseUnit:
-			return parent
-	return null
 
 func _on_unit_recalled(unit: BaseUnit) -> void:
 	player_units_alive.erase(unit)

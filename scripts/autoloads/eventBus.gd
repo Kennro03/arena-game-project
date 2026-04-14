@@ -77,3 +77,5 @@ signal treasure_room_exited
 
 #Event node related
 signal event_choice_made(choice: EventChoice)
+
+signal enemy_exp_bonus_changed(enemy_exp_bonus : int)

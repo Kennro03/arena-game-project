@@ -78,9 +78,8 @@ spawner = NodePath("../BattleSpawner")
 level_data = ExtResource("2_57vkc")
 enemy_units = Array[ExtResource("13_pcjji")]([SubResource("Resource_qdmgy")])
 
-[node name="BattleSpawner" type="Node" parent="." unique_id=1283150222 node_paths=PackedStringArray("battle_manager")]
+[node name="BattleSpawner" type="Node" parent="." unique_id=1283150222]
 script = ExtResource("18_3mj8a")
-battle_manager = NodePath("../BattleManager")
 
 [node name="InventoryReserveManager" type="Node" parent="." unique_id=1775805781]
 script = ExtResource("1_jgp7d")

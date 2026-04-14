@@ -192,7 +192,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 	return data
 
 # Generates a sensible random multiplier per weapon stat
-# buff = true means positive, false means debuff (values below 1.0 for MULTIPLY)
+# true=buff, false=debuff (values below 1.0 for MULTIPLY)
 func _random_weapon_stat_amount(stat: Weapon.BuffableStats, buff: bool) -> float:
 	var ranges : Dictionary = {
 		Weapon.BuffableStats.DAMAGE:       [0.15, 0.20],
@@ -204,3 +204,27 @@ func _random_weapon_stat_amount(stat: Weapon.BuffableStats, buff: bool) -> float
 	var value : float = randf_range(r[0], r[1])
 	# For MULTIPLY: buff adds to 1.0 (e.g. 1.25x), debuff subtracts (e.g. 0.75x)
 	return 1.0 + value if buff else 1.0 - value
+
+@export var attribute_weights: Dictionary = {
+	Stats.Attributes.STRENGTH: 1.0,
+	Stats.Attributes.DEXTERITY: 1.0,
+	Stats.Attributes.ENDURANCE: 1.0,
+	Stats.Attributes.INTELLECT: 1.0,
+	Stats.Attributes.FAITH: 1.0,
+	Stats.Attributes.ATTUNEMENT: 1.0,
+}
+
+func auto_spend_attribute_points() -> void:
+	while stats.attribute_points_available > 0:
+		var attr := _pick_weighted_attribute()
+		stats.spend_attribute_point(attr)
+
+func _pick_weighted_attribute() -> Stats.Attributes:
+	var total : int = attribute_weights.values().reduce(func(a, b): return a + b, 0.0)
+	var roll := randf_range(0.0, total)
+	for attr in attribute_weights:
+		roll -= attribute_weights[attr]
+		if roll <= 0:
+			return attr
+	printerr("Used fallback weight attribute !")
+	return Stats.Attributes.STRENGTH

@@ -30,7 +30,7 @@ func _on_mouse_entered() -> void:
 	super._on_mouse_entered()
 	#print("mouse entered ! ")
 	if _unit_data != null : 
-		print("data not null ! ")
+		#print("data not null ! ")
 		tooltip = unit_tooltip_scene.instantiate()
 		tooltip.unit_data = _unit_data
 		Events.tooltip_requested.emit(tooltip)
