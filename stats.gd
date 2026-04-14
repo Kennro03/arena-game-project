@@ -163,25 +163,44 @@ func _init() -> void:
 	setup_stats.call_deferred()
 
 func setup_base_stats_from_dict(dict : Dictionary) -> void : 
-	base_strength = dict.get("strength",base_strength)
-	base_dexterity = dict.get("dexterity",base_dexterity)
-	base_endurance = dict.get("endurance",base_endurance)
-	base_intellect = dict.get("intellect",base_intellect)
-	base_faith = dict.get("faith",base_faith)
-	base_attunement = dict.get("attunement",base_attunement)
-	base_max_health = dict.get("max_health",base_max_health)
-	base_health_regen = dict.get("health_regen",base_health_regen)
-	base_movement_speed = dict.get("movement_speed",base_movement_speed)
-	base_dodge_probability = dict.get("dodge_probability",base_dodge_probability)
-	base_parry_probability = dict.get("parry_probability",base_parry_probability)
-	base_block_probability = dict.get("block_probability",base_block_probability)
-	base_flat_block_power = dict.get("flat_block_power",base_flat_block_power)
-	base_percent_block_power = dict.get("percent_block_power",base_percent_block_power)
-	base_crit_chance = dict.get("crit_chance",base_crit_chance)
-	base_crit_damage = dict.get("crit_damage",base_crit_damage)
-	base_damage_taken_bonus = dict.get("damage_taken_bonus",base_damage_taken_bonus)
-	base_damage_taken_multiplier = dict.get("damage_taken_multiplier",base_damage_taken_multiplier)
-	base_accessory_limit = dict.get("accessory_limit",base_accessory_limit)
+	if dict.has("strength") :
+		base_strength = dict["strength"] 
+	if dict.has("dexterity") :
+		base_dexterity = dict["dexterity"] 
+	if dict.has("endurance") :
+		base_endurance = dict["endurance"]  
+	if dict.has("intellect") :
+		base_intellect = dict["intellect"] 
+	if dict.has("faith") :
+		base_faith = dict["faith"] 
+	if dict.has("attunement") :
+		base_attunement = dict["attunement"] 
+	if dict.has("max_health") :
+		base_max_health = dict["max_health"] 
+	if dict.has("health_regen") :
+		base_health_regen = dict["health_regen"] 
+	if dict.has("movement_speed") :
+		base_movement_speed = dict["movement_speed"] 
+	if dict.has("dodge_probability") :
+		base_dodge_probability = dict["dodge_probability"] 
+	if dict.has("parry_probability") :
+		base_parry_probability = dict["parry_probability"] 
+	if dict.has("block_probability") :
+		base_block_probability = dict["block_probability"] 
+	if dict.has("flat_block_power") :
+		base_flat_block_power = dict["flat_block_power"] 
+	if dict.has("percent_block_power") :
+		base_percent_block_power = dict["percent_block_power"] 
+	if dict.has("crit_chance") :
+		base_crit_chance = dict["crit_chance"]  
+	if dict.has("crit_damage") :
+		base_crit_damage = dict["crit_damage"] 
+	if dict.has("damage_taken_bonus") :
+		base_damage_taken_bonus = dict["damage_taken_bonus"] 
+	if dict.has("damage_taken_multiplier") :
+		base_damage_taken_multiplier = dict["damage_taken_multiplier"] 
+	if dict.has("accessory_limit") :
+		base_accessory_limit = dict["accessory_limit"] 
 	recalculate_stats()
 
 func add_buff(buff: StatBuff) -> void :
