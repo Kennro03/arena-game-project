@@ -19,6 +19,7 @@ fill_to = Vector2(1, 1)
 
 [node name="Camp" type="Node2D" unique_id=919284344]
 script = ExtResource("1_j0bqv")
+end_rest_on_action = false
 
 [node name="InventoryReserveManager" type="Node" parent="." unique_id=1682732072]
 script = ExtResource("1_vjsnb")
@@ -86,11 +87,11 @@ unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
-[node name="RestButton" type="Button" parent="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer" unique_id=1972559486]
+[node name="RecruitButton" type="Button" parent="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer" unique_id=1972559486]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
-text = "Rest"
+text = "Recruit"
 
 [node name="LootButton" type="Button" parent="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer" unique_id=828244925]
 unique_name_in_owner = true
@@ -104,6 +105,12 @@ custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 text = "Train"
 
+[node name="SmithButton" type="Button" parent="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer" unique_id=37847051]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+text = "Smith"
+
 [node name="EnchantButton" type="Button" parent="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer" unique_id=65830899]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 32)
@@ -111,12 +118,7 @@ layout_mode = 2
 text = "Enchant
 "
 
-[node name="SmithButton" type="Button" parent="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer" unique_id=37847051]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 32)
-layout_mode = 2
-text = "Smith"
-
-[connection signal="pressed" from="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer/RestButton" to="." method="_on_rest_button_pressed"]
+[connection signal="pressed" from="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer/RecruitButton" to="." method="_on_recruit_button_pressed"]
 [connection signal="pressed" from="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer/LootButton" to="." method="_on_loot_button_pressed"]
 [connection signal="pressed" from="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer/TrainButton" to="." method="_on_train_button_pressed"]
+[connection signal="pressed" from="UI/EventControlNode/PanelContainer/MarginContainer/ButtonContainer/SmithButton" to="." method="_on_smith_button_pressed"]

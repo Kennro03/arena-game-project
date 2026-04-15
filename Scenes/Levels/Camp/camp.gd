@@ -7,12 +7,12 @@ class_name Camp
 @export var end_rest_on_action : bool = true
 
 @onready var button_container: VBoxContainer = %ButtonContainer
-@onready var rest_button: Button = %RestButton 
+@onready var recruit_button: Button = %RecruitButton 
 @onready var loot_button: Button = %LootButton
+@onready var smith_button: Button = %SmithButton
 @onready var train_button: Button = %TrainButton
 ## Enchant and smith are options that will only be made available with certain passives/skills/items 
 @onready var enchant_button: Button = %EnchantButton
-@onready var smith_button: Button = %SmithButton
 
 const SELECTION_PANEL_SCENE : PackedScene = preload("res://Scenes/UI/SelectionPanel/selection_panel.tscn")
 
@@ -21,12 +21,13 @@ func _ready() -> void:
 	enchant_button.queue_free() 
 	smith_button.queue_free() 
 
-func rest() -> void:
-	# heal all units in party (both team and reserve) for a percentage (can be increased by stats and/or passives)
-	for unit in Player.team + Player.reserve:
-		var heal_amount := unit.stats.current_max_health * 0.3  # heal 30%
-		unit.stats.health = min(unit.stats.health + heal_amount, unit.stats.current_max_health)
-	Events.camp_party_rested.emit()
+func recruit() -> void:
+	# Select a new random unit, could have upgrades that allow selection down the line
+	var new_unit : stickmanUnitData = stickmanUnitData.new()
+	new_unit.display_name = name_registry.get_random_name("stickman")
+	new_unit.color = Color(randf(),randf(),randf())
+	print("Created new unit : %s" % [new_unit.display_name])
+	Player.add_unit_to_reserve(new_unit)
 	if end_rest_on_action == true:
 		Events.camp_exited.emit()
 		Player.return_to_previous_scene()
@@ -57,11 +58,15 @@ func _on_train_units_selected(units: Array) -> void:
 	if end_rest_on_action:
 		Player.return_to_previous_scene()
 
-func _on_rest_button_pressed() -> void:
-	rest()
+func _on_recruit_button_pressed() -> void:
+	recruit()
 
 func _on_loot_button_pressed() -> void:
 	loot()
 
 func _on_train_button_pressed() -> void:
 	train()
+
+func _on_smith_button_pressed() -> void:
+	# reveal smithing options : weapon, armor, or accessory 
+	pass

@@ -25,6 +25,7 @@ UIDGenerator="*uid://da6fniahcnhro"
 Events="*uid://d2tyhp4hm40eu"
 Player="*uid://deh7i6v33nj12"
 SceneLoader="*uid://bsf187vvkqew0"
+NameRegistry="*uid://csm0mfn65okih"
 
 [display]
 
