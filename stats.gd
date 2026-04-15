@@ -1,7 +1,6 @@
 extends Resource
 class_name Stats
 
-const BASE_LEVEL_XP : float = 100.0
 enum Attributes {
 	STRENGTH,
 	DEXTERITY,
@@ -83,8 +82,6 @@ signal level_changed(old_level:int,new_level:int)
 @export var base_damage_taken_multiplier: float = 1.0  
 @export var base_accessory_limit : int = 1
 
-@export var experience : int = 0: set = _on_experience_set
-
 @export var attribute_points_per_level: int = 2        # points gained per level
 @export var all_attributes_bonus_every: int = 5        # every X levels, all attrs +1
 @export var tuning_every: int = 3                      # every X levels, get a tuning
@@ -127,6 +124,10 @@ signal level_changed(old_level:int,new_level:int)
 	StatScaling.new(Attributes.STRENGTH, StatScaling.ScalingType.LINEAR, 0.008),
 	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 0.01),
 ]
+
+const BASE_LEVEL_XP : float = 100.0
+const XP_GROWTH_RATE: float = 1.4  # each level costs x times more than previous
+@export var experience : int = 0: set = _on_experience_set
 
 var level : int : 
 	get(): return floor(max(1.0, sqrt(experience / BASE_LEVEL_XP)+ 0.5))
