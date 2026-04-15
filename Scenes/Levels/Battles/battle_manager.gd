@@ -58,7 +58,8 @@ func load_level_data(data: BattleData) -> void:
 	player_units += Player.team
 	print("Player units = [")
 	for u in player_units :
-		print("	%s" % [u.display_name])
+		if is_instance_valid(u) :
+			print("	%s" % [u.display_name])
 	print("]")
 	
 	_pre_battle_team_snapshot.assign(Player.team.map(func(u): return u.duplicate(true)))
@@ -87,6 +88,11 @@ func start_fight() ->void :
 func _spawn_player_units() -> void:
 	print("Spawning player units...")
 	for unit_data in player_units:
+		if not is_instance_valid(unit_data) :
+			printerr("Empty or invalid unit data in Player Units !")
+			continue
+		unit_data = unit_data.duplicate(true) # make the resource unique if it isn't already 
+		unit_data.team = preload("res://ressources/Teams/PlayerTeam.tres")  # Set unit team to consistent team
 		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(spawner.player_zone),unit_data)
 		if unit:
 			Player.register_deployed_unit(unit)
@@ -99,6 +105,10 @@ func _spawn_enemy_units() -> void:
 	enemy_units = _generate_enemy_list()
 	
 	for enemy_data in enemy_units:
+		if not is_instance_valid(enemy_data) :
+			printerr("Empty or invalid unit data in Enemy Units !")
+			continue
+		enemy_data = enemy_data.duplicate(true) # make the resource unique if it isn't already 
 		enemy_data.unit_data.team = preload("res://ressources/Teams/EnemyTeam.tres")  # Set enemy unit team to consistent team
 		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(spawner.enemy_zone), enemy_data.unit_data)
 		if unit:

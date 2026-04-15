@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://cohqje3eq8h11"]
+
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_nsj8t"]
+[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="2_psifi"]
+[ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Stickman/stickmanUnitData.gd" id="3_06kvp"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_csmss"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_kkjms"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="6_ja3sx"]
+[ext_resource type="Resource" uid="uid://dal5rgfowl103" path="res://ressources/Items/Weapons/testdagger.tres" id="7_nsj8t"]
+
+[sub_resource type="Resource" id="Resource_oloho"]
+script = ExtResource("6_ja3sx")
+base_exp_worth = 100
+base_faith = 1
+base_max_health = 10.0
+base_health_regen = 0.0
+base_dodge_probability = 0.0
+base_parry_probability = 0.0
+base_block_probability = 0.0
+base_percent_block_power = 0.0
+base_crit_chance = 1.0
+base_crit_damage = 2.0
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[resource]
+script = ExtResource("3_06kvp")
+id = "little_guy"
+display_name = "Little guy"
+description = "That's just a little guy"
+color = Color(0.5474192, 0.7434224, 0.3246788, 1)
+stats = SubResource("Resource_oloho")
+weapon = ExtResource("7_nsj8t")
+default_weapon = ExtResource("2_psifi")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"

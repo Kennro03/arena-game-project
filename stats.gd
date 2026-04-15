@@ -58,7 +58,9 @@ signal shield_depleted
 signal shield_changed(cur_shield:float,max_shield:float)
 signal stats_recalculated
 signal exp_changed(old_exp:int,new_exp:int)
-signal level_changed(new_level:int)
+signal level_changed(old_level:int,new_level:int)
+
+@export var base_exp_worth: int = 10
 
 @export var base_strength : int = 0
 @export var base_dexterity : int = 0
@@ -127,7 +129,7 @@ signal level_changed(new_level:int)
 ]
 
 var level : int : 
-	get(): return floor(max(1.0, sqrt(experience / 100.0)+ 0.5))
+	get(): return floor(max(1.0, sqrt(experience / BASE_LEVEL_XP)+ 0.5))
 
 var attribute_spend_history: Array[Stats.Attributes] = []
 var total_attribute_points_gained: int = 0
@@ -174,6 +176,9 @@ var stat_buffs: Array[StatBuff]
 
 func _init() -> void:
 	setup_stats.call_deferred()
+
+func get_exp_worth() -> int:
+	return int(base_exp_worth * level)
 
 func setup_base_stats_from_dict(dict : Dictionary) -> void : 
 	if dict.has("strength") :
@@ -300,7 +305,7 @@ func recalculate_stats() -> void :
 			StatBuff.BuffType.MULTIPLY:
 				if not stat_multipliers.has(stat_name):
 					stat_multipliers[stat_name] = 1.0
-				stat_multipliers[stat_name] += buff.buff_amount
+				stat_multipliers[stat_name] *= buff.buff_amount
 				
 				if stat_multipliers[stat_name] < 0.0:
 					stat_multipliers[stat_name] = 0.0
@@ -333,11 +338,13 @@ func _on_experience_set(new_value: int) -> void:
 	var old_level : int = level
 	var old_exp : int = experience
 	experience = new_value
-	exp_changed.emit(old_exp, experience)
+	
+	if experience != old_exp :
+		exp_changed.emit(old_exp, experience)
 	
 	if level != old_level:
 		_on_level_changed(old_level, level)
-		level_changed.emit(level)
+		level_changed.emit(old_level, level)
 		recalculate_stats()
 
 func _on_level_changed(old_level: int, new_level: int) -> void:
@@ -358,7 +365,7 @@ func _on_level_changed(old_level: int, new_level: int) -> void:
 			tunings_available += 1
 			# Events.tuning_available.emit(self) -- for later
 	
-	Events.unit_leveled_up.emit(self, old_level, new_level)
+	#Events.unit_leveled_up.emit(self, old_level, new_level)
 
 func get_xp_for_level(target_level: int) -> int:
 	return int(pow(max(0, target_level - 0.5), 2) * 100.0)
@@ -410,7 +417,16 @@ func refund_last_attribute_point() -> bool:
 
 func refund_all_attribute_points() -> void:
 	while not attribute_spend_history.is_empty():
-		refund_last_attribute_point()
+		var last_attr: Attributes = attribute_spend_history.pop_back()
+		match last_attr:
+			Attributes.STRENGTH: base_strength -= 1
+			Attributes.DEXTERITY: base_dexterity -= 1
+			Attributes.ENDURANCE: base_endurance -= 1
+			Attributes.INTELLECT: base_intellect -= 1
+			Attributes.FAITH: base_faith -= 1
+			Attributes.ATTUNEMENT: base_attunement -= 1
+		attribute_points_spent -= 1
+	recalculate_stats()  
 
 func get_spent_on_attribute(attr: Attributes) -> int:
 	return attribute_spend_history.count(attr)

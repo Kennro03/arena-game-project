@@ -1,7 +1,7 @@
 extends Tooltip
 class_name UnitTooltip
 
-var unit_data : UnitData = preload("res://ressources/Units/Pablo.tres")
+var unit_data : UnitData = preload("res://ressources/Units/unit_data/Pablo.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

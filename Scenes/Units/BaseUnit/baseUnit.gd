@@ -3,7 +3,7 @@ class_name BaseUnit
 
 signal hit_received(hit_data: HitData)
 signal unit_clicked(unit: BaseUnit)
-signal unit_died(unit: BaseUnit)
+signal unit_died(unit: BaseUnit, killer: BaseUnit)
 signal weapon_changed(weapon: Weapon)
 signal armor_changed(armor: Armor)
 signal accessories_changed(accessories: Array[Accessory])
@@ -41,8 +41,12 @@ signal accessories_changed(accessories: Array[Accessory])
 @export var armor : Armor = null
 @export var accessories : Array[Accessory] = []
 
-var unit_data: UnitData = null #reference to unit own's unit data
-var summoner : BaseUnit = null  
+# Identity & relations related
+var unit_data: UnitData = null      # reference to unit own's unit data
+var summoner : BaseUnit = null      # if unit was summoned, references summoner
+var last_hit_owner: BaseUnit = null # last unit to have hit this unit
+
+# Action related
 var is_action_locked := false
 var is_casting: bool = false
 var is_stunned: bool = false
@@ -251,7 +255,7 @@ func apply_knockback(target: Node2D, direction: Vector2, force: float):
 func receive_knockback(force: Vector2):
 	knockback_velocity += force
 
-func take_damage(incoming_damage) :
+func take_damage(incoming_damage, _hit_owner: BaseUnit = null) :
 	incoming_damage += stats.current_damage_taken_bonus
 	incoming_damage *= stats.current_damage_taken_multiplier
 	incoming_damage = round(incoming_damage * pow(10.0, 2)) / pow(10.0, 2)
@@ -273,7 +277,7 @@ func block(_hit: HitData):
 	var flat_blocked_damage = maxf((_hit.base_damage-stats.current_flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
-	take_damage(blocked_damage) 
+	take_damage(blocked_damage,_hit.hit_owner) 
 	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
 		particleModule.emit_block_particles()
 
@@ -288,6 +292,7 @@ func dodge(_hit: HitData):
 	apply_knockback(self, Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0)), 250.0)
 
 func resolve_hit(hit_result : HitData) :
+	last_hit_owner = hit_result.hit_owner  
 	if randf_range(0.0,100.0)<=stats.current_dodge_probability and is_casting==false and is_stunned==false :
 		hit_result.outcome = HitData.HitOutcome.DODGE
 		dodge(hit_result)
@@ -304,7 +309,7 @@ func resolve_hit(hit_result : HitData) :
 		hit_received.emit(hit_result)
 	else :
 		hit_result.outcome = HitData.HitOutcome.HIT
-		take_damage(hit_result.base_damage)
+		take_damage(hit_result.base_damage,hit_result.hit_owner)
 		_apply_passives(hit_result)
 		for effect in hit_result.status_effects :
 			#print("Resolve step : Applying " + str(effect.Status_effect_name))
@@ -346,7 +351,13 @@ func apply_data(data: UnitData) -> void:
 
 func die() -> void:
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
-	unit_died.emit(self)
+	unit_died.emit(self, last_hit_owner)
+	
+	if is_instance_valid(last_hit_owner):
+		var experience := stats.get_exp_worth()
+		last_hit_owner.stats.experience += experience
+		print("%s Gave %s experience to %s" % [self.display_name,str(experience),last_hit_owner.display_name])
+	
 	queue_free()
 
 func ensure_weapon() -> void:

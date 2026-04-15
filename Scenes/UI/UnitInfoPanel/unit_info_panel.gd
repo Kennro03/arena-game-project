@@ -47,7 +47,7 @@ func set_unit(target: BaseUnit) -> void:
 	unit = target
 	
 	unit.stats.stats_recalculated.connect(_on_stats_changed)
-	unit.stats.exp_changed.connect(_on_experience_changed)
+	unit.stats.exp_changed.connect(_on_experience_changed.unbind(2))
 	unit.stats.health_changed.connect(_on_health_changed)
 	unit.statusEffectModule.effects_changed.connect(set_status_effects)
 	
@@ -89,6 +89,7 @@ func _on_stats_changed() -> void :
 	set_stats()  # for stats
 
 func _on_experience_changed() -> void :
+	print("updating %s exp display" % [unit.display_name])
 	set_experience()
 	pass
 

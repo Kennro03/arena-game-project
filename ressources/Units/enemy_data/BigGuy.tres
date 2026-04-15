@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://ciep7c7clyrq2"]
+
+[ext_resource type="Script" uid="uid://ciafbkaty1yix" path="res://scripts/Items/Item.gd" id="1_a5vcc"]
+[ext_resource type="Resource" uid="uid://bcgx8j8wdnce3" path="res://ressources/Items/Accessories/BigGuyGoldNecklace.tres" id="2_og82y"]
+[ext_resource type="Script" uid="uid://drfgc7i6bgn41" path="res://scripts/Units/LootEntry.gd" id="3_a6ve2"]
+[ext_resource type="Script" uid="uid://pnd2x204n7v3" path="res://scripts/Units/LootTable.gd" id="4_io3eh"]
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="5_cbcv4"]
+[ext_resource type="Resource" uid="uid://dt5ucbvun4vyl" path="res://ressources/Units/unit_data/BigGuy.tres" id="6_psnut"]
+
+[sub_resource type="Resource" id="Resource_gn5ar"]
+script = ExtResource("4_io3eh")
+guaranteed_items = Array[ExtResource("1_a5vcc")]([ExtResource("2_og82y")])
+guaranteed_gold_min = 2
+guaranteed_gold_max = 2
+metadata/_custom_type_script = "uid://pnd2x204n7v3"
+
+[resource]
+script = ExtResource("5_cbcv4")
+unit_data = ExtResource("6_psnut")
+base_cost = 20.0
+enemy_tier = 1
+loot_table = SubResource("Resource_gn5ar")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
