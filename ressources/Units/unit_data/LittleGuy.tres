@@ -6,11 +6,13 @@
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_csmss"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_kkjms"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="6_ja3sx"]
-[ext_resource type="Resource" uid="uid://dal5rgfowl103" path="res://ressources/Items/Weapons/testdagger.tres" id="7_nsj8t"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="7_06kvp"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="8_csmss"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="9_kkjms"]
 
 [sub_resource type="Resource" id="Resource_oloho"]
 script = ExtResource("6_ja3sx")
-base_exp_worth = 100
+base_exp_worth = 150
 base_faith = 1
 base_max_health = 10.0
 base_health_regen = 0.0
@@ -31,6 +33,13 @@ crit_chance_scalings = null
 crit_damage_scalings = null
 metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
+[sub_resource type="Resource" id="Resource_ja3sx"]
+script = ExtResource("8_csmss")
+base_attack_range = 20.0
+base_damage = 1.0
+base_knockback = 0.0
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
 [resource]
 script = ExtResource("3_06kvp")
 id = "little_guy"
@@ -38,6 +47,6 @@ display_name = "Little guy"
 description = "That's just a little guy"
 color = Color(0.5474192, 0.7434224, 0.3246788, 1)
 stats = SubResource("Resource_oloho")
-weapon = ExtResource("7_nsj8t")
+weapon = SubResource("Resource_ja3sx")
 default_weapon = ExtResource("2_psifi")
 metadata/_custom_type_script = "uid://gk2b37nd41oy"

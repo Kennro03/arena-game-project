@@ -30,7 +30,6 @@ func _on_begin_encounter() -> void:
 	await animationPlayer.animation_finished
 	introEnded.emit()
 
-
 func _on_unit_selected(unit: BaseUnit) -> void:
 	if Input.is_action_pressed("DisplayUnitInfo"):
 		_spawn_unit_info_panel(unit)
@@ -59,3 +58,6 @@ func _on_win_animation_ended() -> void:
 func _on_lost_animation_ended() -> void:
 	print("Lost animation ended")
 	LostAnimationEnded.emit()
+
+func disable_start_button() -> void :
+	%StartFightButton.disabled=true

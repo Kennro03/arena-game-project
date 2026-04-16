@@ -82,9 +82,10 @@ signal level_changed(old_level:int,new_level:int)
 @export var base_damage_taken_multiplier: float = 1.0  
 @export var base_accessory_limit : int = 1
 
-@export var attribute_points_per_level: int = 2        # points gained per level
-@export var all_attributes_bonus_every: int = 5        # every X levels, all attrs +1
-@export var tuning_every: int = 3                      # every X levels, get a tuning
+@export var attribute_points_per_level: int = 3        # points gained per level
+@export var all_attributes_bonus_every: int = 3        # every X levels, all attrs +1
+@export var all_attributes_bonus: int = 1              # every certain levels, all attrs +x
+@export var tuning_every: int = 5                      # every X levels, get a tuning
 
 @export var max_health_scalings: Array[StatScaling] = [
 	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.LINEAR, 2.5),
@@ -130,7 +131,11 @@ const XP_GROWTH_RATE: float = 1.4  # each level costs x times more than previous
 @export var experience : int = 0: set = _on_experience_set
 
 var level : int : 
-	get(): return floor(max(1.0, sqrt(experience / BASE_LEVEL_XP)+ 0.5))
+	get(): 
+		var lvl := 1
+		while get_xp_for_level(lvl + 1) <= experience:
+			lvl += 1
+		return lvl
 
 var attribute_spend_history: Array[Stats.Attributes] = []
 var total_attribute_points_gained: int = 0
@@ -354,12 +359,12 @@ func _on_level_changed(old_level: int, new_level: int) -> void:
 		
 		# all attributes bonus every X levels
 		if lvl % all_attributes_bonus_every == 0:
-			base_strength += 1
-			base_dexterity += 1
-			base_endurance += 1
-			base_intellect += 1
-			base_faith += 1
-			base_attunement += 1
+			base_strength += all_attributes_bonus
+			base_dexterity += all_attributes_bonus
+			base_endurance += all_attributes_bonus
+			base_intellect += all_attributes_bonus
+			base_faith += all_attributes_bonus
+			base_attunement += all_attributes_bonus
 		
 		# tuning every X levels
 		if lvl % tuning_every == 0:
@@ -369,7 +374,9 @@ func _on_level_changed(old_level: int, new_level: int) -> void:
 	#Events.unit_leveled_up.emit(self, old_level, new_level)
 
 func get_xp_for_level(target_level: int) -> int:
-	return int(pow(max(0, target_level - 0.5), 2) * 100.0)
+	if target_level <= 1:
+		return 0
+	return int(BASE_LEVEL_XP * (pow(XP_GROWTH_RATE, target_level - 1) - 1) / (XP_GROWTH_RATE - 1))
 
 func get_level_progress() -> float:
 	var xp_current_level := get_xp_for_level(level)
