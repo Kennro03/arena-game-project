@@ -51,9 +51,8 @@ signal battle_won
 signal battle_lost
 
 #map related
-signal room_entered(room: Room)
-signal room_completed(room: Room)
 signal map_exited(room: Room)
+signal room_selected(room: Room)
 
 #Shop related
 signal shop_entered

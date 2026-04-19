@@ -25,6 +25,7 @@ func _set_available(new_value : bool)->void:
 	
 	if available :
 		animation_player.play("highlight")
+		print("Highlighting room")
 	elif not room.selected :
 		animation_player.play("RESET")
 
@@ -44,8 +45,9 @@ func _on_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> vo
 	
 	room.selected = true
 	animation_player.play("select")
-	
-	pass # Replace with function body.
+	print("Selecting map room")
+	_on_map_room_selected()
 
 func _on_map_room_selected()->void:
 	selected.emit(room)
+	Events.room_selected.emit(room)

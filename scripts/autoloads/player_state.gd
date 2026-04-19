@@ -54,7 +54,7 @@ func add_item_to_inventory(item: Item) -> void:
 	Events.item_added.emit(item)
 
 func go_to_scene(scene_path: StringName) -> void:
-	print("Moving scenes : \nCurrent scene = %s \nPrevious scene = %s \nTarget scene = %s" % [current_scene,previous_scene,scene_path])
+	print(" !! Moving scenes : \nCurrent scene = %s \nPrevious scene = %s \nTarget scene = %s" % [current_scene,previous_scene,scene_path])
 	previous_scene = current_scene
 	current_scene = scene_path
 	SceneLoader.load_scene(scene_path)

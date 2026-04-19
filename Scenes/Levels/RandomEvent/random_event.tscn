@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://cl887rr5gipeb" path="res://ressources/RandomEvents/EventEffect_GainGold.gd" id="4_p2bfy"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="4_txe1f"]
 [ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="5_0f3d3"]
-[ext_resource type="Resource" uid="uid://2gvcwm08oqgb" path="res://ressources/Items/Weapons/raretesthammer.tres" id="5_howa4"]
+[ext_resource type="Resource" uid="uid://2gvcwm08oqgb" path="res://ressources/Items/Weapons/rareTestHammer.tres" id="5_howa4"]
 [ext_resource type="Script" uid="uid://b0q6ppt1daljd" path="res://ressources/RandomEvents/EventEffect_GainItem.gd" id="6_cj5l2"]
 [ext_resource type="Script" uid="uid://c7y0et8cd3tso" path="res://ressources/RandomEvents/EventResource.gd" id="7_6egqh"]
 

@@ -5,18 +5,22 @@
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="2_oi3tf"]
 [ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="4_iy8ah"]
 
-[sub_resource type="Gradient" id="Gradient_xtf6f"]
-colors = PackedColorArray(0.16206557, 0.1620656, 0.16206557, 1, 0.5071072, 0.0005638277, 0.0003089994, 1)
+[sub_resource type="Gradient" id="Gradient_iy8ah"]
+offsets = PackedFloat32Array(0, 0.75)
+colors = PackedColorArray(1, 0, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_po2h6"]
-gradient = SubResource("Gradient_xtf6f")
-width = 32
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d1776"]
+gradient = SubResource("Gradient_iy8ah")
+fill = 1
+fill_from = Vector2(0.4871795, 1)
+fill_to = Vector2(0.41452992, 0)
 
 [node name="Prototype_Scene" type="Node2D" unique_id=1252659035]
 script = ExtResource("1_3a2rb")
 battle_scene = &"uid://32iwvd3dtseu"
 shop_scene = &"uid://n6ib3torqc3t"
 event_scene = &"uid://bscmpqjoie8iu"
+expedition_scene = &"uid://b2fli6g70m4oi"
 
 [node name="TooltipHandler" type="Node" parent="." unique_id=795041103 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("4_iy8ah")
@@ -43,6 +47,8 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+offset_top = -125.5
+offset_bottom = 125.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
@@ -101,8 +107,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture1D_po2h6")
+texture = SubResource("GradientTexture2D_d1776")
 
+[connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/ExpeditionButton" to="." method="_on_expedition_button_pressed"]
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/EventButton" to="." method="_on_event_button_pressed"]

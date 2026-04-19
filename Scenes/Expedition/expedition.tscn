@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://b2fli6g70m4oi"]
+
+[ext_resource type="Script" uid="uid://bmnpr06mmidhw" path="res://Scenes/Expedition/expedition.gd" id="1_7t453"]
+[ext_resource type="PackedScene" uid="uid://c33jh116bvc4" path="res://Scenes/Map/map.tscn" id="1_x8ko8"]
+[ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="2_l8k82"]
+[ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="3_nhu6y"]
+[ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="4_h86ty"]
+[ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="5_nhu6y"]
+
+[sub_resource type="Gradient" id="Gradient_xtf6f"]
+offsets = PackedFloat32Array(0.56765676)
+colors = PackedColorArray(0.1664092, 6.1662264e-05, 3.374868e-05, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7t453"]
+gradient = SubResource("Gradient_xtf6f")
+width = 32
+
+[node name="Expedition" type="Node2D" unique_id=769344041]
+script = ExtResource("1_7t453")
+
+[node name="TooltipHandler" type="Node" parent="." unique_id=721464346 node_paths=PackedStringArray("ui_root")]
+script = ExtResource("2_l8k82")
+ui_root = NodePath("../UI")
+
+[node name="InventoryReserveManager" type="Node" parent="." unique_id=1682002268]
+script = ExtResource("3_nhu6y")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=2084879136]
+unique_name_in_owner = true
+
+[node name="GoldDisplay" parent="UI" unique_id=148004886 instance=ExtResource("5_nhu6y")]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 36.0
+offset_bottom = 36.0
+
+[node name="ExpeditionBackground" type="CanvasLayer" parent="." unique_id=1990315267]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="ExpeditionBackground" unique_id=384696865]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = SubResource("GradientTexture1D_7t453")
+
+[node name="Map" parent="." unique_id=1763705496 instance=ExtResource("1_x8ko8")]
+unique_name_in_owner = true
+
+[node name="InspectionManager" type="Node" parent="." unique_id=228724396 node_paths=PackedStringArray("ui_root")]
+script = ExtResource("4_h86ty")
+ui_root = NodePath("../UI")
+
+[editable path="Map"]

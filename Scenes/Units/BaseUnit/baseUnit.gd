@@ -118,8 +118,14 @@ func _on_deactivated() -> void:
 	#animationPlayer.play("BaseUnit/idle")
 
 func _is_player_unit() -> bool:
-	return unit_data in Player.team or unit_data in Player.deployed_units.map(
-		func(u): return u.unit_data)
+	if unit_data == null:
+		return false
+	if unit_data in Player.team:
+		return true
+	for u in Player.deployed_units:
+		if is_instance_valid(u) and u.unit_data == unit_data:
+			return true
+	return false
 
 func _get_allowed_zones() -> Array[Area2D]:
 	# find player zone from scene

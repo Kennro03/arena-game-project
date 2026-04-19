@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="11_llnxj"]
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="13_pcjji"]
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="14_6nvuq"]
-[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testhammer.tres" id="15_u8sey"]
+[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testHammer.tres" id="15_u8sey"]
 [ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="17_w3d5s"]
 [ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Battles/Spawner.gd" id="18_3mj8a"]
 [ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/BattleUI/battle_ui.tscn" id="19_c652g"]

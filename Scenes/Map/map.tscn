@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://c8bqwylc1wsw5" path="res://Scenes/Map/map.gd" id="1_jolfa"]
 [ext_resource type="Script" uid="uid://xnupixjio2sc" path="res://Scenes/Map/map_generator.gd" id="1_xtf6f"]
 
-[sub_resource type="Gradient" id="Gradient_xtf6f"]
+[sub_resource type="Gradient" id="Gradient_jolfa"]
 colors = PackedColorArray(0.16206557, 0.1620656, 0.16206557, 1, 0.5071072, 0.0005638277, 0.0003089994, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_jolfa"]
-gradient = SubResource("Gradient_xtf6f")
+gradient = SubResource("Gradient_jolfa")
 width = 32
 
 [node name="Map" type="Node2D" unique_id=1763705496]
@@ -32,9 +32,17 @@ offset = Vector2(320, 180)
 layer = -1
 
 [node name="Background" type="TextureRect" parent="MapBackground" unique_id=1439777577]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -180.0
+offset_right = 250.0
+offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
 texture = SubResource("GradientTexture1D_jolfa")
