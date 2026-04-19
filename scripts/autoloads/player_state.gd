@@ -25,9 +25,13 @@ var reserve_size: int = 20
 var inventory: Array[Item] = []
 var inventory_size: int = 50
 
-# Run state
-var current_map: Map = null
-var current_room: Room = null
+# Run state & expedition 
+var current_expedition_map: Array[Array] = []
+var expedition_floors_climbed: int = 0
+var expedition_last_room: Room = null
+var expedition_in_progress: bool = false
+var map_camera_postion : float 
+
 var enemy_exp_bonus: int = 0  
 var run_modifiers: Array = [] # To implement : persistent effects on the run
 
