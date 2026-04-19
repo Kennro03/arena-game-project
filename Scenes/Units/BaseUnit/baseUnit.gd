@@ -85,7 +85,11 @@ func save_changes_to_data() -> void:
 	if unit_data == null :
 		printerr("Cannot save changes to data, unit has no unit_data.")
 		return
-	unit_data.stats.experience = stats.experience
+	unit_data.stats = stats                              # save stats
+	#unit_data.stats.health = stats.health               # don't save current health
+	unit_data.weapon = weapon                            # save current weapon
+	unit_data.armor = armor                              # save current armor
+	unit_data.accessories = accessories.duplicate(true)  # save current accessories
 
 func set_display_Module()->void:
 	%NameLabel.text = display_name

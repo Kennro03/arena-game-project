@@ -91,7 +91,7 @@ func _spawn_player_units() -> void:
 		if not is_instance_valid(unit_data) :
 			printerr("Empty or invalid unit data in Player Units !")
 			continue
-		unit_data = unit_data.duplicate(true) # make the resource unique if it isn't already 
+		
 		unit_data.team = preload("res://ressources/Teams/PlayerTeam.tres")  # Set unit team to consistent team
 		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(spawner.player_zone),unit_data)
 		if unit:
@@ -218,6 +218,7 @@ func process_and_spawn_loot() -> void:
 	rewards_window.gold_reward = total_loot.gold
 	rewards_window.item_reward = total_loot.items
 	%UI.add_child(rewards_window)
+	rewards_window.connect("battle_rewards_closed",on_rewards_close)
 
 func spawn_loss_options() -> void:
 	var loss_screen : BattleLostScreen = BATTLE_LOST_SCREEN.instantiate()
@@ -282,4 +283,15 @@ func _on_continue() -> void:
 	state = LevelState.SPAWNING
 
 func _on_give_up() -> void:
+	_save_all_unit_data()
+	Player.clear_deployed_units()
+	Player.return_to_previous_scene()
+
+func _save_all_unit_data() -> void:
+	for unit in Player.deployed_units:
+		if is_instance_valid(unit):
+			unit.save_changes_to_data()
+
+func on_rewards_close()->void :
+	_save_all_unit_data()
 	Player.return_to_previous_scene()

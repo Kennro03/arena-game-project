@@ -1,6 +1,8 @@
 extends Control
 class_name BattleRewards
 
+signal battle_rewards_closed
+
 @export var gold_reward : int = 0
 @export var item_reward : Array[Item] = [] 
 
@@ -43,7 +45,7 @@ func add_item_rewards() -> void :
 		item_slot.set_label_text(i.item_name, slot_font_size)
 
 func _on_close_button_pressed() -> void:
-	Player.return_to_previous_scene()
+	battle_rewards_closed.emit()
 
 func _add_reward_slot(item: Item, is_gold: bool) -> ItemSlot:
 	var slot := ITEM_SLOT_SCENE.instantiate() as ItemSlot
