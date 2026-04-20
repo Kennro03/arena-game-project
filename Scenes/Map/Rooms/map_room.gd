@@ -42,7 +42,7 @@ func show_selected() -> void :
 func _on_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if not available or not _event.is_action_pressed("left_mouse"):
 		return
-	
+	get_viewport().set_input_as_handled()
 	room.selected = true
 	animation_player.play("select")
 	print("Selecting map room")
@@ -50,4 +50,3 @@ func _on_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> vo
 
 func _on_map_room_selected()->void:
 	selected.emit(room)
-	Events.room_selected.emit(room)

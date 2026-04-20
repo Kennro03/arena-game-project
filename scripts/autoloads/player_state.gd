@@ -35,7 +35,7 @@ var map_camera_postion : float
 var enemy_exp_bonus: int = 0  
 var run_modifiers: Array = [] # To implement : persistent effects on the run
 
-var previous_scene: StringName = &""
+var scene_history: Array[StringName] = []
 var current_scene: StringName = &""
 
 # Meta
@@ -58,16 +58,19 @@ func add_item_to_inventory(item: Item) -> void:
 	Events.item_added.emit(item)
 
 func go_to_scene(scene_path: StringName) -> void:
-	print(" !! Moving scenes : \nCurrent scene = %s \nPrevious scene = %s \nTarget scene = %s" % [current_scene,previous_scene,scene_path])
-	previous_scene = current_scene
+	print("Moving to: %s (from: %s)" % [scene_path, current_scene])
+	if current_scene != &"":
+		scene_history.append(current_scene)
 	current_scene = scene_path
 	SceneLoader.load_scene(scene_path)
 
 func return_to_previous_scene() -> void:
-	if previous_scene == &"":
+	if scene_history.is_empty():
 		printerr("No previous scene to return to")
 		return
-	go_to_scene(previous_scene)
+	var target : StringName = scene_history.pop_back()
+	current_scene = target
+	SceneLoader.load_scene(target)
 
 func remove_item_from_inventory(item: Item) -> void:
 	if not item in inventory :

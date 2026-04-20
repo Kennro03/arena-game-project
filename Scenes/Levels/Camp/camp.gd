@@ -3,6 +3,10 @@ class_name Camp
 
 @export var max_units_to_train : int = 3
 @export var min_units_to_train : int = 1
+@export var smithing_options : int = 3
+@export var training_exp_flat_bonus : int = 0
+@export var training_exp_mult : int = 1
+@export var looting_attempts : int = 2
 
 @export var end_rest_on_action : bool = true
 
@@ -19,7 +23,6 @@ const SELECTION_PANEL_SCENE : PackedScene = preload("res://Scenes/UI/SelectionPa
 func _ready() -> void:
 	Events.camp_entered.emit()
 	enchant_button.queue_free() 
-	smith_button.queue_free() 
 
 func recruit() -> void:
 	# Select a new random unit, could have upgrades that allow selection down the line
@@ -27,19 +30,28 @@ func recruit() -> void:
 	new_unit.display_name = name_registry.get_random_name("stickman")
 	new_unit.color = Color(randf(),randf(),randf())
 	print("Created new unit : %s" % [new_unit.display_name])
+	
 	Player.add_unit_to_reserve(new_unit)
 	if end_rest_on_action == true:
 		Events.camp_exited.emit()
 		Player.return_to_previous_scene()
 
 func loot() -> void :
-	# get some random loot based on expedition type, loot can be gold, weapon, accessories, armor, or any other set items
+	# get some random loot based on expedition type, loot can be gold, accessories, or any other set items
 	var loot_table := LootTable.new()  # or load a specific one
-	var result := loot_table.roll()
+	var result : LootResult = LootResult.new()
+	var i := 0
+	while i < looting_attempts :
+		result.merge(loot_table.roll()) 
+		i+=1
+	
 	Player.gold += result.gold
+	
 	for item in result.items:
 		Player.add_item_to_inventory(item)
+	
 	Events.camp_looted.emit()
+	
 	if end_rest_on_action == true :
 		Events.camp_exited.emit()
 		Player.return_to_previous_scene()
@@ -53,7 +65,8 @@ func train() -> void :
 
 func _on_train_units_selected(units: Array) -> void:
 	for unit_data in units:
-		unit_data.stats.experience += 50  # or however much training gives
+		unit_data.stats.experience += 250 + training_exp_flat_bonus + (250/int(units.size()))  # give 250 exp to all units + share 250 exp among units
+	
 	Events.camp_trained.emit()
 	if end_rest_on_action:
 		Player.return_to_previous_scene()
@@ -68,5 +81,6 @@ func _on_train_button_pressed() -> void:
 	train()
 
 func _on_smith_button_pressed() -> void:
+	var generated_item : Array[Item] = []
 	# reveal smithing options : weapon, armor, or accessory 
 	pass

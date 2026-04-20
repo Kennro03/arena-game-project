@@ -8,15 +8,15 @@ class_name Expedition
 @export var post_expedition_scene : StringName = &"uid://hlb8w8j5gs7u"
 
 @onready var map: Map = %Map
-
-
+	
 func _ready() -> void:
 	Player.current_scene = &"uid://b2fli6g70m4oi"
 	if Player.expedition_in_progress:
 		_restore_expedition()
 	else:
 		_start_expedition()
-	Events.room_selected.connect(_on_room_selected)
+	if not Events.room_selected.is_connected(_on_room_selected):
+		Events.room_selected.connect(_on_room_selected)
 
 func _start_expedition() -> void :
 	map.generate_new_map()
@@ -43,21 +43,23 @@ func _restore_expedition() -> void:
 
 func _on_room_selected(r: Room) -> void :
 	# save current progress before leaving
+	Events.room_selected.disconnect(_on_room_selected)
 	Player.expedition_floors_climbed = map.floors_climbed
 	Player.expedition_last_room = map.last_room
 	Player.current_expedition_map = map.map_data
 	Player.clear_deployed_units()
 	
 	Player.map_camera_postion = map.camera_2d.position.y
+	print("ROOM SELECTED !!!!")
 	match r.type :
 		Room.Type.BATTLE :
-			Player.go_to_scene(battle_scene)
+			Player.go_to_scene.call_deferred(battle_scene)
 		Room.Type.SHOP :
-			Player.go_to_scene(shop_scene)
+			Player.go_to_scene.call_deferred(shop_scene)
 		Room.Type.EVENT :
-			Player.go_to_scene(event_scene)
+			Player.go_to_scene.call_deferred(event_scene)
 		Room.Type.CAMP :
-			Player.go_to_scene(camp_scene)
+			Player.go_to_scene.call_deferred(camp_scene)
 
 func _end_expedition() -> void:
 	Player.expedition_in_progress = false

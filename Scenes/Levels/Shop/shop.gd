@@ -1,11 +1,12 @@
-extends Control
+extends Node
 class_name Shop
 
 const SHOP_SLOT_SCENE := preload("res://Scenes/Levels/Shop/shop_slot.tscn")
 
-@onready var items_row: HBoxContainer = %ItemsRow
-@onready var weapons_row: HBoxContainer = $Panel/MarginContainer/VBoxContainer/WeaponsSection/WeaponsRow
+@onready var weapons_row: HBoxContainer = %WeaponsRow
 @onready var refresh_button: Button = %RefreshButton
+@onready var shop_ui: Control = %ShopUI
+@onready var items_row: HBoxContainer = %ItemsRow
 @onready var exit_shop_button: Button = %ExitShopButton
 
 @export var refresh_cost : int = 5
@@ -22,11 +23,6 @@ var weapon_list : Array[Weapon] = []
 func _ready() -> void:
 	refresh_button.text = "Refresh (%dg)" % [refresh_cost]
 	refresh_shop()
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
 
 func _on_refresh_button_pressed() -> void:
 	if Player.gold >= refresh_cost :
@@ -42,6 +38,7 @@ func refresh_shop()-> void:
 	clear_items()
 	item_list = get_item_list()
 	fill_items()
+	
 	#Weapon list
 	clear_weapons()
 	weapon_list = get_weapon_list()
@@ -49,12 +46,10 @@ func refresh_shop()-> void:
 
 func clear_items() -> void :
 	for c in items_row.get_children() :
-		c.disconnect("slot_clicked",purchase_from_slot)
 		c.queue_free()
 
 func clear_weapons() -> void :
 	for c in weapons_row.get_children() :
-		c.disconnect("slot_clicked",purchase_from_slot)
 		c.queue_free()
 
 func fill_items() -> void :
@@ -82,7 +77,7 @@ func get_item_list() -> Array[Item] :
 	for file_name in DirAccess.get_files_at("res://ressources/Items/Accessories/"):
 		if (file_name.get_extension() == "tres"):
 			_items.append(load("res://ressources/Items/Accessories/"+file_name))
-	print("Items = " + str(_items))
+	#print("Items = " + str(_items))
 	return _items
 
 func get_weapon_list() -> Array[Weapon] :
