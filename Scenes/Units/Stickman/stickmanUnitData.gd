@@ -8,6 +8,7 @@ func _init() -> void:
 	description = "A regular stickman."
 	default_weapon = preload("uid://dfscer2qw0fdp").duplicate(true)
 	weapon = default_weapon.duplicate(true)  
+	icon = preload("uid://ccpr8mltdglbp")
 
 func _make_copy() -> stickmanUnitData:
 	var copy : stickmanUnitData = stickmanUnitData.new()

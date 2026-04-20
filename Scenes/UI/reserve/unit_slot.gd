@@ -6,11 +6,12 @@ class_name UnitSlot
 
 func set_unit(_unit: UnitData) -> void:
 	_unit_data = _unit
-	set_visuals()
-	if _unit != null :
+	if _unit_data != null :
+		icon_sprite.modulate = _unit_data.color  
 		drag_visual.enabled = true
 	else : 
 		drag_visual.enabled = false
+	set_visuals()
 
 func get_icon() -> Texture2D:
 	if _unit_data :

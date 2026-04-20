@@ -1,7 +1,20 @@
 [gd_scene format=3 uid="uid://d3h4afwsp5p4g"]
 
 [ext_resource type="Script" uid="uid://dgl57qr825pjr" path="res://Scenes/UI/reserve/unit_slot.gd" id="1_uswj8"]
+[ext_resource type="Shader" uid="uid://4gro3ccy84w3" path="res://Shaders/OutlineShader/BaseUnit.gdshader" id="2_ss2pi"]
 [ext_resource type="Script" uid="uid://hohdnviatck1" path="res://scripts/Components/slot_drag_visual.gd" id="3_ah15m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m370c"]
+shader = ExtResource("2_ss2pi")
+shader_parameter/thickness = 1.0000000475
+shader_parameter/ring_count = 4
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = false
 
 [node name="UnitSlot" type="Panel" unique_id=62567015]
 custom_minimum_size = Vector2(32, 32)
@@ -20,12 +33,18 @@ grow_vertical = 2
 
 [node name="SlotSprite" type="TextureRect" parent="." unique_id=398503238]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_m370c")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+expand_mode = 3
 
 [node name="DragVisual" type="Node" parent="." unique_id=1127672295 node_paths=PackedStringArray("slot")]
 unique_name_in_owner = true
