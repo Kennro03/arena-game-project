@@ -11,4 +11,4 @@ func set_item(_item: Item) -> void:
 	set_visuals()
 
 func get_icon() -> Texture2D:
-	return item.icon if item else empty_icon
+	return item.icon if item and item.icon else empty_icon

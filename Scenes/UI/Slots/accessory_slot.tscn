@@ -7,5 +7,5 @@
 [node name="AccessorySlot" unique_id=62567015 instance=ExtResource("1_8kwr5")]
 script = ExtResource("2_dq8go")
 
-[node name="SlotSprite" parent="." index="1" unique_id=1183071005]
+[node name="SlotSprite" parent="." index="1" unique_id=1870196024]
 texture = ExtResource("3_k6f03")

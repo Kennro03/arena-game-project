@@ -3,11 +3,13 @@ class_name Shop
 
 const SHOP_SLOT_SCENE := preload("res://Scenes/Levels/Shop/shop_slot.tscn")
 
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var weapons_row: HBoxContainer = %WeaponsRow
 @onready var refresh_button: Button = %RefreshButton
 @onready var shop_ui: Control = %ShopUI
 @onready var items_row: HBoxContainer = %ItemsRow
 @onready var exit_shop_button: Button = %ExitShopButton
+@onready var noise_rect: TextureRect = %NoiseRect
 
 @export var refresh_cost : int = 5
 @export var refresh_cost_increment : int = 3
@@ -25,6 +27,14 @@ func _ready() -> void:
 	refresh_shop()
 	Player.current_scene = "uid://n6ib3torqc3t"
 
+func _process(delta: float) -> void:
+	##Placeholder background effect, will need to replace with actual shade/art
+	var noise_tex := noise_rect.texture as NoiseTexture2D
+	if noise_tex and noise_tex.noise is FastNoiseLite:
+		var noise := noise_tex.noise as FastNoiseLite
+		noise.offset.x += 1 * delta
+		noise.offset.y += 10 * delta
+
 func _on_refresh_button_pressed() -> void:
 	if Player.gold >= refresh_cost :
 		refresh_shop()
@@ -32,7 +42,7 @@ func _on_refresh_button_pressed() -> void:
 		refresh_cost += refresh_cost_increment
 		refresh_button.text = "Refresh (%dg)" % [refresh_cost]
 	else : 
-		pass #add little warning animation
+		animation_player.play("refresh_failed")
 
 func refresh_shop()-> void:
 	#Item list

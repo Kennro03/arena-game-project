@@ -48,10 +48,10 @@ var run_number: int = 0
 func _ready() -> void:
 	add_item_to_inventory(testing_knife)
 	add_unit_to_reserve(testing_pablo.duplicate(true))
-	add_unit_to_team(testing_pablo.duplicate(true))
-	add_unit_to_team(testing_pablo.duplicate(true))
-	add_unit_to_team(testing_pablo.duplicate(true))
-	add_unit_to_team(testing_pablo.duplicate(true))
+	add_unit_to_team(stickmanUnitData.new())
+	add_unit_to_team(stickmanUnitData.new())
+	add_unit_to_team(stickmanUnitData.new())
+	add_unit_to_team(stickmanUnitData.new())
 
 func add_item_to_inventory(item: Item) -> void:
 	inventory.append(item)
@@ -187,3 +187,9 @@ func sell_item(_item: Item) -> void:
 	
 	Player.gold += _item.value
 	Player.remove_item_from_inventory(_item)
+
+func get_deployed_unit(unit_data: UnitData) -> BaseUnit:
+	for unit in deployed_units:
+		if is_instance_valid(unit) and unit.unit_data == unit_data:
+			return unit
+	return null

@@ -16,8 +16,8 @@ enum SelectionType { UNIT, ITEM, WEAPON, ARMOR, ACCESSORY }
 @onready var confirm_button: Button = %ConfirmButton
 @onready var selection_counter_label: Label = %SelectionCounterLabel
 
-const UNIT_SLOT_SCENE := preload("res://Scenes/UI/reserve/unit_slot.tscn")
-const ITEM_SLOT_SCENE := preload("res://Scenes/UI/inventory/item_slot.tscn")
+const UNIT_SLOT_SCENE := preload("uid://d3h4afwsp5p4g")
+const ITEM_SLOT_SCENE := preload("uid://dnm02uo4msg2e")
 
 var selected: Array = []
 var _slots: Array = []

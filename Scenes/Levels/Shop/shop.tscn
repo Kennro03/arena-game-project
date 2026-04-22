@@ -8,14 +8,61 @@
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="5_0hnpw"]
 
 [sub_resource type="Gradient" id="Gradient_bd5oq"]
-offsets = PackedFloat32Array(0.4059406, 1)
-colors = PackedColorArray(0.67700267, 0.45743567, 1.92523e-07, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0.4, 1)
+colors = PackedColorArray(0.9172645, 0.62563014, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vjh1n"]
 gradient = SubResource("Gradient_bd5oq")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_vjh1n"]
+colors = PackedColorArray(0, 0, 0, 1, 0.7921569, 0.54901963, 0.019607844, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rtp5w"]
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_l1xfr"]
+noise = SubResource("FastNoiseLite_rtp5w")
+color_ramp = SubResource("Gradient_vjh1n")
+
+[sub_resource type="Animation" id="Animation_bd5oq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ShopUI/Panel/MarginContainer/VBoxContainer/HBoxContainer/RefreshButton:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vjh1n"]
+resource_name = "refresh_failed"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ShopUI/Panel/MarginContainer/VBoxContainer/HBoxContainer/RefreshButton:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rtp5w"]
+_data = {
+&"RESET": SubResource("Animation_bd5oq"),
+&"refresh_failed": SubResource("Animation_vjh1n")
+}
 
 [node name="Shop" type="Node2D" unique_id=205335097]
 script = ExtResource("1_k1r4k")
@@ -34,13 +81,23 @@ ui_root = NodePath("../UI")
 [node name="Background" type="CanvasLayer" parent="." unique_id=534923900]
 unique_name_in_owner = true
 
-[node name="TextureRect" type="TextureRect" parent="Background" unique_id=1013730131]
+[node name="BackgroundTextureRect" type="TextureRect" parent="Background" unique_id=1013730131]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_vjh1n")
+
+[node name="NoiseRect" type="TextureRect" parent="Background" unique_id=1310081612]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.39215687)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_l1xfr")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=788694377]
 unique_name_in_owner = true
@@ -159,6 +216,10 @@ theme_override_font_sizes/font_size = 8
 text = "Exit shop"
 
 [node name="GoldDisplay" parent="UI" unique_id=148004886 instance=ExtResource("4_ntui6")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=210427907]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_rtp5w")
 
 [connection signal="pressed" from="UI/ShopUI/Panel/MarginContainer/VBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="UI/ShopUI/Panel/MarginContainer/VBoxContainer/HBoxContainer/ExitShopButton" to="." method="_on_exit_shop_button_pressed"]

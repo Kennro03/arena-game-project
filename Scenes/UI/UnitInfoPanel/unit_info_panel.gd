@@ -3,24 +3,24 @@ class_name UnitInfoPanel
 
 var unit_scene := preload("res://Scenes/Units/Stickman/stickman.tscn")
 var placeholderTarget : BaseUnit = unit_scene.instantiate()
-@export var unit : BaseUnit = null
+
+var unit 
 
 @onready var iconRect := %UnitIcon
 @onready var nameLabel := %UnitNameLabel
 @onready var typeLabel := %UnitTypeLabel
+@onready var levelLabel := %UnitLevelLabel
+@onready var unit_health_label: Label = %UnitHealthLabel
+@onready var unit_shield_label: Label = %UnitShieldLabel
 @onready var descriptionLabel := %UnitDescriptionLabel
 
-@onready var levelLabel := %UnitLevelLabel
-@onready var levelProgressBar := %LevelProgressBar
+@onready var gear_vbox_container: VBoxContainer = %GearVboxContainer
+const GEAR_CONTAINER = preload("uid://cjeix22vpufqd")
 
-@onready var health_bar: ProgressBar = %HealthBar
 
-@onready var gear_slots: HBoxContainer = %GearSlots
-@onready var accessories_slots: HBoxContainer = %AccessoriesSlots
-
-@onready var attributesList := %AttributesContainer
-@onready var statsList := %StatsContainer
-@onready var statusesList := %StatusEffectsContainer
+#@onready var attributesList := %AttributesContainer
+#@onready var statsList := %StatsContainer
+#@onready var statusesList := %StatusEffectsContainer
 
 const attribute_row_scene : PackedScene = preload("uid://dpwd2brx4n2vh")
 const status_effect_row : PackedScene = preload("uid://dofk34fycohsp")
@@ -31,10 +31,19 @@ const accessory_slot_scene : PackedScene = preload("uid://dd2psrpeofhbi")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	unit = preload("res://ressources/Units/unit_data/Pablo.tres")
+	
 	if unit == null :
 		printerr("No unit provided to UnitInfoPanel ! Give it one before spawning.")
 		return
-	set_unit.call_deferred(unit)
+	
+	if unit is UnitData and is_instance_valid(unit):
+		_setup_data.call_deferred(unit)
+	elif unit is BaseUnit and is_instance_valid(unit):
+		_setup_live.call_deferred(unit)
+	else :
+		printerr("Unit provided to UnitInfoPanel invalid !")
+	
 	
 	#placeholderTarget.stats = Stats.new()
 	#placeholderTarget.stats.experience = 220
@@ -43,24 +52,62 @@ func _ready() -> void:
 	
 	#set_unit.call_deferred(placeholderTarget)
 
-func set_unit(target: BaseUnit) -> void:
-	unit = target
+func _get_stats() -> Stats:
+	if unit is BaseUnit: return unit.stats
+	if unit is UnitData: return unit.stats
+	return null
+
+func _get_display_name() -> String:
+	return unit.display_name
+
+func _get_icon() -> Texture2D:
+	return unit.icon
+
+func _get_weapon():
+	if unit is BaseUnit: return unit.weapon
+	if unit is UnitData: return unit.weapon
+	return null
+
+# Live unit setup
+func _setup_live(target: BaseUnit) -> void:
+	_populate_shared()
+	_populate_live_only()
 	
-	unit.stats.stats_recalculated.connect(_on_stats_changed)
-	unit.stats.exp_changed.connect(_on_experience_changed.unbind(2))
-	unit.stats.health_changed.connect(_on_health_changed)
-	unit.statusEffectModule.effects_changed.connect(set_status_effects)
-	
-	unit.weapon_changed.connect(set_gear)
-	unit.armor_changed.connect(set_gear)
-	unit.accessories_changed.connect(set_gear)
-	
-	set_info()
-	set_experience()
-	set_health()
+	# connect live unit signals
+	target.stats.stats_recalculated.connect(_on_stats_changed)
+	target.stats.health_changed.connect(_on_health_changed)
+	target.stats.shield_changed.connect(_on_shield_changed)
+	target.stats.exp_changed.connect(_on_experience_changed.unbind(2))
+	target.statusEffectModule.effects_changed.connect(set_status_effects)
+	target.weapon_changed.connect(set_gear)
+	target.armor_changed.connect(set_gear)
+	target.accessories_changed.connect(set_gear)
+
+# UnitData setup 
+func _setup_data(target: UnitData) -> void:
+	_populate_shared()
+	_hide_live_only_elements()
+	# no signal connections needed - data doesn't change
+
+func _populate_shared() -> void:
+	iconRect.texture = _get_icon()
+	iconRect.modulate = unit.color if unit is UnitData else unit.sprite_color
+	nameLabel.text = _get_display_name()
+	descriptionLabel.text = unit.description
+	levelLabel.text = "Lv. %d" % _get_stats().level
 	set_gear()
 	set_stats()
+
+func _populate_live_only() -> void:
+	unit_health_label.visible = true
+	unit_shield_label.visible = true
+	set_health()
 	set_status_effects()
+
+func _hide_live_only_elements() -> void:
+	unit_health_label.visible = false
+	unit_shield_label.visible = false
+	# hide status effects section too
 
 func set_info() ->void :
 	iconRect.texture = unit.icon if unit.icon else null
@@ -69,20 +116,11 @@ func set_info() ->void :
 	
 	descriptionLabel.text = unit.description
 
+func set_health() -> void :
+	pass
+
 func set_experience() -> void:
 	levelLabel.text = "Unit Level : " + str(unit.stats.level)
-	levelProgressBar.min_value = 0.0
-	levelProgressBar.max_value = 1.0
-	levelProgressBar.value = unit.stats.get_level_progress()
-	# optional tooltip
-	levelProgressBar.tooltip_text = "%d / %d XP" % [
-		unit.stats.get_xp_in_current_level(),
-		unit.stats.get_xp_needed_for_next_level()
-	]
-
-func set_health() -> void:
-	health_bar.max_value = unit.stats.current_max_health
-	health_bar.value = unit.stats.health
 
 func _on_stats_changed() -> void :
 	set_info()   # for name and info
@@ -94,69 +132,67 @@ func _on_experience_changed() -> void :
 	pass
 
 func clear_gear() -> void :
-	for c in gear_slots.get_children() :
-		c.queue_free()
-	
-	for c in accessories_slots.get_children() :
+	pass
+	for c in gear_vbox_container.get_children() :
 		c.queue_free()
 
 func set_gear() -> void :
 	clear_gear()
 	
-	var weapon_slot : WeaponSlot = weapon_slot_scene.instantiate()
-	weapon_slot.item = unit.weapon
-	weapon_slot.slot_context = ItemSlot.SlotContext.UNIT_GEAR
-	weapon_slot.owner_unit = unit
-	gear_slots.add_child(weapon_slot)
-	weapon_slot.drag_visual.enabled = false
+	var stats := _get_stats()
+	var weapon = unit.weapon
+	var armor = unit.armor if "armor" in unit else null
+	var accessories = unit.accessories if "accessories" in unit else []
+	var accessory_limit = stats.current_accessory_limit if stats else 0
 	
-	var armor_slot : ArmorSlot = armor_slot_scene.instantiate()
-	armor_slot.item = unit.armor
-	armor_slot.slot_context = ItemSlot.SlotContext.UNIT_GEAR
-	armor_slot.owner_unit = unit
-	gear_slots.add_child(armor_slot)
-	armor_slot.drag_visual.enabled = false
+	var weapon_container : GearContainer = GEAR_CONTAINER.instantiate()
+	weapon_container.gear = weapon
+	##armor_slot.owner_unit = unit if unit is BaseUnit else null
+	gear_vbox_container.add_child(weapon_container)
 	
-	var i : int = 0
-	while i < unit.stats.current_accessory_limit :
-		var accessory_slot : AccessorySlot = accessory_slot_scene.instantiate()
-		accessory_slot.item = unit.accessories[i] if i < unit.accessories.size() else null
-		accessory_slot.slot_context = ItemSlot.SlotContext.UNIT_GEAR
-		accessory_slot.owner_unit = unit
-		gear_slots.add_child(accessory_slot)
-		accessory_slot.drag_visual.enabled = false
-		i += 1
+	if armor :
+		var armor_container : GearContainer = GEAR_CONTAINER.instantiate()
+		armor_container.gear = armor
+		##armor_slot.owner_unit = unit if unit is BaseUnit else null
+		gear_vbox_container.add_child(armor_container)
+	
+	
+	if accessories != [] :
+		for i in accessory_limit:
+			var acc_container : GearContainer = GEAR_CONTAINER.instantiate()
+			acc_container.gear = accessories[i] if i < accessories.size() else null
+			##armor_slot.owner_unit = unit if unit is BaseUnit else null
+			gear_vbox_container.add_child(acc_container)
+
+@onready var overview_rich_text_label: RichTextLabel = %OverviewRichTextLabel
 
 func set_stats() ->void :
-	for child in attributesList.get_children():
-		child.queue_free()
-	for child in statsList.get_children():
-		child.queue_free()
-	for attribute in unit.stats.Attributes.values() :
-		var row := attribute_row_scene.instantiate()
-		row.iconTexture = Stats.attribute_icons[attribute]
-		row.attributeName = Stats.Attributes.keys()[attribute] + " : "
-		row.attributeValue = str(unit.stats.get_current_attribute(attribute)) if unit.stats else "..."
-		attributesList.add_child(row)
-	for stat in unit.stats.BuffableStats :
-		if !unit.stats.Attributes.has(stat) :
-			var row := attribute_row_scene.instantiate()
-			row.attributeName = str(stat) + " : "
-			row.attributeValue = str(unit.stats.get_current_stat(unit.stats.BuffableStats[stat])) if unit.stats else "..."
-			statsList.add_child(row)
+	set_overview_text()
+
+func set_overview_text() -> void :
+	var unit_stats := _get_stats()
+	overview_rich_text_label.clear()
+	overview_rich_text_label.append_text("Strength : %s (+%s)" % [unit_stats.current_strength,unit_stats.current_strength-unit_stats.base_strength])
+	overview_rich_text_label.append_text("\nDexterity : %s (+%s)" % [unit_stats.current_dexterity,unit_stats.current_dexterity-unit_stats.base_dexterity])
+	overview_rich_text_label.append_text("\nEndurance : %s (+%s)" % [unit_stats.current_endurance,unit_stats.current_endurance-unit_stats.base_endurance])
+	overview_rich_text_label.append_text("\nIntelligence : %s (+%s)" % [unit_stats.current_intellect,unit_stats.current_intellect-unit_stats.base_intellect])
+	overview_rich_text_label.append_text("\nFaith : %s (+%s)" % [unit_stats.current_faith,unit_stats.current_faith-unit_stats.base_faith])
+	overview_rich_text_label.append_text("\nAttunement : %s (+%s)" % [unit_stats.current_attunement,unit_stats.current_attunement-unit_stats.base_attunement])
+	
+	overview_rich_text_label.append_text("\n\nAvailable points : %s" % unit_stats.attribute_points_available)
 
 func set_status_effects() ->void :
-	#for child in statusesList.get_children():
-	#	child.queue_free()
-	if unit.statusEffectModule :
-		for status in unit.statusEffectModule.StatusEffects :
-			var row := status_effect_row.instantiate()
-			row.status_effect = status
-			statusesList.add_child(row)
+	pass
 
 func _on_health_changed(health : float,max_health : float) -> void :
-	health_bar.max_value = max_health
-	health_bar.value = health
+	unit_health_label.text = "Health : %d / %d" % [health,max_health]
+
+func _on_shield_changed(shield : float,max_shield : float) -> void :
+	unit_shield_label.text = "Shield : %d / %d" % [shield,max_shield]
 
 func _on_close_button_pressed() -> void:
 	queue_free()
+
+func _on_tab_container_tab_changed(tab: int) -> void:
+	await get_tree().process_frame
+	reset_size()

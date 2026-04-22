@@ -1,7 +1,6 @@
 [gd_resource type="Resource" script_class="BattleData" format=3 uid="uid://sshw11e24ays"]
 
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="1_xp3ne"]
-[ext_resource type="Resource" uid="uid://bh7j0fjibu324" path="res://ressources/Units/enemy_data/LittleGuy.tres" id="3_bwjgm"]
 [ext_resource type="Resource" uid="uid://d4fvbe67ufh8v" path="res://ressources/Units/unit_data/DaggerBandit.tres" id="3_xy1x8"]
 [ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/unit_data/HammerBandit.tres" id="4_bwjgm"]
 [ext_resource type="Resource" uid="uid://ca3ago2wj5osb" path="res://ressources/Units/unit_data/SwordBandit.tres" id="5_4osmb"]
@@ -25,6 +24,5 @@ metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
 [resource]
 script = ExtResource("11_ayrm8")
 enemy_force = 20.0
-forced_enemies = Array[ExtResource("1_xp3ne")]([ExtResource("3_bwjgm"), ExtResource("3_bwjgm"), ExtResource("3_bwjgm"), ExtResource("3_bwjgm"), ExtResource("3_bwjgm"), ExtResource("3_bwjgm"), ExtResource("3_bwjgm"), ExtResource("3_bwjgm"), ExtResource("3_bwjgm"), ExtResource("3_bwjgm")])
 random_enemy_pool = Array[ExtResource("1_xp3ne")]([SubResource("Resource_okyky"), SubResource("Resource_okjdk"), SubResource("Resource_0ybvj")])
 metadata/_custom_type_script = "uid://b2x5b5wxr3o6d"

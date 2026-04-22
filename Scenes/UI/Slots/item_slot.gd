@@ -47,7 +47,7 @@ func _on_mouse_entered() -> void:
 	else : 
 		tooltip = item_tooltip_scene.instantiate()
 		tooltip.item = item
-		#print("Requested item tooltip")
+		print("Requested item tooltip : " + str(tooltip.item))
 		Events.tooltip_requested.emit(tooltip)
 
 func _on_mouse_exited() -> void:

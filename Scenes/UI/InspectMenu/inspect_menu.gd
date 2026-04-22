@@ -59,12 +59,27 @@ func load_unit_slot_inspect_buttons() -> void :
 	if _slot._unit_data == null :
 		close()
 	
-	_add_button("Remove Unit", func():
-		if is_instance_valid(_slot) :
-			Player.remove_unit(_slot._unit_data)
-			close()
-		)
-	pass
+	if _slot._unit_data in Player.reserve :
+		_add_button("Remove Unit", func():
+			if is_instance_valid(_slot) :
+				Player.remove_unit(_slot._unit_data)
+				close()
+			)
+	
+	
+	if _slot._unit_data in Player.team :
+		var deployed := Player.get_deployed_unit(_slot._unit_data)
+		if deployed:
+			_add_button("Recall Unit", func():
+				if is_instance_valid(_slot) and is_instance_valid(deployed) :
+					Player.recall_unit(deployed)
+					close()
+				)
+		else:
+			_add_button("Move to reserve", func():
+				if is_instance_valid(_slot):
+					Player.move_unit_to_reserve(_slot._unit_data)
+					close())
 
 func load_item_slot_inspect_buttons() -> void :
 	#load buttons regarding item slots
@@ -90,6 +105,8 @@ func load_item_slot_inspect_buttons() -> void :
 					if is_instance_valid(_slot):
 						Player.sell_item(_slot.item)
 					close())
+		
+		
 		ItemSlot.SlotContext.UNIT_GEAR:
 			if is_instance_valid(_slot.owner_unit):
 				_add_button("Inspect Item", func():
@@ -102,8 +119,17 @@ func load_item_slot_inspect_buttons() -> void :
 							_unequip_from_unit(_slot)
 							pass
 						close())
+		
+		
 		ItemSlot.SlotContext.REWARD:
-			pass  
+			_add_button("Take", func():
+				if is_instance_valid(_slot):
+					_slot.slot_clicked.emit(_slot, 1)
+				close())
+			_add_button("Discard", func():
+				if is_instance_valid(_slot):
+					_slot.queue_free()
+				close())  
 
 func load_shop_slot_inspect_buttons() -> void :
 	#load buttons regarding shop slots

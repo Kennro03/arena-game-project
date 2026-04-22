@@ -81,6 +81,6 @@ func _on_train_button_pressed() -> void:
 	train()
 
 func _on_smith_button_pressed() -> void:
-	var generated_item : Array[Item] = []
+	var _generated_item : Array[Item] = []
 	# reveal smithing options : weapon, armor, or accessory 
 	pass

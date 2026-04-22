@@ -62,6 +62,11 @@ func with_stats(_stats : Stats) -> UnitData:
 	data.display_name = "%s, CustomStats" % [display_name]
 	return data
 
+func randomize_color() -> UnitData:
+	var data := _make_copy()  
+	data.color = Color(randf(),randf(),randf())
+	return data
+
 func with_scale(multiplier: float) -> UnitData:
 	var data := _make_copy()  
 	
