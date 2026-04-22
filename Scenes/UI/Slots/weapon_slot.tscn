@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cr0ku2232m77j"]
 
-[ext_resource type="PackedScene" uid="uid://dnm02uo4msg2e" path="res://Scenes/UI/inventory/item_slot.tscn" id="1_it3so"]
+[ext_resource type="PackedScene" uid="uid://dnm02uo4msg2e" path="res://Scenes/UI/Slots/item_slot.tscn" id="1_it3so"]
 [ext_resource type="Texture2D" uid="uid://br85td3jaqel7" path="res://ressources/Sprites/Icons/Stats/weapon_damage_icon.png" id="2_34s38"]
 [ext_resource type="Script" uid="uid://bnr2i4p88pbsx" path="res://Scenes/UI/Slots/weapon_slot.gd" id="2_wrisx"]
 

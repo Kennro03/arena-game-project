@@ -3,7 +3,7 @@ class_name Inventory
 
 @onready var item_grid_container: GridContainer = %ItemGridContainer
 
-const ItemSlotScene : PackedScene = preload("res://Scenes/UI/inventory/item_slot.tscn") 
+const ItemSlotScene : PackedScene = preload("uid://dnm02uo4msg2e") 
 var item_slots : Array[ItemSlot] = []
 
 # Called when the node enters the scene tree for the first time.

@@ -76,13 +76,20 @@ func load_item_slot_inspect_buttons() -> void :
 		ItemSlot.SlotContext.INVENTORY:
 			_add_button("Inspect Item", func():
 				if is_instance_valid(_slot) :
+					pass
+					## Need to implement new unit/item info UI
 					Events.open_item_info_requested.emit(_slot.item)
 				)
 			_add_button("Discard", func():
 				if is_instance_valid(_slot):
 					Player.remove_item_from_inventory(_slot.item)
 				close())
-			
+			print("Current scene = " + str(Player.current_scene) + " shop scene = uid://n6ib3torqc3t")
+			if Player.current_scene == "uid://n6ib3torqc3t" :
+				_add_button("Sell", func():
+					if is_instance_valid(_slot):
+						Player.sell_item(_slot.item)
+					close())
 		ItemSlot.SlotContext.UNIT_GEAR:
 			if is_instance_valid(_slot.owner_unit):
 				_add_button("Inspect Item", func():

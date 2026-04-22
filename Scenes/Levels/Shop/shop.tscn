@@ -20,7 +20,7 @@ fill_to = Vector2(1, 1)
 [node name="Shop" type="Node2D" unique_id=205335097]
 script = ExtResource("1_k1r4k")
 
-[node name="InventoryReserveManager" type="Node" parent="." unique_id=688751289]
+[node name="PlayerUIManager" type="Node" parent="." unique_id=688751289]
 script = ExtResource("5_0hnpw")
 
 [node name="InspectionManager" type="Node" parent="." unique_id=1625464565 node_paths=PackedStringArray("ui_root")]

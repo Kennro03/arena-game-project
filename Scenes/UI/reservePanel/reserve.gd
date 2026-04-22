@@ -3,7 +3,7 @@ class_name Reserve
 
 @onready var unit_grid_container: GridContainer = %GridContainer
 
-const UnitSlotScene : PackedScene = preload("res://Scenes/UI/reserve/unit_slot.tscn") 
+const UnitSlotScene : PackedScene = preload("uid://d3h4afwsp5p4g") 
 var unit_slots : Array[UnitSlot] = []
 
 # Called when the node enters the scene tree for the first time.

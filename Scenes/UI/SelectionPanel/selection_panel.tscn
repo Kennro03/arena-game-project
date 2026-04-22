@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="1_cu1mk"]
 [ext_resource type="Script" uid="uid://dcgb8dffjqkjj" path="res://Scenes/UI/SelectionPanel/selection_panel.gd" id="1_drs8i"]
-[ext_resource type="PackedScene" uid="uid://dnm02uo4msg2e" path="res://Scenes/UI/inventory/item_slot.tscn" id="3_b6fcl"]
+[ext_resource type="PackedScene" uid="uid://dnm02uo4msg2e" path="res://Scenes/UI/Slots/item_slot.tscn" id="3_b6fcl"]
 
 [node name="SelectionPanel" type="Control" unique_id=379688858]
 z_index = 3

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3h4afwsp5p4g"]
 
-[ext_resource type="Script" uid="uid://dgl57qr825pjr" path="res://Scenes/UI/reserve/unit_slot.gd" id="1_uswj8"]
+[ext_resource type="Script" uid="uid://dgl57qr825pjr" path="res://Scenes/UI/Slots/unit_slot.gd" id="1_uswj8"]
 [ext_resource type="Shader" uid="uid://4gro3ccy84w3" path="res://Shaders/OutlineShader/BaseUnit.gdshader" id="2_ss2pi"]
 [ext_resource type="Script" uid="uid://hohdnviatck1" path="res://scripts/Components/slot_drag_visual.gd" id="3_ah15m"]
 

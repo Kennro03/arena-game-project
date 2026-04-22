@@ -180,3 +180,10 @@ func remove_unit(unit: UnitData) -> void:
 func advance_exp_bonus(amount: int) -> void:
 	enemy_exp_bonus += amount
 	Events.enemy_exp_bonus_changed.emit(enemy_exp_bonus)
+
+func sell_item(_item: Item) -> void:
+	if _item not in inventory :
+		return
+	
+	Player.gold += _item.value
+	Player.remove_item_from_inventory(_item)

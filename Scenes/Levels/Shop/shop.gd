@@ -23,6 +23,7 @@ var weapon_list : Array[Weapon] = []
 func _ready() -> void:
 	refresh_button.text = "Refresh (%dg)" % [refresh_cost]
 	refresh_shop()
+	Player.current_scene = "uid://n6ib3torqc3t"
 
 func _on_refresh_button_pressed() -> void:
 	if Player.gold >= refresh_cost :

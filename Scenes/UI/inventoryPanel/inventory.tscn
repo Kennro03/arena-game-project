@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="1_eg0so"]
 [ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="1_km1xx"]
-[ext_resource type="Script" uid="uid://g5oacsnq7yf6" path="res://Scenes/UI/inventory/inventory.gd" id="1_sxrqc"]
+[ext_resource type="Script" uid="uid://g5oacsnq7yf6" path="res://Scenes/UI/inventoryPanel/inventory.gd" id="1_sxrqc"]
 
 [node name="Inventory" type="PanelContainer" unique_id=1287558197]
 z_index = 1

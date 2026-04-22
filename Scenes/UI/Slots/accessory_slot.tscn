@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dd2psrpeofhbi"]
 
-[ext_resource type="PackedScene" uid="uid://dnm02uo4msg2e" path="res://Scenes/UI/inventory/item_slot.tscn" id="1_8kwr5"]
+[ext_resource type="PackedScene" uid="uid://dnm02uo4msg2e" path="res://Scenes/UI/Slots/item_slot.tscn" id="1_8kwr5"]
 [ext_resource type="Script" uid="uid://cqeyakisltbed" path="res://Scenes/UI/Slots/accessory_slot.gd" id="2_dq8go"]
 [ext_resource type="Texture2D" uid="uid://yc1ibthk837u" path="res://ressources/Sprites/Icons/Items/Accessory/jewelry_sprite_pngs/empty_jewel.png" id="3_k6f03"]
 

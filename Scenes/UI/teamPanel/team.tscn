@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://buquhmksgk22a"]
+[gd_scene format=3 uid="uid://wkm8slle2lka"]
 
-[ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="1_0bb6q"]
-[ext_resource type="Script" uid="uid://cv4mygccopc87" path="res://Scenes/UI/reserve/reserve.gd" id="1_kyj30"]
-[ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="1_o6yq8"]
+[ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="1_623s3"]
+[ext_resource type="Script" uid="uid://dudpbq2ieh5q7" path="res://Scenes/UI/teamPanel/teamPanel.gd" id="2_2xydq"]
+[ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="3_0f3h0"]
 
-[node name="Reserve" type="PanelContainer" unique_id=1287558197]
+[node name="TeamPanel" type="PanelContainer" unique_id=1287558197]
 z_index = 1
 texture_filter = 1
 clip_contents = true
@@ -13,8 +13,8 @@ offset_right = 234.0
 offset_bottom = 200.0
 size_flags_horizontal = 0
 mouse_filter = 2
-theme = ExtResource("1_0bb6q")
-script = ExtResource("1_kyj30")
+theme = ExtResource("1_623s3")
+script = ExtResource("2_2xydq")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=239782206]
 layout_mode = 2
@@ -30,10 +30,10 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="InventoryLabel" type="Label" parent="MarginContainer/VBoxContainer/HboxHeader" unique_id=752978947]
+[node name="HeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/HboxHeader" unique_id=752978947]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "Reserve"
+text = "Current team"
 
 [node name="HSeparator1" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=438004936]
 layout_mode = 2
@@ -62,7 +62,7 @@ layout_mode = 2
 columns = 6
 
 [node name="DragAndDropComponent" type="Node" parent="." unique_id=2009158535 node_paths=PackedStringArray("target_area", "target")]
-script = ExtResource("1_o6yq8")
+script = ExtResource("3_0f3h0")
 target_area = NodePath("../MarginContainer")
 target = NodePath("..")
 
