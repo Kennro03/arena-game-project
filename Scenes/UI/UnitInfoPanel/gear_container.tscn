@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://cjeix22vpufqd"]
+
+[ext_resource type="Script" uid="uid://c7gsmrrisuf7d" path="res://Scenes/UI/UnitInfoPanel/gear_container.gd" id="1_2pukd"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_7on0c"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="3_s6sxh"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_t88ws"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_dy3hj"]
+
+[sub_resource type="Resource" id="Resource_7on0c"]
+script = ExtResource("3_s6sxh")
+buff_amount = 5.0
+buff_type = 1
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_t88ws"]
+script = ExtResource("3_s6sxh")
+stat = 1
+buff_amount = -2.0
+buff_type = 1
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_dy3hj"]
+script = ExtResource("3_s6sxh")
+stat = 3
+buff_amount = 1.5
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_cf0ke"]
+script = ExtResource("3_s6sxh")
+stat = 4
+buff_amount = 0.3
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_qa4fp"]
+script = ExtResource("4_dy3hj")
+statChanges = Array[ExtResource("3_s6sxh")]([SubResource("Resource_7on0c"), SubResource("Resource_t88ws"), SubResource("Resource_dy3hj"), SubResource("Resource_cf0ke")])
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[node name="GearContainer" type="MarginContainer" unique_id=305242033]
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_2pukd")
+gear = SubResource("Resource_qa4fp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1856658089]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="IconContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=397324080]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+
+[node name="GearNameLabel" type="Label" parent="HBoxContainer/IconContainer" unique_id=1595607888]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Item name"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="StatsRichTextLabel" type="RichTextLabel" parent="HBoxContainer" unique_id=1644769867]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+text = "Stats go here"
+
+[node name="PassivesRichTextLabel" type="RichTextLabel" parent="HBoxContainer" unique_id=478143427]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+text = "Passives go here 
+Long passive description that goes on for a long time and takes up a lot of words...."

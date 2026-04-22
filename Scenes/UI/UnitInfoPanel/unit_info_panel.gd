@@ -117,7 +117,7 @@ func set_info() ->void :
 	descriptionLabel.text = unit.description
 
 func set_health() -> void :
-	pass
+	unit_health_label.text = "Health : x / y"
 
 func set_experience() -> void:
 	levelLabel.text = "Unit Level : " + str(unit.stats.level)
@@ -172,14 +172,34 @@ func set_stats() ->void :
 func set_overview_text() -> void :
 	var unit_stats := _get_stats()
 	overview_rich_text_label.clear()
-	overview_rich_text_label.append_text("Strength : %s (+%s)" % [unit_stats.current_strength,unit_stats.current_strength-unit_stats.base_strength])
-	overview_rich_text_label.append_text("\nDexterity : %s (+%s)" % [unit_stats.current_dexterity,unit_stats.current_dexterity-unit_stats.base_dexterity])
-	overview_rich_text_label.append_text("\nEndurance : %s (+%s)" % [unit_stats.current_endurance,unit_stats.current_endurance-unit_stats.base_endurance])
-	overview_rich_text_label.append_text("\nIntelligence : %s (+%s)" % [unit_stats.current_intellect,unit_stats.current_intellect-unit_stats.base_intellect])
-	overview_rich_text_label.append_text("\nFaith : %s (+%s)" % [unit_stats.current_faith,unit_stats.current_faith-unit_stats.base_faith])
-	overview_rich_text_label.append_text("\nAttunement : %s (+%s)" % [unit_stats.current_attunement,unit_stats.current_attunement-unit_stats.base_attunement])
+	overview_rich_text_label.append_text("[table=3]")
 	
-	overview_rich_text_label.append_text("\n\nAvailable points : %s" % unit_stats.attribute_points_available)
+	var attributes := [
+		["Strength", unit_stats.current_strength, unit_stats.base_strength],
+		["Dexterity", unit_stats.current_dexterity, unit_stats.base_dexterity],
+		["Endurance", unit_stats.current_endurance, unit_stats.base_endurance],
+		["Intelligence", unit_stats.current_intellect, unit_stats.base_intellect],
+		["Faith", unit_stats.current_faith, unit_stats.base_faith],
+		["Attunement", unit_stats.current_attunement, unit_stats.base_attunement],
+		]
+	
+	for attr in attributes:
+		var name: String = attr[0]
+		var current: int = attr[1]
+		var base: int = attr[2]
+		var bonus: int = current - base
+		var bonus_str := ""
+		if bonus > 0:
+			bonus_str = " [color=green](+%d)[/color]" % bonus
+		elif bonus < 0:
+			bonus_str = " [color=red](%d)[/color]" % bonus
+		
+		overview_rich_text_label.append_text("[cell]%s[/cell]" % name)
+		overview_rich_text_label.append_text("[cell][right]......[/right][/cell]")
+		overview_rich_text_label.append_text("[cell][right]%d%s[/right][/cell]" % [current, bonus_str])
+	
+	overview_rich_text_label.append_text("[/table]")
+	overview_rich_text_label.append_text("\n\nAvailable points : %s\n" % unit_stats.attribute_points_available)
 
 func set_status_effects() ->void :
 	pass
