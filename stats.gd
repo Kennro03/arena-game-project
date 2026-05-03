@@ -51,6 +51,28 @@ static var buffable_stat_icons : Dictionary = {
 	# To be added later
 }
 
+static var stat_descriptions: Dictionary = {
+	BuffableStats.STRENGTH: "Increases physical damage and parry probability.",
+	BuffableStats.DEXTERITY: "Increases attack speed, dodge chance, and movement speed.",
+	BuffableStats.ENDURANCE: "Increases max health, block probability, and flat block power.",
+	BuffableStats.INTELLECT: "Increases dodge and parry probability.",
+	BuffableStats.FAITH: "Increases health regeneration and block probability.",
+	BuffableStats.ATTUNEMENT: "Increases movement speed, crit chance, and crit damage.",
+	BuffableStats.MAX_HEALTH: "The maximum amount of damage a unit can take before dying.",
+	BuffableStats.HEALTH_REGEN: "Health recovered per second outside of combat.",
+	BuffableStats.MOVEMENT_SPEED: "How fast the unit moves across the battlefield.",
+	BuffableStats.DODGE_PROBABILITY: "Chance to completely avoid an incoming hit.",
+	BuffableStats.PARRY_PROBABILITY: "Chance to deflect a hit, negating all damage.",
+	BuffableStats.BLOCK_PROBABILITY: "Chance to partially reduce incoming damage.",
+	BuffableStats.FLAT_BLOCK_POWER: "Flat damage reduced when blocking.",
+	BuffableStats.PERCENT_BLOCK_POWER: "Percentage of remaining damage reduced when blocking.",
+	BuffableStats.CRIT_CHANCE: "Chance for an attack to deal bonus damage.",
+	BuffableStats.CRIT_DAMAGE: "Damage multiplier applied on a critical hit.",
+	BuffableStats.DAMAGE_TAKEN_BONUS: "Flat bonus damage received from all sources.",
+	BuffableStats.DAMAGE_TAKEN_MULTIPLIER: "Multiplier applied to all incoming damage.",
+	BuffableStats.ACCESSORY_LIMIT: "Maximum number of accessories the unit can equip.",
+}
+
 signal health_depleted
 signal health_changed(cur_health:float,max_health:float)
 signal shield_depleted

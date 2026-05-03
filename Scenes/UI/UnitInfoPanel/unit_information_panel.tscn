@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d1ywcpwm2exd2" path="res://Scenes/UI/UnitInfoPanel/unit_info_panel.gd" id="1_ciquk"]
 [ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="2_45o6y"]
 [ext_resource type="PackedScene" uid="uid://cjeix22vpufqd" path="res://Scenes/UI/UnitInfoPanel/gear_container.tscn" id="3_u5ker"]
+[ext_resource type="PackedScene" uid="uid://c4gvcfxbmslqu" path="res://Scenes/UI/UnitInfoPanel/stat_entry_row.tscn" id="4_7bilb"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v6ryx"]
 size = Vector2(32, 32)
@@ -32,10 +33,11 @@ theme_override_constants/separation = 0
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer" unique_id=1437303245]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 3
 
 [node name="Overview" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=239782206]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -216,7 +218,6 @@ vertical_alignment = 1
 
 [node name="Stats" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=53255993]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -231,19 +232,175 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer" unique_id=1588941025]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer" unique_id=1448949277]
+layout_mode = 2
+theme_override_constants/scrollbar_h_separation = 8
+
+[node name="StatEntriesContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer" unique_id=1588941025]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=593404452]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Attributes"
+fit_content = true
+scroll_active = false
+
+[node name="StatEntryRow" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=1268309424 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow" index="1" unique_id=2004656968]
+text = "12"
+
+[node name="StatEntryRow2" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=1132131468 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow2" index="0" unique_id=1553437840]
+text = "	Dexterity"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow2" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="StatEntryRow3" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=22588198 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow3" index="0" unique_id=1553437840]
+text = "	Endurance"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow3" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="StatEntryRow4" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=2018903441 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow4" index="1" unique_id=2004656968]
+text = "12"
+
+[node name="StatEntryRow5" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=590910834 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow5" index="0" unique_id=1553437840]
+text = "	Dexterity"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow5" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="StatEntryRow6" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=1792694116 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow6" index="0" unique_id=1553437840]
+text = "	Endurance"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow6" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=1642829919]
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+text = "Other stats"
+fit_content = true
+scroll_active = false
+
+[node name="StatEntryRow7" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=2101446167 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow7" index="0" unique_id=1553437840]
+text = "	Endurance"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow7" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="StatEntryRow8" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=1728506523 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow8" index="0" unique_id=1553437840]
+text = "	Endurance"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow8" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="StatEntryRow9" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=2123679789 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow9" index="0" unique_id=1553437840]
+text = "	Endurance"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow9" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="StatEntryRow10" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=1832038014 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow10" index="0" unique_id=1553437840]
+text = "	Endurance"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow10" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="StatEntryRow11" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=1367107289 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow11" index="0" unique_id=1553437840]
+text = "	Endurance"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow11" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="StatEntryRow12" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=1601185298 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow12" index="0" unique_id=1553437840]
+text = "	Endurance"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow12" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="StatEntryRow13" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=576864844 instance=ExtResource("4_7bilb")]
+layout_mode = 2
+
+[node name="StatEntryName" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow13" index="0" unique_id=1553437840]
+text = "	Endurance"
+
+[node name="StatEntryValue" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow13" index="1" unique_id=2004656968]
+text = "0"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/TabContainer/Stats/HBoxContainer" unique_id=1775351056]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer2" unique_id=1664020291]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/VBoxContainer" unique_id=593404452]
-custom_minimum_size = Vector2(0, 50)
+[node name="StatDetailsLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=1394866422]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 mouse_filter = 1
-text = "Stats go here"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+text = "[center] Select a stat to inspect its details."
 
 [node name="CloseButton" type="Button" parent="." unique_id=905965588]
 unique_name_in_owner = true
@@ -256,3 +413,17 @@ text = "x"
 
 [connection signal="tab_changed" from="VBoxContainer/TabContainer" to="." method="_on_tab_container_tab_changed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
+
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow2"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow3"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow4"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow5"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow6"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow7"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow8"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow9"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow10"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow11"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow12"]
+[editable path="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer/StatEntryRow13"]
