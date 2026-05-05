@@ -54,6 +54,9 @@ func _ready() -> void:
 	#get_tree().root.add_child.call_deferred(placeholderTarget)
 	
 	#set_unit.call_deferred(placeholderTarget)
+	var tab_bar : TabBar = $VBoxContainer/TabContainer.get_tab_bar()
+	tab_bar.mouse_filter = Control.MOUSE_FILTER_PASS
+	print_tree_pretty()
 
 func _get_stats() -> Stats:
 	if unit is BaseUnit: return unit.stats
@@ -87,7 +90,7 @@ func _setup_live(target: BaseUnit) -> void:
 	target.accessories_changed.connect(set_gear)
 
 # UnitData setup 
-func _setup_data(target: UnitData) -> void:
+func _setup_data(_target: UnitData) -> void:
 	_populate_shared()
 	_hide_live_only_elements()
 	# no signal connections needed - data doesn't change
@@ -185,7 +188,7 @@ func set_overview_text() -> void :
 		]
 	
 	for attr in attributes:
-		var name: String = attr[0]
+		var attribute_name: String = attr[0]
 		var current: int = attr[1]
 		var base: int = attr[2]
 		var bonus: int = current - base
@@ -195,7 +198,7 @@ func set_overview_text() -> void :
 		elif bonus < 0:
 			bonus_str = " [color=red](%d)[/color]" % bonus
 		
-		overview_rich_text_label.append_text("[cell]%s[/cell]" % name)
+		overview_rich_text_label.append_text("[cell]%s[/cell]" % attribute_name)
 		overview_rich_text_label.append_text("[cell][right]......[/right][/cell]")
 		overview_rich_text_label.append_text("[cell][right]%d%s[/right][/cell]" % [current, bonus_str])
 	
@@ -214,7 +217,7 @@ func _on_shield_changed(shield : float,max_shield : float) -> void :
 func _on_close_button_pressed() -> void:
 	queue_free()
 
-func _on_tab_container_tab_changed(tab: int) -> void:
+func _on_tab_container_tab_changed(_tab: int) -> void:
 	await get_tree().process_frame
 	reset_size()
 
