@@ -276,6 +276,35 @@ func recalculate_stats() -> void :
 	current_faith = int(base_faith)
 	current_attunement = int(base_attunement)
 	
+	
+	for buff in stat_buffs :
+		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
+		#print("Processing buff: stat=%s, amount=%s, type=%s" % [stat_name, buff.buff_amount, buff.buff_type])
+		#var cur_property_name := "current_" + stat_name
+		#print("Property exists: ", get(cur_property_name) != null)
+		match buff.buff_type:
+			StatBuff.BuffType.ADD:
+				if not stat_addends.has(stat_name):
+					stat_addends[stat_name] = 0.0
+				stat_addends[stat_name] += buff.buff_amount
+			
+			StatBuff.BuffType.MULTIPLY:
+				if not stat_multipliers.has(stat_name):
+					stat_multipliers[stat_name] = 1.0
+				stat_multipliers[stat_name] *= buff.buff_amount
+				
+				if stat_multipliers[stat_name] < 0.0:
+					stat_multipliers[stat_name] = 0.0
+	
+	for stat_name in stat_multipliers:
+		var cur_property_name : String = str("current_" + stat_name)
+		set(cur_property_name, get(cur_property_name) * stat_multipliers[stat_name])
+	
+	for stat_name in stat_addends:
+		var cur_property_name : String = str("current_" + stat_name)
+		set(cur_property_name, get(cur_property_name) + stat_addends[stat_name])
+	
+	
 	#Stat scaling logic
 	for scaling in max_health_scalings : 
 		current_max_health += scaling.compute(self)
@@ -317,34 +346,6 @@ func recalculate_stats() -> void :
 	for scaling in percent_block_power_scalings : 
 		combined *= (1.0 - scaling.compute(self))
 	current_percent_block_power = snapped(current_percent_block_power+(1.0 - combined) * 100.0,0.01) 
-	
-	
-	for buff in stat_buffs :
-		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
-		#print("Processing buff: stat=%s, amount=%s, type=%s" % [stat_name, buff.buff_amount, buff.buff_type])
-		#var cur_property_name := "current_" + stat_name
-		#print("Property exists: ", get(cur_property_name) != null)
-		match buff.buff_type:
-			StatBuff.BuffType.ADD:
-				if not stat_addends.has(stat_name):
-					stat_addends[stat_name] = 0.0
-				stat_addends[stat_name] += buff.buff_amount
-			
-			StatBuff.BuffType.MULTIPLY:
-				if not stat_multipliers.has(stat_name):
-					stat_multipliers[stat_name] = 1.0
-				stat_multipliers[stat_name] *= buff.buff_amount
-				
-				if stat_multipliers[stat_name] < 0.0:
-					stat_multipliers[stat_name] = 0.0
-	
-	for stat_name in stat_multipliers:
-		var cur_property_name : String = str("current_" + stat_name)
-		set(cur_property_name, get(cur_property_name) * stat_multipliers[stat_name])
-	
-	for stat_name in stat_addends:
-		var cur_property_name : String = str("current_" + stat_name)
-		set(cur_property_name, get(cur_property_name) + stat_addends[stat_name])
 	
 	body = current_strength + current_dexterity + current_endurance
 	mind = current_intellect + current_faith + current_attunement

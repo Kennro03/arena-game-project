@@ -45,13 +45,14 @@ script = ExtResource("1_2pukd")
 gear = SubResource("Resource_qa4fp")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1856658089]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
 [node name="IconContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=397324080]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+alignment = 1
 
 [node name="GearNameLabel" type="Label" parent="HBoxContainer/IconContainer" unique_id=1595607888]
 unique_name_in_owner = true

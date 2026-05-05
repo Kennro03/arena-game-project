@@ -352,10 +352,10 @@ func apply_data(data: UnitData) -> void:
 	equip(data.weapon) 
 	equip(data.armor)
 	
-	stats.recalculate_stats()
-	
 	for a in data.accessories :
 		equip(a)
+	
+	stats.recalculate_stats()
 	
 	#skillModule.skill_list = data.skill_list
 
@@ -404,9 +404,8 @@ func equip_weapon(_wep : Weapon = null) -> void:
 	if _wep :
 		weapon = _wep.duplicate(true)
 		weapon.owner = self
-		weapon.apply_owner_buffs(stats)
 		weapon.setup_stats()
-		
+		weapon.apply_owner_buffs(stats)
 		
 		$SpriteModule.update_spritesheet.call_deferred()
 		stats.changed.connect(weapon._on_owner_stats_change)

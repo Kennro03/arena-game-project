@@ -56,7 +56,6 @@ func _ready() -> void:
 	#set_unit.call_deferred(placeholderTarget)
 	var tab_bar : TabBar = $VBoxContainer/TabContainer.get_tab_bar()
 	tab_bar.mouse_filter = Control.MOUSE_FILTER_PASS
-	print_tree_pretty()
 
 func _get_stats() -> Stats:
 	if unit is BaseUnit: return unit.stats
@@ -174,36 +173,49 @@ func set_gear() -> void :
 @onready var overview_rich_text_label: RichTextLabel = %OverviewRichTextLabel
 
 func set_overview_text() -> void :
-	var unit_stats := _get_stats()
+	var unit_stats : Stats = _get_stats()
+	if unit is UnitData:
+		_apply_unit_data_buffs(unit_stats)
+	unit_stats.recalculate_stats()
 	overview_rich_text_label.clear()
-	overview_rich_text_label.append_text("[table=3]")
-	
+	overview_rich_text_label.append_text("[fill]")
 	var attributes := [
-		["Strength", unit_stats.current_strength, unit_stats.base_strength],
-		["Dexterity", unit_stats.current_dexterity, unit_stats.base_dexterity],
-		["Endurance", unit_stats.current_endurance, unit_stats.base_endurance],
-		["Intelligence", unit_stats.current_intellect, unit_stats.base_intellect],
-		["Faith", unit_stats.current_faith, unit_stats.base_faith],
-		["Attunement", unit_stats.current_attunement, unit_stats.base_attunement],
+		["Strength ............", unit_stats.current_strength, unit_stats.base_strength],
+		["Dexterity ...........", unit_stats.current_dexterity, unit_stats.base_dexterity],
+		["Endurance .........", unit_stats.current_endurance, unit_stats.base_endurance],
+		["Intelligence .......", unit_stats.current_intellect, unit_stats.base_intellect],
+		["Faith ...................", unit_stats.current_faith, unit_stats.base_faith],
+		["Attunement ......", unit_stats.current_attunement, unit_stats.base_attunement],
 		]
 	
 	for attr in attributes:
-		var attribute_name: String = attr[0]
+		var attribute_name : String = attr[0]
 		var current: int = attr[1]
 		var base: int = attr[2]
 		var bonus: int = current - base
-		var bonus_str := ""
+		var bonus_str := "       "
 		if bonus > 0:
 			bonus_str = " [color=green](+%d)[/color]" % bonus
 		elif bonus < 0:
 			bonus_str = " [color=red](%d)[/color]" % bonus
-		
-		overview_rich_text_label.append_text("[cell]%s[/cell]" % attribute_name)
-		overview_rich_text_label.append_text("[cell][right]......[/right][/cell]")
-		overview_rich_text_label.append_text("[cell][right]%d%s[/right][/cell]" % [current, bonus_str])
+		var value_str : String = "%d%s" % [current, bonus_str]
+		overview_rich_text_label.append_text("%s %s\n" % [attribute_name,value_str]) 
 	
-	overview_rich_text_label.append_text("[/table]")
-	overview_rich_text_label.append_text("\n\nAvailable points : %s\n" % unit_stats.attribute_points_available)
+	overview_rich_text_label.append_text("[/fill]")
+	
+	overview_rich_text_label.append_text("\nAvailable points : %s\n" % unit_stats.attribute_points_available)
+
+func _apply_unit_data_buffs(unit_stats: Stats) -> void :
+	unit_stats.stat_buffs.clear()
+	if unit.weapon:
+		unit.weapon.apply_owner_buffs(unit_stats)
+		unit.weapon.setup_stats()
+	if unit.armor:
+		unit.armor.apply_owner_buffs(unit_stats)
+	if unit.accessories != []:
+		for acc in unit.accessories:
+			if acc:
+				acc.apply_owner_buffs(unit_stats)
 
 func set_status_effects() ->void :
 	pass
@@ -231,6 +243,7 @@ func clear_stat_entries() -> void :
 
 func fill_stat_entries() -> void :
 	var unit_stats :Stats = _get_stats()
+	unit_stats.recalculate_stats()
 	var attributeLabel : RichTextLabel = RichTextLabel.new()
 	attributeLabel.bbcode_enabled = true
 	attributeLabel.fit_content = true
