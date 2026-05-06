@@ -33,11 +33,10 @@ theme_override_constants/separation = 0
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer" unique_id=1437303245]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="Overview" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=239782206]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -52,15 +51,20 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/MarginContainer" unique_id=1004511825]
+[node name="OverviewVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/MarginContainer" unique_id=1004511825]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="OverviewRichTextLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/MarginContainer/VBoxContainer" unique_id=981041298]
+[node name="OverviewRichTextLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/MarginContainer/OverviewVBoxContainer" unique_id=981041298]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 200)
+custom_minimum_size = Vector2(150, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
@@ -70,19 +74,11 @@ theme_override_font_sizes/bold_italics_font_size = 14
 theme_override_font_sizes/italics_font_size = 14
 theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
-text = "[fill] 
-Strength ................. xx
-Dexterity ................ xx
-Endurance .............. xx
-Intelligence ............ xx
-Faith ........................ xx
-Attunement ........... xx
-[/fill] 
-Available points : xx"
+text = "Available points : xx"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1548283926]
+[node name="Button" type="Button" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/MarginContainer/OverviewVBoxContainer" unique_id=1548283926]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "select draw"
@@ -159,6 +155,7 @@ autowrap_mode = 2
 
 [node name="Gear" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=1052533181]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4

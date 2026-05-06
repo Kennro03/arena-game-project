@@ -92,7 +92,11 @@ func _setup_live(target: BaseUnit) -> void:
 func _setup_data(_target: UnitData) -> void:
 	_populate_shared()
 	_hide_live_only_elements()
-	# no signal connections needed - data doesn't change
+	
+	# data signals connections
+	_target.stats.stats_recalculated.connect(_on_stats_changed)
+	var unit_stats := _get_stats()
+	_apply_unit_data_buffs(unit_stats)
 
 func _populate_shared() -> void:
 	iconRect.texture = _get_icon()
@@ -100,8 +104,8 @@ func _populate_shared() -> void:
 	nameLabel.text = _get_display_name()
 	descriptionLabel.text = unit.description
 	levelLabel.text = "Lv. %d" % _get_stats().level
-	set_gear()
 	set_overview_text()
+	set_gear()
 	set_stats_view()
 
 func _populate_live_only() -> void:
@@ -129,8 +133,10 @@ func set_experience() -> void:
 	levelLabel.text = "Unit Level : " + str(unit.stats.level)
 
 func _on_stats_changed() -> void :
+	print("Stats changed")
 	set_info()   # for name and info
 	set_overview_text()  # for stats
+	set_stats_view()  # refresh stats view
 
 func _on_experience_changed() -> void :
 	print("updating %s exp display" % [unit.display_name])
@@ -171,35 +177,61 @@ func set_gear() -> void :
 			gear_vbox_container.add_child(acc_container)
 
 @onready var overview_rich_text_label: RichTextLabel = %OverviewRichTextLabel
+@onready var overview_v_box_container: VBoxContainer = %OverviewVBoxContainer
 
 func set_overview_text() -> void :
 	var unit_stats : Stats = _get_stats()
-	if unit is UnitData:
-		_apply_unit_data_buffs(unit_stats)
-	unit_stats.recalculate_stats()
+	for row in overview_v_box_container.get_children() :
+		if row is HBoxContainer :
+			row.queue_free()
 	overview_rich_text_label.clear()
 	overview_rich_text_label.append_text("[fill]")
 	var attributes := [
-		["Strength ............", unit_stats.current_strength, unit_stats.base_strength],
-		["Dexterity ...........", unit_stats.current_dexterity, unit_stats.base_dexterity],
-		["Endurance .........", unit_stats.current_endurance, unit_stats.base_endurance],
-		["Intelligence .......", unit_stats.current_intellect, unit_stats.base_intellect],
-		["Faith ...................", unit_stats.current_faith, unit_stats.base_faith],
-		["Attunement ......", unit_stats.current_attunement, unit_stats.base_attunement],
+		["Strength .............", unit_stats.current_strength, unit_stats.base_strength,Stats.Attributes.STRENGTH],
+		["Dexterity ............", unit_stats.current_dexterity, unit_stats.base_dexterity,Stats.Attributes.DEXTERITY],
+		["Endurance ..........", unit_stats.current_endurance, unit_stats.base_endurance,Stats.Attributes.ENDURANCE],
+		["Intelligence ........", unit_stats.current_intellect, unit_stats.base_intellect,Stats.Attributes.INTELLECT],
+		["Faith ....................", unit_stats.current_faith, unit_stats.base_faith,Stats.Attributes.FAITH],
+		["Attunement .......", unit_stats.current_attunement, unit_stats.base_attunement,Stats.Attributes.ATTUNEMENT],
 		]
 	
 	for attr in attributes:
+		var row := HBoxContainer.new()
+		var name_label := Label.new()
+		name_label.text = attr[0]
+		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(name_label)
+		
 		var attribute_name : String = attr[0]
 		var current: int = attr[1]
 		var base: int = attr[2]
 		var bonus: int = current - base
 		var bonus_str := "       "
+		var value_label := RichTextLabel.new()
+		value_label.bbcode_enabled = true
+		value_label.fit_content = true
+		value_label.scroll_active = false
+		value_label.custom_minimum_size.x = 80
+		value_label.append_text(str(current)) 
 		if bonus > 0:
-			bonus_str = " [color=green](+%d)[/color]" % bonus
+			value_label.append_text("([color=green]+%d[/color])" % [bonus])
 		elif bonus < 0:
-			bonus_str = " [color=red](%d)[/color]" % bonus
-		var value_str : String = "%d%s" % [current, bonus_str]
-		overview_rich_text_label.append_text("%s %s\n" % [attribute_name,value_str]) 
+			value_label.append_text("([color=red]%d[/color])" % [bonus])
+		row.add_child(value_label)
+		
+		if unit_stats.attribute_points_available > 0 :
+			var plus_btn := Button.new()
+			plus_btn.text = "+"
+			plus_btn.add_theme_font_size_override("font_size",8)
+			plus_btn.custom_minimum_size = Vector2(16, 16)
+			var stat_attr: Stats.Attributes = attr[3]
+			plus_btn.pressed.connect(func():
+				unit_stats.spend_attribute_point(stat_attr)
+				set_overview_text())
+			row.add_child(plus_btn)
+		
+		overview_v_box_container.add_child(row)
+		overview_v_box_container.move_child(row,0)
 	
 	overview_rich_text_label.append_text("[/fill]")
 	
@@ -209,7 +241,9 @@ func _apply_unit_data_buffs(unit_stats: Stats) -> void :
 	unit_stats.stat_buffs.clear()
 	if unit.weapon:
 		unit.weapon.apply_owner_buffs(unit_stats)
-		unit.weapon.setup_stats()
+		if unit is BaseUnit :
+			unit.weapon.owner = unit
+			unit.weapon.setup_stats()
 	if unit.armor:
 		unit.armor.apply_owner_buffs(unit_stats)
 	if unit.accessories != []:
@@ -243,7 +277,6 @@ func clear_stat_entries() -> void :
 
 func fill_stat_entries() -> void :
 	var unit_stats :Stats = _get_stats()
-	unit_stats.recalculate_stats()
 	var attributeLabel : RichTextLabel = RichTextLabel.new()
 	attributeLabel.bbcode_enabled = true
 	attributeLabel.fit_content = true

@@ -122,17 +122,17 @@ signal level_changed(old_level:int,new_level:int)
 	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 0.75),
 ]
 @export var dodge_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.6),
+	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.5),
 	StatScaling.new(Attributes.INTELLECT, StatScaling.ScalingType.PERCENT, 0.4),
 ]
 @export var parry_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.2),
-	StatScaling.new(Attributes.STRENGTH, StatScaling.ScalingType.PERCENT, 0.4),
-	StatScaling.new(Attributes.INTELLECT, StatScaling.ScalingType.PERCENT, 0.4),
+	StatScaling.new(Attributes.DEXTERITY, StatScaling.ScalingType.PERCENT, 0.02),
+	StatScaling.new(Attributes.STRENGTH, StatScaling.ScalingType.PERCENT, 0.02),
+	StatScaling.new(Attributes.INTELLECT, StatScaling.ScalingType.PERCENT, 0.03),
 ]
 @export var block_probability_scalings : Array[StatScaling] = [
-	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.PERCENT, 0.6),
-	StatScaling.new(Attributes.FAITH, StatScaling.ScalingType.PERCENT, 0.2),
+	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.PERCENT, 0.06),
+	StatScaling.new(Attributes.FAITH, StatScaling.ScalingType.PERCENT, 0.02),
 ]
 @export var flat_block_power_scalings : Array[StatScaling]= [
 	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.LINEAR, 0.15),
