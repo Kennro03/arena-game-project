@@ -22,6 +22,7 @@ signal accessories_changed(accessories: Array[Accessory])
 
 @export var id: String = "BaseUnit"
 @export var display_name: String = "BaseUnit"
+@export var unit_type: String = "Debug"
 @export var description: String = "The template used to create units."
 
 @export_group("Visuals")
@@ -339,6 +340,7 @@ func _apply_passives(hit_result: HitData) -> void:
 func apply_data(data: UnitData) -> void:
 	self.id = data.id
 	self.display_name = data.display_name
+	self.unit_type = data.unit_type
 	self.show_name = data.show_name
 	self.show_health = data.show_health
 	self.description = data.description

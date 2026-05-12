@@ -6,6 +6,7 @@ var unit_scene : PackedScene = preload("res://Scenes/Units/BaseUnit/BaseUnit.tsc
 ## Identity / UI
 @export var id: String = "BaseUnit"
 @export var display_name: String = "BaseUnit"
+@export var unit_type: String = "Debug"
 @export var description: String = "The template used to create units."
 
 @export var icon: Texture2D

@@ -1,8 +1,9 @@
 extends Control
 class_name UnitInfoPanel
 
-var unit_scene := preload("res://Scenes/Units/Stickman/stickman.tscn")
-var placeholderTarget : BaseUnit = unit_scene.instantiate()
+var stickman_scene := preload("res://Scenes/Units/Stickman/stickman.tscn")
+var placeholderLiveTarget : BaseUnit = stickman_scene.instantiate()
+var placeholderDataTarget : UnitData = stickmanUnitData.new()
 
 var unit 
 
@@ -34,7 +35,9 @@ const STAT_ENTRY_ROW : PackedScene = preload("uid://c4gvcfxbmslqu")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	unit = preload("res://ressources/Units/unit_data/Pablo.tres")
+	get_tree().root.add_child.call_deferred(placeholderLiveTarget)
+	placeholderLiveTarget.position = Vector2(500,150)
+	unit = placeholderDataTarget
 	
 	if unit == null :
 		printerr("No unit provided to UnitInfoPanel ! Give it one before spawning.")
@@ -83,7 +86,7 @@ func _setup_live(target: BaseUnit) -> void:
 	target.stats.health_changed.connect(_on_health_changed)
 	target.stats.shield_changed.connect(_on_shield_changed)
 	target.stats.exp_changed.connect(_on_experience_changed.unbind(2))
-	target.statusEffectModule.effects_changed.connect(set_status_effects)
+	#target.statusEffectModule.effects_changed.connect(set_status_effects)
 	target.weapon_changed.connect(set_gear)
 	target.armor_changed.connect(set_gear)
 	target.accessories_changed.connect(set_gear)
@@ -102,6 +105,7 @@ func _populate_shared() -> void:
 	iconRect.texture = _get_icon()
 	iconRect.modulate = unit.color if unit is UnitData else unit.sprite_color
 	nameLabel.text = _get_display_name()
+	typeLabel.text = "Unit type : " + unit.unit_type
 	descriptionLabel.text = unit.description
 	levelLabel.text = "Lv. %d" % _get_stats().level
 	set_overview_text()
@@ -111,7 +115,8 @@ func _populate_shared() -> void:
 func _populate_live_only() -> void:
 	unit_health_label.visible = true
 	unit_shield_label.visible = true
-	set_health()
+	set_live_health()
+	set_live_shield()
 	set_status_effects()
 
 func _hide_live_only_elements() -> void:
@@ -119,22 +124,23 @@ func _hide_live_only_elements() -> void:
 	unit_shield_label.visible = false
 	# hide status effects section too
 
-func set_info() ->void :
-	iconRect.texture = unit.icon if unit.icon else null
-	nameLabel.text = unit.display_name
-	typeLabel.text = "Unit type : " + unit.get_class()
-	
-	descriptionLabel.text = unit.description
+func set_live_health() -> void :
+	var unit_stats : Stats = _get_stats()
+	unit_health_label.text = "Health : %s / %s" % [unit_stats.health,unit_stats.current_max_health]
 
-func set_health() -> void :
-	unit_health_label.text = "Health : x / y"
+func set_live_shield() -> void :
+	var unit_stats : Stats = _get_stats()
+	if unit_stats.shield > 0.0 :
+		unit_shield_label.text = "Shield : %s / %s" % [unit_stats.shield,unit_stats.max_shield]
+	else :
+		unit_shield_label.hide()
 
 func set_experience() -> void:
 	levelLabel.text = "Unit Level : " + str(unit.stats.level)
 
 func _on_stats_changed() -> void :
 	print("Stats changed")
-	set_info()   # for name and info
+	#set_info()   # for name and info
 	set_overview_text()  # for stats
 	set_stats_view()  # refresh stats view
 

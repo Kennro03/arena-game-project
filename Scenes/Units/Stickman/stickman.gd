@@ -5,6 +5,7 @@ func _init() -> void:
 	pass
 
 func _ready() -> void:
+	unit_type = "Stickman"
 	weapon_spritesheets = {
 		Weapon.WeaponTypeEnum.UNARMED: preload("res://ressources/Sprites/Units/Stickman/UnarmedStickman.png"),
 		Weapon.WeaponTypeEnum.SWORD:   preload("res://ressources/Sprites/Units/Stickman/SwordStickman.png"),
