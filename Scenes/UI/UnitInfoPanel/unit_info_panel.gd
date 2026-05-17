@@ -37,7 +37,15 @@ const STAT_ENTRY_ROW : PackedScene = preload("uid://c4gvcfxbmslqu")
 func _ready() -> void:
 	get_tree().root.add_child.call_deferred(placeholderLiveTarget)
 	placeholderLiveTarget.position = Vector2(500,150)
-	unit = placeholderDataTarget
+	
+	# wait for placeholder to be ready before using it
+	await placeholderLiveTarget.ready
+	# set up stats explicitly
+	placeholderLiveTarget.stats.setup_stats()
+	#placeholderLiveTarget.stats.shield = 50.0
+	
+	
+	unit = placeholderLiveTarget
 	
 	if unit == null :
 		printerr("No unit provided to UnitInfoPanel ! Give it one before spawning.")
