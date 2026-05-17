@@ -16,6 +16,10 @@ var unit
 @onready var descriptionLabel := %UnitDescriptionLabel
 @onready var stat_details_label: RichTextLabel = %StatDetailsLabel
 
+@onready var overview_rich_text_label: RichTextLabel = %OverviewRichTextLabel
+@onready var overview_v_box_container: VBoxContainer = %OverviewVBoxContainer
+@onready var draw_button: Button = %DrawButton
+
 @onready var gear_vbox_container: VBoxContainer = %GearVboxContainer
 const GEAR_CONTAINER = preload("uid://cjeix22vpufqd")
 
@@ -35,17 +39,17 @@ const STAT_ENTRY_ROW : PackedScene = preload("uid://c4gvcfxbmslqu")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_tree().root.add_child.call_deferred(placeholderLiveTarget)
-	placeholderLiveTarget.position = Vector2(500,150)
+	#get_tree().root.add_child.call_deferred(placeholderLiveTarget)
+	#placeholderLiveTarget.position = Vector2(500,150)
 	
 	# wait for placeholder to be ready before using it
-	await placeholderLiveTarget.ready
+	#await placeholderLiveTarget.ready
 	# set up stats explicitly
-	placeholderLiveTarget.stats.setup_stats()
+	#placeholderLiveTarget.stats.setup_stats()
 	#placeholderLiveTarget.stats.shield = 50.0
+	#placeholderLiveTarget.stats.experience += 5000
 	
-	
-	unit = placeholderLiveTarget
+	#unit = placeholderLiveTarget
 	
 	if unit == null :
 		printerr("No unit provided to UnitInfoPanel ! Give it one before spawning.")
@@ -65,6 +69,9 @@ func _ready() -> void:
 	#get_tree().root.add_child.call_deferred(placeholderTarget)
 	
 	#set_unit.call_deferred(placeholderTarget)
+	ignore_tab.call_deferred()
+
+func ignore_tab()->void:
 	var tab_bar : TabBar = $VBoxContainer/TabContainer.get_tab_bar()
 	tab_bar.mouse_filter = Control.MOUSE_FILTER_PASS
 
@@ -134,12 +141,12 @@ func _hide_live_only_elements() -> void:
 
 func set_live_health() -> void :
 	var unit_stats : Stats = _get_stats()
-	unit_health_label.text = "Health : %s / %s" % [unit_stats.health,unit_stats.current_max_health]
+	unit_health_label.text = "Health : %d / %d" % [unit_stats.health,unit_stats.current_max_health]
 
 func set_live_shield() -> void :
 	var unit_stats : Stats = _get_stats()
 	if unit_stats.shield > 0.0 :
-		unit_shield_label.text = "Shield : %s / %s" % [unit_stats.shield,unit_stats.max_shield]
+		unit_shield_label.text = "Shield : %d / %d" % [unit_stats.shield,unit_stats.max_shield]
 	else :
 		unit_shield_label.hide()
 
@@ -190,9 +197,6 @@ func set_gear() -> void :
 			##armor_slot.owner_unit = unit if unit is BaseUnit else null
 			gear_vbox_container.add_child(acc_container)
 
-@onready var overview_rich_text_label: RichTextLabel = %OverviewRichTextLabel
-@onready var overview_v_box_container: VBoxContainer = %OverviewVBoxContainer
-
 func set_overview_text() -> void :
 	var unit_stats : Stats = _get_stats()
 	for row in overview_v_box_container.get_children() :
@@ -216,11 +220,11 @@ func set_overview_text() -> void :
 		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(name_label)
 		
-		var attribute_name : String = attr[0]
+		var _attribute_name : String = attr[0]
 		var current: int = attr[1]
 		var base: int = attr[2]
 		var bonus: int = current - base
-		var bonus_str := "       "
+		var _bonus_str := "       "
 		var value_label := RichTextLabel.new()
 		value_label.bbcode_enabled = true
 		value_label.fit_content = true
@@ -243,6 +247,11 @@ func set_overview_text() -> void :
 				unit_stats.spend_attribute_point(stat_attr)
 				set_overview_text())
 			row.add_child(plus_btn)
+		
+		if unit_stats.draws_available > 0 : 
+			draw_button.visible = true
+		else : 
+			draw_button.visible = false
 		
 		overview_v_box_container.add_child(row)
 		overview_v_box_container.move_child(row,0)
@@ -363,8 +372,15 @@ func update_stat_details(stat: Stats.BuffableStats) -> void :
 	#stat_details_label.append_text("\n\tscaling bonuses : %s")
 	#stat_details_label.append_text("\n\tstatus effects changes : %s")
 	#stat_details_label.append_text("\n\tother changes : %s")
+
+func _on_draw_button_pressed() -> void:
+	print("Drawing possible boons... (placeholder, only gives a random stat point for now)")
+	var unit_stats : Stats = _get_stats()
+	var rand_stat : int = Stats.Attributes.values().pick_random()
 	
+	unit_stats.attribute_points_available += 1
+	unit_stats.spend_attribute_point(rand_stat)
 	
-	
-	
-	
+	unit_stats.draws_available -= 1
+	if unit_stats.draws_available <= 0 :
+		draw_button.visible = false

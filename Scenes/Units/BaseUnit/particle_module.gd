@@ -4,6 +4,7 @@ class_name ParticleModule
 var block_particle : PackedScene = preload("res://Scenes/VFX/block_particles_2d.tscn")
 var parry_particle : PackedScene = preload("res://Scenes/VFX/parry_particles_2d.tscn")
 var hit_particle : PackedScene = preload("res://Scenes/VFX/hit_particles_2d.tscn")
+var level_up_particle : PackedScene = preload("res://Scenes/VFX/level_up_particles_2d.tscn")
 
 @onready var DamagePopupMarker : Marker2D = $DamagePopupMarker
 
@@ -49,5 +50,11 @@ func emit_hit_particles(_hit_data : HitData = null)->void:
 	if _hit_data : 
 		#apply changed depending on hit data here
 		pass
+	self.add_child(inst)
+	inst.emitting = true
+
+func emit_level_up_particles() -> void :
+	print("level up particles")
+	var inst = level_up_particle.instantiate()
 	self.add_child(inst)
 	inst.emitting = true

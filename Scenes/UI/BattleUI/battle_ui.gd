@@ -6,7 +6,7 @@ signal introEnded
 signal WinAnimationEnded
 signal LostAnimationEnded
 
-const UnitInfoPanelScene := preload("res://Scenes/UI/UnitInfoPanel/unit_info_panel.tscn")
+const UnitInfoPanelScene := preload("res://Scenes/UI/UnitInfoPanel/unit_information_panel.tscn")
 
 @export var selection_manager: SelectionManager
 @export var ui_root: CanvasLayer

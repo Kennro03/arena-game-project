@@ -107,7 +107,7 @@ signal level_changed(old_level:int,new_level:int)
 @export var attribute_points_per_level: int = 3        # points gained per level
 @export var all_attributes_bonus_every: int = 3        # every X levels, all attrs +1
 @export var all_attributes_bonus: int = 1              # every certain levels, all attrs +x
-@export var tuning_every: int = 5                      # every X levels, get a tuning
+@export var draw_every: int = 5                      # every X levels, get a tuning
 
 @export var max_health_scalings: Array[StatScaling] = [
 	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.LINEAR, 2.5),
@@ -165,8 +165,8 @@ var attribute_points_spent: int = 0
 var attribute_points_available: int:
 	get(): return total_attribute_points_gained - attribute_points_spent
 
-var tunings_available: int = 0
-var tunings_used: int = 0
+var draws_available: int = 0
+var draws_used: int = 0
 
 var body : int 
 var mind : int 
@@ -373,7 +373,7 @@ func _on_experience_set(new_value: int) -> void:
 	
 	if level != old_level:
 		_on_level_changed(old_level, level)
-		level_changed.emit(old_level, level)
+		level_changed.emit()
 		recalculate_stats()
 
 func _on_level_changed(old_level: int, new_level: int) -> void:
@@ -389,9 +389,9 @@ func _on_level_changed(old_level: int, new_level: int) -> void:
 			base_faith += all_attributes_bonus
 			base_attunement += all_attributes_bonus
 		
-		# tuning every X levels
-		if lvl % tuning_every == 0:
-			tunings_available += 1
+		# draw every X levels
+		if lvl % draw_every == 0:
+			draws_available += 1
 			# Events.tuning_available.emit(self) -- for later
 	
 	#Events.unit_leveled_up.emit(self, old_level, new_level)

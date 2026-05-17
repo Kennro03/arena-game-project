@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dnm02uo4msg2e" path="res://Scenes/UI/Slots/item_slot.tscn" id="2_0o6rs"]
 
 [node name="BattleRewards" type="Control" unique_id=912546353]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

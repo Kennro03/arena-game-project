@@ -79,6 +79,7 @@ func _ready():
 	set_display_Module()
 	
 	animationPlayer.animation_finished.connect(_on_anim_finished)
+	stats.level_changed.connect(particleModule.emit_level_up_particles)
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
