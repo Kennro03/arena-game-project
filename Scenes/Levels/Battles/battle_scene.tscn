@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="3_qpo3t"]
 [ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="4_b1ohq"]
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="5_qeo1e"]
+[ext_resource type="PackedScene" uid="uid://byhr33en8uwpc" path="res://Scenes/UI/DeployedUnitsDisplay/deployed_units_display.tscn" id="12_g63sf"]
+[ext_resource type="PackedScene" uid="uid://ddda1s0ehj3f2" path="res://Scenes/UI/ReserveSpaceDisplay/reserve_space_display.tscn" id="13_57vkc"]
 [ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="17_w3d5s"]
 [ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Battles/Spawner.gd" id="18_3mj8a"]
 [ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/BattleUI/battle_ui.tscn" id="19_c652g"]
@@ -98,11 +100,21 @@ theme = ExtResource("17_w3d5s")
 selection_manager = NodePath("../../SelectionManager")
 ui_root = NodePath("..")
 
-[node name="GoldDisplay" parent="UI" unique_id=148004886 instance=ExtResource("21_qpo3t")]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 36.0
-offset_bottom = 36.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=1070253522]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GoldDisplay" parent="UI/VBoxContainer" unique_id=148004886 instance=ExtResource("21_qpo3t")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="DeployedUnitsDisplay" parent="UI/VBoxContainer" unique_id=1150902871 instance=ExtResource("12_g63sf")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ReserveSpaceDisplay" parent="UI/VBoxContainer" unique_id=1524938397 instance=ExtResource("13_57vkc")]
+layout_mode = 2
+mouse_filter = 1
 
 [connection signal="mouse_entered" from="SpawnZones/NeutralZone" to="BattleSpawner" method="_on_neutral_zone_mouse_entered"]
 [connection signal="mouse_exited" from="SpawnZones/NeutralZone" to="BattleSpawner" method="_on_neutral_zone_mouse_exited"]

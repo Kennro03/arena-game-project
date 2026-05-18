@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b8bluhcevlhg0" path="res://Scenes/UI/GoldDisplay/gold_display.gd" id="1_vc882"]
 
 [node name="GoldDisplay" type="Control" unique_id=148004886]
+custom_minimum_size = Vector2(32, 24)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_vc882")
