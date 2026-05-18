@@ -5,6 +5,18 @@ const InspectMenuScene := preload("res://Scenes/UI/InspectMenu/inspect_menu.tscn
 var current_menu: InspectMenu = null
 @export var ui_root: CanvasLayer
 
+func open(target: Object) -> void:
+	close()  # close existing
+	current_menu = InspectMenuScene.instantiate()
+	current_menu.target = target
+	ui_root.add_child(current_menu)
+
+func close() -> void:
+	if is_instance_valid(current_menu):
+		current_menu.close()
+	current_menu = null
+
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
@@ -26,7 +38,7 @@ func _get_inspect_target() -> Object:
 	# then check 2D units via physics query
 	var physics_target := _get_hovered_unit()
 	if physics_target:
-		print("UI target : " + str(physics_target))
+		print("physics target : " + str(physics_target))
 		return physics_target
 	
 	return null
@@ -53,15 +65,3 @@ func _get_hovered_unit() -> BaseUnit:
 		if parent is BaseUnit:
 			return parent
 	return null
-
-func open(target: Object) -> void:
-	close()  # close existing
-	print("opening")
-	current_menu = InspectMenuScene.instantiate()
-	current_menu.target = target
-	ui_root.add_child(current_menu)
-
-func close() -> void:
-	if is_instance_valid(current_menu):
-		current_menu.close()
-	current_menu = null

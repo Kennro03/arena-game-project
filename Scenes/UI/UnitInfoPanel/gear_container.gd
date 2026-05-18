@@ -126,3 +126,8 @@ func set_item_stats() -> void :
 
 func set_item_passives() -> void :
 	passives_rich_text_label.clear()
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	
+	pass # Replace with function body.
