@@ -29,13 +29,52 @@ func clear_button_list() -> void :
 func load_button_list() -> void :
 	if target is BaseUnit:
 		load_unit_inspect_buttons()
-	if target is UnitSlot:
+	elif target is UnitSlot:
 		load_unit_slot_inspect_buttons()
-	if target is ItemSlot:
+	elif target is GearContainer:
+		load_gear_container_inspect_buttons()
+	elif target is ItemSlot:
 		if target is ShopSlot :
 			load_shop_slot_inspect_buttons()
 		else :
 			load_item_slot_inspect_buttons()
+
+func load_gear_container_inspect_buttons() -> void :
+	var container := target as GearContainer
+	
+	if container.gear == null:
+		close()
+		return
+	_add_button("Inspect Item", func():
+		Events.open_item_info_requested.emit(container.gear))
+	if container.gear.item_id != container.gear.owner.default_weapon.item_id:
+		_add_button("Unequip", func():
+			_unequip_gear(container)
+			close())
+
+func _unequip_gear(container: GearContainer) -> void:
+	var gear_owner := container.owner_unit
+	var gear := container.gear
+	
+	if gear_owner is BaseUnit:
+		if gear is Weapon:
+			gear_owner.equip(gear_owner.default_weapon)
+		elif gear is Armor:
+			gear_owner.armor.remove_owner_buffs(gear_owner.stats)
+			gear_owner.armor = null
+			gear_owner.armor_changed.emit(null)
+		elif gear is Accessory:
+			gear_owner.unequip_accessory(gear as Accessory)
+		Player.add_item_to_inventory(gear)
+	
+	elif gear_owner is UnitData:
+		if gear is Weapon:
+			gear_owner.weapon = gear_owner.default_weapon
+		elif gear is Armor:
+			gear_owner.armor = null
+		elif gear is Accessory:
+			gear_owner.accessories.erase(gear)
+		Player.add_item_to_inventory(gear)
 
 func load_unit_inspect_buttons() -> void :
 	#load buttons regarding live units

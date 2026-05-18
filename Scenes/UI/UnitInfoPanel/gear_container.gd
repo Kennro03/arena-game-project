@@ -2,6 +2,7 @@ extends MarginContainer
 class_name GearContainer
 
 @export var gear : Item = null
+var owner_unit: Object = null  
 
 @onready var icon_container: VBoxContainer = %IconContainer
 @onready var gear_name_label: Label = %GearNameLabel
@@ -127,7 +128,8 @@ func set_item_stats() -> void :
 func set_item_passives() -> void :
 	passives_rich_text_label.clear()
 
-
 func _on_gui_input(event: InputEvent) -> void:
-	
-	pass # Replace with function body.
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			Inspector.open(self)
+			accept_event()

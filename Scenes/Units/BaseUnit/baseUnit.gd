@@ -506,3 +506,5 @@ func _on_selection_area_input_event(_viewport: Node, _event: InputEvent, _shape_
 	if _event is InputEventMouseButton and _event.pressed:
 		if _event.button_index == MOUSE_BUTTON_LEFT:
 			unit_clicked.emit(self)
+		if _event.button_index == MOUSE_BUTTON_RIGHT:
+			Inspector.open(self)

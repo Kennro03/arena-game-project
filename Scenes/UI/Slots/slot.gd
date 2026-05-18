@@ -46,5 +46,9 @@ func set_border() -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
-		slot_clicked.emit(self, event.button_index)
-		#accept_event()
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			slot_clicked.emit(self, MOUSE_BUTTON_LEFT)
+			accept_event()
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			Inspector.open(self)
+			accept_event()

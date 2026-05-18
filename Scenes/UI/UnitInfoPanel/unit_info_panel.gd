@@ -180,21 +180,20 @@ func set_gear() -> void :
 	
 	var weapon_container : GearContainer = GEAR_CONTAINER.instantiate()
 	weapon_container.gear = weapon
-	##armor_slot.owner_unit = unit if unit is BaseUnit else null
+	weapon_container.owner_unit = unit
 	gear_vbox_container.add_child(weapon_container)
 	
 	if armor :
 		var armor_container : GearContainer = GEAR_CONTAINER.instantiate()
 		armor_container.gear = armor
-		##armor_slot.owner_unit = unit if unit is BaseUnit else null
+		armor_container.owner_unit = unit
 		gear_vbox_container.add_child(armor_container)
-	
 	
 	if accessories != [] :
 		for i in accessory_limit:
 			var acc_container : GearContainer = GEAR_CONTAINER.instantiate()
 			acc_container.gear = accessories[i] if i < accessories.size() else null
-			##armor_slot.owner_unit = unit if unit is BaseUnit else null
+			acc_container.owner_unit = unit
 			gear_vbox_container.add_child(acc_container)
 
 func set_overview_text() -> void :
