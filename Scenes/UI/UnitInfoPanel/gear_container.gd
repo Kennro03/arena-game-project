@@ -33,6 +33,7 @@ func add_gear_slot() -> void :
 			wep_slot.set_item(gear) 
 			wep_slot.slot_context = ItemSlot.SlotContext.UNIT_GEAR
 			wep_slot.drag_visual.enabled = false
+			wep_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
 		Item.ItemType.ARMOR :
 			var armor_slot : ArmorSlot = ARMOR_SLOT.instantiate()
@@ -42,7 +43,7 @@ func add_gear_slot() -> void :
 			armor_slot.set_item(gear) 
 			armor_slot.slot_context = ItemSlot.SlotContext.UNIT_GEAR
 			armor_slot.drag_visual.enabled = false
-			
+			armor_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
 		Item.ItemType.ACCESSORY :
 			var acc_slot : AccessorySlot = ACCESSORY_SLOT.instantiate()
@@ -52,6 +53,7 @@ func add_gear_slot() -> void :
 			acc_slot.set_item(gear) 
 			acc_slot.slot_context = ItemSlot.SlotContext.UNIT_GEAR
 			acc_slot.drag_visual.enabled = false
+			acc_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
 		_:
 			printerr("Gear is unknown.")

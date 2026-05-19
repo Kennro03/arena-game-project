@@ -41,13 +41,14 @@ func load_button_list() -> void :
 
 func load_gear_container_inspect_buttons() -> void :
 	var container := target as GearContainer
+	var gear_owner := container.owner_unit
 	
 	if container.gear == null:
 		close()
 		return
 	_add_button("Inspect Item", func():
 		Events.open_item_info_requested.emit(container.gear))
-	if container.gear.item_id != container.gear.owner.default_weapon.item_id:
+	if gear_owner in Player.deployed_units and container.gear.item_id != container.gear.owner.default_weapon.item_id:
 		_add_button("Unequip", func():
 			_unequip_gear(container)
 			close())

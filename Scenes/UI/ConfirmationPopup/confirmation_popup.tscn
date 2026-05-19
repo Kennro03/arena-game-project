@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://uhruds3j3j6v"]
+
+[ext_resource type="Script" uid="uid://d0avc3w5v7wbh" path="res://Scenes/UI/ConfirmationPopup/confirmation_popup.gd" id="1_qjo5j"]
+
+[sub_resource type="Gradient" id="Gradient_6g7kw"]
+offsets = PackedFloat32Array(0.5192308)
+colors = PackedColorArray(0, 0, 0, 0.19607843)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n1g3x"]
+gradient = SubResource("Gradient_6g7kw")
+
+[node name="ConfirmationPopup" type="Control" unique_id=1210402359]
+z_index = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qjo5j")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1083798441]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_n1g3x")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=107320402]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=102846986]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="PanelContainer/VBoxContainer" unique_id=1616862402]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+text = "Title of the confirmation popup goes here"
+fit_content = true
+
+[node name="Body" type="RichTextLabel" parent="PanelContainer/VBoxContainer" unique_id=1647718048]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 8
+theme_override_font_sizes/bold_font_size = 8
+theme_override_font_sizes/bold_italics_font_size = 8
+theme_override_font_sizes/italics_font_size = 8
+theme_override_font_sizes/mono_font_size = 8
+bbcode_enabled = true
+text = "Body of the confirmation popup goes here.
+Explain the options etc."
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1456863736]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=306644410]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Confirm"
+
+[node name="CancelButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=14055654]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

@@ -37,6 +37,7 @@ statChanges = Array[ExtResource("3_s6sxh")]([SubResource("Resource_7on0c"), SubR
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [node name="GearContainer" type="MarginContainer" unique_id=305242033]
+mouse_filter = 0
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
