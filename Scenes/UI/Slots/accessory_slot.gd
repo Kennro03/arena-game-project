@@ -7,7 +7,7 @@ func set_item(_item: Item) -> void:
 	if _item is Accessory :
 		item = _item
 	else :
-		printerr("Armor slot, cannot assing %s !" % [_item.item_name])
+		printerr("Accessory slot, cannot assing %s !" % [_item.item_name])
 	set_visuals()
 
 func get_icon() -> Texture2D:

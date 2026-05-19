@@ -24,9 +24,8 @@ end_rest_on_action = false
 [node name="InventoryReserveManager" type="Node" parent="." unique_id=1682732072]
 script = ExtResource("1_vjsnb")
 
-[node name="InspectionManager" type="Node" parent="." unique_id=44950813 node_paths=PackedStringArray("ui_root")]
+[node name="InspectionManager" type="Node" parent="." unique_id=44950813]
 script = ExtResource("2_2c0rd")
-ui_root = NodePath("../UI")
 
 [node name="TooltipHandler" type="Node" parent="." unique_id=1212481905 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("3_5doml")

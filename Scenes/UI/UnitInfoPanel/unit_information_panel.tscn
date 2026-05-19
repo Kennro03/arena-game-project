@@ -33,11 +33,10 @@ theme_override_constants/separation = 0
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer" unique_id=1437303245]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="Overview" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=239782206]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -157,6 +156,7 @@ autowrap_mode = 2
 
 [node name="Gear" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=1052533181]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4

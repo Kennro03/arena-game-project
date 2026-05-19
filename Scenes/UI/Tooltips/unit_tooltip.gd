@@ -46,5 +46,5 @@ func add_unit_attributes(unit: UnitData) -> void:
 	text_label.append_text("[b]Unit Attributes :[/b]")
 	text_label.newline()
 	for attribute_name in attributes :
-		text_label.append_text("%s - %s" % [attribute_name,attributes[attribute_name]])
+		text_label.append_text("%s : %s" % [attribute_name,attributes[attribute_name]])
 		text_label.newline()

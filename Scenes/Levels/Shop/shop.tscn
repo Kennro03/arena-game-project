@@ -70,9 +70,8 @@ script = ExtResource("1_k1r4k")
 [node name="PlayerUIManager" type="Node" parent="." unique_id=688751289]
 script = ExtResource("5_0hnpw")
 
-[node name="InspectionManager" type="Node" parent="." unique_id=1625464565 node_paths=PackedStringArray("ui_root")]
+[node name="InspectionManager" type="Node" parent="." unique_id=1625464565]
 script = ExtResource("2_ntui6")
-ui_root = NodePath("../UI")
 
 [node name="TooltipHandler" type="Node" parent="." unique_id=1355867057 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("3_0hnpw")

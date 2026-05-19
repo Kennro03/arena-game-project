@@ -56,7 +56,7 @@ func add_weapon_stats(weapon: Weapon) -> void:
 	text_label.append_text("[b]Weapon Stats :[/b]")
 	text_label.newline()
 	for stat_name in stats :
-		text_label.append_text("%s - %s" % [stat_name,stats[stat_name]])
+		text_label.append_text("%s : %s" % [stat_name,stats[stat_name]])
 		text_label.newline()
 
 func add_weapon_passives(weapon: Weapon) -> void:

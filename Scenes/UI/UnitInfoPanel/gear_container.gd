@@ -110,7 +110,7 @@ func set_item_stats() -> void :
 		Item.ItemType.ACCESSORY :
 			var acc := gear as Accessory
 			if acc.statChanges != [] :
-				stats_rich_text_label.append_text("\nStat buffs : ") 
+				stats_rich_text_label.append_text("Stat buffs : ") 
 			for buff in acc.statChanges :
 				stats_rich_text_label.append_text("\n%s " % [Stats.BuffableStats.keys()[buff.stat]])
 				if buff.buff_type == StatBuff.BuffType.ADD :

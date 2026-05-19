@@ -10,6 +10,7 @@ class_name Camp
 
 @export var end_rest_on_action : bool = true
 
+@onready var ui: CanvasLayer = %UI
 @onready var button_container: VBoxContainer = %ButtonContainer
 @onready var recruit_button: Button = %RecruitButton 
 @onready var loot_button: Button = %LootButton
@@ -23,6 +24,7 @@ const SELECTION_PANEL_SCENE : PackedScene = preload("res://Scenes/UI/SelectionPa
 func _ready() -> void:
 	Events.camp_entered.emit()
 	enchant_button.queue_free() 
+	Player.ui_layer = ui
 
 func recruit() -> void:
 	# Select a new random unit, could have upgrades that allow selection down the line

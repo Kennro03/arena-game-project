@@ -21,6 +21,7 @@ battle_scene = &"uid://32iwvd3dtseu"
 shop_scene = &"uid://n6ib3torqc3t"
 event_scene = &"uid://bscmpqjoie8iu"
 expedition_scene = &"uid://b2fli6g70m4oi"
+camp_scene = &"uid://cc2g24q57tx7l"
 
 [node name="TooltipHandler" type="Node" parent="." unique_id=795041103 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("4_iy8ah")
@@ -113,3 +114,4 @@ texture = SubResource("GradientTexture2D_d1776")
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/EventButton" to="." method="_on_event_button_pressed"]
+[connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/CampButton" to="." method="_on_camp_button_pressed"]

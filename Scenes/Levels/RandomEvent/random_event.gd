@@ -3,6 +3,7 @@ class_name RandomEvent
 
 @export var event : EventResource
 
+@onready var ui: CanvasLayer = %UI
 @onready var background: CanvasLayer = %Background
 @onready var event_title_label: RichTextLabel = %EventTitle
 @onready var event_image_texture_rect: TextureRect = %EventImage
@@ -13,6 +14,7 @@ class_name RandomEvent
 func _ready() -> void:
 	setup(event)
 	Events.connect("event_choice_made",_on_choice_made)
+	Player.ui_layer = ui
 
 func setup(_event: EventResource) -> void:
 	for c in %ChoiceButtonsContainer.get_children() :

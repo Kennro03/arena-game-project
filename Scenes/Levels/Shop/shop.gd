@@ -3,6 +3,7 @@ class_name Shop
 
 const SHOP_SLOT_SCENE := preload("res://Scenes/Levels/Shop/shop_slot.tscn")
 
+@onready var ui: CanvasLayer = %UI
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var weapons_row: HBoxContainer = %WeaponsRow
 @onready var refresh_button: Button = %RefreshButton
@@ -26,6 +27,7 @@ func _ready() -> void:
 	refresh_button.text = "Refresh (%dg)" % [refresh_cost]
 	refresh_shop()
 	Player.current_scene = "uid://n6ib3torqc3t"
+	Player.ui_layer = ui
 
 func _process(delta: float) -> void:
 	##Placeholder background effect, will need to replace with actual shade/art
