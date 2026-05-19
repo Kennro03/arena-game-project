@@ -1,4 +1,4 @@
-extends ItemToolTip
+extends Tooltip
 class_name AccessoryTooltip
 
 var acc : Accessory = null
@@ -12,9 +12,21 @@ func _ready() -> void:
 	setup(acc)
 
 func setup(_item: Item) -> void:
-	super.setup(_item)
-	text_label.newline()
+	add_accessory_name(_item)
 	add_item_stat_buffs(_item)
+
+func add_accessory_name(accessory: Accessory) -> void:
+	var rarity_color := {
+		Item.Rarity.COMMON: "white",
+		Item.Rarity.UNCOMMON: "green",
+		Item.Rarity.RARE: "cyan",
+		Item.Rarity.EPIC: "purple",
+		Item.Rarity.LEGENDARY: "red",
+		Item.Rarity.CURSED: "dark_gray"
+	}
+	var color: String = rarity_color[accessory.rarity]
+	text_label.append_text("[center][font_size=10][color=%s]%s[/color][/font_size][/center]" % [color, accessory.item_name])
+	text_label.newline()
 
 func add_item_stat_buffs(_item: Item) -> void:
 	var stat_changes : Array[StatBuff] = _item.statChanges

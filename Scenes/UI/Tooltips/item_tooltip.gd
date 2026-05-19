@@ -8,7 +8,7 @@ func _ready() -> void:
 	super._ready()
 	text_label.text = ""
 	if item == null :
-		printerr("No weapon provided to spawn tooltip !!")
+		printerr("No item provided to spawn tooltip !!")
 	setup(item)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
