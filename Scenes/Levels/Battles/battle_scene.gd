@@ -7,4 +7,4 @@ class_name BattleScene
 @onready var ui: CanvasLayer = %UI
 
 func _ready() -> void:
-	Inspector.ui_root = ui 
+	Player.ui_layer = ui

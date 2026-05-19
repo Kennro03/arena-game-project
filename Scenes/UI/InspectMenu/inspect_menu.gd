@@ -8,6 +8,7 @@ signal menu_closed(target)
 
 const MOUSE_OFFSET : Vector2 = Vector2(8, 8) 
 const INSPECT_MENU_BUTTON := preload("res://Scenes/UI/InspectMenu/inspect_menu_button.tscn")
+const CONFIRMATION_POPUP := preload("res://Scenes/UI/ConfirmationPopup/confirmation_popup.tscn")
 
 @onready var menu_button_vbox: VBoxContainer = %MenuButtonVbox
 
@@ -137,9 +138,18 @@ func load_item_slot_inspect_buttons() -> void :
 				)
 			_add_button("Discard", func():
 				if is_instance_valid(_slot):
-					Player.remove_item_from_inventory(_slot.item)
+					var popup := CONFIRMATION_POPUP.instantiate() as ConfirmationPopup
+					popup.setup("Discarding %s" % _slot.item.item_name, "Are you sure? This cannot be undone.")
+					if is_instance_valid(Player.ui_layer) :
+						Player.ui_layer.add_child(popup)
+						popup.confirmed.connect(func(result):
+							if result and is_instance_valid(_slot):
+								Player.remove_item_from_inventory(_slot.item)
+							)
+					else : 
+						printerr("Player : Could not find ui layer!")
 				close())
-			print("Current scene = " + str(Player.current_scene) + " shop scene = uid://n6ib3torqc3t")
+			
 			if Player.current_scene == "uid://n6ib3torqc3t" :
 				_add_button("Sell", func():
 					if is_instance_valid(_slot):

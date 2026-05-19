@@ -9,9 +9,10 @@ signal confirmed(result: bool)
 var popup_title : String = ""
 var popup_body : String = ""
 
-func _init(title:String,body:String) -> void:
+func setup(title: String, body: String) -> ConfirmationPopup:
 	popup_title = title
 	popup_body = body
+	return self
 
 func _ready() -> void:
 	if popup_title.is_empty() or popup_body.is_empty():

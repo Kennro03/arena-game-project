@@ -42,6 +42,9 @@ var current_scene: StringName = &""
 var run_seed: int = 0
 var run_number: int = 0
 
+# UI
+static var ui_layer : CanvasLayer
+
 @onready var testing_knife : Weapon = preload("uid://dal5rgfowl103")
 @onready var testing_pablo : UnitData = preload("uid://ps2wy7q88f5b")
 
