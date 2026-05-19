@@ -50,8 +50,7 @@ texture = SubResource("GradientTexture1D_7t453")
 [node name="Map" parent="." unique_id=1763705496 instance=ExtResource("1_x8ko8")]
 unique_name_in_owner = true
 
-[node name="InspectionManager" type="Node" parent="." unique_id=228724396 node_paths=PackedStringArray("ui_root")]
+[node name="InspectionManager" type="Node" parent="." unique_id=228724396]
 script = ExtResource("4_h86ty")
-ui_root = NodePath("../UI")
 
 [editable path="Map"]

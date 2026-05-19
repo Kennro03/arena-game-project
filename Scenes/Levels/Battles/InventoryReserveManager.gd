@@ -9,6 +9,7 @@ const team_UI_scene : PackedScene = preload("uid://wkm8slle2lka")
 
 var inventory_position : Vector2 = Vector2(0.0,0.0)
 var reserve_position : Vector2 = Vector2(0.0,0.0)
+var team_position : Vector2 = Vector2(0.0,0.0)
 
 var inventory_UI_instance : Control
 var reserve_UI_instance : Control
@@ -24,7 +25,9 @@ func _process(_delta: float) -> void:
 			reserve_position = reserve_UI_instance.position
 		reserve_UI_instance = toggle_scene_instance(reserve_UI_scene,reserve_UI_instance, reserve_position)
 	if Input.is_action_just_pressed("Team") :
-		team_UI_instance = toggle_scene_instance(team_UI_scene,team_UI_instance)
+		if team_UI_instance :
+			team_position = team_UI_instance.position
+		team_UI_instance = toggle_scene_instance(team_UI_scene,team_UI_instance, team_position)
 
 func toggle_scene_instance(scene : PackedScene, instance, window_position : Vector2 = Vector2(0.0,0.0)) -> Node :
 	var _ui_children := ui.get_children()

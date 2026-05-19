@@ -16,7 +16,7 @@ var _pre_battle_team_snapshot: Array[UnitData] = []
 var _pre_battle_reserve_snapshot: Array[UnitData] = []
 
 @export var spawner : BattleSpawner
-@export var level_data: BattleData
+@export var battle_data: BattleData
 @export var player_units: Array[UnitData] = []
 @export var enemy_units : Array[EnemyData] = []
 
@@ -36,12 +36,6 @@ func _ready() -> void:
 	WonEncounter.connect(UI_node._on_won_encounter)
 	LostEncounter.connect(UI_node._on_lost_encounter)
 	Events.unit_recalled.connect(_on_unit_recalled)
-	
-	load_level_data(level_data)
-	
-	#print("level data = " + str(level_data))
-	#print("level data forced ennemies = " + str(level_data.forced_enemies))
-	#print("level data pool = " + str(level_data.random_enemy_pool))
 
 static func get_instance(node: Node) -> BattleManager:
 	var managers := node.get_tree().get_nodes_in_group("BattleManager")
@@ -51,10 +45,19 @@ static func get_state(node: Node) -> LevelState:
 	var manager := get_instance(node)
 	return manager.state if manager else LevelState.COMPLETE
 
+func initialize_battle(_battle_data: BattleData) -> void :
+	battle_data = _battle_data
+	
+	load_level_data(battle_data)
+	
+	print("level data = " + str(battle_data))
+	print("level data forced ennemies = " + str(battle_data.forced_enemies))
+	print("level data pool = " + str(battle_data.random_enemy_pool))
+
 func load_level_data(data: BattleData) -> void:
 	print("Loading...")
 	state = LevelState.LOADING
-	level_data = data
+	battle_data = data
 	player_units += Player.team
 	print("Player units = [")
 	for u in player_units :
@@ -117,10 +120,10 @@ func _spawn_enemy_units() -> void:
 			selection_manager.register_unit(unit)
 
 func _generate_enemy_list() -> Array[EnemyData]:
-	var enemies_array: Array[EnemyData] = level_data.forced_enemies
-	var budget := level_data.enemy_force  # "points" to spend
+	var enemies_array: Array[EnemyData] = battle_data.forced_enemies
+	var budget := battle_data.enemy_force  # "points" to spend
 	#print("Budget = " + str(budget))
-	var pool := level_data.random_enemy_pool
+	var pool := battle_data.random_enemy_pool
 	
 	print("Enemy pool = [")
 	for e in pool :
@@ -128,7 +131,7 @@ func _generate_enemy_list() -> Array[EnemyData]:
 	print("]")
 	
 	print("Forced ennemies = [")
-	for e in level_data.forced_enemies :
+	for e in battle_data.forced_enemies :
 		print("	%s" % [e.unit_data.display_name])
 	print("]")
 	
@@ -152,7 +155,7 @@ func _generate_enemy_list() -> Array[EnemyData]:
 		else : 
 			var candidate: EnemyData = affordable.pick_random()
 			#print("Selected candidate : " + str(candidate.unit_data.display_name))
-			#var modified := candidate.with_random_modifiers(randi() % level_data.max_enemy_modifiers + 1) as EnemyData
+			#var modified := candidate.with_random_modifiers(randi() % battle_data.max_enemy_modifiers + 1) as EnemyData
 			#print("getting final cost")
 			var final_cost : float = candidate.get_cost()
 			if final_cost <= budget:

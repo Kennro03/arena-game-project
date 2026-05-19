@@ -8,3 +8,12 @@ class_name BattleScene
 
 func _ready() -> void:
 	Player.ui_layer = ui
+	
+	var data := Player.pending_battle
+	Player.pending_battle = null  # consume it so it doesn't bleed into the next battle
+	
+	if data == null:
+		printerr("BattleScene: no BattleData provided")
+		data = battle_manager.battle_data
+	
+	battle_manager.initialize_battle(data)

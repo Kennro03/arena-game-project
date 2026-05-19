@@ -1,6 +1,7 @@
 extends Node2D
 class_name Expedition
 
+@onready var ui: CanvasLayer = %UI
 @export var battle_scene : StringName = &"uid://32iwvd3dtseu" 
 @export var shop_scene : StringName = &"uid://n6ib3torqc3t" 
 @export var event_scene : StringName = &"uid://bscmpqjoie8iu"
@@ -8,9 +9,11 @@ class_name Expedition
 @export var post_expedition_scene : StringName = &"uid://hlb8w8j5gs7u"
 
 @onready var map: Map = %Map
-	
+
+
 func _ready() -> void:
 	Player.current_scene = &"uid://b2fli6g70m4oi"
+	Player.ui_layer = ui
 	if Player.expedition_in_progress:
 		_restore_expedition()
 	else:
@@ -53,13 +56,19 @@ func _on_room_selected(r: Room) -> void :
 	print("ROOM SELECTED !!!!")
 	match r.type :
 		Room.Type.BATTLE :
-			Player.go_to_scene.call_deferred(battle_scene)
+			open_battle(10 + int(map.floors_climbed*3.5))
 		Room.Type.SHOP :
 			Player.go_to_scene.call_deferred(shop_scene)
 		Room.Type.EVENT :
 			Player.go_to_scene.call_deferred(event_scene)
 		Room.Type.CAMP :
 			Player.go_to_scene.call_deferred(camp_scene)
+
+func open_battle(score: int) -> void:
+	var expedition_battle_data := preload("res://ressources/BattleDatas/expedition_normal_battle.tres")
+	expedition_battle_data.enemy_force = score 
+	Player.pending_battle = expedition_battle_data
+	Player.go_to_scene(battle_scene)
 
 func _end_expedition() -> void:
 	Player.expedition_in_progress = false

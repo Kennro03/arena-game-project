@@ -16,6 +16,12 @@ func _on_expedition_button_pressed() -> void:
 	Player.go_to_scene(expedition_scene)
 
 func _on_battle_button_pressed() -> void:
+	var data := BattleData.new()
+	data.forced_enemies = [
+		preload("res://ressources/Units/enemy_data/LittleGuy.tres"),
+		preload("res://ressources/Units/enemy_data/LittleGuy.tres"),
+		preload("res://ressources/Units/enemy_data/LittleGuy.tres")]
+	Player.pending_battle = data
 	Player.go_to_scene(battle_scene)
 
 func _on_shop_button_pressed() -> void:
