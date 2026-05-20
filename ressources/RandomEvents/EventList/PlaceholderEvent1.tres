@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="EventResource" format=3 uid="uid://d3oorikav4sa4"]
+
+[ext_resource type="Script" uid="uid://b4vufvrel0ohb" path="res://ressources/RandomEvents/EventChoice.gd" id="1_wfakx"]
+[ext_resource type="Script" uid="uid://bb5c6lbw3x7mq" path="res://ressources/RandomEvents/EventEffect.gd" id="2_glooq"]
+[ext_resource type="Script" uid="uid://c7y0et8cd3tso" path="res://ressources/RandomEvents/EventResource.gd" id="3_e6u3i"]
+
+[sub_resource type="Resource" id="Resource_o4i7t"]
+script = ExtResource("1_wfakx")
+label = "Yeah, i've seen enough"
+description = "Quit this event."
+is_locked_if_requirements_not_met = false
+metadata/_custom_type_script = "uid://b4vufvrel0ohb"
+
+[sub_resource type="Resource" id="Resource_qious"]
+script = ExtResource("1_wfakx")
+label = "Is there anything else...?"
+description = "There isn't. This does nothing."
+is_locked_if_requirements_not_met = false
+end_event_on_selection = false
+metadata/_custom_type_script = "uid://b4vufvrel0ohb"
+
+[resource]
+script = ExtResource("3_e6u3i")
+event_id = "Placeholder1"
+title = "Placeholder Event 1"
+description = "This.... is the FIRST (1) placeholder event... wow......................................"
+choices = Array[ExtResource("1_wfakx")]([SubResource("Resource_o4i7t"), SubResource("Resource_qious")])
+metadata/_custom_type_script = "uid://c7y0et8cd3tso"

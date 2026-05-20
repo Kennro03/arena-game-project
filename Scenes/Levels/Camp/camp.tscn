@@ -19,7 +19,6 @@ fill_to = Vector2(1, 1)
 
 [node name="Camp" type="Node2D" unique_id=919284344]
 script = ExtResource("1_j0bqv")
-end_rest_on_action = false
 
 [node name="InventoryReserveManager" type="Node" parent="." unique_id=1682732072]
 script = ExtResource("1_vjsnb")

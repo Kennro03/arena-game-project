@@ -34,6 +34,7 @@ func recruit() -> void:
 	print("Created new unit : %s" % [new_unit.display_name])
 	
 	Player.add_unit_to_reserve(new_unit)
+	
 	if end_rest_on_action == true:
 		Events.camp_exited.emit()
 		Player.return_to_previous_scene()
@@ -70,7 +71,7 @@ func _on_train_units_selected(units: Array) -> void:
 		unit_data.stats.experience += 250 + training_exp_flat_bonus + (250/int(units.size()))  # give 250 exp to all units + share 250 exp among units
 	
 	Events.camp_trained.emit()
-	if end_rest_on_action:
+	if end_rest_on_action == true:
 		Player.return_to_previous_scene()
 
 func _on_recruit_button_pressed() -> void:

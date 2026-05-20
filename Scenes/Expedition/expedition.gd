@@ -60,7 +60,7 @@ func _on_room_selected(r: Room) -> void :
 		Room.Type.SHOP :
 			Player.go_to_scene.call_deferred(shop_scene)
 		Room.Type.EVENT :
-			Player.go_to_scene.call_deferred(event_scene)
+			open_random_event([])
 		Room.Type.CAMP :
 			Player.go_to_scene.call_deferred(camp_scene)
 
@@ -69,6 +69,19 @@ func open_battle(score: int) -> void:
 	expedition_battle_data.enemy_force = score 
 	Player.pending_battle = expedition_battle_data
 	Player.go_to_scene(battle_scene)
+
+func open_random_event(event_list: Array[EventResource] = []) -> void :
+	if event_list != [] :
+		Player.pending_event = event_list.pick_random()
+		Player.go_to_scene(event_scene)
+		return
+	var event_folder := "res://ressources/RandomEvents/EventList/"
+	var filenames : Array[StringName] = DirAccess.get_files_at(event_folder)
+	var event_ressources_list : Array[EventResource] = []
+	for file_name in filenames :
+		event_ressources_list.append(load(file_name))
+	Player.pending_event = event_ressources_list.pick_random()
+	Player.go_to_scene(event_scene)
 
 func _end_expedition() -> void:
 	Player.expedition_in_progress = false

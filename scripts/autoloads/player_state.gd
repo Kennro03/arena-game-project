@@ -45,6 +45,7 @@ var run_number: int = 0
 # static references
 static var ui_layer : CanvasLayer
 static var pending_battle : BattleData = null
+static var pending_event : EventResource = null
 
 @onready var testing_knife : Weapon = preload("uid://dal5rgfowl103")
 @onready var testing_pablo : UnitData = preload("uid://ps2wy7q88f5b")
