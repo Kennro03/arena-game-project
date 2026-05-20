@@ -72,15 +72,20 @@ func open_battle(score: int) -> void:
 
 func open_random_event(event_list: Array[EventResource] = []) -> void :
 	if event_list != [] :
-		Player.pending_event = event_list.pick_random()
+		var res = event_list.pick_random()
+		Player.pending_event = res
 		Player.go_to_scene(event_scene)
 		return
-	var event_folder := "res://ressources/RandomEvents/EventList/"
-	var filenames : Array[StringName] = DirAccess.get_files_at(event_folder)
+	
+	var event_dir_address := "res://ressources/RandomEvents/EventList/"
+	var event_dir := DirAccess.open(event_dir_address)
+	var file_names := event_dir.get_files()
 	var event_ressources_list : Array[EventResource] = []
-	for file_name in filenames :
-		event_ressources_list.append(load(file_name))
-	Player.pending_event = event_ressources_list.pick_random()
+	for file_name in file_names :
+		if file_name.get_extension() == "tres":
+			event_ressources_list.append(load(event_dir_address + file_name))
+	var backup_res = event_ressources_list.pick_random()
+	Player.pending_event = backup_res
 	Player.go_to_scene(event_scene)
 
 func _end_expedition() -> void:
