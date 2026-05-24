@@ -2,10 +2,11 @@ extends Node2D
 
 @onready var ui: CanvasLayer = %UI
 
+@export var expedition_selection_scene : StringName = &""
+@export var expedition_scene : StringName = &""
 @export var battle_scene : StringName = &"" 
 @export var shop_scene : StringName = &"" 
 @export var event_scene : StringName = &""
-@export var expedition_scene : StringName = &""
 @export var camp_scene : StringName = &""
 
 func _ready() -> void:
@@ -13,7 +14,7 @@ func _ready() -> void:
 	Player.ui_layer = ui
 
 func _on_expedition_button_pressed() -> void:
-	Player.go_to_scene(expedition_scene)
+	Player.go_to_scene(expedition_selection_scene)
 
 func _on_battle_button_pressed() -> void:
 	var data := BattleData.new()

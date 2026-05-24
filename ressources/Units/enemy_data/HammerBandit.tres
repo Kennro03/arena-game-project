@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://dy41h2bt4t8mx"]
+
+[ext_resource type="Script" uid="uid://ciafbkaty1yix" path="res://scripts/Items/Item.gd" id="1_ll886"]
+[ext_resource type="Script" uid="uid://drfgc7i6bgn41" path="res://scripts/Units/LootEntry.gd" id="2_rmkrs"]
+[ext_resource type="Script" uid="uid://pnd2x204n7v3" path="res://scripts/Units/LootTable.gd" id="3_k7hrb"]
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="4_tje3e"]
+[ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/unit_data/HammerBandit.tres" id="5_lvn8s"]
+
+[sub_resource type="Resource" id="Resource_q1bcc"]
+script = ExtResource("3_k7hrb")
+metadata/_custom_type_script = "uid://pnd2x204n7v3"
+
+[resource]
+script = ExtResource("4_tje3e")
+unit_data = ExtResource("5_lvn8s")
+loot_table = SubResource("Resource_q1bcc")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"

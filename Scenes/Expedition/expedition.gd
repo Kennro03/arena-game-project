@@ -1,6 +1,8 @@
 extends Node2D
 class_name Expedition
 
+var expedition_data : ExpeditionData = null
+
 @onready var ui: CanvasLayer = %UI
 @export var battle_scene : StringName = &"uid://32iwvd3dtseu" 
 @export var shop_scene : StringName = &"uid://n6ib3torqc3t" 
@@ -10,10 +12,11 @@ class_name Expedition
 
 @onready var map: Map = %Map
 
-
 func _ready() -> void:
 	Player.current_scene = &"uid://b2fli6g70m4oi"
 	Player.ui_layer = ui
+	expedition_data = Player.pending_expedition
+	
 	if Player.expedition_in_progress:
 		_restore_expedition()
 	else:
@@ -53,24 +56,40 @@ func _on_room_selected(r: Room) -> void :
 	Player.clear_deployed_units()
 	
 	Player.map_camera_postion = map.camera_2d.position.y
-	print("ROOM SELECTED !!!!")
+	
 	match r.type :
 		Room.Type.BATTLE :
-			open_battle(10 + int(map.floors_climbed*3.5))
+			open_battle(int(expedition_data.BaseEnemyScore + int(map.floors_climbed * expedition_data.FloorEnemyScoreScaling)))
 		Room.Type.SHOP :
 			Player.go_to_scene.call_deferred(shop_scene)
 		Room.Type.EVENT :
-			open_random_event([])
+			open_random_event()
 		Room.Type.CAMP :
 			Player.go_to_scene.call_deferred(camp_scene)
 
 func open_battle(score: int) -> void:
-	var expedition_battle_data := preload("res://ressources/BattleDatas/expedition_normal_battle.tres")
+	var _enemy_pool : Array[EnemyData] = expedition_data.EnemyPool if expedition_data.EnemyPool != [] else get_debug_enemy_pool()
+	var expedition_battle_data := BattleData.new()
+	
 	expedition_battle_data.enemy_force = score 
+	expedition_battle_data.forced_enemies = []
+	expedition_battle_data.random_enemy_pool = _enemy_pool
+	expedition_battle_data.map_type = "default"     #random map generation/selection not yet implemented
+	
 	Player.pending_battle = expedition_battle_data
 	Player.go_to_scene(battle_scene)
 
-func open_random_event(event_list: Array[EventResource] = []) -> void :
+func get_debug_enemy_pool() -> Array[EnemyData] :
+	var pool : Array[EnemyData] = []
+	var dir := DirAccess.open("res://ressources/Units/enemy_data/")
+	for file in dir.get_files():
+		if file.get_extension() == "tres" :
+			pool.append(load("res://ressources/Units/enemy_data/" + file))
+	pool = pool.filter(func(enemy): return enemy.enemy_tier == enemy.EnemyTier.COMMON )
+	return pool
+
+func open_random_event() -> void :
+	var event_list: Array[EventResource] = expedition_data.EventPool
 	if event_list != [] :
 		var res = event_list.pick_random()
 		Player.pending_event = res

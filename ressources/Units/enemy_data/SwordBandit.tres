@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://b358lfrs2lpam"]
+
+[ext_resource type="Script" uid="uid://ciafbkaty1yix" path="res://scripts/Items/Item.gd" id="1_31h3m"]
+[ext_resource type="Script" uid="uid://drfgc7i6bgn41" path="res://scripts/Units/LootEntry.gd" id="2_um82k"]
+[ext_resource type="Script" uid="uid://pnd2x204n7v3" path="res://scripts/Units/LootTable.gd" id="3_hqj6u"]
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="4_orr0e"]
+[ext_resource type="Resource" uid="uid://ca3ago2wj5osb" path="res://ressources/Units/unit_data/SwordBandit.tres" id="5_m2s8i"]
+
+[sub_resource type="Resource" id="Resource_ky7hp"]
+script = ExtResource("3_hqj6u")
+metadata/_custom_type_script = "uid://pnd2x204n7v3"
+
+[resource]
+script = ExtResource("4_orr0e")
+unit_data = ExtResource("5_m2s8i")
+loot_table = SubResource("Resource_ky7hp")
+metadata/_custom_type_script = "uid://bwcfr6i00qe4v"

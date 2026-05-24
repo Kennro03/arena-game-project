@@ -17,10 +17,11 @@ fill_to = Vector2(0.41452992, 0)
 
 [node name="Prototype_Scene" type="Node2D" unique_id=1252659035]
 script = ExtResource("1_3a2rb")
+expedition_selection_scene = &"uid://tv3sqx07krda"
+expedition_scene = &"uid://b2fli6g70m4oi"
 battle_scene = &"uid://32iwvd3dtseu"
 shop_scene = &"uid://n6ib3torqc3t"
 event_scene = &"uid://bscmpqjoie8iu"
-expedition_scene = &"uid://b2fli6g70m4oi"
 camp_scene = &"uid://cc2g24q57tx7l"
 
 [node name="TooltipHandler" type="Node" parent="." unique_id=795041103 node_paths=PackedStringArray("ui_root")]

@@ -1,46 +1,13 @@
 [gd_resource type="Resource" script_class="BattleData" format=3 uid="uid://d16g3b2bwaxul"]
 
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="1_crrmn"]
-[ext_resource type="Script" uid="uid://ciafbkaty1yix" path="res://scripts/Items/Item.gd" id="2_1ufj5"]
+[ext_resource type="Resource" uid="uid://b358lfrs2lpam" path="res://ressources/Units/enemy_data/SwordBandit.tres" id="2_70014"]
 [ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/battleData.gd" id="2_gtgbm"]
-[ext_resource type="Script" uid="uid://drfgc7i6bgn41" path="res://scripts/Units/LootEntry.gd" id="3_5ckd3"]
-[ext_resource type="Script" uid="uid://pnd2x204n7v3" path="res://scripts/Units/LootTable.gd" id="4_i8uxt"]
-[ext_resource type="Resource" uid="uid://ca3ago2wj5osb" path="res://ressources/Units/unit_data/SwordBandit.tres" id="5_d7br8"]
-[ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/unit_data/HammerBandit.tres" id="6_5q088"]
-[ext_resource type="Resource" uid="uid://d4fvbe67ufh8v" path="res://ressources/Units/unit_data/DaggerBandit.tres" id="7_jjopr"]
-
-[sub_resource type="Resource" id="Resource_ky7hp"]
-script = ExtResource("4_i8uxt")
-metadata/_custom_type_script = "uid://pnd2x204n7v3"
-
-[sub_resource type="Resource" id="Resource_j5d5n"]
-script = ExtResource("1_crrmn")
-unit_data = ExtResource("5_d7br8")
-loot_table = SubResource("Resource_ky7hp")
-metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
-
-[sub_resource type="Resource" id="Resource_q1bcc"]
-script = ExtResource("4_i8uxt")
-metadata/_custom_type_script = "uid://pnd2x204n7v3"
-
-[sub_resource type="Resource" id="Resource_r713u"]
-script = ExtResource("1_crrmn")
-unit_data = ExtResource("6_5q088")
-loot_table = SubResource("Resource_q1bcc")
-metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
-
-[sub_resource type="Resource" id="Resource_bgebo"]
-script = ExtResource("4_i8uxt")
-metadata/_custom_type_script = "uid://pnd2x204n7v3"
-
-[sub_resource type="Resource" id="Resource_5fssw"]
-script = ExtResource("1_crrmn")
-unit_data = ExtResource("7_jjopr")
-loot_table = SubResource("Resource_bgebo")
-metadata/_custom_type_script = "uid://bwcfr6i00qe4v"
+[ext_resource type="Resource" uid="uid://dy41h2bt4t8mx" path="res://ressources/Units/enemy_data/HammerBandit.tres" id="3_lrpnk"]
+[ext_resource type="Resource" uid="uid://cswinghnwvf77" path="res://ressources/Units/enemy_data/DaggerBandit.tres" id="4_0414d"]
 
 [resource]
 script = ExtResource("2_gtgbm")
 enemy_force = 0.0
-random_enemy_pool = Array[ExtResource("1_crrmn")]([SubResource("Resource_j5d5n"), SubResource("Resource_r713u"), SubResource("Resource_5fssw")])
+random_enemy_pool = Array[ExtResource("1_crrmn")]([ExtResource("2_70014"), ExtResource("3_lrpnk"), ExtResource("4_0414d")])
 metadata/_custom_type_script = "uid://b2x5b5wxr3o6d"

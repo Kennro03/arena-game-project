@@ -44,6 +44,7 @@ var run_number: int = 0
 
 # static references
 static var ui_layer : CanvasLayer
+static var pending_expedition : ExpeditionData = null
 static var pending_battle : BattleData = null
 static var pending_event : EventResource = null
 

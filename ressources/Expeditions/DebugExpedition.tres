@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ExpeditionData" format=3 uid="uid://c3nnomnaagmlv"]
+
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="1_78aie"]
+[ext_resource type="Script" uid="uid://c7y0et8cd3tso" path="res://ressources/RandomEvents/EventResource.gd" id="2_7eu0g"]
+[ext_resource type="Script" uid="uid://ciafbkaty1yix" path="res://scripts/Items/Item.gd" id="3_kwh5i"]
+[ext_resource type="Script" uid="uid://ckidle2wsimsy" path="res://ExpeditionData.gd" id="4_nm1p3"]
+
+[sub_resource type="Gradient" id="Gradient_78aie"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7eu0g"]
+gradient = SubResource("Gradient_78aie")
+width = 100
+height = 100
+fill_from = Vector2(0.36752138, 0.42307693)
+fill_to = Vector2(0.53418803, 0.5940171)
+
+[resource]
+script = ExtResource("4_nm1p3")
+ExpeditionName = "DebugExpedition"
+ExpeditionDescription = "Test expedition, holds ALL items, events, ennemies, etc"
+ExpeditionIcon = SubResource("GradientTexture2D_7eu0g")
+metadata/_custom_type_script = "uid://ckidle2wsimsy"
