@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_1rfd4"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_b6tvv"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="6_u2pqn"]
-[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testHammer.tres" id="7_cq4kd"]
+[ext_resource type="Resource" uid="uid://cseh3bpxs7l8k" path="res://ressources/Items/Weapons/testhammer.tres" id="7_cq4kd"]
 
 [sub_resource type="Resource" id="Resource_oloho"]
 script = ExtResource("6_u2pqn")

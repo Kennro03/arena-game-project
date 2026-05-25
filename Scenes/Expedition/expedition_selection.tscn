@@ -44,6 +44,7 @@ expedition_scene = &"uid://b2fli6g70m4oi"
 unique_name_in_owner = true
 
 [node name="BackgroundTextureRect" type="TextureRect" parent="Background" unique_id=1013730131]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -53,6 +54,7 @@ texture = SubResource("GradientTexture2D_vjh1n")
 
 [node name="NoiseRect" type="TextureRect" parent="Background" unique_id=1310081612]
 modulate = Color(1, 1, 1, 0.39215687)
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

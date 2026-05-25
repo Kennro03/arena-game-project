@@ -46,6 +46,7 @@ var run_number: int = 0
 static var ui_layer : CanvasLayer
 static var pending_expedition : ExpeditionData = null
 static var pending_battle : BattleData = null
+static var pending_shop_pool : Array[Item] = []
 static var pending_event : EventResource = null
 
 @onready var testing_knife : Weapon = preload("uid://dal5rgfowl103")

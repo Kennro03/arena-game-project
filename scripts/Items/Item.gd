@@ -11,7 +11,9 @@ enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, CURSED }
 @export var icon: Texture2D
 @export var item_type: ItemType
 @export var rarity: Rarity = Rarity.COMMON
+@export var is_obtainable : bool = true # if it can it appear in shops
 @export var value: int = 0  # gold value for shops
+
 
 #Used to select item border for inventory
 const item_borders : Dictionary = {

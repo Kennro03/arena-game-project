@@ -5,16 +5,12 @@
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="3_bdmvy"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="4_rct00"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cvsv1"]
-load_path = "res://.godot/imported/UnarmedStickman.png-1a086accc53bd40449364bba5c179a7b.ctex"
-
 [resource]
 script = ExtResource("3_bdmvy")
-weaponName = "Dummy_fists"
-description = "A stickman's bare fist. Usually used when nothing else is available."
-spriteSheet = SubResource("CompressedTexture2D_cvsv1")
 base_attack_speed = 0.01
 base_attack_range = 0.0
 base_damage = 0.0
 base_knockback = 0.0
+description = "A stickman's bare fist. Usually used when nothing else is available."
+is_obtainable = false
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

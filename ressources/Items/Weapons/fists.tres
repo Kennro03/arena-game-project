@@ -15,4 +15,5 @@ item_id = "fists"
 item_name = "Fists"
 description = "A stickman's bare fist. Usually used when nothing else is available."
 icon = ExtResource("2_dyl5h")
+is_obtainable = false
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

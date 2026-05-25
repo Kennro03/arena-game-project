@@ -19,15 +19,31 @@ const SHOP_SLOT_SCENE := preload("res://Scenes/Levels/Shop/shop_slot.tscn")
 
 var items_sold : int = max_items_sold
 var weapons_sold : int = max_weapons_sold
-var item_list : Array[Item] = []
-var weapon_list : Array[Weapon] = []
+var _item_list : Array[Item] = []
+var _weapon_list : Array[Weapon] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	refresh_button.text = "Refresh (%dg)" % [refresh_cost]
-	refresh_shop()
 	Player.current_scene = "uid://n6ib3torqc3t"
 	Player.ui_layer = ui
+	
+	if Player.pending_shop_pool.is_empty():
+		printerr("Shop: pending_shop_pool is empty!")
+		Player.pending_shop_pool = get_debug_item_list()
+	
+	for item in Player.pending_shop_pool:
+		print("  %s - type: %s" % [item.item_name, item.get_class()])
+	_item_list.assign(Player.pending_shop_pool.filter(func(item): return not item is Weapon))
+	_weapon_list.assign(Player.pending_shop_pool.filter(func(item): return item is Weapon))
+	
+	refresh_button.text = "Refresh (%dg)" % [refresh_cost]
+	refresh_shop()
+	
+	#print("Shop pool : ")
+	#for i in Player.pending_shop_pool :
+	#	print("\n Item : %s" % i.item_name)
+	#_weapon_list.assign(Player.pending_shop_pool.filter(func(item): return item is Weapon))
+	#_item_list.assign(Player.pending_shop_pool.filter(func(item): return not item is Weapon))
 
 func _process(delta: float) -> void:
 	##Placeholder background effect, will need to replace with actual shade/art
@@ -49,12 +65,12 @@ func _on_refresh_button_pressed() -> void:
 func refresh_shop()-> void:
 	#Item list
 	clear_items()
-	item_list = get_item_list()
+	_item_list = get_item_list()
 	fill_items()
 	
 	#Weapon list
 	clear_weapons()
-	weapon_list = get_weapon_list()
+	_weapon_list = get_weapon_list()
 	fill_weapons()
 
 func clear_items() -> void :
@@ -66,10 +82,13 @@ func clear_weapons() -> void :
 		c.queue_free()
 
 func fill_items() -> void :
+	if _item_list.is_empty():
+		printerr("Shop: item list is empty, skipping fill_items")
+		return
 	var i : int = 0
 	while i < items_sold :
 		i += 1
-		var _item : Accessory = item_list.pick_random()
+		var _item : Accessory = _item_list.pick_random()
 		var new_slot : ShopSlot = SHOP_SLOT_SCENE.instantiate()
 		items_row.add_child(new_slot)
 		new_slot.set_item(_item.with_attribute_buffs())
@@ -79,7 +98,7 @@ func fill_weapons() -> void :
 	var i : int = 0
 	while i < weapons_sold :
 		i += 1
-		var wep : Weapon = weapon_list.pick_random()
+		var wep : Weapon = _weapon_list.pick_random()
 		var new_slot : ShopSlot = SHOP_SLOT_SCENE.instantiate()
 		weapons_row.add_child(new_slot)
 		new_slot.set_item(wep)
@@ -87,11 +106,29 @@ func fill_weapons() -> void :
 
 func get_item_list() -> Array[Item] :
 	var _items : Array[Item] = []
-	for file_name in DirAccess.get_files_at("res://ressources/Items/Accessories/"):
-		if (file_name.get_extension() == "tres"):
-			_items.append(load("res://ressources/Items/Accessories/"+file_name))
+	_items.assign(Player.pending_shop_pool.filter(func(item): return not item is Weapon and item.is_obtainable))
 	#print("Items = " + str(_items))
 	return _items
+
+func get_debug_item_list() -> Array[Item] :
+	var item_List : Array[Item] = []
+	var acc_file_names := DirAccess.open("res://ressources/Items/Accessories/").get_files()
+	for file_name in acc_file_names :
+		if file_name.get_extension() == "tres":
+			item_List.append(load("res://ressources/Items/Accessories/" + file_name))
+	
+	var wep_file_names := DirAccess.open("res://ressources/Items/Weapons/").get_files()
+	for file_name in wep_file_names :
+		if file_name.get_extension() == "tres":
+			item_List.append(load("res://ressources/Items/Weapons/" + file_name))
+	
+	var arm_file_names := DirAccess.open("res://ressources/Items/Armors/").get_files()
+	for file_name in arm_file_names :
+		if file_name.get_extension() == "tres":
+			item_List.append(load("res://ressources/Items/Armors/" + file_name))
+	
+	item_List = item_List.filter(func(item): return item.is_obtainable)
+	return item_List #this returns ALL items resources for debug/testing purposes
 
 func get_weapon_list() -> Array[Weapon] :
 	var _weps : Array[Weapon] = []
@@ -100,7 +137,7 @@ func get_weapon_list() -> Array[Weapon] :
 	var hammer := preload("uid://cseh3bpxs7l8k")
 	var uncommonsword := preload("uid://dlhcap3ipacyj")
 	var rarehammer := preload("uid://2gvcwm08oqgb")
-	_weps = [dagger,sword,hammer,uncommonsword,rarehammer]
+	_weps.assign(Player.pending_shop_pool.filter(func(item): return item is Weapon))
 	return _weps
 
 func _on_exit_shop_button_pressed() -> void:

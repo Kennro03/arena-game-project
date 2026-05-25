@@ -61,7 +61,7 @@ func _on_room_selected(r: Room) -> void :
 		Room.Type.BATTLE :
 			open_battle(int(expedition_data.BaseEnemyScore + int(map.floors_climbed * expedition_data.FloorEnemyScoreScaling)))
 		Room.Type.SHOP :
-			Player.go_to_scene.call_deferred(shop_scene)
+			open_shop()
 		Room.Type.EVENT :
 			open_random_event()
 		Room.Type.CAMP :
@@ -78,6 +78,19 @@ func open_battle(score: int) -> void:
 	
 	Player.pending_battle = expedition_battle_data
 	Player.go_to_scene(battle_scene)
+
+func open_shop() -> void:
+	var item_pool : Array[Item] = expedition_data.ShopItemPool if expedition_data.ShopItemPool != [] else get_debug_shop_pool()
+	Player.pending_shop_pool = item_pool
+	Player.go_to_scene.call_deferred(shop_scene)
+
+func get_debug_shop_pool() -> Array[Item]:
+	var pool : Array[Item] = []
+	var dir := DirAccess.open("res://ressources/Items/")
+	for file in dir.get_files():
+		if file.get_extension() == "tres" :
+			pool.append(load("res://ressources/Items/" + file))
+	return pool
 
 func get_debug_enemy_pool() -> Array[EnemyData] :
 	var pool : Array[EnemyData] = []
