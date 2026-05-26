@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="ExpeditionData" format=3 uid="uid://bnjgijimy7fmw"]
 
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="1_cd0h4"]
+[ext_resource type="Resource" uid="uid://bh7j0fjibu324" path="res://ressources/Units/enemy_data/LittleGuy.tres" id="2_h2an3"]
 [ext_resource type="Script" uid="uid://c7y0et8cd3tso" path="res://ressources/RandomEvents/EventResource.gd" id="2_kct8f"]
 [ext_resource type="Script" uid="uid://ciafbkaty1yix" path="res://scripts/Items/Item.gd" id="3_h2an3"]
 [ext_resource type="Script" uid="uid://ckidle2wsimsy" path="res://ExpeditionData.gd" id="4_iyyah"]
@@ -16,6 +17,7 @@ height = 80
 [resource]
 script = ExtResource("4_iyyah")
 ExpeditionName = "DebugExpedition2"
-ExpeditionDescription = "Second test expedition, the only enemy is that one little goblin that gives a lot of exp lol"
+ExpeditionDescription = "Second debug expedition, with only the little guy that gives a lot of exp."
 ExpeditionIcon = SubResource("GradientTexture2D_kct8f")
+EnemyPool = Array[ExtResource("1_cd0h4")]([ExtResource("2_h2an3")])
 metadata/_custom_type_script = "uid://ckidle2wsimsy"

@@ -11,7 +11,11 @@ var state: LevelState = LevelState.LOADING
 var ennemy_units_alive : Array[BaseUnit]
 var neutral_units_alive : Array[BaseUnit]
 var player_units_alive : Array[BaseUnit]
+
 var _defeated_enemies: Array[EnemyData] = []
+var _defeated_player_unit_data : Array[UnitData] = []
+
+var _pre_battle_inventory_snapshot: Array[Item] = []
 var _pre_battle_team_snapshot: Array[UnitData] = []
 var _pre_battle_reserve_snapshot: Array[UnitData] = []
 
@@ -71,6 +75,7 @@ func load_level_data(data: BattleData) -> void:
 			print("	%s" % [u.display_name])
 	print("]")
 	
+	_pre_battle_inventory_snapshot.assign(Player.inventory.map(func(u): return u.duplicate(true)))
 	_pre_battle_team_snapshot.assign(Player.team.map(func(u): return u.duplicate(true)))
 	_pre_battle_reserve_snapshot.assign(Player.reserve.map(func(u): return u.duplicate(true)))
 	
@@ -93,7 +98,6 @@ func start_fight() ->void :
 			unit.active = true
 	else :
 		encounter_ui.animationPlayer.play("start_fight_failed_animation")
-
 
 func _spawn_player_units() -> void:
 	print("Spawning player units...")
@@ -200,6 +204,8 @@ func _on_enemy_unit_died(unit: BaseUnit) -> void:
 
 func _on_player_unit_died(unit: BaseUnit) -> void:
 	player_units_alive.erase(unit)
+	if is_instance_valid(unit.unit_data):
+		_defeated_player_unit_data.append(unit.unit_data)
 	_check_victory_conditions()
 
 func _get_enemy_data_for_unit(unit: BaseUnit) -> EnemyData:
@@ -237,13 +243,18 @@ func spawn_loss_options() -> void:
 	loss_screen._continue.connect(_on_continue)
 	loss_screen._give_up.connect(_on_give_up)
 	
-	if Player.reserve.is_empty():
-		loss_screen.continue_button.disabled = true
-		loss_screen.continue_button.tooltip_text = "No units in reserve"
+	var available_units := Player.team.filter(
+		func(u): return not _defeated_player_unit_data.has(u)
+	) + Player.reserve
 	
 	%UI.add_child(loss_screen)
+	
+	if available_units.is_empty():
+		loss_screen.continue_button.disabled = true
+		loss_screen.continue_button.tooltip_text = "No units available"
 
 func _on_retry() -> void:
+	_defeated_player_unit_data.clear()
 	# restore units to pre-battle state from Player.team UnitData
 	
 	# clear live units
@@ -262,6 +273,7 @@ func _on_retry() -> void:
 	player_units.clear()
 	
 	# reset player team and reserve to pre-battle state
+	Player.inventory.assign(_pre_battle_inventory_snapshot.map(func(u): return u.duplicate(true)))
 	Player.team.assign(_pre_battle_team_snapshot.map(func(u): return u.duplicate(true)))
 	Player.reserve.assign(_pre_battle_reserve_snapshot.map(func(u): return u.duplicate(true)))
 	
@@ -273,23 +285,20 @@ func _on_retry() -> void:
 	update_counter_displays()
 
 func _on_continue() -> void:
-	# check if there are reserve units to deploy
-	if Player.reserve.is_empty():
-		# disable continue button - handled in loss screen
-		return
-	
 	# reset player side
 	for unit in player_units_alive.duplicate():
 		if is_instance_valid(unit):
 			unit.queue_free()
+	player_units_alive.clear()
+	Player.deployed_units.clear()
 	
-	# deactivate enemies
-	for unit in ennemy_units_alive.duplicate():
+	# pause enemies
+	for unit in ennemy_units_alive:
 		if is_instance_valid(unit):
 			unit.active = false
 	
-	player_units_alive.clear()
-	Player.deployed_units.clear()
+	for defeated_data in _defeated_player_unit_data:
+		Player.team.erase(defeated_data)
 	
 	# reset battle ui
 	encounter_ui.animationPlayer.play("RESET")
@@ -299,7 +308,12 @@ func _on_continue() -> void:
 	update_counter_displays()
 
 func _on_give_up() -> void:
+	Player.inventory.assign(_pre_battle_inventory_snapshot.map(func(u): return u.duplicate(true)))
+	Player.team.assign(_pre_battle_team_snapshot.map(func(u): return u.duplicate(true)))
+	Player.reserve.assign(_pre_battle_reserve_snapshot.map(func(u): return u.duplicate(true)))
+	
 	_save_all_unit_data()
+	
 	Player.clear_deployed_units()
 	Player.return_to_previous_scene()
 

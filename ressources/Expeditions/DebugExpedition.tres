@@ -17,6 +17,6 @@ fill_to = Vector2(0.53418803, 0.5940171)
 [resource]
 script = ExtResource("4_nm1p3")
 ExpeditionName = "DebugExpedition"
-ExpeditionDescription = "Test expedition, holds ALL items, events, ennemies, etc"
+ExpeditionDescription = "The first debug expedition, has ALLLLLL the things in the game, for debug purposes."
 ExpeditionIcon = SubResource("GradientTexture2D_7eu0g")
 metadata/_custom_type_script = "uid://ckidle2wsimsy"
