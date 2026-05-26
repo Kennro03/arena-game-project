@@ -35,8 +35,8 @@ func _ready() -> void:
 	var hammer = preload("res://ressources/Items/Weapons/testhammer.tres").duplicate(true)
 	var dummy_hands = preload("res://ressources/Items/Weapons/DebugWeapons/dummy_fists.tres").duplicate(true)
 
-	var dummy = preload("res://ressources/Units/test_dummy.tres").duplicate(true)
-	dummy.show_name = true
+	#var dummy = preload("res://ressources/Units/test_dummy.tres").duplicate(true)
+	#dummy.show_name = true
 	var _test_burn_effect := preload("res://ressources/Status_Effects/test_burn.tres").duplicate(true)
 	var _test_poison_effect := preload("res://ressources/Status_Effects/test_poison.tres").duplicate(true)
 	var _test_slow_effect := preload("res://ressources/Status_Effects/test_slow.tres").duplicate(true)
@@ -47,7 +47,7 @@ func _ready() -> void:
 	var _shield_onhit_passive := preload("res://ressources/OnHit_Passives/Shield_on_hit.tres").duplicate(true)
 	var _chain_onhit_passive := preload("res://ressources/OnHit_Passives/Chain_on_hit.tres").duplicate(true)
 	
-	add_unit(dummy.with_weapon(dummy_hands))
+	#add_unit(dummy.with_weapon(dummy_hands))
 	add_unit(UnitData.new())
 	add_unit(stickmanUnitData.new())
 	add_unit(stickmanUnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(stickmanUnitData.make_status_passive([_test_bleed_effect])))

@@ -28,11 +28,13 @@ func _ready() -> void:
 	Player.ui_layer = ui
 	
 	if Player.pending_shop_pool.is_empty():
-		printerr("Shop: pending_shop_pool is empty!")
+		printerr("Shop: pending_shop_pool is empty! Fallback to debug list.")
 		Player.pending_shop_pool = get_debug_item_list()
 	
+	print("Shopping pool = [")
 	for item in Player.pending_shop_pool:
-		print("  %s - type: %s" % [item.item_name, item.get_class()])
+		print("  %s - type: %s" % [item.item_name, item.get_script().resource_path.get_file().left(-3)])
+	print("]")
 	_item_list.assign(Player.pending_shop_pool.filter(func(item): return not item is Weapon))
 	_weapon_list.assign(Player.pending_shop_pool.filter(func(item): return item is Weapon))
 	

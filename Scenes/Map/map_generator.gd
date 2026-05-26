@@ -7,13 +7,15 @@ const PLACEMENT_RANDOMNESS := 20
 const FLOORS := 15
 const MAP_WIDTH := 7
 const PATHS := 6 
-const BATTLE_ROOM_WEIGHT := 8.0
+const NORMAL_BATTLE_ROOM_WEIGHT := 8.0
+const ELITE_BATTLE_ROOM_WEIGHT := 3.0
 const SHOP_ROOM_WEIGHT := 2.0
 const EVENT_ROOM_WEIGHT := 2.0
 const CAMP_ROOM_WEIGHT := 3.0
 
 var random_room_type_weights = {
-	Room.Type.BATTLE: BATTLE_ROOM_WEIGHT,
+	Room.Type.NORMAL_BATTLE: NORMAL_BATTLE_ROOM_WEIGHT,
+	Room.Type.ELITE_BATTLE: ELITE_BATTLE_ROOM_WEIGHT,
 	Room.Type.SHOP: SHOP_ROOM_WEIGHT,
 	Room.Type.EVENT: EVENT_ROOM_WEIGHT,
 	Room.Type.CAMP: CAMP_ROOM_WEIGHT,
@@ -129,13 +131,13 @@ func _setup_boss_room() -> void:
 			curren_room.next_rooms = [] as Array[Room]
 			curren_room.next_rooms.append(boss_room)
 	
-	boss_room.type = Room.Type.BOSS
+	boss_room.type = Room.Type.BOSS_BATTLE
 
 func _setup_room_types() -> void :
 	# first floor is always a battle
 	for room: Room in map_data[0]:
 		if room.next_rooms.size() > 0:
-			room.type = Room.Type.BATTLE
+			room.type = Room.Type.NORMAL_BATTLE
 	
 	# middle floor is always treasure
 	for room: Room in map_data[FLOORS / 2.0]:
@@ -201,12 +203,13 @@ func _room_has_parent_of_type(room:Room, type:Room.Type) -> bool :
 
 func _get_random_room_type_by_weight() -> Room.Type :
 	var weights := {
-		Room.Type.BATTLE: BATTLE_ROOM_WEIGHT,
+		Room.Type.NORMAL_BATTLE: NORMAL_BATTLE_ROOM_WEIGHT,
+		Room.Type.ELITE_BATTLE: ELITE_BATTLE_ROOM_WEIGHT,
 		Room.Type.EVENT: EVENT_ROOM_WEIGHT,
 		Room.Type.CAMP: CAMP_ROOM_WEIGHT,
 		Room.Type.SHOP: SHOP_ROOM_WEIGHT,
 		}
-	var total := BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + CAMP_ROOM_WEIGHT + SHOP_ROOM_WEIGHT
+	var total := NORMAL_BATTLE_ROOM_WEIGHT + ELITE_BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + CAMP_ROOM_WEIGHT + SHOP_ROOM_WEIGHT
 	var roll := randf_range(0.0, total)
 	
 	for type in weights:
@@ -214,4 +217,4 @@ func _get_random_room_type_by_weight() -> Room.Type :
 		if roll <= 0:
 			return type
 	
-	return Room.Type.BATTLE
+	return Room.Type.NORMAL_BATTLE

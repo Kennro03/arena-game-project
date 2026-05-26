@@ -2,10 +2,18 @@
 
 [ext_resource type="Script" uid="uid://bmnpr06mmidhw" path="res://Scenes/Expedition/expedition.gd" id="1_7t453"]
 [ext_resource type="PackedScene" uid="uid://c33jh116bvc4" path="res://Scenes/Map/map.tscn" id="1_x8ko8"]
+[ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="2_4tbgo"]
 [ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="2_l8k82"]
+[ext_resource type="Script" uid="uid://c7y0et8cd3tso" path="res://ressources/RandomEvents/EventResource.gd" id="3_falvv"]
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="3_nhu6y"]
+[ext_resource type="Script" uid="uid://ciafbkaty1yix" path="res://scripts/Items/Item.gd" id="4_5w4xk"]
 [ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="4_h86ty"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="5_nhu6y"]
+[ext_resource type="Script" uid="uid://ckidle2wsimsy" path="res://ExpeditionData.gd" id="5_oyplf"]
+
+[sub_resource type="Resource" id="Resource_w2cik"]
+script = ExtResource("5_oyplf")
+metadata/_custom_type_script = "uid://ckidle2wsimsy"
 
 [sub_resource type="Gradient" id="Gradient_xtf6f"]
 offsets = PackedFloat32Array(0.56765676)
@@ -17,6 +25,7 @@ width = 32
 
 [node name="Expedition" type="Node2D" unique_id=769344041]
 script = ExtResource("1_7t453")
+expedition_data = SubResource("Resource_w2cik")
 
 [node name="TooltipHandler" type="Node" parent="." unique_id=721464346 node_paths=PackedStringArray("ui_root")]
 script = ExtResource("2_l8k82")
