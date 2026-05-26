@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://brlxx17m66lyn"]
+
+[ext_resource type="Script" uid="uid://b2cumho52d4j" path="res://Scenes/Levels/TreasureRoom/treasure_room.gd" id="1_1j1ur"]
+[ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="1_ve0kg"]
+[ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="2_1j1ur"]
+[ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="3_454xe"]
+[ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="4_lqvct"]
+[ext_resource type="Script" uid="uid://dnriefm5vyac4" path="res://scripts/Components/OutlineHighlighter.gd" id="5_lqvct"]
+[ext_resource type="Texture2D" uid="uid://esx6uyb8exn" path="res://ressources/Sprites/Icons/Map/teasure_icon.png" id="6_454xe"]
+[ext_resource type="Shader" uid="uid://b6liultsai3xq" path="res://Shaders/OutlineShader/canvasGroupOutline.gdshader" id="7_jgsq1"]
+
+[sub_resource type="Animation" id="Animation_5rtnr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Chest:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(320, 180)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Chest:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_jgsq1"]
+resource_name = "reveal_chest"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Chest:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(320, 360), Vector2(320, 180)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Chest:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.01, 0.01), Vector2(4, 4)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"setup_chest"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5rtnr"]
+_data = {
+&"RESET": SubResource("Animation_5rtnr"),
+&"reveal_chest": SubResource("Animation_jgsq1")
+}
+
+[sub_resource type="Gradient" id="Gradient_ygl7r"]
+offsets = PackedFloat32Array(0.4059406, 1)
+colors = PackedColorArray(0.24313726, 0.2901961, 0.14509805, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e6p0m"]
+gradient = SubResource("Gradient_ygl7r")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5rtnr"]
+shader = ExtResource("7_jgsq1")
+shader_parameter/line_colour = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jgsq1"]
+size = Vector2(28, 18)
+
+[node name="TreasureRoom" type="Node2D" unique_id=919284344]
+script = ExtResource("1_1j1ur")
+
+[node name="InventoryReserveManager" type="Node" parent="." unique_id=1682732072]
+script = ExtResource("1_ve0kg")
+
+[node name="InspectionManager" type="Node" parent="." unique_id=44950813]
+script = ExtResource("2_1j1ur")
+
+[node name="TooltipHandler" type="Node" parent="." unique_id=1212481905 node_paths=PackedStringArray("ui_root")]
+script = ExtResource("3_454xe")
+ui_root = NodePath("../UI")
+
+[node name="OutlineComponent" type="Node" parent="." unique_id=952386397 node_paths=PackedStringArray("target")]
+script = ExtResource("5_lqvct")
+target = NodePath("../UI/Chest/CanvasGroup")
+outline_color = Color(1, 1, 1, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=590986174]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_5rtnr")
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=878807332]
+unique_name_in_owner = true
+
+[node name="TextureRect" type="TextureRect" parent="Background" unique_id=25765942]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_e6p0m")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1259844429]
+unique_name_in_owner = true
+
+[node name="GoldDisplay" parent="UI" unique_id=148004886 instance=ExtResource("4_lqvct")]
+
+[node name="Chest" type="Control" parent="UI" unique_id=282808509]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+
+[node name="CanvasGroup" type="CanvasGroup" parent="UI/Chest" unique_id=1508812278]
+texture_filter = 1
+material = SubResource("ShaderMaterial_5rtnr")
+fit_margin = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Chest/CanvasGroup" unique_id=1442482810]
+texture = ExtResource("6_454xe")
+
+[node name="ChestArea2D" type="Area2D" parent="UI/Chest" unique_id=1616954807]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Chest/ChestArea2D" unique_id=1690104041]
+visible = false
+shape = SubResource("RectangleShape2D_jgsq1")
+
+[connection signal="mouse_entered" from="UI/Chest/ChestArea2D" to="." method="_on_chest_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="UI/Chest/ChestArea2D" to="." method="_on_chest_area_2d_mouse_exited"]
