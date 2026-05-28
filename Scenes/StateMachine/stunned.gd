@@ -5,12 +5,12 @@ var closest_target
 var closest_target_vector
 
 func enter(_previous_state_path: String, _data := {}) -> void:
-	owner.spriteModule.play_stun_animation()
-	owner.is_action_locked = true
+	unit.spriteModule.play_stun_animation()
+	unit.is_action_locked = true
 
 func physics_update(_delta: float) -> void:
-	if owner.is_stunned:
+	if unit.is_stunned:
 		return
 	
-	owner.is_action_locked = false
+	unit.is_action_locked = false
 	finished.emit(IDLE)

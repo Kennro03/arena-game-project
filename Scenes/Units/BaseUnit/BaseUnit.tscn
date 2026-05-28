@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/attacking.gd" id="14_4skrk"]
 [ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="15_yrn6x"]
 [ext_resource type="Script" uid="uid://7xbnrxcgcsgo" path="res://Scenes/StateMachine/stunned.gd" id="16_7uoxq"]
+[ext_resource type="Script" uid="uid://b5qqs007n3apo" path="res://Scenes/StateMachine/downded.gd" id="17_3qbi7"]
 [ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="17_504nd"]
 [ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="17_bksgy"]
 [ext_resource type="Script" uid="uid://de3oub0ll741a" path="res://scripts/Components/velocity_based_rotation.gd" id="18_s0wwk"]
@@ -352,7 +353,7 @@ _data = {
 &"walk": SubResource("Animation_k0oh5")
 }
 
-[node name="BaseUnit" type="Node2D" unique_id=1699308279 groups=["Units"]]
+[node name="BaseUnit" type="Node2D" unique_id=1699308279]
 y_sort_enabled = true
 script = ExtResource("1_m87p7")
 stats = SubResource("Resource_et0ph")
@@ -485,6 +486,9 @@ script = ExtResource("15_yrn6x")
 
 [node name="Stunned" type="Node" parent="StateMachine" unique_id=1334006904]
 script = ExtResource("16_7uoxq")
+
+[node name="Downed" type="Node" parent="StateMachine" unique_id=1723357142]
+script = ExtResource("17_3qbi7")
 
 [node name="SkillModule" type="Node" parent="." unique_id=1767487709]
 unique_name_in_owner = true

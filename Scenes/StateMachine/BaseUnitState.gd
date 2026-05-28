@@ -7,10 +7,11 @@ const ATTACKING = "Attacking"
 const DYING = "Dying"
 const CASTING = "Casting"
 const STUNNED = "Stunned"
+const DOWNED = "Downed"
 
-var _BaseUnit: BaseUnit
+var unit: BaseUnit
 
 func _ready() -> void:
 	await owner.ready
-	_BaseUnit = owner as BaseUnit
-	assert(_BaseUnit != null, "The PlayerState state type must be used only in the stickman scene. It needs the owner to be a node2D.")
+	unit = owner as BaseUnit
+	assert(unit != null, "The PlayerState state type must be used only in the unit scene. It needs the owner to be a BaseUnit.")

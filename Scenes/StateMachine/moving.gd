@@ -5,16 +5,16 @@ var closest_target
 var closest_target_vector
 
 func enter(_previous_state_path: String, _data := {}) -> void:
-	owner.animationPlayer.stop()
+	unit.animationPlayer.stop()
 
 func physics_update(_delta: float) -> void:
-	if owner.is_action_locked:
+	if unit.is_action_locked:
 		return
 	if owner.is_stunned:
 		finished.emit(STUNNED)
 	
 	closest_target = owner.get_closest_unit(
-		owner.get_units_in_group("Units"),
+		owner.get_units_in_group("Live_Units"),
 		INF,
 		func(u): return not owner.check_if_ally(u))
 	

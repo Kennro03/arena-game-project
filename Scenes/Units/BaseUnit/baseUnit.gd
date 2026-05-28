@@ -69,7 +69,7 @@ const MAX_BAR_WIDTH : float = 80.0
 const HEALTH_SCALE_REFERENCE : float = 100.0 
 
 func _ready():
-	add_to_group("Units")
+	add_to_group("Live_Units")
 	ensure_weapon()
 	
 	if not Engine.is_editor_hint():
@@ -158,7 +158,7 @@ func set_healthbar_visibility(vis : bool)->void:
 	healthBar.visible = vis
 
 func hide_shieldBar() -> void :
-	shieldBar.visible = false
+	shieldBar.visible = !shieldBar.visible
 
 func _on_anim_finished(_anim_name):
 	is_action_locked = false
