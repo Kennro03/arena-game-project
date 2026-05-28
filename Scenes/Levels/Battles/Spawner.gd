@@ -1,7 +1,7 @@
 extends Node
 class_name BattleSpawner
 
-@export var battle_manager : Node
+@export var battle_manager : BattleManager
 @export var random_spawn_delay : float = 10.0
 
 var player_team : Team = preload("res://ressources/Teams/PlayerTeam.tres")
@@ -130,7 +130,7 @@ func _try_deploy_unit(data: UnitData, world_pos: Vector2) -> void:
 	var deployed_unit := spawn_from_data(world_pos, data)
 	Player.register_deployed_unit(deployed_unit)
 	battle_manager.player_units_alive.append(deployed_unit)
-	deployed_unit.stats.health_depleted.connect(battle_manager._on_player_unit_died.bind(deployed_unit))
+	deployed_unit.stats.health_depleted.connect(battle_manager._on_player_unit_downed.bind(deployed_unit))
 	
 	Events.unit_deployed.emit(data)
 

@@ -3,7 +3,7 @@ class_name BaseUnitState
 
 const IDLE = "Idle"
 const MOVING = "Moving"
-const ATTACKING = "Attacking"
+const ENGAGED = "Engaged"
 const DYING = "Dying"
 const CASTING = "Casting"
 const STUNNED = "Stunned"

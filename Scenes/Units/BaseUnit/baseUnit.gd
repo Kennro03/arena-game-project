@@ -4,6 +4,7 @@ class_name BaseUnit
 signal hit_received(hit_data: HitData)
 signal unit_clicked(unit: BaseUnit)
 signal unit_died(unit: BaseUnit, killer: BaseUnit)
+signal unit_downed(unit: BaseUnit, killer: BaseUnit)
 signal weapon_changed(weapon: Weapon)
 signal armor_changed(armor: Armor)
 signal accessories_changed(accessories: Array[Accessory])
@@ -11,7 +12,7 @@ signal accessories_changed(accessories: Array[Accessory])
 @onready var animationPlayer = %AnimationPlayer
 @onready var healthBar := %HealthBar
 @onready var shieldBar := %ShieldBar
-@onready var spriteModule = $SpriteModule
+@onready var spriteModule : BaseUnitSpriteModule = %SpriteModule
 @onready var statusEffectModule : StatusEffectModule = $StatusEffectModule
 @onready var skillModule : SkillModule = $SkillModule
 @onready var displayModule : DisplayModule = $DisplayModule
@@ -19,6 +20,9 @@ signal accessories_changed(accessories: Array[Accessory])
 @onready var drag_and_drop_component: UnitDragAndDrop = %UnitDragAndDropComponent
 @onready var velocity_based_rotation_component: VelocityBasedRotation = %VelocityBasedRotationComponent
 @onready var outline_highlight_component: OutlineHighlighter = %OutlineHighlightComponent
+@onready var state_machine: BaseUnitStateMachine = $StateMachine
+@onready var hurtbox_collision_shape: CollisionShape2D = %HurtboxCollisionShape
+@onready var selection_area_collision_shape: CollisionShape2D = %SelectionAreaCollisionShape
 
 @export var id: String = "BaseUnit"
 @export var display_name: String = "BaseUnit"
@@ -48,9 +52,16 @@ var summoner : BaseUnit = null      # if unit was summoned, references summoner
 var last_hit_owner: BaseUnit = null # last unit to have hit this unit
 
 # Action related
-var is_action_locked := false
-var is_casting: bool = false
-var is_stunned: bool = false
+var is_action_locked : bool = false
+
+var is_casting: bool:
+	get: return state_machine.is_in_state(BaseUnitState.CASTING)
+var is_stunned: bool:
+	get: return state_machine.is_in_state(BaseUnitState.STUNNED)
+var is_downed: bool:
+	get: return state_machine.is_in_state(BaseUnitState.DOWNED)
+
+
 var last_attack_time:= 0.0
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay:= 1000.0 
@@ -80,6 +91,8 @@ func _ready():
 	
 	animationPlayer.animation_finished.connect(_on_anim_finished)
 	stats.level_changed.connect(particleModule.emit_level_up_particles)
+	
+	spriteModule.update_spritesheet.call_deferred()
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
@@ -109,7 +122,7 @@ func set_display_Module()->void:
 		stats.connect("health_changed",update_healthBar)
 		stats.connect("shield_changed",update_shieldBar)
 		stats.connect("shield_depleted",hide_shieldBar)
-	stats.connect("health_depleted",die)
+	stats.connect("health_depleted",get_downed)
 
 func _on_activated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -305,13 +318,13 @@ func dodge(_hit: HitData):
 
 func resolve_hit(hit_result : HitData) :
 	last_hit_owner = hit_result.hit_owner  
-	if randf_range(0.0,100.0)<=stats.current_dodge_probability and is_casting==false and is_stunned==false :
+	if randf_range(0.0,100.0)<=stats.current_dodge_probability and !state_machine.is_in_state(BaseUnitState.CASTING) and !state_machine.is_in_state(BaseUnitState.STUNNED) :
 		hit_result.outcome = HitData.HitOutcome.DODGE
 		dodge(hit_result)
-	elif randf_range(0.0,100.0)<=stats.current_parry_probability and is_casting==false and is_stunned==false :
+	elif randf_range(0.0,100.0)<=stats.current_parry_probability and !state_machine.is_in_state(BaseUnitState.CASTING) and !state_machine.is_in_state(BaseUnitState.STUNNED) :
 		hit_result.outcome = HitData.HitOutcome.PARRY
 		parry(hit_result)
-	elif randf_range(0.0,100.0)<=stats.current_block_probability and is_casting==false and is_stunned==false :
+	elif randf_range(0.0,100.0)<=stats.current_block_probability and !state_machine.is_in_state(BaseUnitState.CASTING) and !state_machine.is_in_state(BaseUnitState.STUNNED) :
 		hit_result.outcome = HitData.HitOutcome.BLOCK
 		block(hit_result)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
@@ -362,15 +375,31 @@ func apply_data(data: UnitData) -> void:
 	
 	#skillModule.skill_list = data.skill_list
 
-func die() -> void:
-	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
-	unit_died.emit(self, last_hit_owner)
-	
+func apply_stun(duration: float) -> void:
+	state_machine._transition_to_next_state(BaseUnitState.STUNNED, {"duration": duration})
+
+func get_downed() -> void:
 	if is_instance_valid(last_hit_owner):
 		var experience := stats.get_exp_worth()
 		last_hit_owner.stats.experience += experience
 		print("%s Gave %s experience to %s" % [self.display_name,str(experience),last_hit_owner.display_name])
+	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
 	
+	var dir = (last_hit_owner.global_position - self.global_position).normalized()
+	if dir.x < 0.0 : 
+		state_machine._transition_to_next_state(BaseUnitState.DOWNED,{"dir_mult":1})
+	else :
+		state_machine._transition_to_next_state(BaseUnitState.DOWNED,{"dir_mult":-1})
+	
+	unit_downed.emit(self, last_hit_owner)
+
+func die() -> void:
+	if is_instance_valid(last_hit_owner):
+		var experience := stats.get_exp_worth()
+		last_hit_owner.stats.experience += experience
+		print("%s Gave %s experience to %s" % [self.display_name,str(experience),last_hit_owner.display_name])
+	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(),1.25,Color("DARKRED"),0.25)
+	unit_died.emit(self, last_hit_owner)
 	queue_free()
 
 func ensure_weapon() -> void:
@@ -410,7 +439,8 @@ func equip_weapon(_wep : Weapon = null) -> void:
 		weapon.setup_stats()
 		weapon.apply_owner_buffs(stats)
 		
-		$SpriteModule.update_spritesheet.call_deferred()
+		if spriteModule :
+			spriteModule.update_spritesheet.call_deferred()
 		stats.changed.connect(weapon._on_owner_stats_change)
 		weapon.attack_performed.connect(_on_weapon_attack)
 		weapon_changed.emit()

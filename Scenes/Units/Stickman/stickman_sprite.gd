@@ -3,6 +3,8 @@ class_name BaseUnitSpriteModule
 
 var flip : bool = false
 
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+
 @onready var bodySprite : Sprite2D = $BodySprite
 @export var bodyColor : Color = Color("White")
 @export var animation_library_name: String = "Stickman"
@@ -48,70 +50,70 @@ func flipSprite(flipped: bool) -> void:
 
 func play_idle_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if idle_animations.has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
+		animation_player.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = prefix + idle_animations.pick_random()
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		animation_player.play(anim, -1, animationSpeed)
 
 func play_fighting_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if fighting_animations.has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
+		animation_player.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = prefix + fighting_animations.pick_random()
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		animation_player.play(anim, -1, animationSpeed)
 
 func play_walk_animation(animationSpeed : float = 1.0):
 	var anim = prefix + "walk"
 	if animationSpeed != 1.0 :
-		$AnimationPlayer.play(anim, -1, animationSpeed) 
+		animation_player.play(anim, -1, animationSpeed) 
 	else : 
-		$AnimationPlayer.play(anim, -1, randf_range(0.75,1.25))
+		animation_player.play(anim, -1, randf_range(0.75,1.25))
 
 func play_dodge_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if dodge_animations.has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
+		animation_player.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = prefix + dodge_animations.pick_random()
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		animation_player.play(anim, -1, animationSpeed)
 
 func play_stun_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if stun_animations.has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
+		animation_player.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = prefix + stun_animations.pick_random()
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		animation_player.play(anim, -1, animationSpeed)
 
 func play_cast_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if cast_animations.is_empty() :
 		printerr("No cast animation !")
 		return
 	if cast_animations.has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
+		animation_player.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = prefix + cast_animations.pick_random()
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		animation_player.play(anim, -1, animationSpeed)
 
 func play_lightHit_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if attack_animations[Weapon.AttackTypeEnum.LIGHTATTACK].has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
+		animation_player.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = prefix + attack_animations[Weapon.AttackTypeEnum.LIGHTATTACK][light_combo_index]
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		animation_player.play(anim, -1, animationSpeed)
 	light_combo_index = (light_combo_index + 1) % attack_animations[Weapon.AttackTypeEnum.LIGHTATTACK].size()
 
 func play_heavyHit_animation(animationSpeed : float = 1.0, animationName : String = "") -> void : 
 	if attack_animations[Weapon.AttackTypeEnum.HEAVYATTACK].has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
+		animation_player.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = prefix + attack_animations[Weapon.AttackTypeEnum.HEAVYATTACK].pick_random()
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		animation_player.play(anim, -1, animationSpeed)
 
 func play_attack_animation(attack_type: Weapon.AttackTypeEnum, weapon: Weapon) -> void:
 	var attack_name : String = Weapon.AttackTypeEnum.keys()[attack_type].to_lower()
 	var anim : String = prefix + "%s" % [attack_name]
 	#print("Searching animation player for " + str(anim))
-	if $AnimationPlayer.has_animation(anim):
-		$AnimationPlayer.play(anim, -1, weapon.current_attack_speed)
+	if animation_player.has_animation(anim):
+		animation_player.play(anim, -1, weapon.current_attack_speed)
 	else:
 		# fallback to generic
 		match attack_type:
@@ -120,14 +122,17 @@ func play_attack_animation(attack_type: Weapon.AttackTypeEnum, weapon: Weapon) -
 
 func play_block_animation(animationSpeed : float = 1.0, animationName : String = "") -> void:
 	if block_animations.has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
+		animation_player.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = prefix + block_animations.pick_random()
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		animation_player.play(anim, -1, animationSpeed)
 
 func play_parry_animation(animationSpeed : float = 1.0, animationName : String = "") -> void:
 	if parry_animations.has(animationName) :
-		$AnimationPlayer.play(animationName, -1, animationSpeed)
+		animation_player.play(animationName, -1, animationSpeed)
 	else : 
 		var anim = prefix + parry_animations.pick_random()
-		$AnimationPlayer.play(anim, -1, animationSpeed)
+		animation_player.play(anim, -1, animationSpeed)
+
+func play_go_down_animation(animationSpeed : float = randf_range(1.0,1.25)) -> void:
+	animation_player.play("BaseUnit/go_down", -1, animationSpeed)

@@ -13,6 +13,7 @@ const CONFIRMATION_POPUP := preload("res://Scenes/UI/ConfirmationPopup/confirmat
 @onready var menu_button_vbox: VBoxContainer = %MenuButtonVbox
 
 var target
+@onready var battle_state := BattleManager.get_state(self)
 
 func _ready() -> void:
 	if !target : 
@@ -79,13 +80,12 @@ func _unequip_gear(container: GearContainer) -> void:
 		Player.add_item_to_inventory(gear)
 
 func load_unit_inspect_buttons() -> void :
+	
 	#load buttons regarding live units
 	var _unit := target as BaseUnit
 	_add_button("Inspect unit", func():
 		Events.open_unit_info_requested.emit(_unit)
 		)
-	
-	var battle_state := BattleManager.get_state(self)
 	
 	if _unit in Player.deployed_units and battle_state == BattleManager.LevelState.SPAWNING :
 		_add_button("Send unit to reserve", func():
@@ -107,10 +107,9 @@ func load_unit_slot_inspect_buttons() -> void :
 				close()
 			)
 	
-	
-	if _slot._unit_data in Player.team :
+	if _slot._unit_data in Player.team and battle_state == BattleManager.LevelState.SPAWNING :
 		var deployed := Player.get_deployed_unit(_slot._unit_data)
-		if deployed:
+		if deployed :
 			_add_button("Recall Unit", func():
 				if is_instance_valid(_slot) and is_instance_valid(deployed) :
 					Player.recall_unit(deployed)

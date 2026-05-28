@@ -14,6 +14,7 @@ var player_units_alive : Array[BaseUnit]
 
 var _defeated_enemies: Array[EnemyData] = []
 var _defeated_player_unit_data : Array[UnitData] = []
+var unit_bodies : Array[BaseUnit] = [] #add units when they're down, remove them when reviving and free all upon retry 
 
 var _pre_battle_inventory_snapshot: Array[Item] = []
 var _pre_battle_team_snapshot: Array[UnitData] = []
@@ -112,7 +113,7 @@ func _spawn_player_units() -> void:
 			Player.register_deployed_unit(unit)
 			Events.unit_deployed.emit(unit)
 			player_units_alive.append(unit)
-			unit.stats.health_depleted.connect(_on_player_unit_died.bind(unit))
+			unit.unit_downed.connect(_on_player_unit_downed.unbind(1))
 			selection_manager.register_unit(unit)
 
 func _spawn_enemy_units() -> void:
@@ -128,7 +129,7 @@ func _spawn_enemy_units() -> void:
 		var unit := spawner.spawn_from_data(spawner._random_point_in_zone(spawner.enemy_zone), enemy_data.unit_data)
 		if unit:
 			ennemy_units_alive.append(unit)
-			unit.stats.health_depleted.connect(_on_enemy_unit_died.bind(unit))
+			unit.stats.health_depleted.connect(_on_enemy_unit_downed.bind(unit))
 			selection_manager.register_unit(unit)
 
 func _generate_enemy_list() -> Array[EnemyData]:
@@ -192,7 +193,7 @@ func _on_unit_recalled(unit: BaseUnit) -> void:
 		state = LevelState.RESOLVING
 		LostEncounter.emit()
 
-func _on_enemy_unit_died(unit: BaseUnit) -> void:
+func _on_enemy_unit_downed(unit: BaseUnit) -> void:
 	ennemy_units_alive.erase(unit)
 	
 	var enemy_data := _get_enemy_data_for_unit(unit)
@@ -202,13 +203,15 @@ func _on_enemy_unit_died(unit: BaseUnit) -> void:
 		
 	_check_victory_conditions()
 
-func _on_player_unit_died(unit: BaseUnit) -> void:
+func _on_player_unit_downed(unit: BaseUnit) -> void:
 	player_units_alive.erase(unit)
+	unit_bodies.append(unit)  
 	if is_instance_valid(unit.unit_data):
 		_defeated_player_unit_data.append(unit.unit_data)
 	_check_victory_conditions()
 
 func _get_enemy_data_for_unit(unit: BaseUnit) -> EnemyData:
+	unit_bodies.append(unit)
 	for enemy in enemy_units:
 		if enemy.unit_data == unit.unit_data:
 			return enemy
@@ -254,6 +257,12 @@ func spawn_loss_options() -> void:
 		loss_screen.continue_button.tooltip_text = "No units available"
 
 func _on_retry() -> void:
+	# clean up bodies
+	for unit in unit_bodies.duplicate():
+		if is_instance_valid(unit):
+			unit.queue_free()
+	unit_bodies.clear()
+	
 	_defeated_player_unit_data.clear()
 	# restore units to pre-battle state from Player.team UnitData
 	
@@ -285,6 +294,12 @@ func _on_retry() -> void:
 	update_counter_displays()
 
 func _on_continue() -> void:
+	# clean up bodies
+	for unit in unit_bodies.duplicate():
+		if is_instance_valid(unit):
+			unit.queue_free()
+	unit_bodies.clear()
+	
 	# reset player side
 	for unit in player_units_alive.duplicate():
 		if is_instance_valid(unit):

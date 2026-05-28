@@ -1,5 +1,5 @@
 extends BaseUnitState
-class_name BaseUnitAttacking
+class_name BaseUnitEngaged
 
 var closest_target
 var closest_target_vector
@@ -28,10 +28,11 @@ func physics_update(_delta: float) -> void:
 		else : 
 			unit.spriteModule.flipSprite(true)
 	
-	%SkillModule.check_skill_timepassed += _delta
-	if %SkillModule.check_skill_timepassed >= %SkillModule.skill_check_delay : 
-		if %SkillModule.check_any_usable_skill() : 
-			finished.emit(CASTING)
+	##Change 
+	#%SkillModule.check_skill_timepassed += _delta
+	#if %SkillModule.check_skill_timepassed >= %SkillModule.skill_check_delay : 
+	#	if %SkillModule.check_any_usable_skill() : 
+	#		finished.emit(CASTING)
 	
 	if closest_target !=null and unit.can_hit() :
 		unit.attack(closest_target)

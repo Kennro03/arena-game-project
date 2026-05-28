@@ -2,8 +2,8 @@ extends Control
 class_name UnitInfoPanel
 
 var stickman_scene := preload("res://Scenes/Units/Stickman/stickman.tscn")
-var placeholderLiveTarget : BaseUnit = stickman_scene.instantiate()
-var placeholderDataTarget : UnitData = stickmanUnitData.new()
+#var placeholderLiveTarget : BaseUnit = stickman_scene.instantiate()
+#var placeholderDataTarget : UnitData = stickmanUnitData.new()
 
 var unit 
 

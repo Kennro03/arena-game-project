@@ -7,6 +7,11 @@ class_name BaseUnitStateMachine
 	return initial_state if initial_state != null else get_child(0)
 ).call()
 
+func is_in_state(state_name: String) -> bool:
+	return state.name == state_name
+
+func current_state_name() -> String:
+	return state.name
 
 func _ready() -> void:
 	for state_node: State in find_children("*", "State"):
@@ -45,8 +50,6 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 	state.exit()
 	state = get_node(target_state_path)
 	state.enter(previous_state_path, data)
-
-
 
 func border_knockback() -> void:
 	if owner.position.x > 640.0 :
