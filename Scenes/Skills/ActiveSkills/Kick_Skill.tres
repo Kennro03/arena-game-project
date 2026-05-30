@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://ressources/SkillEffects/KnockBackEffect.gd" id="2_u4aa2"]
 [ext_resource type="Script" uid="uid://brjpxngoaa6b2" path="res://ressources/SkillEffects/ComponentResources/EndEffect.gd" id="4_01q5o"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="4_p7d8n"]
-[ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://ressources/SkillEffects/HitboxEffect.gd" id="5_bk6lv"]
 [ext_resource type="Script" uid="uid://dkn2lovp6jbtr" path="res://ressources/SkillEffects/ComponentResources/TargetingEffect.gd" id="7_bk6lv"]
 
 [sub_resource type="Resource" id="Resource_y0a5o"]
@@ -20,25 +19,12 @@ metadata/_custom_type_script = "uid://brkhtuervrtmr"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fqelj"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3ddgs"]
-radius = 50.0
-height = 200.0
-
-[sub_resource type="Resource" id="Resource_271sb"]
-script = ExtResource("5_bk6lv")
-shape = SubResource("CapsuleShape2D_3ddgs")
-duration = 1.25
-caster_offset = Vector2(50, 0)
-rot_offset = 90.0
-metadata/_custom_type_script = "uid://cvoepl25p34qi"
-
 [resource]
 script = ExtResource("4_p7d8n")
 cooldown = 6.0
 duration = 0.25
 cast_time = 0.75
 activation_range = 175.0
-spawn_effects = Array[ExtResource("1_qn50m")]([SubResource("Resource_271sb")])
 apply_effects = Array[ExtResource("1_bk6lv")]([SubResource("Resource_y0a5o"), SubResource("Resource_fjsk6")])
 icon = SubResource("PlaceholderTexture2D_fqelj")
 skill_name = "KICK"

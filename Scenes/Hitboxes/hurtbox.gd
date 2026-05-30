@@ -1,14 +1,6 @@
 extends Area2D
 class_name Hurtbox
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
 func body_knockback() -> void:
 	for targetarea in %Hurtbox.get_overlapping_areas_in_area("Hurtbox") : 
 		owner.apply_knockback(targetarea.owner, targetarea.owner.position - owner.position , 10.0)

@@ -29,6 +29,10 @@ static var buffable_stat_icons : Dictionary = {
 @export var base_damage: float = 5.0
 @export var base_knockback : float = 50.0
 
+@export_group("Hitboxes")
+@export var light_hitbox: HitboxData = null
+@export var heavy_hitbox: HitboxData = null
+
 @export_subgroup("Passives")
 @export var statChanges : Array[StatBuff] = []
 @export var onHitPassives : Array[OnHitPassive] = []
@@ -168,7 +172,9 @@ func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTA
 func lightHit(target:Node2D, _hit: HitData)-> void:
 	#print(weaponName + " used light hit")
 	#On hit passive and hediff effects are applied here
-	if target.has_method("resolve_hit") :
+	if light_hitbox != null:
+		_spawn_hitbox(light_hitbox, target.global_position, _hit)
+	elif target.has_method("resolve_hit") :
 		target.resolve_hit(_hit)
 	attack_performed.emit(AttackTypeEnum.LIGHTATTACK, light_endlag)
 
@@ -178,7 +184,9 @@ func heavyHit(target:Node2D, _hit: HitData)-> void:
 	#print(weaponName + " used heavy hit")
 	#On hit passive and hediff effects are applied here
 	
-	if target.has_method("resolve_hit") :
+	if heavy_hitbox != null:
+		_spawn_hitbox(heavy_hitbox, target.global_position, _hit, 1.25)
+	elif target.has_method("resolve_hit") :
 		target.resolve_hit(_hit)
 	attack_performed.emit(AttackTypeEnum.HEAVYATTACK, heavy_endlag)
 
@@ -201,3 +209,16 @@ func hit(target:Node2D, _hit: HitData)-> void:
 			lightHit(target, _hit)
 		AttackTypeEnum.HEAVYATTACK:
 			heavyHit(target, _hit)
+
+func _spawn_hitbox(hitbox_data: HitboxData, target_position: Vector2, hit: HitData, _size_mult:float = 1.0) -> void:
+	if hitbox_data == null:
+		printerr("No hitbox data on %s's %s, not spawning hitbox" % [hit.hit_owner.display_name ,item_name])
+		return
+	var temp_hitbox_data : HitboxData = hitbox_data.duplicate(true) # create a temporary duplicate as to not modify original resource's size
+	var hitbox := Hitbox.new()
+	
+	temp_hitbox_data.size *= _size_mult    #allows increased hitbox sizing
+	owner.get_tree().root.add_child(hitbox)  # add to scene, not to unit
+	hitbox.global_position = target_position #place hitbox on target_position
+	hitbox.rotation = target_position.angle_to_point(hit.hit_owner.global_position) #rotate hitbox towards target_position
+	hitbox.setup(temp_hitbox_data, hit)

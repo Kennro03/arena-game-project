@@ -1,4 +1,5 @@
 extends Area2D
+
 signal hitbox_started(target_list: Array[Node2D])
 signal hitbox_finished(target_list: Array[Node2D])
 
