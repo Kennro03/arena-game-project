@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponHitboxesData" format=3 uid="uid://trn0yp1d2gk0"]
+
+[ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="1_an4do"]
+[ext_resource type="Script" uid="uid://c68gytfyhk6p7" path="res://scripts/Hitboxes/WeaponHitboxesData.gd" id="2_qes1j"]
+
+[sub_resource type="Resource" id="Resource_rhpu1"]
+script = ExtResource("1_an4do")
+metadata/_custom_type_script = "uid://bd4xcgg65elbj"
+
+[sub_resource type="Resource" id="Resource_cstjh"]
+script = ExtResource("1_an4do")
+metadata/_custom_type_script = "uid://bd4xcgg65elbj"
+
+[resource]
+script = ExtResource("2_qes1j")
+light_hitbox = SubResource("Resource_cstjh")
+heavy_hitbox = SubResource("Resource_rhpu1")
+metadata/_custom_type_script = "uid://c68gytfyhk6p7"

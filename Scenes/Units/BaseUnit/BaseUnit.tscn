@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="11_wug4w"]
 [ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="12_iql0a"]
 [ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="13_03u68"]
-[ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/engaged.gd" id="14_4skrk"]
+[ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/engaged.gd" id="14_3qbi7"]
 [ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="15_yrn6x"]
 [ext_resource type="Script" uid="uid://7xbnrxcgcsgo" path="res://Scenes/StateMachine/stunned.gd" id="16_7uoxq"]
 [ext_resource type="Script" uid="uid://b5qqs007n3apo" path="res://Scenes/StateMachine/downded.gd" id="17_3qbi7"]
@@ -642,7 +642,7 @@ script = ExtResource("12_iql0a")
 script = ExtResource("13_03u68")
 
 [node name="Engaged" type="Node" parent="StateMachine" unique_id=1238465535]
-script = ExtResource("14_4skrk")
+script = ExtResource("14_3qbi7")
 
 [node name="Casting" type="Node" parent="StateMachine" unique_id=1634345919]
 script = ExtResource("15_yrn6x")

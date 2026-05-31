@@ -41,6 +41,7 @@ signal accessories_changed(accessories: Array[Accessory])
 @export_group("Interactions")
 @export var team: Team
 @export var stats : Stats = Stats.new()
+@export var unit_size: float = 32.0  
 @export var weapon : Weapon = null
 @export var default_weapon : Weapon = null
 @export var armor : Armor = null

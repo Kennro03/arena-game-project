@@ -134,11 +134,11 @@ func get_debug_item_list() -> Array[Item] :
 
 func get_weapon_list() -> Array[Weapon] :
 	var _weps : Array[Weapon] = []
-	var dagger := preload("uid://dal5rgfowl103")
-	var sword := preload("uid://cpnr5mpvtakmp")
-	var hammer := preload("uid://cseh3bpxs7l8k")
-	var uncommonsword := preload("uid://dlhcap3ipacyj")
-	var rarehammer := preload("uid://2gvcwm08oqgb")
+	#var dagger := preload("uid://dal5rgfowl103")
+	#var sword := preload("uid://cpnr5mpvtakmp")
+	#var hammer := preload("uid://cseh3bpxs7l8k")
+	#var uncommonsword := preload("uid://dlhcap3ipacyj")
+	#var rarehammer := preload("uid://dbi7hcyvjnqnd")
 	_weps.assign(Player.pending_shop_pool.filter(func(item): return item is Weapon))
 	return _weps
 

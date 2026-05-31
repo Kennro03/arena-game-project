@@ -1,6 +1,8 @@
 extends Area2D
 class_name Hitbox
 
+signal target_hit(target: BaseUnit)
+
 var hit_data: HitData = null
 var hitbox_data: HitboxData = null
 var already_hit: Array[Node] = []  # prevent multi-hit in same swing
@@ -51,13 +53,11 @@ func _physics_process(delta: float) -> void:
 		_check_overlaps()
 
 func _check_overlaps() -> void:
-	#print("found bodies in hitbox :")
 	for body in get_overlapping_areas():
 		if body.is_in_group("Hurtbox") :
-			#print(str(body))
-			_try_applying_hit(body.get_parent())  
+			_pass_checks(body.get_parent())  
 
-func _try_applying_hit(body: Node) -> void:
+func _pass_checks(body: BaseUnit) -> void:
 	# multi hit check
 	if not hitbox_data.multi_hit and already_hit.has(body):
 		return
@@ -72,5 +72,7 @@ func _try_applying_hit(body: Node) -> void:
 		var owner_unit := hit_data.hit_owner as BaseUnit
 		if owner_unit and owner_unit.check_if_ally(body):
 			return
+	
 	already_hit.append(body)
-	body.resolve_hit(hit_data) 
+	# emit that the target was hit
+	target_hit.emit(body)

@@ -50,7 +50,7 @@ static var pending_shop_pool : Array[Item] = []
 static var pending_event : EventResource = null
 
 @onready var testing_knife : Weapon = preload("uid://dal5rgfowl103")
-@onready var hitbox_test_hammer : Weapon = preload("uid://2gvcwm08oqgb")
+@onready var hitbox_test_hammer : Weapon = preload("uid://dbi7hcyvjnqnd")
 @onready var testing_pablo : UnitData = preload("uid://ps2wy7q88f5b")
 
 func _ready() -> void:
