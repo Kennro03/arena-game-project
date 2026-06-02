@@ -108,7 +108,6 @@ offset_left = 4.0
 offset_top = 4.0
 offset_right = 44.0
 offset_bottom = 112.0
-scale = Vector2(0.5, 0.5)
 
 [node name="GoldDisplay" parent="UI/VBoxContainer" unique_id=148004886 instance=ExtResource("21_qpo3t")]
 layout_mode = 2
