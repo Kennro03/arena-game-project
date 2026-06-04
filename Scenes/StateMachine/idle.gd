@@ -14,7 +14,7 @@ func physics_update(_delta: float) -> void:
 		finished.emit(STUNNED)
 	
 	if !unit.animationPlayer.is_playing():
-		unit.spriteModule.play_idle_animation()
+		unit.spriteModule.play_idle()
 	
 	closest_target = unit.get_closest_unit(
 		unit.get_units_in_group("Live_Units"),

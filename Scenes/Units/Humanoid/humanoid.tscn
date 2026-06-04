@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://c80f4r7pcco1q"]
+
+[ext_resource type="PackedScene" uid="uid://c8qwxekpq23e3" path="res://Scenes/Units/BaseUnit/BaseUnit.tscn" id="1_fpian"]
+[ext_resource type="Script" uid="uid://bkvp5ngp40teo" path="res://Scenes/Units/Humanoid/humanoid.gd" id="2_ikepi"]
+[ext_resource type="Texture2D" uid="uid://ccpr8mltdglbp" path="res://ressources/Sprites/Units/Stickman/Stickman White Tpose.png" id="3_ab6u1"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_j80jb"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="5_ewtqf"]
+[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="6_u2vjm"]
+[ext_resource type="Script" uid="uid://dchw8cs1125p4" path="res://Scenes/Units/Humanoid/HumanoidSpriteModule.gd" id="7_f1wxc"]
+[ext_resource type="AnimationLibrary" uid="uid://oymicds2otf5" path="res://ressources/Sprites/Units/Stickman/StickmanAnimations.res" id="8_ujn1s"]
+[ext_resource type="Texture2D" uid="uid://b0ml1rxdxq1sw" path="res://ressources/Sprites/Units/Humanoid/base_head.png" id="9_4lymv"]
+[ext_resource type="Texture2D" uid="uid://df1vkik70sug3" path="res://ressources/Sprites/Units/Humanoid/base_body.png" id="10_33p63"]
+[ext_resource type="Texture2D" uid="uid://dt2kt5ou425fd" path="res://ressources/Sprites/Units/Humanoid/base_arms.png" id="11_vqvr8"]
+[ext_resource type="Texture2D" uid="uid://c10gb6ph26us4" path="res://ressources/Sprites/Units/Humanoid/base_legs.png" id="12_0sb7k"]
+
+[sub_resource type="Resource" id="Resource_4lymv"]
+resource_local_to_scene = true
+script = ExtResource("5_ewtqf")
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p13pb"]
+size = Vector2(20, 40)
+
+[node name="Humanoid" unique_id=1699308279 instance=ExtResource("1_fpian")]
+position = Vector2(50, 50)
+script = ExtResource("2_ikepi")
+id = "Stickman"
+display_name = "Stickman"
+unit_type = "Stickman"
+description = "A regular stickman."
+icon = ExtResource("3_ab6u1")
+stats = SubResource("Resource_4lymv")
+default_weapon = ExtResource("6_u2vjm")
+
+[node name="SelectionAreaCollisionShape" parent="SelectionArea" parent_id_path=PackedInt32Array(533222703) index="0" unique_id=357291790]
+shape = SubResource("RectangleShape2D_p13pb")
+
+[node name="DisplayModule" parent="." index="2" unique_id=634217768]
+visible = false
+
+[node name="SpriteModule" parent="." index="3" unique_id=108877224]
+scale = Vector2(1, 1)
+script = ExtResource("7_f1wxc")
+head_texture = ExtResource("9_4lymv")
+eyes_texture = ExtResource("9_4lymv")
+torso_texture = ExtResource("10_33p63")
+hands_texture = ExtResource("11_vqvr8")
+feet_texture = ExtResource("12_0sb7k")
+
+[node name="AnimationPlayer" parent="SpriteModule" index="0" unique_id=370336773]
+libraries/Stickman = ExtResource("8_ujn1s")
+
+[node name="Head" type="Node2D" parent="SpriteModule" index="1" unique_id=1060278831]
+position = Vector2(0, -0.50871646)
+
+[node name="Skull" type="Sprite2D" parent="SpriteModule/Head" index="0" unique_id=334875894]
+texture = ExtResource("9_4lymv")
+vframes = 2
+
+[node name="Eyes" type="Sprite2D" parent="SpriteModule/Head" index="1" unique_id=1272625868]
+texture = ExtResource("9_4lymv")
+vframes = 2
+frame = 1
+
+[node name="Body" type="Node2D" parent="SpriteModule" index="2" unique_id=2120399850]
+position = Vector2(0, -0.4648707)
+
+[node name="Torso" type="Sprite2D" parent="SpriteModule/Body" index="0" unique_id=1527797525]
+texture = ExtResource("10_33p63")
+
+[node name="HandRight" type="Sprite2D" parent="SpriteModule" index="3" unique_id=129757188]
+position = Vector2(0, -0.38153732)
+texture = ExtResource("11_vqvr8")
+vframes = 2
+frame = 1
+
+[node name="HandLeft" type="Sprite2D" parent="SpriteModule" index="4" unique_id=1143512986]
+position = Vector2(0, -0.38153732)
+texture = ExtResource("11_vqvr8")
+vframes = 2
+
+[node name="LegRight" type="Sprite2D" parent="SpriteModule" index="5" unique_id=873604932]
+texture = ExtResource("12_0sb7k")
+vframes = 2
+frame = 1
+
+[node name="LegLeft" type="Sprite2D" parent="SpriteModule" index="6" unique_id=669196476]
+texture = ExtResource("12_0sb7k")
+vframes = 2

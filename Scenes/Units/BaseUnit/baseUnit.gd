@@ -12,7 +12,7 @@ signal accessories_changed(accessories: Array[Accessory])
 @onready var animationPlayer = %AnimationPlayer
 @onready var healthBar := %HealthBar
 @onready var shieldBar := %ShieldBar
-@onready var spriteModule : BaseUnitSpriteModule = %SpriteModule
+@onready var spriteModule : SpriteModule = %SpriteModule
 @onready var statusEffectModule : StatusEffectModule = $StatusEffectModule
 @onready var skillModule : SkillModule = $SkillModule
 @onready var displayModule : DisplayModule = $DisplayModule

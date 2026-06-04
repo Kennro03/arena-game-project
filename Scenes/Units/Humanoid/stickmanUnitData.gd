@@ -2,7 +2,7 @@ extends UnitData
 class_name stickmanUnitData
 
 func _init() -> void:
-	unit_scene = preload("res://Scenes/Units/Stickman/stickman.tscn")
+	unit_scene = preload("res://Scenes/Units/Humanoid/humanoid.tscn")
 	id = UIDGenerator.generate("Stickman")
 	display_name = name_registry.get_random_name("stickman")
 	unit_type = "Stickman"

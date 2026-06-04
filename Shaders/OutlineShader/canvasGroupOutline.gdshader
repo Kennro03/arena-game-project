@@ -1,3 +1,4 @@
+
 shader_type canvas_item;
 
 uniform vec3 line_colour: source_color = vec3(1.0);
