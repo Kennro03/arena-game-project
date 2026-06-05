@@ -34,6 +34,14 @@ func update_sprites() -> void: # called when sprites/armor/weapon change
 	leg_left.texture = feet_texture
 	#weapon.texture = weapon_texture or something
 
+func cycle_animations() -> void :
+	#for debug purposes, get all of a unit's animations, plays them twice
+	var animations_list := animation_player.get_animation_list()
+	for anim in animations_list :
+		animation_player.play(anim)
+		await get_tree().create_timer(0.5).timeout
+		animation_player.play(anim)
+
 func play_idle() -> void: 
 	animation_player.play("Stickman/idle", -1, randf_range(0.5,1.10))
 

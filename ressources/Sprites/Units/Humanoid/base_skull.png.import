@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0ml1rxdxq1sw"
-path="res://.godot/imported/base_head.png-ea225564f7a9a350cddb427032e53e18.ctex"
+uid="uid://bukfb4qicnqfg"
+path="res://.godot/imported/base_skull.png-cd88c8e92aabe99b0d39764c86dd2e9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/Sprites/Units/Humanoid/base_head.png"
-dest_files=["res://.godot/imported/base_head.png-ea225564f7a9a350cddb427032e53e18.ctex"]
+source_file="res://ressources/Sprites/Units/Humanoid/base_skull.png"
+dest_files=["res://.godot/imported/base_skull.png-cd88c8e92aabe99b0d39764c86dd2e9e.ctex"]
 
 [params]
 

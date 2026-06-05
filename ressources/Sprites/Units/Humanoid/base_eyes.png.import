@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx70orlwfjwdf"
-path="res://.godot/imported/blorp_feet.png-ca0eac30a8bb184ce852cd3c7765e861.ctex"
+uid="uid://bgwrw0cxq3e4y"
+path="res://.godot/imported/base_eyes.png-3a219550068a2636e572888341400e1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/Sprites/Units/Blorp/blorp_feet.png"
-dest_files=["res://.godot/imported/blorp_feet.png-ca0eac30a8bb184ce852cd3c7765e861.ctex"]
+source_file="res://ressources/Sprites/Units/Humanoid/base_eyes.png"
+dest_files=["res://.godot/imported/base_eyes.png-3a219550068a2636e572888341400e1d.ctex"]
 
 [params]
 

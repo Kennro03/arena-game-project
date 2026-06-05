@@ -4,8 +4,8 @@ class_name OutlineHighlighter
 @export var target : CanvasGroup 
 @export var outline_color: Color
 @export var default_outline_color: Color
-@export_range(1,10) var outline_thickness: int
-@export_range(1,10) var default_outline_thickness: int
+@export_range(0,10) var outline_thickness: int
+@export_range(0,10) var default_outline_thickness: int
 
 func _ready() -> void:
 	target.material = target.material.duplicate()  

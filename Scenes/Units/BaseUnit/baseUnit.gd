@@ -93,7 +93,7 @@ func _ready():
 	animationPlayer.animation_finished.connect(_on_anim_finished)
 	stats.level_changed.connect(particleModule.emit_level_up_particles)
 	
-	spriteModule.update_spritesheet.call_deferred()
+	spriteModule.update_sprites.call_deferred()
 	#stats.print_attributes.call_deferred()
 	#stats.print_stats.call_deferred()
 
@@ -441,7 +441,7 @@ func equip_weapon(_wep : Weapon = null) -> void:
 		weapon.apply_owner_buffs(stats)
 		
 		if spriteModule :
-			spriteModule.update_spritesheet.call_deferred()
+			spriteModule.update_sprites.call_deferred()
 		stats.changed.connect(weapon._on_owner_stats_change)
 		weapon.attack_performed.connect(_on_weapon_attack)
 		weapon_changed.emit()
