@@ -5,7 +5,7 @@ var closest_target
 var closest_target_vector
 
 func enter(_previous_state_path: String, _data := {}) -> void:
-	unit.spriteModule.play_fighting_animation()
+	unit.spriteModule.play_idle() #create 'engaged' idle animation/pose
 
 func physics_update(_delta: float) -> void:
 	if unit.is_action_locked:
@@ -14,7 +14,7 @@ func physics_update(_delta: float) -> void:
 		finished.emit(STUNNED)
 	
 	if !unit.animationPlayer.is_playing():
-		unit.spriteModule.play_fighting_animation()
+		unit.spriteModule.play_idle()  #create 'engaged' idle animation/pose
 	
 	closest_target = unit.get_closest_unit(
 		unit.get_units_in_group("Live_Units"),

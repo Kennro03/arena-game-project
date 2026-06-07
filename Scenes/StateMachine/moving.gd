@@ -28,7 +28,7 @@ func physics_update(_delta: float) -> void:
 		finished.emit(IDLE)
 	
 	if !unit.animationPlayer.is_playing():
-		unit.spriteModule.play_walk_animation()
+		unit.spriteModule.play_move()
 	
 	#%SkillModule.check_skill_timepassed += _delta
 	#if %SkillModule.check_skill_timepassed >= %SkillModule.skill_check_delay : 

@@ -30,9 +30,10 @@ Inspector="*uid://b2fejma8b0re1"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [file_customization]
 
@@ -68,6 +69,13 @@ PlayerSpawnZone="Zones where the player can spawn and drag and drop units during
 NeutralSpawnZone=""
 EnemySpawnZone=""
 BattleManager=""
+
+[gui]
+
+theme/default_font_antialiasing=0
+theme/default_font_hinting=0
+theme/default_font_subpixel_positioning=0
+theme/custom_font="uid://dn68knm25w0cg"
 
 [input]
 

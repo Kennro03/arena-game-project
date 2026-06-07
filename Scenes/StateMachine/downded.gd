@@ -1,9 +1,8 @@
 extends BaseUnitState
 class_name BaseUnitDownded
 
-
 func enter(_previous_state_path: String, _data := {}) -> void:
-	owner.spriteModule.play_go_down_animation()
+	owner.spriteModule.play_death()
 	unit.is_action_locked = true
 	unit.remove_from_group("Live_Units")
 	unit.add_to_group("Downed_Units")

@@ -9,6 +9,8 @@ const CASTING = "Casting"
 const STUNNED = "Stunned"
 const DOWNED = "Downed"
 
+const CYCLING_ANIMATIONS = "Cycling_animations"
+
 var unit: BaseUnit
 
 func _ready() -> void:

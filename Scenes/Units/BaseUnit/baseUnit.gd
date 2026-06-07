@@ -299,7 +299,7 @@ func take_damage(incoming_damage, _hit_owner: BaseUnit = null) :
 		%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
 func block(_hit: HitData):
-	spriteModule.play_block_animation()
+	spriteModule.play_block()
 	var flat_blocked_damage = maxf((_hit.base_damage-stats.current_flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
@@ -308,13 +308,13 @@ func block(_hit: HitData):
 		particleModule.emit_block_particles()
 
 func parry(_hit: HitData):
-	spriteModule.play_parry_animation()
+	spriteModule.play_parry()
 	particleModule.DamagePopupMarker.damage_popup("Parry!", 1.0,Color("Gold"))
 	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
 		particleModule.emit_parry_particles()
 
 func dodge(_hit: HitData):
-	spriteModule.play_dodge_animation()
+	spriteModule.play_dodge()
 	apply_knockback(self, Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0)), 250.0)
 
 func resolve_hit(hit_result : HitData) :
@@ -498,7 +498,7 @@ func get_accessory_at(index: int) -> Accessory:
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
 	#print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
-	spriteModule.play_attack_animation(attack_type,weapon)
+	spriteModule.play_attack(attack_type,weapon)
 	is_action_locked = true
 
 func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome) -> bool:

@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://b6liultsai3xq" path="res://Shaders/OutlineShader/canvasGroupOutline.gdshader" id="6_4yvry"]
 [ext_resource type="Script" uid="uid://cmd6etkryt0xs" path="res://Scenes/Units/BaseUnit/display_module.gd" id="6_bksgy"]
 [ext_resource type="Script" uid="uid://c4u4muj386hqj" path="res://Scenes/Units/Humanoid/SpriteModule.gd" id="6_fot73"]
+[ext_resource type="FontFile" uid="uid://dn68knm25w0cg" path="res://Fonts/fs-pixel-sans-unicode-regular.ttf" id="6_mhbyd"]
 [ext_resource type="Script" uid="uid://5r2u3nk0unia" path="res://Scenes/Units/BaseUnit/particle_module.gd" id="8_8w8nr"]
 [ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="9_ilac3"]
 [ext_resource type="Script" uid="uid://cti6dobwwux2e" path="res://scripts/Status_Effects/StatusEffectModule.gd" id="10_omahv"]
@@ -19,6 +20,7 @@
 [ext_resource type="Script" uid="uid://b5qqs007n3apo" path="res://Scenes/StateMachine/downded.gd" id="17_3qbi7"]
 [ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="17_504nd"]
 [ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="17_bksgy"]
+[ext_resource type="Script" uid="uid://d1q28n8pmp1d4" path="res://Scenes/Units/BaseUnit/cycling_anims.gd" id="18_6di0t"]
 [ext_resource type="Script" uid="uid://de3oub0ll741a" path="res://scripts/Components/velocity_based_rotation.gd" id="18_s0wwk"]
 [ext_resource type="Script" uid="uid://dnriefm5vyac4" path="res://scripts/Components/OutlineHighlighter.gd" id="21_3qbi7"]
 
@@ -139,9 +141,6 @@ _data = {
 &"RESET": SubResource("Animation_3qbi7")
 }
 
-[sub_resource type="Animation" id="Animation_ykvpi"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_mhbyd"]
 resource_name = "go_down"
 length = 1.5
@@ -209,7 +208,6 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_76fq2"]
 _data = {
-&"RESET": SubResource("Animation_ykvpi"),
 &"go_down": SubResource("Animation_mhbyd")
 }
 
@@ -294,7 +292,10 @@ offset_top = 4.0
 offset_right = 50.0
 offset_bottom = 18.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 6
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(50, 0)
+theme_override_fonts/font = ExtResource("6_mhbyd")
+theme_override_font_sizes/font_size = 16
 text = "Display_name"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -346,6 +347,9 @@ script = ExtResource("16_7uoxq")
 
 [node name="Downed" type="Node" parent="StateMachine" unique_id=1723357142]
 script = ExtResource("17_3qbi7")
+
+[node name="Cycling_anims" type="Node" parent="StateMachine" unique_id=564892327]
+script = ExtResource("18_6di0t")
 
 [node name="SkillModule" type="Node" parent="." unique_id=1767487709]
 unique_name_in_owner = true

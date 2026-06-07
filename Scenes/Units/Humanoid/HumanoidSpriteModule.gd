@@ -25,6 +25,7 @@ func _ready() -> void:
 	update_sprites()
 
 func update_sprites() -> void: # called when sprites/armor/weapon change
+	var unit := owner as Humanoid
 	skull.texture = head_texture
 	eyes.texture = eyes_texture
 	torso.texture = torso_texture
@@ -33,34 +34,51 @@ func update_sprites() -> void: # called when sprites/armor/weapon change
 	leg_right.texture = feet_texture
 	leg_left.texture = feet_texture
 	#weapon.texture = weapon_texture or something
-
-func cycle_animations() -> void :
-	#for debug purposes, get all of a unit's animations, plays them twice
-	var animations_list := animation_player.get_animation_list()
-	for anim in animations_list :
-		animation_player.play(anim)
-		await get_tree().create_timer(0.5).timeout
-		animation_player.play(anim)
+	head.modulate = unit.sprite_color
+	body.modulate = unit.sprite_color
+	hand_right.modulate = unit.sprite_color
+	hand_left.modulate = unit.sprite_color
+	leg_right.modulate = unit.sprite_color
+	leg_left.modulate = unit.sprite_color
+	
 
 func play_idle() -> void: 
 	animation_player.play("Stickman/idle", -1, randf_range(0.5,1.10))
 
-func play_move(_direction: Vector2) -> void: 
-	animation_player.play("walk")
-	if _direction.x != 0:
-		scale.x = sign(_direction.x) # flip based on direction
+func play_move() -> void: 
+	var unit := owner as Humanoid
+	if unit.stats.current_movement_speed >= 30.0 :
+		animation_player.play("Stickman/run",-1,2.0)
+	else : 
+		animation_player.play("Stickman/walk")
 
-func play_attack(_attack_type: Weapon.AttackTypeEnum, _weapon: Weapon) -> void: pass
+func play_attack(_attack_type: Weapon.AttackTypeEnum, _weapon: Weapon) -> void: 
+	match _weapon.weaponType :
+		Weapon.WeaponTypeEnum.UNARMED :
+			if _attack_type == Weapon.AttackTypeEnum.LIGHTATTACK :
+				animation_player.play("Stickman/unarmed_lightattack_1")
+			elif _attack_type == Weapon.AttackTypeEnum.HEAVYATTACK :
+				animation_player.play("Stickman/unarmed_heavyattack_1")
+		_:
+			if _attack_type == Weapon.AttackTypeEnum.LIGHTATTACK :
+				animation_player.play("Stickman/unarmed_lightattack_1")
+			elif _attack_type == Weapon.AttackTypeEnum.HEAVYATTACK :
+				animation_player.play("Stickman/unarmed_heavyattack_1")
 
-func play_hurt() -> void: pass
+func play_hurt() -> void:
+	animation_player.play("Stickman/hurt")
 
-func play_death() -> void: pass
+func play_death() -> void: 
+	animation_player.play("BaseUnit/go_down")
 
-func play_block() -> void: pass
+func play_block() -> void: 
+	animation_player.play("Stickman/block")
 
-func play_parry() -> void: pass
+func play_parry() -> void: 
+	animation_player.play("Stickman/parry")
 
-func play_dodge() -> void: pass
+func play_dodge() -> void:
+	animation_player.play("Stickman/dodge_1")
 
 func play_instant_cast() -> void: pass 
 

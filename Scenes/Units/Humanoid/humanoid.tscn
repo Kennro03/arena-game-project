@@ -59,7 +59,6 @@ shader_parameter/line_colour = Color(0, 0, 0, 1)
 shader_parameter/line_thickness = 0
 
 [node name="Humanoid" unique_id=1699308279 instance=ExtResource("1_fpian")]
-position = Vector2(50, 50)
 script = ExtResource("2_ikepi")
 id = "Stickman"
 display_name = "Stickman"
@@ -74,9 +73,6 @@ visible = true
 
 [node name="SelectionAreaCollisionShape" parent="SelectionArea" parent_id_path=PackedInt32Array(533222703) index="0" unique_id=357291790]
 shape = SubResource("RectangleShape2D_p13pb")
-
-[node name="DisplayModule" parent="." index="2" unique_id=634217768]
-visible = false
 
 [node name="SpriteModule" parent="." index="3" unique_id=108877224]
 material = SubResource("ShaderMaterial_vqvr8")
@@ -103,7 +99,14 @@ position = Vector2(0, -16)
 texture = ExtResource("12_0sb7k")
 vframes = 2
 
-[node name="Head" type="Node2D" parent="SpriteModule" index="3" unique_id=1060278831]
+[node name="Body" type="Node2D" parent="SpriteModule" index="3" unique_id=2120399850]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(0, -16)
+
+[node name="Torso" type="Sprite2D" parent="SpriteModule/Body" index="0" unique_id=1527797525]
+texture = ExtResource("10_33p63")
+
+[node name="Head" type="Node2D" parent="SpriteModule" index="4" unique_id=1060278831]
 modulate = Color(1, 1, 0, 1)
 position = Vector2(0, -16)
 
@@ -112,13 +115,6 @@ texture = ExtResource("12_33p63")
 
 [node name="Eyes" type="Sprite2D" parent="SpriteModule/Head" index="1" unique_id=1272625868]
 texture = ExtResource("13_vqvr8")
-
-[node name="Body" type="Node2D" parent="SpriteModule" index="4" unique_id=2120399850]
-modulate = Color(0, 1, 0, 1)
-position = Vector2(0, -16)
-
-[node name="Torso" type="Sprite2D" parent="SpriteModule/Body" index="0" unique_id=1527797525]
-texture = ExtResource("10_33p63")
 
 [node name="HandRight" type="Sprite2D" parent="SpriteModule" index="5" unique_id=129757188]
 modulate = Color(1, 0, 0, 1)
