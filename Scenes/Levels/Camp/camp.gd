@@ -28,7 +28,7 @@ func _ready() -> void:
 
 func recruit() -> void:
 	# Select a new random unit, could have upgrades that allow selection down the line
-	var new_unit : stickmanUnitData = stickmanUnitData.new()
+	var new_unit : humanoidUnitData = humanoidUnitData.new()
 	new_unit.display_name = name_registry.get_random_name("stickman")
 	new_unit.color = Color(randf(),randf(),randf())
 	print("Created new unit : %s" % [new_unit.display_name])

@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://ckwhngqj76hbf" path="res://Scenes/UI/InspectMenu/inspect_menu_button.gd" id="1_5krwk"]
 
 [node name="InspectMenuButton" type="Button" unique_id=30007547]
-custom_minimum_size = Vector2(75, 0)
-theme_override_font_sizes/font_size = 6
+custom_minimum_size = Vector2(100, 0)
+theme_override_font_sizes/font_size = 12
 text = "Details aaaaa"
 alignment = 0
 text_overrun_behavior = 3

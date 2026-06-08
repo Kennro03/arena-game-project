@@ -129,6 +129,7 @@ func set_item_stats() -> void :
 
 func set_item_passives() -> void :
 	passives_rich_text_label.clear()
+	passives_rich_text_label.append_text("Gear passives go here.")
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:

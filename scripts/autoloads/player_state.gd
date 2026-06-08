@@ -57,10 +57,10 @@ func _ready() -> void:
 	add_item_to_inventory(testing_knife)
 	add_item_to_inventory(hitbox_test_hammer)
 	add_unit_to_reserve(testing_pablo.duplicate(true))
-	add_unit_to_team(stickmanUnitData.new())
-	add_unit_to_team(stickmanUnitData.new())
-	add_unit_to_team(stickmanUnitData.new())
-	add_unit_to_team(stickmanUnitData.new())
+	add_unit_to_team(humanoidUnitData.new())
+	add_unit_to_team(humanoidUnitData.new())
+	add_unit_to_team(humanoidUnitData.new())
+	add_unit_to_team(humanoidUnitData.new())
 
 func add_item_to_inventory(item: Item) -> void:
 	inventory.append(item)

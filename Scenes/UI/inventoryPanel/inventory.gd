@@ -27,7 +27,7 @@ func clear_inventory() -> void:
 func create_empty_slots() -> void :
 	var i := 0
 	while i < Player.inventory_size :
-		var new_slot := ItemSlotScene.instantiate()
+		var new_slot : ItemSlot = ItemSlotScene.instantiate()
 		new_slot.slot_context = ItemSlot.SlotContext.INVENTORY
 		item_grid_container.add_child(new_slot)
 		item_slots.append(new_slot)

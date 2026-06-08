@@ -1,7 +1,7 @@
 extends Control
 class_name ExpeditionSelection
 
-const CARD_SPACING := 200
+const CARD_SPACING := 400
 const SELECTED_SCALE := Vector2(1.2, 1.2)
 const NORMAL_SCALE := Vector2(1.0, 1.0)
 

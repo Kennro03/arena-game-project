@@ -24,10 +24,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -166.0
-offset_top = -125.0
-offset_right = 166.0
-offset_bottom = 125.0
+offset_left = -226.0
+offset_top = -250.0
+offset_right = 226.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -44,7 +44,7 @@ alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 32)
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 32
 text = "Select between x and y number of (thing) :"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -80,7 +80,7 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
-columns = 8
+columns = 6
 
 [node name="ItemSlot2" parent="PanelContainer/VBoxContainer/RewardsNinePatchRect/RewardsMarginContainer/HBoxContainer/ScrollContainer/SelectionContainer" unique_id=62567015 instance=ExtResource("3_b6fcl")]
 layout_mode = 2
@@ -141,9 +141,9 @@ alignment = 1
 
 [node name="SelectionCounterLabel" type="Label" parent="PanelContainer/VBoxContainer/CloseButtonContainer/HBoxContainer" unique_id=437899359]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 32)
+custom_minimum_size = Vector2(150, 32)
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "0 / 500"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -157,5 +157,5 @@ custom_minimum_size = Vector2(64, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "Confirm"

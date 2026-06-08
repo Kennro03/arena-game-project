@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://dwmydh74ue3yd" path="res://Scenes/Levels/Battles/battle_scene.gd" id="1_yeqs3"]
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="3_2bwfk"]
 [ext_resource type="Resource" uid="uid://ciep7c7clyrq2" path="res://ressources/Units/enemy_data/BigGuy.tres" id="4_2bwfk"]
-[ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="4_b1ohq"]
 [ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/battleData.gd" id="5_0xk5e"]
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="5_qeo1e"]
 [ext_resource type="PackedScene" uid="uid://byhr33en8uwpc" path="res://Scenes/UI/DeployedUnitsDisplay/deployed_units_display.tscn" id="12_g63sf"]
@@ -50,10 +49,6 @@ script = ExtResource("1_jgp7d")
 [node name="SelectionManager" type="Node" parent="." unique_id=850775496]
 unique_name_in_owner = true
 script = ExtResource("5_qeo1e")
-
-[node name="TooltipHandler" type="Node" parent="." unique_id=309827960 node_paths=PackedStringArray("ui_root")]
-script = ExtResource("4_b1ohq")
-ui_root = NodePath("../UI")
 
 [node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1532648521]
 

@@ -61,7 +61,7 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 
 func spawn_random(pos: Vector2, data: UnitData = null) -> BaseUnit:
 	if data == null:
-		data = stickmanUnitData.new()
+		data = humanoidUnitData.new()
 	var rand_data := data.with_random_modifiers(randi() % 3 + 1 )
 	return spawn_from_data(pos, rand_data)
 

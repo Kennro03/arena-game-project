@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cpj71uqou8faa"]
 
+[ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="1_45o6y"]
 [ext_resource type="Script" uid="uid://d1ywcpwm2exd2" path="res://Scenes/UI/UnitInfoPanel/unit_info_panel.gd" id="1_ciquk"]
 [ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="2_45o6y"]
 [ext_resource type="PackedScene" uid="uid://cjeix22vpufqd" path="res://Scenes/UI/UnitInfoPanel/gear_container.tscn" id="3_u5ker"]
@@ -15,9 +16,9 @@ clip_contents = true
 custom_minimum_size = Vector2(400, 0)
 offset_right = 400.0
 offset_bottom = 89.0
-scale = Vector2(0.6, 0.6)
 size_flags_vertical = 0
 mouse_filter = 2
+theme = ExtResource("1_45o6y")
 script = ExtResource("1_ciquk")
 
 [node name="DragAndDropComponent" type="Node" parent="." unique_id=2009158535 node_paths=PackedStringArray("target_area", "target")]
@@ -68,11 +69,6 @@ custom_minimum_size = Vector2(150, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
-theme_override_font_sizes/normal_font_size = 14
-theme_override_font_sizes/bold_font_size = 14
-theme_override_font_sizes/bold_italics_font_size = 14
-theme_override_font_sizes/italics_font_size = 14
-theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
 text = "Available points : xx"
 horizontal_alignment = 1
@@ -113,14 +109,13 @@ horizontal_alignment = 1
 [node name="UnitTypeLabel" type="Label" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/VBoxContainer2/VboxHeader/VBoxContainer" unique_id=1082408927]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "unit type"
 horizontal_alignment = 1
 
 [node name="UnitLevelLabel" type="Label" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/VBoxContainer2/VboxHeader/VBoxContainer" unique_id=1060661034]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
 text = "Unit Level : 67
 Experience : x/100000"
 horizontal_alignment = 1
@@ -128,14 +123,14 @@ horizontal_alignment = 1
 [node name="UnitHealthLabel" type="Label" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/VBoxContainer2/VboxHeader/VBoxContainer" unique_id=618500036]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Health : x / y"
 horizontal_alignment = 1
 
 [node name="UnitShieldLabel" type="Label" parent="VBoxContainer/TabContainer/Overview/HBoxContainer/VBoxContainer2/VboxHeader/VBoxContainer" unique_id=1087526705]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Shield : x / y"
 horizontal_alignment = 1
 
@@ -150,7 +145,6 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
 text = "The unit description goes here. It can go on for a while so it need to be scrollable and not drag the ui with it. Is this long enough already ? D'you get it now ?"
 autowrap_mode = 2
 
@@ -252,8 +246,13 @@ size_flags_vertical = 0
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=593404452]
 layout_mode = 2
 mouse_filter = 1
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
 bbcode_enabled = true
-text = "Attributes"
+text = "[b]Attributes[/b]"
 fit_content = true
 scroll_active = false
 
@@ -308,6 +307,11 @@ text = "0"
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/TabContainer/Stats/HBoxContainer/MarginContainer/ScrollContainer/StatEntriesContainer" unique_id=1642829919]
 layout_mode = 2
 mouse_filter = 1
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
 bbcode_enabled = true
 text = "Other stats"
 fit_content = true
@@ -395,11 +399,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 mouse_filter = 1
-theme_override_font_sizes/normal_font_size = 12
-theme_override_font_sizes/bold_font_size = 12
-theme_override_font_sizes/bold_italics_font_size = 12
-theme_override_font_sizes/italics_font_size = 12
-theme_override_font_sizes/mono_font_size = 12
 bbcode_enabled = true
 text = "[center] Select a stat to inspect its details."
 

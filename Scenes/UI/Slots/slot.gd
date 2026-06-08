@@ -5,13 +5,6 @@ signal slot_hovered(slot: Slot)
 signal slot_unhovered(slot: Slot)
 signal slot_clicked(slot: Slot, button: int)
 
-var tooltip : Tooltip = null
-
-const item_tooltip_scene := preload("res://Scenes/UI/Tooltips/item_tooltip.tscn")
-const weapon_tooltip_scene := preload("res://Scenes/UI/Tooltips/weapon_tooltip.tscn")
-const accessory_tooltip_scene := preload("res://Scenes/UI/Tooltips/accessory_tooltip.tscn")
-const unit_tooltip_scene := preload("res://Scenes/UI/Tooltips/unit_tooltip.tscn")
-
 @onready var icon_sprite: TextureRect = %SlotSprite
 @onready var border_sprite: TextureRect = %SlotBorder
 

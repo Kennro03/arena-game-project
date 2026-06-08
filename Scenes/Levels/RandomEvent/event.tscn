@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dotn3devmi3ya" path="res://Scenes/Levels/RandomEvent/event.gd" id="1_0jdh0"]
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="2_nqt5h"]
 [ext_resource type="Script" uid="uid://b2fejma8b0re1" path="res://scripts/Components/inspection_manager.gd" id="3_kmvk2"]
-[ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="4_0476o"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="5_am0pa"]
 [ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="6_rbxp6"]
 
@@ -186,10 +185,6 @@ script = ExtResource("2_nqt5h")
 [node name="InspectionManager" type="Node" parent="." unique_id=1625464565]
 script = ExtResource("3_kmvk2")
 
-[node name="TooltipHandler" type="Node" parent="." unique_id=1355867057 node_paths=PackedStringArray("ui_root")]
-script = ExtResource("4_0476o")
-ui_root = NodePath("../UI")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=805594657]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_howa4")
@@ -234,7 +229,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/EventControlNode/MarginContainer" unique_id=1792377905]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/EventControlNode/MarginContainer/PanelContainer" unique_id=451154385]
@@ -242,8 +237,13 @@ layout_mode = 2
 
 [node name="EventTitle" type="RichTextLabel" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer" unique_id=1229976685]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
 bbcode_enabled = true
 text = "The big scary event..."
 horizontal_alignment = 1
@@ -272,11 +272,12 @@ stretch_mode = 5
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 8
-theme_override_font_sizes/bold_font_size = 8
-theme_override_font_sizes/bold_italics_font_size = 8
-theme_override_font_sizes/italics_font_size = 8
-theme_override_font_sizes/mono_font_size = 8
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
 text = "asdasdasdadsds
 adsads
 ds
@@ -300,19 +301,19 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Button" type="Button" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/ChoiceButtonsContainer" unique_id=213260051]
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 32
 text = "Take the necklace"
 
 [node name="Button2" type="Button" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/ChoiceButtonsContainer" unique_id=1563469305]
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 32
 text = "drink from the fountain"
 
 [node name="Button3" type="Button" parent="UI/EventControlNode/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/ChoiceButtonsContainer" unique_id=612984371]
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 32
 text = "Run away (50% chance)"

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d17ldv2j14q3l" path="res://Scenes/Prototype/Main scene/prototype_scene.gd" id="1_3a2rb"]
 [ext_resource type="PackedScene" uid="uid://ditrafceaeowg" path="res://Scenes/UI/GoldDisplay/gold_display.tscn" id="1_lci7e"]
 [ext_resource type="Script" uid="uid://d0yvqgr2j88p6" path="res://Scenes/Levels/Battles/InventoryReserveManager.gd" id="2_oi3tf"]
-[ext_resource type="Script" uid="uid://mnts7d2m18qq" path="res://scripts/Components/TooltipHandler.gd" id="4_iy8ah"]
+[ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="4_d1776"]
 
 [sub_resource type="Gradient" id="Gradient_iy8ah"]
 offsets = PackedFloat32Array(0, 0.75)
@@ -24,12 +24,19 @@ shop_scene = &"uid://n6ib3torqc3t"
 event_scene = &"uid://bscmpqjoie8iu"
 camp_scene = &"uid://cc2g24q57tx7l"
 
-[node name="TooltipHandler" type="Node" parent="." unique_id=795041103 node_paths=PackedStringArray("ui_root")]
-script = ExtResource("4_iy8ah")
-ui_root = NodePath("../UI")
-
 [node name="PlayerUIManager" type="Node" parent="." unique_id=703109437]
 script = ExtResource("2_oi3tf")
+
+[node name="MapBackground" type="CanvasLayer" parent="." unique_id=194229848]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="MapBackground" unique_id=176118511]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_d1776")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=650539702]
 unique_name_in_owner = true
@@ -42,6 +49,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_d1776")
 
 [node name="ButtonsVBoxContainer" type="VBoxContainer" parent="UI/UiRootNode" unique_id=1632270817]
 layout_mode = 1
@@ -59,39 +67,38 @@ theme_override_constants/separation = 12
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
-text = "Expedition"
+theme_override_font_sizes/font_size = 32
+text = " Expedition "
 
 [node name="BattleButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=1004729945]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Battle"
+theme_override_font_sizes/font_size = 32
+text = " Battle "
 
 [node name="ShopButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=1129290411]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Shop"
+theme_override_font_sizes/font_size = 32
+text = " Shop "
 
 [node name="EventButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=375047219]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Event"
+theme_override_font_sizes/font_size = 32
+text = " Event "
 
 [node name="CampButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=1368259702]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Camp
+theme_override_font_sizes/font_size = 32
+text = " Camp 
 "
-
-[node name="TeamSetupButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=587094646]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Team"
+autowrap_trim_flags = 0
 
 [node name="GoldDisplay" parent="UI/UiRootNode" unique_id=148004886 instance=ExtResource("1_lci7e")]
 layout_mode = 0
@@ -99,17 +106,6 @@ offset_left = 4.0
 offset_top = 4.0
 offset_right = 36.0
 offset_bottom = 36.0
-
-[node name="MapBackground" type="CanvasLayer" parent="." unique_id=194229848]
-layer = -1
-
-[node name="Background" type="TextureRect" parent="MapBackground" unique_id=176118511]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_d1776")
 
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/ExpeditionButton" to="." method="_on_expedition_button_pressed"]
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/BattleButton" to="." method="_on_battle_button_pressed"]

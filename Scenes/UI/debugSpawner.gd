@@ -29,7 +29,7 @@ func _input(event):
 			
 			var data : UnitData = UI_node.inventory_module.selected_unit_data
 			if data == null:
-				data = stickmanUnitData.new()
+				data = humanoidUnitData.new()
 				print("No unitData provided, spawning default stickman")
 			spawn_from_data(event.position, data)
 		
@@ -65,7 +65,7 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 
 func spawn_random(pos: Vector2, data: UnitData = null) -> BaseUnit:
 	if data == null:
-		data = stickmanUnitData.new()
+		data = humanoidUnitData.new()
 	var rand_data := data.with_random_modifiers(randi() % 3 + 1 )
 	
 	return spawn_from_data(pos, rand_data)

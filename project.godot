@@ -72,6 +72,7 @@ BattleManager=""
 
 [gui]
 
+timers/tooltip_delay_sec=0.15
 theme/default_font_antialiasing=0
 theme/default_font_hinting=0
 theme/default_font_subpixel_positioning=0

@@ -10,8 +10,8 @@ z_index = 1
 texture_filter = 1
 clip_contents = true
 custom_minimum_size = Vector2(90, 0)
-offset_right = 234.0
-offset_bottom = 200.0
+offset_right = 351.0
+offset_bottom = 300.0
 size_flags_horizontal = 0
 mouse_filter = 2
 theme = ExtResource("1_eg0so")
@@ -33,7 +33,7 @@ theme_override_constants/separation = 4
 
 [node name="InventoryLabel" type="Label" parent="MarginContainer/VBoxContainer/HboxHeader" unique_id=752978947]
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "Inventory"
 
 [node name="InventorySpaceDisplay" parent="MarginContainer/VBoxContainer" unique_id=148004886 instance=ExtResource("3_gfats")]
@@ -41,11 +41,11 @@ custom_minimum_size = Vector2(32, 12)
 layout_mode = 2
 
 [node name="InventorySpaceDisplay" parent="MarginContainer/VBoxContainer/InventorySpaceDisplay/HBoxContainer" parent_id_path=PackedInt32Array(148004886, 1279359624) index="0" unique_id=63279407]
-theme_override_font_sizes/normal_font_size = 6
-theme_override_font_sizes/bold_font_size = 6
-theme_override_font_sizes/bold_italics_font_size = 6
-theme_override_font_sizes/italics_font_size = 6
-theme_override_font_sizes/mono_font_size = 6
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
 
 [node name="HSeparator1" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=438004936]
 layout_mode = 2
@@ -53,7 +53,6 @@ theme_override_constants/separation = 2
 
 [node name="TabBar" type="TabBar" parent="MarginContainer/VBoxContainer" unique_id=322371780]
 layout_mode = 2
-theme_override_font_sizes/font_size = 6
 current_tab = 0
 tab_count = 2
 tab_0/title = "All"
@@ -81,11 +80,11 @@ target = NodePath("..")
 
 [node name="CloseButton" type="Button" parent="." unique_id=905965588]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(16, 16)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 20
 text = "x"
 
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

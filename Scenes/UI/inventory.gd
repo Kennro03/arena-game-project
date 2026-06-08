@@ -33,7 +33,7 @@ func _ready() -> void:
 	var _sword = preload("res://ressources/Items/Weapons/testsword.tres").duplicate(true)
 	var dagger = preload("res://ressources/Items/Weapons/testdagger.tres").duplicate(true)
 	var hammer = preload("res://ressources/Items/Weapons/testhammer.tres").duplicate(true)
-	var dummy_hands = preload("res://ressources/Items/Weapons/DebugWeapons/dummy_fists.tres").duplicate(true)
+	var _dummy_hands = preload("res://ressources/Items/Weapons/DebugWeapons/dummy_fists.tres").duplicate(true)
 
 	#var dummy = preload("res://ressources/Units/test_dummy.tres").duplicate(true)
 	#dummy.show_name = true
@@ -49,14 +49,14 @@ func _ready() -> void:
 	
 	#add_unit(dummy.with_weapon(dummy_hands))
 	add_unit(UnitData.new())
-	add_unit(stickmanUnitData.new())
-	add_unit(stickmanUnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(stickmanUnitData.make_status_passive([_test_bleed_effect])))
+	add_unit(humanoidUnitData.new())
+	add_unit(humanoidUnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(humanoidUnitData.make_status_passive([_test_bleed_effect])))
 	#add_unit(StickmanData.new().with_points(25).with_weapon(sword).with_onHit_passive(_shield_onhit_passive))
-	add_unit(stickmanUnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(stickmanUnitData.make_status_passive([_test_rupture_effect])))
+	add_unit(humanoidUnitData.new().with_points(25).with_weapon(dagger).with_onHit_passive(humanoidUnitData.make_status_passive([_test_rupture_effect])))
 
-	add_unit(stickmanUnitData.new().with_random_modifiers(3))
-	add_unit(stickmanUnitData.new().with_random_modifiers(3))
-	var test_chain_hammer := stickmanUnitData.new().with_weapon(hammer).with_onHit_passive(_chain_onhit_passive)
+	add_unit(humanoidUnitData.new().with_random_modifiers(3))
+	add_unit(humanoidUnitData.new().with_random_modifiers(3))
+	var test_chain_hammer : humanoidUnitData = humanoidUnitData.new().with_weapon(hammer).with_onHit_passive(_chain_onhit_passive)
 	test_chain_hammer.stats.base_crit_chance = 25.0
 	test_chain_hammer.stats.recalculate_stats()
 	add_unit(test_chain_hammer)

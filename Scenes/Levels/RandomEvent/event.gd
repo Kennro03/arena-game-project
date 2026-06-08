@@ -50,7 +50,7 @@ func setup(_event: EventResource) -> void:
 	for choice in _event.choices:
 		var button := Button.new()
 		button.text = choice.label
-		button.add_theme_font_size_override("font_size",8)
+		button.add_theme_font_size_override("font_size",32)
 		button.tooltip_text = choice.description
 		#var requirements_met := choice.requirements.all(func(r): return r.is_met())
 		#if not requirements_met:
@@ -66,6 +66,7 @@ func setup(_event: EventResource) -> void:
 			Events.event_choice_made.emit(choice)
 			)
 		choice_buttons_container.add_child(button)
+		
 	
 	animation_player.play("reveal_event_animation")
 

@@ -1,5 +1,5 @@
 extends UnitData
-class_name stickmanUnitData
+class_name humanoidUnitData
 
 func _init() -> void:
 	unit_scene = preload("res://Scenes/Units/Humanoid/humanoid.tscn")
@@ -11,8 +11,8 @@ func _init() -> void:
 	weapon = default_weapon.duplicate(true)  
 	icon = preload("uid://ccpr8mltdglbp")
 
-func _make_copy() -> stickmanUnitData:
-	var copy : stickmanUnitData = stickmanUnitData.new()
+func _make_copy() -> humanoidUnitData:
+	var copy : humanoidUnitData = humanoidUnitData.new()
 	copy.id = id
 	copy.display_name = display_name
 	copy.description = description

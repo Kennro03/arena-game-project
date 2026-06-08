@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d3h4afwsp5p4g"]
 
 [ext_resource type="Script" uid="uid://dgl57qr825pjr" path="res://Scenes/UI/Slots/unit_slot.gd" id="1_uswj8"]
+[ext_resource type="Resource" uid="uid://5kkucdb6pt57" path="res://ressources/Units/unit_data/HammerBandit.tres" id="2_ln6jn"]
 [ext_resource type="Shader" uid="uid://4gro3ccy84w3" path="res://Shaders/OutlineShader/BaseUnit.gdshader" id="2_ss2pi"]
 [ext_resource type="Script" uid="uid://hohdnviatck1" path="res://scripts/Components/slot_drag_visual.gd" id="3_ah15m"]
 
@@ -17,10 +18,11 @@ shader_parameter/offset = Vector2(0, 0)
 shader_parameter/max_or_add = false
 
 [node name="UnitSlot" type="Panel" unique_id=62567015]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(64, 64)
 offset_right = 32.0
 offset_bottom = 32.0
 script = ExtResource("1_uswj8")
+_unit_data = ExtResource("2_ln6jn")
 
 [node name="SlotBorder" type="TextureRect" parent="." unique_id=994041118]
 unique_name_in_owner = true

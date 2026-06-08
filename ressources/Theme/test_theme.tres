@@ -1,5 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://cgpx5w31026n2"]
 
+[ext_resource type="FontFile" uid="uid://dn68knm25w0cg" path="res://Fonts/fs-pixel-sans-unicode-regular.ttf" id="1_noihr"]
 [ext_resource type="Texture2D" uid="uid://cuyqhcginxphp" path="res://ressources/Sprites/UI/hotbar_128.png" id="1_rjgay"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb28r"]
@@ -50,12 +51,27 @@ texture_margin_bottom = 16.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_noihr"]
 bg_color = Color(0.3764706, 0.3764706, 0.4392157, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m15kv"]
+bg_color = Color(0.55771965, 0.5580455, 0.6278093, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ca4pe"]
+bg_color = Color(0.55771965, 0.5580455, 0.6278093, 1)
+
 [resource]
+Button/fonts/font = ExtResource("1_noihr")
 Button/styles/disabled = SubResource("StyleBoxFlat_bb28r")
 Button/styles/hover = SubResource("StyleBoxFlat_m0l03")
 Button/styles/normal = SubResource("StyleBoxFlat_0bb6q")
 Button/styles/pressed = SubResource("StyleBoxFlat_0ffhj")
 HSeparator/styles/separator = SubResource("StyleBoxLine_0bb6q")
+Label/fonts/font = ExtResource("1_noihr")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_m0l03")
+RichTextLabel/fonts/bold_font = ExtResource("1_noihr")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_noihr")
+RichTextLabel/fonts/italics_font = ExtResource("1_noihr")
+RichTextLabel/fonts/mono_font = ExtResource("1_noihr")
+RichTextLabel/fonts/normal_font = ExtResource("1_noihr")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_noihr")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_m15kv")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_ca4pe")
 VScrollBar/styles/scroll = null

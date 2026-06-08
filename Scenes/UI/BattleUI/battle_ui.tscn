@@ -12,10 +12,10 @@ tracks/0/path = NodePath("LosingPanel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7, 1.5, 2),
+"times": PackedFloat32Array(0, 0.7, 1.5000001, 2),
 "transitions": PackedFloat32Array(0.4, 1, 1, 1),
 "update": 0,
-"values": [Vector2(203, 400), Vector2(203, 136.00014), Vector2(203, 136.00014), Vector2(203, -56)]
+"values": [Vector2(484, 800), Vector2(484, 272), Vector2(484, 272), Vector2(484, -112)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -385,12 +385,12 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -45.0
+offset_left = -84.5
 offset_top = 30.0
-offset_right = 44.0
-offset_bottom = 62.00006
+offset_right = 83.5
+offset_bottom = 83.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 32
 text = "Start Fight"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1749400674]
@@ -419,22 +419,22 @@ text = "YOU WINED!!!!1!1!"
 
 [node name="LosingPanel" type="PanelContainer" parent="." unique_id=1405901199]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 offset_left = -100.0
-offset_top = 20.0
-offset_right = 100.0
-offset_bottom = 70.000244
+offset_top = 380.0
+offset_right = 212.00012
+offset_bottom = 468.00006
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lx68j")
 
 [node name="Label" type="Label" parent="LosingPanel" unique_id=1756275155]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "Losted......"
 horizontal_alignment = 1
 

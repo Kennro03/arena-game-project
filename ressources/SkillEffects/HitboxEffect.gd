@@ -3,7 +3,7 @@ class_name HitboxEffect
 
 signal hitboxeffect_finished(HitboxEffect)
 
-var hitbox_scene: PackedScene = preload("res://Scenes/Hitboxes/Hitbox.tscn")
+#var hitbox_scene: PackedScene = preload("res://Scenes/Hitboxes/Hitbox.tscn")
 
 #default values, used if not provided in the context
 @export var shape: Shape2D = CapsuleShape2D.new()
@@ -20,7 +20,7 @@ var hitbox : Node
 var hit_targets: Array[Node2D] = []
 
 func spawn(_caster: Node2D, _context: Dictionary = {}):
-	hitbox = hitbox_scene.instantiate()
+	hitbox = null
 	
 	#context override
 	hitbox.caster = _context.get("caster", _caster)
