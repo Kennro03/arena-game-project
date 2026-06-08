@@ -92,7 +92,7 @@ signal level_changed(old_level:int,new_level:int)
 
 @export var base_max_health : float = 100.0
 @export var base_health_regen : float = 1.0
-@export var base_movement_speed : float = 50.0
+@export var base_movement_speed : float = 80.0
 @export var base_dodge_probability : float = 10.0
 @export var base_parry_probability : float = 5.0
 @export var base_block_probability : float = 25.0

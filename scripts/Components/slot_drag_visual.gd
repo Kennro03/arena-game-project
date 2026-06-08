@@ -7,6 +7,7 @@ class_name SlotDragVisual
 
 var _drag_ghost: Control = null
 var _is_dragging: bool = false
+var _drag_canvas: CanvasLayer = null
 
 func _ready() -> void:
 	assert(slot, "SlotDragVisual needs a slot target!")
@@ -46,6 +47,10 @@ func _cancel_drag() -> void:
 	Events.slot_drag_canceled.emit(slot)
 
 func _spawn_ghost() -> void:
+	_drag_canvas = CanvasLayer.new()
+	_drag_canvas.layer = 100
+	get_tree().root.add_child(_drag_canvas)
+	
 	_drag_ghost = Control.new()
 	_drag_ghost.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_drag_ghost.z_index = 9
@@ -58,12 +63,12 @@ func _spawn_ghost() -> void:
 	
 	var ghost_icon := TextureRect.new()
 	ghost_icon.texture = slot.icon_sprite.texture
-	ghost_icon.size = slot.icon_sprite.texture.get_size()
+	ghost_icon.size = slot.get_size()
 	ghost_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_drag_ghost.add_child(ghost_icon)
 	
 	_drag_ghost.size = slot.size
-	get_tree().root.add_child(_drag_ghost)
+	_drag_canvas.add_child(_drag_ghost)
 
 func _destroy_ghost() -> void:
 	if is_instance_valid(_drag_ghost):
