@@ -34,9 +34,8 @@ func get_border() -> Texture2D:
 func _to_string() -> String:
 	return item.item_name if item else "empty"
 
-func set_label_text(new_text: String, font_size:int = 8) -> void :
+func set_label_text(new_text: String) -> void :
 	rich_text_label.append_text(new_text)
-	rich_text_label.add_theme_font_size_override("normal_font_size",font_size)
 
 func _make_custom_tooltip(_for_text: String) -> Object:
 	if item == null:

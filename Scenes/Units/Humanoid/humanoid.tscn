@@ -116,14 +116,20 @@ texture = ExtResource("12_33p63")
 [node name="Eyes" type="Sprite2D" parent="SpriteModule/Head" index="1" unique_id=1272625868]
 texture = ExtResource("13_vqvr8")
 
-[node name="HandRight" type="Sprite2D" parent="SpriteModule" index="5" unique_id=129757188]
+[node name="WeaponHandle" type="Node2D" parent="SpriteModule" index="5" unique_id=1474442573]
+unique_name_in_owner = true
+
+[node name="WeaponSprite2D" type="Sprite2D" parent="SpriteModule/WeaponHandle" index="0" unique_id=2004517956]
+unique_name_in_owner = true
+
+[node name="HandRight" type="Sprite2D" parent="SpriteModule" index="6" unique_id=129757188]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(0, -16)
 texture = ExtResource("11_vqvr8")
 vframes = 2
 frame = 1
 
-[node name="LegRight" type="Sprite2D" parent="SpriteModule" index="6" unique_id=873604932]
+[node name="LegRight" type="Sprite2D" parent="SpriteModule" index="7" unique_id=873604932]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(0, -16)
 texture = ExtResource("12_0sb7k")

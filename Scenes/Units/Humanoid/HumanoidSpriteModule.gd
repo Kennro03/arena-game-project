@@ -14,6 +14,9 @@ class_name HumanoidSpriteModule
 @onready var leg_right: Sprite2D = $LegRight
 @onready var leg_left: Sprite2D = $LegLeft
 
+@onready var weapon_handle: Node2D = %WeaponHandle
+@onready var weapon_sprite_2d: Sprite2D = %WeaponSprite2D
+
 # each limb can have its texture swapped independently
 @export var head_texture: Texture2D
 @export var eyes_texture: Texture2D
@@ -69,6 +72,7 @@ func play_hurt() -> void:
 	animation_player.play("Stickman/hurt")
 
 func play_death() -> void: 
+	# implement basic death position animation
 	animation_player.play("BaseUnit/go_down")
 
 func play_block() -> void: 
