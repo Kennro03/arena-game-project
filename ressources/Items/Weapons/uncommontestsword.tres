@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("4_xttin")
 weaponCategory = 1
-weaponType = 2
+weaponType = 4
 base_attack_speed = 1.05
 base_attack_range = 115.0
 base_damage = 16.0

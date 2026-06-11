@@ -498,7 +498,7 @@ func get_accessory_at(index: int) -> Accessory:
 
 func _on_weapon_attack(attack_type: Weapon.AttackTypeEnum, _endlag: float = 0.0) -> void:
 	#print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
-	spriteModule.play_attack(attack_type,weapon)
+	spriteModule.play_attack(attack_type)
 	is_action_locked = true
 
 func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome) -> bool:

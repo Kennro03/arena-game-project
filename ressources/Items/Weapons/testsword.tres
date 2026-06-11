@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("1_80t4j")
 weaponCategory = 1
-weaponType = 2
+weaponType = 4
 base_attack_range = 105.0
 base_damage = 14.0
 base_knockback = 45.0

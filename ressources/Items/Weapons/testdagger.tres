@@ -5,10 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://kq7m2b2xk7fv" path="res://ressources/Sprites/Icons/Items/Weapons/TestDagger_Icon.png" id="2_26o8q"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_tr1kk"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_kanyt"]
+[ext_resource type="Texture2D" uid="uid://c64v6mkj70qpn" path="res://ressources/Sprites/Weapons/debug_dagger.png" id="6_o7hd2"]
 
 [resource]
 script = ExtResource("1_qjtvy")
 weaponType = 1
+weaponSprite = ExtResource("6_o7hd2")
 base_attack_speed = 1.1
 base_attack_range = 90.0
 base_damage = 11.0

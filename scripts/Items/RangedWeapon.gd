@@ -11,30 +11,12 @@ class_name RangedWeapon
 
 const PROJECTILE_SCENE := preload("uid://utyen8d0722")
 
-func lightHit(target: Node2D, _hit: HitData) -> void:
-	var dist := owner.global_position.distance_to(target.global_position)
-	if dist < min_range:
-		_do_melee_hit(target, _hit)
-	else:
-		_do_ranged_hit(target, _hit, false)
-	attack_performed.emit(AttackTypeEnum.LIGHTATTACK, light_endlag)
-
-func heavyHit(target: Node2D, _hit: HitData) -> void:
-	_hit.base_damage *= 1.2
-	_hit.knockback_force *= 3.0
-	var dist := owner.global_position.distance_to(target.global_position)
-	if dist < min_range:
-		_do_melee_hit(target, _hit)
-	else:
-		_do_ranged_hit(target, _hit, true)
-	attack_performed.emit(AttackTypeEnum.HEAVYATTACK, heavy_endlag)
-
 func _do_ranged_hit(target: Node2D, hit: HitData, is_heavy: bool) -> void:
 	if projectile_data == null:
 		printerr("RangedWeapon has no projectile_data")
 		return
-	var proj_hitbox := projectile_data.heavy_hitbox if is_heavy else projectile_data.light_hitbox
-	_spawn_projectile(proj_hitbox, target.global_position, hit)
+	#var proj_hitbox := projectile_data.heavy_hitbox if is_heavy else projectile_data.light_hitbox
+	#_spawn_projectile(proj_hitbox, target.global_position, hit)
 
 func _do_melee_hit(target: Node2D, hit: HitData) -> void:
 	# use melee fallback hitboxes if set, otherwise direct resolve
@@ -48,4 +30,4 @@ func _spawn_projectile(hitbox_data: HitboxData, target_position: Vector2, hit: H
 	owner.get_tree().root.add_child(projectile)
 	projectile.global_position = owner.global_position
 	var direction := (target_position - owner.global_position).normalized()
-	projectile.setup(hitbox_data, hit, direction)
+	#projectile.setup(hitbox_data, hit, direction)

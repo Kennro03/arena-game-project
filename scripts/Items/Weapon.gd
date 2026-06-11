@@ -4,8 +4,15 @@ class_name Weapon
 signal attack_performed(attack_type:AttackTypeEnum, endlag: float)
 
 enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
-enum WeaponTypeEnum { UNARMED, DAGGER, SWORD, HAMMER, STAFF }
-enum AttackTypeEnum { LIGHTATTACK, HEAVYATTACK}
+enum WeaponTypeEnum { UNARMED, DAGGER, GAUNTLET, WAND, SWORD, SPEAR, FOCI_STAFF, HAMMER, GREATSWORD, BOW }
+enum AttackTypeEnum { 
+	SLASH,
+	STAB,
+	BASH,
+	CAST,
+	SHOOT,
+	PUNCH,
+}
 enum BuffableStats {
 	ATTACK_SPEED,
 	ATTACK_RANGE,
@@ -18,10 +25,24 @@ static var buffable_stat_icons : Dictionary = {
 	BuffableStats.ATTACK_RANGE: preload("uid://d0tjxydbev5m4"),
 	BuffableStats.KNOCKBACK: preload("uid://brfm5e6515tqd"),
 }
+static var debug_weapon_sprites : Dictionary = {
+	WeaponTypeEnum.UNARMED: null,
+	WeaponTypeEnum.DAGGER: preload("uid://c64v6mkj70qpn"),
+	WeaponTypeEnum.GAUNTLET: preload("uid://cgt11mipx5r5p"),
+	WeaponTypeEnum.WAND: preload("uid://bisn55jrtqnxi"),
+	WeaponTypeEnum.SWORD: preload("uid://ds2300iqhvnig"),
+	WeaponTypeEnum.SPEAR: preload("uid://drtgerm1gchkr"),
+	WeaponTypeEnum.FOCI_STAFF: preload("uid://c56q6fj8mor03"),
+	WeaponTypeEnum.HAMMER: preload("uid://bndegctnnxbsx"),
+	WeaponTypeEnum.GREATSWORD: preload("uid://c655s547o85vn"),
+	WeaponTypeEnum.BOW: preload("uid://bp6g4vjifxu5e"),
+}
 
 @export_group("Weapon data")
 @export var weaponCategory : WeaponCategoryEnum
 @export var weaponType : WeaponTypeEnum
+@export var weaponSprite : Texture2D = null : 
+	get: return weaponSprite if weaponSprite != null else debug_weapon_sprites[weaponType]
 
 @export_subgroup("Base weapon Stats","base_")
 @export var base_attack_speed : float = 1.0
@@ -43,11 +64,10 @@ static var buffable_stat_icons : Dictionary = {
 @export var knockback_scalings : Array[StatScaling] = []
 
 @export_subgroup("Attack_types")
-@export var attackTypes : Dictionary = {
-	AttackTypeEnum.LIGHTATTACK : 8,
-	AttackTypeEnum.HEAVYATTACK : 2,}
-@export var light_endlag :float = 0.15
-@export var heavy_endlag :float = 0.6
+@export var attackTypes : WeaponAttackTypesDictionnary = preload("uid://ci5w23rt7sjjl") #MeleeWeapondefault
+
+@export_subgroup("Exclusives")
+@export var exclusive_animations : Array[String] = []
 
 var current_attack_speed : float
 var current_attack_range : float
@@ -65,6 +85,7 @@ func setup_stats() -> void :
 		printerr("No owner!")
 		return
 	recalculate_stats() 
+	
 
 func setup_base_stats_from_dict(dict : Dictionary) -> void : 
 	base_attack_speed = dict.get("attack_speed",base_attack_speed)
@@ -143,23 +164,25 @@ func reset_current_stats() -> void:
 	current_attack_speed = base_attack_speed
 	current_damage = base_damage
 	current_knockback = base_knockback
+	
+	attackTypes.CurrentAttackTypesWeights = attackTypes.DefaultAttackTypesWeights
 
-func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTATTACK) -> AttackTypeEnum :
+func generate_attack_type(_weightedDict : WeaponAttackTypesDictionnary, fallback := AttackTypeEnum.PUNCH) -> AttackTypeEnum :
 	var totalWeights : float = 0
 	var accumulatedweight : int = 0
-	for weight in _weightedDict.values():
+	for weight in _weightedDict.CurrentAttackTypesWeights.values():
 		totalWeights += weight
 	
 	if totalWeights <= 0:
-		printerr("Returned fallback in generating item.")
+		printerr("Returned fallback in generating attack type.")
 		return fallback
 	
 	#If no key made chosen error appears, error may come from here
 	var randomWeight : float = randi_range(1, int(totalWeights)) 
 	
 	## Pick a random item based on the random weight
-	for key in _weightedDict: 
-		var w : int = _weightedDict[key]
+	for key in _weightedDict.CurrentAttackTypesWeights: 
+		var w : int = _weightedDict.CurrentAttackTypesWeights[key]
 		if w <= 0 :
 			continue
 		accumulatedweight += w
@@ -168,33 +191,12 @@ func generate_item(_weightedDict : Dictionary, fallback := AttackTypeEnum.LIGHTA
 	printerr("NO KEY MADE CHOSEN")
 	return fallback
 
-func lightHit(target:Node2D, _hit: HitData)-> void:
-	#print(weaponName + " used light hit")
-	#On hit passive and hediff effects are applied here
-	if hitboxes_data != null:
-		_spawn_hitbox(hitboxes_data.light_hitbox, target.global_position, _hit)
-	elif target.has_method("resolve_hit") :
-		target.resolve_hit(_hit)
-	attack_performed.emit(AttackTypeEnum.LIGHTATTACK, light_endlag)
-
-func heavyHit(target:Node2D, _hit: HitData)-> void:
-	_hit.base_damage *= 1.2
-	_hit.knockback_force *= 3.0
-	#print(weaponName + " used heavy hit")
-	#On hit passive and hediff effects are applied here
-	
-	if hitboxes_data != null:
-		_spawn_hitbox(hitboxes_data.heavy_hitbox, target.global_position, _hit)
-	elif target.has_method("resolve_hit") :
-		target.resolve_hit(_hit)
-	attack_performed.emit(AttackTypeEnum.HEAVYATTACK, heavy_endlag)
-
 func hit(target:Node2D, _hit: HitData)-> void:
 	if owner == null:
 		printerr("No owner ! Voiding hit")
 		return
 	
-	var attack : AttackTypeEnum = generate_item(attackTypes)
+	var attack : AttackTypeEnum = generate_attack_type(attackTypes)
 	_hit.attack_type = attack
 	_hit.base_damage = current_damage
 	_hit.knockback_force = current_knockback
@@ -202,12 +204,14 @@ func hit(target:Node2D, _hit: HitData)-> void:
 	if _hit.is_critical :
 		_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
 	
-	#print ("Generated item : " + str(attack))
-	match attack :
-		AttackTypeEnum.LIGHTATTACK:
-			lightHit(target, _hit)
-		AttackTypeEnum.HEAVYATTACK:
-			heavyHit(target, _hit)
+	if hitboxes_data and hitboxes_data.has_hitbox_for(_hit.attack_type) : 
+		_spawn_hitbox(hitboxes_data.light_hitbox, target.global_position, _hit)
+		attack_performed.emit(_hit.attack_type, attackTypes.endlags[_hit.attack_type])
+	elif target.has_method("resolve_hit") :
+		target.resolve_hit(_hit)
+		attack_performed.emit(_hit.attack_type, attackTypes.endlags[_hit.attack_type])
+	else :
+		printerr("Trying to attack an unvalid target without a hitbox !")
 
 func _spawn_hitbox(hitbox_data: HitboxData, target_position: Vector2, _hit: HitData, _size_mult: float = 1.0) -> void:
 	if hitbox_data == null:

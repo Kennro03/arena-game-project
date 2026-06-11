@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="WeaponAttackTypesDictionnary" format=3 uid="uid://dn4dmaim21qnt"]
+
+[ext_resource type="Script" uid="uid://cc6rgg28d8s7r" path="res://scripts/Items/WeaponAttackTypesDictionnary.gd" id="1_migv7"]
+
+[resource]
+script = ExtResource("1_migv7")
+DictionnaryTitle = "PunchOnly"
+metadata/_custom_type_script = "uid://cc6rgg28d8s7r"

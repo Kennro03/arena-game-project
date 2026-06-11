@@ -49,14 +49,32 @@ static var pending_battle : BattleData = null
 static var pending_shop_pool : Array[Item] = []
 static var pending_event : EventResource = null
 
+@onready var testing_gauntlet : Weapon = preload("uid://evw15hgtlv7a")
 @onready var testing_knife : Weapon = preload("uid://dal5rgfowl103")
+@onready var testing_sword : Weapon = preload("uid://cpnr5mpvtakmp")
+@onready var testing_spear = preload("uid://cje1th2326lj")
+@onready var testing_greatSword : Weapon = preload("uid://bwlni7c3utacx")
+@onready var testing_hammer : Weapon = preload("uid://cseh3bpxs7l8k")
+@onready var test_wand = preload("uid://cpema83m1kpr")
+@onready var test_foci_staff = preload("uid://ds6y5tv4n4hsx")
+
 @onready var hitbox_test_hammer : Weapon = preload("uid://dbi7hcyvjnqnd")
+
 @onready var testing_pablo : UnitData = preload("uid://ps2wy7q88f5b")
 
 func _ready() -> void:
+	add_item_to_inventory(testing_gauntlet)
 	add_item_to_inventory(testing_knife)
+	add_item_to_inventory(testing_sword)
+	add_item_to_inventory(testing_spear)
+	add_item_to_inventory(testing_greatSword)
+	add_item_to_inventory(test_wand)
+	add_item_to_inventory(test_foci_staff)
 	add_item_to_inventory(hitbox_test_hammer)
+	
+	
 	add_unit_to_reserve(testing_pablo.duplicate(true))
+	
 	add_unit_to_team(humanoidUnitData.new())
 	add_unit_to_team(humanoidUnitData.new())
 	add_unit_to_team(humanoidUnitData.new())

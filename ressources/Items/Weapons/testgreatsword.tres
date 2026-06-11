@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://bwlni7c3utacx"]
+
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_p5ngx"]
+[ext_resource type="Texture2D" uid="uid://c655s547o85vn" path="res://ressources/Sprites/Weapons/debug_greatsword.png" id="5_g5x2u"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rcvpb"]
+size = Vector2(32, 32)
+
+[resource]
+script = ExtResource("4_p5ngx")
+weaponCategory = 2
+weaponType = 8
+weaponSprite = ExtResource("5_g5x2u")
+base_attack_speed = 0.8
+base_attack_range = 125.0
+base_damage = 16.0
+base_knockback = 40.0
+statChanges = null
+onHitPassives = null
+attack_speed_scalings = null
+attack_range_scalings = null
+damage_scalings = null
+knockback_scalings = null
+exclusive_animations = null
+item_id = "test_greatsword"
+item_name = "Test Greatsword"
+description = "A basic greatsword used for testing"
+icon = SubResource("PlaceholderTexture2D_rcvpb")
+item_type = null
+rarity = null
+is_obtainable = null
+value = 5
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

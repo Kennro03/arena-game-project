@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://dac8owf84ebqy" path="res://Scenes/Map/Rooms/map_room.gd" id="1_u1c53"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r705m"]
-size = Vector2(16, 16)
+size = Vector2(32, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u1c53"]
+radius = 16.0
 
 [sub_resource type="Animation" id="Animation_iv7p7"]
 length = 0.001
@@ -127,7 +128,7 @@ texture = SubResource("PlaceholderTexture2D_r705m")
 
 [node name="Line2D" type="Line2D" parent="Visuals" unique_id=602420139]
 modulate = Color(1, 1, 1, 0)
-points = PackedVector2Array(-8, -4, -8, 4, 0, 8, 8, 4, 8, -4, 0, -8)
+points = PackedVector2Array(-16, -8, -16, 8, 0, 16, 16, 8, 16, -8, 0, -16)
 closed = true
 width = 2.0
 default_color = Color(0.072842635, 0.072842635, 0.072842635, 1)

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://cpema83m1kpr"]
+
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_md2hr"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_6k707"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_hs3hj"]
+[ext_resource type="Texture2D" uid="uid://bisn55jrtqnxi" path="res://ressources/Sprites/Weapons/debug_wand.png" id="5_2dw06"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="5_df80r"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_md2hr"]
+size = Vector2(32, 32)
+
+[resource]
+script = ExtResource("4_hs3hj")
+weaponType = 3
+weaponSprite = ExtResource("5_2dw06")
+base_attack_speed = 1.05
+base_attack_range = 80.0
+base_damage = 10.0
+base_knockback = 40.0
+item_id = "test_wand"
+item_name = "Test Wand"
+description = "A basic wand used for testing"
+icon = SubResource("PlaceholderTexture2D_md2hr")
+value = 5
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

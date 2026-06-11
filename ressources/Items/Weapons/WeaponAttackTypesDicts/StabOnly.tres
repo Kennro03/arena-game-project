@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WeaponAttackTypesDictionnary" format=3 uid="uid://c07ifd2ipx5tn"]
+
+[ext_resource type="Script" uid="uid://cc6rgg28d8s7r" path="res://scripts/Items/WeaponAttackTypesDictionnary.gd" id="1_ia6xi"]
+
+[resource]
+script = ExtResource("1_ia6xi")
+DictionnaryTitle = "StabOnly"
+DefaultAttackTypesWeights = {
+0: 0,
+1: 1,
+2: 0,
+3: 0,
+4: 0,
+5: 0
+}
+metadata/_custom_type_script = "uid://cc6rgg28d8s7r"
