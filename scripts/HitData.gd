@@ -3,7 +3,7 @@ class_name HitData
 
 var hit_owner : BaseUnit
 var is_critical : bool = false
-var attack_type : Weapon.AttackTypeEnum
+var attack_type : Weapon.DamageType
 
 enum HitOutcome { NONE, HIT, BLOCK, PARRY, DODGE }
 var outcome : HitOutcome = HitOutcome.NONE

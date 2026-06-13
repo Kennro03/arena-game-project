@@ -1,13 +1,12 @@
 extends Resource
 class_name WeaponHitboxesData
 
-@export var hitboxes: Dictionary = {
-	# Weapon.AttackStyle.SLASH: HitboxData
-	# Weapon.AttackStyle.STAB: HitboxData
-}
+@export var base_hitbox: HitboxData = HitboxData.new()
+@export var base_crit_hitbox: HitboxData = HitboxData.new()
 
-func has_hitbox_for(style: Weapon.AttackTypeEnum) -> bool:
-	return hitboxes.has(style)
-
-func get_hitbox_for(style: Weapon.AttackTypeEnum) -> HitboxData:
-	return hitboxes.get(style, null)
+var current_hitbox: HitboxData = null :
+	get:
+		return base_hitbox if current_hitbox == null else current_hitbox
+var current_crit_hitbox: HitboxData = null :
+	get:
+		return base_crit_hitbox if current_crit_hitbox == null else current_crit_hitbox

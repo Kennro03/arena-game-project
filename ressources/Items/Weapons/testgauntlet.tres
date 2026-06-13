@@ -1,9 +1,6 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://evw15hgtlv7a"]
 
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_8ngoy"]
-[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_jg80h"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_k8wk0"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="5_g2kvv"]
 [ext_resource type="Texture2D" uid="uid://cgt11mipx5r5p" path="res://ressources/Sprites/Weapons/debug_gauntlets.png" id="6_8ngoy"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cse7y"]
@@ -11,15 +8,26 @@ size = Vector2(32, 32)
 
 [resource]
 script = ExtResource("4_k8wk0")
+weaponCategory = null
 weaponType = 2
 weaponSprite = ExtResource("6_8ngoy")
 base_attack_speed = 1.2
 base_attack_range = 80.0
 base_damage = 10.0
 base_knockback = 40.0
+statChanges = null
+onHitPassives = null
+attack_speed_scalings = null
+attack_range_scalings = null
+damage_scalings = null
+knockback_scalings = null
+exclusive_animations = null
 item_id = "test_gauntlet"
 item_name = "Test Gauntlet"
 description = "A basic pair of gauntlets used for testing"
 icon = SubResource("PlaceholderTexture2D_cse7y")
+item_type = null
+rarity = null
+is_obtainable = null
 value = 5
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

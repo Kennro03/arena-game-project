@@ -6,9 +6,7 @@
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_csmss"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_kkjms"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="6_ja3sx"]
-[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="7_06kvp"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="8_csmss"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="9_kkjms"]
 
 [sub_resource type="Resource" id="Resource_oloho"]
 script = ExtResource("6_ja3sx")
@@ -35,9 +33,26 @@ metadata/_custom_type_script = "uid://3ilvdjppydrs"
 
 [sub_resource type="Resource" id="Resource_ja3sx"]
 script = ExtResource("8_csmss")
+weaponCategory = null
+weaponType = null
+base_attack_speed = null
 base_attack_range = 20.0
 base_damage = 1.0
 base_knockback = 0.0
+statChanges = null
+onHitPassives = null
+attack_speed_scalings = null
+attack_range_scalings = null
+damage_scalings = null
+knockback_scalings = null
+exclusive_animations = null
+item_id = null
+item_name = null
+description = null
+item_type = null
+rarity = null
+is_obtainable = null
+value = null
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
 
 [resource]

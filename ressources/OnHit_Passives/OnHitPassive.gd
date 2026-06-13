@@ -6,7 +6,7 @@ class_name OnHitPassive
 @export var onhit_passive_description : String = ""
 @export var onhit_passive_icon : Texture2D = PlaceholderTexture2D.new()
 
-enum HitTypeFilter { ANY, SLASH_ONLY, STAB_ONLY, BASH_ONLY, SHOOT_ONLY, CAST_ONLY, PUNCH_ONLY }
+enum HitTypeFilter { ANY, PHYSICAL_ONLY, ETHEREAL_ONLY, SLASH_ONLY, STAB_ONLY, BASH_ONLY, SKILL_ONLY }
 enum CritFilter { ANY, CRIT_ONLY, NON_CRIT_ONLY }
 
 @export_group("trigger conditions")
@@ -18,23 +18,20 @@ enum CritFilter { ANY, CRIT_ONLY, NON_CRIT_ONLY }
 
 func should_trigger(hit: HitData) -> bool:
 	match hit_type_filter:
+		HitTypeFilter.PHYSICAL_ONLY:
+			if hit.attack_type == Weapon.DamageType.SLASH or hit.attack_type == Weapon.DamageType.PIERCE or hit.attack_type == Weapon.DamageType.BLUNT:
+				return false
+		HitTypeFilter.ETHEREAL_ONLY:
+			if hit.attack_type != Weapon.DamageType.SLASH and hit.attack_type != Weapon.DamageType.PIERCE and hit.attack_type != Weapon.DamageType.BLUNT:
+				return false
 		HitTypeFilter.SLASH_ONLY:
-			if hit.attack_type != Weapon.AttackTypeEnum.SLASH:
+			if hit.attack_type != Weapon.DamageType.SLASH:
 				return false
 		HitTypeFilter.STAB_ONLY:
-			if hit.attack_type != Weapon.AttackTypeEnum.STAB:
+			if hit.attack_type != Weapon.DamageType.PIERCE:
 				return false
 		HitTypeFilter.BASH_ONLY:
-			if hit.attack_type != Weapon.AttackTypeEnum.BASH:
-				return false
-		HitTypeFilter.SHOOT_ONLY:
-			if hit.attack_type != Weapon.AttackTypeEnum.SHOOT:
-				return false
-		HitTypeFilter.CAST_ONLY:
-			if hit.attack_type != Weapon.AttackTypeEnum.CAST:
-				return false
-		HitTypeFilter.PUNCH_ONLY:
-			if hit.attack_type != Weapon.AttackTypeEnum.PUNCH:
+			if hit.attack_type != Weapon.DamageType.BLUNT:
 				return false
 	match crit_filter:
 		CritFilter.CRIT_ONLY:

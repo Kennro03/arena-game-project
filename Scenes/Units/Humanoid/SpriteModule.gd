@@ -9,7 +9,7 @@ var flip : bool = false
 func update_sprites() -> void: pass  # called when sprites/armor/weapon change
 func play_idle() -> void: pass
 func play_move() -> void: pass
-func play_attack(_attack_type: Weapon.AttackTypeEnum) -> void: pass
+func play_attack() -> void: pass
 func play_hurt() -> void: pass
 func play_death() -> void: pass
 func play_block() -> void: pass

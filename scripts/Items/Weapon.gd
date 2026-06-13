@@ -1,18 +1,11 @@
 extends Item
 class_name Weapon
 
-signal attack_performed(attack_type:AttackTypeEnum, endlag: float)
+signal attack_performed(damage_type:DamageType, endlag: float)
 
 enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
 enum WeaponTypeEnum { UNARMED, DAGGER, GAUNTLET, WAND, SWORD, SPEAR, FOCI_STAFF, HAMMER, GREATSWORD, BOW }
-enum AttackTypeEnum { 
-	SLASH,
-	STAB,
-	BASH,
-	CAST,
-	SHOOT,
-	PUNCH,
-}
+enum DamageType { PIERCE, SLASH, BLUNT, FIRE, FROST, LIGHTNING, EARTH, WIND, WATER, ORDER, ENTROPY }
 enum BuffableStats {
 	ATTACK_SPEED,
 	ATTACK_RANGE,
@@ -47,11 +40,21 @@ static var debug_weapon_sprites : Dictionary = {
 @export_subgroup("Base weapon Stats","base_")
 @export var base_attack_speed : float = 1.0
 @export var base_attack_range : float = 100.0
+@export var base_damage_type: DamageType = DamageType.BLUNT
 @export var base_damage: float = 5.0
 @export var base_knockback : float = 50.0
+@export var base_endlag : float = 0.15
+@export var base_crit_endlag : float = 0.15
 
 @export_group("Hitboxes")
-@export var hitboxes_data : WeaponHitboxesData = null
+@export var base_hitbox: HitboxData = null
+@export var base_crit_hitbox: HitboxData = null
+var current_hitbox: HitboxData = null :
+	get:
+		return base_hitbox if current_hitbox == null else current_hitbox
+var current_crit_hitbox: HitboxData = null :
+	get:
+		return base_crit_hitbox if current_crit_hitbox == null else current_crit_hitbox
 
 @export_subgroup("Passives")
 @export var statChanges : Array[StatBuff] = []
@@ -63,16 +66,17 @@ static var debug_weapon_sprites : Dictionary = {
 @export var damage_scalings : Array[StatScaling] = []
 @export var knockback_scalings : Array[StatScaling] = []
 
-@export_subgroup("Attack_types")
-@export var attackTypes : WeaponAttackTypesDictionnary = preload("uid://ci5w23rt7sjjl") #MeleeWeapondefault
-
-@export_subgroup("Exclusives")
+@export_subgroup("Animations")
+@export var allowed_animations: Array[String] = ["slash","stab","bash"] # Slash, Stab, Bash, etc
 @export var exclusive_animations : Array[String] = []
 
 var current_attack_speed : float
 var current_attack_range : float
+var current_damage_type : DamageType
 var current_damage: float
 var current_knockback : float
+var current_endlag : float
+var current_crit_endlag : float
 
 var weapon_stat_buffs: Array[WeaponStatBuff] = []
 var owner: Node2D
@@ -165,9 +169,8 @@ func reset_current_stats() -> void:
 	current_damage = base_damage
 	current_knockback = base_knockback
 	
-	attackTypes.CurrentAttackTypesWeights = attackTypes.DefaultAttackTypesWeights
 
-func generate_attack_type(_weightedDict : WeaponAttackTypesDictionnary, fallback := AttackTypeEnum.PUNCH) -> AttackTypeEnum :
+func generate_attack_type(_weightedDict : WeaponAttackTypesDictionnary, fallback := DamageType.BLUNT) -> DamageType :
 	var totalWeights : float = 0
 	var accumulatedweight : int = 0
 	for weight in _weightedDict.CurrentAttackTypesWeights.values():
@@ -196,28 +199,28 @@ func hit(target:Node2D, _hit: HitData)-> void:
 		printerr("No owner ! Voiding hit")
 		return
 	
-	var attack : AttackTypeEnum = generate_attack_type(attackTypes)
-	_hit.attack_type = attack
+	##var attack : DamageType = generate_attack_type(attackTypes)
+	_hit.attack_type = current_damage_type
 	_hit.base_damage = current_damage
 	_hit.knockback_force = current_knockback
 	
 	if _hit.is_critical :
 		_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
 	
-	if hitboxes_data and hitboxes_data.has_hitbox_for(_hit.attack_type) : 
-		_spawn_hitbox(hitboxes_data.light_hitbox, target.global_position, _hit)
-		attack_performed.emit(_hit.attack_type, attackTypes.endlags[_hit.attack_type])
+	if current_hitbox != null : 
+		_spawn_hitbox(target.global_position, _hit)
+		attack_performed.emit(_hit.attack_type, current_endlag)
 	elif target.has_method("resolve_hit") :
 		target.resolve_hit(_hit)
-		attack_performed.emit(_hit.attack_type, attackTypes.endlags[_hit.attack_type])
+		attack_performed.emit(_hit.attack_type, current_endlag)
 	else :
 		printerr("Trying to attack an unvalid target without a hitbox !")
 
-func _spawn_hitbox(hitbox_data: HitboxData, target_position: Vector2, _hit: HitData, _size_mult: float = 1.0) -> void:
-	if hitbox_data == null:
+func _spawn_hitbox(target_position: Vector2, _hit: HitData, _size_mult: float = 1.0) -> void:
+	if current_hitbox == null:
 		printerr("No hitbox data on %s's %s, not spawning hitbox" % [_hit.hit_owner.display_name ,item_name])
 		return
-	var temp_hitbox_data : HitboxData = hitbox_data.duplicate(true) # create a temporary duplicate as to not modify original resource's size
+	var temp_hitbox_data : HitboxData = current_hitbox.duplicate(true) # create a temporary duplicate as to not modify original resource's size
 	var hitbox := Hitbox.new()
 	
 	temp_hitbox_data.size *= _size_mult    #allows increased hitbox sizing

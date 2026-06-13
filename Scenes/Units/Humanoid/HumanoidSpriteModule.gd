@@ -66,7 +66,7 @@ func play_move() -> void:
 	
 	play_candidates(candidates, 2.0)
 
-func play_attack(_attack_type: Weapon.AttackTypeEnum) -> void: 
+func play_attack() -> void: 
 	var _weapon := humanoid.weapon
 	
 	# check and play exclusive animation in priority
@@ -79,12 +79,12 @@ func play_attack(_attack_type: Weapon.AttackTypeEnum) -> void:
 	
 	var wep_type : String = str(Weapon.WeaponTypeEnum.keys()[_weapon.weaponType]).to_lower()
 	var category : String = str(Weapon.WeaponCategoryEnum.keys()[_weapon.weaponCategory]).to_lower()
-	var attack_type : String = str(Weapon.AttackTypeEnum.keys()[_attack_type]).to_lower()
+	var selected_attack_anim : String = str(_weapon.allowed_animations.pick_random())
 	
 	var candidates : Array[String ]= [
-		"Stickman/%s_%s" % [wep_type,attack_type],      # ex. sword_slash
-		"Stickman/%s_%s" % [category, attack_type],  # ex. medium_slash
-		"Stickman/%s" % [attack_type],               # ex. slash
+		"Stickman/%s_%s" % [wep_type,selected_attack_anim],   # ex. sword_slash
+		"Stickman/%s_%s" % [category,selected_attack_anim],  # ex. medium_slash
+		"Stickman/%s" % selected_attack_anim,               # ex. slash
 		"Stickman/unarmed_punch",                    # unarmed_punch (final fallback)
 	]
 	play_candidates(candidates)
