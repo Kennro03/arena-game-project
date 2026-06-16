@@ -90,7 +90,9 @@ func play_attack() -> void:
 	
 	var wep_type : String = str(Weapon.WeaponTypeEnum.keys()[_weapon.weaponType]).to_lower()
 	var category : String = str(Weapon.WeaponCategoryEnum.keys()[_weapon.weaponCategory]).to_lower()
-	var selected_attack_anim : String = str(_weapon.allowed_animations.pick_random())
+	var selected_attack_anim : String = "" 
+	if _weapon and _weapon.allowed_animations != []  : 
+		selected_attack_anim = str(_weapon.allowed_animations.pick_random())
 	
 	var candidates : Array[String ]= [
 		"Stickman/%s_%s" % [wep_type,selected_attack_anim],   # ex. sword_slash
@@ -143,6 +145,9 @@ func update_weapon_visuals(weapon: Weapon) -> void:
 	
 	weapon_sprite.texture = humanoid.weapon.weaponSprite
 	weapon_sprite.visible = true
+	var new_weapon_palette : Texture2D = PlaceholderTexture2D.new()
+	new_weapon_palette.size = Vector2(5,1)
+	weapon_sprite.set_instance_shader_parameter("new_palette",new_weapon_palette)
 	
 	# offset so grip sits at handle origin
 	# adjust per weapon type based on your spritesheet layout

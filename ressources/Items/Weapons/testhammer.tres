@@ -14,6 +14,7 @@ base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
 base_knockback = 55.0
+allowed_animations = Array[String](["slash", "bash"])
 item_id = "test_hammer"
 item_name = "Test Hammer"
 description = "A basic hammer used for testing"

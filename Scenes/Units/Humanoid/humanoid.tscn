@@ -13,9 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://c10gb6ph26us4" path="res://ressources/Sprites/Units/Humanoid/base_legs.png" id="12_0sb7k"]
 [ext_resource type="Texture2D" uid="uid://bukfb4qicnqfg" path="res://ressources/Sprites/Units/Humanoid/base_skull.png" id="12_33p63"]
 [ext_resource type="Texture2D" uid="uid://bgwrw0cxq3e4y" path="res://ressources/Sprites/Units/Humanoid/base_eyes.png" id="13_vqvr8"]
+[ext_resource type="Shader" uid="uid://4btsr3136lb3" path="res://Shaders/palette_swap.tres" id="14_0sb7k"]
 [ext_resource type="Texture2D" uid="uid://c56q6fj8mor03" path="res://ressources/Sprites/Weapons/debug_foci_staff.png" id="14_vqvr8"]
 
-[sub_resource type="Resource" id="Resource_vqvr8"]
+[sub_resource type="Resource" id="Resource_0sb7k"]
 resource_local_to_scene = true
 script = ExtResource("5_ewtqf")
 max_health_scalings = null
@@ -59,6 +60,10 @@ shader = SubResource("Shader_33p63")
 shader_parameter/line_colour = Color(0, 0, 0, 1)
 shader_parameter/line_thickness = 0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_08cg6"]
+shader = ExtResource("14_0sb7k")
+shader_parameter/colors_count = 5
+
 [node name="Humanoid" unique_id=1699308279 instance=ExtResource("1_fpian")]
 script = ExtResource("2_ikepi")
 id = "Stickman"
@@ -66,7 +71,7 @@ display_name = "Stickman"
 unit_type = "Stickman"
 description = "A regular stickman."
 icon = ExtResource("3_ab6u1")
-stats = SubResource("Resource_vqvr8")
+stats = SubResource("Resource_0sb7k")
 default_weapon = ExtResource("6_u2vjm")
 
 [node name="HurtboxCollisionShape" parent="Hurtbox" parent_id_path=PackedInt32Array(1823285284) index="0" unique_id=541966062]
@@ -119,11 +124,11 @@ texture = ExtResource("13_vqvr8")
 
 [node name="WeaponHandle" type="Node2D" parent="SpriteModule" index="5" unique_id=1474442573]
 unique_name_in_owner = true
-rotation = 3.3161256
-scale = Vector2(1.2, 1.2)
+position = Vector2(-3, -10)
 
 [node name="WeaponSprite2D" type="Sprite2D" parent="SpriteModule/WeaponHandle" index="0" unique_id=2004517956]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_08cg6")
 texture = ExtResource("14_vqvr8")
 offset = Vector2(7, 0)
 

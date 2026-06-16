@@ -29,7 +29,7 @@ func get_random_animation(prefix: String) -> String:
 	for anim in animation_player.get_animation_list():
 		if anim.begins_with(prefix):
 			matches.append(anim)
-	print("animation matches found : " + str(matches))
+	#print("animation matches found : " + str(matches))
 	return matches.pick_random() if not matches.is_empty() else ""
 
 func play_candidates(candidates:Array[String] = [], playspeed : float = 1.0) -> void :   

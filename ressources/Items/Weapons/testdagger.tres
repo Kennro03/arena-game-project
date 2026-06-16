@@ -14,6 +14,7 @@ base_attack_speed = 1.1
 base_attack_range = 90.0
 base_damage = 11.0
 base_knockback = 25.0
+allowed_animations = Array[String](["slash", "stab"])
 item_id = "test_dagger"
 item_name = "Test Dagger"
 description = "A basic dagger used for testing"
