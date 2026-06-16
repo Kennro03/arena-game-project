@@ -1,10 +1,8 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://evw15hgtlv7a"]
 
+[ext_resource type="Texture2D" uid="uid://bwsxoouw568gv" path="res://ressources/Sprites/Icons/Items/Weapons/Fist_Icon.png" id="1_87u36"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_k8wk0"]
 [ext_resource type="Texture2D" uid="uid://cgt11mipx5r5p" path="res://ressources/Sprites/Weapons/debug_gauntlets.png" id="6_8ngoy"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cse7y"]
-size = Vector2(32, 32)
 
 [resource]
 script = ExtResource("4_k8wk0")
@@ -21,11 +19,12 @@ attack_speed_scalings = null
 attack_range_scalings = null
 damage_scalings = null
 knockback_scalings = null
+allowed_animations = Array[String]([])
 exclusive_animations = null
 item_id = "test_gauntlet"
 item_name = "Test Gauntlet"
 description = "A basic pair of gauntlets used for testing"
-icon = SubResource("PlaceholderTexture2D_cse7y")
+icon = ExtResource("1_87u36")
 item_type = null
 rarity = null
 is_obtainable = null

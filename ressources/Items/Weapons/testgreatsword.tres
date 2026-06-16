@@ -3,9 +3,6 @@
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_p5ngx"]
 [ext_resource type="Texture2D" uid="uid://c655s547o85vn" path="res://ressources/Sprites/Weapons/debug_greatsword.png" id="5_g5x2u"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rcvpb"]
-size = Vector2(32, 32)
-
 [resource]
 script = ExtResource("4_p5ngx")
 weaponCategory = 2
@@ -25,7 +22,7 @@ exclusive_animations = null
 item_id = "test_greatsword"
 item_name = "Test Greatsword"
 description = "A basic greatsword used for testing"
-icon = SubResource("PlaceholderTexture2D_rcvpb")
+icon = ExtResource("5_g5x2u")
 item_type = null
 rarity = null
 is_obtainable = null

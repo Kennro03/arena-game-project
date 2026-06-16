@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_g8v87"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="1_qjtvy"]
-[ext_resource type="Texture2D" uid="uid://kq7m2b2xk7fv" path="res://ressources/Sprites/Icons/Items/Weapons/TestDagger_Icon.png" id="2_26o8q"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_tr1kk"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_kanyt"]
 [ext_resource type="Texture2D" uid="uid://c64v6mkj70qpn" path="res://ressources/Sprites/Weapons/debug_dagger.png" id="6_o7hd2"]
@@ -15,15 +14,9 @@ base_attack_speed = 1.1
 base_attack_range = 90.0
 base_damage = 11.0
 base_knockback = 25.0
-attackTypes = {
-0: 10,
-1: 2
-}
-light_endlag = 0.1
-heavy_endlag = 0.5
 item_id = "test_dagger"
 item_name = "Test Dagger"
 description = "A basic dagger used for testing"
-icon = ExtResource("2_26o8q")
+icon = ExtResource("6_o7hd2")
 value = 5
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

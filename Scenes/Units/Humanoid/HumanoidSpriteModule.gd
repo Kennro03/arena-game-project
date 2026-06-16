@@ -48,11 +48,21 @@ func update_sprites() -> void: # called when sprites/armor/weapon change
 	update_weapon_visuals(humanoid.weapon)
 	reset_sprite()
 
+func reset_draw_order() -> void:
+	set_draw_order("HandLeft",0)
+	set_draw_order("LegLeft",1)
+	set_draw_order("Body",2)
+	set_draw_order("Head",3)
+	set_draw_order("WeaponHandle",4)
+	set_draw_order("HandRight",5)
+	set_draw_order("LegRight",6)
+
 func play_idle() -> void: 
 	reset_sprite()
 	animation_player.play("Stickman/idle", -1, randf_range(0.5,1.10))
 
 func play_move() -> void: 
+	reset_sprite()
 	var unit := owner as Humanoid
 	
 	var wep_type : String = str(Weapon.WeaponTypeEnum.keys()[unit.weapon.weaponType]).to_lower()
@@ -67,6 +77,7 @@ func play_move() -> void:
 	play_candidates(candidates, 2.0)
 
 func play_attack() -> void: 
+	reset_sprite()
 	var _weapon := humanoid.weapon
 	
 	# check and play exclusive animation in priority
@@ -84,13 +95,14 @@ func play_attack() -> void:
 	var candidates : Array[String ]= [
 		"Stickman/%s_%s" % [wep_type,selected_attack_anim],   # ex. sword_slash
 		"Stickman/%s_%s" % [category,selected_attack_anim],  # ex. medium_slash
-		"Stickman/%s" % selected_attack_anim,               # ex. slash
+		"Stickman/default_%s" % selected_attack_anim,               # ex. default_slash
 		"Stickman/unarmed_punch",                    # unarmed_punch (final fallback)
 	]
 	play_candidates(candidates)
 
 func play_hurt() -> void:
 	animation_player.play("Stickman/hurt")
+	reset_sprite()
 
 func play_death() -> void: 
 	# implement basic death position animation
@@ -98,12 +110,15 @@ func play_death() -> void:
 	animation_player.play("BaseUnit/go_down")
 
 func play_block() -> void: 
+	reset_sprite()
 	animation_player.play("Stickman/block")
 
 func play_parry() -> void: 
+	reset_sprite()
 	animation_player.play("Stickman/parry")
 
 func play_dodge() -> void:
+	reset_sprite()
 	var prefix := "Stickman/dodge_1"
 	var anim := get_random_animation(prefix)
 	animation_player.play(anim)

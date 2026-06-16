@@ -3,9 +3,6 @@
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_4tkd7"]
 [ext_resource type="Texture2D" uid="uid://c56q6fj8mor03" path="res://ressources/Sprites/Weapons/debug_foci_staff.png" id="5_73xhr"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_6ij1t"]
-size = Vector2(32, 32)
-
 [resource]
 script = ExtResource("4_4tkd7")
 weaponCategory = 1
@@ -25,7 +22,7 @@ exclusive_animations = null
 item_id = "test_foci_staff"
 item_name = "TestFociStaff"
 description = "A basic foci staff used for testing"
-icon = SubResource("PlaceholderTexture2D_6ij1t")
+icon = ExtResource("5_73xhr")
 item_type = null
 rarity = null
 is_obtainable = null

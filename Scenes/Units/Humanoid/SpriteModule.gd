@@ -41,3 +41,22 @@ func play_candidates(candidates:Array[String] = [], playspeed : float = 1.0) -> 
 			animation_player.play(selected_animation,-1,playspeed)
 			await animation_player.animation_finished
 			return
+
+func move_sprite_to_front(node_name: String) -> void:
+	var node := get_node(node_name)
+	if node:
+		move_child(node, get_child_count() - 1)
+
+func move_to_back(node_name: String) -> void:
+	var node := get_node(node_name)
+	if node:
+		move_child(node, 0)
+
+func set_draw_order(node_name: String, index: int) -> void:
+	var node := get_node(node_name)
+	if node:
+		move_child(node, index)
+
+func reset_draw_order() -> void:
+	#method overiden in children class
+	pass

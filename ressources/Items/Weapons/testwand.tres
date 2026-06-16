@@ -3,9 +3,6 @@
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_hs3hj"]
 [ext_resource type="Texture2D" uid="uid://bisn55jrtqnxi" path="res://ressources/Sprites/Weapons/debug_wand.png" id="5_2dw06"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_md2hr"]
-size = Vector2(32, 32)
-
 [resource]
 script = ExtResource("4_hs3hj")
 weaponCategory = null
@@ -25,7 +22,7 @@ exclusive_animations = null
 item_id = "test_wand"
 item_name = "Test Wand"
 description = "A basic wand used for testing"
-icon = SubResource("PlaceholderTexture2D_md2hr")
+icon = ExtResource("5_2dw06")
 item_type = null
 rarity = null
 is_obtainable = null
