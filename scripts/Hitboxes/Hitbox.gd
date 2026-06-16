@@ -42,6 +42,7 @@ func _apply_shape() -> void:
 
 func _physics_process(delta: float) -> void:
 	_lifetime += delta
+	
 	if _lifetime >= hitbox_data.duration:
 		queue_free()
 		return

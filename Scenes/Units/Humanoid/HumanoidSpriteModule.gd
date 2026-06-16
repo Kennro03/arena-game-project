@@ -1,6 +1,8 @@
 extends SpriteModule
 class_name HumanoidSpriteModule
 
+const PALETTE_SWAP_MATERIAL = preload("uid://dq56kvtjp86e0")
+
 @onready var humanoid: Humanoid = $".."
 
 @onready var head: Node2D = $Head
@@ -27,10 +29,12 @@ class_name HumanoidSpriteModule
 @export var feet_texture: Texture2D
 
 func _ready() -> void:
-	update_sprites()
+	pass
 
 func update_sprites() -> void: # called when sprites/armor/weapon change
+	print("Updating sprites.")
 	var unit := owner as Humanoid
+	
 	skull.texture = head_texture
 	eyes.texture = eyes_texture
 	torso.texture = torso_texture
@@ -38,14 +42,15 @@ func update_sprites() -> void: # called when sprites/armor/weapon change
 	hand_left.texture = hands_texture
 	leg_right.texture = feet_texture
 	leg_left.texture = feet_texture
-	#weapon.texture = weapon_texture or something
+	
 	head.modulate = unit.sprite_color
 	body.modulate = unit.sprite_color
 	hand_right.modulate = unit.sprite_color
 	hand_left.modulate = unit.sprite_color
 	leg_right.modulate = unit.sprite_color
 	leg_left.modulate = unit.sprite_color
-	update_weapon_visuals(humanoid.weapon)
+	
+	update_weapon_visuals.call_deferred(humanoid.weapon)
 	reset_sprite()
 
 func reset_draw_order() -> void:
@@ -143,12 +148,18 @@ func update_weapon_visuals(weapon: Weapon) -> void:
 		weapon_sprite.offset = Vector2.ZERO
 		return
 	
-	weapon_sprite.texture = humanoid.weapon.weaponSprite
+	weapon_sprite.texture = weapon.weaponSprite
 	weapon_sprite.visible = true
-	var new_weapon_palette : Texture2D = PlaceholderTexture2D.new()
-	new_weapon_palette.size = Vector2(5,1)
-	weapon_sprite.set_instance_shader_parameter("new_palette",new_weapon_palette)
 	
+	weapon_sprite.material = PALETTE_SWAP_MATERIAL.duplicate(true)
+	
+	if weapon.weaponColorPalette != null:
+		weapon_sprite.material.set_shader_parameter("original_palette", preload("uid://dv8kdjtdqrghu") )
+		weapon_sprite.material.set_shader_parameter("new_palette", weapon.weaponColorPalette)
+		weapon_sprite.material.set_shader_parameter("colors_count", 5)
+	else:
+		printerr("Weapon %s has no weaponColorPalette" % weapon.item_name)
+
 	# offset so grip sits at handle origin
 	# adjust per weapon type based on your spritesheet layout
 	match weapon.weaponType:

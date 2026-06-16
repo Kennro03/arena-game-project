@@ -2,23 +2,22 @@
 
 [sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_bmlif"]
 size = Vector2(520, 560)
-expression = "vec2 new_uv = vec2(0,0);
+expression = "vec2 new_uv = vec2(0.0, 0.0);
+float best_dist = 999.0;
 
 for (int i = 0; i < colors_count; i++) {
-	float u = float(i) + 0.5 / float(colors_count);
-	float v = 0.5;
-	vec2 uv = vec2(u,v);
-	vec4 original_palette_color = texture(original_palette, uv);
-	float dist = distance(color, original_palette_color);
-	
-	if (dist == 0.0) {
-		new_uv = uv;
-		break;
-	}
+    float u = (float(i) + 0.5) / float(colors_count);  // fixed parentheses
+    vec2 uv = vec2(u, 0.5);
+    vec4 original_palette_color = texture(original_palette, uv);
+    float dist = distance(color.rgb, original_palette_color.rgb);
+    
+    if (dist < best_dist) {  // nearest match instead of exact equality
+        best_dist = dist;
+        new_uv = uv;
+    }
 }
 
-new_color = texture(new_palette, new_uv);
-"
+new_color = texture(new_palette, new_uv);"
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_g52n7"]
 input_name = "texture"
@@ -44,23 +43,22 @@ nodes/fragment/2/position = Vector2(-300, 80)
 nodes/fragment/2/size = Vector2(520, 560)
 nodes/fragment/2/input_ports = "0,5,color;1,8,original_palette;2,8,new_palette;3,1,color_count;"
 nodes/fragment/2/output_ports = "0,5,new_color;"
-nodes/fragment/2/expression = "vec2 new_uv = vec2(0,0);
+nodes/fragment/2/expression = "vec2 new_uv = vec2(0.0, 0.0);
+float best_dist = 999.0;
 
 for (int i = 0; i < colors_count; i++) {
-	float u = float(i) + 0.5 / float(colors_count);
-	float v = 0.5;
-	vec2 uv = vec2(u,v);
-	vec4 original_palette_color = texture(original_palette, uv);
-	float dist = distance(color, original_palette_color);
-	
-	if (dist == 0.0) {
-		new_uv = uv;
-		break;
-	}
+    float u = (float(i) + 0.5) / float(colors_count);  // fixed parentheses
+    vec2 uv = vec2(u, 0.5);
+    vec4 original_palette_color = texture(original_palette, uv);
+    float dist = distance(color.rgb, original_palette_color.rgb);
+    
+    if (dist < best_dist) {  // nearest match instead of exact equality
+        best_dist = dist;
+        new_uv = uv;
+    }
 }
 
-new_color = texture(new_palette, new_uv);
-"
+new_color = texture(new_palette, new_uv);"
 nodes/fragment/3/node = SubResource("VisualShaderNodeInput_g52n7")
 nodes/fragment/3/position = Vector2(-1140, 80)
 nodes/fragment/4/node = SubResource("VisualShaderNodeTexture2DParameter_rlcy6")
@@ -71,4 +69,4 @@ nodes/fragment/6/node = SubResource("VisualShaderNodeTexture2DParameter_l2eqj")
 nodes/fragment/6/position = Vector2(-1120, 600)
 nodes/fragment/7/node = SubResource("VisualShaderNodeIntParameter_emuik")
 nodes/fragment/7/position = Vector2(-1060, 960)
-nodes/fragment/connections = PackedInt32Array(3, 0, 5, 2, 5, 0, 2, 0, 4, 0, 2, 1, 6, 0, 2, 2, 7, 0, 2, 3, 2, 0, 0, 0)
+nodes/fragment/connections = PackedInt32Array(5, 0, 2, 0, 4, 0, 2, 1, 6, 0, 2, 2, 7, 0, 2, 3)

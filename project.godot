@@ -58,6 +58,7 @@ folder_colors={
 "res://ressources/Status_Effects/": "yellow",
 "res://ressources/Theme/": "gray",
 "res://ressources/Units/": "teal",
+"res://ressources/materials/": "red",
 "res://scripts/": "purple"
 }
 

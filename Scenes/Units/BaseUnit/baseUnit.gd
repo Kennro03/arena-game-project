@@ -416,6 +416,8 @@ func equip(_item: Item = null) -> void:
 		match _item.get_script().get_global_name() :
 			"Weapon" :
 				equip_weapon(_item)
+			"RangedWeapon" :
+				equip_weapon(_item)
 			"Armor" :
 				equip_armor(_item)
 			"Accessory" :

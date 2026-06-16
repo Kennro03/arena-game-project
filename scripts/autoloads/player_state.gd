@@ -57,6 +57,7 @@ static var pending_event : EventResource = null
 @onready var testing_hammer : Weapon = preload("uid://cseh3bpxs7l8k")
 @onready var test_wand = preload("uid://cpema83m1kpr")
 @onready var test_foci_staff = preload("uid://ds6y5tv4n4hsx")
+@onready var test_bow = preload("uid://cikjn1d3hom5x")
 
 @onready var hitbox_test_hammer : Weapon = preload("uid://dbi7hcyvjnqnd")
 
@@ -71,7 +72,7 @@ func _ready() -> void:
 	add_item_to_inventory(test_wand)
 	add_item_to_inventory(test_foci_staff)
 	add_item_to_inventory(hitbox_test_hammer)
-	
+	add_item_to_inventory(test_bow)
 	
 	add_unit_to_reserve(testing_pablo.duplicate(true))
 	

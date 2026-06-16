@@ -1,6 +1,10 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dbi7hcyvjnqnd"]
 
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_b1s46"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_58myn"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_qsd5e"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="5_ucsop"]
+[ext_resource type="Texture2D" uid="uid://bfusxp3cfl5uj" path="res://ressources/materials/gold_color_palette.png" id="6_dg8x0"]
 [ext_resource type="Texture2D" uid="uid://bndegctnnxbsx" path="res://ressources/Sprites/Weapons/debug_hammer.png" id="8_ucsop"]
 
 [resource]
@@ -8,24 +12,16 @@ script = ExtResource("4_qsd5e")
 weaponCategory = 2
 weaponType = 7
 weaponSprite = ExtResource("8_ucsop")
+weaponColorPalette = ExtResource("6_dg8x0")
 base_attack_speed = 0.9
 base_attack_range = 130.0
 base_damage = 20.0
 base_knockback = 70.0
-statChanges = null
-onHitPassives = null
-attack_speed_scalings = null
-attack_range_scalings = null
-damage_scalings = null
-knockback_scalings = null
 allowed_animations = Array[String](["slash", "bash"])
-exclusive_animations = null
 item_id = "rare_test_hammer"
 item_name = "Rare test Hammer"
 description = "A rare hammer used for testing, it has an attack hitbox (the first of it's kind :0)"
 icon = ExtResource("8_ucsop")
-item_type = null
 rarity = 2
-is_obtainable = null
 value = 15
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

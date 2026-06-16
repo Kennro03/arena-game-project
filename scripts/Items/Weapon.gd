@@ -44,6 +44,8 @@ static var debug_weapon_sprites : Dictionary = {
 @export var weaponType : WeaponTypeEnum
 @export var weaponSprite : Texture2D = null : 
 	get: return weaponSprite if weaponSprite != null else debug_weapon_sprites[weaponType]
+@export var weaponColorPalette : Texture2D = preload("uid://dv8kdjtdqrghu")
+
 
 @export_subgroup("Base weapon Stats","base_")
 @export var base_attack_speed : float = 1.0

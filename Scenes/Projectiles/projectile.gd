@@ -10,11 +10,10 @@ var _current_height: float = 0.0
 var _vertical_velocity: float = 0.0
 var _distance_traveled: float = 0.0
 var _hit_targets: Array[BaseUnit] = []
+var _lifetime : float = 0.0
 
 @onready var sprite: Sprite2D = %ProjectileSprite
 @onready var shadow: Sprite2D = %ShadowSprite2D
-@onready var hitbox_area: Area2D = $HitboxArea
-@onready var collision: CollisionShape2D = $HitboxArea/CollisionShape2D
 
 func setup(data: ProjectileData, hit: HitData, dir: Vector2) -> void:
 	projectile_data = data
@@ -27,6 +26,8 @@ func setup(data: ProjectileData, hit: HitData, dir: Vector2) -> void:
 	_hitbox = Hitbox.new()
 	add_child(_hitbox)
 	_hitbox.setup(data.hitbox_data, hit)
+	_hitbox.hitbox_data.duration = INF     #make sure hitbox doesn't despawn without the projectile
+	
 	
 	# intercept hits to apply height check before forwarding
 	_hitbox.target_hit.connect(_on_target_detected)
@@ -40,6 +41,10 @@ func setup(data: ProjectileData, hit: HitData, dir: Vector2) -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	if _lifetime >= projectile_data.max_lifetime:
+		_on_impact()
+		return
+	
 	# horizontal movement
 	var movement := direction * projectile_data.speed * delta
 	global_position += movement
@@ -49,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	_vertical_velocity -= projectile_data.gravity * delta
 	_current_height += _vertical_velocity * delta
 	
-	# visual — sprite floats at height, shadow stays on ground
+	# visual fall of the sprite
 	sprite.position.y = -_current_height
 	
 	# shadow fades and shrinks as projectile goes higher

@@ -2,13 +2,23 @@
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_8se7e"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_xy008"]
+[ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="3_q1i54"]
 [ext_resource type="Script" uid="uid://cubhrsqhe5yk8" path="res://scripts/Items/RangedWeapon.gd" id="3_qecad"]
 [ext_resource type="Script" uid="uid://d0aai80e41px4" path="res://ressources/Projectiles/ProjectileData.gd" id="3_xy008"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="4_q1i54"]
 [ext_resource type="Texture2D" uid="uid://bp6g4vjifxu5e" path="res://ressources/Sprites/Weapons/debug_bow.png" id="5_1qnli"]
+[ext_resource type="Texture2D" uid="uid://bbj5ai2r0jqt" path="res://ressources/Sprites/Weapons/debug_arrow.png" id="5_q1i54"]
+[ext_resource type="Texture2D" uid="uid://dv8kdjtdqrghu" path="res://ressources/materials/debug_color_palette.png" id="9_1qnli"]
+
+[sub_resource type="Resource" id="Resource_1qnli"]
+script = ExtResource("3_q1i54")
+size = Vector2(8, 8)
+metadata/_custom_type_script = "uid://bd4xcgg65elbj"
 
 [sub_resource type="Resource" id="Resource_qecad"]
 script = ExtResource("3_xy008")
+hitbox_data = SubResource("Resource_1qnli")
+sprite = ExtResource("5_q1i54")
 metadata/_custom_type_script = "uid://d0aai80e41px4"
 
 [resource]
@@ -17,8 +27,12 @@ projectile_data = SubResource("Resource_qecad")
 weaponCategory = 1
 weaponType = 9
 weaponSprite = ExtResource("5_1qnli")
+base_attack_range = 400.0
+base_damage_type = 0
+base_damage = 6.0
 allowed_animations = Array[String]([])
 item_id = "testbow"
 item_name = "testbow"
 description = "A debug bow made for testing. "
+icon = ExtResource("5_1qnli")
 metadata/_custom_type_script = "uid://cubhrsqhe5yk8"
