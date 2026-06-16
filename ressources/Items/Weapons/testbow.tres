@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="RangedWeapon" format=3 uid="uid://cikjn1d3hom5x"]
+
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_8se7e"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_xy008"]
+[ext_resource type="Script" uid="uid://cubhrsqhe5yk8" path="res://scripts/Items/RangedWeapon.gd" id="3_qecad"]
+[ext_resource type="Script" uid="uid://d0aai80e41px4" path="res://ressources/Projectiles/ProjectileData.gd" id="3_xy008"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="4_q1i54"]
+[ext_resource type="Texture2D" uid="uid://bp6g4vjifxu5e" path="res://ressources/Sprites/Weapons/debug_bow.png" id="5_1qnli"]
+
+[sub_resource type="Resource" id="Resource_qecad"]
+script = ExtResource("3_xy008")
+metadata/_custom_type_script = "uid://d0aai80e41px4"
+
+[resource]
+script = ExtResource("3_qecad")
+projectile_data = SubResource("Resource_qecad")
+weaponCategory = 1
+weaponType = 9
+weaponSprite = ExtResource("5_1qnli")
+allowed_animations = Array[String]([])
+item_id = "testbow"
+item_name = "testbow"
+description = "A debug bow made for testing. "
+metadata/_custom_type_script = "uid://cubhrsqhe5yk8"

@@ -1,33 +1,79 @@
 extends Weapon
 class_name RangedWeapon
 
-@export_group("Ranged")
-@export var projectile_data: RangedWeaponHitboxesData = null  # projectile hitbox data
-@export var min_range: float = 150.0   # below this, uses melee fallback
-@export var base_projectile_damage_mult: float = 1.0  # ranged hits can scale differently
+@export_group("Ranged_data")
+@export var projectile_data: ProjectileData = null  #
+@export var base_min_shooting_range: float = 100.0   # minimum range for ranged attacks
+@export var base_projectile_damage_bonus : float = 0.0
+@export var base_projectile_knockback_bonus : float = 0.0
 
-@export_subgroup("Melee Fallback")
-@export var melee_hitboxes_data: WeaponHitboxesData = null  # used when target is too close
+var current_min_shooting_range : float
+var current_projectile_damage_bonus : float
+var current_projectile_knockback_bonus : float
 
 const PROJECTILE_SCENE := preload("uid://utyen8d0722")
 
-func _do_ranged_hit(target: Node2D, hit: HitData, is_heavy: bool) -> void:
+func _spawn_projectile(_spawn_position: Vector2, _target_position: Vector2, _hit_data: HitData) -> void:
+	var projectile := PROJECTILE_SCENE.instantiate() as Projectile
+	var direction := (_target_position - _spawn_position).normalized()
+	
+	owner.get_tree().root.add_child(projectile)
+	projectile.global_position = _spawn_position
+	projectile.setup(projectile_data, _hit_data, direction)
+
+func _shoot_at_target(_target: Node2D, _hit_data: HitData) -> void:
 	if projectile_data == null:
 		printerr("RangedWeapon has no projectile_data")
 		return
-	#var proj_hitbox := projectile_data.heavy_hitbox if is_heavy else projectile_data.light_hitbox
-	#_spawn_projectile(proj_hitbox, target.global_position, hit)
+	var _proj_hitbox : HitboxData = projectile_data.hitbox_data
+	
+	_spawn_projectile(owner.global_position, _target.global_position, _hit_data)
 
-func _do_melee_hit(target: Node2D, hit: HitData) -> void:
-	# use melee fallback hitboxes if set, otherwise direct resolve
-	if melee_hitboxes_data != null:
-		_spawn_hitbox(melee_hitboxes_data.light_hitbox, target.global_position, hit)
-	elif target.has_method("resolve_hit"):
-		target.resolve_hit(hit)
+func setup_base_stats_from_dict(dict : Dictionary) -> void : 
+	projectile_data = dict.get("projectile_data",projectile_data)
+	base_min_shooting_range = dict.get("min_shooting_range",base_min_shooting_range)
+	base_projectile_damage_bonus = dict.get("projectile_damage_bonus",base_projectile_damage_bonus) 
+	base_projectile_knockback_bonus = dict.get("projectile_knockback_bonus",base_projectile_knockback_bonus)
+	super.setup_base_stats_from_dict(dict)
 
-func _spawn_projectile(hitbox_data: HitboxData, target_position: Vector2, hit: HitData) -> void:
-	var projectile := PROJECTILE_SCENE.instantiate() as Projectile
-	owner.get_tree().root.add_child(projectile)
-	projectile.global_position = owner.global_position
-	var direction := (target_position - owner.global_position).normalized()
-	#projectile.setup(hitbox_data, hit, direction)
+func recalculate_stats() -> void:
+	current_min_shooting_range = base_min_shooting_range
+	current_projectile_damage_bonus = base_projectile_damage_bonus
+	current_projectile_knockback_bonus = base_projectile_knockback_bonus
+	super.recalculate_stats()
+
+func hit(target:Node2D, _hit: HitData)-> void:
+	if owner == null:
+		printerr("No owner ! Voiding hit")
+		return
+	
+	if owner.global_position.distance_to(target.global_position) < current_min_shooting_range :
+		_hit.attack_type = current_damage_type
+		_hit.base_damage = current_damage
+		_hit.knockback_force = current_knockback
+		
+		if _hit.is_critical :
+			_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
+		
+		if current_hitbox != null : 
+			_spawn_hitbox(target.global_position, _hit)
+			attack_performed.emit(_hit.attack_type, current_endlag)
+		elif target.has_method("resolve_hit") :
+			target.resolve_hit(_hit)
+			attack_performed.emit(_hit.attack_type, current_endlag)
+		else :
+			printerr("Trying to attack an unvalid target without a hitbox !")
+	else :
+		_hit.attack_type = current_damage_type
+		_hit.base_damage = current_damage
+		_hit.base_damage += current_projectile_damage_bonus
+		_hit.knockback_force = current_knockback
+		_hit.knockback_force += current_projectile_knockback_bonus
+		
+		if _hit.is_critical :
+			_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
+		
+		_shoot_at_target(target,_hit)
+		
+		
+		

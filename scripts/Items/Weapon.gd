@@ -6,17 +6,25 @@ signal attack_performed(damage_type:DamageType, endlag: float)
 enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
 enum WeaponTypeEnum { UNARMED, DAGGER, GAUNTLET, WAND, SWORD, SPEAR, FOCI_STAFF, HAMMER, GREATSWORD, BOW }
 enum DamageType { PIERCE, SLASH, BLUNT, FIRE, FROST, LIGHTNING, EARTH, WIND, WATER, ORDER, ENTROPY }
+
 enum BuffableStats {
 	ATTACK_SPEED,
 	ATTACK_RANGE,
 	DAMAGE,
 	KNOCKBACK,
+	PROJECTILE_DAMAGE_BONUS,   
+	PROJECTILE_KNOCKBACK_BONUS,
+	MIN_SHOOTING_RANGE,
 }
+
 static var buffable_stat_icons : Dictionary = {
 	BuffableStats.DAMAGE: preload("uid://br85td3jaqel7"),
 	BuffableStats.ATTACK_SPEED: preload("uid://w6i0f1b7rffo"),
 	BuffableStats.ATTACK_RANGE: preload("uid://d0tjxydbev5m4"),
 	BuffableStats.KNOCKBACK: preload("uid://brfm5e6515tqd"),
+	BuffableStats.PROJECTILE_DAMAGE_BONUS : PlaceholderTexture2D.new(),
+	BuffableStats.PROJECTILE_KNOCKBACK_BONUS : PlaceholderTexture2D.new(),
+	BuffableStats.MIN_SHOOTING_RANGE : PlaceholderTexture2D.new(),
 }
 static var debug_weapon_sprites : Dictionary = {
 	WeaponTypeEnum.UNARMED: null,
@@ -89,7 +97,6 @@ func setup_stats() -> void :
 		printerr("No owner!")
 		return
 	recalculate_stats() 
-	
 
 func setup_base_stats_from_dict(dict : Dictionary) -> void : 
 	base_attack_speed = dict.get("attack_speed",base_attack_speed)
@@ -169,6 +176,7 @@ func reset_current_stats() -> void:
 	current_damage = base_damage
 	current_knockback = base_knockback
 	
+	current_damage_type = base_damage_type  
 
 func generate_attack_type(_weightedDict : WeaponAttackTypesDictionnary, fallback := DamageType.BLUNT) -> DamageType :
 	var totalWeights : float = 0
