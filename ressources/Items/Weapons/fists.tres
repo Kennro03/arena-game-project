@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="1_datym"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_b5c5v"]
 [ext_resource type="Texture2D" uid="uid://bwsxoouw568gv" path="res://ressources/Sprites/Icons/Items/Weapons/Fist_Icon.png" id="2_dyl5h"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_jfweh"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="2_jfweh"]
 
 [resource]
 script = ExtResource("1_datym")

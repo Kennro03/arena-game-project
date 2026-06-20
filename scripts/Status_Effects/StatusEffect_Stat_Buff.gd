@@ -4,7 +4,7 @@ class_name StatusEffect_Stat_Buff
 signal emit_particle(particle_scene:PackedScene)
 signal stop_particle(particle_scene:PackedScene)
 
-@export var stat_buff : StatBuff
+@export var stat_buff : Buff
 @export var particle_effect : PackedScene
 
 var default_buff_particle_scene : PackedScene = preload("uid://bp8e0bj146pk6")
@@ -27,10 +27,10 @@ func on_expire(_target, _effect):
 	if particle_effect :
 		stop_particle.emit(particle_effect)
 
-func setup(_stat_buff : StatBuff, _name : String = "", _id : String = "", _description : String = "") -> StatusEffect_Stat_Buff:
+func setup(_buff : Buff, _name : String = "", _id : String = "", _description : String = "") -> StatusEffect_Stat_Buff:
 	# random buff generation : 
 	#var buff : StatBuff = StatBuff.new(Stats.Attributes.values().pick_random(), randi() % 10 + 11, StatBuff.BuffType.ADD)
-	stat_buff = _stat_buff
+	stat_buff = _buff
 	Status_effect_name = _name
 	status_ID = _id
 	Status_effect_description = _description
@@ -39,7 +39,7 @@ func setup(_stat_buff : StatBuff, _name : String = "", _id : String = "", _descr
 
 func _generate_metadata():
 	var ext : String
-	if (stat_buff.buff_type == StatBuff.BuffType.ADD and stat_buff.buff_amount > 0) or (stat_buff.buff_type == StatBuff.BuffType.MULTIPLY and stat_buff.buff_amount >= 1) :
+	if (stat_buff.buff_type == Buff.BuffType.ADD and stat_buff.buff_amount > 0) or (stat_buff.buff_type == Buff.BuffType.MULTIPLY and stat_buff.buff_amount >= 1) :
 		ext = "Buff"
 		if !particle_effect :
 			particle_effect = default_buff_particle_scene

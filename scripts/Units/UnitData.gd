@@ -161,7 +161,8 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 				for file_name in DirAccess.get_files_at("res://ressources/Status_Effects/Statuses"):
 					if (file_name.get_extension() == "tres"):
 						effects.append(load("res://ressources/Status_Effects/Statuses/"+file_name))
-				var random_attribute_status_debuff : StatusEffect = StatusEffect_Stat_Buff.new().setup(StatBuff.new(Stats.Attributes.values().pick_random(), -(randi() % 10 + 11), StatBuff.BuffType.ADD))
+				var random_attribute_status_debuff : StatusEffect = StatusEffect_Stat_Buff.new().setup(
+					Buff.new(Stats.Attributes.values().pick_random(), -(randi() % 10 + 11), Buff.BuffType.ADD))
 				#print("randomly generated debuff : " + random_attribute_status_debuff.Status_effect_name)
 				effects.append(random_attribute_status_debuff)
 				var picked : Array[StatusEffect] = [effects.pick_random()]
@@ -180,7 +181,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 				var random_weapon_stat : Weapon.BuffableStats = Weapon.BuffableStats.values().pick_random()
 				var debuff_amount : float = _random_weapon_stat_amount(random_weapon_stat, false)
 				var weapon_stat_debuff : StatusEffect_WeaponStat_Buff = StatusEffect_WeaponStat_Buff.new().setup(
-					WeaponStatBuff.new(random_weapon_stat, debuff_amount, WeaponStatBuff.BuffType.MULTIPLY))
+					Buff.new(Buff.Domain.WEAPON, random_weapon_stat, debuff_amount, Buff.BuffType.MULTIPLY))
 				var effects : Array[StatusEffect] = [weapon_stat_debuff]
 				var passive : OnHitPassiveApplyStatusEffects = UnitData.make_status_passive(effects,false,0.75)
 				data = data.with_onHit_passive(passive)
@@ -189,7 +190,7 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 				var random_weapon_stat : Weapon.BuffableStats = Weapon.BuffableStats.values().pick_random()
 				var buff_amount : float = _random_weapon_stat_amount(random_weapon_stat, true)
 				var weapon_stat_self_buff : StatusEffect_WeaponStat_Buff = StatusEffect_WeaponStat_Buff.new().setup(
-					WeaponStatBuff.new(random_weapon_stat, buff_amount, WeaponStatBuff.BuffType.MULTIPLY))
+					Buff.new(Buff.Domain.WEAPON,random_weapon_stat, buff_amount, Buff.BuffType.MULTIPLY))
 				var effects : Array[StatusEffect] = [weapon_stat_self_buff]
 				var passive : OnHitPassiveApplyStatusEffects = UnitData.make_status_passive(effects,true,0.75)
 				data = data.with_onHit_passive(passive)

@@ -78,8 +78,8 @@ func set_item_stats() -> void :
 			if wep.statChanges != [] :
 				stats_rich_text_label.append_text("\nStat boosts : ") 
 				for buff in wep.statChanges :
-					stats_rich_text_label.append_text("\n%s " % [Stats.BuffableStats.keys()[buff.stat]])
-					if buff.buff_type == StatBuff.BuffType.ADD :
+					stats_rich_text_label.append_text("\n%s " % [Stats.BuffableStats.keys()[buff.stat_index]])
+					if buff.buff_type == Buff.BuffType.ADD :
 						if buff.buff_amount > 0 :
 							stats_rich_text_label.append_text("+" +str(buff.buff_amount))
 						else :
@@ -95,8 +95,8 @@ func set_item_stats() -> void :
 			if armor.statChanges != [] :
 				stats_rich_text_label.append_text("\nStat buffs : ") 
 			for buff in armor.statChanges :
-				stats_rich_text_label.append_text("\n%s " % [Stats.BuffableStats.keys()[buff.stat]])
-				if buff.buff_type == StatBuff.BuffType.ADD :
+				stats_rich_text_label.append_text("\n%s " % [Stats.BuffableStats.keys()[buff.stat_index]])
+				if buff.buff_type == Buff.BuffType.ADD :
 					if buff.buff_amount > 0 :
 						stats_rich_text_label.append_text("+" +str(buff.buff_amount))
 					else :
@@ -112,8 +112,8 @@ func set_item_stats() -> void :
 			if acc.statChanges != [] :
 				stats_rich_text_label.append_text("Stat buffs : ") 
 			for buff in acc.statChanges :
-				stats_rich_text_label.append_text("\n%s " % [Stats.BuffableStats.keys()[buff.stat]])
-				if buff.buff_type == StatBuff.BuffType.ADD :
+				stats_rich_text_label.append_text("\n%s " % [Stats.BuffableStats.keys()[buff.stat_index]])
+				if buff.buff_type == Buff.BuffType.ADD :
 					if buff.buff_amount > 0 :
 						stats_rich_text_label.append_text("+" +str(buff.buff_amount))
 					else :

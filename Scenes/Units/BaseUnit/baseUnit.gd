@@ -80,6 +80,31 @@ const MIN_BAR_WIDTH : float = 16.0
 const MAX_BAR_WIDTH : float = 80.0
 const HEALTH_SCALE_REFERENCE : float = 100.0 
 
+static func apply_buff(buff: Buff, unit: BaseUnit) -> void:
+	if unit == null :
+		printerr("Can't apply buff to missing unit.")
+		return
+	match buff.domain:
+		Buff.Domain.UNIT:
+			unit.stats.add_buff(buff)
+		Buff.Domain.WEAPON:
+			if unit.weapon:
+				unit.weapon.add_weapon_buff(buff)
+		Buff.Domain.ARMOR:
+			if unit.armor:
+				unit.armor.add_buff(buff)
+
+static func remove_buff(buff: Buff, unit: BaseUnit) -> void:
+	if unit == null :
+		printerr("Can't remove buff from missing unit.")
+		return
+	match buff.domain:
+		Buff.Domain.UNIT:
+			unit.stats.remove_buff(buff)
+		Buff.Domain.WEAPON:
+			if unit.weapon:
+				unit.weapon.remove_weapon_buff(buff)
+
 func _ready():
 	add_to_group("Live_Units")
 	ensure_weapon()

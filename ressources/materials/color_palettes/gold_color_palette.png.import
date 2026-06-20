@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3hxlowanev82"
-path="res://.godot/imported/platinum_color_palette.png-20b4e1e5cd7b42b4fb9b1c981dace6cd.ctex"
+uid="uid://bfusxp3cfl5uj"
+path="res://.godot/imported/gold_color_palette.png-9eddd26b2ef0004db7fabd6a6d317046.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/materials/platinum_color_palette.png"
-dest_files=["res://.godot/imported/platinum_color_palette.png-20b4e1e5cd7b42b4fb9b1c981dace6cd.ctex"]
+source_file="res://ressources/materials/color_palettes/gold_color_palette.png"
+dest_files=["res://.godot/imported/gold_color_palette.png-9eddd26b2ef0004db7fabd6a6d317046.ctex"]
 
 [params]
 

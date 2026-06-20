@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv8kdjtdqrghu"
-path="res://.godot/imported/debug_color_palette.png-d639734dd0248eab432cd7d57196de02.ctex"
+uid="uid://c82hheaja6rd6"
+path="res://.godot/imported/iron_color_palette.png-4c4be48ee51581a0607801303f03692f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/materials/debug_color_palette.png"
-dest_files=["res://.godot/imported/debug_color_palette.png-d639734dd0248eab432cd7d57196de02.ctex"]
+source_file="res://ressources/materials/color_palettes/iron_color_palette.png"
+dest_files=["res://.godot/imported/iron_color_palette.png-4c4be48ee51581a0607801303f03692f.ctex"]
 
 [params]
 

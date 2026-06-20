@@ -9,7 +9,7 @@ enum ArmorCategoryEnum { LIGHT, MEDIUM, HEAVY }
 @export var armorCategory : ArmorCategoryEnum
 
 @export_subgroup("Passives")
-@export var statChanges : Array[StatBuff] = [] #Array of stat buffs applied to holder
+@export var buffs : Array[Buff] = [] #Array of stat buffs applied to holder
 @export var passives : Array = [] #Array of PASSIVES that are yet to be implemented
 
 var owner: Node2D
@@ -23,9 +23,9 @@ func setup_stats() -> void :
 		return
 
 func apply_owner_buffs(stats: Stats):
-	for buff in statChanges:
+	for buff in buffs:
 		stats.add_buff(buff)
 
 func remove_owner_buffs(stats: Stats):
-	for buff in statChanges:
+	for buff in buffs:
 		stats.remove_buff(buff)

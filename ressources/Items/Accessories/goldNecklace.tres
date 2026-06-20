@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bd3ycprdgbf0l" path="res://ressources/Sprites/Icons/Items/Accessory/jewelry_sprite_pngs/necklace_gold.png" id="1_i7p0n"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="2_0hcjy"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="3_axcu3"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="3_axcu3"]
 
 [resource]
 script = ExtResource("2_0hcjy")

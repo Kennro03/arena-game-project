@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bndtxamvshcpj"
-path="res://.godot/imported/silver_color_palette.png-63283c0be094d60bb9d318b4b32ec485.ctex"
+uid="uid://d1o0suukio7ss"
+path="res://.godot/imported/bronze_color_palette.png-70535bedb13f6a8e6248491a98878c80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/materials/silver_color_palette.png"
-dest_files=["res://.godot/imported/silver_color_palette.png-63283c0be094d60bb9d318b4b32ec485.ctex"]
+source_file="res://ressources/materials/color_palettes/bronze_color_palette.png"
+dest_files=["res://.godot/imported/bronze_color_palette.png-70535bedb13f6a8e6248491a98878c80.ctex"]
 
 [params]
 

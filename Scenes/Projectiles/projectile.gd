@@ -1,6 +1,16 @@
 extends Node2D
 class_name Projectile
 
+enum BuffableStats {
+	SPEED,
+	SIZE,
+	LAUNCH_VELOCITY,
+	GRAVITY,
+	PIERCING,
+	MAX_LIFETIME,
+	MAX_RANGE,
+}
+
 @export var projectile_data: ProjectileData
 var hit_data: HitData
 @export var _hitbox : Hitbox = null

@@ -200,7 +200,7 @@ var health : float = 0.0 : set = _on_health_set
 var shield : float = 0.0 : set = _on_shield_set
 var max_shield : float
 
-var stat_buffs: Array[StatBuff]
+var unit_stat_buffs: Array[Buff]
 
 func _init() -> void:
 	setup_stats.call_deferred()
@@ -249,12 +249,12 @@ func setup_base_stats_from_dict(dict : Dictionary) -> void :
 		base_accessory_limit = dict["accessory_limit"] 
 	recalculate_stats()
 
-func add_buff(buff: StatBuff) -> void :
-	stat_buffs.append(buff)
+func add_buff(buff: Buff) -> void :
+	unit_stat_buffs.append(buff)
 	recalculate_stats()
 
-func remove_buff(buff: StatBuff) -> void :
-	stat_buffs.erase(buff)
+func remove_buff(buff: Buff) -> void :
+	unit_stat_buffs.erase(buff)
 	recalculate_stats()
 
 func setup_stats() -> void :
@@ -277,24 +277,22 @@ func recalculate_stats() -> void :
 	current_attunement = int(base_attunement)
 	
 	
-	for buff in stat_buffs :
-		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
+	for buff in unit_stat_buffs :
+		#var stat_name: String = BuffableStats.keys()[buff.get_unit_stat()].to_lower()
 		#print("Processing buff: stat=%s, amount=%s, type=%s" % [stat_name, buff.buff_amount, buff.buff_type])
 		#var cur_property_name := "current_" + stat_name
 		#print("Property exists: ", get(cur_property_name) != null)
+		if buff.domain != Buff.Domain.UNIT:
+			continue  
 		match buff.buff_type:
-			StatBuff.BuffType.ADD:
-				if not stat_addends.has(stat_name):
-					stat_addends[stat_name] = 0.0
-				stat_addends[stat_name] += buff.buff_amount
+			Buff.BuffType.ADD:
+				stat_addends[buff.stat_index] += buff.buff_amount
 			
-			StatBuff.BuffType.MULTIPLY:
-				if not stat_multipliers.has(stat_name):
-					stat_multipliers[stat_name] = 1.0
-				stat_multipliers[stat_name] *= buff.buff_amount
+			Buff.BuffType.MULTIPLY:
+				stat_multipliers[buff.stat_index] *= buff.buff_amount
 				
-				if stat_multipliers[stat_name] < 0.0:
-					stat_multipliers[stat_name] = 0.0
+				#if stat_multipliers[stat_name] < 0.0:
+				#	stat_multipliers[stat_name] = 0.0
 	
 	for stat_name in stat_multipliers:
 		var cur_property_name : String = str("current_" + stat_name)

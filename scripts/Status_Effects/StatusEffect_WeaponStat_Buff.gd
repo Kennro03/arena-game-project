@@ -4,7 +4,7 @@ class_name StatusEffect_WeaponStat_Buff
 signal emit_particle(particle_scene:PackedScene)
 signal stop_particle(particle_scene:PackedScene)
 
-@export var weapon_stat_buff : WeaponStatBuff
+@export var weapon_stat_buff : Buff
 @export var particle_effect : PackedScene
 
 var default_buff_particle_scene : PackedScene = preload("uid://bp8e0bj146pk6")
@@ -26,7 +26,7 @@ func on_expire(_target, _effect):
 	if particle_effect :
 		stop_particle.emit(particle_effect)
 
-func setup(_weapon_stat_buff : WeaponStatBuff, _name : String = "", _id : String = "", _description : String = "") -> StatusEffect_WeaponStat_Buff:
+func setup(_weapon_stat_buff : Buff, _name : String = "", _id : String = "", _description : String = "") -> StatusEffect_WeaponStat_Buff:
 	# random buff generation : 
 	#var buff : StatBuff = StatBuff.new(Stats.Attributes.values().pick_random(), randi() % 10 + 11, StatBuff.BuffType.ADD)
 	weapon_stat_buff = _weapon_stat_buff
@@ -38,7 +38,7 @@ func setup(_weapon_stat_buff : WeaponStatBuff, _name : String = "", _id : String
 
 func _generate_metadata():
 	var ext : String
-	if (weapon_stat_buff.buff_type == StatBuff.BuffType.ADD and weapon_stat_buff.buff_amount > 0) or (weapon_stat_buff.buff_type == StatBuff.BuffType.MULTIPLY and weapon_stat_buff.buff_amount >= 1) :
+	if (weapon_stat_buff.buff_type == Buff.BuffType.ADD and weapon_stat_buff.buff_amount > 0) or (weapon_stat_buff.buff_type == Buff.BuffType.MULTIPLY and weapon_stat_buff.buff_amount >= 1) :
 		ext = "Buff"
 		if !particle_effect :
 			particle_effect = default_buff_particle_scene
@@ -48,7 +48,7 @@ func _generate_metadata():
 			particle_effect = default_debuff_particle_scene
 	
 	if status_icon == null or status_icon is PlaceholderTexture2D:
-		var icon = WeaponStatBuff.stat_icons.get(weapon_stat_buff.stat, null)
+		var icon = Buff.stat_icons.get(weapon_stat_buff.stat, null)
 		if icon:
 			status_icon = icon
 	

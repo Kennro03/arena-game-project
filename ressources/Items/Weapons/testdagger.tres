@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_g8v87"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="1_qjtvy"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://stat_buff.gd" id="2_tr1kk"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="2_tr1kk"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_kanyt"]
 [ext_resource type="Texture2D" uid="uid://c64v6mkj70qpn" path="res://ressources/Sprites/Weapons/debug_dagger.png" id="6_o7hd2"]
 

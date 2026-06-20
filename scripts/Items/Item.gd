@@ -13,8 +13,7 @@ enum Rarity { COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, CURSED }
 @export var rarity: Rarity = Rarity.COMMON
 @export var is_obtainable : bool = true # if it can it appear in shops
 @export var value: int = 0  # gold value for shops
-
-
+		
 #Used to select item border for inventory
 const item_borders : Dictionary = {
 	Rarity.COMMON : preload("uid://bevk6u7cdgmgw"),

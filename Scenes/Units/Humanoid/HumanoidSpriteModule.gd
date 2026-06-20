@@ -153,12 +153,15 @@ func update_weapon_visuals(weapon: Weapon) -> void:
 	
 	weapon_sprite.material = PALETTE_SWAP_MATERIAL.duplicate(true)
 	
-	if weapon.weaponColorPalette != null:
+	if weapon.weapon_material and weapon.weapon_material.material_color_palette != null:
 		weapon_sprite.material.set_shader_parameter("original_palette", preload("uid://dv8kdjtdqrghu") )
-		weapon_sprite.material.set_shader_parameter("new_palette", weapon.weaponColorPalette)
+		weapon_sprite.material.set_shader_parameter("new_palette", weapon.weapon_material.material_color_palette)
 		weapon_sprite.material.set_shader_parameter("colors_count", 5)
 	else:
 		printerr("Weapon %s has no weaponColorPalette" % weapon.item_name)
+		weapon_sprite.material.set_shader_parameter("original_palette", preload("uid://dv8kdjtdqrghu") )
+		weapon_sprite.material.set_shader_parameter("new_palette", preload("uid://dv8kdjtdqrghu"))
+		weapon_sprite.material.set_shader_parameter("colors_count", 5)
 
 	# offset so grip sits at handle origin
 	# adjust per weapon type based on your spritesheet layout

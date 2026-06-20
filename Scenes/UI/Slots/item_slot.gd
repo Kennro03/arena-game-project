@@ -1,6 +1,8 @@
 extends Slot
 class_name ItemSlot
 
+const PALETTE_SWAP_MATERIAL = preload("uid://dq56kvtjp86e0")
+
 enum SlotContext { INVENTORY, UNIT_GEAR, REWARD, SHOP, DISPLAY }
 
 var slot_context: SlotContext = SlotContext.DISPLAY
@@ -23,7 +25,24 @@ func set_item(_item: Item) -> void:
 		drag_visual.enabled = true
 	else : 
 		drag_visual.enabled = false
+
+func set_texture() -> void:
+	var icon := get_icon()
+	icon_sprite.texture = icon 
+	icon_sprite.visible = icon != null
 	
+	if item is Weapon or item is RangedWeapon :
+		var color_palette : Texture2D = item.get_color_palette()
+		
+		icon_sprite.material = PALETTE_SWAP_MATERIAL.duplicate(true)
+		if color_palette != null:
+			icon_sprite.material.set_shader_parameter("original_palette", preload("uid://dv8kdjtdqrghu"))
+			icon_sprite.material.set_shader_parameter("new_palette", color_palette)
+			icon_sprite.material.set_shader_parameter("colors_count", 5)
+		else:
+			printerr("Item %s has no weaponColorPalette" % item.item_name)
+	else : 
+		icon_sprite.material = null
 
 func get_icon() -> Texture2D:
 	return item.icon if item else null
@@ -152,21 +171,21 @@ func _add_weapon_stats_scalings(_rtl: RichTextLabel, weapon: Weapon) -> void:
 			_rtl.newline()
 
 func _add_accessory_stat_buffs(_rtl: RichTextLabel, _item: Item) -> void:
-	var stat_changes : Array[StatBuff] = _item.statChanges
+	var stat_changes : Array[Buff] = _item.statChanges
 	if stat_changes.size() > 0 :
 		_rtl.append_text("[center]Stat changes : [/center]")
 	for b in stat_changes :
 		_rtl.newline() 
-		var stat_changed := b.stat
+		var stat_changed :int= b.stat_index
 		var stat_name : String = Stats.BuffableStats.keys()[stat_changed].capitalize()
 		var stat_change_color : Color = Stats.stat_text_colors.get(stat_changed, Color.WHITE)
 		var color_hex : String = "#" + stat_change_color.to_html(false)
-		if b.buff_type == StatBuff.BuffType.ADD:
+		if b.buff_type == Buff.BuffType.ADD:
 			if b.buff_amount > 0:
 				_rtl.append_text("[color=%s]+%s %s[/color]" % [color_hex, b.buff_amount, stat_name])
 			elif b.buff_amount < 0:
 				_rtl.append_text("[color=%s]%s %s[/color]" % [color_hex, b.buff_amount, stat_name])
-		if b.buff_type == StatBuff.BuffType.MULTIPLY:
+		if b.buff_type == Buff.BuffType.MULTIPLY:
 			var percent := snappedf((b.buff_amount - 1.0) * 100.0, 0.1)
 			if b.buff_amount > 1.0:
 				_rtl.append_text("[color=%s]+%s%% %s[/color]" % [color_hex, percent, stat_name])

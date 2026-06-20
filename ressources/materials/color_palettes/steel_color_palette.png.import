@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b28t4totxxlsr"
-path="res://.godot/imported/slime_color_palette.png-5a28df14f8f612aee1c4699c8e8f6119.ctex"
+uid="uid://crolavhk16vwv"
+path="res://.godot/imported/steel_color_palette.png-bdf7f4d02f545fb362d966d79e399f49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/materials/slime_color_palette.png"
-dest_files=["res://.godot/imported/slime_color_palette.png-5a28df14f8f612aee1c4699c8e8f6119.ctex"]
+source_file="res://ressources/materials/color_palettes/steel_color_palette.png"
+dest_files=["res://.godot/imported/steel_color_palette.png-bdf7f4d02f545fb362d966d79e399f49.ctex"]
 
 [params]
 

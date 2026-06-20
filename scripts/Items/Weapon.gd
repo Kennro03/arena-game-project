@@ -44,8 +44,9 @@ static var debug_weapon_sprites : Dictionary = {
 @export var weaponType : WeaponTypeEnum
 @export var weaponSprite : Texture2D = null : 
 	get: return weaponSprite if weaponSprite != null else debug_weapon_sprites[weaponType]
-@export var weaponColorPalette : Texture2D = preload("uid://dv8kdjtdqrghu")
-
+@export var weapon_material : ItemMaterial = preload("uid://b64ruo6aqmuk")
+@export var pip_count: int = 0                       #number of pips rolled upon generation, unused by misc or quest item types
+@export var pips : Array[Pip]
 
 @export_subgroup("Base weapon Stats","base_")
 @export var base_attack_speed : float = 1.0
@@ -67,7 +68,7 @@ var current_crit_hitbox: HitboxData = null :
 		return base_crit_hitbox if current_crit_hitbox == null else current_crit_hitbox
 
 @export_subgroup("Passives")
-@export var statChanges : Array[StatBuff] = []
+@export var statChanges : Array[Buff] = []
 @export var onHitPassives : Array[OnHitPassive] = []
 
 @export_subgroup("Scalings")
@@ -88,8 +89,8 @@ var current_knockback : float
 var current_endlag : float
 var current_crit_endlag : float
 
-var weapon_stat_buffs: Array[WeaponStatBuff] = []
-var owner: Node2D
+var weapon_stat_buffs: Array[Buff] = []
+var owner: BaseUnit
 
 func _init() -> void:
 	item_type = Item.ItemType.WEAPON
@@ -107,13 +108,13 @@ func setup_base_stats_from_dict(dict : Dictionary) -> void :
 	base_knockback = dict.get("knockback",base_knockback)
 	recalculate_stats()
 
-func add_weapon_buff(buff: WeaponStatBuff) -> void :
+func add_weapon_buff(buff: Buff) -> void :
 	if buff in weapon_stat_buffs:
 		return
 	weapon_stat_buffs.append(buff)
 	recalculate_stats.call_deferred()
 
-func remove_weapon_buff(buff: WeaponStatBuff) -> void :
+func remove_weapon_buff(buff: Buff) -> void :
 	weapon_stat_buffs.erase(buff)
 	recalculate_stats.call_deferred()
 
@@ -149,20 +150,15 @@ func recalculate_stats() -> void :
 	
 	#Weapon buffs
 	for buff in weapon_stat_buffs :
-		var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
+		#var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
 		match buff.buff_type:
-			WeaponStatBuff.BuffType.ADD:
-				if not stat_addends.has(stat_name):
-					stat_addends[stat_name] = 0.0
-				stat_addends[stat_name] += buff.buff_amount
+			Buff.BuffType.ADD:
+				stat_addends[buff.stat_index] += buff.buff_amount
 			
-			WeaponStatBuff.BuffType.MULTIPLY:
-				if not stat_multipliers.has(stat_name):
-					stat_multipliers[stat_name] = 1.0
-				stat_multipliers[stat_name] *= buff.buff_amount
-				
-				if stat_multipliers[stat_name] < 0.0:
-					stat_multipliers[stat_name] = 0.0
+			Buff.BuffType.MULTIPLY:
+				stat_multipliers[buff.stat_index] *= buff.buff_am
+				#if stat_multipliers[stat_name] < 0.0:
+				#	stat_multipliers[stat_name] = 0.0
 	
 	for stat_name in stat_multipliers:
 		var cur_property_name : String = str("current_" + stat_name)
@@ -240,3 +236,23 @@ func _spawn_hitbox(target_position: Vector2, _hit: HitData, _size_mult: float = 
 	hitbox.setup(temp_hitbox_data, _hit)
 	hitbox.target_hit.connect(func(unit: BaseUnit):
 		unit.resolve_hit(_hit))
+
+func get_color_palette() -> Texture2D :
+	return weapon_material.material_color_palette if weapon_material != null else preload("uid://dv8kdjtdqrghu")
+
+func generate_pips(rarity_weights: Dictionary = PipRegistry.pip_default_rarities_weigths) -> void:
+	pips = PipRegistry.roll_pips(self, rarity_weights)
+	apply_pips()
+
+func apply_pips() -> void:
+	for pip in pips:
+		if pip.buff == null:
+			continue
+		match pip.buff.domain:
+			Buff.Domain.UNIT:
+				BaseUnit.apply_buff(pip.buff,owner)
+			Buff.Domain.WEAPON:
+				if self is Weapon:
+					(self as Weapon).weapon_stat_buffs.append(pip.buff)
+			Buff.Domain.ARMOR:
+				pass  # implement when armor stats are ready

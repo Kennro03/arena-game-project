@@ -59,6 +59,8 @@ static var pending_event : EventResource = null
 @onready var test_foci_staff = preload("uid://ds6y5tv4n4hsx")
 @onready var test_bow = preload("uid://cikjn1d3hom5x")
 
+const UNCOMMONTESTSWORD = preload("uid://dlhcap3ipacyj")
+
 @onready var hitbox_test_hammer : Weapon = preload("uid://dbi7hcyvjnqnd")
 
 @onready var testing_pablo : UnitData = preload("uid://ps2wy7q88f5b")
@@ -73,6 +75,10 @@ func _ready() -> void:
 	add_item_to_inventory(test_foci_staff)
 	add_item_to_inventory(hitbox_test_hammer)
 	add_item_to_inventory(test_bow)
+	
+	var piped_sword : Weapon = UNCOMMONTESTSWORD.duplicate(true)
+	piped_sword.generate_pips()
+	add_item_to_inventory(piped_sword)
 	
 	add_unit_to_reserve(testing_pablo.duplicate(true))
 	

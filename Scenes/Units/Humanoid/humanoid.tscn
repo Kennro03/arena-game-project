@@ -16,7 +16,7 @@
 [ext_resource type="Material" uid="uid://dq56kvtjp86e0" path="res://Shaders/palette_swap_material.tres" id="14_0sb7k"]
 [ext_resource type="Texture2D" uid="uid://ds2300iqhvnig" path="res://ressources/Sprites/Weapons/debug_sword.png" id="17_blxmw"]
 
-[sub_resource type="Resource" id="Resource_ulxi1"]
+[sub_resource type="Resource" id="Resource_0sb7k"]
 resource_local_to_scene = true
 script = ExtResource("5_ewtqf")
 max_health_scalings = null
@@ -67,7 +67,7 @@ display_name = "Stickman"
 unit_type = "Stickman"
 description = "A regular stickman."
 icon = ExtResource("3_ab6u1")
-stats = SubResource("Resource_ulxi1")
+stats = SubResource("Resource_0sb7k")
 default_weapon = ExtResource("6_u2vjm")
 
 [node name="HurtboxCollisionShape" parent="Hurtbox" parent_id_path=PackedInt32Array(1823285284) index="0" unique_id=541966062]

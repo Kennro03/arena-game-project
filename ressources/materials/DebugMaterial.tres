@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemMaterial" format=3 uid="uid://b64ruo6aqmuk"]
+
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="1_y0po4"]
+[ext_resource type="Texture2D" uid="uid://dv8kdjtdqrghu" path="res://ressources/materials/color_palettes/debug_color_palette.png" id="2_ihkuo"]
+[ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="3_s3i3i"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="4_md44b"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_2ni35"]
+[ext_resource type="Script" uid="uid://c4wrirf4xwep7" path="res://weapon_stat_buff.gd" id="6_474lk"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sqcf8"]
+
+[resource]
+script = ExtResource("3_s3i3i")
+material_icon = SubResource("PlaceholderTexture2D_sqcf8")
+material_color_palette = ExtResource("2_ihkuo")
+metadata/_custom_type_script = "uid://dghonse17mg3s"
