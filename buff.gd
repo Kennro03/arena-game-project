@@ -1,14 +1,20 @@
+@tool
 extends Resource
 class_name Buff
 
 enum BuffType { ADD, MULTIPLY,}
 enum Domain { UNIT, WEAPON, ARMOR, PROJECTILE }
 
-@export var domain: Domain = Domain.UNIT
-@export var stat_index: int = 0 
+@export var domain: Domain = Domain.UNIT:
+	set(value):
+		domain = value
+		notify_property_list_changed()  
+
 @export var buff_type : BuffType = BuffType.ADD
 @export var buff_amount: float = 0.0
 @export var source: String = ""      # for display: "Iron Pip", "Ring of Strength"
+
+var stat_index: int = 0 
 
 static var stat_icons : Dictionary = {
 	Weapon.BuffableStats.DAMAGE: preload("uid://br85td3jaqel7"),
@@ -16,6 +22,55 @@ static var stat_icons : Dictionary = {
 	Weapon.BuffableStats.ATTACK_RANGE: preload("uid://d0tjxydbev5m4"),
 	Weapon.BuffableStats.KNOCKBACK: preload("uid://brfm5e6515tqd"),
 }
+
+func _get_property_list() -> Array[Dictionary]:
+	var props: Array[Dictionary] = []
+	match domain:
+		Domain.UNIT:
+			props.append({
+				"name": "stat_index",
+				"type": TYPE_INT,
+				"usage": PROPERTY_USAGE_DEFAULT,
+				"hint": PROPERTY_HINT_ENUM,
+				"hint_string": ",".join(Stats.BuffableStats.keys()),
+				})
+		Domain.WEAPON:
+			props.append({
+				"name": "stat_index",
+				"type": TYPE_INT,
+				"usage": PROPERTY_USAGE_DEFAULT,
+				"hint": PROPERTY_HINT_ENUM,
+				"hint_string": ",".join(Weapon.BuffableStats.keys()),
+				})
+		Domain.ARMOR:
+			props.append({
+				"name": "stat_index",
+				"type": TYPE_INT,
+				"usage": PROPERTY_USAGE_DEFAULT,
+				"hint": PROPERTY_HINT_ENUM,
+				"hint_string": "PLACEHOLDER",  ## PLACEHOLDER UNTIL ARMOR IS SET UP
+				})
+		Domain.PROJECTILE:
+			props.append({
+				"name": "stat_index",
+				"type": TYPE_INT,
+				"usage": PROPERTY_USAGE_DEFAULT,
+				"hint": PROPERTY_HINT_ENUM,
+				"hint_string": ",".join(Projectile.BuffableStats.keys()),
+				})
+	
+	return props
+
+func _get(property: StringName):
+	if property == "stat_index":
+		return stat_index
+	return null
+
+func _set(property: StringName, value) -> bool:
+	if property == "stat_index":
+		stat_index = value
+		return true
+	return false
 
 func get_unit_stat() -> Stats.BuffableStats:
 	return stat_index as Stats.BuffableStats

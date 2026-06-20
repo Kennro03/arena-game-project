@@ -15,7 +15,7 @@ var owner_unit: BaseUnit = null
 @onready var text_label: RichTextLabel = $TextLabel
 
 func _ready() -> void:
-	set_item(load("res://ressources/Items/Weapons/testdagger.tres"))
+	set_item(load("uid://dal5rgfowl103"))
 	pass
 
 func set_item(_item: Item) -> void:
@@ -34,7 +34,8 @@ func set_texture() -> void:
 	if item is Weapon or item is RangedWeapon :
 		var color_palette : Texture2D = item.get_color_palette()
 		
-		icon_sprite.material = PALETTE_SWAP_MATERIAL.duplicate(true)
+		icon_sprite.material = PALETTE_SWAP_MATERIAL.duplicate(false)
+		
 		if color_palette != null:
 			icon_sprite.material.set_shader_parameter("original_palette", preload("uid://dv8kdjtdqrghu"))
 			icon_sprite.material.set_shader_parameter("new_palette", color_palette)
@@ -126,10 +127,10 @@ func _add_weapon_description(_rtl: RichTextLabel, weapon: Weapon) -> void :
 
 func _add_weapon_stats(_rtl: RichTextLabel, weapon: Weapon) -> void:
 	var stats := {
-		"Damage": weapon.base_damage,
-		"Attack Speed": weapon.base_attack_speed,
-		"Attack Range": weapon.base_attack_range,
-		"Knockback": weapon.base_knockback,
+		"Damage": weapon.current_damage,
+		"Attack Speed": weapon.current_attack_speed,
+		"Attack Range": weapon.current_attack_range,
+		"Knockback": weapon.current_knockback,
 	}
 	_rtl.append_text("[center]Weapon Stats :[/center]")
 	_rtl.newline()

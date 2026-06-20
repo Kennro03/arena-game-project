@@ -2,24 +2,24 @@
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_6lykc"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_1sye6"]
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_1sye6"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_xyp1q"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="5_xyp1q"]
 [ext_resource type="Texture2D" uid="uid://drtgerm1gchkr" path="res://ressources/Sprites/Weapons/debug_spear.png" id="5_yh41l"]
-[ext_resource type="Texture2D" uid="uid://b28t4totxxlsr" path="res://ressources/materials/color_palettes/slime_color_palette.png" id="6_allpo"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_xyp1q"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_allpo"]
 
 [resource]
 script = ExtResource("4_xyp1q")
 weaponCategory = 1
 weaponType = 5
 weaponSprite = ExtResource("5_yh41l")
-weaponColorPalette = ExtResource("6_allpo")
-base_attack_range = 130.0
+base_attack_range = 140.0
+base_damage_type = 0
 base_damage = 12.0
-base_knockback = 40.0
 allowed_animations = Array[String](["stab"])
-item_id = "test_spear"
-item_name = "TestSpear"
-description = "A basic spear used for testing"
+item_id = "spear"
+item_name = "Spear"
+description = "A long sharp stick. Used to poke at your enemies from a (usually) safe distance."
 icon = ExtResource("5_yh41l")
-value = 5
+value = 10
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

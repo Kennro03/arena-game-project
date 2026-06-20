@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="ItemMaterial" format=3 uid="uid://c6m4md5vy4jt2"]
+
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="1_cb4si"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_qwiir"]
+[ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="3_0x1vy"]
+[ext_resource type="Texture2D" uid="uid://b3hxlowanev82" path="res://ressources/materials/color_palettes/platinum_color_palette.png" id="3_qwiir"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_ywjlp"]
+
+[sub_resource type="Resource" id="Resource_40ek5"]
+script = ExtResource("1_cb4si")
+domain = 1
+buff_type = 1
+buff_amount = 2.0
+source = "material"
+stat_index = 2
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_cb8wg"]
+script = ExtResource("1_cb4si")
+domain = 1
+buff_type = 1
+buff_amount = 1.1
+source = "material"
+stat_index = 0
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_3e6rx"]
+script = ExtResource("1_cb4si")
+domain = 1
+buff_type = 1
+buff_amount = 1.05
+source = "material"
+stat_index = 3
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[resource]
+script = ExtResource("3_0x1vy")
+material_name = "Platinum"
+tier = 3
+material_description = "A rare and precious metal, used for weapons of renown. Balanced overall."
+material_color_palette = ExtResource("3_qwiir")
+material_rarity_bonus = 2
+guaranteed_stat_changes = Array[ExtResource("1_cb4si")]([SubResource("Resource_40ek5"), SubResource("Resource_cb8wg"), SubResource("Resource_3e6rx")])
+metadata/_custom_type_script = "uid://dghonse17mg3s"

@@ -49,15 +49,15 @@ static var pending_battle : BattleData = null
 static var pending_shop_pool : Array[Item] = []
 static var pending_event : EventResource = null
 
-@onready var testing_gauntlet : Weapon = preload("uid://evw15hgtlv7a")
-@onready var testing_knife : Weapon = preload("uid://dal5rgfowl103")
-@onready var testing_sword : Weapon = preload("uid://cpnr5mpvtakmp")
-@onready var testing_spear = preload("uid://cje1th2326lj")
-@onready var testing_greatSword : Weapon = preload("uid://bwlni7c3utacx")
-@onready var testing_hammer : Weapon = preload("uid://cseh3bpxs7l8k")
-@onready var test_wand = preload("uid://cpema83m1kpr")
-@onready var test_foci_staff = preload("uid://ds6y5tv4n4hsx")
-@onready var test_bow = preload("uid://cikjn1d3hom5x")
+@onready var gauntlets_base : Weapon = preload("uid://evw15hgtlv7a")
+@onready var dagger_base : Weapon = preload("uid://dal5rgfowl103")
+@onready var broadsword_base : Weapon = preload("uid://cpnr5mpvtakmp")
+@onready var spear_base = preload("uid://cje1th2326lj")
+@onready var greatsword_base : Weapon = preload("uid://bwlni7c3utacx")
+@onready var warhammer_base : Weapon = preload("uid://cseh3bpxs7l8k")
+@onready var wand_base = preload("uid://cpema83m1kpr")
+@onready var foci_staff_base = preload("uid://ds6y5tv4n4hsx")
+@onready var bow_base = preload("uid://cikjn1d3hom5x")
 
 const UNCOMMONTESTSWORD = preload("uid://dlhcap3ipacyj")
 
@@ -66,15 +66,24 @@ const UNCOMMONTESTSWORD = preload("uid://dlhcap3ipacyj")
 @onready var testing_pablo : UnitData = preload("uid://ps2wy7q88f5b")
 
 func _ready() -> void:
-	add_item_to_inventory(testing_gauntlet)
-	add_item_to_inventory(testing_knife)
-	add_item_to_inventory(testing_sword)
-	add_item_to_inventory(testing_spear)
-	add_item_to_inventory(testing_greatSword)
-	add_item_to_inventory(test_wand)
-	add_item_to_inventory(test_foci_staff)
+	add_item_to_inventory(generate_weapon(gauntlets_base))
+	add_item_to_inventory(generate_weapon(dagger_base))
+	add_item_to_inventory(generate_weapon(broadsword_base))
+	add_item_to_inventory(generate_weapon(broadsword_base))
+	add_item_to_inventory(generate_weapon(broadsword_base))
+	add_item_to_inventory(generate_weapon(broadsword_base))
+	add_item_to_inventory(generate_weapon(broadsword_base))
+	add_item_to_inventory(generate_weapon(broadsword_base))
+	add_item_to_inventory(generate_weapon(broadsword_base))
+	add_item_to_inventory(generate_weapon(broadsword_base))
+	add_item_to_inventory(generate_weapon(broadsword_base))
+	add_item_to_inventory(generate_weapon(spear_base))
+	add_item_to_inventory(generate_weapon(greatsword_base))
+	add_item_to_inventory(generate_weapon(wand_base))
+	add_item_to_inventory(generate_weapon(foci_staff_base))
+	add_item_to_inventory(generate_weapon(bow_base))
+	
 	add_item_to_inventory(hitbox_test_hammer)
-	add_item_to_inventory(test_bow)
 	
 	var piped_sword : Weapon = UNCOMMONTESTSWORD.duplicate(true)
 	piped_sword.generate_pips()
@@ -227,3 +236,22 @@ func get_deployed_unit(unit_data: UnitData) -> BaseUnit:
 		if is_instance_valid(unit) and unit.unit_data == unit_data:
 			return unit
 	return null
+
+func generate_weapon(base: Weapon, item_rarity: Item.Rarity = base.rarity, tier_weights: Dictionary = MaterialRegistry.default_tier_weights) -> Weapon:
+	var generated_weapon : Weapon = base.duplicate(true)
+	generated_weapon.rarity = item_rarity
+	
+	# roll material — tier weights can be overridden per context
+	var mat : ItemMaterial = MaterialRegistry.roll_material(tier_weights)
+	if mat:
+		generated_weapon.weapon_material = mat
+		generated_weapon.item_name = "%s %s" % [mat.material_name,generated_weapon.item_name]
+		generated_weapon.rarity = clampi(
+			int(generated_weapon.rarity) + mat.material_rarity_bonus, 
+			0, 
+			Item.Rarity.size() - 1) as Item.Rarity
+		generated_weapon.pip_count += mat.bonus_pips_amount
+	
+	# roll pips after material since material can increase pip count
+	generated_weapon.generate_pips()
+	return generated_weapon

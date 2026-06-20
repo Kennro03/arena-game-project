@@ -72,10 +72,8 @@ nodes/fragment/7/position = Vector2(-1060, 960)
 nodes/fragment/connections = PackedInt32Array(5, 0, 2, 0, 4, 0, 2, 1, 6, 0, 2, 2, 7, 0, 2, 3, 2, 0, 0, 0, 3, 0, 5, 2)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7sfvc"]
-load_path = "res://.godot/imported/gold_color_palette.png-2a9a545200389179aac68a5bf4b63bb4.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q83gg"]
-load_path = "res://.godot/imported/debug_color_palette.png-d639734dd0248eab432cd7d57196de02.ctex"
 
 [resource]
 shader = SubResource("VisualShader_ttudo")

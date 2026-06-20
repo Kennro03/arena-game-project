@@ -3,21 +3,23 @@
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_21hen"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="1_80t4j"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_5d3gw"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="2_sy5po"]
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_225mg"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_0exha"]
 [ext_resource type="Texture2D" uid="uid://ds2300iqhvnig" path="res://ressources/Sprites/Weapons/debug_sword.png" id="6_8a6mx"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_ljp8i"]
 
 [resource]
 script = ExtResource("1_80t4j")
 weaponCategory = 1
 weaponType = 4
 weaponSprite = ExtResource("6_8a6mx")
-base_attack_range = 105.0
+base_damage_type = 1
 base_damage = 14.0
 base_knockback = 45.0
-allowed_animations = Array[String](["slash"])
-item_id = "test_sword"
-item_name = "TestSword"
-description = "A basic sword used for testing"
+allowed_animations = Array[String](["slash", "stab"])
+item_id = "broadsword"
+item_name = "Broadsword"
+description = "A simple sword with a wide blade."
 icon = ExtResource("6_8a6mx")
 value = 5
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

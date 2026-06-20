@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ccpr8mltdglbp" path="res://ressources/Sprites/Units/Stickman/Stickman White Tpose.png" id="3_ab6u1"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_j80jb"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="5_ewtqf"]
-[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/fists.tres" id="6_u2vjm"]
+[ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/DebugWeapons/fists.tres" id="6_u2vjm"]
 [ext_resource type="Script" uid="uid://dchw8cs1125p4" path="res://Scenes/Units/Humanoid/HumanoidSpriteModule.gd" id="7_f1wxc"]
 [ext_resource type="AnimationLibrary" uid="uid://oymicds2otf5" path="res://ressources/Sprites/Units/Stickman/StickmanAnimations.res" id="8_ujn1s"]
 [ext_resource type="Texture2D" uid="uid://df1vkik70sug3" path="res://ressources/Sprites/Units/Humanoid/base_body.png" id="10_33p63"]

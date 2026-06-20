@@ -44,7 +44,10 @@ static var debug_weapon_sprites : Dictionary = {
 @export var weaponType : WeaponTypeEnum
 @export var weaponSprite : Texture2D = null : 
 	get: return weaponSprite if weaponSprite != null else debug_weapon_sprites[weaponType]
-@export var weapon_material : ItemMaterial = preload("uid://b64ruo6aqmuk")
+@export var weapon_material : ItemMaterial = preload("uid://b64ruo6aqmuk") :
+	set(new_mat):
+		weapon_material = new_mat
+		recalculate_stats()
 @export var pip_count: int = 0                       #number of pips rolled upon generation, unused by misc or quest item types
 @export var pips : Array[Pip]
 
@@ -135,6 +138,8 @@ func remove_owner_buffs(stats: Stats):
 
 func recalculate_stats() -> void :
 	reset_current_stats()
+	
+	
 	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
 	var stat_addends: Dictionary = {} #Amount to add to included stats
 	
@@ -150,23 +155,27 @@ func recalculate_stats() -> void :
 	
 	#Weapon buffs
 	for buff in weapon_stat_buffs :
-		#var stat_name: String = BuffableStats.keys()[buff.stat].to_lower()
+		var stat_name: String = BuffableStats.keys()[buff.stat_index].to_lower()
 		match buff.buff_type:
 			Buff.BuffType.ADD:
-				stat_addends[buff.stat_index] += buff.buff_amount
+				if not stat_addends.has(stat_name):
+					stat_addends[stat_name] = 0.0
+				stat_addends[stat_name] += buff.buff_amount
 			
 			Buff.BuffType.MULTIPLY:
-				stat_multipliers[buff.stat_index] *= buff.buff_am
+				if not stat_multipliers.has(stat_name):
+					stat_multipliers[stat_name] = 1.0
+				stat_multipliers[stat_name] *= buff.buff_amount
 				#if stat_multipliers[stat_name] < 0.0:
 				#	stat_multipliers[stat_name] = 0.0
 	
 	for stat_name in stat_multipliers:
 		var cur_property_name : String = str("current_" + stat_name)
-		set(cur_property_name, get(cur_property_name) * stat_multipliers[stat_name])
+		set(cur_property_name, snapped(get(cur_property_name) * stat_multipliers[stat_name],0.01))
 	
 	for stat_name in stat_addends:
 		var cur_property_name : String = str("current_" + stat_name)
-		set(cur_property_name, get(cur_property_name) + stat_addends[stat_name])
+		set(cur_property_name, snapped(get(cur_property_name) + stat_addends[stat_name],0.01))
 
 func reset_current_stats() -> void:
 	current_attack_range = base_attack_range
@@ -175,6 +184,24 @@ func reset_current_stats() -> void:
 	current_knockback = base_knockback
 	
 	current_damage_type = base_damage_type  
+	current_endlag = base_endlag
+	current_crit_endlag = base_crit_endlag
+	
+	_apply_material_stats()
+
+func _apply_material_stats() -> void:
+	if weapon_material == null:
+		return
+	for buff in weapon_material.guaranteed_stat_changes:
+		if buff.domain != Buff.Domain.WEAPON:
+			continue
+		var stat_name : String = Weapon.BuffableStats.keys()[buff.stat_index].to_lower()
+		var prop : String = "current_" + stat_name
+		match buff.buff_type:
+			Buff.BuffType.ADD:
+				set(prop, get(prop) + buff.buff_amount)
+			Buff.BuffType.MULTIPLY:
+				set(prop, get(prop) * buff.buff_amount)
 
 func generate_attack_type(_weightedDict : WeaponAttackTypesDictionnary, fallback := DamageType.BLUNT) -> DamageType :
 	var totalWeights : float = 0

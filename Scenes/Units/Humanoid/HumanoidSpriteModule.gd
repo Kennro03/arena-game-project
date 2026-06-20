@@ -1,7 +1,7 @@
 extends SpriteModule
 class_name HumanoidSpriteModule
 
-const PALETTE_SWAP_MATERIAL = preload("uid://dq56kvtjp86e0")
+var PALETTE_SWAP_MATERIAL = preload("uid://dq56kvtjp86e0")
 
 @onready var humanoid: Humanoid = $".."
 
@@ -151,7 +151,7 @@ func update_weapon_visuals(weapon: Weapon) -> void:
 	weapon_sprite.texture = weapon.weaponSprite
 	weapon_sprite.visible = true
 	
-	weapon_sprite.material = PALETTE_SWAP_MATERIAL.duplicate(true)
+	weapon_sprite.material = PALETTE_SWAP_MATERIAL.duplicate(false)
 	
 	if weapon.weapon_material and weapon.weapon_material.material_color_palette != null:
 		weapon_sprite.material.set_shader_parameter("original_palette", preload("uid://dv8kdjtdqrghu") )

@@ -1,32 +1,26 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://evw15hgtlv7a"]
 
 [ext_resource type="Texture2D" uid="uid://bwsxoouw568gv" path="res://ressources/Sprites/Icons/Items/Weapons/Fist_Icon.png" id="1_87u36"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_jg80h"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_k8wk0"]
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_g2kvv"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_k8wk0"]
 [ext_resource type="Texture2D" uid="uid://cgt11mipx5r5p" path="res://ressources/Sprites/Weapons/debug_gauntlets.png" id="6_8ngoy"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_cduub"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="8_b3gjw"]
 
 [resource]
 script = ExtResource("4_k8wk0")
-weaponCategory = null
 weaponType = 2
 weaponSprite = ExtResource("6_8ngoy")
 base_attack_speed = 1.2
 base_attack_range = 80.0
 base_damage = 10.0
 base_knockback = 40.0
-statChanges = null
-onHitPassives = null
-attack_speed_scalings = null
-attack_range_scalings = null
-damage_scalings = null
-knockback_scalings = null
 allowed_animations = Array[String]([])
-exclusive_animations = null
-item_id = "test_gauntlet"
-item_name = "Test Gauntlet"
-description = "A basic pair of gauntlets used for testing"
+item_id = "gauntlets"
+item_name = "Gauntlets"
+description = "A pair of gauntlets, meant to enhanced a fighter's unarmed prowess."
 icon = ExtResource("1_87u36")
-item_type = null
-rarity = null
-is_obtainable = null
-value = 5
+value = 10
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

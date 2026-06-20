@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="ItemMaterial" format=3 uid="uid://odp420bhd6a"]
+
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="1_eogjo"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_lhcqf"]
+[ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="3_22eeh"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_kc37k"]
+
+[sub_resource type="Resource" id="Resource_cqr8w"]
+script = ExtResource("1_eogjo")
+domain = 1
+buff_type = 1
+buff_amount = 1.1
+source = "material"
+stat_index = 0
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_eogjo"]
+script = ExtResource("1_eogjo")
+domain = 1
+buff_type = 1
+buff_amount = 1.1
+source = "material"
+stat_index = 2
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_khast"]
+load_path = "res://.godot/imported/gold_color_palette.png-9eddd26b2ef0004db7fabd6a6d317046.ctex"
+
+[resource]
+script = ExtResource("3_22eeh")
+material_name = "Gold"
+tier = 2
+material_description = "A rare and expensive metal. Used to show off prestige, also has great magical potential."
+material_color_palette = SubResource("CompressedTexture2D_khast")
+value_multiplier = 2.0
+material_rarity_bonus = 1
+guaranteed_stat_changes = Array[ExtResource("1_eogjo")]([SubResource("Resource_cqr8w"), SubResource("Resource_eogjo")])
+metadata/_custom_type_script = "uid://dghonse17mg3s"

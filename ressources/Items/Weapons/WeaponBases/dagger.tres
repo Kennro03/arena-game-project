@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dal5rgfowl103"]
+
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_qoemv"]
+[ext_resource type="Texture2D" uid="uid://c64v6mkj70qpn" path="res://ressources/Sprites/Weapons/debug_dagger.png" id="2_3i5r8"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_b73f1"]
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_hy82l"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="5_vy0d0"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_5p06i"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_h8iwl"]
+
+[resource]
+script = ExtResource("5_vy0d0")
+weaponType = 1
+weaponSprite = ExtResource("2_3i5r8")
+base_attack_speed = 1.1
+base_attack_range = 90.0
+base_damage_type = 1
+base_damage = 11.0
+base_knockback = 25.0
+allowed_animations = Array[String](["slash", "stab"])
+item_id = "dagger"
+item_name = "Dagger"
+description = "A large knife usually used by thieves or assassins."
+icon = ExtResource("2_3i5r8")
+value = 8
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

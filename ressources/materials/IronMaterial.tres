@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemMaterial" format=3 uid="uid://dgrohkljuu7st"]
+
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="1_l2p73"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_wevgg"]
+[ext_resource type="Texture2D" uid="uid://c82hheaja6rd6" path="res://ressources/materials/color_palettes/iron_color_palette.png" id="3_spivk"]
+[ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="4_01pid"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_255et"]
+
+[resource]
+script = ExtResource("4_01pid")
+material_name = "Iron"
+tier = 1
+material_description = "A basic metal used for a lot of weapons, cheap but does its job."
+material_color_palette = ExtResource("3_spivk")
+metadata/_custom_type_script = "uid://dghonse17mg3s"

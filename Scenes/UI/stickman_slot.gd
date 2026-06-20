@@ -1,8 +1,6 @@
 extends Button
 class_name oldSlot
 @export var stickman_data: UnitData = null
-@export var tooltip_scene: PackedScene
-var tooltip
 
 signal stickman_selected(_stickman_data: BaseUnit)
 
@@ -30,20 +28,22 @@ func update_sprite() :
 		%StickmanSpriteIcon.visible = false
 
 func _on_mouse_entered():
-	if stickman_data != null :
-		tooltip = tooltip_scene.instantiate()
-		get_tree().root.add_child(tooltip)
-		tooltip.set_text("Display name : " + stickman_data.display_name)
-		if stickman_data.weapon :
-			tooltip.add_line("Weapon : " + str(stickman_data.weapon.weaponName) + " (" + Weapon.WeaponTypeEnum.keys()[stickman_data.weapon.weaponType] + ")")
-		tooltip.add_line("STR = " + str(stickman_data.stats.current_strength))
-		tooltip.add_line("END = " + str(stickman_data.stats.current_endurance))
-		tooltip.add_line("DEX = " + str(stickman_data.stats.current_dexterity))
-		tooltip.add_line("INT = " + str(stickman_data.stats.current_intellect))
-		tooltip.add_line("FAI = " + str(stickman_data.stats.current_faith))
-		tooltip.add_line("ATT = " + str(stickman_data.stats.current_attunement))
+	pass
+	#if stickman_data != null :
+		#tooltip = tooltip_scene.instantiate()
+		#get_tree().root.add_child(tooltip)
+		#tooltip.set_text("Display name : " + stickman_data.display_name)
+		#if stickman_data.weapon :
+		#	tooltip.add_line("Weapon : " + str(stickman_data.weapon.weaponName) + " (" + Weapon.WeaponTypeEnum.keys()[stickman_data.weapon.weaponType] + ")")
+		#tooltip.add_line("STR = " + str(stickman_data.stats.current_strength))
+		#tooltip.add_line("END = " + str(stickman_data.stats.current_endurance))
+		#tooltip.add_line("DEX = " + str(stickman_data.stats.current_dexterity))
+		#tooltip.add_line("INT = " + str(stickman_data.stats.current_intellect))
+		##tooltip.add_line("FAI = " + str(stickman_data.stats.current_faith))
+		#tooltip.add_line("ATT = " + str(stickman_data.stats.current_attunement))
 		
 
 func _on_mouse_exited():
-	if tooltip :
-		tooltip.queue_free()
+	pass
+	#if tooltip :
+	#	tooltip.queue_free()

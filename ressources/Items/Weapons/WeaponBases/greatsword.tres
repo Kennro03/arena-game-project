@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://bwlni7c3utacx"]
+
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_b2iiq"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_p5ngx"]
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_i2cws"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_p5ngx"]
+[ext_resource type="Texture2D" uid="uid://c655s547o85vn" path="res://ressources/Sprites/Weapons/debug_greatsword.png" id="5_g5x2u"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_gay3d"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_vrqav"]
+
+[resource]
+script = ExtResource("4_p5ngx")
+weaponCategory = 2
+weaponType = 8
+weaponSprite = ExtResource("5_g5x2u")
+base_attack_speed = 0.8
+base_attack_range = 125.0
+base_damage_type = 1
+base_damage = 16.0
+base_knockback = 40.0
+allowed_animations = Array[String](["stab", "bash"])
+item_id = "greatsword"
+item_name = "Greatsword"
+description = "A huge sword, meant to be wielded with both hands."
+icon = ExtResource("5_g5x2u")
+value = 13
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
