@@ -22,5 +22,5 @@ item_id = "foci_staff"
 item_name = "Foci Staff"
 description = "A staff with a magicaly infused foci, gives magically able fighters increased potency. "
 icon = ExtResource("2_e15do")
-value = 10
+base_value = 12
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

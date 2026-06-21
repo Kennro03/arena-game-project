@@ -22,5 +22,5 @@ item_id = "dagger"
 item_name = "Dagger"
 description = "A large knife usually used by thieves or assassins."
 icon = ExtResource("2_3i5r8")
-value = 8
+base_value = 10
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

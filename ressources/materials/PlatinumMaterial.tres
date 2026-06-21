@@ -39,6 +39,7 @@ material_name = "Platinum"
 tier = 3
 material_description = "A rare and precious metal, used for weapons of renown. Balanced overall."
 material_color_palette = ExtResource("3_qwiir")
+value_multiplier = 4.0
 material_rarity_bonus = 2
 guaranteed_stat_changes = Array[ExtResource("1_cb4si")]([SubResource("Resource_40ek5"), SubResource("Resource_cb8wg"), SubResource("Resource_3e6rx")])
 metadata/_custom_type_script = "uid://dghonse17mg3s"

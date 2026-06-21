@@ -19,8 +19,8 @@ const SHOP_SLOT_SCENE := preload("res://Scenes/Levels/Shop/shop_slot.tscn")
 
 var items_sold : int = max_items_sold
 var weapons_sold : int = max_weapons_sold
-var _item_list : Array[Item] = []
-var _weapon_list : Array[Weapon] = []
+var _item_bases_list : Array[Item] = []
+var _weapon_bases_list : Array[Weapon] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,8 +35,8 @@ func _ready() -> void:
 	for item in Player.pending_shop_pool:
 		print("  %s - type: %s" % [item.item_name, item.get_script().resource_path.get_file().left(-3)])
 	print("]")
-	_item_list.assign(Player.pending_shop_pool.filter(func(item): return not item is Weapon))
-	_weapon_list.assign(Player.pending_shop_pool.filter(func(item): return item is Weapon))
+	_item_bases_list.assign(Player.pending_shop_pool.filter(func(item): return not item is Weapon))
+	_weapon_bases_list.assign(Player.pending_shop_pool.filter(func(item): return item is Weapon))
 	
 	refresh_button.text = "Refresh (%dg)" % [refresh_cost]
 	refresh_shop()
@@ -67,12 +67,12 @@ func _on_refresh_button_pressed() -> void:
 func refresh_shop()-> void:
 	#Item list
 	clear_items()
-	_item_list = get_item_list()
+	_item_bases_list = get_item_list()
 	fill_items()
 	
 	#Weapon list
 	clear_weapons()
-	_weapon_list = get_weapon_list()
+	_weapon_bases_list = get_weapon_list()
 	fill_weapons()
 
 func clear_items() -> void :
@@ -84,26 +84,28 @@ func clear_weapons() -> void :
 		c.queue_free()
 
 func fill_items() -> void :
-	if _item_list.is_empty():
+	if _item_bases_list.is_empty():
 		printerr("Shop: item list is empty, skipping fill_items")
 		return
 	var i : int = 0
 	while i < items_sold :
 		i += 1
-		var _item : Accessory = _item_list.pick_random()
+		var _item : Accessory = _item_bases_list.pick_random().duplicate(true)
+		_item.generate_pips()
 		var new_slot : ShopSlot = SHOP_SLOT_SCENE.instantiate()
 		items_row.add_child(new_slot)
-		new_slot.set_item(_item.with_attribute_buffs())
+		new_slot.set_item(_item)
 		new_slot.connect("slot_clicked",purchase_from_slot)
 
 func fill_weapons() -> void :
 	var i : int = 0
 	while i < weapons_sold :
 		i += 1
-		var wep : Weapon = _weapon_list.pick_random()
+		var wep : Weapon = _weapon_bases_list.pick_random()
+		wep.generate_pips()
 		var new_slot : ShopSlot = SHOP_SLOT_SCENE.instantiate()
 		weapons_row.add_child(new_slot)
-		new_slot.set_item(wep)
+		new_slot.set_item(Player.generate_weapon(wep))
 		new_slot.connect("slot_clicked",purchase_from_slot)
 
 func get_item_list() -> Array[Item] :
@@ -119,10 +121,10 @@ func get_debug_item_list() -> Array[Item] :
 		if file_name.get_extension() == "tres":
 			item_List.append(load("res://ressources/Items/Accessories/" + file_name))
 	
-	var wep_file_names := DirAccess.open("res://ressources/Items/Weapons/").get_files()
+	var wep_file_names := DirAccess.open("res://ressources/Items/Weapons/WeaponBases/").get_files()
 	for file_name in wep_file_names :
 		if file_name.get_extension() == "tres":
-			item_List.append(load("res://ressources/Items/Weapons/" + file_name))
+			item_List.append(load("res://ressources/Items/Weapons/WeaponBases/" + file_name))
 	
 	var arm_file_names := DirAccess.open("res://ressources/Items/Armors/").get_files()
 	for file_name in arm_file_names :

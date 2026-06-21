@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="3_s3i3i"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="4_md44b"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_2ni35"]
-[ext_resource type="Script" uid="uid://c4wrirf4xwep7" path="res://weapon_stat_buff.gd" id="6_474lk"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sqcf8"]
 

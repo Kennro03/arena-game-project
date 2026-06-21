@@ -22,5 +22,5 @@ item_id = "warhammer"
 item_name = "Warhammer"
 description = "A large hammer, made to crush enemies flat."
 icon = ExtResource("2_4jsph")
-value = 10
+base_value = 10
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

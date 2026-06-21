@@ -22,5 +22,5 @@ item_id = "gauntlets"
 item_name = "Gauntlets"
 description = "A pair of gauntlets, meant to enhanced a fighter's unarmed prowess."
 icon = ExtResource("1_87u36")
-value = 10
+base_value = 10
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

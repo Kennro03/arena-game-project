@@ -1,31 +1,25 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://cpema83m1kpr"]
 
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_07uik"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_b57at"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_hs3hj"]
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_lq4m8"]
 [ext_resource type="Texture2D" uid="uid://bisn55jrtqnxi" path="res://ressources/Sprites/Weapons/debug_wand.png" id="5_2dw06"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_iwcfh"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_bhm0c"]
 
 [resource]
 script = ExtResource("4_hs3hj")
-weaponCategory = null
 weaponType = 3
 weaponSprite = ExtResource("5_2dw06")
 base_attack_speed = 1.05
 base_attack_range = 80.0
 base_damage = 10.0
 base_knockback = 40.0
-statChanges = null
-onHitPassives = null
-attack_speed_scalings = null
-attack_range_scalings = null
-damage_scalings = null
-knockback_scalings = null
 allowed_animations = Array[String]([])
-exclusive_animations = null
 item_id = "test_wand"
 item_name = "Test Wand"
 description = "A basic wand used for testing"
 icon = ExtResource("5_2dw06")
-item_type = null
-rarity = null
-is_obtainable = null
-value = 5
+base_value = 10
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

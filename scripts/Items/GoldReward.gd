@@ -11,9 +11,9 @@ func _init(amount: int = 0) -> void:
 	set_amount(amount)
 
 func set_amount(amount: int) -> void:
-	value = amount
+	base_value = amount
 	item_name = "%d Gold" % amount
 	description = "Collect %d gold." % amount
 
 func collect() -> void:
-	Player.gold += value
+	Player.gold += self.get_value()

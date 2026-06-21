@@ -61,10 +61,16 @@ func _make_custom_tooltip(_for_text: String) -> Object:
 	if item == null:
 		return null
 	
+	var panel_container : PanelContainer = PanelContainer.new()
+	panel_container.custom_minimum_size = Vector2(150, 30)
+	
 	var rtl := RichTextLabel.new()
 	rtl.bbcode_enabled = true
 	rtl.fit_content = true
 	rtl.custom_minimum_size = Vector2(150, 30)
+	
+	_add_value(panel_container, item)
+	rtl.newline()
 	
 	if item.item_type == Item.ItemType.WEAPON:
 		_add_item_name(rtl, item)
@@ -85,7 +91,17 @@ func _make_custom_tooltip(_for_text: String) -> Object:
 		_add_item_type(rtl, item)
 		_add_item_description(rtl, item)
 	
-	return rtl
+	panel_container.add_child(rtl)
+	return panel_container
+
+func _add_value(container:PanelContainer, _item: Item) -> void:
+	var value_label := RichTextLabel.new()
+	value_label.bbcode_enabled = true
+	value_label.fit_content = true
+	#var coin_icon_path := "uid://your_coin_icon_uid"  # replace with actual uid
+	value_label.append_text(" [color=gold]%dG[/color] " % [_item.get_value()])
+	#_rtl.append_text("[img=16x16]%s[/img] [color=gold]%d[/color]" % [coin_icon_path, _item.value])
+	container.add_child(value_label)
 
 func _add_item_name(_rtl: RichTextLabel, _item: Item) -> void:
 	var rarity_color := {
@@ -132,11 +148,30 @@ func _add_weapon_stats(_rtl: RichTextLabel, weapon: Weapon) -> void:
 		"Attack Range": weapon.current_attack_range,
 		"Knockback": weapon.current_knockback,
 	}
-	_rtl.append_text("[center]Weapon Stats :[/center]")
+	_rtl.append_text("[center]Weapon Stats[/center]")
 	_rtl.newline()
 	for stat_name in stats :
 		_rtl.append_text("%s : %s" % [stat_name,stats[stat_name]])
 		_rtl.newline()
+	
+	if weapon.pips != [] :
+		_rtl.append_text("[center]Pips[/center]")
+		_rtl.newline()
+		
+		for pip in weapon.pips :
+			#_rtl.append_text("[img]{%s}[/img] " % pip.get_pip_icon().resource_path)  ## ADD PIP ICONS LATER
+			match pip.buff.buff_type :
+				Buff.BuffType.ADD :
+					if pip.buff.buff_amount >= 0 :
+						_rtl.append_text(" +%s %s" % [pip.buff.buff_amount, pip.get_buff_stat_enum()[pip.buff.stat_index]])
+					else : 
+						_rtl.append_text(" %s %s" % [pip.buff.buff_amount, pip.get_buff_stat_enum()[pip.buff.stat_index]])
+				Buff.BuffType.MULTIPLY :
+					if pip.buff.buff_amount >= 1.0 :
+						_rtl.append_text(" +%s% %s" % [(pip.buff.buff_amount-1)*100, pip.buff.get_buff_stat_enum()[pip.buff.stat_index]])
+					else :
+						_rtl.append_text(" -%s% %s" % [(pip.buff.buff_amount-1)*100, pip.buff.get_buff_stat_enum()[pip.buff.stat_index]])
+			_rtl.newline()
 
 func _add_weapon_passives(_rtl: RichTextLabel, weapon: Weapon) -> void:
 	if weapon.statChanges.size() > 0 :
@@ -171,8 +206,8 @@ func _add_weapon_stats_scalings(_rtl: RichTextLabel, weapon: Weapon) -> void:
 					_rtl.newline()
 			_rtl.newline()
 
-func _add_accessory_stat_buffs(_rtl: RichTextLabel, _item: Item) -> void:
-	var stat_changes : Array[Buff] = _item.statChanges
+func _add_accessory_stat_buffs(_rtl: RichTextLabel, _item: Accessory) -> void:
+	var stat_changes : Array[Buff] = _item.buffs
 	if stat_changes.size() > 0 :
 		_rtl.append_text("[center]Stat changes : [/center]")
 	for b in stat_changes :

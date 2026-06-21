@@ -278,7 +278,7 @@ func recalculate_stats() -> void :
 	
 	
 	for buff in unit_stat_buffs :
-		#var stat_name: String = BuffableStats.keys()[buff.get_unit_stat()].to_lower()
+		var stat_name: String = BuffableStats.keys()[buff.get_unit_stat()].to_lower()
 		#print("Processing buff: stat=%s, amount=%s, type=%s" % [stat_name, buff.buff_amount, buff.buff_type])
 		#var cur_property_name := "current_" + stat_name
 		#print("Property exists: ", get(cur_property_name) != null)
@@ -286,10 +286,14 @@ func recalculate_stats() -> void :
 			continue  
 		match buff.buff_type:
 			Buff.BuffType.ADD:
-				stat_addends[buff.stat_index] += buff.buff_amount
+				if not stat_addends.has(stat_name) : 
+					stat_addends[stat_name] = 0.0
+				stat_addends[stat_name] += buff.buff_amount
 			
 			Buff.BuffType.MULTIPLY:
-				stat_multipliers[buff.stat_index] *= buff.buff_amount
+				if not stat_addends.has(stat_name) : 
+					stat_addends[stat_name] = 1.0
+				stat_multipliers[stat_name] *= buff.buff_amount
 				
 				#if stat_multipliers[stat_name] < 0.0:
 				#	stat_multipliers[stat_name] = 0.0

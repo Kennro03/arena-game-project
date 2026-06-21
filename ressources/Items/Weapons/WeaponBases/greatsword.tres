@@ -23,5 +23,5 @@ item_id = "greatsword"
 item_name = "Greatsword"
 description = "A huge sword, meant to be wielded with both hands."
 icon = ExtResource("5_g5x2u")
-value = 13
+base_value = 10
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

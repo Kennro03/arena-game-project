@@ -36,5 +36,5 @@ item_id = "shortbow"
 item_name = "Shortbow"
 description = "A small bow meant for fast shooting over small to medium distances. "
 icon = ExtResource("2_b2ekp")
-value = 12
+base_value = 12
 metadata/_custom_type_script = "uid://cubhrsqhe5yk8"

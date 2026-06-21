@@ -9,13 +9,13 @@ enum PipBuffType { UNIT_STAT, WEAPON_STAT}
 @export var buff : Buff = null               # the pip's data, StatBuff, WeaponStatBuff, etc
 
 # extra value granted to gear per rarity tier
-var value_common: float = 2.0
-var value_uncommon: float = 5.0
-var value_rare: float = 10.0
-var value_epic: float = 15.0
-var value_legendary: float = 20.0
-var value_negative: float = -2.0
-var value_unique: float = 0.0
+var value_common: int = 2
+var value_uncommon: int = 5
+var value_rare: int = 10
+var value_epic: int = 15
+var value_legendary: int = 20
+var value_negative: int = -2
+var value_unique: int = 0
 
 func get_buff_stat_name()-> String :
 	match buff.domain :
@@ -30,10 +30,24 @@ func get_buff_stat_name()-> String :
 		_:
 			return "invalid buff domain"
 
+func get_buff_stat_enum()-> Array :
+	match buff.domain :
+		Buff.Domain.UNIT :
+			return Stats.BuffableStats.keys()
+		Buff.Domain.WEAPON :
+			return Weapon.BuffableStats.keys()
+		#Buff.Domain.ARMOR :
+		#	return str(ARMOR.BuffableStats.keys()[buff.stat_index])
+		#Buff.Domain.PROJECTILE :
+		#	return str(PROJECTILE.BuffableStats.keys()[buff.stat_index])
+		_:
+			printerr("invalid buff domain")
+			return []
+
 func _to_string() -> String:
 	return "%s - %s %s %s" % [Pip.Rarity.keys()[pip_rarity],str(buff.BuffType.keys()[buff.buff_type]),str(buff.buff_amount), get_buff_stat_name()]
 
-func get_pip_value() -> float:
+func get_pip_value() -> int:
 	match pip_rarity:
 		Rarity.COMMON: return value_common
 		Rarity.UNCOMMON: return value_uncommon
@@ -55,5 +69,5 @@ static var rarity_icons: Dictionary = {
 }
 
 # small icon corresponding to rarity to quickly assert a pip's rarity when inspecting gear
-func get_pip_icon(rarity: Item.Rarity) -> Texture2D:
-	return rarity_icons.get(rarity, PlaceholderTexture2D.new())
+func get_pip_icon() -> Texture2D:
+	return rarity_icons.get(pip_rarity, PlaceholderTexture2D.new())

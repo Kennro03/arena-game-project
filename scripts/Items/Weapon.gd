@@ -131,10 +131,16 @@ func _on_owner_stats_change() -> void:
 func apply_owner_buffs(stats: Stats):
 	for buff in statChanges:
 		stats.add_buff(buff)
+	for pip in pips:
+		if pip.buff != null and pip.buff.domain == Buff.Domain.UNIT:
+			stats.add_buff(pip.buff)
 
 func remove_owner_buffs(stats: Stats):
 	for buff in statChanges:
 		stats.remove_buff(buff)
+	for pip in pips:
+		if pip.buff != null and pip.buff.domain == Buff.Domain.UNIT:
+			stats.remove_buff(pip.buff)
 
 func recalculate_stats() -> void :
 	reset_current_stats()
@@ -276,10 +282,15 @@ func apply_pips() -> void:
 		if pip.buff == null:
 			continue
 		match pip.buff.domain:
-			Buff.Domain.UNIT:
-				BaseUnit.apply_buff(pip.buff,owner)
 			Buff.Domain.WEAPON:
-				if self is Weapon:
-					(self as Weapon).weapon_stat_buffs.append(pip.buff)
-			Buff.Domain.ARMOR:
-				pass  # implement when armor stats are ready
+				weapon_stat_buffs.append(pip.buff)
+			_:
+				pass
+
+func get_value() -> int:
+	var value : int = base_value
+	for pip in pips :
+		value += pip.get_pip_value()
+	if weapon_material : 
+		value *= int(weapon_material.value_multiplier)
+	return value 
