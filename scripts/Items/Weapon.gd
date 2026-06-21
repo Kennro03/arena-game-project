@@ -48,8 +48,7 @@ static var debug_weapon_sprites : Dictionary = {
 	set(new_mat):
 		weapon_material = new_mat
 		recalculate_stats()
-@export var pip_count: int = 0                       #number of pips rolled upon generation, unused by misc or quest item types
-@export var pips : Array[Pip]
+
 
 @export_subgroup("Base weapon Stats","base_")
 @export var base_attack_speed : float = 1.0
@@ -79,6 +78,13 @@ var current_crit_hitbox: HitboxData = null :
 @export var attack_range_scalings : Array[StatScaling] = []
 @export var damage_scalings : Array[StatScaling] = []
 @export var knockback_scalings : Array[StatScaling] = []
+
+@export_subgroup("Pip related")
+@export var pips : Array[Pip] = []
+@export var guaranteed_pips_count : int = 0            #number of pips rolled upon generation, unused by misc or quest item types
+@export var random_pips_amount : Vector2 = Vector2(0,0)
+@export var allowed_pips_list : Array[Pip] = [] # select pips from this array, generate random pips when empty
+@export var custom_pip_rarities_weigths : Dictionary = PipRegistry.pip_default_rarities_weigths
 
 @export_subgroup("Animations")
 @export var allowed_animations: Array[String] = ["slash","stab","bash"] # Slash, Stab, Bash, etc
@@ -273,7 +279,7 @@ func _spawn_hitbox(target_position: Vector2, _hit: HitData, _size_mult: float = 
 func get_color_palette() -> Texture2D :
 	return weapon_material.material_color_palette if weapon_material != null else preload("uid://dv8kdjtdqrghu")
 
-func generate_pips(rarity_weights: Dictionary = PipRegistry.pip_default_rarities_weigths) -> void:
+func generate_pips(rarity_weights: Dictionary = custom_pip_rarities_weigths) -> void:
 	pips = PipRegistry.roll_pips(self, rarity_weights)
 	apply_pips()
 

@@ -5,9 +5,31 @@
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="2_0nvks"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="3_53w05"]
 
+[sub_resource type="Resource" id="Resource_53w05"]
+script = ExtResource("3_53w05")
+buff_amount = 10.0
+source = "Big guy's gold necklace"
+stat_index = 1
+stat_index = 1
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_nkh0m"]
+script = ExtResource("3_53w05")
+buff_amount = 10.0
+source = "Big guy's gold necklace"
+stat_index = 2
+stat_index = 2
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_0nvks"]
+script = ExtResource("3_53w05")
+buff_amount = 10.0
+source = "Big guy's gold necklace"
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
 [resource]
 script = ExtResource("2_0nvks")
-guaranteed_pips_count = 3
+buffs = Array[ExtResource("3_53w05")]([SubResource("Resource_53w05"), SubResource("Resource_nkh0m"), SubResource("Resource_0nvks")])
 custom_pip_rarities_weigths = {
 0: 0.0,
 1: 0.0,
@@ -18,9 +40,9 @@ custom_pip_rarities_weigths = {
 6: 0.0
 }
 item_name = "Big guy's gold necklace"
-description = "A kick-ass necklace made out of gold."
+description = "A cool necklace made out of gold. Makes you way stronger for some reason..?"
 icon = ExtResource("1_j5tmd")
 item_type = 2
 rarity = 3
-base_value = 5
+base_value = 70
 metadata/_custom_type_script = "uid://c4fibwo0c6337"

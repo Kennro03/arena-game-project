@@ -108,10 +108,10 @@ func set_item_stats() -> void :
 						stats_rich_text_label.append_text(str((buff.buff_amount-1)*100)+"%")
 		
 		Item.ItemType.ACCESSORY :
-			var acc := gear as Accessory
-			if acc.statChanges != [] :
+			var acc : Accessory = gear
+			if acc.buffs != [] :
 				stats_rich_text_label.append_text("Stat buffs : ") 
-			for buff in acc.statChanges :
+			for buff in acc.buffs :
 				stats_rich_text_label.append_text("\n%s " % [Stats.BuffableStats.keys()[buff.stat_index]])
 				if buff.buff_type == Buff.BuffType.ADD :
 					if buff.buff_amount > 0 :

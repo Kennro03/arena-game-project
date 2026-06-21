@@ -11,31 +11,17 @@ class_name Accessory
 @export var guaranteed_pips_count : int = 0
 @export var random_pips_amount : Vector2 = Vector2(0,0)
 @export var allowed_pips_list : Array[Pip] = [] # select pips from this array, generate random pips when empty
-@export var custom_pip_rarities_weigths : Dictionary = {
-	Pip.Rarity.COMMON : 40.0,
-	Pip.Rarity.UNCOMMON : 19.0,
-	Pip.Rarity.RARE : 9.0,
-	Pip.Rarity.EPIC : 4.0,
-	Pip.Rarity.LEGENDARY : 1.0,
-	Pip.Rarity.NEGATIVE : 6.0,
-	Pip.Rarity.UNIQUE : 0.0,
-}
+@export var custom_pip_rarities_weigths : Dictionary = PipRegistry.pip_default_rarities_weigths
 
 var owner: BaseUnit
 
 func _init() -> void:
 	item_type = Item.ItemType.ACCESSORY
 
-func with_attribute_buffs(nb_buffs: int = 1) -> Item:
-	var result := duplicate(true)
-	for i in nb_buffs:
-		result.buffs.append(Buff.random_flat_attribute_buff())
-	return result
-
-func with_stat_buffs(nb_buffs: int = 1) -> Item:
-	var result := duplicate(true)
-	for i in nb_buffs:
-		result.buffs.append(Buff.random_multiplier_stat_buff())
+func add_buffs(_new_buffs: Array[Buff]) -> Item:
+	var result : Accessory = duplicate(true)
+	for b in _new_buffs:
+		result.buffs.append(b)
 	return result
 
 func apply_owner_buffs(stats: Stats):

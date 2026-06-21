@@ -310,6 +310,7 @@ func take_damage(incoming_damage, _hit_owner: BaseUnit = null) :
 	incoming_damage += stats.current_damage_taken_bonus
 	incoming_damage *= stats.current_damage_taken_multiplier
 	incoming_damage = round(incoming_damage * pow(10.0, 2)) / pow(10.0, 2)
+	
 	if stats.shield > 0.0 and stats.shield > incoming_damage :
 		stats.shield -= incoming_damage
 		%DamagePopupMarker.damage_popup(str(incoming_damage),0.5+0.01*incoming_damage,Color(0.6, 0.8, 0.8, 1.0))

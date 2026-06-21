@@ -31,6 +31,7 @@ weaponSprite = ExtResource("2_b2ekp")
 base_attack_range = 400.0
 base_damage_type = 0
 base_damage = 6.0
+custom_pip_rarities_weigths = null
 allowed_animations = Array[String]([])
 item_id = "shortbow"
 item_name = "Shortbow"

@@ -130,7 +130,7 @@ static func roll_pips(item: Item, _pip_rarity_weigths: Dictionary = pip_default_
 	var count : int
 	match item.item_type:
 		Item.ItemType.WEAPON :
-			count = item.pip_count
+			count = item.guaranteed_pips_count
 		Item.ItemType.ACCESSORY :
 			count = item.guaranteed_pips_count
 		#Item.ItemType.ARMOR :
@@ -167,6 +167,7 @@ static func roll_pips(item: Item, _pip_rarity_weigths: Dictionary = pip_default_
 		buff.stat_index = entry[1]
 		buff.buff_type = entry[2]
 		buff.buff_amount = value
+		buff.source = item.item_name
 		new_pip.buff = buff
 		result.append(new_pip)
 		#print("Pip generated : " + str(new_pip))

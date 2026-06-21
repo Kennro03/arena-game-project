@@ -60,6 +60,7 @@ static var pending_event : EventResource = null
 @onready var bow_base = preload("uid://cikjn1d3hom5x")
 
 const UNCOMMONTESTSWORD = preload("uid://dlhcap3ipacyj")
+const BIG_GUY_GOLD_NECKLACE = preload("uid://bcgx8j8wdnce3")
 
 @onready var hitbox_test_hammer : Weapon = preload("uid://dbi7hcyvjnqnd")
 
@@ -82,6 +83,7 @@ func _ready() -> void:
 	add_item_to_inventory(generate_weapon(wand_base))
 	add_item_to_inventory(generate_weapon(foci_staff_base))
 	add_item_to_inventory(generate_weapon(bow_base))
+	add_item_to_inventory(BIG_GUY_GOLD_NECKLACE.duplicate(true))
 	
 	add_item_to_inventory(hitbox_test_hammer)
 	
@@ -250,7 +252,7 @@ func generate_weapon(base: Weapon, item_rarity: Item.Rarity = base.rarity, tier_
 			int(generated_weapon.rarity) + mat.material_rarity_bonus, 
 			0, 
 			Item.Rarity.size() - 1) as Item.Rarity
-		generated_weapon.pip_count += mat.bonus_pips_amount
+		generated_weapon.guaranteed_pips_count += mat.bonus_pips_amount
 	
 	# roll pips after material since material can increase pip count
 	generated_weapon.generate_pips()

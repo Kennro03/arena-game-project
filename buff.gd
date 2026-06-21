@@ -14,7 +14,7 @@ enum Domain { UNIT, WEAPON, ARMOR, PROJECTILE }
 @export var buff_amount: float = 0.0
 @export var source: String = ""      # for display: "Iron Pip", "Ring of Strength"
 
-var stat_index: int = 0 
+@export var stat_index: int = 0 
 
 static var stat_icons : Dictionary = {
 	Weapon.BuffableStats.DAMAGE: preload("uid://br85td3jaqel7"),
@@ -61,17 +61,6 @@ func _get_property_list() -> Array[Dictionary]:
 	
 	return props
 
-func _get(property: StringName):
-	if property == "stat_index":
-		return stat_index
-	return null
-
-func _set(property: StringName, value) -> bool:
-	if property == "stat_index":
-		stat_index = value
-		return true
-	return false
-
 func get_unit_stat() -> Stats.BuffableStats:
 	return stat_index as Stats.BuffableStats
 
@@ -86,29 +75,26 @@ func get_projectile_stat() -> Projectile.BuffableStats:
 
 func _init( _domain : Domain = Domain.UNIT,
 			_stat_index: int = 0, 
-			_buff_amount: float = 1.0,
-			_buff_type: Buff.BuffType = BuffType.MULTIPLY) -> void:
-	match _domain :
-		Domain.UNIT :
-			get_unit_stat()
-		Domain.WEAPON :
-			get_weapon_stat()
+			_buff_amount: float = 0.0,
+			_buff_type: Buff.BuffType = BuffType.ADD) -> void:
+	domain = _domain
+	stat_index = _stat_index
 	buff_type = _buff_type
 	buff_amount = _buff_amount
 
-static func random_flat_attribute_buff(min_amount: int = 1, max_amount: int = 15) -> Buff:
-	var attribute : int = Stats.Attributes.values().pick_random()
-	return Buff.new(
-		Buff.Domain.UNIT,
-		Stats.BuffableStats.values()[attribute],
-		randi_range(min_amount, max_amount),
-		Buff.BuffType.ADD
-	)
+#static func random_flat_attribute_buff(min_amount: int = 1, max_amount: int = 15) -> Buff:
+#	var attribute : int = Stats.Attributes.values().pick_random()
+#	return Buff.new(
+#		Buff.Domain.UNIT,
+#		Stats.BuffableStats.values()[attribute],
+#		randi_range(min_amount, max_amount),
+#		Buff.BuffType.ADD
+#	)
 
-static func random_multiplier_stat_buff(min_amount: float = 0.1, max_amount: float = 0.3) -> Buff:
-	return Buff.new(
-		Buff.Domain.UNIT,
-		Stats.BuffableStats.values().pick_random(),
-		randf_range(min_amount, max_amount),
-		Buff.BuffType.MULTIPLY
-	)
+#static func random_multiplier_stat_buff(min_amount: float = 0.1, max_amount: float = 0.3) -> Buff:
+#	return Buff.new(
+#		Buff.Domain.UNIT,
+#		Stats.BuffableStats.values().pick_random(),
+#		randf_range(min_amount, max_amount),
+#		Buff.BuffType.MULTIPLY
+#	)
