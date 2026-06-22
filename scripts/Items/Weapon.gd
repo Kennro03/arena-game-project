@@ -151,7 +151,6 @@ func remove_owner_buffs(stats: Stats):
 func recalculate_stats() -> void :
 	reset_current_stats()
 	
-	
 	var stat_multipliers: Dictionary = {} #Amount to multiply stats by
 	var stat_addends: Dictionary = {} #Amount to add to included stats
 	

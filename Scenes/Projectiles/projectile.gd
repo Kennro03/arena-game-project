@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 		# shadow fades and shrinks as projectile goes higher
 		var height_ratio := clampf(_current_height / 50.0, 0.1, 1.0)
 		shadow.modulate.a = clampf(1.0 - height_ratio * 0.7, 0.3, 1.0)
-		shadow.scale = Vector2.ONE * clampf(1.0 - height_ratio * 0.4, 0.5, 1.0)
+		shadow.scale = Vector2.ONE * clampf(1.0 - height_ratio * 0.4, 0.1, 1.0)
 		
 		# hit ground
 		if _current_height <= 0.0:

@@ -1,10 +1,39 @@
 extends Item
 class_name Armor
 
+enum BuffableStats {
+	SLASH_RESISTANCE,
+	PIERCE_RESISTANCE,
+	BLUNT_RESISTANCE,
+	FIRE_RESISTANCE,
+	FROST_RESISTANCE,
+	LIGHTNING_RESISTANCE,
+	EARTH_RESISTANCE,
+	WIND_RESISTANCE,
+	WATER_RESISTANCE,
+	ORDER_RESISTANCE,
+	ENTROPY_RESISTANCE,
+}
+
+static var resistance_to_damage_type: Dictionary = {
+	BuffableStats.SLASH_RESISTANCE:     HitData.DamageType.SLASH,
+	BuffableStats.PIERCE_RESISTANCE:    HitData.DamageType.PIERCE,
+	BuffableStats.BLUNT_RESISTANCE:     HitData.DamageType.BLUNT,
+	BuffableStats.FIRE_RESISTANCE:      HitData.DamageType.FIRE,
+	BuffableStats.FROST_RESISTANCE:     HitData.DamageType.FROST,
+	BuffableStats.LIGHTNING_RESISTANCE: HitData.DamageType.LIGHTNING,
+	BuffableStats.EARTH_RESISTANCE:     HitData.DamageType.EARTH,
+	BuffableStats.WIND_RESISTANCE:      HitData.DamageType.WIND,
+	BuffableStats.WATER_RESISTANCE:     HitData.DamageType.WATER,
+	BuffableStats.ORDER_RESISTANCE:     HitData.DamageType.ORDER,
+	BuffableStats.ENTROPY_RESISTANCE:   HitData.DamageType.ENTROPY,
+}
+
 ## Armor has resistance stats, stat boosts, and passives
 @export_group("Armor data")
 @export var armorIcon : Texture2D
 @export var armorTexture : Texture2D
+@export var armor_colorPalette : Texture2D
 @export var base_resistances: Dictionary = {
 	HitData.DamageType.SLASH: 1.0,
 	HitData.DamageType.PIERCE: 1.0,
@@ -40,6 +69,7 @@ var current_resistances: Dictionary = {}
 	Pip.Rarity.UNIQUE : 0.0,
 }
 
+var armor_stat_buffs : Array[Buff] = []
 var owner: Node2D
 
 func _init() -> void:
@@ -56,6 +86,30 @@ func setup_stats() -> void :
 
 func _reset_stats() -> void:
 	current_resistances = base_resistances
+
+func add_armor_buff(buff: Buff) -> void :
+	if buff in armor_stat_buffs:
+		return
+	armor_stat_buffs.append(buff)
+	recalculate_stats.call_deferred()
+
+func remove_armor_buff(buff: Buff) -> void :
+	armor_stat_buffs.erase(buff)
+	recalculate_stats.call_deferred()
+
+func clear_armor_buffs() -> void:
+	armor_stat_buffs.clear()
+	recalculate_stats()
+
+func recalculate_stats() -> void:
+	_reset_stats()
+	
+	var _stat_multipliers: Dictionary = {} #Amount to multiply stats by
+	var _stat_addends: Dictionary = {} #Amount to add to included stats
+	
+	#Armor buffs
+	for buff in armor_stat_buffs :
+		pass
 
 func apply_owner_buffs(stats: Stats):
 	for buff in buffs:
