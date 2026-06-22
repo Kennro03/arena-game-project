@@ -1,5 +1,7 @@
 [gd_resource type="Resource" script_class="humanoidUnitData" format=3 uid="uid://ps2wy7q88f5b"]
 
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_lpt4p"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="3_w30eq"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Humanoid/humanoidUnitData.gd" id="5_nba2t"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_ua3ti"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_23v6u"]

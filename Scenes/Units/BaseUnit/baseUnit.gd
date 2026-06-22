@@ -53,6 +53,7 @@ var summoner : BaseUnit = null      # if unit was summoned, references summoner
 var last_hit_owner: BaseUnit = null # last unit to have hit this unit
 
 # Action related
+var movement_direction : Vector2 = Vector2(0.0,0.0)
 var is_action_locked : bool = false
 
 var is_casting: bool:
@@ -306,10 +307,13 @@ func apply_knockback(target: Node2D, direction: Vector2, force: float):
 func receive_knockback(force: Vector2):
 	knockback_velocity += force
 
-func take_damage(incoming_damage, _hit_owner: BaseUnit = null) :
+func take_damage(incoming_damage : float, _damage_type: HitData.DamageType = HitData.DamageType.NONE, _hit_owner: BaseUnit = null) :
 	incoming_damage += stats.current_damage_taken_bonus
 	incoming_damage *= stats.current_damage_taken_multiplier
 	incoming_damage = round(incoming_damage * pow(10.0, 2)) / pow(10.0, 2)
+	
+	if armor != null :
+		incoming_damage *= armor.get_resistance(_damage_type)
 	
 	if stats.shield > 0.0 and stats.shield > incoming_damage :
 		stats.shield -= incoming_damage
@@ -329,7 +333,7 @@ func block(_hit: HitData):
 	var flat_blocked_damage = maxf((_hit.base_damage-stats.current_flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
-	take_damage(blocked_damage,_hit.hit_owner) 
+	take_damage(blocked_damage, _hit.damage_type, _hit.hit_owner) 
 	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
 		particleModule.emit_block_particles()
 
@@ -361,7 +365,7 @@ func resolve_hit(hit_result : HitData) :
 		hit_received.emit(hit_result)
 	else :
 		hit_result.outcome = HitData.HitOutcome.HIT
-		take_damage(hit_result.base_damage,hit_result.hit_owner)
+		take_damage(hit_result.base_damage, hit_result.damage_type, hit_result.hit_owner)
 		_apply_passives(hit_result)
 		for effect in hit_result.status_effects :
 			#print("Resolve step : Applying " + str(effect.Status_effect_name))

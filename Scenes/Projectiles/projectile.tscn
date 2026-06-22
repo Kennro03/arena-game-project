@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://utyen8d0722"]
 
 [ext_resource type="Script" uid="uid://butq55h16j5qf" path="res://Scenes/Projectiles/projectile.gd" id="1_2re41"]
+[ext_resource type="Texture2D" uid="uid://bbj5ai2r0jqt" path="res://ressources/Sprites/Weapons/debug_arrow.png" id="2_aihi3"]
 
 [node name="Projectile" type="Node2D" unique_id=716309965]
 script = ExtResource("1_2re41")
 
-[node name="ProjectileSprite" type="Sprite2D" parent="." unique_id=810817899]
-unique_name_in_owner = true
-
 [node name="ShadowSprite2D" type="Sprite2D" parent="." unique_id=1861111640]
 unique_name_in_owner = true
-scale = Vector2(1e-05, 1e-05)
+modulate = Color(0, 0, 0, 0.5882353)
+texture = ExtResource("2_aihi3")
+
+[node name="ProjectileSprite" type="Sprite2D" parent="." unique_id=810817899]
+unique_name_in_owner = true

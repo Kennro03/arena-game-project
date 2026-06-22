@@ -1,7 +1,7 @@
 extends RefCounted
 class_name HitData
 
-enum DamageType { PIERCE, SLASH, BLUNT, FIRE, FROST, LIGHTNING, EARTH, WIND, WATER, ORDER, ENTROPY }
+enum DamageType { PIERCE, SLASH, BLUNT, FIRE, FROST, LIGHTNING, EARTH, WIND, WATER, ORDER, ENTROPY, NONE }
 
 var hit_owner : BaseUnit
 var is_critical : bool = false

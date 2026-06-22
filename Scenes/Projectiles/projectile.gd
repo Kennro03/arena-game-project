@@ -44,42 +44,52 @@ func setup(data: ProjectileData, hit: HitData, dir: Vector2) -> void:
 	
 	if data.sprite:
 		sprite.texture = data.sprite
-		shadow.scale = Vector2.ONE * data.shadow_scale
+		
+		if data.shadow_visible :
+			shadow.texture = data.sprite
+		else :
+			shadow.visible = false
 	
 	# rotate sprite to face direction
 	rotation = direction.angle()
 	
 
 func _physics_process(delta: float) -> void:
-	if _lifetime >= projectile_data.max_lifetime:
-		_on_impact()
-		return
-	
-	# horizontal movement
-	var movement := direction * projectile_data.speed * delta
-	global_position += movement
-	_distance_traveled += movement.length()
-	
-	# vertical arc
-	_vertical_velocity -= projectile_data.gravity * delta
-	_current_height += _vertical_velocity * delta
-	
-	# visual fall of the sprite
-	sprite.position.y = -_current_height
-	
-	# shadow fades and shrinks as projectile goes higher
-	var height_ratio := clampf(_current_height / 200.0, 0.0, 1.0)
-	shadow.modulate.a = clampf(1.0 - height_ratio * 0.7, 0.3, 1.0)
-	shadow.scale = Vector2.ONE * projectile_data.shadow_scale * clampf(1.0 - height_ratio * 0.4, 0.5, 1.0)
-	
-	# hit ground
-	if _current_height <= 0.0:
-		_on_impact()
-		return
-	
-	# max range
-	if _distance_traveled >= projectile_data.max_range:
-		queue_free()
+	if projectile_data :
+		if _lifetime >= projectile_data.max_lifetime:
+			_on_impact()
+			return
+		
+		_lifetime += delta  
+		
+		# horizontal movement
+		var movement := direction * projectile_data.speed * delta
+		global_position += movement
+		_distance_traveled += movement.length()
+		
+		# vertical arc
+		_vertical_velocity -= projectile_data.gravity * delta
+		_current_height += _vertical_velocity * delta
+		
+		# visual fall of the sprite
+		sprite.position.y = -_current_height
+		
+		var arc_angle := atan2(-_vertical_velocity, projectile_data.speed)
+		sprite.rotation = arc_angle
+		
+		# shadow fades and shrinks as projectile goes higher
+		var height_ratio := clampf(_current_height / 50.0, 0.1, 1.0)
+		shadow.modulate.a = clampf(1.0 - height_ratio * 0.7, 0.3, 1.0)
+		shadow.scale = Vector2.ONE * clampf(1.0 - height_ratio * 0.4, 0.5, 1.0)
+		
+		# hit ground
+		if _current_height <= 0.0:
+			_on_impact()
+			return
+		
+		# max range
+		if _distance_traveled >= projectile_data.max_range:
+			queue_free()
 
 func _on_target_detected(unit: BaseUnit) -> void:
 	# height check
