@@ -74,8 +74,9 @@ func _physics_process(delta: float) -> void:
 		# visual fall of the sprite
 		sprite.position.y = -_current_height
 		
-		var arc_angle := atan2(-_vertical_velocity, projectile_data.speed)
-		sprite.rotation = arc_angle
+		if projectile_data.does_sprite_arc :
+			var arc_angle := atan2(-_vertical_velocity, projectile_data.speed)
+			sprite.rotation = arc_angle
 		
 		# shadow fades and shrinks as projectile goes higher
 		var height_ratio := clampf(_current_height / 50.0, 0.1, 1.0)

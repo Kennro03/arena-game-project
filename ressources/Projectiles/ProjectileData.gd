@@ -9,6 +9,7 @@ class_name ProjectileData
 @export var size: float = 16.0               # 'height' used for collisions
 @export var sprite: Texture2D = null
 @export var shadow_visible: bool = true        # size of the shadow, 0.0 to disable shadow
+@export var does_sprite_arc: bool = true
 @export var piercing: bool = false           # passes through targets on true
 @export var max_lifetime: float = INF        # duration before automatic despawn
 @export var max_range: float = 5000.0        # automatic despawn distance
