@@ -29,8 +29,12 @@ func _process(delta: float) -> void:
 	owner.stats.health += owner.stats.current_health_regen * delta
 	state.update(delta)
 
+var last_position : Vector2
 
 func _physics_process(delta: float) -> void:
+	var prev_position : Vector2 = owner.global_position
+	owner.previous_velocity = owner.velocity
+	
 	%Hurtbox.body_knockback()
 	#border_knockback()
 	
@@ -39,6 +43,12 @@ func _physics_process(delta: float) -> void:
 		owner.knockback_velocity = owner.knockback_velocity.move_toward(Vector2.ZERO, owner.knockback_decay * delta)
 	
 	state.physics_update(delta)
+	
+	var raw_velocity : Vector2 = (owner.global_position - prev_position) / delta
+	owner.velocity = owner.velocity.lerp(raw_velocity, 0.2)
+	owner.acceleration = (owner.velocity - owner.previous_velocity) / delta
+	
+	owner.movement_direction = owner.velocity.normalized() if owner.velocity.length() > 0.1 else owner.movement_direction
 
 
 func _transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:

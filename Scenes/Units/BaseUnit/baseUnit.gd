@@ -53,8 +53,14 @@ var summoner : BaseUnit = null      # if unit was summoned, references summoner
 var last_hit_owner: BaseUnit = null # last unit to have hit this unit
 
 # Action related
-var movement_direction : Vector2 = Vector2(0.0,0.0)
 var is_action_locked : bool = false
+
+# Movement related
+var velocity: Vector2 = Vector2.ZERO
+var acceleration: Vector2 = Vector2.ZERO
+var previous_velocity: Vector2 = Vector2.ZERO
+var movement_direction: Vector2 = Vector2.ZERO
+var velocity_smoothing: float = 0.2  # lower = smoother, higher = more responsive
 
 var is_casting: bool:
 	get: return state_machine.is_in_state(BaseUnitState.CASTING)
@@ -80,6 +86,19 @@ const BASE_BAR_WIDTH : float = 32.0
 const MIN_BAR_WIDTH : float = 16.0
 const MAX_BAR_WIDTH : float = 80.0
 const HEALTH_SCALE_REFERENCE : float = 100.0 
+
+func predict_position(time_ahead: float) -> Vector2:
+	# basic kinematic prediction: p + v*t + 0.5*a*t², clamped to not overshoot 
+	var predicted_velocity := velocity + acceleration * time_ahead
+	var max_speed := stats.current_movement_speed * 1.5  # allow some margin
+	predicted_velocity = predicted_velocity.limit_length(max_speed)
+	
+	var predicted_pos : Vector2 = global_position + velocity * time_ahead + 0.5 * acceleration * time_ahead
+	print("Current position = %s --- Predicted position = %s" % [str(global_position),predicted_pos])
+	return predicted_pos
+
+func _smooth_velocity(new_vel: Vector2) -> void:
+	velocity = velocity.lerp(new_vel, velocity_smoothing)
 
 static func apply_buff(buff: Buff, unit: BaseUnit) -> void:
 	if unit == null :

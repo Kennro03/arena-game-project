@@ -14,7 +14,6 @@ base_exp_worth = 100
 base_endurance = 10
 base_max_health = 200.0
 base_health_regen = 0.0
-base_movement_speed = 30.0
 base_dodge_probability = 0.0
 base_parry_probability = 0.0
 base_block_probability = 0.0

@@ -93,9 +93,9 @@ func _ready() -> void:
 	
 	add_unit_to_reserve(testing_pablo.duplicate(true))
 	
-	add_unit_to_team(humanoidUnitData.new())
-	add_unit_to_team(humanoidUnitData.new())
-	add_unit_to_team(humanoidUnitData.new())
+	add_unit_to_reserve(humanoidUnitData.new())
+	add_unit_to_reserve(humanoidUnitData.new())
+	add_unit_to_reserve(humanoidUnitData.new())
 	add_unit_to_team(humanoidUnitData.new())
 
 func add_item_to_inventory(item: Item) -> void:

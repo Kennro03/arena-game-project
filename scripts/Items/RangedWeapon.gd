@@ -21,13 +21,13 @@ func _spawn_projectile(_spawn_position: Vector2, _target_position: Vector2, _hit
 	projectile.global_position = _spawn_position
 	projectile.setup(projectile_data, _hit_data, direction)
 
-func _shoot_at_target(_target: Node2D, _hit_data: HitData) -> void:
+func _shoot_at_target(_target_position: Vector2, _hit_data: HitData) -> void:
 	if projectile_data == null:
 		printerr("RangedWeapon has no projectile_data")
 		return
 	var _proj_hitbox : HitboxData = projectile_data.hitbox_data
 	
-	_spawn_projectile(owner.global_position, _target.global_position, _hit_data)
+	_spawn_projectile(owner.global_position, _target_position, _hit_data)
 
 func setup_base_stats_from_dict(dict : Dictionary) -> void : 
 	projectile_data = dict.get("projectile_data",projectile_data)
@@ -73,7 +73,25 @@ func hit(target:Node2D, _hit: HitData)-> void:
 		if _hit.is_critical :
 			_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
 		
-		_shoot_at_target(target,_hit)
-		
-		
-		
+		var aim_pos := _get_aim_position(target)
+		_shoot_at_target(aim_pos,_hit)
+
+func _get_aim_position(target: Node2D) -> Vector2:
+	if not target is BaseUnit or projectile_data == null:
+		return target.global_position
+	
+	var target_unit :BaseUnit = target
+	var dist : float = owner.global_position.distance_to(target.global_position)
+	var travel_time : float = dist / projectile_data.speed  # rough estimate
+	
+	# refine once — predict position, recompute travel time with that distance
+	var predicted : Vector2 = target_unit.predict_position(travel_time)
+	var refined_dist : float = owner.global_position.distance_to(predicted)
+	travel_time = refined_dist / projectile_data.speed
+	predicted = target_unit.predict_position(travel_time)
+	
+	# safety check — if enemy is further from predicted pos than owner is to enemy, fall back
+	if target.global_position.distance_to(predicted) > owner.global_position.distance_to(target.global_position) :
+		return target.global_position
+	
+	return predicted
