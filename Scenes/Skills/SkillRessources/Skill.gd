@@ -2,7 +2,7 @@ extends Resource
 class_name Skill
 
 # normal skills appear during selection, 
-#rare skills are more rare and limited to a certain number per selection, 
+#rare skills are more rare and limited to a certain number per selection/every x selection or just rarer
 #exclusive skills can't be obtained, things like given skills to some enemy, some skills given to gear, etc
 enum SkillCategory { NORMAL, RARE,  EXCLUSIVE} 
 

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://ressources/SkillEffects/KnockBackEffect.gd" id="3_3b1wv"]
 [ext_resource type="Script" uid="uid://brjpxngoaa6b2" path="res://ressources/SkillEffects/ComponentResources/EndEffect.gd" id="4_dp4pe"]
 [ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://ressources/SkillEffects/HitboxEffect.gd" id="5_6tb1w"]
+[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="5_ggxir"]
 [ext_resource type="Script" uid="uid://dkn2lovp6jbtr" path="res://ressources/SkillEffects/ComponentResources/TargetingEffect.gd" id="7_fkdxu"]
 
 [sub_resource type="Resource" id="Resource_ggxir"]
@@ -35,5 +36,4 @@ cast_time = 0.0
 activation_range = 2000.0
 spawn_effects = Array[ExtResource("1_6tb1w")]([SubResource("Resource_3b1wv")])
 apply_effects = Array[ExtResource("1_3b1wv")]([SubResource("Resource_ggxir"), SubResource("Resource_gver6")])
-skill_name = "Base ranged Skill"
 metadata/_custom_type_script = "uid://dav671j6ilit5"

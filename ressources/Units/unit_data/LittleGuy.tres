@@ -1,9 +1,7 @@
 [gd_resource type="Resource" script_class="humanoidUnitData" format=3 uid="uid://cohqje3eq8h11"]
 
-[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_kkjms"]
 [ext_resource type="Resource" uid="uid://dfscer2qw0fdp" path="res://ressources/Items/Weapons/DebugWeapons/fists.tres" id="2_psifi"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Humanoid/humanoidUnitData.gd" id="3_06kvp"]
-[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_ja3sx"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_kkjms"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="6_ja3sx"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="7_csmss"]

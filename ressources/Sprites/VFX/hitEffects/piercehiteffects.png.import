@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp6g4vjifxu5e"
-path="res://.godot/imported/debug_bow.png-b24ce2b28814b90962369db00be642ba.ctex"
+uid="uid://cfbgmop1aj0vg"
+path="res://.godot/imported/piercehiteffects.png-01a9b21564f267e20a86ded55786151a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/Sprites/Weapons/debug_bow.png"
-dest_files=["res://.godot/imported/debug_bow.png-b24ce2b28814b90962369db00be642ba.ctex"]
+source_file="res://ressources/Sprites/VFX/hitEffects/piercehiteffects.png"
+dest_files=["res://.godot/imported/piercehiteffects.png-01a9b21564f267e20a86ded55786151a.ctex"]
 
 [params]
 

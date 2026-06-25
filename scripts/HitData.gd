@@ -5,7 +5,7 @@ enum DamageType { PIERCE, SLASH, BLUNT, FIRE, FROST, LIGHTNING, EARTH, WIND, WAT
 
 var hit_owner : BaseUnit
 var is_critical : bool = false
-var attack_type : Weapon.DamageType
+var attack_type : DamageType
 
 enum HitOutcome { NONE, HIT, BLOCK, PARRY, DODGE }
 var outcome : HitOutcome = HitOutcome.NONE

@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://ressources/SkillEffects/DamageEffect.gd" id="3_v6rhs"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="4_cdt5m"]
 [ext_resource type="Script" uid="uid://brjpxngoaa6b2" path="res://ressources/SkillEffects/ComponentResources/EndEffect.gd" id="4_v6rhs"]
+[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="5_v6rhs"]
 [ext_resource type="Script" uid="uid://dkn2lovp6jbtr" path="res://ressources/SkillEffects/ComponentResources/TargetingEffect.gd" id="6_v6rhs"]
 
 [sub_resource type="Resource" id="Resource_ym6lw"]
@@ -28,6 +29,4 @@ cast_time = 1.0
 activation_range = 100.0
 apply_effects = Array[ExtResource("1_34dxq")]([SubResource("Resource_ym6lw"), SubResource("Resource_5uts2")])
 icon = SubResource("PlaceholderTexture2D_fqelj")
-skill_name = "SMALL BURST"
-skill_description = "A placeholder burst Skill that does a small AOE zone infront of the caster, damaging and pushing back enemies"
 metadata/_custom_type_script = "uid://dav671j6ilit5"

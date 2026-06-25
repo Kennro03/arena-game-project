@@ -1,7 +1,6 @@
 [gd_resource type="Resource" script_class="RangedWeapon" format=3 uid="uid://cikjn1d3hom5x"]
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_7oi8v"]
-[ext_resource type="Texture2D" uid="uid://bp6g4vjifxu5e" path="res://ressources/Sprites/Weapons/debug_bow.png" id="2_b2ekp"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_e1nop"]
 [ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_33sxh"]
 [ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="5_rnj8q"]
@@ -9,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bbj5ai2r0jqt" path="res://ressources/Sprites/Weapons/debug_arrow.png" id="7_2hj8h"]
 [ext_resource type="Script" uid="uid://cubhrsqhe5yk8" path="res://scripts/Items/RangedWeapon.gd" id="8_flyni"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="9_b0pag"]
+[ext_resource type="Texture2D" uid="uid://d1vf75j7c8xys" path="res://ressources/Sprites/Weapons/debug_shortbow_icon.png" id="10_2qked"]
 [ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="10_dnfgb"]
 
 [sub_resource type="Resource" id="Resource_1qnli"]
@@ -27,7 +27,7 @@ script = ExtResource("8_flyni")
 projectile_data = SubResource("Resource_qecad")
 weaponCategory = 1
 weaponType = 9
-weaponSprite = ExtResource("2_b2ekp")
+weaponSprite = ExtResource("10_2qked")
 base_attack_speed = 0.9
 base_attack_range = 400.0
 base_damage_type = 0
@@ -36,6 +36,6 @@ allowed_animations = Array[String]([])
 item_id = "shortbow"
 item_name = "Shortbow"
 description = "A small bow meant for fast shooting over small to medium distances. "
-icon = ExtResource("2_b2ekp")
+icon = ExtResource("10_2qked")
 base_value = 12
 metadata/_custom_type_script = "uid://cubhrsqhe5yk8"
