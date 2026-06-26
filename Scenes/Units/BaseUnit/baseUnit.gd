@@ -206,6 +206,14 @@ func update_healthBar(_health, _max_health) -> void :
 	healthBar.value = _health
 	var scaled_width := BASE_BAR_WIDTH * sqrt(_max_health / HEALTH_SCALE_REFERENCE)
 	healthBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
+	if _health > _max_health/2 :
+		healthBar.modulate = Color.GREEN
+	elif _health < _max_health/2 :
+		if _health < _max_health/4 :
+			healthBar.modulate = Color.DARK_RED
+		else :
+			healthBar.modulate = Color.YELLOW
+	
 
 func update_shieldBar(_shield, _max_shield) -> void :
 	shieldBar.max_value = _max_shield
