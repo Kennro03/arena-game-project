@@ -1,97 +1,152 @@
 extends Node
 class_name SkillModule
 
-@export var skill_check_delay : float = 0.25
-var time_passed : float
+@export var skill_check_delay : float = 0.5 #delay between checking for available skills 
+@export var general_cooldown_after_cast: float = 1.0
+  
 var skill_list: Array[Skill] = []
-var skill_runtimes: Dictionary = {}
-var context : Dictionary = {}
-var check_skill_timepassed : float = 0.0
+var _active_skills: Array[ActiveSkill] = []
+var _passive_skills: Array[Passive_Skill] = []
 
-func add_skill(skill: Skill, slot: int = -1):
-	print("Adding skill " + str(skill) + " to " + str(BaseUnit))
-	if skill_runtimes.has(skill.skill_name):
-		push_warning("Skill " + skill.skill_name + " already added." )
-		return
-	
-	if slot == -1 or slot >= skill_list.size():
-		print("Added skill " + skill.skill_name)
-		skill_list.append(skill)
-	else:
-		print("Inserted skill " + skill.skill_name + " in slot " +str(slot))
-		skill_list.insert(slot, skill)
-	
-	#skill_list.append(skill)
-	create_skill_runtime(skill)
+var _general_cooldown: float = 0.0
+var _is_casting: bool = false
+var _check_timer: float = 0.0
 
-func remove_skill(skill: Skill, _slot: int = -1):
-	if skill_runtimes.has(skill.skill_name):
-		skill_runtimes.erase(skill.skill_name)
-	
-	# Also remove from array
-	for i in range(skill_list.size()):
-		if skill_list[i].skill_name == skill.skill_name:
-			skill_list.remove_at(i)
-			break
-
-func use_skill_by_name(skill_name: String, _context: Dictionary = {}):
-	if skill_name in skill_runtimes:
-		skill_runtimes[skill_name].activate(context)
-
-func use_skill_by_slot(slot: int, _context: Dictionary = {}):
-	if slot >= 0 and slot < skill_list.size():
-		var skill = skill_list[slot]
-		use_skill_by_name(skill.skill_name, context)
-
-func create_skill_runtime(skill_to_add: Skill) -> void : 
-	if skill_runtimes.has(skill_to_add.skill_name):
-		push_warning("Skill " + skill_to_add.skill_name + " already added." )
-		return
-	else : 
-		skill_runtimes[skill_to_add.skill_name] = SkillRuntime.new(skill_to_add, owner)
-
-func actualize_context() -> void : 
-	context.set("caster",owner)
-	context.set("skill_target",owner.get_closest_unit())
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await owner.ready
-	for skill in skill_list : 
-		create_skill_runtime(skill)
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	for i in skill_runtimes :
-		skill_runtimes[i]._process(_delta)
+	var unit := owner as BaseUnit
 	
-	time_passed += _delta
-	if time_passed >= skill_check_delay : 
-		time_passed -= skill_check_delay
-	pass
+	print("SkillModule ready for %s, unit_data skills: %s" % [
+		unit.display_name, 
+		unit.unit_data.skill_list.map(func(s): return s.name) if unit.unit_data else []
+	])
+	
+	#if unit and unit.unit_data:
+	#	for skill in unit.unit_data.skill_list:
+	#		_register_skill(skill)
+	#for skill in skill_list:
+	#	_register_skill(skill)
 
-func check_any_usable_skill() -> bool :
-	var usableskill : bool = false
-	for skill_key in skill_runtimes :
-		#print("checking conditions for " + str(skill_runtimes[skill_key].skill_data.skill_name) + " : usable=" + str(skill_runtimes[skill_key].check_usable()) + " cast_conditions=" + str(skill_runtimes[skill_key]._check_cast_conditions()))
-		if skill_runtimes[skill_key].check_usable() and skill_runtimes[skill_key]._check_cast_conditions() :
-			#print("Skill module using : "+ skill_runtimes[skill_key].skill_data.skill_name)
-			usableskill = true
-	return usableskill
+func _tick(delta: float) -> void:
+	# tick cooldowns
+	if _general_cooldown > 0.0:
+		_general_cooldown -= delta
+	
+	for skill in _active_skills:
+		#print("Ticking skill %s cooldown: %s" % [skill.name, skill._current_cooldown])
+		skill.tick(delta)
+	for skill in _passive_skills:
+		#print("Ticking skill %s cooldown: %s" % [skill.name, skill._current_cooldown])
+		skill.tick(delta)
+	
+	# periodic skill check
+	_check_timer += delta
+	if _check_timer >= skill_check_delay:
+		_check_timer = 0.0
+		_try_use_skill()
 
-func get_usable_skill_list()-> Array[SkillRuntime]:
-	var usable_skill_list: Array[SkillRuntime] = []
-	for skill_key in skill_runtimes :
-		#print("checking conditions for " + str(skill_runtimes[skill_key].skill_data.skill_name) + " : usable=" + str(skill_runtimes[skill_key].check_usable()) + " cast_conditions=" + str(skill_runtimes[skill_key]._check_cast_conditions()))
-		if skill_runtimes[skill_key].check_usable() and skill_runtimes[skill_key]._check_cast_conditions() :
-			#print("Skill module using : "+ skill_runtimes[skill_key].skill_data.skill_name)
-			usable_skill_list.append(skill_runtimes[skill_key])
-	return usable_skill_list
+func add_skill(skill: Skill) -> void:
+	if _has_skill(skill):
+		push_warning("Skill %s already registered" % skill.skill_name)
+		return
+	skill_list.append(skill)
+	_register_skill(skill)
 
-func get_first_usable_skill()-> SkillRuntime :
-	var skill : SkillRuntime
-	var usable_skill_list := get_usable_skill_list()
-	if usable_skill_list.size()>=1:
-		skill = usable_skill_list[0]
-	return skill
+func remove_skill(skill: Skill) -> void:
+	skill_list.erase(skill)
+	if skill is ActiveSkill:
+		var active := skill as ActiveSkill
+		active.detach(owner)
+		_active_skills.erase(active)
+	elif skill is Passive_Skill:
+		var passive := skill as Passive_Skill
+		passive.detach(owner as BaseUnit)
+		_passive_skills.erase(passive)
+
+func _register_skill(skill: Skill) -> void:
+	print("Registering: %s, total active after: %d" % [skill.name, _active_skills.size() + 1])
+	# duplicate so runtime state is unique per unit
+	if skill is ActiveSkill:
+		var active := skill.duplicate(true) as ActiveSkill
+		active.attach(owner as BaseUnit)
+		active.cast_started.connect(_on_cast_started)
+		active.cast_completed.connect(_on_cast_completed)
+		active.cast_interrupted.connect(_on_cast_interrupted)
+		_active_skills.append(active)
+	elif skill is Passive_Skill:
+		var passive := skill.duplicate(true) as Passive_Skill
+		passive.attach(owner as BaseUnit)
+		_passive_skills.append(passive)
+
+func _has_skill(skill: Skill) -> bool:
+	return skill_list.any(func(s): return s.skill_name == skill.skill_name)
+
+func _try_use_skill() -> void:
+	if _is_casting or _general_cooldown > 0.0:
+		return
+	var unit := owner as BaseUnit
+	if unit.is_stunned or unit.is_silenced:
+		return
+	var skill := _get_best_usable_skill()
+	if skill:
+		use_skill(skill)
+
+func use_skill(skill: ActiveSkill) -> void:
+	if not skill.can_use() or _is_casting:
+		return
+	var target: BaseUnit = null
+	if skill.targeting:
+		target = skill.targeting.get_target(owner as BaseUnit)
+		print("Targeting result: ", target)
+	else:
+		print("No targeting set on skill: ", skill.skill_name)
+	skill.use(target)
+
+func use_skill_by_index(index: int) -> void:
+	if index < 0 or index >= _active_skills.size():
+		return
+	use_skill(_active_skills[index])
+
+func use_skill_by_name(skill_name: String) -> void:
+	for skill in _active_skills:
+		if skill.skill_name == skill_name:
+			use_skill(skill)
+			return
+
+func _get_best_usable_skill() -> ActiveSkill:
+	var usable := get_usable_skills()
+	if usable.is_empty():
+		return null
+	## for now, use first usable skill wins, later add priority field to ActiveSkill and sort by it
+	return usable[0]
+
+func get_usable_skills() -> Array[ActiveSkill]:
+	var result: Array[ActiveSkill] = []
+	for skill in _active_skills:
+		if skill.can_use():
+			result.append(skill)
+	return result
+
+func is_casting() -> bool:
+	return _is_casting
+
+func interrupt_active_skills(cause: String = "hit") -> void:
+	for skill in _active_skills:
+		skill.try_interrupt(cause)
+
+func _on_cast_started(_skill: ActiveSkill) -> void:
+	_is_casting = true
+
+func _on_cast_completed(_skill: ActiveSkill) -> void:
+	_is_casting = false
+	_general_cooldown = general_cooldown_after_cast
+
+func _on_cast_interrupted(_skill: ActiveSkill) -> void:
+	_is_casting = false
+	_general_cooldown = 0.0  # no penalty for interrupted cast
+
+func has_passive_with_tag(tag: String) -> bool:
+	return _passive_skills.any(func(p): return tag in p.tags)
+
+func has_skill_with_name(skill_name: String) -> bool:
+	return skill_list.any(func(s): return s.skill_name == skill_name)

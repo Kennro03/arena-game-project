@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://bserc7ks8a8to"]
+
+[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/CastStep.gd" id="1_2oriv"]
+[ext_resource type="Script" uid="uid://c4d6yjdqgswg3" path="res://scripts/Skills/Step_PlayAnimation.gd" id="2_sivqg"]
+[ext_resource type="Script" uid="uid://bvb14d8s2124v" path="res://scripts/Skills/Step_Delay.gd" id="3_ovt83"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_iidcd"]
+[ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="4_ovt83"]
+[ext_resource type="Script" uid="uid://bh44vurqegh1h" path="res://scripts/Skills/Step_SpawnProjectile.gd" id="4_tnlne"]
+[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="5_iidcd"]
+[ext_resource type="Script" uid="uid://d0aai80e41px4" path="res://ressources/Projectiles/ProjectileData.gd" id="5_tnlne"]
+[ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="6_3n3ej"]
+[ext_resource type="Texture2D" uid="uid://c64v6mkj70qpn" path="res://ressources/Sprites/Weapons/debug_dagger.png" id="6_tnlne"]
+[ext_resource type="Script" uid="uid://c7pvww45kvh3r" path="res://scripts/Skills/Targeting_NearestEnemy.gd" id="7_hfrnb"]
+
+[sub_resource type="Resource" id="Resource_ijdhc"]
+script = ExtResource("2_sivqg")
+animation_name = "Stickman/unarmed_punch"
+wait_for_finish = false
+metadata/_custom_type_script = "uid://c4d6yjdqgswg3"
+
+[sub_resource type="Resource" id="Resource_usnqk"]
+script = ExtResource("3_ovt83")
+duration = 0.125
+metadata/_custom_type_script = "uid://bvb14d8s2124v"
+
+[sub_resource type="Resource" id="Resource_iidcd"]
+script = ExtResource("4_ovt83")
+shape = 1
+size = Vector2(16, 8)
+hit_check_interval = 0.01
+metadata/_custom_type_script = "uid://bd4xcgg65elbj"
+
+[sub_resource type="Resource" id="Resource_3n3ej"]
+script = ExtResource("5_tnlne")
+hitbox_data = SubResource("Resource_iidcd")
+speed = 400.0
+launch_velocity = 5.0
+gravity = 10.0
+size = 32.0
+sprite = ExtResource("6_tnlne")
+metadata/_custom_type_script = "uid://d0aai80e41px4"
+
+[sub_resource type="Resource" id="Resource_3vk3l"]
+script = ExtResource("4_tnlne")
+projectile_data = SubResource("Resource_3n3ej")
+damage = 12.0
+pattern = 4
+projectile_count = 5
+volley_count = 2
+volley_delay = 0.2
+line_spacing = 10.0
+metadata/_custom_type_script = "uid://bh44vurqegh1h"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fiv68"]
+size = Vector2(32, 32)
+
+[sub_resource type="Resource" id="Resource_o751g"]
+script = ExtResource("7_hfrnb")
+max_range = 2000.0
+metadata/_custom_type_script = "uid://c7pvww45kvh3r"
+
+[resource]
+script = ExtResource("6_3n3ej")
+cooldown = 10.0
+targeting = SubResource("Resource_o751g")
+cast_sequence = Array[ExtResource("1_2oriv")]([SubResource("Resource_ijdhc"), SubResource("Resource_usnqk"), SubResource("Resource_3vk3l")])
+name = "Knife throw"
+description = "Toss a throwing knife at the nearest enemy."
+icon = SubResource("PlaceholderTexture2D_fiv68")
+tags = Array[String](["pierce", "dagger", "projectile", "offensive"])
+metadata/_custom_type_script = "uid://dav671j6ilit5"

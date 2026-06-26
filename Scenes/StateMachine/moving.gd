@@ -5,6 +5,7 @@ var closest_target
 var closest_target_vector
 
 func enter(_previous_state_path: String, _data := {}) -> void:
+	unit.displayModule.state_rich_text_label.text = "MOVING"
 	unit.animationPlayer.stop()
 
 func physics_update(_delta: float) -> void:

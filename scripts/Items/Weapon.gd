@@ -1,11 +1,10 @@
 extends Item
 class_name Weapon
 
-signal attack_performed(damage_type:DamageType, endlag: float)
+signal attack_performed(damage_type : HitData.DamageType, endlag: float)
 
 enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
 enum WeaponTypeEnum { UNARMED, DAGGER, GAUNTLET, WAND, SWORD, SPEAR, FOCI_STAFF, HAMMER, GREATSWORD, BOW }
-enum DamageType { PIERCE, SLASH, BLUNT, FIRE, FROST, LIGHTNING, EARTH, WIND, WATER, ORDER, ENTROPY }
 
 enum BuffableStats {
 	ATTACK_SPEED,
@@ -53,7 +52,7 @@ static var debug_weapon_sprites : Dictionary = {
 @export_subgroup("Base weapon Stats","base_")
 @export var base_attack_speed : float = 1.0
 @export var base_attack_range : float = 100.0
-@export var base_damage_type: DamageType = DamageType.BLUNT
+@export var base_damage_type: HitData.DamageType = HitData.DamageType.BLUNT
 @export var base_damage: float = 5.0
 @export var base_knockback : float = 50.0
 @export var base_endlag : float = 0.15
@@ -92,7 +91,7 @@ var current_crit_hitbox: HitboxData = null :
 
 var current_attack_speed : float
 var current_attack_range : float
-var current_damage_type : DamageType
+var current_damage_type : HitData.DamageType
 var current_damage: float
 var current_knockback : float
 var current_endlag : float
@@ -214,7 +213,7 @@ func _apply_material_stats() -> void:
 			Buff.BuffType.MULTIPLY:
 				set(prop, get(prop) * buff.buff_amount)
 
-func generate_attack_type(_weightedDict : WeaponAttackTypesDictionnary, fallback := DamageType.BLUNT) -> DamageType :
+func generate_attack_type(_weightedDict : WeaponAttackTypesDictionnary, fallback := HitData.DamageType.BLUNT) -> HitData.DamageType :
 	var totalWeights : float = 0
 	var accumulatedweight : int = 0
 	for weight in _weightedDict.CurrentAttackTypesWeights.values():

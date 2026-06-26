@@ -4,6 +4,7 @@ class_name BaseUnitCyclingAnims
 var _is_cycling: bool = false
 
 func enter(_previous_state_path: String, _data := {}) -> void:
+	unit.displayModule.state_rich_text_label.text = "CYCLING ANIMATIONS"
 	print("Now cycling between available animations.")
 	_start_cycling()
 

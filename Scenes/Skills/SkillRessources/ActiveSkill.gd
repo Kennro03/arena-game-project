@@ -16,44 +16,53 @@ enum InterruptType {
 @export var interrupt_type: InterruptType = InterruptType.INTERRUPTED_BY_STUN
 @export var refund_cooldown_on_interrupt: bool = false
 
-#@export var targeting: SkillTargeting = null  # how to pick a target
-#@export var cast_sequence: Array[CastStep] = []  # ordered visual + mechanical steps
+@export var targeting: SkillTargeting = null  # how to pick a target
+@export var cast_sequence: Array[CastStep] = []  # ordered visual + mechanical steps
+@export var interrupt_animation: String = ""  
 
 var _current_cooldown: float = 0.0
 var _current_charges: int = 0
 var _is_casting: bool = false
 var _interrupt_requested: bool = false
-var _current_step_index: int = 0
 var _owner: BaseUnit
 
-func attach(unit: BaseUnit) -> void:
-	_owner = unit
+func attach(_unit: BaseUnit) -> void:
+	_owner = _unit
 	_current_charges = charges
 
+func detach(_unit: BaseUnit) -> void:
+	if _is_casting:
+		_interrupt_requested = true
+	_owner = null
+
 func can_use() -> bool:
+	if _owner and _owner.is_silenced:
+		return false
 	return _current_charges > 0 and _current_cooldown <= 0.0
 
-func _execute_sequence(context: Dictionary) -> void:
-	_owner.get_tree().create_tween()  # just to access coroutine-like flow
-	_run_steps(context)
-
-func _run_steps(context: Dictionary) -> void:
-	# run steps via signal chain rather than await
-	# use a recursive callable pattern
-	var step_index := 0
-	_run_step(step_index, context)
+func use(target: BaseUnit = null) -> void:
+	if not can_use():
+		return
+	cast_started.emit(self)
+	_current_charges -= 1
+	if _current_charges <= 0:
+		_current_cooldown = cooldown
+	_is_casting = true
+	_interrupt_requested = false
+	var context := {"target": target, "caster": _owner}
+	_run_step(0, context)
 
 func _run_step(index: int, context: Dictionary) -> void:
-	pass
 	if _interrupt_requested:
 		_on_interrupted()
 		return
-	#if index >= cast_sequence.size():
-	#	_is_casting = false
-	#	return
-	#var step := cast_sequence[index]
-	#step.execute(_owner, context, func():
-	#	_run_step(index + 1, context))
+	if index >= cast_sequence.size():
+		_is_casting = false
+		cast_completed.emit(self)
+		return
+	var step := cast_sequence[index]
+	step.execute(_owner, context, func():
+		_run_step(index + 1, context))
 
 func try_interrupt(cause: String = "hit") -> bool:
 	if not _is_casting:
@@ -77,9 +86,17 @@ func try_interrupt(cause: String = "hit") -> bool:
 func _on_interrupted() -> void:
 	_is_casting = false
 	_interrupt_requested = false
+	cast_interrupted.emit(self)
 	if refund_cooldown_on_interrupt:
 		_current_cooldown = 0.0
-		_current_charges = charges
-	# optional: emit signal for visual feedback
-	if _owner:
-		_owner.spriteModule.play_hurt()
+		_current_charges = min(_current_charges + 1, charges)
+	# optional: play animation on interrupted
+	if _owner and interrupt_animation != "" and _owner.spriteModule.animation_player.has_animation(interrupt_animation):
+		_owner.spriteModule.animation_player.play(interrupt_animation)
+
+func tick(delta: float) -> void:
+	if _current_cooldown > 0.0:
+		_current_cooldown -= delta
+		if _current_cooldown <= 0.0:
+			_current_cooldown = 0.0
+			_current_charges = charges

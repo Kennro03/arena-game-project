@@ -36,6 +36,21 @@ func _make_copy() -> UnitData:
 	copy.team = team  # preserve reference
 	return copy
 
+func validate() -> bool:
+	if id.is_empty():
+		printerr("UnitData: missing id")
+		return false
+	if stats == null:
+		printerr("UnitData %s: missing stats" % display_name)
+		return false
+	if weapon == null and default_weapon == null:
+		push_warning("UnitData %s: no weapon set" % display_name)
+	for skill in skill_list:
+		if skill == null:
+			printerr("UnitData %s: null skill in list" % display_name)
+			return false
+	return true
+
 func with_points(_stat_points : int) -> UnitData:
 	var data := _make_copy()  
 	for i in range(_stat_points):
@@ -80,9 +95,23 @@ func with_scale(multiplier: float) -> UnitData:
 
 func with_skills(skill_array: Array[Skill]) -> UnitData:
 	var data := _make_copy()  
+	data.display_name = "%s, Skills(" % [display_name]
 	for s in skill_array:
 		data.skill_list.append(s.duplicate(true))
-	data.display_name = "%s, Skilled" % [display_name]
+		data.display_name = "%s%s" % [s.name]
+	data.display_name = "%s)" % [display_name]
+	return data
+
+func with_passive_skill(passive: Passive_Skill) -> UnitData:
+	var data := _make_copy()
+	data.skill_list.append(passive.duplicate(true))
+	data.display_name = "%s, Passive(%s)" % [display_name, passive.name]
+	return data
+
+func with_active_skill(skill: ActiveSkill) -> UnitData:
+	var data := _make_copy()
+	data.skill_list.append(skill.duplicate(true))
+	data.display_name = "%s, Skill(%s)" % [display_name, skill.name]
 	return data
 
 enum RandomizationType {
@@ -222,6 +251,7 @@ func _random_weapon_stat_amount(stat: Weapon.BuffableStats, buff: bool) -> float
 }
 
 func auto_spend_attribute_points() -> void:
+	stats.recalculate_stats()
 	while stats.attribute_points_available > 0:
 		var attr := _pick_weighted_attribute()
 		stats.spend_attribute_point(attr)

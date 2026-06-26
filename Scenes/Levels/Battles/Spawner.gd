@@ -50,13 +50,12 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 	var spawned : BaseUnit = data.unit_scene.instantiate()
 	spawned.position = pos
 	spawned.unit_data = data
-	spawned.apply_data(data._make_copy())
 	spawned.active = false
 	
-	for skill in data.skill_list:
-		spawned.skillModule.add_skill(skill.duplicate(true))
+	spawned.apply_data(data._make_copy())
 	
 	UnitLayer.add_child(spawned)
+	
 	return spawned
 
 func spawn_random(pos: Vector2, data: UnitData = null) -> BaseUnit:

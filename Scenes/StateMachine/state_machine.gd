@@ -28,6 +28,10 @@ func _process(delta: float) -> void:
 	owner.last_attack_time += delta
 	owner.stats.health += owner.stats.current_health_regen * delta
 	state.update(delta)
+	var unit : BaseUnit = owner
+	if !unit.active :
+		return
+	unit.skillModule._tick(delta)
 
 var last_position : Vector2
 

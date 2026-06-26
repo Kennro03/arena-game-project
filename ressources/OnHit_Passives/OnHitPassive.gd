@@ -19,19 +19,19 @@ enum CritFilter { ANY, CRIT_ONLY, NON_CRIT_ONLY }
 func should_trigger(hit: HitData) -> bool:
 	match hit_type_filter:
 		HitTypeFilter.PHYSICAL_ONLY:
-			if hit.attack_type == Weapon.DamageType.SLASH or hit.attack_type == Weapon.DamageType.PIERCE or hit.attack_type == Weapon.DamageType.BLUNT:
+			if hit.attack_type == HitData.DamageType.SLASH or hit.attack_type == HitData.DamageType.PIERCE or hit.attack_type == HitData.DamageType.BLUNT:
 				return false
 		HitTypeFilter.ETHEREAL_ONLY:
-			if hit.attack_type != Weapon.DamageType.SLASH and hit.attack_type != Weapon.DamageType.PIERCE and hit.attack_type != Weapon.DamageType.BLUNT:
+			if hit.attack_type != HitData.DamageType.SLASH and hit.attack_type != HitData.DamageType.PIERCE and hit.attack_type != HitData.DamageType.BLUNT:
 				return false
 		HitTypeFilter.SLASH_ONLY:
-			if hit.attack_type != Weapon.DamageType.SLASH:
+			if hit.attack_type != HitData.DamageType.SLASH:
 				return false
 		HitTypeFilter.STAB_ONLY:
-			if hit.attack_type != Weapon.DamageType.PIERCE:
+			if hit.attack_type != HitData.DamageType.PIERCE:
 				return false
 		HitTypeFilter.BASH_ONLY:
-			if hit.attack_type != Weapon.DamageType.BLUNT:
+			if hit.attack_type != HitData.DamageType.BLUNT:
 				return false
 	match crit_filter:
 		CritFilter.CRIT_ONLY:

@@ -5,6 +5,7 @@ class_name Step_PlayAnimation
 @export var wait_for_finish: bool = true
 
 func execute(caster: BaseUnit, _context: Dictionary, next: Callable) -> void:
+	print("Play animation Called")
 	if caster.spriteModule and caster.spriteModule.animation_player.has_animation(animation_name):
 		caster.spriteModule.animation_player.play(animation_name)
 		if wait_for_finish:

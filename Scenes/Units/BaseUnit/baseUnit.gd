@@ -54,6 +54,7 @@ var last_hit_owner: BaseUnit = null # last unit to have hit this unit
 
 # Action related
 var is_action_locked : bool = false
+var is_silenced : bool = false
 
 # Movement related
 var velocity: Vector2 = Vector2.ZERO
@@ -384,6 +385,7 @@ func resolve_hit(hit_result : HitData) :
 		hit_received.emit(hit_result)
 	else :
 		hit_result.outcome = HitData.HitOutcome.HIT
+		skillModule.interrupt_active_skills("hit")
 		take_damage(hit_result.base_damage, hit_result.damage_type, hit_result.hit_owner)
 		_apply_passives(hit_result)
 		for effect in hit_result.status_effects :
@@ -423,7 +425,20 @@ func apply_data(data: UnitData) -> void:
 	
 	stats.recalculate_stats()
 	
-	#skillModule.skill_list = data.skill_list
+	_apply_skills.call_deferred(data.skill_list)
+
+func _apply_skills(skills: Array[Skill]) -> void:
+	if not is_node_ready():
+		await ready
+	for skill in skillModule._active_skills:
+		skill.detach(owner as BaseUnit)
+	for skill in skillModule._passive_skills:
+		skill.detach(owner as BaseUnit)
+	skillModule._active_skills.clear()
+	skillModule._passive_skills.clear()
+	skillModule.skill_list.clear()
+	for skill in skills:
+		skillModule.add_skill(skill)
 
 func apply_stun(duration: float) -> void:
 	state_machine._transition_to_next_state(BaseUnitState.STUNNED, {"duration": duration})
@@ -547,7 +562,7 @@ func get_accessory_at(index: int) -> Accessory:
 		return null
 	return accessories[index]
 
-func _on_weapon_attack(_damage_type: Weapon.DamageType, _endlag: float = 0.0) -> void:
+func _on_weapon_attack(_damage_type: HitData.DamageType, _endlag: float = 0.0) -> void:
 	#print("Attack performed : " + Weapon.AttackTypeEnum.keys()[attack_type].to_lower())
 	spriteModule.play_attack()
 	is_action_locked = true
