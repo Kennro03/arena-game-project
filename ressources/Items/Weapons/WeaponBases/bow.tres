@@ -1,10 +1,15 @@
 [gd_resource type="Resource" script_class="RangedWeapon" format=3 uid="uid://cikjn1d3hom5x"]
 
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="1_56sd7"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_2qked"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="4_kmf6u"]
 [ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="5_rnj8q"]
 [ext_resource type="Script" uid="uid://d0aai80e41px4" path="res://ressources/Projectiles/ProjectileData.gd" id="6_7ouoo"]
 [ext_resource type="Texture2D" uid="uid://bbj5ai2r0jqt" path="res://ressources/Sprites/Weapons/debug_arrow.png" id="7_2hj8h"]
 [ext_resource type="Script" uid="uid://cubhrsqhe5yk8" path="res://scripts/Items/RangedWeapon.gd" id="8_flyni"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="9_4kk0b"]
 [ext_resource type="Texture2D" uid="uid://d1vf75j7c8xys" path="res://ressources/Sprites/Weapons/debug_shortbow_icon.png" id="10_2qked"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="10_co682"]
 
 [sub_resource type="Resource" id="Resource_1qnli"]
 script = ExtResource("5_rnj8q")

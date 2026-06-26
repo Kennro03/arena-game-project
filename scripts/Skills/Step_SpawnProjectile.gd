@@ -37,6 +37,7 @@ enum SpawnOrigin {
 @export var fan_angle: float = 45.0         # total spread in degrees for FAN
 @export var line_spacing := 20.0            # for LINE, distance between each projectile
 @export var rain_height: float = 300.0      # For RAIN, how far above target they spawn
+@export var rain_launch_gravity: float = 300.0 # For RAIN, how fast do projectiles fall
 @export var rain_delay_min: float = 0.05    # For RAIN, min delay between individual drops
 @export var rain_delay_max: float = 0.15    # For RAIN, max delay for variety
 
@@ -170,7 +171,9 @@ func _spawn_rain_drop(caster: BaseUnit, proj_data: ProjectileData, target_pos: V
 	var land_pos := target_pos + _random_in_radius(spawn_radius)
 	
 	# spawn above landing position
-	var spawn_pos := land_pos + Vector2(0, -rain_height)
+	var spawn_pos := land_pos
+	proj_data.launch_height = rain_height
+	proj_data.launch_velocity = -rain_launch_gravity
 	
 	# direction straight down toward landing spot
 	var direction := (land_pos - spawn_pos).normalized()

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://vnoq55ghhjy8"]
+
+[ext_resource type="PackedScene" uid="uid://dymyelyuqn5xf" path="res://Scenes/Skills/area_visual.tscn" id="1_2uxwt"]
+[ext_resource type="Script" uid="uid://cbmkic8vm3dr0" path="res://Scenes/Skills/lingering_area_effect.gd" id="1_4h2ss"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4h2ss"]
+radius = 20.0
+height = 60.0
+
+[node name="LingeringAreaEffect" type="Node2D" unique_id=327403130]
+script = ExtResource("1_4h2ss")
+
+[node name="AreaVisual" parent="." unique_id=529619366 instance=ExtResource("1_2uxwt")]
+unique_name_in_owner = true
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1520828111]
+unique_name_in_owner = true
+
+[node name="CollisionShape" type="CollisionShape2D" parent="DetectionArea" unique_id=1011371052]
+unique_name_in_owner = true
+shape = SubResource("CapsuleShape2D_4h2ss")

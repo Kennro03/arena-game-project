@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://dhregwb73rglr"]
+
+[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/CastStep.gd" id="1_y05u5"]
+[ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/SkillEffect.gd" id="2_441py"]
+[ext_resource type="Script" uid="uid://dtips15ok2bnp" path="res://scripts/Skills/SkillEffect_HealFlat.gd" id="3_441py"]
+[ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Step_SpawnLingeringArea.gd" id="3_kfpli"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="3_w1e7m"]
+[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="4_w1e7m"]
+[ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="5_jdlbm"]
+[ext_resource type="Script" uid="uid://besimhcerwss4" path="res://scripts/Skills/Targeting_Self.gd" id="6_y05u5"]
+
+[sub_resource type="Resource" id="Resource_kfpli"]
+script = ExtResource("3_441py")
+amount = 5.0
+metadata/_custom_type_script = "uid://dtips15ok2bnp"
+
+[sub_resource type="Resource" id="Resource_l4i5p"]
+script = ExtResource("3_kfpli")
+size = Vector2(60, 60)
+tick_interval = 0.5
+effects_per_tick = Array[ExtResource("2_441py")]([SubResource("Resource_kfpli")])
+follow_caster = true
+metadata/_custom_type_script = "uid://bg30eb4pvw8iy"
+
+[sub_resource type="Resource" id="Resource_441py"]
+script = ExtResource("6_y05u5")
+metadata/_custom_type_script = "uid://besimhcerwss4"
+
+[resource]
+script = ExtResource("5_jdlbm")
+cooldown = 4.0
+targeting = SubResource("Resource_441py")
+cast_sequence = Array[ExtResource("1_y05u5")]([SubResource("Resource_l4i5p")])
+category = 2
+name = "HealZone"
+description = "Creates a healing field."
+metadata/_custom_type_script = "uid://dav671j6ilit5"

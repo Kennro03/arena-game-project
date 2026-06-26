@@ -311,7 +311,7 @@ func check_if_ally(target : Node2D) -> bool :
 	var my_root := get_summoner_root()
 	var their_root : BaseUnit = target.get_summoner_root() if target.has_method("get_summoner_root") else target
 	if my_root == their_root and my_root != null:
-		print("same root")
+		#print("same root")
 		return true
 	
 	var my_team := get_effective_team()

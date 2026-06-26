@@ -24,7 +24,7 @@ func _resolve_targets(caster: BaseUnit, context: Dictionary) -> Array[BaseUnit]:
 		Target.SELF:
 			return [caster]
 		Target.TARGET:
-			var t := context.get("target") as BaseUnit
+			var t : BaseUnit = context.get("target")
 			return [t] if t else []
 		Target.ATTACKER:
 			var attacker := context.get("attacker") as BaseUnit
