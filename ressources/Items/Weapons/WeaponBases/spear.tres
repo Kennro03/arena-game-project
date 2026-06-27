@@ -11,11 +11,12 @@
 [resource]
 script = ExtResource("4_xyp1q")
 weaponCategory = 1
-weaponType = 5
+weaponType = 4
 weaponSprite = ExtResource("5_yh41l")
 base_attack_range = 140.0
 base_damage_type = 0
 base_damage = 12.0
+custom_pip_rarities_weigths = null
 allowed_animations = Array[String](["stab"])
 item_id = "spear"
 item_name = "Spear"

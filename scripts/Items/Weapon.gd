@@ -4,7 +4,7 @@ class_name Weapon
 signal attack_performed(damage_type : HitData.DamageType, endlag: float)
 
 enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
-enum WeaponTypeEnum { UNARMED, DAGGER, GAUNTLET, WAND, SWORD, SPEAR, FOCI_STAFF, HAMMER, GREATSWORD, BOW }
+enum WeaponTypeEnum { UNARMED, DAGGER, GAUNTLETS, SWORD, SPEAR, HAMMER, MAGI_FOCUS, BOW }
 
 enum BuffableStats {
 	ATTACK_SPEED,
@@ -28,13 +28,10 @@ static var buffable_stat_icons : Dictionary = {
 static var debug_weapon_sprites : Dictionary = {
 	WeaponTypeEnum.UNARMED: null,
 	WeaponTypeEnum.DAGGER: preload("uid://c64v6mkj70qpn"),
-	WeaponTypeEnum.GAUNTLET: preload("uid://cgt11mipx5r5p"),
-	WeaponTypeEnum.WAND: preload("uid://bisn55jrtqnxi"),
+	WeaponTypeEnum.GAUNTLETS: preload("uid://cgt11mipx5r5p"),
 	WeaponTypeEnum.SWORD: preload("uid://ds2300iqhvnig"),
 	WeaponTypeEnum.SPEAR: preload("uid://drtgerm1gchkr"),
-	WeaponTypeEnum.FOCI_STAFF: preload("uid://c56q6fj8mor03"),
 	WeaponTypeEnum.HAMMER: preload("uid://bndegctnnxbsx"),
-	WeaponTypeEnum.GREATSWORD: preload("uid://c655s547o85vn"),
 	WeaponTypeEnum.BOW: preload("uid://bp6g4vjifxu5e"),
 }
 

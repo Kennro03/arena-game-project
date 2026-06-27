@@ -11,13 +11,14 @@
 [resource]
 script = ExtResource("4_p5ngx")
 weaponCategory = 2
-weaponType = 8
+weaponType = 3
 weaponSprite = ExtResource("5_g5x2u")
 base_attack_speed = 0.8
 base_attack_range = 125.0
 base_damage_type = 1
 base_damage = 16.0
 base_knockback = 40.0
+custom_pip_rarities_weigths = null
 allowed_animations = Array[String](["stab", "bash"])
 item_id = "greatsword"
 item_name = "Greatsword"

@@ -1,12 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://ds6y5tv4n4hsx"]
 
-[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_ojdk7"]
 [ext_resource type="Texture2D" uid="uid://c56q6fj8mor03" path="res://ressources/Sprites/Weapons/debug_foci_staff.png" id="2_e15do"]
-[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_invji"]
-[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_dm24t"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="5_jgroq"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_45j6f"]
-[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_j251w"]
 
 [resource]
 script = ExtResource("5_jgroq")
@@ -15,12 +10,31 @@ weaponType = 6
 weaponSprite = ExtResource("2_e15do")
 base_attack_speed = 0.9
 base_attack_range = 105.0
+base_damage_type = null
 base_damage = 11.0
 base_knockback = 90.0
+base_endlag = null
+base_crit_endlag = null
+statChanges = null
+onHitPassives = null
+attack_speed_scalings = null
+attack_range_scalings = null
+damage_scalings = null
+knockback_scalings = null
+pips = null
+guaranteed_pips_count = null
+random_pips_amount = null
+allowed_pips_list = null
+custom_pip_rarities_weigths = null
 allowed_animations = Array[String](["slash", "bash"])
+exclusive_animations = null
 item_id = "foci_staff"
 item_name = "Foci Staff"
+tags = null
 description = "A staff with a magicaly infused foci, gives magically able fighters increased potency. "
 icon = ExtResource("2_e15do")
+item_type = null
+rarity = null
+is_obtainable = null
 base_value = 12
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

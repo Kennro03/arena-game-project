@@ -10,12 +10,13 @@
 
 [resource]
 script = ExtResource("4_hs3hj")
-weaponType = 3
+weaponType = 6
 weaponSprite = ExtResource("5_2dw06")
 base_attack_speed = 1.05
 base_attack_range = 80.0
 base_damage = 10.0
 base_knockback = 40.0
+custom_pip_rarities_weigths = null
 allowed_animations = Array[String]([])
 item_id = "test_wand"
 item_name = "Test Wand"
