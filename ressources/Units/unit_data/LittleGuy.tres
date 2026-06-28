@@ -6,11 +6,7 @@
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="4_psifi"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_kkjms"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="6_ja3sx"]
-[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="7_kkjms"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="8_csmss"]
-[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="8_ja3sx"]
-[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="10_21o4k"]
-[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="11_vxwmb"]
 
 [sub_resource type="Resource" id="Resource_oloho"]
 script = ExtResource("6_ja3sx")

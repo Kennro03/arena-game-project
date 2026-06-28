@@ -1,15 +1,13 @@
 extends StatusEffect
 class_name StatusEffect_Amplifier
 
-# which status effect this amplifies
 @export var target_status_id: String = "burn"
 
-# what it changes on the target effect
 @export var damage_multiplier: float = 1.0
 @export var tick_interval_multiplier: float = 1.0
 @export var max_stacks_bonus: int = 0
 
-# link to the effect being amplified
+# reference to effect being amplified
 var _amplified_effect: StatusEffect = null
 
 func on_apply(_target, _effect) -> void:
