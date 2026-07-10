@@ -4,26 +4,30 @@
 [ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/SkillEffect.gd" id="2_rmv8p"]
 [ext_resource type="Script" uid="uid://w7i3wh7rbdpo" path="res://scripts/Skills/SkillEffect_InflictHit.gd" id="3_16uxk"]
 [ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Step_SpawnLingeringArea.gd" id="4_nyfgu"]
+[ext_resource type="PackedScene" uid="uid://m18hu87jtivp" path="res://Scenes/VFX/fire_tornado_particles_2d.tscn" id="4_rmv8p"]
 [ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="5_e85kh"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="6_arpwe"]
 [ext_resource type="Script" uid="uid://c7pvww45kvh3r" path="res://scripts/Skills/Targeting_NearestEnemy.gd" id="7_2l4e4"]
 
 [sub_resource type="Resource" id="Resource_45imn"]
 script = ExtResource("3_16uxk")
-damage = 6.9
+damage = 4.0
+damage_type = 3
 metadata/_custom_type_script = "uid://w7i3wh7rbdpo"
 
 [sub_resource type="Resource" id="Resource_6wygj"]
 script = ExtResource("4_nyfgu")
-size = Vector2(100, 100)
-duration = 4.0
+size = Vector2(48, 48)
+duration = 5.0
 effects_per_tick = Array[ExtResource("2_rmv8p")]([SubResource("Resource_45imn")])
 affect_allies = false
 affect_enemies = true
 follow_target = true
-fill_color = Color(0.78259534, 0.34605545, 1.92523e-07, 0.3019608)
-border_color = Color(0.85355407, 0.39148214, 0, 0.8)
-emit_particles = false
+follow_speed = 45.0
+draw_area = false
+fill_color = Color(0.78431374, 0.34509805, 0, 0.15686275)
+border_color = Color(0.85490197, 0.39215687, 0, 0.29411766)
+particle_scene = ExtResource("4_rmv8p")
 metadata/_custom_type_script = "uid://bg30eb4pvw8iy"
 
 [sub_resource type="Resource" id="Resource_s1m5y"]

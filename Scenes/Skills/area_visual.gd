@@ -9,30 +9,36 @@ enum AreaShape { CIRCLE, RECTANGLE, ROUNDED_RECTANGLE, DIAMOND, RING, CAPSULE }
 
 func setup(shape: AreaShape, 
 		size: Vector2, 
+		draw_area_bool: bool,
 		fill_color: Color, 
 		border_color: Color, 
-		emit_particles: bool = false, 
+		particle_scene: PackedScene = null, 
 		sprite: Texture2D = null, 
-		sprite_scale: Vector2 = Vector2.ONE) -> void:
+		sprite_scale: Vector2 = Vector2.ONE,
+		sprite_color_modulation : Color = Color(1,1,1,1)) -> void:
 	
 	color_rect.size = size
 	color_rect.position = -size / 2.0  # center on parent
 	
-	var mat : ShaderMaterial = color_rect.material.duplicate(true) 
-	color_rect.material = mat  
-	mat.set_shader_parameter("shape_type", int(shape))
-	mat.set_shader_parameter("rect_size", size)
-	mat.set_shader_parameter("fill_color", fill_color)
-	mat.set_shader_parameter("border_color", border_color)
+	if draw_area_bool :
+		color_rect.visible = true
+		var mat : ShaderMaterial = color_rect.material.duplicate(true) 
+		color_rect.material = mat  
+		mat.set_shader_parameter("shape_type", int(shape))
+		mat.set_shader_parameter("rect_size", size)
+		mat.set_shader_parameter("fill_color", fill_color)
+		mat.set_shader_parameter("border_color", border_color)
 	
-	particles_emitter.visible = emit_particles
-	if emit_particles:
+	if particle_scene != null:
+		particles_emitter.visible = true
 		_setup_particles(size)
+		add_child(particle_scene.instantiate().duplicate(true))
 	
 	if sprite:
-		area_sprite.texture = sprite
+		area_sprite.sprite_frames.add_frame("default",sprite)
 		area_sprite.scale = sprite_scale
 		area_sprite.visible = true
+		area_sprite.modulate = sprite_color_modulation
 	else:
 		area_sprite.visible = false
 

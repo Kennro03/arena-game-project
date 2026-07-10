@@ -1,26 +1,35 @@
 extends Node2D
 class_name LingeringAreaEffect
 
+
+@onready var area_visual: AreaVisual = %AreaVisual
+@onready var detection_area: Area2D = %DetectionArea
+@onready var collision_shape: CollisionShape2D = %CollisionShape
+
+
+@export_group("essentials")
 @export var shape: AreaVisual.AreaShape = AreaVisual.AreaShape.CIRCLE
 @export var size: Vector2 = Vector2(120, 80)
-@export var fill_color: Color = Color(0.2, 0.8, 0.2, 0.3)
-@export var border_color: Color = Color(0.2, 0.8, 0.2, 0.8)
-@export var emit_particles: bool = true
-@export var area_sprite: Texture2D = null
-@export var sprite_scale: Vector2 = Vector2.ONE
-
 @export var duration: float = 3.0          # -1 = permanent
 @export var tick_interval: float = 1.0
 @export var effects_per_tick: Array[SkillEffect] = []
 @export var affect_allies: bool = true
 @export var affect_enemies: bool = false
-
 @export var follows_target: bool = false
 @export var follow_speed: float = 0.0
 
-@onready var area_visual: AreaVisual = %AreaVisual
-@onready var detection_area: Area2D = %DetectionArea
-@onready var collision_shape: CollisionShape2D = %CollisionShape
+@export_group("visuals")
+#visual area draw
+@export var draw_area: bool = true
+@export var fill_color: Color = Color(0.2, 0.8, 0.2, 0.3)
+@export var border_color: Color = Color(0.2, 0.8, 0.2, 0.8)
+#particles
+@export var particle_scene : PackedScene
+#sprite
+@export var area_sprite: Texture2D = null
+@export var sprite_scale: Vector2 = Vector2.ONE
+@export var sprite_color_modulation : Color = Color(1,1,1,1)
+
 
 var _caster: BaseUnit = null
 var _elapsed: float = 0.0
@@ -60,7 +69,7 @@ func _ready() -> void:
 			collision_shape.rotation_degrees = 90.0
 			area_visual.rotation_degrees = 90.0
 	
-	area_visual.setup(shape, size, fill_color, border_color, emit_particles, area_sprite, sprite_scale)
+	area_visual.setup(shape, size, draw_area ,fill_color, border_color, particle_scene, area_sprite, sprite_scale, sprite_color_modulation)
 	_apply_tick()
 
 func setup(caster: BaseUnit) -> void:

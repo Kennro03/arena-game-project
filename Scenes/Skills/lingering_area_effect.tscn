@@ -18,4 +18,5 @@ unique_name_in_owner = true
 
 [node name="CollisionShape" type="CollisionShape2D" parent="DetectionArea" unique_id=1011371052]
 unique_name_in_owner = true
+visible = false
 shape = SubResource("CapsuleShape2D_4h2ss")

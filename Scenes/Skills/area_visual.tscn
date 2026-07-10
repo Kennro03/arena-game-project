@@ -1,34 +1,31 @@
 [gd_scene format=3 uid="uid://dymyelyuqn5xf"]
 
 [ext_resource type="Script" uid="uid://5dtdpdt5b5nv" path="res://Scenes/Skills/area_visual.gd" id="1_xiemo"]
-[ext_resource type="Shader" uid="uid://ca3wtny03p1gx" path="res://Shaders/AreaVisual.gdshader" id="2_8yyp4"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e4xik"]
-shader = ExtResource("2_8yyp4")
-shader_parameter/shape_type = 0
-shader_parameter/fill_color = Color(0.2, 0.8, 0.2, 0.3)
-shader_parameter/border_color = Color(0.2, 0.8, 0.2, 0.8)
-shader_parameter/border_width = 0.0250000011875
-shader_parameter/corner_radius = 0.10000000475
-shader_parameter/ring_inner_radius = 0.6
-shader_parameter/animated_border = false
-shader_parameter/animation_speed = 1.0
-shader_parameter/pixel_size = 1.0
-shader_parameter/rect_size = Vector2(40, 40)
+[ext_resource type="Texture2D" uid="uid://cl41x3gcwnc3o" path="res://ressources/Sprites/VFX/Spells/Fire/FireTornado1.png" id="3_e4xik"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8yyp4"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8yyp4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_e4xik")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="AreaVisual" type="Node2D" unique_id=529619366]
+rotation = 0.00847032
 script = ExtResource("1_xiemo")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1966880678]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
-material = SubResource("ShaderMaterial_e4xik")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -48,4 +45,8 @@ process_material = SubResource("ParticleProcessMaterial_8yyp4")
 
 [node name="AreaSprite" type="AnimatedSprite2D" parent="." unique_id=1901553694]
 unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.5882353)
+rotation = 0.0029971758
 sprite_frames = SubResource("SpriteFrames_8yyp4")
+frame_progress = 0.40413427

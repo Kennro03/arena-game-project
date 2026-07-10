@@ -30,6 +30,7 @@ size = Vector2(144, 330)
 size = Vector2(144, 330)
 
 [node name="BattleScene" type="Node2D" unique_id=1541201406 node_paths=PackedStringArray("battle_manager", "battle_spawner")]
+rotation = 0.0016154427
 script = ExtResource("1_yeqs3")
 battle_manager = NodePath("BattleManager")
 battle_spawner = NodePath("BattleSpawner")
