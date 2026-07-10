@@ -6,12 +6,17 @@ class_name LingeringAreaEffect
 @export var fill_color: Color = Color(0.2, 0.8, 0.2, 0.3)
 @export var border_color: Color = Color(0.2, 0.8, 0.2, 0.8)
 @export var emit_particles: bool = true
+@export var area_sprite: Texture2D = null
+@export var sprite_scale: Vector2 = Vector2.ONE
 
 @export var duration: float = 3.0          # -1 = permanent
 @export var tick_interval: float = 1.0
 @export var effects_per_tick: Array[SkillEffect] = []
 @export var affect_allies: bool = true
 @export var affect_enemies: bool = false
+
+@export var follows_target: bool = false
+@export var follow_speed: float = 0.0
 
 @onready var area_visual: AreaVisual = %AreaVisual
 @onready var detection_area: Area2D = %DetectionArea
@@ -20,6 +25,7 @@ class_name LingeringAreaEffect
 var _caster: BaseUnit = null
 var _elapsed: float = 0.0
 var _tick_timer: float = 0.0
+var _target: Node2D = null # target that the zone follows
 
 func _ready() -> void:
 	# set up collision shape to match visual size
@@ -54,7 +60,8 @@ func _ready() -> void:
 			collision_shape.rotation_degrees = 90.0
 			area_visual.rotation_degrees = 90.0
 	
-	area_visual.setup(shape, size, fill_color, border_color, emit_particles)
+	area_visual.setup(shape, size, fill_color, border_color, emit_particles, area_sprite, sprite_scale)
+	_apply_tick()
 
 func setup(caster: BaseUnit) -> void:
 	_caster = caster
@@ -70,10 +77,19 @@ func _process(delta: float) -> void:
 	if _tick_timer >= tick_interval:
 		_tick_timer = 0.0
 		_apply_tick()
+	
+	if _target and follows_target :
+		if follow_speed > 0.0:
+			global_position = global_position.move_toward(
+				_target.global_position, follow_speed * delta)
+		else:
+			global_position = _target.global_position
 
 func _apply_tick() -> void:
 	#print("area ticking")
 	for body in detection_area.get_overlapping_areas():
+		if body is not Hurtbox :
+			continue
 		var unit := body.get_parent() as BaseUnit
 		if unit == null or not is_instance_valid(unit):
 			continue

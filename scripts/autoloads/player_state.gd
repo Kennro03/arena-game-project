@@ -94,8 +94,8 @@ func _ready() -> void:
 	
 	add_unit_to_reserve(testing_pablo.with_active_skill(preload("uid://bserc7ks8a8to")).duplicate(true)) # add a preset unitData with the knife throw skill to reserve
 	add_unit_to_reserve(humanoidUnitData.new().with_active_skill(preload("uid://dhregwb73rglr")).duplicate(true))
+	add_unit_to_reserve(humanoidUnitData.new().with_active_skill(preload("uid://b1y3fhvahlv34")).duplicate(true))
 	
-	add_unit_to_reserve(humanoidUnitData.new())
 	add_unit_to_reserve(humanoidUnitData.new())
 	add_unit_to_reserve(humanoidUnitData.new())
 	add_unit_to_team(humanoidUnitData.new())

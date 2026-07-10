@@ -140,7 +140,7 @@ func update_weapon_visuals(weapon: Weapon) -> void:
 		return
 	
 	# gauntlets special case
-	if weapon.weaponType == Weapon.WeaponTypeEnum.GAUNTLET :
+	if weapon.weaponType == Weapon.WeaponTypeEnum.GAUNTLETS :
 		hand_right.texture = weapon.weaponSprite
 		hand_left.texture = weapon.weaponSprite
 		weapon_sprite.texture = null
@@ -165,21 +165,52 @@ func update_weapon_visuals(weapon: Weapon) -> void:
 
 	# offset so grip sits at handle origin
 	# adjust per weapon type based on your spritesheet layout
+	
 	match weapon.weaponType:
 		Weapon.WeaponTypeEnum.DAGGER:
-			weapon_sprite.offset = Vector2(5, 0)
-		Weapon.WeaponTypeEnum.WAND:
-			weapon_sprite.offset = Vector2(5, 0)
+			match weapon.weaponCategory :
+				Weapon.WeaponCategoryEnum.LIGHT :
+					weapon_sprite.offset = Vector2(5, 0)
+				Weapon.WeaponCategoryEnum.MEDIUM :
+					pass
+				Weapon.WeaponCategoryEnum.HEAVY :
+					pass
+		
+		Weapon.WeaponTypeEnum.MAGI_FOCUS:
+			match weapon.weaponCategory :
+				Weapon.WeaponCategoryEnum.LIGHT :
+					weapon_sprite.offset = Vector2(5, 0)
+				Weapon.WeaponCategoryEnum.MEDIUM :
+					weapon_sprite.offset = Vector2(7, 0)
+				Weapon.WeaponCategoryEnum.HEAVY :
+					pass
+			
 		Weapon.WeaponTypeEnum.SWORD:
-			weapon_sprite.offset = Vector2(11, 0)
+			match weapon.weaponCategory :
+				Weapon.WeaponCategoryEnum.LIGHT :
+					pass
+				Weapon.WeaponCategoryEnum.MEDIUM :
+					weapon_sprite.offset = Vector2(11, 0)
+				Weapon.WeaponCategoryEnum.HEAVY :
+					weapon_sprite.offset = Vector2(16, 0)
+			
 		Weapon.WeaponTypeEnum.SPEAR:
-			weapon_sprite.offset = Vector2(2, 0)
-		Weapon.WeaponTypeEnum.FOCI_STAFF:
-			weapon_sprite.offset = Vector2(7, 0)
+			match weapon.weaponCategory :
+				Weapon.WeaponCategoryEnum.LIGHT :
+					pass
+				Weapon.WeaponCategoryEnum.MEDIUM :
+					weapon_sprite.offset = Vector2(2, 0)
+				Weapon.WeaponCategoryEnum.HEAVY :
+					pass
+		
 		Weapon.WeaponTypeEnum.HAMMER:
-			weapon_sprite.offset = Vector2(10, 0)
-		Weapon.WeaponTypeEnum.GREATSWORD:
-			weapon_sprite.offset = Vector2(16, 0)
+			match weapon.weaponCategory :
+				Weapon.WeaponCategoryEnum.LIGHT :
+					pass
+				Weapon.WeaponCategoryEnum.MEDIUM :
+					pass
+				Weapon.WeaponCategoryEnum.HEAVY :
+					weapon_sprite.offset = Vector2(10, 0)
 		_:
 			weapon_sprite.offset = Vector2.ZERO
 

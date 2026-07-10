@@ -19,7 +19,7 @@ script = ExtResource("3_kfpli")
 size = Vector2(60, 60)
 tick_interval = 0.5
 effects_per_tick = Array[ExtResource("2_441py")]([SubResource("Resource_kfpli")])
-follow_caster = true
+follow_target = true
 metadata/_custom_type_script = "uid://bg30eb4pvw8iy"
 
 [sub_resource type="Resource" id="Resource_441py"]

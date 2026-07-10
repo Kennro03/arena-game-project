@@ -38,7 +38,7 @@ func detach(_unit: BaseUnit) -> void:
 func can_use() -> bool:
 	if _owner and _owner.is_silenced:
 		return false
-	return _current_charges > 0 and _current_cooldown <= 0.0
+	return _current_charges > 0 and _current_cooldown <= 0.0 and targeting.has_targets_in_range(_owner) # AND check if targetingEffect confirms there's targets within range
 
 func use(target: BaseUnit = null) -> void:
 	if not can_use():

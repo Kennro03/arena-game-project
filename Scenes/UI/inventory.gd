@@ -37,8 +37,8 @@ func _ready() -> void:
 
 	#var dummy = preload("res://ressources/Units/test_dummy.tres").duplicate(true)
 	#dummy.show_name = true
-	var _test_burn_effect := preload("res://ressources/Status_Effects/test_burn.tres").duplicate(true)
-	var _test_poison_effect := preload("res://ressources/Status_Effects/test_poison.tres").duplicate(true)
+	#var _test_burn_effect := preload("res://ressources/Status_Effects/test_burn.tres").duplicate(true)
+	#var _test_poison_effect := preload("res://ressources/Status_Effects/test_poison.tres").duplicate(true)
 	var _test_slow_effect := preload("res://ressources/Status_Effects/test_slow.tres").duplicate(true)
 	var _test_stun_effect := preload("res://ressources/Status_Effects/test_stun.tres").duplicate(true)
 	var _test_bleed_effect := preload("res://ressources/Status_Effects/test_bleed.tres").duplicate(true)

@@ -66,11 +66,18 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 	state.enter(previous_state_path, data)
 
 func border_knockback() -> void:
-	if owner.position.x > 640.0 :
-		owner.apply_knockback(owner,Vector2(-1,0),500)
-	elif owner.position.x < 0.0 :
-		owner.apply_knockback(owner,Vector2(1,0),500)
-	if owner.position.y > 360.0 :
-		owner.apply_knockback(owner,Vector2(0,-1),500)
-	elif owner.position.y < 0.0 :
-		owner.apply_knockback(owner,Vector2(0,1),500)
+	var bounds := Rect2(0, 0, 640, 360)
+	var owner_pos : BaseUnit = owner.global_position
+	var push := Vector2.ZERO
+	
+	if owner_pos.x > bounds.end.x:
+		push.x = -1
+	elif owner_pos.x < bounds.position.x:
+		push.x = 1
+	if owner_pos.y > bounds.end.y:
+		push.y = -1
+	elif owner_pos.y < bounds.position.y:
+		push.y = 1
+	
+	if push != Vector2.ZERO:
+		owner.apply_knockback(owner, push.normalized(), 500.0)
