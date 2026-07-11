@@ -178,7 +178,7 @@ func _add_weapon_passives(_rtl: RichTextLabel, weapon: Weapon) -> void:
 		_rtl.append_text("[center]Stat buffs :[/center]")
 		_rtl.newline()
 	for stat_change in weapon.statChanges :
-		var stat_name: String = Stats.BuffableStats.keys()[stat_change.stat].capitalize()
+		var stat_name: String = Stats.BuffableStats.keys()[stat_change.get_unit_stat()].capitalize()
 		_rtl.append_text("%s %s" % [stat_change.buff_amount, stat_name])
 		_rtl.newline()
 	if weapon.onHitPassives.size() > 0 :

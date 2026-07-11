@@ -60,8 +60,11 @@ func hit(target:Node2D, _hit: HitData)-> void:
 		if _hit.is_critical :
 			_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
 		
-		if current_hitbox != null : 
-			_spawn_hitbox(target.global_position, _hit)
+		if _hit.is_critical == false and current_hitbox != null : 
+			_spawn_hitbox(target.global_position, _hit, current_hitbox)
+			attack_performed.emit(_hit.attack_type, current_endlag)
+		elif _hit.is_critical == true and current_crit_hitbox != null : 
+			_spawn_hitbox(target.global_position, _hit, current_crit_hitbox)
 			attack_performed.emit(_hit.attack_type, current_endlag)
 		elif target.has_method("resolve_hit") :
 			target.resolve_hit(_hit)

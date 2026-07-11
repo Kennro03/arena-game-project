@@ -95,7 +95,7 @@ func predict_position(time_ahead: float) -> Vector2:
 	predicted_velocity = predicted_velocity.limit_length(max_speed)
 	
 	var predicted_pos : Vector2 = global_position + velocity * time_ahead + 0.5 * acceleration * time_ahead
-	print("Current position = %s --- Predicted position = %s" % [str(global_position),predicted_pos])
+	#print("Current position = %s --- Predicted position = %s" % [str(global_position),predicted_pos])
 	return predicted_pos
 
 func _smooth_velocity(new_vel: Vector2) -> void:

@@ -246,8 +246,11 @@ func hit(target:Node2D, _hit: HitData)-> void:
 	if _hit.is_critical :
 		_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
 	
-	if current_hitbox != null : 
-		_spawn_hitbox(target.global_position, _hit)
+	if _hit.is_critical == false and current_hitbox != null : 
+		_spawn_hitbox(target.global_position, _hit, current_hitbox)
+		attack_performed.emit(_hit.attack_type, current_endlag)
+	elif _hit.is_critical == true and current_crit_hitbox != null : 
+		_spawn_hitbox(target.global_position, _hit, current_crit_hitbox)
 		attack_performed.emit(_hit.attack_type, current_endlag)
 	elif target.has_method("resolve_hit") :
 		target.resolve_hit(_hit)
@@ -255,11 +258,11 @@ func hit(target:Node2D, _hit: HitData)-> void:
 	else :
 		printerr("Trying to attack an unvalid target without a hitbox !")
 
-func _spawn_hitbox(target_position: Vector2, _hit: HitData, _size_mult: float = 1.0) -> void:
-	if current_hitbox == null:
+func _spawn_hitbox(target_position: Vector2, _hit: HitData, _hitbox_data: HitboxData, _size_mult: float = 1.0) -> void:
+	if _hitbox_data == null:
 		printerr("No hitbox data on %s's %s, not spawning hitbox" % [_hit.hit_owner.display_name ,item_name])
 		return
-	var temp_hitbox_data : HitboxData = current_hitbox.duplicate(true) # create a temporary duplicate as to not modify original resource's size
+	var temp_hitbox_data : HitboxData = _hitbox_data.duplicate(true) # create a temporary duplicate as to not modify original resource's size
 	var hitbox := Hitbox.new()
 	
 	temp_hitbox_data.size *= _size_mult    #allows increased hitbox sizing

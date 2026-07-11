@@ -55,6 +55,7 @@ static var pending_event : EventResource = null
 @onready var spear_base = preload("uid://cje1th2326lj")
 @onready var greatsword_base : Weapon = preload("uid://bwlni7c3utacx")
 @onready var warhammer_base : Weapon = preload("uid://cseh3bpxs7l8k")
+@onready var crit_test_warhammer_base : Weapon =  preload("uid://ck34shbdlq4va")
 @onready var wand_base = preload("uid://cpema83m1kpr")
 @onready var foci_staff_base = preload("uid://ds6y5tv4n4hsx")
 @onready var bow_base = preload("uid://cikjn1d3hom5x")
@@ -62,7 +63,6 @@ static var pending_event : EventResource = null
 const UNCOMMONTESTSWORD = preload("uid://dlhcap3ipacyj")
 const BIG_GUY_GOLD_NECKLACE = preload("uid://bcgx8j8wdnce3")
 
-@onready var hitbox_test_hammer : Weapon = preload("uid://dbi7hcyvjnqnd")
 
 @onready var testing_pablo : UnitData = preload("uid://ps2wy7q88f5b")
 
@@ -83,9 +83,10 @@ func _ready() -> void:
 	add_item_to_inventory(generate_weapon(wand_base))
 	add_item_to_inventory(generate_weapon(foci_staff_base))
 	add_item_to_inventory(generate_weapon(bow_base))
+	add_item_to_inventory(generate_weapon(warhammer_base))
+	add_item_to_inventory(generate_weapon(crit_test_warhammer_base))
 	add_item_to_inventory(BIG_GUY_GOLD_NECKLACE.duplicate(true))
 	
-	add_item_to_inventory(hitbox_test_hammer)
 	
 	var piped_sword : Weapon = UNCOMMONTESTSWORD.duplicate(true)
 	piped_sword.generate_pips()
