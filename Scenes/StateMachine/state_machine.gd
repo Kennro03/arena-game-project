@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	owner.stats.health += owner.stats.current_health_regen * delta
 	state.update(delta)
 	var unit : BaseUnit = owner
-	if !unit.active :
+	if unit.active == false :
 		return
 	unit.skillModule._tick(delta)
 

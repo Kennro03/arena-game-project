@@ -12,6 +12,8 @@ enum SkillCategory { NORMAL, RARE,  EXCLUSIVE}
 @export var icon: Texture2D 
 @export var tags: Array[String] = []  # for filtering in draw selection: ["offensive", "mobility", etc.]
 @export var prerequisites: Array[SkillPrerequisite] = []
+@export var ticks_when_downed: bool = false
+@export var usable_when_downed: bool = false
 
 func are_prerequisites_met(unit: BaseUnit) -> bool:
 	return prerequisites.all(func(p): return p.is_met(unit))

@@ -28,16 +28,20 @@ func _ready() -> void:
 	#	_register_skill(skill)
 
 func _tick(delta: float) -> void:
+	var unit : BaseUnit = owner
+	
 	# tick cooldowns
 	if _general_cooldown > 0.0:
 		_general_cooldown -= delta
 	
 	for skill in _active_skills:
-		#print("Ticking skill %s cooldown: %s" % [skill.name, skill._current_cooldown])
-		skill.tick(delta)
+		if skill.ticks_when_downed == true and unit.state_machine.current_state_name() == "Downed" :
+			#print("Ticking skill %s cooldown: %s" % [skill.name, skill._current_cooldown])
+			skill.tick(delta)
 	for skill in _passive_skills:
-		#print("Ticking skill %s cooldown: %s" % [skill.name, skill._current_cooldown])
-		skill.tick(delta)
+		if skill.ticks_when_downed == true and unit.state_machine.current_state_name() == "Downed" :
+			#print("Ticking skill %s cooldown: %s" % [skill.name, skill._current_cooldown])
+			skill.tick(delta)
 	
 	# periodic skill check
 	_check_timer += delta
@@ -122,7 +126,10 @@ func _get_best_usable_skill() -> ActiveSkill:
 
 func get_usable_skills() -> Array[ActiveSkill]:
 	var result: Array[ActiveSkill] = []
+	var unit : BaseUnit = owner
 	for skill in _active_skills:
+		if skill.usable_when_downed == false and unit.state_machine.current_state_name() == "Downed"  :
+			continue
 		if skill.can_use():
 			result.append(skill)
 	return result
