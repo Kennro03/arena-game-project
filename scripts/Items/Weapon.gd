@@ -4,7 +4,7 @@ class_name Weapon
 signal attack_performed(damage_type : HitData.DamageType, endlag: float)
 
 enum WeaponCategoryEnum { LIGHT, MEDIUM, HEAVY }
-enum WeaponTypeEnum { UNARMED, DAGGER, GAUNTLETS, SWORD, SPEAR, HAMMER, MAGI_FOCUS, BOW }
+enum WeaponTypeEnum { UNARMED, DAGGER, GAUNTLETS, SWORD, SPEAR, HAMMER, MAGI_FOCUS, BOW, AXE }
 
 enum BuffableStats {
 	ATTACK_SPEED,
@@ -44,7 +44,6 @@ static var debug_weapon_sprites : Dictionary = {
 	set(new_mat):
 		weapon_material = new_mat
 		recalculate_stats()
-
 
 @export_subgroup("Base weapon Stats","base_")
 @export var base_attack_speed : float = 1.0

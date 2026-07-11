@@ -97,7 +97,20 @@ func play_attack() -> void:
 	var category : String = str(Weapon.WeaponCategoryEnum.keys()[_weapon.weaponCategory]).to_lower()
 	var selected_attack_anim : String = "" 
 	if _weapon and _weapon.allowed_animations != []  : 
-		selected_attack_anim = str(_weapon.allowed_animations.pick_random())
+		if _weapon is RangedWeapon : 
+			selected_attack_anim = str(_weapon.shooting_animations.pick_random())
+		else : 
+			selected_attack_anim = str(_weapon.allowed_animations.pick_random())
+	
+	# ranged weapon shooting — try shoot animation first
+	if _weapon is RangedWeapon and (_weapon as RangedWeapon).is_shooting == true:
+		var candidates: Array[String] = [
+			"Stickman/%s_shoot" % wep_type,     # ex. bow_shoot
+			"Stickman/%s_shoot" % category,     # ex. light_shoot
+			"Stickman/default_shoot",           # fallback
+		]
+		play_candidates(candidates)
+		return
 	
 	var candidates : Array[String ]= [
 		"Stickman/%s_%s" % [wep_type,selected_attack_anim],   # ex. sword_slash

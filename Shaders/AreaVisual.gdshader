@@ -8,9 +8,9 @@ uniform vec4 border_color : source_color = vec4(0.2, 0.8, 0.2, 0.8);
 uniform float border_width : hint_range(0.0, 0.5) = 0.05;
 uniform float corner_radius : hint_range(0.0, 0.5) = 0.1; // for rounded rect
 uniform float ring_inner_radius : hint_range(0.0, 1.0) = 0.6; // for ring
-uniform bool animated_border = true;
+uniform bool animated_border = false;
 uniform float animation_speed : hint_range(0.0, 5.0) = 1.0;
-uniform float pixel_size : hint_range(1.0, 32.0) = 4.0;
+uniform float pixel_size : hint_range(1.0, 32.0) = 1.0;
 uniform vec2 rect_size = vec2(40.0, 40.0);
 
 float ellipse_sdf(vec2 p) {

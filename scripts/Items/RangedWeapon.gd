@@ -6,10 +6,13 @@ class_name RangedWeapon
 @export var base_min_shooting_range: float = 100.0   # minimum range for ranged attacks
 @export var base_projectile_damage_bonus : float = 0.0
 @export var base_projectile_knockback_bonus : float = 0.0
+@export var shooting_animations : Array[String] = []
 
 var current_min_shooting_range : float
 var current_projectile_damage_bonus : float
 var current_projectile_knockback_bonus : float
+
+var is_shooting: bool = false  
 
 const PROJECTILE_SCENE := preload("uid://utyen8d0722")
 
@@ -27,6 +30,7 @@ func _shoot_at_target(_target_position: Vector2, _hit_data: HitData) -> void:
 		return
 	var _proj_hitbox : HitboxData = projectile_data.hitbox_data
 	
+	attack_performed.emit(_hit_data.attack_type, current_endlag)
 	_spawn_projectile(owner.global_position, _target_position, _hit_data)
 
 func setup_base_stats_from_dict(dict : Dictionary) -> void : 
@@ -48,6 +52,7 @@ func hit(target:Node2D, _hit: HitData)-> void:
 		return
 	
 	if owner.global_position.distance_to(target.global_position) < current_min_shooting_range :
+		is_shooting = false
 		_hit.attack_type = current_damage_type
 		_hit.base_damage = current_damage
 		_hit.knockback_force = current_knockback
@@ -64,6 +69,7 @@ func hit(target:Node2D, _hit: HitData)-> void:
 		else :
 			printerr("Trying to attack an unvalid target without a hitbox !")
 	else :
+		is_shooting = true
 		_hit.attack_type = current_damage_type
 		_hit.base_damage = current_damage
 		_hit.base_damage += current_projectile_damage_bonus

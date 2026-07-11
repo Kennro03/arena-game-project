@@ -14,9 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://bukfb4qicnqfg" path="res://ressources/Sprites/Units/Humanoid/base_skull.png" id="12_33p63"]
 [ext_resource type="Texture2D" uid="uid://bgwrw0cxq3e4y" path="res://ressources/Sprites/Units/Humanoid/base_eyes.png" id="13_vqvr8"]
 [ext_resource type="Material" uid="uid://dq56kvtjp86e0" path="res://Shaders/palette_swap_material.tres" id="14_0sb7k"]
-[ext_resource type="Texture2D" uid="uid://ds2300iqhvnig" path="res://ressources/Sprites/Weapons/debug_sword.png" id="17_blxmw"]
+[ext_resource type="Texture2D" uid="uid://d1vf75j7c8xys" path="res://ressources/Sprites/Weapons/debug_shortbow_icon.png" id="15_0sb7k"]
 
-[sub_resource type="Resource" id="Resource_0sb7k"]
+[sub_resource type="Resource" id="Resource_08cg6"]
 resource_local_to_scene = true
 script = ExtResource("5_ewtqf")
 max_health_scalings = null
@@ -67,7 +67,7 @@ display_name = "Stickman"
 unit_type = "Stickman"
 description = "A regular stickman."
 icon = ExtResource("3_ab6u1")
-stats = SubResource("Resource_0sb7k")
+stats = SubResource("Resource_08cg6")
 default_weapon = ExtResource("6_u2vjm")
 
 [node name="HurtboxCollisionShape" parent="Hurtbox" parent_id_path=PackedInt32Array(1823285284) index="0" unique_id=541966062]
@@ -91,28 +91,26 @@ libraries/Stickman = ExtResource("8_ujn1s")
 
 [node name="HandLeft" type="Sprite2D" parent="SpriteModule" index="1" unique_id=1143512986]
 modulate = Color(0, 1, 1, 1)
-position = Vector2(9, -16)
+position = Vector2(0, -16)
 texture = ExtResource("11_vqvr8")
 vframes = 2
 
 [node name="LegLeft" type="Sprite2D" parent="SpriteModule" index="2" unique_id=669196476]
 modulate = Color(0, 1, 1, 1)
-position = Vector2(4, -16)
-rotation = -0.017453292
+position = Vector2(0, -16)
 texture = ExtResource("12_0sb7k")
 vframes = 2
 
 [node name="Body" type="Node2D" parent="SpriteModule" index="3" unique_id=2120399850]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(4, -16)
-rotation = 0.43633232
+position = Vector2(0, -16)
 
 [node name="Torso" type="Sprite2D" parent="SpriteModule/Body" index="0" unique_id=1527797525]
 texture = ExtResource("10_33p63")
 
 [node name="Head" type="Node2D" parent="SpriteModule" index="4" unique_id=1060278831]
 modulate = Color(1, 1, 0, 1)
-position = Vector2(7, -16)
+position = Vector2(0, -16)
 
 [node name="Skull" type="Sprite2D" parent="SpriteModule/Head" index="0" unique_id=334875894]
 texture = ExtResource("12_33p63")
@@ -122,26 +120,23 @@ texture = ExtResource("13_vqvr8")
 
 [node name="WeaponHandle" type="Node2D" parent="SpriteModule" index="5" unique_id=1474442573]
 unique_name_in_owner = true
-position = Vector2(13, -10)
-rotation = -0.034906585
+position = Vector2(-3, -10)
 
 [node name="WeaponSprite2D" type="Sprite2D" parent="SpriteModule/WeaponHandle" index="0" unique_id=2004517956]
 unique_name_in_owner = true
 material = ExtResource("14_0sb7k")
-texture = ExtResource("17_blxmw")
-offset = Vector2(11, 0)
+texture = ExtResource("15_0sb7k")
 
 [node name="HandRight" type="Sprite2D" parent="SpriteModule" index="6" unique_id=129757188]
 modulate = Color(1, 0, 0, 1)
-position = Vector2(16, -16)
+position = Vector2(0, -16)
 texture = ExtResource("11_vqvr8")
 vframes = 2
 frame = 1
 
 [node name="LegRight" type="Sprite2D" parent="SpriteModule" index="7" unique_id=873604932]
 modulate = Color(1, 0, 0, 1)
-position = Vector2(-3, -16)
-rotation = 0.08726646
+position = Vector2(0, -16)
 texture = ExtResource("12_0sb7k")
 vframes = 2
 frame = 1

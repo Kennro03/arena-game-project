@@ -1,7 +1,21 @@
 [gd_scene format=3 uid="uid://dymyelyuqn5xf"]
 
 [ext_resource type="Script" uid="uid://5dtdpdt5b5nv" path="res://Scenes/Skills/area_visual.gd" id="1_xiemo"]
+[ext_resource type="Shader" uid="uid://ca3wtny03p1gx" path="res://Shaders/AreaVisual.gdshader" id="2_e4xik"]
 [ext_resource type="Texture2D" uid="uid://cl41x3gcwnc3o" path="res://ressources/Sprites/VFX/Spells/Fire/FireTornado1.png" id="3_e4xik"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8yyp4"]
+shader = ExtResource("2_e4xik")
+shader_parameter/shape_type = 0
+shader_parameter/fill_color = Color(0.2, 0.8, 0.2, 0.3)
+shader_parameter/border_color = Color(0.2, 0.8, 0.2, 0.8)
+shader_parameter/border_width = 0.050000002375
+shader_parameter/corner_radius = 0.1
+shader_parameter/ring_inner_radius = 0.6
+shader_parameter/animated_border = false
+shader_parameter/animation_speed = 1.0
+shader_parameter/pixel_size = 1.0
+shader_parameter/rect_size = Vector2(40, 40)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8yyp4"]
 particle_flag_disable_z = true
@@ -24,8 +38,8 @@ script = ExtResource("1_xiemo")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1966880678]
 unique_name_in_owner = true
-visible = false
 texture_filter = 1
+material = SubResource("ShaderMaterial_8yyp4")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

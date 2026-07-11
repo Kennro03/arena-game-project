@@ -18,12 +18,12 @@ curve = SubResource("Curve_2v8h5")
 
 [sub_resource type="Curve" id="Curve_2jpa2"]
 _limits = [-100.0, 100.0, 0.0, 1.0]
-_data = [Vector2(0, -40), 0.0, 0.0, 0, 0, Vector2(0.25, 50), 0.0, 0.0, 0, 0, Vector2(0.5, -65), 0.0, 0.0, 0, 0, Vector2(0.75, 80), 0.0, 0.0, 0, 0, Vector2(1, -80), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, -20), 0.0, 0.0, 0, 0, Vector2(0.25, 35), 0.0, 0.0, 0, 0, Vector2(0.5, -60), 0.0, 0.0, 0, 0, Vector2(0.75, 80), 0.0, 0.0, 0, 0, Vector2(1, -80), 0.0, 0.0, 0, 0]
 point_count = 5
 
 [sub_resource type="Curve" id="Curve_i01wp"]
 _limits = [-50.0, 0.0, 0.0, 1.0]
-_data = [Vector2(0, -30), 0.0, 0.0, 0, 0, Vector2(0.2526316, -6.8479824), 0.0, 0.0, 0, 0, Vector2(0.5, -30), 0.0, 0.0, 0, 0, Vector2(0.75438595, -7.3631134), 0.0, 0.0, 0, 0, Vector2(1, -30), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, -30), 0.0, 0.0, 0, 0, Vector2(0.25, -12), 0.0, 0.0, 0, 0, Vector2(0.5, -30), 0.0, 0.0, 0, 0, Vector2(0.75, -12), 0.0, 0.0, 0, 0, Vector2(1, -30), 0.0, 0.0, 0, 0]
 point_count = 5
 
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_bu386"]
@@ -31,19 +31,18 @@ curve_x = SubResource("Curve_2jpa2")
 curve_y = SubResource("Curve_i01wp")
 
 [sub_resource type="Curve" id="Curve_ufs40"]
-_limits = [0.0, 2.0, 0.0, 2.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1.5, 1.5), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0.7471181), 0.0, 0.0, 0, 0, Vector2(0.2526316, 0.4848703), 0.0, 0.0, 0, 0, Vector2(0.5017544, 1), 0.0, 0.0, 0, 0, Vector2(0.7508772, 0.50360227), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
 
 [sub_resource type="CurveTexture" id="CurveTexture_2v8h5"]
 curve = SubResource("Curve_ufs40")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uw47u"]
-lifetime_randomness = 0.3
+lifetime_randomness = 0.1
 particle_flag_disable_z = true
 emission_shape_scale = Vector3(1, 0.5, 1)
 emission_shape = 3
-emission_box_extents = Vector3(32, 4, 1)
+emission_box_extents = Vector3(16, 4, 1)
 velocity_pivot = Vector3(0, 1, 0)
 flatness = 1.0
 directional_velocity_min = 0.7499839
@@ -60,13 +59,11 @@ anim_offset_max = 1.0
 z_index = -1
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_7vt7n")
-rotation = -0.002035429
-scale = Vector2(0.5, 0.5)
-amount = 40
+amount = 35
 texture = ExtResource("1_ufs40")
-lifetime = 5.0
-preprocess = 2.0
-speed_scale = 2.5
+lifetime = 4.0
+preprocess = 1.0
+speed_scale = 3.0
 randomness = 0.2
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_uw47u")

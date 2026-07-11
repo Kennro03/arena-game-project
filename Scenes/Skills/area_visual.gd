@@ -1,6 +1,8 @@
 extends Node2D
 class_name AreaVisual
 
+const AREA_VISUAL_SHADER = preload("uid://ca3wtny03p1gx")
+
 @onready var color_rect: ColorRect = %ColorRect
 @onready var particles_emitter: GPUParticles2D = %ParticlesEmitter
 @onready var area_sprite: AnimatedSprite2D = %AreaSprite
@@ -22,6 +24,8 @@ func setup(shape: AreaShape,
 	
 	if draw_area_bool :
 		color_rect.visible = true
+		color_rect.material = ShaderMaterial.new()
+		color_rect.material.shader = AREA_VISUAL_SHADER
 		var mat : ShaderMaterial = color_rect.material.duplicate(true) 
 		color_rect.material = mat  
 		mat.set_shader_parameter("shape_type", int(shape))
