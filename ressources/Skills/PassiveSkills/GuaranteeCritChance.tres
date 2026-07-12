@@ -18,13 +18,19 @@ stat_index = 14
 stat_index = 14
 metadata/_custom_type_script = "uid://q8d1701jqhkf"
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_k5ngs"]
+size = Vector2(32, 32)
+
 [sub_resource type="Resource" id="Resource_igvl3"]
 script = ExtResource("4_fxm1i")
 stat_buff = SubResource("Resource_sotk8")
 Status_effect_name = "Guarantee crit chance"
 status_ID = "crit_guarantee"
+Status_effect_description = "gives guaranteed crits"
+status_icon = SubResource("PlaceholderTexture2D_k5ngs")
 duration = 999.0
 tick_interval = 0.0
+refresh_on_application = true
 metadata/_custom_type_script = "uid://57c0dh6futr"
 
 [sub_resource type="Resource" id="Resource_we81y"]

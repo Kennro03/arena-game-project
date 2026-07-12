@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://cpnr5mpvtakmp"]
 
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="1_80t4j"]
+[ext_resource type="Resource" uid="uid://dv7poowtktn5l" path="res://ressources/Weapon_Hitboxes_Data/BroadswordCritHitboxData.tres" id="1_gklm5"]
 [ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="3_na2a8"]
 [ext_resource type="Texture2D" uid="uid://ds2300iqhvnig" path="res://ressources/Sprites/Weapons/debug_sword.png" id="6_8a6mx"]
 
@@ -16,6 +17,7 @@ base_damage = 14.0
 base_knockback = 45.0
 base_endlag = null
 base_crit_endlag = null
+base_crit_hitbox = ExtResource("1_gklm5")
 statChanges = null
 onHitPassives = null
 attack_speed_scalings = null

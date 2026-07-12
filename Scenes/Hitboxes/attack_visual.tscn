@@ -7,3 +7,4 @@ script = ExtResource("1_usg5e")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=884154888]
 unique_name_in_owner = true
+flip_h = true

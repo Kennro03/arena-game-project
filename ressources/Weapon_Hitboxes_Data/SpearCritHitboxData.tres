@@ -35,7 +35,7 @@ animations = [{
 [resource]
 script = ExtResource("2_kf5yw")
 shape = 1
-size = Vector2(32, 24)
-offset = Vector2(8, 0)
+size = Vector2(60, 20)
+offset = Vector2(-5, 0)
 attack_frames = SubResource("SpriteFrames_irb3v")
 metadata/_custom_type_script = "uid://bd4xcgg65elbj"
