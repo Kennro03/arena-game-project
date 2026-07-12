@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cto17gwchr3ud"]
+
+[ext_resource type="Script" uid="uid://cx7ii415ie15r" path="res://Scenes/Hitboxes/attack_visual.gd" id="1_usg5e"]
+
+[node name="AttackVisualRoot" type="Node2D" unique_id=931660782]
+script = ExtResource("1_usg5e")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=884154888]
+unique_name_in_owner = true

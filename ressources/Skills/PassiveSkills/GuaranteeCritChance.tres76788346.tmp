@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="Passive_Skill" format=3 uid="uid://cwenfsltyjw5l"]
+
+[ext_resource type="Script" uid="uid://cterfs7m25477" path="res://scripts/Skills/SkillCondition.gd" id="1_k5ngs"]
+[ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/SkillEffect.gd" id="2_le40b"]
+[ext_resource type="Script" uid="uid://dcasgb6uiicvo" path="res://scripts/Skills/SkillEffect_ApplyStatusEffect.gd" id="3_r3irs"]
+[ext_resource type="Script" uid="uid://57c0dh6futr" path="res://scripts/Status_Effects/StatusEffect_Stat_Buff.gd" id="4_fxm1i"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="5_ja1li"]
+[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="6_pnigc"]
+[ext_resource type="Script" uid="uid://c5jexu8leqvod" path="res://Scenes/Skills/SkillRessources/PassiveSkill.gd" id="7_ia0so"]
+[ext_resource type="Script" uid="uid://hs3via4j6qs6" path="res://scripts/Skills/SkillTrigger.gd" id="8_vbahu"]
+[ext_resource type="Script" uid="uid://umcb7t001ue3" path="res://scripts/Skills/SkillTrigger_OnCombatStart.gd" id="9_kqu7h"]
+
+[sub_resource type="Resource" id="Resource_sotk8"]
+script = ExtResource("5_ja1li")
+buff_amount = 100.0
+source = "passive"
+stat_index = 14
+stat_index = 14
+metadata/_custom_type_script = "uid://q8d1701jqhkf"
+
+[sub_resource type="Resource" id="Resource_igvl3"]
+script = ExtResource("4_fxm1i")
+stat_buff = SubResource("Resource_sotk8")
+Status_effect_name = "Guarantee crit chance"
+status_ID = "crit_guarantee"
+duration = 999.0
+tick_interval = 0.0
+metadata/_custom_type_script = "uid://57c0dh6futr"
+
+[sub_resource type="Resource" id="Resource_we81y"]
+script = ExtResource("3_r3irs")
+status_effect = SubResource("Resource_igvl3")
+metadata/_custom_type_script = "uid://dcasgb6uiicvo"
+
+[sub_resource type="Resource" id="Resource_johkf"]
+script = ExtResource("9_kqu7h")
+metadata/_custom_type_script = "uid://umcb7t001ue3"
+
+[resource]
+script = ExtResource("7_ia0so")
+triggers = Array[ExtResource("8_vbahu")]([SubResource("Resource_johkf")])
+effects = Array[ExtResource("2_le40b")]([SubResource("Resource_we81y")])
+category = 2
+name = "Guarantee crit chance "
+description = "this passive gives the wielder a status effect that gives "
+metadata/_custom_type_script = "uid://c5jexu8leqvod"

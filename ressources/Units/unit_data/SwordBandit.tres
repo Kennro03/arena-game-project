@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://ca3ago2wj5osb"]
+[gd_resource type="Resource" script_class="humanoidUnitData" format=3 uid="uid://ca3ago2wj5osb"]
 
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Humanoid/humanoidUnitData.gd" id="1_btv6v"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_dijgw"]

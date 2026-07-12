@@ -13,6 +13,7 @@ buff_type = 1
 buff_amount = 1.5
 source = "material"
 stat_index = 2
+stat_index = 2
 metadata/_custom_type_script = "uid://q8d1701jqhkf"
 
 [sub_resource type="Resource" id="Resource_kr41r"]
@@ -21,7 +22,6 @@ domain = 1
 buff_type = 1
 buff_amount = 1.05
 source = "material"
-stat_index = 0
 metadata/_custom_type_script = "uid://q8d1701jqhkf"
 
 [resource]

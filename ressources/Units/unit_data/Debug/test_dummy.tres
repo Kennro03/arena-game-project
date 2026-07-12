@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://clfjwjlbapbax"]
+[gd_resource type="Resource" script_class="humanoidUnitData" format=3 uid="uid://clfjwjlbapbax"]
 
 [ext_resource type="Resource" uid="uid://ddpk8npshslki" path="res://ressources/Items/Weapons/DebugWeapons/dummy_fists.tres" id="1_aoubf"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_cmgdx"]

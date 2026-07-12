@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="stickmanUnitData" format=3 uid="uid://d4fvbe67ufh8v"]
+[gd_resource type="Resource" script_class="humanoidUnitData" format=3 uid="uid://d4fvbe67ufh8v"]
 
 [ext_resource type="Resource" uid="uid://dal5rgfowl103" path="res://ressources/Items/Weapons/WeaponBases/dagger.tres" id="1_1xb20"]
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="1_46pw2"]

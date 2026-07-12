@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://ddpk8npshslki"]
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_cso3o"]
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="1_iurdb"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_me8hx"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="3_bdmvy"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="4_rct00"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="6_oshij"]
 
 [resource]
 script = ExtResource("3_bdmvy")
@@ -11,6 +13,7 @@ base_attack_speed = 0.01
 base_attack_range = 0.0
 base_damage = 0.0
 base_knockback = 0.0
+custom_pip_rarities_weigths = null
 description = "A stickman's bare fist. Usually used when nothing else is available."
 is_obtainable = false
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

@@ -1,16 +1,19 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dfscer2qw0fdp"]
 
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="1_1f0og"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_cvsv1"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="1_datym"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_b5c5v"]
 [ext_resource type="Texture2D" uid="uid://bwsxoouw568gv" path="res://ressources/Sprites/Icons/Items/Weapons/Fist_Icon.png" id="2_dyl5h"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="2_jfweh"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_fld0f"]
 
 [resource]
 script = ExtResource("1_datym")
 base_attack_range = 80.0
 base_damage = 10.0
 base_knockback = 35.0
+custom_pip_rarities_weigths = null
 allowed_animations = Array[String]([])
 item_id = "fists"
 item_name = "Fists"

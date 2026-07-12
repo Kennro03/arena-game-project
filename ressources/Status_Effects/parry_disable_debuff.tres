@@ -8,6 +8,7 @@
 script = ExtResource("3_e363y")
 buff_type = 1
 stat_index = 10
+stat_index = 10
 metadata/_custom_type_script = "uid://q8d1701jqhkf"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1s2k0"]

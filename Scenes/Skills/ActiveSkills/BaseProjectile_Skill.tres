@@ -1,39 +1,10 @@
 [gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://bojk3a754bpf3"]
 
-[ext_resource type="Script" uid="uid://blk4ddp3rw3vw" path="res://ressources/SkillEffects/ComponentResources/ApplyEffect.gd" id="1_3b1wv"]
-[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://ressources/SkillEffects/ComponentResources/SpawnEffect.gd" id="1_6tb1w"]
-[ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://ressources/SkillEffects/DamageEffect.gd" id="2_fkdxu"]
+[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/CastStep.gd" id="1_o6p8x"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="2_hgqhc"]
-[ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://ressources/SkillEffects/KnockBackEffect.gd" id="3_3b1wv"]
-[ext_resource type="Script" uid="uid://brjpxngoaa6b2" path="res://ressources/SkillEffects/ComponentResources/EndEffect.gd" id="4_dp4pe"]
-[ext_resource type="Script" uid="uid://cvoepl25p34qi" path="res://ressources/SkillEffects/HitboxEffect.gd" id="5_6tb1w"]
 [ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="5_ggxir"]
-[ext_resource type="Script" uid="uid://dkn2lovp6jbtr" path="res://ressources/SkillEffects/ComponentResources/TargetingEffect.gd" id="7_fkdxu"]
-
-[sub_resource type="Resource" id="Resource_ggxir"]
-script = ExtResource("2_fkdxu")
-metadata/_custom_type_script = "uid://dje5s1fj67ug"
-
-[sub_resource type="Resource" id="Resource_gver6"]
-script = ExtResource("3_3b1wv")
-metadata/_custom_type_script = "uid://brkhtuervrtmr"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tb1w"]
-size = Vector2(40, 10)
-
-[sub_resource type="Resource" id="Resource_3b1wv"]
-script = ExtResource("5_6tb1w")
-shape = SubResource("RectangleShape2D_6tb1w")
-duration = 1.75
-follow_caster = false
-velocity = 500.0
-metadata/_custom_type_script = "uid://cvoepl25p34qi"
 
 [resource]
 script = ExtResource("2_hgqhc")
 cooldown = 2.5
-cast_time = 0.0
-activation_range = 2000.0
-spawn_effects = Array[ExtResource("1_6tb1w")]([SubResource("Resource_3b1wv")])
-apply_effects = Array[ExtResource("1_3b1wv")]([SubResource("Resource_ggxir"), SubResource("Resource_gver6")])
 metadata/_custom_type_script = "uid://dav671j6ilit5"

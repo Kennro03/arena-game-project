@@ -12,7 +12,6 @@ domain = 1
 buff_type = 1
 buff_amount = 0.9
 source = "material"
-stat_index = 0
 metadata/_custom_type_script = "uid://q8d1701jqhkf"
 
 [sub_resource type="Resource" id="Resource_cbeca"]
@@ -22,6 +21,7 @@ buff_type = 1
 buff_amount = 1.3
 source = "material"
 stat_index = 2
+stat_index = 2
 metadata/_custom_type_script = "uid://q8d1701jqhkf"
 
 [sub_resource type="Resource" id="Resource_3y5ss"]
@@ -30,6 +30,7 @@ domain = 1
 buff_type = 1
 buff_amount = 1.1
 source = "material"
+stat_index = 3
 stat_index = 3
 metadata/_custom_type_script = "uid://q8d1701jqhkf"
 

@@ -2,18 +2,12 @@
 
 [ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="1_qmqrj"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_wn83a"]
-[ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="3_5ps7s"]
+[ext_resource type="Resource" uid="uid://frysv1plbqqx" path="res://ressources/Weapon_Hitboxes_Data/HammerCritHitboxData.tres" id="3_qmqrj"]
 [ext_resource type="Texture2D" uid="uid://bndegctnnxbsx" path="res://ressources/Sprites/Weapons/debug_hammer.png" id="4_hs883"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="5_w4cs8"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="6_cfonm"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="7_jgnmr"]
 [ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="8_r88rj"]
-
-[sub_resource type="Resource" id="Resource_4xfua"]
-script = ExtResource("3_5ps7s")
-shape = 1
-size = Vector2(24, 24)
-metadata/_custom_type_script = "uid://bd4xcgg65elbj"
 
 [sub_resource type="Resource" id="Resource_qmqrj"]
 script = ExtResource("7_jgnmr")
@@ -32,7 +26,7 @@ base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
 base_knockback = 55.0
-base_crit_hitbox = SubResource("Resource_4xfua")
+base_crit_hitbox = ExtResource("3_qmqrj")
 statChanges = Array[ExtResource("7_jgnmr")]([SubResource("Resource_qmqrj")])
 custom_pip_rarities_weigths = null
 allowed_animations = Array[String](["slash", "bash"])

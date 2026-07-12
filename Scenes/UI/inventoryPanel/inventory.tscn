@@ -40,13 +40,6 @@ text = "Inventory"
 custom_minimum_size = Vector2(32, 12)
 layout_mode = 2
 
-[node name="InventorySpaceDisplay" parent="MarginContainer/VBoxContainer/InventorySpaceDisplay/HBoxContainer" parent_id_path=PackedInt32Array(148004886, 1279359624) index="0" unique_id=63279407]
-theme_override_font_sizes/normal_font_size = 16
-theme_override_font_sizes/bold_font_size = 16
-theme_override_font_sizes/bold_italics_font_size = 16
-theme_override_font_sizes/italics_font_size = 16
-theme_override_font_sizes/mono_font_size = 16
-
 [node name="HSeparator1" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=438004936]
 layout_mode = 2
 theme_override_constants/separation = 2

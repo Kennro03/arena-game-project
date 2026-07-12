@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b37ulj7xndmqb"]
+[gd_scene format=3 uid="uid://b37ulj7xndmqb"]
 
 [ext_resource type="Texture2D" uid="uid://52ojp6a2ovyv" path="res://ressources/Sprites/VFX/poisonbubble.png" id="1_xy0yx"]
 [ext_resource type="Script" uid="uid://c4sr2ctfmpsw5" path="res://Scenes/VFX/Oneshot_particle_2d.gd" id="2_jjwac"]
@@ -30,7 +30,7 @@ anim_speed_min = 1.0
 anim_speed_max = 1.0
 anim_offset_max = 1.0
 
-[node name="PoisonParticles2D" type="GPUParticles2D"]
+[node name="PoisonParticles2D" type="GPUParticles2D" unique_id=398468244]
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_xy0yx")
 emitting = false

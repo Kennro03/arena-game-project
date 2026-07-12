@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_6lykc"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_1sye6"]
+[ext_resource type="Resource" uid="uid://cbdfnxkdhjurr" path="res://ressources/Weapon_Hitboxes_Data/SpearCritHitboxData.tres" id="3_v6yxe"]
 [ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_1sye6"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_xyp1q"]
 [ext_resource type="Texture2D" uid="uid://drtgerm1gchkr" path="res://ressources/Sprites/Weapons/debug_spear.png" id="5_yh41l"]
@@ -16,6 +17,7 @@ weaponSprite = ExtResource("5_yh41l")
 base_attack_range = 140.0
 base_damage_type = 0
 base_damage = 12.0
+base_crit_hitbox = ExtResource("3_v6yxe")
 custom_pip_rarities_weigths = null
 allowed_animations = Array[String](["stab"])
 item_id = "spear"

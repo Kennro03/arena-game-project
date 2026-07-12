@@ -9,9 +9,9 @@ var owner_unit: Object = null
 @onready var stats_rich_text_label: RichTextLabel = %StatsRichTextLabel
 @onready var passives_rich_text_label: RichTextLabel = %PassivesRichTextLabel
 
-const ARMOR_SLOT = preload("uid://bpkurgfb4csud")
-const WEAPON_SLOT = preload("uid://cr0ku2232m77j")
-const ACCESSORY_SLOT = preload("uid://dd2psrpeofhbi")
+var ARMOR_SLOT = load("res://Scenes/UI/Slots/armor_slot.tscn")
+var WEAPON_SLOT = load("res://Scenes/UI/Slots/weapon_slot.tscn")
+var ACCESSORY_SLOT = load("res://Scenes/UI/Slots/accessory_slot.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

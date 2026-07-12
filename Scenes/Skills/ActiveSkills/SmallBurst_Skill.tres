@@ -1,32 +1,13 @@
 [gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://bqd2htlyx6ivr"]
 
-[ext_resource type="Script" uid="uid://blk4ddp3rw3vw" path="res://ressources/SkillEffects/ComponentResources/ApplyEffect.gd" id="1_34dxq"]
-[ext_resource type="Script" uid="uid://cjgjljvglouba" path="res://ressources/SkillEffects/ComponentResources/SpawnEffect.gd" id="1_nmxac"]
-[ext_resource type="Script" uid="uid://brkhtuervrtmr" path="res://ressources/SkillEffects/KnockBackEffect.gd" id="2_2wc5c"]
-[ext_resource type="Script" uid="uid://dje5s1fj67ug" path="res://ressources/SkillEffects/DamageEffect.gd" id="3_v6rhs"]
+[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/CastStep.gd" id="1_3buvs"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="4_cdt5m"]
-[ext_resource type="Script" uid="uid://brjpxngoaa6b2" path="res://ressources/SkillEffects/ComponentResources/EndEffect.gd" id="4_v6rhs"]
 [ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="5_v6rhs"]
-[ext_resource type="Script" uid="uid://dkn2lovp6jbtr" path="res://ressources/SkillEffects/ComponentResources/TargetingEffect.gd" id="6_v6rhs"]
-
-[sub_resource type="Resource" id="Resource_ym6lw"]
-script = ExtResource("2_2wc5c")
-power = 900.0
-metadata/_custom_type_script = "uid://brkhtuervrtmr"
-
-[sub_resource type="Resource" id="Resource_5uts2"]
-script = ExtResource("3_v6rhs")
-amount = 40.0
-metadata/_custom_type_script = "uid://dje5s1fj67ug"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fqelj"]
 
 [resource]
 script = ExtResource("4_cdt5m")
 cooldown = 15.0
-duration = 0.75
-cast_time = 1.0
-activation_range = 100.0
-apply_effects = Array[ExtResource("1_34dxq")]([SubResource("Resource_ym6lw"), SubResource("Resource_5uts2")])
 icon = SubResource("PlaceholderTexture2D_fqelj")
 metadata/_custom_type_script = "uid://dav671j6ilit5"

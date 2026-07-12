@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dal5rgfowl103"]
 
 [ext_resource type="Texture2D" uid="uid://c64v6mkj70qpn" path="res://ressources/Sprites/Weapons/debug_dagger.png" id="2_3i5r8"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="3_cgvgi"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="5_vy0d0"]
 
 [resource]

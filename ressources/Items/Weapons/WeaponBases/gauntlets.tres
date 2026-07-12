@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bwsxoouw568gv" path="res://ressources/Sprites/Icons/Items/Weapons/Fist_Icon.png" id="1_87u36"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_k8wk0"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="4_ofi0r"]
 [ext_resource type="Texture2D" uid="uid://cgt11mipx5r5p" path="res://ressources/Sprites/Weapons/debug_gauntlets.png" id="6_8ngoy"]
 
 [resource]

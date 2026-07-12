@@ -63,7 +63,6 @@ static var pending_event : EventResource = null
 const UNCOMMONTESTSWORD = preload("uid://dlhcap3ipacyj")
 const BIG_GUY_GOLD_NECKLACE = preload("uid://bcgx8j8wdnce3")
 
-
 @onready var testing_pablo : UnitData = preload("uid://ps2wy7q88f5b")
 
 func _ready() -> void:
@@ -98,7 +97,7 @@ func _ready() -> void:
 	add_unit_to_reserve(humanoidUnitData.new().with_active_skill(preload("uid://b1y3fhvahlv34")).duplicate(true))
 	add_unit_to_reserve(humanoidUnitData.new().with_active_skill(preload("uid://dli7e6s5tu673")).duplicate(true))
 	add_unit_to_reserve(humanoidUnitData.new())
-	add_unit_to_team(humanoidUnitData.new())
+	add_unit_to_team(humanoidUnitData.new().with_passive_skill(preload("uid://cwenfsltyjw5l")).duplicate(true))
 
 func add_item_to_inventory(item: Item) -> void:
 	inventory.append(item)

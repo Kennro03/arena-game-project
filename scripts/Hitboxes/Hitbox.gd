@@ -13,6 +13,19 @@ func setup(h_data: HitboxData, hit: HitData) -> void:
 	hitbox_data = h_data
 	hit_data = hit
 	_apply_shape()
+	
+	if hitbox_data.attack_frames != null and hitbox_data.spawn_visual_on_hitbox_create == true :
+		AttackVisual.spawn(
+			get_tree().root,
+			global_position + hitbox_data.visual_offset,
+			hitbox_data.attack_frames,
+			hitbox_data.size,
+			hitbox_data.shape,
+			rotation,
+			hitbox_data.attack_animation,
+			hitbox_data.visual_lifetime,
+			hitbox_data.attack_modulate)
+	
 	# single frame check — use call_deferred so Area2D overlaps are populated
 	_check_overlaps.call_deferred()
 
@@ -46,7 +59,6 @@ func _physics_process(delta: float) -> void:
 	if _lifetime >= hitbox_data.duration:
 		queue_free()
 		return
-	
 	
 	_time_since_last_check += delta
 	if _time_since_last_check >= hitbox_data.hit_check_interval:

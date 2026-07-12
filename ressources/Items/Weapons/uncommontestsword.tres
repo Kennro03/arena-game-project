@@ -12,14 +12,13 @@
 script = ExtResource("4_xttin")
 weaponCategory = 1
 weaponType = 4
-pip_count = 1
 base_attack_speed = 1.05
 base_attack_range = 115.0
 base_damage = 16.0
+custom_pip_rarities_weigths = null
 item_id = "uncommon_test_sword"
 item_name = "TestSword"
 description = "A basic sword used for testing"
 icon = ExtResource("2_7bpe3")
 rarity = 1
-value = 10
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
