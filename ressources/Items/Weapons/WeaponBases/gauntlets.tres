@@ -1,9 +1,17 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://evw15hgtlv7a"]
 
+[ext_resource type="SpriteFrames" uid="uid://8ofgbgcps20l" path="res://ressources/SpriteFrames/HammerCritHitEffect.tres" id="1_8lnty"]
 [ext_resource type="Texture2D" uid="uid://bwsxoouw568gv" path="res://ressources/Sprites/Icons/Items/Weapons/Fist_Icon.png" id="1_87u36"]
+[ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="2_noo26"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_k8wk0"]
 [ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="4_ofi0r"]
 [ext_resource type="Texture2D" uid="uid://cgt11mipx5r5p" path="res://ressources/Sprites/Weapons/debug_gauntlets.png" id="6_8ngoy"]
+
+[sub_resource type="Resource" id="Resource_4oien"]
+script = ExtResource("2_noo26")
+size = Vector2(28, 28)
+attack_frames = ExtResource("1_8lnty")
+metadata/_custom_type_script = "uid://bd4xcgg65elbj"
 
 [resource]
 script = ExtResource("4_k8wk0")
@@ -17,6 +25,7 @@ base_damage = 10.0
 base_knockback = 40.0
 base_endlag = null
 base_crit_endlag = null
+base_crit_hitbox = SubResource("Resource_4oien")
 statChanges = null
 onHitPassives = null
 attack_speed_scalings = null

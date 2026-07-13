@@ -3,49 +3,11 @@
 [ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="1_vrlwo"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_jaxla"]
 [ext_resource type="Texture2D" uid="uid://bndegctnnxbsx" path="res://ressources/Sprites/Weapons/debug_hammer.png" id="3_4xfua"]
-[ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="3_jaxla"]
-[ext_resource type="Texture2D" uid="uid://c4aokvfpd1s4o" path="res://ressources/Sprites/VFX/hitEffects/blunthiteffects.png" id="3_ls2qu"]
+[ext_resource type="Resource" uid="uid://bk2u8eyhi2m06" path="res://ressources/Weapon_Hitboxes_Data/WarhammerCritHitboxData.tres" id="3_jaxla"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="4_ls2qu"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="5_acw1h"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_37mim"]
 [ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_nxd0k"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ps7s"]
-atlas = ExtResource("3_ls2qu")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hs883"]
-atlas = ExtResource("3_ls2qu")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w4cs8"]
-atlas = ExtResource("3_ls2qu")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_acw1h"]
-resource_name = "HammerCritHitEffect"
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ps7s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hs883")
-}, {
-"duration": 2.0,
-"texture": SubResource("AtlasTexture_w4cs8")
-}],
-"loop": false,
-"name": &"default",
-"speed": 9.0
-}]
-
-[sub_resource type="Resource" id="Resource_37mim"]
-script = ExtResource("3_jaxla")
-shape = 1
-size = Vector2(48, 48)
-attack_frames = SubResource("SpriteFrames_acw1h")
-metadata/_custom_type_script = "uid://bd4xcgg65elbj"
 
 [resource]
 script = ExtResource("5_acw1h")
@@ -56,7 +18,7 @@ base_attack_speed = 0.8
 base_attack_range = 120.0
 base_damage = 16.0
 base_knockback = 55.0
-base_crit_hitbox = SubResource("Resource_37mim")
+base_crit_hitbox = ExtResource("3_jaxla")
 custom_pip_rarities_weigths = null
 allowed_animations = Array[String](["slash", "bash"])
 item_id = "warhammer"

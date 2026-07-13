@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("2_04dfy")
 shape = 1
-size = Vector2(48, 48)
+size = Vector2(32, 24)
 attack_frames = ExtResource("1_osppg")
 metadata/_custom_type_script = "uid://bd4xcgg65elbj"

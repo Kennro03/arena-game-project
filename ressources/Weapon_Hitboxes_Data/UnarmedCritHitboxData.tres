@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HitboxData" format=3 uid="uid://disvofrv6e1sn"]
+
+[ext_resource type="SpriteFrames" uid="uid://8ofgbgcps20l" path="res://ressources/SpriteFrames/HammerCritHitEffect.tres" id="1_bichs"]
+[ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="2_sxwgw"]
+
+[resource]
+script = ExtResource("2_sxwgw")
+size = Vector2(28, 28)
+attack_frames = ExtResource("1_bichs")
+metadata/_custom_type_script = "uid://bd4xcgg65elbj"

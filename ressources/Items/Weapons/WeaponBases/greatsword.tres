@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_b2iiq"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_p5ngx"]
+[ext_resource type="Resource" uid="uid://cup1ttk1l2jkh" path="res://ressources/Weapon_Hitboxes_Data/GreatswordCritHitboxData.tres" id="3_t86hi"]
 [ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_i2cws"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_p5ngx"]
 [ext_resource type="Texture2D" uid="uid://c655s547o85vn" path="res://ressources/Sprites/Weapons/debug_greatsword.png" id="5_g5x2u"]
@@ -18,6 +19,7 @@ base_attack_range = 125.0
 base_damage_type = 1
 base_damage = 16.0
 base_knockback = 40.0
+base_crit_hitbox = ExtResource("3_t86hi")
 custom_pip_rarities_weigths = null
 allowed_animations = Array[String](["stab", "bash"])
 item_id = "greatsword"

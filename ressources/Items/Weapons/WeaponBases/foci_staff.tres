@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://ds6y5tv4n4hsx"]
 
+[ext_resource type="Resource" uid="uid://4v4s22v0q883" path="res://ressources/Weapon_Hitboxes_Data/FocistaffCritHitboxData.tres" id="1_r4ggh"]
 [ext_resource type="Texture2D" uid="uid://c56q6fj8mor03" path="res://ressources/Sprites/Weapons/debug_foci_staff.png" id="2_e15do"]
 [ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="3_s4qeq"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="5_jgroq"]
@@ -16,6 +17,7 @@ base_damage = 11.0
 base_knockback = 90.0
 base_endlag = null
 base_crit_endlag = null
+base_crit_hitbox = ExtResource("1_r4ggh")
 statChanges = null
 onHitPassives = null
 attack_speed_scalings = null

@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dal5rgfowl103"]
 
+[ext_resource type="Resource" uid="uid://cyyneqfp6glvv" path="res://ressources/Weapon_Hitboxes_Data/DaggerCritHitboxData.tres" id="1_ct68d"]
 [ext_resource type="Texture2D" uid="uid://c64v6mkj70qpn" path="res://ressources/Sprites/Weapons/debug_dagger.png" id="2_3i5r8"]
 [ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="3_cgvgi"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="5_vy0d0"]
@@ -16,6 +17,7 @@ base_damage = 11.0
 base_knockback = 25.0
 base_endlag = null
 base_crit_endlag = null
+base_crit_hitbox = ExtResource("1_ct68d")
 statChanges = null
 onHitPassives = null
 attack_speed_scalings = null
