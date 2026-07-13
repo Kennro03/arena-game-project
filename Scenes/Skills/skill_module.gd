@@ -35,11 +35,11 @@ func _tick(delta: float) -> void:
 		_general_cooldown -= delta
 	
 	for skill in _active_skills:
-		if skill.ticks_when_downed == true and unit.state_machine.current_state_name() == "Downed" :
+		if (skill.ticks_when_downed == true and unit.state_machine.current_state_name() == "Downed") or (skill.ticks_when_alive == true and unit.state_machine.current_state_name() != "Downed"):
 			#print("Ticking skill %s cooldown: %s" % [skill.name, skill._current_cooldown])
 			skill.tick(delta)
 	for skill in _passive_skills:
-		if skill.ticks_when_downed == true and unit.state_machine.current_state_name() == "Downed" :
+		if (skill.ticks_when_downed == true and unit.state_machine.current_state_name() == "Downed") or (skill.ticks_when_alive == true and unit.state_machine.current_state_name() != "Downed") :
 			#print("Ticking skill %s cooldown: %s" % [skill.name, skill._current_cooldown])
 			skill.tick(delta)
 	
@@ -81,6 +81,24 @@ func _register_skill(skill: Skill) -> void:
 		var passive := skill.duplicate(true) as Passive_Skill
 		passive.attach(owner as BaseUnit)
 		_passive_skills.append(passive)
+
+func _disconnect_skills() -> void:
+	print("Disconnecting all skills")
+	# duplicate so runtime state is unique per unit
+	var unit := owner as BaseUnit
+	for skill in _active_skills:
+		skill.detach(unit)
+		if skill.cast_started.is_connected(_on_cast_started):
+			skill.cast_started.disconnect(_on_cast_started)
+		if skill.cast_completed.is_connected(_on_cast_completed):
+			skill.cast_completed.disconnect(_on_cast_completed)
+		if skill.cast_interrupted.is_connected(_on_cast_interrupted):
+			skill.cast_interrupted.disconnect(_on_cast_interrupted)
+	for skill in _passive_skills:
+		skill.detach(unit)
+	_active_skills.clear()
+	_passive_skills.clear()
+	skill_list.clear()
 
 func _has_skill(skill: Skill) -> bool:
 	return skill_list.any(func(s): return s.skill_name == skill.skill_name)
@@ -128,10 +146,12 @@ func get_usable_skills() -> Array[ActiveSkill]:
 	var result: Array[ActiveSkill] = []
 	var unit : BaseUnit = owner
 	for skill in _active_skills:
-		if skill.usable_when_downed == false and unit.state_machine.current_state_name() == "Downed"  :
-			continue
-		if skill.can_use():
-			result.append(skill)
+		if skill.usable_when_alive == true and unit.state_machine.current_state_name() != "Downed"  :
+			if skill.can_use():
+				result.append(skill)
+		if skill.usable_when_downed == true and unit.state_machine.current_state_name() == "Downed"  :
+			if skill.can_use():
+				result.append(skill)
 	return result
 
 func is_casting() -> bool:

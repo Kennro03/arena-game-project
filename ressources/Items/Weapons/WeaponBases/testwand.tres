@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="1_07uik"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="3_b57at"]
+[ext_resource type="Resource" uid="uid://disvofrv6e1sn" path="res://ressources/Weapon_Hitboxes_Data/UnarmedCritHitboxData.tres" id="3_lq4m8"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_hs3hj"]
 [ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_lq4m8"]
 [ext_resource type="Texture2D" uid="uid://bisn55jrtqnxi" path="res://ressources/Sprites/Weapons/debug_wand.png" id="5_2dw06"]
@@ -16,6 +17,7 @@ base_attack_speed = 1.05
 base_attack_range = 80.0
 base_damage = 10.0
 base_knockback = 40.0
+base_crit_hitbox = ExtResource("3_lq4m8")
 custom_pip_rarities_weigths = null
 allowed_animations = Array[String]([])
 item_id = "test_wand"

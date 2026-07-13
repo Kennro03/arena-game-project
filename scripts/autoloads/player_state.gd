@@ -125,7 +125,6 @@ func recall_unit(unit: BaseUnit) -> void:
 		return
 	
 	unit.save_changes_to_data() # transfer things like exp to unit_data before moving
-	
 	deployed_units.erase(unit) # remove from deployed
 	
 	# move data from team to reserve
@@ -134,6 +133,7 @@ func recall_unit(unit: BaseUnit) -> void:
 	
 	add_unit_to_reserve(unit.unit_data)
 	Events.unit_recalled.emit(unit)
+	unit.skillModule._disconnect_skills()
 	unit.queue_free()
 
 func register_deployed_unit(unit:BaseUnit) -> void:
