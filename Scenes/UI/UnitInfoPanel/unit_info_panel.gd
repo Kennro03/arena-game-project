@@ -16,6 +16,11 @@ var unit
 @onready var descriptionLabel := %UnitDescriptionLabel
 @onready var stat_details_label: RichTextLabel = %StatDetailsLabel
 @onready var skill_entry_details_label: RichTextLabel = %SkillEntryDetailsLabel
+@onready var active_skills_entries_container: VBoxContainer = %ActiveSkillsEntriesContainer
+@onready var passive_skills_entries_container: VBoxContainer = %PassiveSkillsEntriesContainer
+@onready var skill_icon_rect: TextureRect = %SkillIconRect
+@onready var skill_entry_details_container: VBoxContainer = $VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer2/SkillEntryDetailsContainer
+@onready var skills: MarginContainer = %Skills
 
 @onready var overview_rich_text_label: RichTextLabel = %OverviewRichTextLabel
 @onready var overview_v_box_container: VBoxContainer = %OverviewVBoxContainer
@@ -347,6 +352,9 @@ func fill_stat_entries() -> void :
 					row_entry_value.add_theme_constant_override("outline_size",1)
 				update_stat_details(Stats.BuffableStats.get(stat)))
 		%StatEntriesContainer.add_child(new_row)
+	
+	await get_tree().process_frame
+	reset_size()
 
 func clear_stats_entries_outline() -> void:
 	for row in %StatEntriesContainer.get_children() :
@@ -374,6 +382,9 @@ func update_stat_details(stat: Stats.BuffableStats) -> void :
 	#stat_details_label.append_text("\n\tscaling bonuses : %s")
 	#stat_details_label.append_text("\n\tstatus effects changes : %s")
 	#stat_details_label.append_text("\n\tother changes : %s")
+	
+	await get_tree().process_frame
+	reset_size()
 
 func set_skills_view() -> void :
 	clear_skills_entries()
@@ -389,7 +400,9 @@ func get_unit_skills_list() -> Array[Skill] :
 		return []
 
 func clear_skills_entries() -> void :
-	for c in %SkillsEntriesContainer.get_children() :
+	for c in active_skills_entries_container.get_children() :
+		c.queue_free()
+	for c in passive_skills_entries_container.get_children() :
 		c.queue_free()
 
 func fill_skills_entries() -> void :
@@ -400,7 +413,7 @@ func fill_skills_entries() -> void :
 	activeSkillsLabel.scroll_active = false
 	activeSkillsLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	activeSkillsLabel.text = "[font_size=18] [b]Active skills[/b] [/font_size]"
-	%SkillsEntriesContainer.add_child(activeSkillsLabel)
+	active_skills_entries_container.add_child(activeSkillsLabel)
 	
 	for skill in unit_skills :
 		if skill is Passive_Skill :
@@ -417,7 +430,7 @@ func fill_skills_entries() -> void :
 					new_row.add_theme_constant_override("outline_size",1)
 					new_row.add_theme_constant_override("outline_size",1)
 				update_skills_details(skill))
-		%SkillsEntriesContainer.add_child(new_row)
+		active_skills_entries_container.add_child(new_row)
 	
 	var passiveSkillsLabel : RichTextLabel = RichTextLabel.new()
 	passiveSkillsLabel.bbcode_enabled = true
@@ -425,7 +438,7 @@ func fill_skills_entries() -> void :
 	passiveSkillsLabel.scroll_active = false
 	passiveSkillsLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	passiveSkillsLabel.text = "[font_size=18] [b]Passive Skills stats[/b] [/font_size]"
-	%SkillsEntriesContainer.add_child(passiveSkillsLabel)
+	passive_skills_entries_container.add_child(passiveSkillsLabel)
 	
 	for skill in unit_skills :
 		if skill is ActiveSkill :
@@ -442,23 +455,48 @@ func fill_skills_entries() -> void :
 					new_row.add_theme_constant_override("outline_size",1)
 					new_row.add_theme_constant_override("outline_size",1)
 				update_skills_details(skill))
-		%SkillsEntriesContainer.add_child(new_row)
+		passive_skills_entries_container.add_child(new_row)
+	
+	await get_tree().process_frame
+	reset_size()
 
 func update_skills_details(skill: Skill) -> void :
 	var skill_name : String = skill.name
 	var description : String = skill.description
 	
+	skill_icon_rect.texture = skill.icon_image if skill.icon != null else null
+	skill_icon_rect.custom_minimum_size = Vector2(64,64) if skill_icon_rect.texture != null else Vector2(0,0)
+	
 	skill_entry_details_label.clear()
-	## skill icon goes here
 	skill_entry_details_label.append_text("[center][font_size=24] "+skill_name+" [/font_size][/center]")
 	skill_entry_details_label.append_text("\n [color=gray]Type : %s [/color]" % str(skill.SkillCategory.keys()[skill.category]).capitalize())
+	if skill is ActiveSkill :
+		skill_entry_details_label.append_text("\n Cooldown : %s " % str(skill.cooldown))
+		if skill.charges > 1 :
+			skill_entry_details_label.append_text("\n Max charges : %s " % str(skill.charges))
+		match skill.interrupt_type :
+			skill.InterruptType.UNINTERRUPTIBLE :
+				skill_entry_details_label.append_text("\n [color=gray]Casting : Unstoppable[/color]" % str(skill.SkillCategory.keys()[skill.category]).capitalize())
+			skill.InterruptType.INTERRUPTED_BY_STUN :
+				skill_entry_details_label.append_text("\n [color=gray]Casting : Stunnable[/color]" % str(skill.SkillCategory.keys()[skill.category]).capitalize())
+			skill.InterruptType.INTERRUPTED_BY_HIT :
+				skill_entry_details_label.append_text("\n [color=gray]Casting : Interruptible[/color]" % str(skill.SkillCategory.keys()[skill.category]).capitalize())
 	skill_entry_details_label.append_text("\n"+description)
 	skill_entry_details_label.append_text("\n\n Tags : " )
 	var tags := ", ".join(skill.tags.map(func(t): return t.capitalize()))
 	skill_entry_details_label.append_text(tags)
+	
+	await get_tree().process_frame
+	reset_size()
 
 func clear_skills_entries_outline() -> void:
-	for row in %SkillsEntriesContainer.get_children() :
+	for row in active_skills_entries_container.get_children() :
+		var row_entry_name : RichTextLabel = row.find_child("StatEntryName")
+		var row_entry_value : RichTextLabel = row.find_child("StatEntryValue")
+		if row_entry_name and row_entry_value :
+			row_entry_name.remove_theme_constant_override("outline_size")
+			row_entry_value.remove_theme_constant_override("outline_size")
+	for row in passive_skills_entries_container.get_children() :
 		var row_entry_name : RichTextLabel = row.find_child("StatEntryName")
 		var row_entry_value : RichTextLabel = row.find_child("StatEntryValue")
 		if row_entry_name and row_entry_value :

@@ -12,8 +12,8 @@ size = Vector2(32, 32)
 [node name="UnitInfoPanel" type="PanelContainer" unique_id=1287558197]
 z_index = 1
 texture_filter = 1
-clip_contents = true
 custom_minimum_size = Vector2(400, 0)
+clip_contents = true
 offset_right = 400.0
 offset_bottom = 89.0
 size_flags_vertical = 0
@@ -35,11 +35,10 @@ theme_override_constants/separation = 0
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 23
-current_tab = 2
+current_tab = 0
 
 [node name="Overview" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=239782206]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -183,6 +182,7 @@ layout_mode = 2
 
 [node name="Skills" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=1842686206]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -212,8 +212,13 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+theme_override_constants/separation = 16
 
-[node name="ActiveSkillsRichTextLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer" unique_id=1270451928]
+[node name="ActiveSkillsEntriesContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer" unique_id=282430488]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ActiveSkillsRichTextLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer/ActiveSkillsEntriesContainer" unique_id=1270451928]
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 24
@@ -227,7 +232,7 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="SkillEntry" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer" unique_id=579007435]
+[node name="SkillEntry" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer/ActiveSkillsEntriesContainer" unique_id=579007435]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -238,7 +243,7 @@ text = "Normal active skill 1"
 fit_content = true
 scroll_active = false
 
-[node name="SkillEntry2" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer" unique_id=718820693]
+[node name="SkillEntry2" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer/ActiveSkillsEntriesContainer" unique_id=718820693]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -249,7 +254,7 @@ text = "Normal active skill 2"
 fit_content = true
 scroll_active = false
 
-[node name="SkillEntry3" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer" unique_id=1003457242]
+[node name="SkillEntry3" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer/ActiveSkillsEntriesContainer" unique_id=1003457242]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -260,7 +265,11 @@ text = "[color=orange]Fire active skill 1[/color]"
 fit_content = true
 scroll_active = false
 
-[node name="PassiveSkillsRichTextLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer" unique_id=875351571]
+[node name="PassiveSkillsEntriesContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer" unique_id=1908359046]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PassiveSkillsRichTextLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer/PassiveSkillsEntriesContainer" unique_id=875351571]
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 24
@@ -274,7 +283,7 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="SkillEntry4" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer" unique_id=489236559]
+[node name="SkillEntry4" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer/ScrollContainer/SkillsEntriesContainer/PassiveSkillsEntriesContainer" unique_id=489236559]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -293,18 +302,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer2" unique_id=1936503500]
+[node name="SkillEntryDetailsContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer2" unique_id=1936503500]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="SkillEntryDetailsLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer2/VBoxContainer" unique_id=14999691]
+[node name="SkillIconRect" type="TextureRect" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer2/SkillEntryDetailsContainer" unique_id=1549027455]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="SkillEntryDetailsLabel" type="RichTextLabel" parent="VBoxContainer/TabContainer/Skills/HBoxContainer/MarginContainer2/SkillEntryDetailsContainer" unique_id=14999691]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[center] Select a stat to inspect its details."
+text = "[center] Select a skill to inspect its details."
 
 [node name="Stats" type="MarginContainer" parent="VBoxContainer/TabContainer" unique_id=53255993]
 unique_name_in_owner = true
