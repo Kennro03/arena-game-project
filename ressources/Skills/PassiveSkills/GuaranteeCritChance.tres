@@ -48,5 +48,6 @@ triggers = Array[ExtResource("8_vbahu")]([SubResource("Resource_johkf")])
 effects = Array[ExtResource("2_le40b")]([SubResource("Resource_we81y")])
 category = 2
 name = "Guarantee crit chance "
-description = "this passive gives the wielder a status effect that gives "
+description = "this passive gives the wielder a status effect that gives 100% CRIT chance"
+tags = Array[String](["Debug", "Tag2"])
 metadata/_custom_type_script = "uid://c5jexu8leqvod"

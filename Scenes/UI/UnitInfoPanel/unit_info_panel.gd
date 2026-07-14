@@ -5,7 +5,7 @@ var humanoid_scene := preload("res://Scenes/Units/Humanoid/humanoid.tscn")
 #var placeholderLiveTarget : BaseUnit = stickman_scene.instantiate()
 #var placeholderDataTarget : UnitData = stickmanUnitData.new()
 
-var unit 
+var unit
 
 @onready var iconRect := %UnitIcon
 @onready var nameLabel := %UnitNameLabel
@@ -15,6 +15,7 @@ var unit
 @onready var unit_shield_label: Label = %UnitShieldLabel
 @onready var descriptionLabel := %UnitDescriptionLabel
 @onready var stat_details_label: RichTextLabel = %StatDetailsLabel
+@onready var skill_entry_details_label: RichTextLabel = %SkillEntryDetailsLabel
 
 @onready var overview_rich_text_label: RichTextLabel = %OverviewRichTextLabel
 @onready var overview_v_box_container: VBoxContainer = %OverviewVBoxContainer
@@ -125,6 +126,7 @@ func _populate_shared() -> void:
 	levelLabel.text = "Lv. %d" % _get_stats().level
 	set_overview_text()
 	set_gear()
+	set_skills_view()
 	set_stats_view()
 
 func _populate_live_only() -> void:
@@ -157,6 +159,7 @@ func _on_stats_changed() -> void :
 	print("Stats changed")
 	#set_info()   # for name and info
 	set_overview_text()  # for stats
+	set_skills_view()  # refresh skills for scalings
 	set_stats_view()  # refresh stats view
 
 func _on_experience_changed() -> void :
@@ -315,7 +318,7 @@ func fill_stat_entries() -> void :
 		new_row.gui_input.connect(func(event):
 			if event.is_action_pressed("left_mouse"):
 				if not row_entry_name.has_theme_constant_override("outline_size") :
-					clear_entries_outline() 
+					clear_stats_entries_outline() 
 					row_entry_name.add_theme_constant_override("outline_size",1)
 					row_entry_value.add_theme_constant_override("outline_size",1)
 				update_stat_details(Stats.BuffableStats.get(stat)))
@@ -339,13 +342,13 @@ func fill_stat_entries() -> void :
 		new_row.gui_input.connect(func(event):
 			if event.is_action_pressed("left_mouse"):
 				if not row_entry_name.has_theme_constant_override("outline_size") :
-					clear_entries_outline() 
+					clear_stats_entries_outline() 
 					row_entry_name.add_theme_constant_override("outline_size",1)
 					row_entry_value.add_theme_constant_override("outline_size",1)
 				update_stat_details(Stats.BuffableStats.get(stat)))
 		%StatEntriesContainer.add_child(new_row)
 
-func clear_entries_outline() -> void:
+func clear_stats_entries_outline() -> void:
 	for row in %StatEntriesContainer.get_children() :
 		var row_entry_name : RichTextLabel = row.find_child("StatEntryName")
 		var row_entry_value : RichTextLabel = row.find_child("StatEntryValue")
@@ -371,6 +374,96 @@ func update_stat_details(stat: Stats.BuffableStats) -> void :
 	#stat_details_label.append_text("\n\tscaling bonuses : %s")
 	#stat_details_label.append_text("\n\tstatus effects changes : %s")
 	#stat_details_label.append_text("\n\tother changes : %s")
+
+func set_skills_view() -> void :
+	clear_skills_entries()
+	fill_skills_entries()
+
+func get_unit_skills_list() -> Array[Skill] :
+	if unit is BaseUnit :
+		return unit.skillModule.skill_list
+	elif unit is UnitData :
+		return unit.skill_list
+	else :
+		printerr("Invalid unit type")
+		return []
+
+func clear_skills_entries() -> void :
+	for c in %SkillsEntriesContainer.get_children() :
+		c.queue_free()
+
+func fill_skills_entries() -> void :
+	var unit_skills : Array[Skill] = get_unit_skills_list()         
+	var activeSkillsLabel : RichTextLabel = RichTextLabel.new()
+	activeSkillsLabel.bbcode_enabled = true
+	activeSkillsLabel.fit_content = true
+	activeSkillsLabel.scroll_active = false
+	activeSkillsLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	activeSkillsLabel.text = "[font_size=18] [b]Active skills[/b] [/font_size]"
+	%SkillsEntriesContainer.add_child(activeSkillsLabel)
+	
+	for skill in unit_skills :
+		if skill is Passive_Skill :
+			continue
+		var new_row : RichTextLabel = RichTextLabel.new()
+		new_row.bbcode_enabled = true
+		new_row.fit_content = true
+		new_row.scroll_active = false
+		new_row.append_text("%s" % skill.name)
+		new_row.gui_input.connect(func(event):
+			if event.is_action_pressed("left_mouse"):
+				if not new_row.has_theme_constant_override("outline_size") :
+					clear_skills_entries_outline() 
+					new_row.add_theme_constant_override("outline_size",1)
+					new_row.add_theme_constant_override("outline_size",1)
+				update_skills_details(skill))
+		%SkillsEntriesContainer.add_child(new_row)
+	
+	var passiveSkillsLabel : RichTextLabel = RichTextLabel.new()
+	passiveSkillsLabel.bbcode_enabled = true
+	passiveSkillsLabel.fit_content = true
+	passiveSkillsLabel.scroll_active = false
+	passiveSkillsLabel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	passiveSkillsLabel.text = "[font_size=18] [b]Passive Skills stats[/b] [/font_size]"
+	%SkillsEntriesContainer.add_child(passiveSkillsLabel)
+	
+	for skill in unit_skills :
+		if skill is ActiveSkill :
+			continue
+		var new_row : RichTextLabel = RichTextLabel.new()
+		new_row.bbcode_enabled = true
+		new_row.fit_content = true
+		new_row.scroll_active = false
+		new_row.append_text("%s" % skill.name)
+		new_row.gui_input.connect(func(event):
+			if event.is_action_pressed("left_mouse"):
+				if not new_row.has_theme_constant_override("outline_size") :
+					clear_skills_entries_outline() 
+					new_row.add_theme_constant_override("outline_size",1)
+					new_row.add_theme_constant_override("outline_size",1)
+				update_skills_details(skill))
+		%SkillsEntriesContainer.add_child(new_row)
+
+func update_skills_details(skill: Skill) -> void :
+	var skill_name : String = skill.name
+	var description : String = skill.description
+	
+	skill_entry_details_label.clear()
+	## skill icon goes here
+	skill_entry_details_label.append_text("[center][font_size=24] "+skill_name+" [/font_size][/center]")
+	skill_entry_details_label.append_text("\n [color=gray]Type : %s [/color]" % str(skill.SkillCategory.keys()[skill.category]).capitalize())
+	skill_entry_details_label.append_text("\n"+description)
+	skill_entry_details_label.append_text("\n\n Tags : " )
+	var tags := ", ".join(skill.tags.map(func(t): return t.capitalize()))
+	skill_entry_details_label.append_text(tags)
+
+func clear_skills_entries_outline() -> void:
+	for row in %SkillsEntriesContainer.get_children() :
+		var row_entry_name : RichTextLabel = row.find_child("StatEntryName")
+		var row_entry_value : RichTextLabel = row.find_child("StatEntryValue")
+		if row_entry_name and row_entry_value :
+			row_entry_name.remove_theme_constant_override("outline_size")
+			row_entry_value.remove_theme_constant_override("outline_size")
 
 func _on_draw_button_pressed() -> void:
 	print("Drawing possible boons... (placeholder, only gives a random stat point for now)")

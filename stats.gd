@@ -38,6 +38,10 @@ enum BuffableStats {
 	DAMAGE_TAKEN_BONUS,
 	DAMAGE_TAKEN_MULTIPLIER,
 	ACCESSORY_LIMIT,
+	ACTIVE_SKILL_LIMIT,
+	ACTIVE_SKILL_GENERAL_COOLDOWN,
+	ACTIVE_SKILL_COOLDOWN_FLAT_MOD,
+	ACTIVE_SKILL_COOLDOWN_PERCENT_MOD,
 }
 static var stat_text_colors : Dictionary = {
 	BuffableStats.STRENGTH: Color(0.91, 0.231, 0.231, 1.0),
@@ -82,7 +86,9 @@ signal exp_changed(old_exp:int,new_exp:int)
 signal level_changed(old_level:int,new_level:int)
 
 @export var base_exp_worth: int = 10
+@export var experience : int = 0: set = _on_experience_set
 
+@export_group("Base attributes")
 @export var base_strength : int = 0
 @export var base_dexterity : int = 0
 @export var base_endurance : int = 0
@@ -90,6 +96,8 @@ signal level_changed(old_level:int,new_level:int)
 @export var base_faith : int = 0
 @export var base_attunement : int = 0
 
+@export_group("Base stats")
+@export_subgroup("Core stats")
 @export var base_max_health : float = 100.0
 @export var base_health_regen : float = 1.0
 @export var base_movement_speed : float = 80.0
@@ -102,13 +110,23 @@ signal level_changed(old_level:int,new_level:int)
 @export var base_crit_damage : float = 1.25
 @export var base_damage_taken_bonus: float = 0.0
 @export var base_damage_taken_multiplier: float = 1.0  
-@export var base_accessory_limit : int = 1
 
-@export var attribute_points_per_level: int = 3        # points gained per level
-@export var all_attributes_bonus_every: int = 3        # every X levels, all attrs +1
-@export var all_attributes_bonus: int = 1              # every certain levels, all attrs +x
-@export var draw_every: int = 5                      # every X levels, get a tuning
+@export_subgroup("Accessory stats")
+@export var base_accessory_limit : int = 2
 
+@export_subgroup("Active skills stats")
+@export var base_active_skill_limit : int = 3
+@export var base_active_skill_general_cooldown : float = 5
+@export var base_active_skill_cooldown_flat_mod : float = 0
+@export var base_active_skill_cooldown_percent_mod : float = 0
+
+@export_group("Level up stats")
+@export var attribute_points_per_level: int = 3        # attribute spending points gained per level
+@export var all_attributes_bonus_every: int = 3        # every X levels, all attrs gain +certain amount
+@export var all_attributes_bonus: int = 1              # every certain levels, all attributes gain +x
+@export var draw_every: int = 5                        # every X levels, draw cards
+
+@export_group("Scalings")
 @export var max_health_scalings: Array[StatScaling] = [
 	StatScaling.new(Attributes.ENDURANCE, StatScaling.ScalingType.LINEAR, 2.5),
 	StatScaling.new(Attributes.ATTUNEMENT, StatScaling.ScalingType.LINEAR, 1.5)
@@ -149,8 +167,7 @@ signal level_changed(old_level:int,new_level:int)
 ]
 
 const BASE_LEVEL_XP : float = 100.0
-const XP_GROWTH_RATE: float = 1.4  # each level costs x times more than previous
-@export var experience : int = 0: set = _on_experience_set
+const XP_GROWTH_RATE: float = 1.4    # each level costs x times more than previous
 
 var level : int : 
 	get(): 
@@ -168,8 +185,6 @@ var attribute_points_available: int:
 var draws_available: int = 0
 var draws_used: int = 0
 
-var body : int 
-var mind : int 
 
 var current_strength : int 
 var current_dexterity : int 
@@ -190,11 +205,17 @@ var current_crit_chance : float
 var current_crit_damage : float
 var current_damage_taken_bonus : float
 var current_damage_taken_multiplier : float
+
 var current_accessory_limit : int
 
-var dodge_prob_cap := 90.0
-var block_prob_cap := 90.0
-var parry_prob_cap := 90.0
+var current_active_skill_limit : int
+var current_active_skill_general_cooldown : float
+var current_active_skill_cooldown_flat_mod : float
+var current_active_skill_cooldown_percent_mod : float
+
+var dodge_prob_cap : float = 95.0
+var block_prob_cap : float = 95.0
+var parry_prob_cap : float = 95.0
 
 var health : float = 0.0 : set = _on_health_set
 var shield : float = 0.0 : set = _on_shield_set
@@ -349,8 +370,6 @@ func recalculate_stats() -> void :
 		combined *= (1.0 - scaling.compute(self))
 	current_percent_block_power = snapped(current_percent_block_power+(1.0 - combined) * 100.0,0.01) 
 	
-	body = current_strength + current_dexterity + current_endurance
-	mind = current_intellect + current_faith + current_attunement
 	stats_recalculated.emit()
 
 func _on_health_set(new_value : float) -> void:

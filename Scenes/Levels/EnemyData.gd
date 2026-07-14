@@ -19,7 +19,7 @@ func get_cost() -> float:
 		printerr("Cannot get ennemy cost, enemy unit_data has no stats: " + unit_data.display_name)
 		return base_cost
 	# compute how much stronger this unit is vs its base stats
-	var current_stats_total : int = unit_data.stats.body + unit_data.stats.mind
+	var current_stats_total : int = unit_data.stats.current_strength + unit_data.stats.current_dexterity + unit_data.stats.current_endurance + unit_data.stats.current_intellect + unit_data.stats.current_faith + unit_data.stats.current_attunement
 	var base_reference : int = unit_data.stats.base_strength + unit_data.stats.base_dexterity + unit_data.stats.base_endurance + unit_data.stats.base_intellect + unit_data.stats.base_faith + unit_data.stats.base_attunement
 	
 	var stat_multiplier : float = 1.0 if current_stats_total == 0.0 else current_stats_total / max(base_reference, 1.0)
