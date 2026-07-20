@@ -2,9 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ce2u453bjnybq" path="res://Scenes/VFX/flame_particles_2d.tscn" id="1_ssh7k"]
 [ext_resource type="Script" uid="uid://btpyi1bwhwy1g" path="res://scripts/Status_Effects/StatusEffect_DoT.gd" id="2_cn0sc"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e32ia"]
-size = Vector2(16, 16)
+[ext_resource type="Texture2D" uid="uid://bsjmnmc54yjtw" path="res://ressources/Sprites/VFX/Spells/Fire/FireSpray2.png" id="3_cn0sc"]
 
 [resource]
 script = ExtResource("2_cn0sc")
@@ -12,7 +10,7 @@ particle_effect = ExtResource("1_ssh7k")
 Status_effect_name = "Burn"
 status_ID = "burn"
 Status_effect_description = "This unit is on fire"
-status_icon = SubResource("PlaceholderTexture2D_e32ia")
+status_icon = ExtResource("3_cn0sc")
 max_stacks = 5
 duration = 2.5
 refresh_on_application = true

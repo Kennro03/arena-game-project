@@ -10,8 +10,6 @@ signal armor_changed(armor: Armor)
 signal accessories_changed(accessories: Array[Accessory])
 
 @onready var animationPlayer = %AnimationPlayer
-@onready var healthBar := %HealthBar
-@onready var shieldBar := %ShieldBar
 @onready var spriteModule : SpriteModule = %SpriteModule
 @onready var statusEffectModule : StatusEffectModule = $StatusEffectModule
 @onready var skillModule : SkillModule = $SkillModule
@@ -82,11 +80,6 @@ var active: bool = true:
 			_on_activated.call_deferred()
 		else:
 			_on_deactivated.call_deferred()
-
-const BASE_BAR_WIDTH : float = 32.0
-const MIN_BAR_WIDTH : float = 16.0
-const MAX_BAR_WIDTH : float = 80.0
-const HEALTH_SCALE_REFERENCE : float = 100.0 
 
 func predict_position(time_ahead: float) -> Vector2:
 	# basic kinematic prediction: p + v*t + 0.5*a*t², clamped to not overshoot 
@@ -163,13 +156,14 @@ func set_display_Module()->void:
 		flag_instance.position.y -= 80
 		flag_instance.modulate = team.team_color
 		add_child(flag_instance)
-	set_healthbar_visibility(show_health)
+	displayModule.set_healthbar_visibility(show_health)
 	if show_health :
-		update_healthBar(stats.health,stats.current_max_health)
-		stats.connect("health_changed",update_healthBar)
-		stats.connect("shield_changed",update_shieldBar)
-		stats.connect("shield_depleted",hide_shieldBar)
+		displayModule.update_healthBar(stats.health,stats.current_max_health)
+		stats.connect("health_changed",displayModule.update_healthBar)
+		stats.connect("shield_changed",displayModule.update_shieldBar)
+		stats.connect("shield_depleted",displayModule.hide_shieldBar)
 	stats.connect("health_depleted",get_downed)
+	displayModule.link_to_unit(self)
 
 func _on_activated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -200,33 +194,6 @@ func _get_allowed_zones() -> Array[Area2D]:
 		return [player_zone]
 	printerr("No player spawn zone found in scene")
 	return []
-
-func update_healthBar(_health, _max_health) -> void :
-	healthBar.max_value = _max_health
-	healthBar.value = _health
-	var scaled_width := BASE_BAR_WIDTH * sqrt(_max_health / HEALTH_SCALE_REFERENCE)
-	healthBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
-	if _health > _max_health/2 :
-		healthBar.modulate = Color.GREEN
-	elif _health < _max_health/2 :
-		if _health < _max_health/4 :
-			healthBar.modulate = Color.DARK_RED
-		else :
-			healthBar.modulate = Color.YELLOW
-	
-
-func update_shieldBar(_shield, _max_shield) -> void :
-	shieldBar.max_value = _max_shield
-	shieldBar.value = _shield
-	shieldBar.visible = _shield > 0.0
-	var scaled_width := BASE_BAR_WIDTH * sqrt(_max_shield / HEALTH_SCALE_REFERENCE)
-	shieldBar.custom_minimum_size.x = clampf(scaled_width, MIN_BAR_WIDTH, MAX_BAR_WIDTH)
-
-func set_healthbar_visibility(vis : bool)->void:
-	healthBar.visible = vis
-
-func hide_shieldBar() -> void :
-	shieldBar.visible = !shieldBar.visible
 
 func _on_anim_finished(_anim_name):
 	is_action_locked = false

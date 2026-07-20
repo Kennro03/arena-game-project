@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://d4rq68h801ac"]
+
+[ext_resource type="Script" uid="uid://b0uf2h5vpu2es" path="res://Scenes/UI/StatusEffectIcon/status_icon.gd" id="1_d72kx"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ssidi"]
+size = Vector2(16, 16)
+
+[node name="StatusIcon" type="Control" unique_id=908797033]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 16.0
+offset_bottom = 16.0
+offset_transform_enabled = true
+script = ExtResource("1_d72kx")
+
+[node name="StatusIconTextureRect" type="TextureRect" parent="." unique_id=768929819]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = SubResource("PlaceholderTexture2D_ssidi")
+stretch_mode = 1
+
+[node name="StatusIconDurationLabel" type="RichTextLabel" parent="." unique_id=1139779756]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 2.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_font_sizes/bold_font_size = 8
+theme_override_font_sizes/bold_italics_font_size = 8
+theme_override_font_sizes/italics_font_size = 8
+theme_override_font_sizes/mono_font_size = 8
+bbcode_enabled = true
+text = "99"
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="StatusIconStacksLabel" type="RichTextLabel" parent="." unique_id=1809517470]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = -6.0
+offset_right = 12.0
+offset_bottom = 10.0
+bbcode_enabled = true
+text = "99"
+scroll_active = false
+horizontal_alignment = 1

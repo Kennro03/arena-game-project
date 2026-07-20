@@ -7,8 +7,7 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	unit.is_action_locked = true
 	unit.remove_from_group("Live_Units")
 	unit.add_to_group("Downed_Units")
-	unit.set_healthbar_visibility(false)
-	unit.hide_shieldBar()
+	unit.displayModule.set_healthbar_visibility(false)
 	unit.show_name = false
 	unit.hurtbox_collision_shape.disabled = true
 	unit.selection_area_collision_shape.disabled = true

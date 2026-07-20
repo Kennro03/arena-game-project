@@ -2,8 +2,9 @@ extends Node2D
 class_name StatusEffectModule
 
 @warning_ignore("unused_signal")
-signal effects_changed(statusEffectsList)
+signal effects_changed(effects: Array[StatusEffect])
 signal effect_applied_with_id(effect: StatusEffect)
+signal effect_expired_with_id(status_id: String)
 
 @export var statusEffectsList : Array[StatusEffect] = []
 
@@ -15,7 +16,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	for i in range(statusEffectsList.size() - 1, -1, -1):
 		if statusEffectsList[i].update(owner, delta):
+			effect_expired_with_id.emit(statusEffectsList[i].status_ID)
 			statusEffectsList.remove_at(i)
+			effects_changed.emit(statusEffectsList)
 
 func apply_status_effect(new_status : StatusEffect) -> void:
 	for effect in statusEffectsList:
@@ -36,15 +39,18 @@ func apply_status_effect(new_status : StatusEffect) -> void:
 	
 	inst.on_apply(owner, inst)
 	effect_applied_with_id.emit(inst)
+	effects_changed.emit(statusEffectsList)
 
 func remove_status_effect(status : StatusEffect) -> void:
 	if statusEffectsList.has(status) and status.has_signal("emit_particle") and status.is_connected("emit_particle", spawn_particle) :
 		var index = statusEffectsList.find(status)
 		statusEffectsList[index].disconnect("emit_particle",spawn_particle)
 		statusEffectsList.erase(status)
+		effects_changed.emit(statusEffectsList)
 
 func cleanse_status_effects() -> void : 
 	statusEffectsList.clear()
+	effects_changed.emit(statusEffectsList)
 
 func spawn_particle(particle_scene : PackedScene) -> void:
 	if particle_scene != null :
