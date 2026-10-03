@@ -43,7 +43,7 @@ func _spawn_unit_info_panel(unit: BaseUnit) -> void:
 	unit_info_panel = UnitInfoPanelScene.instantiate()
 	unit_info_panel.unit = unit
 	unit_info_panel.name = unit.id + "_InfoPanel"
-	ui_root.add_child(unit_info_panel)
+	Player.ui_layer.add_child(unit_info_panel)
 
 func _on_lost_encounter() -> void:
 	animationPlayer.play("LostAnimation")

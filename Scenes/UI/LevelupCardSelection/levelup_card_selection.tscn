@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://dorvy7lec2kjk"]
+
+[ext_resource type="Script" uid="uid://uvnr3qc1yvy7" path="res://Scenes/UI/LevelupCardSelection/levelup_card_selection.gd" id="1_80ooo"]
+[ext_resource type="PackedScene" uid="uid://uqx7nxukdpip" path="res://Scenes/UI/LevelupCardSelection/levelup_card.tscn" id="2_e4xw3"]
+
+[sub_resource type="Gradient" id="Gradient_bd5oq"]
+offsets = PackedFloat32Array(0.35545024)
+colors = PackedColorArray(0.23392546, 0.23392546, 0.23392543, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vjh1n"]
+gradient = SubResource("Gradient_bd5oq")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_bd5oq"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_vjh1n"]
+resource_name = "refresh_failed"
+length = 0.5
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rtp5w"]
+_data = {
+&"RESET": SubResource("Animation_bd5oq"),
+&"refresh_failed": SubResource("Animation_vjh1n")
+}
+
+[node name="LevelupCardSelection" type="Control" unique_id=810403176]
+z_index = 99
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_80ooo")
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=534923900]
+unique_name_in_owner = true
+
+[node name="BackgroundTextureRect" type="TextureRect" parent="Background" unique_id=1013730131]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = SubResource("GradientTexture2D_vjh1n")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=788694377]
+unique_name_in_owner = true
+
+[node name="Control" type="Control" parent="UI" unique_id=384451107]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardContainer" type="HBoxContainer" parent="UI/Control" unique_id=1102882875]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -562.0
+offset_top = -200.0
+offset_right = 562.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 32
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelupCard" parent="UI/Control/CardContainer" unique_id=388003775 instance=ExtResource("2_e4xw3")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LevelupCard2" parent="UI/Control/CardContainer" unique_id=1145898850 instance=ExtResource("2_e4xw3")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LevelupCard3" parent="UI/Control/CardContainer" unique_id=1138152362 instance=ExtResource("2_e4xw3")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LevelupCard4" parent="UI/Control/CardContainer" unique_id=336608537 instance=ExtResource("2_e4xw3")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LevelupCard5" parent="UI/Control/CardContainer" unique_id=1985919511 instance=ExtResource("2_e4xw3")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TitleLabel" type="RichTextLabel" parent="UI" unique_id=1530101160]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -568.0
+offset_top = 68.0
+offset_right = 568.0
+offset_bottom = 134.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0)
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[wave amp=40.0 freq=3.0 connected=1] Select a [type] card for [name]"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=210427907]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_rtp5w")

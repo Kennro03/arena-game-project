@@ -1,6 +1,7 @@
 extends Control
 class_name UnitInfoPanel
 
+const LEVELUP_CARD_SELECTION = preload("uid://dorvy7lec2kjk")
 var humanoid_scene := preload("res://Scenes/Units/Humanoid/humanoid.tscn")
 #var placeholderLiveTarget : BaseUnit = stickman_scene.instantiate()
 #var placeholderDataTarget : UnitData = stickmanUnitData.new()
@@ -504,13 +505,18 @@ func clear_skills_entries_outline() -> void:
 			row_entry_value.remove_theme_constant_override("outline_size")
 
 func _on_draw_button_pressed() -> void:
-	print("Drawing possible boons... (placeholder, only gives a random stat point for now)")
-	var unit_stats : Stats = _get_stats()
-	var rand_stat : int = Stats.Attributes.values().pick_random()
+	var unit_stats := _get_stats()
+	if unit_stats.pending_draws.is_empty():
+		return
 	
-	unit_stats.attribute_points_available += 1
-	unit_stats.spend_attribute_point(rand_stat)
+	var draw_type : DrawSchedule.DrawType = unit_stats.pending_draws.pop_front()
+	draw_button.visible = not unit_stats.pending_draws.is_empty()
 	
-	unit_stats.draws_available -= 1
-	if unit_stats.draws_available <= 0 :
-		draw_button.visible = false
+	var selection := LEVELUP_CARD_SELECTION.instantiate() as LevelupCardSelection
+	Player.overlay_layer.add_child(selection)
+	
+	var target_unit = unit if unit is BaseUnit else null
+	selection.setup(target_unit, draw_type, 1)
+	
+	selection.tree_exited.connect(func():
+		draw_button.visible = not unit_stats.pending_draws.is_empty())

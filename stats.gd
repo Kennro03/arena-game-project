@@ -1,6 +1,8 @@
 extends Resource
 class_name Stats
 
+signal draws_available_changed()
+
 enum Attributes {
 	STRENGTH,
 	DEXTERITY,
@@ -182,9 +184,10 @@ var attribute_points_spent: int = 0
 var attribute_points_available: int:
 	get(): return total_attribute_points_gained - attribute_points_spent
 
-var draws_available: int = 0
-var draws_used: int = 0
-
+var pending_draws: Array[DrawSchedule.DrawType] = []
+var draws_used: Array[DrawSchedule.DrawType] = []
+var draws_available: int:
+	get: return pending_draws.size()
 
 var current_strength : int 
 var current_dexterity : int 
@@ -411,8 +414,10 @@ func _on_level_changed(old_level: int, new_level: int) -> void:
 			base_attunement += all_attributes_bonus
 		
 		# draw every X levels
-		if lvl % draw_every == 0:
-			draws_available += 1
+		if DrawSchedule.has_draw(new_level):
+			var draw_type := DrawSchedule.get_draw_type(new_level)
+			pending_draws.append(draw_type)
+			draws_available_changed.emit()  
 			# Events.tuning_available.emit(self) -- for later
 	
 	#Events.unit_leveled_up.emit(self, old_level, new_level)

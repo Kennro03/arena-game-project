@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cl0ecftcin7ht" path="res://Scenes/Expedition/expedition_selection.gd" id="1_ier8u"]
 
 [sub_resource type="Gradient" id="Gradient_bd5oq"]
-offsets = PackedFloat32Array(0.4, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0.35545024)
+colors = PackedColorArray(0, 0, 0, 0.19607843)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vjh1n"]
 gradient = SubResource("Gradient_bd5oq")
