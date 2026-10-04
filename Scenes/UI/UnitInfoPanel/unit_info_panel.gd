@@ -480,11 +480,11 @@ func update_skills_details(skill: Skill) -> void :
 			skill_entry_details_label.append_text("\n Max charges : %s " % str(skill.charges))
 		match skill.interrupt_type :
 			skill.InterruptType.UNINTERRUPTIBLE :
-				skill_entry_details_label.append_text("\n [color=gray]Casting : Unstoppable[/color]" % str(skill.SkillCategory.keys()[skill.category]).capitalize())
+				skill_entry_details_label.append_text("\n [color=gray]Casting : Unstoppable[/color]")
 			skill.InterruptType.INTERRUPTED_BY_STUN :
-				skill_entry_details_label.append_text("\n [color=gray]Casting : Stunnable[/color]" % str(skill.SkillCategory.keys()[skill.category]).capitalize())
+				skill_entry_details_label.append_text("\n [color=gray]Casting : Stunnable[/color]")
 			skill.InterruptType.INTERRUPTED_BY_HIT :
-				skill_entry_details_label.append_text("\n [color=gray]Casting : Interruptible[/color]" % str(skill.SkillCategory.keys()[skill.category]).capitalize())
+				skill_entry_details_label.append_text("\n [color=gray]Casting : Interruptible[/color]")
 	skill_entry_details_label.append_text("\n"+description)
 	skill_entry_details_label.append_text("\n\n Tags : " )
 	var tags := ", ".join(skill.tags.map(func(t): return t.capitalize()))
@@ -512,7 +512,8 @@ func _on_draw_button_pressed() -> void:
 	if unit_stats.pending_draws.is_empty():
 		return
 	
-	var draw_type : DrawSchedule.DrawType = unit_stats.pending_draws.pop_front()
+	#move removing the first draw to when card is selected
+	var draw_type : DrawSchedule.DrawType = unit_stats.pending_draws.front()
 	draw_button.visible = not unit_stats.pending_draws.is_empty()
 	
 	var selection := LEVELUP_CARD_SELECTION.instantiate() as LevelupCardSelection
@@ -520,4 +521,6 @@ func _on_draw_button_pressed() -> void:
 	selection.setup(unit, draw_type, 1)
 	
 	selection.tree_exited.connect(func():
+		if selection.selected_card == true :
+			unit_stats.pending_draws.erase(0) # Erase the pending draw if a card was apply
 		draw_button.visible = not unit_stats.pending_draws.is_empty())

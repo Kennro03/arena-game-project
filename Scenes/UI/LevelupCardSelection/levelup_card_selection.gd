@@ -23,6 +23,7 @@ var _draw_type: DrawSchedule.DrawType
 var _current_pool: Array[LevelupCardData] = []
 var _rerolls_remaining: int = 1
 var _cards_to_show: int = 3
+var selected_card : bool = false
 
 func _ready() -> void:
 	if test_in_editor or (Engine.is_editor_hint() == false and _unit == null):
@@ -83,6 +84,7 @@ func _card_selected(card_data: LevelupCardData) -> void:
 		_unit.apply_draw(card_data)
 	else:
 		print("Test mode — card not applied to any unit")
+	selected_card = true
 	await get_tree().process_frame  # replace animation await for now
 	queue_free()
 
