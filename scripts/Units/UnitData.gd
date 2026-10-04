@@ -1,6 +1,10 @@
 extends Resource
 class_name UnitData
 
+signal stats_changed
+signal skills_changed
+signal gear_changed
+
 var unit_scene : PackedScene = preload("res://Scenes/Units/BaseUnit/BaseUnit.tscn")
 
 ## Identity / UI
@@ -255,6 +259,7 @@ func auto_spend_attribute_points() -> void:
 	while stats.attribute_points_available > 0:
 		var attr := _pick_weighted_attribute()
 		stats.spend_attribute_point(attr)
+	stats_changed.emit()
 
 func _pick_weighted_attribute() -> Stats.Attributes:
 	var total : int = attribute_weights.values().reduce(func(a, b): return a + b, 0.0)
@@ -265,3 +270,27 @@ func _pick_weighted_attribute() -> Stats.Attributes:
 			return attr
 	printerr("Used fallback weight attribute !")
 	return Stats.Attributes.STRENGTH
+
+func apply_draw(card_data: LevelupCardData) -> void:
+	match card_data.card_type:
+		LevelupCardData.CardType.ACTIVE_SKILL, LevelupCardData.CardType.PASSIVE_SKILL:
+			if card_data.skill:
+				skill_list.append(card_data.skill.duplicate(true))
+				skills_changed.emit()
+		LevelupCardData.CardType.STAT_BONUS:
+			if card_data.stat_buff:
+				var buff := card_data.stat_buff.duplicate(true) as Buff
+				stats.add_buff(buff)
+				stats.recalculate_stats()
+				stats_changed.emit()
+
+func auto_process_draws() -> void:
+	while not stats.pending_draws.is_empty():
+		var draw_type: DrawSchedule.DrawType = stats.pending_draws.pop_front()
+		var pool := CardPoolGenerator.generate_pool_for_data(self, draw_type, 3)
+		if not pool.is_empty():
+			apply_draw(pool.pick_random())
+			#emit all just in case
+			skills_changed.emit()
+			stats_changed.emit()
+			gear_changed.emit()

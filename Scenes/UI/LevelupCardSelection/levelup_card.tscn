@@ -52,6 +52,7 @@ size_flags_vertical = 3
 [node name="Title" type="RichTextLabel" parent="MarginContainer/VBoxContainer/ExpeditionDetailsContainer" unique_id=976315868]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 32
 theme_override_font_sizes/bold_font_size = 32
 theme_override_font_sizes/bold_italics_font_size = 32
@@ -64,6 +65,7 @@ horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/ExpeditionDetailsContainer" unique_id=2088750508]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/separator = SubResource("StyleBoxLine_rcy55")
 
 [node name="ImageRect" type="TextureRect" parent="MarginContainer/VBoxContainer/ExpeditionDetailsContainer" unique_id=2039268750]
@@ -74,6 +76,7 @@ stretch_mode = 5
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer/ExpeditionDetailsContainer" unique_id=525752524]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/separator = SubResource("StyleBoxLine_rcy55")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/ExpeditionDetailsContainer" unique_id=1625812474]
@@ -86,6 +89,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 bbcode_enabled = true
 text = "Card description, goes on for a while bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla  bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla  bla bla bla bla bla bla bla bla bla  bla bla bla bla bla bla bla bla bla bla bla bla bla bla   bla bla bla bla bla bla bla bla bla  bla bla bla bla bla bla bla bla bla bla bla bla bla bla "
 
@@ -94,6 +98,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+mouse_filter = 1
+mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 32
 text = "Select card"
 
@@ -102,10 +108,14 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+mouse_filter = 1
+mouse_default_cursor_shape = 2
 text = "Reroll card"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/SelectButton" to="." method="_on_select_button_pressed"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SelectButton" to="." method="_on_embark_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/RerollButton" to="." method="_on_reroll_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SelectButton" to="." method="_on_select_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/RerollButton" to="." method="_on_embark_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/RerollButton" to="." method="_on_reroll_button_pressed"]

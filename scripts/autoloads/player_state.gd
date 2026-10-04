@@ -88,8 +88,10 @@ func _ready() -> void:
 	add_unit_to_reserve(humanoidUnitData.new().with_active_skill(preload("uid://dhregwb73rglr")).duplicate(true))
 	add_unit_to_reserve(humanoidUnitData.new().with_active_skill(preload("uid://b1y3fhvahlv34")).duplicate(true))
 	add_unit_to_reserve(humanoidUnitData.new().with_active_skill(preload("uid://dli7e6s5tu673")).duplicate(true))
-	add_unit_to_reserve(humanoidUnitData.new())
-	add_unit_to_team(humanoidUnitData.new().with_passive_skill(preload("uid://cwenfsltyjw5l")).duplicate(true))
+	var experienced_unit := humanoidUnitData.new()
+	experienced_unit.stats.experience = 3000
+	add_unit_to_team(experienced_unit)
+	add_unit_to_reserve(humanoidUnitData.new().with_passive_skill(preload("uid://cwenfsltyjw5l")).duplicate(true))
 
 func add_item_to_inventory(item: Item) -> void:
 	inventory.append(item)

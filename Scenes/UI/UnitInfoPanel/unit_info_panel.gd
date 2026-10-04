@@ -112,6 +112,8 @@ func _setup_live(target: BaseUnit) -> void:
 	target.weapon_changed.connect(set_gear)
 	target.armor_changed.connect(set_gear)
 	target.accessories_changed.connect(set_gear)
+	
+	target.skillModule.skills_changed.connect(set_skills_view)
 
 # UnitData setup 
 func _setup_data(_target: UnitData) -> void:
@@ -122,6 +124,7 @@ func _setup_data(_target: UnitData) -> void:
 	_target.stats.stats_recalculated.connect(_on_stats_changed)
 	var unit_stats := _get_stats()
 	_apply_unit_data_buffs(unit_stats)
+	_target.skills_changed.connect(set_skills_view)
 
 func _populate_shared() -> void:
 	iconRect.texture = _get_icon()
@@ -465,7 +468,7 @@ func update_skills_details(skill: Skill) -> void :
 	var skill_name : String = skill.name
 	var description : String = skill.description
 	
-	skill_icon_rect.texture = skill.icon_image if skill.icon != null else null
+	skill_icon_rect.texture = skill.icon if skill.icon != null else null
 	skill_icon_rect.custom_minimum_size = Vector2(64,64) if skill_icon_rect.texture != null else Vector2(0,0)
 	
 	skill_entry_details_label.clear()
@@ -514,9 +517,7 @@ func _on_draw_button_pressed() -> void:
 	
 	var selection := LEVELUP_CARD_SELECTION.instantiate() as LevelupCardSelection
 	Player.overlay_layer.add_child(selection)
-	
-	var target_unit = unit if unit is BaseUnit else null
-	selection.setup(target_unit, draw_type, 1)
+	selection.setup(unit, draw_type, 1)
 	
 	selection.tree_exited.connect(func():
 		draw_button.visible = not unit_stats.pending_draws.is_empty())

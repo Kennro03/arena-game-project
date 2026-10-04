@@ -4,14 +4,12 @@
 [ext_resource type="Script" uid="uid://cdw72nf8wldvw" path="res://Scenes/Levels/Battles/battle_manager.gd" id="1_qxkfb"]
 [ext_resource type="Script" uid="uid://dwmydh74ue3yd" path="res://Scenes/Levels/Battles/battle_scene.gd" id="1_yeqs3"]
 [ext_resource type="Script" uid="uid://bwcfr6i00qe4v" path="res://Scenes/Levels/EnemyData.gd" id="3_2bwfk"]
-[ext_resource type="Resource" uid="uid://ciep7c7clyrq2" path="res://ressources/Units/enemy_data/BigGuy.tres" id="4_2bwfk"]
+[ext_resource type="Resource" uid="uid://bh7j0fjibu324" path="res://ressources/Units/enemy_data/LittleGuy.tres" id="4_cwfw2"]
 [ext_resource type="Script" uid="uid://b2x5b5wxr3o6d" path="res://Scenes/Levels/battleData.gd" id="5_0xk5e"]
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="5_qeo1e"]
-[ext_resource type="PackedScene" uid="uid://dorvy7lec2kjk" path="res://Scenes/UI/LevelupCardSelection/levelup_card_selection.tscn" id="9_b1ohq"]
 [ext_resource type="PackedScene" uid="uid://byhr33en8uwpc" path="res://Scenes/UI/DeployedUnitsDisplay/deployed_units_display.tscn" id="12_g63sf"]
 [ext_resource type="PackedScene" uid="uid://ddda1s0ehj3f2" path="res://Scenes/UI/ReserveSpaceDisplay/reserve_space_display.tscn" id="13_57vkc"]
 [ext_resource type="PackedScene" uid="uid://dtqhjv70ev50m" path="res://Scenes/UI/InventorySpaceDisplay/inventory_space_display.tscn" id="14_cwfw2"]
-[ext_resource type="PackedScene" uid="uid://cpj71uqou8faa" path="res://Scenes/UI/UnitInfoPanel/unit_information_panel.tscn" id="16_w3d5s"]
 [ext_resource type="Theme" uid="uid://cgpx5w31026n2" path="res://ressources/Theme/test_theme.tres" id="17_w3d5s"]
 [ext_resource type="Script" uid="uid://ben5vbqduryol" path="res://Scenes/Levels/Battles/Spawner.gd" id="18_3mj8a"]
 [ext_resource type="PackedScene" uid="uid://c00k7lwp02v1d" path="res://Scenes/UI/BattleUI/battle_ui.tscn" id="19_c652g"]
@@ -19,7 +17,7 @@
 
 [sub_resource type="Resource" id="Resource_jgp7d"]
 script = ExtResource("5_0xk5e")
-forced_enemies = Array[ExtResource("3_2bwfk")]([ExtResource("4_2bwfk")])
+forced_enemies = Array[ExtResource("3_2bwfk")]([ExtResource("4_cwfw2"), ExtResource("4_cwfw2"), ExtResource("4_cwfw2"), ExtResource("4_cwfw2")])
 metadata/_custom_type_script = "uid://b2x5b5wxr3o6d"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8da8d"]
@@ -100,8 +98,6 @@ zoom = Vector2(2, 2)
 unique_name_in_owner = true
 layer = 20
 
-[node name="LevelupCardSelection" parent="OverlayUI" unique_id=810403176 instance=ExtResource("9_b1ohq")]
-
 [node name="UI" type="CanvasLayer" parent="." unique_id=2001671820]
 unique_name_in_owner = true
 layer = 10
@@ -133,8 +129,6 @@ layout_mode = 2
 [node name="InventorySpaceDisplay" parent="UI/VBoxContainer" unique_id=456296680 instance=ExtResource("14_cwfw2")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="UnitInfoPanel" parent="UI" unique_id=1287558197 instance=ExtResource("16_w3d5s")]
 
 [connection signal="mouse_entered" from="SpawnZones/NeutralZone" to="BattleSpawner" method="_on_neutral_zone_mouse_entered"]
 [connection signal="mouse_exited" from="SpawnZones/NeutralZone" to="BattleSpawner" method="_on_neutral_zone_mouse_exited"]

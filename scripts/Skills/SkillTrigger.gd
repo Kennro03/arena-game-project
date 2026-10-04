@@ -1,12 +1,12 @@
 extends Resource
 class_name SkillTrigger
 
-var _callable: Callable
+var callable: Callable
 
-func connect_to_unit(unit: BaseUnit, callable: Callable) -> void:
-	_callable = callable
+func connect_to_unit(_unit: BaseUnit, _callable: Callable) -> void:
+	callable = _callable
 
-func disconnect_from_unit(unit: BaseUnit, callable: Callable) -> void:
+func disconnect_from_unit(_unit: BaseUnit, _callable: Callable) -> void:
 	pass
 
 func tick(_delta: float) -> void:

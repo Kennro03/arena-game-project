@@ -4,6 +4,7 @@
 
 [node name="InspectMenuButton" type="Button" unique_id=30007547]
 custom_minimum_size = Vector2(150, 0)
+mouse_default_cursor_shape = 2
 text = "Details aaaaa"
 alignment = 0
 text_overrun_behavior = 3

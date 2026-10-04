@@ -29,14 +29,19 @@ _data = {
 [node name="LevelupCardSelection" type="Control" unique_id=810403176]
 z_index = 99
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_80ooo")
+test_rerolls = 50
 
-[node name="Background" type="CanvasLayer" parent="." unique_id=534923900]
-unique_name_in_owner = true
-
-[node name="BackgroundTextureRect" type="TextureRect" parent="Background" unique_id=1013730131]
+[node name="BackgroundTextureRect" type="TextureRect" parent="." unique_id=1013730131]
 texture_filter = 1
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -45,11 +50,8 @@ grow_vertical = 2
 mouse_filter = 0
 texture = SubResource("GradientTexture2D_vjh1n")
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=788694377]
-unique_name_in_owner = true
-
-[node name="Control" type="Control" parent="UI" unique_id=384451107]
-layout_mode = 3
+[node name="Control" type="Control" parent="." unique_id=384451107]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -58,7 +60,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="CardContainer" type="HBoxContainer" parent="UI/Control" unique_id=1102882875]
+[node name="CardContainer" type="HBoxContainer" parent="Control" unique_id=1102882875]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -77,28 +79,29 @@ theme_override_constants/separation = 32
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="LevelupCard" parent="UI/Control/CardContainer" unique_id=388003775 instance=ExtResource("2_e4xw3")]
+[node name="LevelupCard" parent="Control/CardContainer" unique_id=388003775 instance=ExtResource("2_e4xw3")]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="LevelupCard2" parent="UI/Control/CardContainer" unique_id=1145898850 instance=ExtResource("2_e4xw3")]
+[node name="LevelupCard2" parent="Control/CardContainer" unique_id=1145898850 instance=ExtResource("2_e4xw3")]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="LevelupCard3" parent="UI/Control/CardContainer" unique_id=1138152362 instance=ExtResource("2_e4xw3")]
+[node name="LevelupCard3" parent="Control/CardContainer" unique_id=1138152362 instance=ExtResource("2_e4xw3")]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="LevelupCard4" parent="UI/Control/CardContainer" unique_id=336608537 instance=ExtResource("2_e4xw3")]
+[node name="LevelupCard4" parent="Control/CardContainer" unique_id=336608537 instance=ExtResource("2_e4xw3")]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="LevelupCard5" parent="UI/Control/CardContainer" unique_id=1985919511 instance=ExtResource("2_e4xw3")]
+[node name="LevelupCard5" parent="Control/CardContainer" unique_id=1985919511 instance=ExtResource("2_e4xw3")]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="TitleLabel" type="RichTextLabel" parent="UI" unique_id=1530101160]
+[node name="TitleLabel" type="RichTextLabel" parent="." unique_id=1530101160]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -116,3 +119,33 @@ horizontal_alignment = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=210427907]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_rtp5w")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=24140554]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.5
+offset_top = -104.0
+offset_right = 81.5
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 32
+
+[node name="SelectRandomButton" type="Button" parent="HBoxContainer" unique_id=2016036849]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Select randomly"
+
+[node name="CancelSelectionButton" type="Button" parent="HBoxContainer" unique_id=1727566416]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Cancel Selection"
+
+[connection signal="pressed" from="HBoxContainer/SelectRandomButton" to="." method="_on_select_random_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/CancelSelectionButton" to="." method="_on_cancel_selection_button_pressed"]

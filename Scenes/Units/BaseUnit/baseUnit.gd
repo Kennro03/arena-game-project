@@ -580,3 +580,28 @@ func _on_selection_area_input_event(_viewport: Node, _event: InputEvent, _shape_
 			unit_clicked.emit(self)
 		if _event.button_index == MOUSE_BUTTON_RIGHT:
 			Inspector.open(self)
+
+func auto_select_draw(draw_type: DrawSchedule.DrawType) -> void:
+	var pool := CardPoolGenerator.generate_pool(self, draw_type, 3)
+	if pool.is_empty():
+		return
+	# AI picks by tag preference or randomly
+	var picked := _pick_draw(pool)
+	apply_draw(picked)
+
+func _pick_draw(pool: Array[LevelupCardData]) -> LevelupCardData:
+	# override in subclasses or use unit_data preference tags
+	return pool.pick_random()
+
+func apply_draw(card_data: LevelupCardData) -> void:
+	match card_data.card_type:
+		LevelupCardData.CardType.ACTIVE_SKILL, LevelupCardData.CardType.PASSIVE_SKILL:
+			if card_data.skill:
+				skillModule.add_skill(card_data.skill)
+		LevelupCardData.CardType.STAT_BONUS:
+			if card_data.stat_buff:
+				stats.add_buff(card_data.stat_buff.duplicate(true))
+				stats.recalculate_stats()
+
+func process_pending_draws() -> void:
+	pass

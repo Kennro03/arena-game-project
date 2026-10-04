@@ -24,8 +24,18 @@ func _on_reroll_button_pressed() -> void:
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed \
 			and event.button_index == MOUSE_BUTTON_LEFT:
+		if reroll_button.visible and reroll_button.get_global_rect().has_point(get_global_mouse_position()):
+			return
 		card_clicked.emit()
 		accept_event()
 
 func set_reroll_visible(_visible: bool) -> void:
 	reroll_button.visible = _visible
+
+func _on_mouse_entered() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector2(1.1,1.1), 0.1).set_trans(Tween.TRANS_CUBIC)
+
+func _on_mouse_exited() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector2(1.0,1.0), 0.1).set_trans(Tween.TRANS_CUBIC)

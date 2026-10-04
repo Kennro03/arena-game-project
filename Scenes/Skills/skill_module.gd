@@ -1,6 +1,8 @@
 extends Node
 class_name SkillModule
 
+signal skills_changed
+
 @export var skill_check_delay : float = 0.5 #delay between checking for available skills 
 @export var general_cooldown_after_cast: float = 1.0
   
@@ -81,6 +83,7 @@ func _register_skill(skill: Skill) -> void:
 		var passive := skill.duplicate(true) as Passive_Skill
 		passive.attach(owner as BaseUnit)
 		_passive_skills.append(passive)
+	skills_changed.emit()
 
 func _disconnect_skills() -> void:
 	print("Disconnecting all skills")
@@ -99,9 +102,10 @@ func _disconnect_skills() -> void:
 	_active_skills.clear()
 	_passive_skills.clear()
 	skill_list.clear()
+	skills_changed.emit()
 
 func _has_skill(skill: Skill) -> bool:
-	return skill_list.any(func(s): return s.skill_name == skill.skill_name)
+	return skill_list.any(func(s): return s.name == skill.name)
 
 func _try_use_skill() -> void:
 	if _is_casting or _general_cooldown > 0.0:

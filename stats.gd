@@ -388,23 +388,24 @@ func _on_shield_set(new_value : float) -> void:
 		shield_depleted.emit()
 
 func _on_experience_set(new_value: int) -> void:
-	var old_level : int = level
-	var old_exp : int = experience
+	var old_level := level
+	var old_exp := experience
 	experience = new_value
 	
-	if experience != old_exp :
+	if experience != old_exp:
 		exp_changed.emit(old_exp, experience)
 	
-	if level != old_level:
-		_on_level_changed(old_level, level)
+	var new_level := level
+	if new_level != old_level:
+		_on_level_changed(old_level, new_level)  # called once, handles range internally
 		level_changed.emit()
 		recalculate_stats()
+
 
 func _on_level_changed(old_level: int, new_level: int) -> void:
 	for lvl in range(old_level + 1, new_level + 1):
 		total_attribute_points_gained += attribute_points_per_level
 		
-		# all attributes bonus every X levels
 		if lvl % all_attributes_bonus_every == 0:
 			base_strength += all_attributes_bonus
 			base_dexterity += all_attributes_bonus
@@ -413,14 +414,19 @@ func _on_level_changed(old_level: int, new_level: int) -> void:
 			base_faith += all_attributes_bonus
 			base_attunement += all_attributes_bonus
 		
-		# draw every X levels
-		if DrawSchedule.has_draw(new_level):
-			var draw_type := DrawSchedule.get_draw_type(new_level)
-			pending_draws.append(draw_type)
-			draws_available_changed.emit()  
-			# Events.tuning_available.emit(self) -- for later
+		var draw := get_draw_for_level(lvl)
+		if draw != DrawSchedule.DrawType.NONE:
+			pending_draws.append(draw)
+			draws_available_changed.emit()
 	
 	#Events.unit_leveled_up.emit(self, old_level, new_level)
+
+func get_draw_for_level(level: int) -> DrawSchedule.DrawType:
+	if level % 5 == 0:
+		return DrawSchedule.DrawType.ACTIVE_SKILL
+	elif level % 3 == 0:
+		return DrawSchedule.DrawType.PASSIVE_SKILL
+	return DrawSchedule.DrawType.NONE
 
 func get_xp_for_level(target_level: int) -> int:
 	if target_level <= 1:
