@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/Hail1.png-5765d8f8b93914dc044c39d8b0ed8719.ct
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

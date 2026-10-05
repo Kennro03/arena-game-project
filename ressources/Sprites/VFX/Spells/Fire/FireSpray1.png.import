@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/FireSpray1.png-d6a2f739f1f81a06f7ddf45a6af4bb
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
