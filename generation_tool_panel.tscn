@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://1f6u8w0e5xnx"]
+
+[ext_resource type="Script" uid="uid://depoatv7kev5g" path="res://generation_tool_panel.gd" id="1_rxhpl"]
+
+[node name="GenerationToolPanel" type="PanelContainer" unique_id=818840208]
+offset_right = 156.0
+offset_bottom = 140.0
+script = ExtResource("1_rxhpl")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1731540155]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1944697344]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1035095854]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2001123436]
+layout_mode = 2
+text = "Level :"
+
+[node name="LvlSpinbox" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1372312210]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 999.0
+value = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=879142103]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=929147489]
+layout_mode = 2
+text = "Bonus exp :"
+
+[node name="ExpSpinbox" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=515241614]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=459488582]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=870418581]
+layout_mode = 2
+text = "Number of fighters :"
+
+[node name="CountSpinbox" type="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1919252340]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="WildcardCheck" type="CheckBox" parent="MarginContainer/VBoxContainer" unique_id=739613288]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Allow wildcards"
+
+[node name="ChecklistsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=733945698]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GenerateButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1326618879]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Generate"

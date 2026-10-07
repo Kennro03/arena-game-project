@@ -14,6 +14,10 @@ static var default_tier_weights := {
 	ItemMaterial.Material_Tiers.SPECIAL: 0.5,
 }
 
+static func get_all_materials() -> Array[ItemMaterial] : 
+	ensure_loaded()
+	return _materials
+
 static func ensure_loaded() -> void:
 	if _loaded:
 		return

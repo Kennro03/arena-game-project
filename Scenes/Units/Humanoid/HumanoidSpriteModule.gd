@@ -104,12 +104,12 @@ func play_attack() -> void:
 	
 	# ranged weapon shooting — try shoot animation first
 	if _weapon is RangedWeapon and (_weapon as RangedWeapon).is_shooting == true:
-		var candidates: Array[String] = [
+		var _candidates: Array[String] = [
 			"Stickman/%s_shoot" % wep_type,     # ex. bow_shoot
 			"Stickman/%s_shoot" % category,     # ex. light_shoot
 			"Stickman/default_shoot",           # fallback
 		]
-		play_candidates(candidates)
+		play_candidates(_candidates)
 		return
 	
 	var candidates : Array[String ]= [

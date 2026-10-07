@@ -11,6 +11,7 @@ class_name Passive_Skill
  
 var _current_cooldown: float = 0.0
 var _current_charges: int = 0
+@warning_ignore("unused_private_class_variable")
 var _last_triggered: float = -INF
 var _owner: BaseUnit
 

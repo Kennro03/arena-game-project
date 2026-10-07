@@ -1,0 +1,269 @@
+[gd_scene format=3 uid="uid://cbbr1vp20iks7"]
+
+[ext_resource type="Script" uid="uid://dgdg43lentylf" path="res://scripts/arena_setup.gd" id="1_m25ib"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m25ib"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.17785347, 0.17785347, 0.17785347, 0.98039216)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="ArenaSetup" type="Control" unique_id=588762909]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m25ib")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=858064127]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -210.0
+offset_right = 150.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m25ib")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=110460937]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=41238901]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=156405135]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "Arena Rules Setup"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="HBoxContainer11" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=497542313]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer11" unique_id=702269379]
+layout_mode = 2
+text = "Round format option "
+
+[node name="RoundFormatOption" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer11" unique_id=264410260]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=828201068]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=931649624]
+layout_mode = 2
+text = "Max fight duration (in seconds)"
+
+[node name="MaxDurationSpinbox" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=388561087]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 999.0
+value = 180.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1740333369]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1213131768]
+layout_mode = 2
+text = "Timeout rule"
+
+[node name="TimeoutOption" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1074444959]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1695838166]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1320323089]
+layout_mode = 2
+text = "Draw behavior"
+
+[node name="DrawBehaviorOption" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1610549878]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1305430849]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5" unique_id=1418940014]
+layout_mode = 2
+text = "Number of fights/rounds to progress : "
+
+[node name="ProgAfterSpinbox" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5" unique_id=1362381075]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=162718981]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1590929111]
+layout_mode = 2
+text = "Exp/progress : "
+
+[node name="ExpPerFightSpinbox" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1554590527]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer14" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=617932777]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer14" unique_id=1058971236]
+layout_mode = 2
+text = "Lvl/progess : "
+
+[node name="LvlPerFightSpinbox" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer14" unique_id=2064727275]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=776837364]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer6" unique_id=20577063]
+layout_mode = 2
+text = "Gear handling"
+
+[node name="GearHandlingOption" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer6" unique_id=1818330537]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RerollSection" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1146383608]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RerollWeaponTypeContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/RerollSection" unique_id=1780378083]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RerollSection/RerollWeaponTypeContainer" unique_id=285640664]
+layout_mode = 2
+text = "Allowed reroll weapon types : "
+
+[node name="RerollWeaponMatContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/RerollSection" unique_id=1172421996]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RerollSection/RerollWeaponMatContainer" unique_id=530366985]
+layout_mode = 2
+text = "Allowed reroll weapon materials :"
+
+[node name="RerollAllowedAccessoriesContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/RerollSection" unique_id=978440469]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RerollSection/RerollAllowedAccessoriesContainer" unique_id=1422209575]
+layout_mode = 2
+text = "Rerolled accessories after fight : "
+
+[node name="RerollAccessoryNumberContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/RerollSection" unique_id=2117661420]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RerollSection/RerollAccessoryNumberContainer2" unique_id=2020996342]
+layout_mode = 2
+text = "Rerolled accessories after fight"
+
+[node name="RerollAccessoryCountSpinbox" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/RerollSection/RerollAccessoryNumberContainer2" unique_id=1817490043]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=968916912]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer8" unique_id=1648629965]
+layout_mode = 2
+text = "Spectate"
+
+[node name="SpectatedCheck" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer8" unique_id=1615286419]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=607990238]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer9" unique_id=1463923109]
+layout_mode = 2
+text = "Pause between fights"
+
+[node name="PauseBetweenCheck" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer9" unique_id=2143177081]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1348024202]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer10" unique_id=615413063]
+layout_mode = 2
+text = "Simulation speed "
+
+[node name="SimulationSpeedSpinBox" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer10" unique_id=543212892]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+step = 0.1
+value = 1.0
+
+[node name="SimulationSpeedSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer10" unique_id=986807629]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.0
+
+[node name="HBoxContainer12" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=209549530]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer12" unique_id=386244463]
+layout_mode = 2
+text = "Required number of fighters"
+
+[node name="MinFightersSpinbox" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer12" unique_id=1006539744]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 2.0
+value = 2.0
+
+[node name="ProceedButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1600584829]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Proceed"
+
+[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer" unique_id=2108682386]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "x"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]

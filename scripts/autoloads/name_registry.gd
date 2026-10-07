@@ -5,6 +5,7 @@ static var _name_lists: Dictionary = {}  # key -> Array[String]
 
 static var _registry: Dictionary = {
 	"stickman": "res://ressources/Data/stickman_names.txt",
+	"humanoid": "res://ressources/Data/stickman_names.txt",
 	"slime": "",
 }
 

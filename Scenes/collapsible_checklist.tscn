@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b5ddwe8j8lctk"]
+
+[ext_resource type="Script" uid="uid://bsu6pnhami54l" path="res://Scenes/collapsible_checklist.gd" id="1_0tiuw"]
+
+[node name="CollapsibleChecklist" type="VBoxContainer" unique_id=1356252360]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_0tiuw")

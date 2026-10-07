@@ -100,6 +100,18 @@ text = " Camp
 "
 autowrap_trim_flags = 0
 
+[node name="ArenaGamemodeButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=144776393]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = " Arena "
+
+[node name="TournamentGamemodeButton" type="Button" parent="UI/UiRootNode/ButtonsVBoxContainer" unique_id=1975114326]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = " Tournament "
+
 [node name="GoldDisplay" parent="UI/UiRootNode" unique_id=148004886 instance=ExtResource("1_lci7e")]
 layout_mode = 0
 offset_left = 4.0
@@ -112,3 +124,5 @@ offset_bottom = 36.0
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/EventButton" to="." method="_on_event_button_pressed"]
 [connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/CampButton" to="." method="_on_camp_button_pressed"]
+[connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/ArenaGamemodeButton" to="." method="_on_arena_gamemode_button_pressed"]
+[connection signal="pressed" from="UI/UiRootNode/ButtonsVBoxContainer/TournamentGamemodeButton" to="." method="_on_tournament_gamemode_button_pressed"]

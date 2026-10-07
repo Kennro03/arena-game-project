@@ -1,0 +1,165 @@
+[gd_scene format=3 uid="uid://b0vaseb3p2e8r"]
+
+[ext_resource type="Script" uid="uid://d3py5rb8bfjio" path="res://Scenes/arena_fight_scene.gd" id="1_yjuyy"]
+[ext_resource type="Script" uid="uid://c8pdj04xpk0kl" path="res://scripts/ArenaTestTeam.gd" id="2_dtjro"]
+[ext_resource type="Script" uid="uid://csghl06iotc8y" path="res://ArenaConfig.gd" id="2_itojj"]
+[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://scripts/Units/UnitData.gd" id="3_o1gs2"]
+[ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="4_gcnp8"]
+[ext_resource type="Resource" uid="uid://ps2wy7q88f5b" path="res://ressources/Units/unit_data/Pablo.tres" id="4_gr6io"]
+[ext_resource type="Resource" uid="uid://dt5ucbvun4vyl" path="res://ressources/Units/unit_data/BigGuy.tres" id="5_tgw3m"]
+
+[sub_resource type="Resource" id="Resource_fnsfk"]
+script = ExtResource("2_dtjro")
+fighters = Array[ExtResource("3_o1gs2")]([ExtResource("4_gr6io")])
+override_color = Color(0, 1, 1, 1)
+metadata/_custom_type_script = "uid://c8pdj04xpk0kl"
+
+[sub_resource type="Resource" id="Resource_34igr"]
+script = ExtResource("2_dtjro")
+team_name = "Team 2"
+fighters = Array[ExtResource("3_o1gs2")]([ExtResource("5_tgw3m")])
+override_color = Color(1, 0, 0, 1)
+metadata/_custom_type_script = "uid://c8pdj04xpk0kl"
+
+[sub_resource type="Resource" id="Resource_yjuyy"]
+script = ExtResource("2_itojj")
+arena_radius = 400.0
+spawn_radius = 100.0
+metadata/_custom_type_script = "uid://csghl06iotc8y"
+
+[node name="ArenaFightScene" type="Node2D" unique_id=1887876671]
+script = ExtResource("1_yjuyy")
+test_mode = true
+test_teams = Array[ExtResource("2_dtjro")]([SubResource("Resource_fnsfk"), SubResource("Resource_34igr")])
+fight_config = SubResource("Resource_yjuyy")
+
+[node name="Arena" type="Node2D" parent="." unique_id=1344798893]
+unique_name_in_owner = true
+
+[node name="Units" type="Node2D" parent="." unique_id=1068604497]
+unique_name_in_owner = true
+y_sort_enabled = true
+position = Vector2(650, 350)
+
+[node name="SelectionManager" type="Node" parent="." unique_id=685531282]
+unique_name_in_owner = true
+script = ExtResource("4_gcnp8")
+metadata/_custom_type_script = "uid://cu6b4pflkscq6"
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1683688614]
+unique_name_in_owner = true
+
+[node name="OverlayLayer" type="CanvasLayer" parent="UILayer" unique_id=976196394]
+unique_name_in_owner = true
+
+[node name="CountdownLabel" type="Label" parent="UILayer" unique_id=1688856708]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -84.0
+offset_right = 208.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 128
+text = "Countdown"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="UILayer" unique_id=276052220]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 52.0
+offset_right = 64.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Status"
+horizontal_alignment = 1
+
+[node name="top-right HUD" type="HBoxContainer" parent="UILayer" unique_id=432616334]
+custom_minimum_size = Vector2(200, 0)
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 232.0
+offset_bottom = 64.0
+alignment = 1
+
+[node name="MenuButton" type="Button" parent="UILayer/top-right HUD" unique_id=481577580]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Open menu"
+
+[node name="PauseButton" type="Button" parent="UILayer/top-right HUD" unique_id=2128507809]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pause"
+
+[node name="SpeedSpinBox" type="SpinBox" parent="UILayer/top-right HUD" unique_id=27529229]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 0.1
+
+[node name="SpeedSlider" type="HSlider" parent="UILayer/top-right HUD" unique_id=1517208386]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.0
+
+[node name="MenuPanel" type="PanelContainer" parent="UILayer" unique_id=2091493171]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -40.0
+offset_right = 53.5
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/MenuPanel" unique_id=594802329]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuPanel/MarginContainer" unique_id=1220614339]
+layout_mode = 2
+
+[node name="InspectFightersButton" type="Button" parent="UILayer/MenuPanel/MarginContainer/VBoxContainer" unique_id=1261784383]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Inspect Fighters"
+
+[node name="ReturnToCircuitButton" type="Button" parent="UILayer/MenuPanel/MarginContainer/VBoxContainer" unique_id=68723161]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Return to Circuit"
+
+[node name="ReturnToMainMenuButton" type="Button" parent="UILayer/MenuPanel/MarginContainer/VBoxContainer" unique_id=2145813497]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Return to main menu"

@@ -108,7 +108,7 @@ static func _generate_skill_cards(
 	
 	return result
 
-static func _generate_stat_cards(unit: BaseUnit, count: int) -> Array[LevelupCardData]:
+static func _generate_stat_cards(_unit: BaseUnit, count: int) -> Array[LevelupCardData]:
 	var result: Array[LevelupCardData] = []
 	var stats := [
 		Stats.Attributes.STRENGTH, 

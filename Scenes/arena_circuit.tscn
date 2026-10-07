@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://clh70vlg1drhg"]
+
+[ext_resource type="Script" uid="uid://dnaidnmc4a7wu" path="res://arena_circuit.gd" id="1_5g6y2"]
+[ext_resource type="PackedScene" uid="uid://dbqlpbmnj7pnl" path="res://Scenes/participant_slot.tscn" id="2_vg0xa"]
+
+[node name="ArenaCircuit" type="Control" unique_id=1414504434]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5g6y2")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=281248656]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1757714185]
+layout_mode = 2
+
+[node name="ParticipantsVBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1318776831]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer" unique_id=499501263]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+bbcode_enabled = true
+text = "Fighters"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer" unique_id=1398785722]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="SlotsContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer" unique_id=482927616]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+columns = 9
+
+[node name="ParticipantSlot" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=62567015 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot2" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=14520332 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot3" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1362114345 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot4" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=107736838 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot5" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1218559517 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot6" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1958770921 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot7" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=315050657 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot8" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1902943788 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot9" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1226464574 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot10" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1343115722 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="ParticipantSlot11" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=307035561 instance=ExtResource("2_vg0xa")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer" unique_id=49347569]
+layout_mode = 2
+alignment = 1
+
+[node name="AutoProceedCheck" type="CheckBox" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/HBoxContainer" unique_id=1960632948]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Auto-proceed"
+
+[node name="NextMatchButton" type="Button" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/HBoxContainer" unique_id=1158262850]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start Match"
+
+[node name="MatchInfoVBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1284263304]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="MatchupLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=850209764]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+text = "Matchup"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="CountdownLabel" type="Label" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=1730877381]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Countdown..."
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=1146163105]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Status"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=591081127]
+layout_mode = 2
+
+[node name="Standings" type="Label" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=716997592]
+layout_mode = 2
+text = "Standings"
+horizontal_alignment = 1
+
+[node name="StandingsContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=1857791834]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3

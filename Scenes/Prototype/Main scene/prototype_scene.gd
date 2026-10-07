@@ -1,6 +1,9 @@
 extends Node2D
 
-@onready var ui: CanvasLayer = %UI
+const ARENA_SETUP = preload("uid://cbbr1vp20iks7")
+const FIGHTER_GENERATION_SCENE = preload("uid://c154o53mrj6im")
+const ARENA_CIRCUIT = preload("uid://clh70vlg1drhg")
+
 
 @export var expedition_selection_scene : StringName = &""
 @export var expedition_scene : StringName = &""
@@ -8,6 +11,8 @@ extends Node2D
 @export var shop_scene : StringName = &"" 
 @export var event_scene : StringName = &""
 @export var camp_scene : StringName = &""
+
+@onready var ui: CanvasLayer = %UI
 
 func _ready() -> void:
 	Player.current_scene = "uid://hlb8w8j5gs7u"
@@ -33,3 +38,10 @@ func _on_event_button_pressed() -> void:
 
 func _on_camp_button_pressed() -> void:
 	Player.go_to_scene(camp_scene)
+
+func _on_arena_gamemode_button_pressed() -> void:
+	var arena_setup := ARENA_SETUP.instantiate()
+	ui.add_child(arena_setup)
+
+func _on_tournament_gamemode_button_pressed() -> void:
+	pass # Replace with function body.

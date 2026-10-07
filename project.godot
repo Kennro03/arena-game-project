@@ -34,6 +34,7 @@ window/stretch/scale_mode="integer"
 [file_customization]
 
 folder_colors={
+"res://Fighters/": "orange",
 "res://Scenes/": "blue",
 "res://Scenes/Hitboxes/": "red",
 "res://Scenes/Levels/": "yellow",

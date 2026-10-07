@@ -3,6 +3,10 @@ class_name PlayerState
 
 const PLAYER_TEAM := preload("res://ressources/Teams/PlayerTeam.tres")
 
+# Arena gamemode 
+var pending_arena_fighters: Array[FighterData] = []
+var pending_arena_config: ArenaConfig = null
+
 # Economy
 var gold: int = 0:
 	set(value):

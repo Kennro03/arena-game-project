@@ -1,0 +1,155 @@
+[gd_resource type="Resource" script_class="FighterData" format=3 uid="uid://crhtuoqrm0wsi"]
+
+[ext_resource type="Script" uid="uid://cdmwvdb4yqxu5" path="res://ressources/FighterData.gd" id="1_1iisa"]
+[ext_resource type="Script" uid="uid://c0x01i4d7jn1q" path="res://StatArchetype.gd" id="2_onc8h"]
+[ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="3_0gpbm"]
+[ext_resource type="Script" uid="uid://cj80g8y6an50q" path="res://scripts/Units/UnitData.gd" id="4_24ret"]
+[ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="5_no0eb"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="6_qhcri"]
+[ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="7_beajp"]
+
+[sub_resource type="Resource" id="Resource_5kgx6"]
+script = ExtResource("2_onc8h")
+archetype_name = "Physical"
+stat_weights = {
+0: 1.0,
+1: 1.0,
+2: 1.0
+}
+focus_ratio = 0.8
+
+[sub_resource type="Resource" id="Resource_x2a4i"]
+script = ExtResource("6_qhcri")
+source_stat = 2
+scaling_value = 0.06
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_he6uh"]
+script = ExtResource("6_qhcri")
+source_stat = 4
+scaling_value = 0.02
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_8strk"]
+script = ExtResource("6_qhcri")
+source_stat = 1
+scaling_value = 0.3
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_w7ac7"]
+script = ExtResource("6_qhcri")
+source_stat = 5
+scaling_value = 0.25
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_rd0sk"]
+script = ExtResource("6_qhcri")
+source_stat = 3
+scaling_value = 0.2
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_h4715"]
+script = ExtResource("6_qhcri")
+scaling_value = 0.008
+
+[sub_resource type="Resource" id="Resource_mi7rl"]
+script = ExtResource("6_qhcri")
+source_stat = 5
+scaling_value = 0.01
+
+[sub_resource type="Resource" id="Resource_tc2rh"]
+script = ExtResource("6_qhcri")
+source_stat = 1
+scaling_value = 0.5
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_ip0u6"]
+script = ExtResource("6_qhcri")
+source_stat = 3
+scaling_value = 0.4
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_wphg5"]
+script = ExtResource("6_qhcri")
+source_stat = 2
+scaling_value = 0.15
+
+[sub_resource type="Resource" id="Resource_6p6n4"]
+script = ExtResource("6_qhcri")
+source_stat = 2
+scaling_value = 0.1
+
+[sub_resource type="Resource" id="Resource_dq4i0"]
+script = ExtResource("6_qhcri")
+source_stat = 4
+scaling_value = 0.08
+
+[sub_resource type="Resource" id="Resource_rdn76"]
+script = ExtResource("6_qhcri")
+source_stat = 2
+scaling_value = 2.5
+
+[sub_resource type="Resource" id="Resource_yrnth"]
+script = ExtResource("6_qhcri")
+source_stat = 5
+scaling_value = 1.5
+
+[sub_resource type="Resource" id="Resource_4pru1"]
+script = ExtResource("6_qhcri")
+source_stat = 1
+scaling_value = 1.25
+
+[sub_resource type="Resource" id="Resource_mnfep"]
+script = ExtResource("6_qhcri")
+source_stat = 5
+scaling_value = 0.75
+
+[sub_resource type="Resource" id="Resource_3y6jy"]
+script = ExtResource("6_qhcri")
+source_stat = 1
+scaling_value = 0.02
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_b8km8"]
+script = ExtResource("6_qhcri")
+scaling_value = 0.02
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_qaah5"]
+script = ExtResource("6_qhcri")
+source_stat = 3
+scaling_value = 0.03
+scaling_type = 1
+
+[sub_resource type="Resource" id="Resource_x3yey"]
+script = ExtResource("7_beajp")
+max_health_scalings = Array[ExtResource("6_qhcri")]([SubResource("Resource_rdn76"), SubResource("Resource_yrnth")])
+health_regen_scalings = Array[ExtResource("6_qhcri")]([SubResource("Resource_6p6n4"), SubResource("Resource_dq4i0")])
+movement_speed_scalings = Array[ExtResource("6_qhcri")]([SubResource("Resource_4pru1"), SubResource("Resource_mnfep")])
+dodge_probability_scalings = Array[ExtResource("6_qhcri")]([SubResource("Resource_tc2rh"), SubResource("Resource_ip0u6")])
+parry_probability_scalings = Array[ExtResource("6_qhcri")]([SubResource("Resource_3y6jy"), SubResource("Resource_b8km8"), SubResource("Resource_qaah5")])
+block_probability_scalings = Array[ExtResource("6_qhcri")]([SubResource("Resource_x2a4i"), SubResource("Resource_he6uh")])
+flat_block_power_scalings = Array[ExtResource("6_qhcri")]([SubResource("Resource_wphg5")])
+crit_chance_scalings = Array[ExtResource("6_qhcri")]([SubResource("Resource_8strk"), SubResource("Resource_w7ac7"), SubResource("Resource_rd0sk")])
+crit_damage_scalings = Array[ExtResource("6_qhcri")]([SubResource("Resource_h4715"), SubResource("Resource_mi7rl")])
+
+[sub_resource type="Resource" id="Resource_f0b36"]
+script = ExtResource("4_24ret")
+display_name = "Jayvon"
+color = Color(0.17999998, 0.9, 0.7643655, 1)
+stats = SubResource("Resource_x3yey")
+attribute_weights = {
+0: 0.26666666666666666,
+1: 0.26666666666666666,
+2: 0.26666666666666666,
+3: 0.06666666666666665,
+4: 0.06666666666666665,
+5: 0.06666666666666665
+}
+
+[resource]
+script = ExtResource("1_1iisa")
+arena_id = "arena_id_5981897_19"
+unit_data = SubResource("Resource_f0b36")
+stat_archetype = SubResource("Resource_5kgx6")
+tag_priority = Array[String](["spear"])

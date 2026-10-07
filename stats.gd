@@ -421,14 +421,14 @@ func _on_level_changed(old_level: int, new_level: int) -> void:
 	
 	#Events.unit_leveled_up.emit(self, old_level, new_level)
 
-func get_draw_for_level(level: int) -> DrawSchedule.DrawType:
-	if level % 5 == 0:
+func get_draw_for_level(_level: int) -> DrawSchedule.DrawType:
+	if _level % 5 == 0:
 		return DrawSchedule.DrawType.ACTIVE_SKILL
-	elif level % 3 == 0:
+	elif _level % 3 == 0:
 		return DrawSchedule.DrawType.PASSIVE_SKILL
 	return DrawSchedule.DrawType.NONE
 
-func get_xp_for_level(target_level: int) -> int:
+static func get_xp_for_level(target_level: int) -> int:
 	if target_level <= 1:
 		return 0
 	return int(BASE_LEVEL_XP * (pow(XP_GROWTH_RATE, target_level - 1) - 1) / (XP_GROWTH_RATE - 1))
