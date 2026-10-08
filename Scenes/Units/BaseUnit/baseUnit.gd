@@ -1,13 +1,7 @@
-extends Node2D
+extends Unit
 class_name BaseUnit
 
-signal hit_received(hit_data: HitData)
-signal unit_clicked(unit: BaseUnit)
-signal unit_died(unit: BaseUnit, killer: BaseUnit)
-signal unit_downed(unit: BaseUnit, killer: BaseUnit)
-signal weapon_changed(weapon: Weapon)
 signal armor_changed(armor: Armor)
-signal accessories_changed(accessories: Array[Accessory])
 
 @onready var animationPlayer = %AnimationPlayer
 @onready var spriteModule : SpriteModule = %SpriteModule
@@ -18,38 +12,23 @@ signal accessories_changed(accessories: Array[Accessory])
 @onready var drag_and_drop_component: UnitDragAndDrop = %UnitDragAndDropComponent
 @onready var velocity_based_rotation_component: VelocityBasedRotation = %VelocityBasedRotationComponent
 @onready var outline_highlight_component: OutlineHighlighter = %OutlineHighlightComponent
-@onready var state_machine: BaseUnitStateMachine = $StateMachine
+@onready var state_machine: UnitStateMachine = $StateMachine
 @onready var hurtbox_collision_shape: CollisionShape2D = %HurtboxCollisionShape
 @onready var selection_area_collision_shape: CollisionShape2D = %SelectionAreaCollisionShape
 
-@export var id: String = "BaseUnit"
-@export var display_name: String = "BaseUnit"
-@export var unit_type: String = "Debug"
-@export var description: String = "The template used to create units."
+@export var display_name: String = "Unit"
 
 @export_group("Visuals")
-@export var icon: Texture2D = null
 @export var sprite_color:= Color.WHITE
-@export var show_name: bool = true
-@export var show_health: bool = true
 @export var weapon_spritesheets: Dictionary = {
 	Weapon.WeaponTypeEnum.UNARMED: PlaceholderTexture2D.new(),
 }
 
 @export_group("Interactions")
-@export var team: Team
-@export var stats : Stats = Stats.new()
 @export var unit_size: float = 32.0  
-@export var weapon : Weapon = null
-@export var default_weapon : Weapon = null
 @export var armor : Armor = null
-@export var accessories : Array[Accessory] = []
 
 # Identity & relations related
-var unit_data: UnitData = null      # reference to unit own's unit data
-var summoner : BaseUnit = null      # if unit was summoned, references summoner
-var last_hit_owner: BaseUnit = null # last unit to have hit this unit
-
 # Action related
 var is_action_locked : bool = false
 var is_silenced : bool = false
@@ -62,24 +41,17 @@ var movement_direction: Vector2 = Vector2.ZERO
 var velocity_smoothing: float = 0.2  # lower = smoother, higher = more responsive
 
 var is_casting: bool:
-	get: return state_machine.is_in_state(BaseUnitState.CASTING)
+	get: return state_machine.is_in_state(UnitState.CASTING)
 var is_stunned: bool:
-	get: return state_machine.is_in_state(BaseUnitState.STUNNED)
+	get: return state_machine.is_in_state(UnitState.STUNNED)
 var is_downed: bool:
-	get: return state_machine.is_in_state(BaseUnitState.DOWNED)
+	get: return state_machine.is_in_state(UnitState.DOWNED)
 
 
 var last_attack_time:= 0.0
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay:= 1000.0 
 var deathmessagelist : Array[String] = ["DEAD","OOF","RIP","OUCH","BYE",":(","x_x"]
-var active: bool = true:
-	set(value):
-		active = value
-		if active:
-			_on_activated.call_deferred()
-		else:
-			_on_deactivated.call_deferred()
 
 func predict_position(time_ahead: float) -> Vector2:
 	# basic kinematic prediction: p + v*t + 0.5*a*t², clamped to not overshoot 
@@ -93,31 +65,6 @@ func predict_position(time_ahead: float) -> Vector2:
 
 func _smooth_velocity(new_vel: Vector2) -> void:
 	velocity = velocity.lerp(new_vel, velocity_smoothing)
-
-static func apply_buff(buff: Buff, unit: BaseUnit) -> void:
-	if unit == null :
-		printerr("Can't apply buff to missing unit.")
-		return
-	match buff.domain:
-		Buff.Domain.UNIT:
-			unit.stats.add_buff(buff)
-		Buff.Domain.WEAPON:
-			if unit.weapon:
-				unit.weapon.add_weapon_buff(buff)
-		Buff.Domain.ARMOR:
-			if unit.armor:
-				unit.armor.add_buff(buff)
-
-static func remove_buff(buff: Buff, unit: BaseUnit) -> void:
-	if unit == null :
-		printerr("Can't remove buff from missing unit.")
-		return
-	match buff.domain:
-		Buff.Domain.UNIT:
-			unit.stats.remove_buff(buff)
-		Buff.Domain.WEAPON:
-			if unit.weapon:
-				unit.weapon.remove_weapon_buff(buff)
 
 func _ready():
 	add_to_group("Live_Units")
@@ -163,7 +110,7 @@ func set_display_Module()->void:
 		stats.connect("shield_changed",displayModule.update_shieldBar)
 		stats.connect("shield_depleted",displayModule.hide_shieldBar)
 	stats.connect("health_depleted",get_downed)
-	displayModule.link_to_unit(self)
+	#displayModule.link_to_unit(self)
 
 func _on_activated() -> void:
 	$StateMachine.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -175,7 +122,7 @@ func _on_deactivated() -> void:
 	drag_and_drop_component.enabled = _is_player_unit()
 	drag_and_drop_component.allowed_zones = _get_allowed_zones()
 	velocity_based_rotation_component.enabled = true
-	#animationPlayer.play("BaseUnit/idle")
+	#animationPlayer.play("Unit/idle")
 
 func _is_player_unit() -> bool:
 	if unit_data == null:
@@ -264,7 +211,7 @@ func attack(target : Node2D):
 	hit.is_critical = randf() <= stats.current_crit_chance / 100.0
 	hit.crit_mult = stats.current_crit_damage
 	hit.knockback_direction = get_target_position_vector(target.global_position).normalized()
-	hit.hit_owner = self
+	#hit.hit_owner = self
 	weapon.hit(target, hit)
 
 func get_effective_team() -> Team:
@@ -273,7 +220,7 @@ func get_effective_team() -> Team:
 	return team
 
 # Returns the top-level non-summoned unit in the chain
-func get_summoner_root() -> BaseUnit:
+func get_summoner_root() -> Unit:
 	if summoner == null:
 		return self
 	return summoner.get_summoner_root()
@@ -284,7 +231,7 @@ func check_if_ally(target : Node2D) -> bool :
 		return false
 	
 	var my_root := get_summoner_root()
-	var their_root : BaseUnit = target.get_summoner_root() if target.has_method("get_summoner_root") else target
+	var their_root : Unit = target.get_summoner_root() if target.has_method("get_summoner_root") else target
 	if my_root == their_root and my_root != null:
 		#print("same root")
 		return true
@@ -302,33 +249,13 @@ func apply_knockback(target: Node2D, direction: Vector2, force: float):
 func receive_knockback(force: Vector2):
 	knockback_velocity += force
 
-func take_damage(incoming_damage : float, _damage_type: HitData.DamageType = HitData.DamageType.NONE, _hit_owner: BaseUnit = null) :
-	incoming_damage += stats.current_damage_taken_bonus
-	incoming_damage *= stats.current_damage_taken_multiplier
-	incoming_damage = round(incoming_damage * pow(10.0, 2)) / pow(10.0, 2)
-	
-	if armor != null :
-		incoming_damage *= armor.get_resistance(_damage_type)
-	
-	if stats.shield > 0.0 and stats.shield > incoming_damage :
-		stats.shield -= incoming_damage
-		%DamagePopupMarker.damage_popup(str(incoming_damage),0.5+0.01*incoming_damage,Color(0.6, 0.8, 0.8, 1.0))
-	elif stats.shield > 0.0 and stats.shield < incoming_damage :
-		incoming_damage -= stats.shield
-		%DamagePopupMarker.damage_popup(str(incoming_damage),0.5+0.01*incoming_damage,Color(0.6, 0.8, 0.8, 1.0))
-		stats.shield = 0.0
-		stats.health = stats.health - incoming_damage
-		%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
-	else :
-		stats.health = stats.health - incoming_damage
-		%DamagePopupMarker.damage_popup(str(incoming_damage),0.75+0.01*incoming_damage,Color(1,1-(incoming_damage*0.02),1-(incoming_damage*0.02)))
 
 func block(_hit: HitData):
 	spriteModule.play_block()
 	var flat_blocked_damage = maxf((_hit.base_damage-stats.current_flat_block_power),0.0)
 	var blocked_damage = flat_blocked_damage - ((flat_blocked_damage / 100)*stats.current_percent_block_power)
 	%DamagePopupMarker.damage_popup("Blocked!", 0.5,Color("LightBlue"))
-	take_damage(blocked_damage, _hit.damage_type, _hit.hit_owner) 
+	#take_damage(blocked_damage, _hit.damage_type, _hit.hit_owner) 
 	if (_hit.hit_owner.weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) and (weapon.weaponType != weapon.WeaponTypeEnum.UNARMED) :
 		particleModule.emit_block_particles()
 
@@ -343,14 +270,14 @@ func dodge(_hit: HitData):
 	apply_knockback(self, Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0)), 250.0)
 
 func resolve_hit(hit_result : HitData) :
-	last_hit_owner = hit_result.hit_owner  
-	if randf_range(0.0,100.0)<=stats.current_dodge_probability and !state_machine.is_in_state(BaseUnitState.CASTING) and !state_machine.is_in_state(BaseUnitState.STUNNED) :
+	#last_hit_owner = hit_result.hit_owner  
+	if randf_range(0.0,100.0)<=stats.current_dodge_probability and !state_machine.is_in_state(UnitState.CASTING) and !state_machine.is_in_state(UnitState.STUNNED) :
 		hit_result.outcome = HitData.HitOutcome.DODGE
 		dodge(hit_result)
-	elif randf_range(0.0,100.0)<=stats.current_parry_probability and !state_machine.is_in_state(BaseUnitState.CASTING) and !state_machine.is_in_state(BaseUnitState.STUNNED) :
+	elif randf_range(0.0,100.0)<=stats.current_parry_probability and !state_machine.is_in_state(UnitState.CASTING) and !state_machine.is_in_state(UnitState.STUNNED) :
 		hit_result.outcome = HitData.HitOutcome.PARRY
 		parry(hit_result)
-	elif randf_range(0.0,100.0)<=stats.current_block_probability and !state_machine.is_in_state(BaseUnitState.CASTING) and !state_machine.is_in_state(BaseUnitState.STUNNED) :
+	elif randf_range(0.0,100.0)<=stats.current_block_probability and !state_machine.is_in_state(UnitState.CASTING) and !state_machine.is_in_state(UnitState.STUNNED) :
 		hit_result.outcome = HitData.HitOutcome.BLOCK
 		block(hit_result)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2(0,0) :
@@ -361,7 +288,7 @@ func resolve_hit(hit_result : HitData) :
 	else :
 		hit_result.outcome = HitData.HitOutcome.HIT
 		skillModule.interrupt_active_skills("hit")
-		take_damage(hit_result.base_damage, hit_result.damage_type, hit_result.hit_owner)
+		#take_damage(hit_result.base_damage, hit_result.damage_type, hit_result.hit_owner)
 		_apply_passives(hit_result)
 		for effect in hit_result.status_effects :
 			#print("Resolve step : Applying " + str(effect.Status_effect_name))
@@ -406,9 +333,11 @@ func _apply_skills(skills: Array[Skill]) -> void:
 	if not is_node_ready():
 		await ready
 	for skill in skillModule._active_skills:
-		skill.detach(owner as BaseUnit)
+		pass
+		#skill.detach(owner as Unit)
 	for skill in skillModule._passive_skills:
-		skill.detach(owner as BaseUnit)
+		pass
+		#skill.detach(owner as Unit)
 	skillModule._active_skills.clear()
 	skillModule._passive_skills.clear()
 	skillModule.skill_list.clear()
@@ -416,7 +345,7 @@ func _apply_skills(skills: Array[Skill]) -> void:
 		skillModule.add_skill(skill)
 
 func apply_stun(duration: float) -> void:
-	state_machine._transition_to_next_state(BaseUnitState.STUNNED, {"duration": duration})
+	state_machine._transition_to_next_state(UnitState.STUNNED, {"duration": duration})
 
 func get_downed() -> void:
 	if is_instance_valid(last_hit_owner):
@@ -427,9 +356,9 @@ func get_downed() -> void:
 	
 	var dir = (last_hit_owner.global_position - self.global_position).normalized()
 	if dir.x < 0.0 : 
-		state_machine._transition_to_next_state(BaseUnitState.DOWNED,{"dir_mult":1})
+		state_machine._transition_to_next_state(UnitState.DOWNED,{"dir_mult":1})
 	else :
-		state_machine._transition_to_next_state(BaseUnitState.DOWNED,{"dir_mult":-1})
+		state_machine._transition_to_next_state(UnitState.DOWNED,{"dir_mult":-1})
 	
 	unit_downed.emit(self, last_hit_owner)
 
@@ -477,7 +406,7 @@ func equip_weapon(_wep : Weapon = null) -> void:
 	
 	if _wep :
 		weapon = _wep.duplicate(true)
-		weapon.owner = self
+		#weapon.owner = self
 		weapon.setup_stats()
 		weapon.apply_owner_buffs(stats)
 		

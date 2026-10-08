@@ -1,5 +1,5 @@
-extends BaseUnitState
-class_name BaseUnitCyclingAnims
+extends UnitState
+class_name UnitCyclingAnims
 
 var _is_cycling: bool = false
 
@@ -15,7 +15,7 @@ func _start_cycling() -> void:
 	_cycle.call_deferred()
 
 func _cycle() -> void:
-	var animations := unit.spriteModule.animation_player.get_animation_list()
+	var animations : Array[String] = unit.spriteModule.animation_player.get_animation_list()
 	for anim in animations:
 		if anim.contains("RESET") or anim.contains("go_down"):
 			continue

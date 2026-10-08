@@ -23,7 +23,7 @@ const AREA_SCENE := preload("uid://vnoq55ghhjy8")
 @export var sprite_scale: Vector2 = Vector2.ONE
 @export var sprite_color_modulation : Color = Color(1,1,1,1)
 
-func execute(caster: BaseUnit, context: Dictionary, next: Callable) -> void:
+func execute(caster: Unit, context: Dictionary, next: Callable) -> void:
 	var area : LingeringAreaEffect = AREA_SCENE.instantiate()
 	area.shape = shape
 	area.size = size
@@ -40,7 +40,7 @@ func execute(caster: BaseUnit, context: Dictionary, next: Callable) -> void:
 	area.sprite_scale = sprite_scale
 	area.sprite_color_modulation = sprite_color_modulation
 	
-	var target := context.get("target") as BaseUnit
+	var target : Unit = context.get("target")
 	
 	if follow_target : 
 		area.follows_target = true

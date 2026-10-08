@@ -1,5 +1,5 @@
-extends BaseUnitState
-class_name BaseUnitDownded
+extends UnitState
+class_name UnitDownded
 
 func enter(_previous_state_path: String, _data := {}) -> void:
 	unit.displayModule.state_rich_text_label.text = ""

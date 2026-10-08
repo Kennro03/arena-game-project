@@ -3,10 +3,10 @@ class_name SkillTrigger
 
 var callable: Callable
 
-func connect_to_unit(_unit: BaseUnit, _callable: Callable) -> void:
+func connect_to_unit(_unit: Unit, _callable: Callable) -> void:
 	callable = _callable
 
-func disconnect_from_unit(_unit: BaseUnit, _callable: Callable) -> void:
+func disconnect_from_unit(_unit: Unit, _callable: Callable) -> void:
 	pass
 
 func tick(_delta: float) -> void:

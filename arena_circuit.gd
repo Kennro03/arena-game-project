@@ -116,8 +116,6 @@ func _update_matchup_label(pair: Array[FighterData]) -> void:
 		pair[0].unit_data.display_name,
 		pair[1].unit_data.display_name])
 
-
-
 func _process(delta: float) -> void:
 	if not _is_counting_down:
 		return

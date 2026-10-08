@@ -4,6 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://1f6u8w0e5xnx" path="res://generation_tool_panel.tscn" id="2_4ithg"]
 [ext_resource type="PackedScene" uid="uid://dx7oew2jqeaka" path="res://custom_fighter_panel.tscn" id="3_573ql"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_573ql"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.9019608)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="FighterGenerationScene" type="Control" unique_id=233416656]
 layout_mode = 3
 anchors_preset = 15
@@ -13,15 +25,26 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xchk0")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1418821248]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1236771513]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
-[node name="ModeLabel" type="RichTextLabel" parent="VBoxContainer" unique_id=565848492]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1306913066]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_573ql")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer" unique_id=1418821248]
+layout_mode = 2
+
+[node name="ModeLabel" type="RichTextLabel" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=565848492]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(384, 0)
 layout_mode = 2
@@ -35,11 +58,11 @@ text = "Fighter Generation"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="FighterCountContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1585354758]
+[node name="FighterCountContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1585354758]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="FighterCountLabel" type="RichTextLabel" parent="VBoxContainer/FighterCountContainer" unique_id=1429291409]
+[node name="FighterCountLabel" type="RichTextLabel" parent="MarginContainer/PanelContainer/VBoxContainer/FighterCountContainer" unique_id=1429291409]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
@@ -53,75 +76,67 @@ text = "Number of fighters : xxx"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="FightersScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=1315440728]
+[node name="FightersScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1315440728]
 custom_minimum_size = Vector2(0, 500)
 layout_mode = 2
 
-[node name="SlotsContainer" type="GridContainer" parent="VBoxContainer/FightersScrollContainer" unique_id=533991432]
+[node name="SlotsContainer" type="GridContainer" parent="MarginContainer/PanelContainer/VBoxContainer/FightersScrollContainer" unique_id=533991432]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 columns = 16
 
-[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=366307847]
+[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=366307847]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="AddSlotButton" type="Button" parent="VBoxContainer/ButtonsHBoxContainer" unique_id=1827415344]
+[node name="AddSlotButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/ButtonsHBoxContainer" unique_id=1827415344]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "+ Add fighter slot
 "
 
-[node name="RemoveSlot" type="Button" parent="VBoxContainer/ButtonsHBoxContainer" unique_id=1776596867]
+[node name="RemoveSlot" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/ButtonsHBoxContainer" unique_id=1776596867]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "- Remove fighter Slot"
 
-[node name="ProceedButton" type="Button" parent="VBoxContainer/ButtonsHBoxContainer" unique_id=1568958184]
+[node name="ProceedButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/ButtonsHBoxContainer" unique_id=1568958184]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Proceed to arena"
 
-[node name="FoldableContainer" type="FoldableContainer" parent="." unique_id=490409644]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -148.0
-offset_top = -12.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="FoldableContainer" type="FoldableContainer" parent="MarginContainer/PanelContainer" unique_id=490409644]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 folded = true
 title = "Fighter Generator"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FoldableContainer" unique_id=778166891]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/FoldableContainer" unique_id=778166891]
 visible = false
 layout_mode = 2
 
-[node name="FoldableContainer2" type="FoldableContainer" parent="FoldableContainer/VBoxContainer" unique_id=519402382]
+[node name="FoldableContainer2" type="FoldableContainer" parent="MarginContainer/PanelContainer/FoldableContainer/VBoxContainer" unique_id=519402382]
 layout_mode = 2
 folded = true
 title = "Fighter batch Generator"
 
-[node name="GenerationToolPanel" parent="FoldableContainer/VBoxContainer/FoldableContainer2" unique_id=818840208 instance=ExtResource("2_4ithg")]
+[node name="GenerationToolPanel" parent="MarginContainer/PanelContainer/FoldableContainer/VBoxContainer/FoldableContainer2" unique_id=818840208 instance=ExtResource("2_4ithg")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="FoldableContainer3" type="FoldableContainer" parent="FoldableContainer/VBoxContainer" unique_id=1261711074]
+[node name="FoldableContainer3" type="FoldableContainer" parent="MarginContainer/PanelContainer/FoldableContainer/VBoxContainer" unique_id=1261711074]
 layout_mode = 2
 folded = true
 title = "Fighter custom Generator"
 
-[node name="CustomFighterPanel" parent="FoldableContainer/VBoxContainer/FoldableContainer3" unique_id=1862688881 instance=ExtResource("3_573ql")]
+[node name="CustomFighterPanel" parent="MarginContainer/PanelContainer/FoldableContainer/VBoxContainer/FoldableContainer3" unique_id=1862688881 instance=ExtResource("3_573ql")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

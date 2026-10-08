@@ -1,5 +1,5 @@
 extends Node
-class_name BaseUnitStateMachine 
+class_name UnitStateMachine 
 
 @export var initial_state: State = null
 
@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	owner.last_attack_time += delta
 	owner.stats.health += owner.stats.current_health_regen * delta
 	state.update(delta)
-	var unit : BaseUnit = owner
+	var unit : Unit = owner
 	if unit.active == false :
 		return
 	unit.skillModule._tick(delta)
@@ -67,7 +67,7 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 
 func border_knockback() -> void:
 	var bounds := Rect2(0, 0, 640, 360)
-	var owner_pos : BaseUnit = owner.global_position
+	var owner_pos : Unit = owner.global_position
 	var push := Vector2.ZERO
 	
 	if owner_pos.x > bounds.end.x:

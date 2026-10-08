@@ -1,10 +1,61 @@
-[gd_scene format=3 uid="uid://dkq72tu3j8e2o"]
+[gd_scene format=3 uid="uid://dnyvephuj0ykf"]
 
-[ext_resource type="Script" uid="uid://3idiedqayhbf" path="res://Scenes/UI/stickman_slot.gd" id="1_71i4w"]
 [ext_resource type="Texture2D" uid="uid://ccpr8mltdglbp" path="res://ressources/Sprites/Units/Stickman/Stickman White Tpose.png" id="1_fsf6l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsf6l"]
 bg_color = Color(0.13333334, 0.13333334, 0.13333334, 0.9411765)
+
+[sub_resource type="GDScript" id="GDScript_71i4w"]
+script/source = "extends Button
+class_name oldSlot
+@export var stickman_data: UnitData = null
+
+signal stickman_selected(_stickman_data: BaseUnit)
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	update_sprite()
+	connect(\"pressed\", Callable(self, \"_on_pressed\"))
+
+func _process(_delta: float) -> void:
+	pass
+
+func _on_pressed():
+	emit_signal(\"stickman_selected\", stickman_data)
+	
+	#if stickman_data :
+		#print(\"Type : \" + stickman_data.type)
+		
+
+func update_sprite() :
+	if stickman_data :
+		%StickmanSpriteIcon.texture = load(\"res://ressources/Sprites/Units/Stickman/Stickman White Tpose.png\")
+		%StickmanSpriteIcon.modulate = stickman_data.color
+		%StickmanSpriteIcon.visible = true
+	else : 
+		%StickmanSpriteIcon.visible = false
+
+func _on_mouse_entered():
+	pass
+	#if stickman_data != null :
+		#tooltip = tooltip_scene.instantiate()
+		#get_tree().root.add_child(tooltip)
+		#tooltip.set_text(\"Display name : \" + stickman_data.display_name)
+		#if stickman_data.weapon :
+		#	tooltip.add_line(\"Weapon : \" + str(stickman_data.weapon.weaponName) + \" (\" + Weapon.WeaponTypeEnum.keys()[stickman_data.weapon.weaponType] + \")\")
+		#tooltip.add_line(\"STR = \" + str(stickman_data.stats.current_strength))
+		#tooltip.add_line(\"END = \" + str(stickman_data.stats.current_endurance))
+		#tooltip.add_line(\"DEX = \" + str(stickman_data.stats.current_dexterity))
+		#tooltip.add_line(\"INT = \" + str(stickman_data.stats.current_intellect))
+		##tooltip.add_line(\"FAI = \" + str(stickman_data.stats.current_faith))
+		#tooltip.add_line(\"ATT = \" + str(stickman_data.stats.current_attunement))
+		
+
+func _on_mouse_exited():
+	pass
+	#if tooltip :
+	#	tooltip.queue_free()
+"
 
 [node name="StickmanSlot" type="Button" unique_id=851180985]
 custom_minimum_size = Vector2(64, 64)
@@ -15,7 +66,7 @@ size_flags_vertical = 4
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_fsf6l")
-script = ExtResource("1_71i4w")
+script = SubResource("GDScript_71i4w")
 
 [node name="StickmanSpriteIcon" type="Sprite2D" parent="." unique_id=403082709]
 unique_name_in_owner = true

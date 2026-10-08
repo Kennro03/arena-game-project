@@ -5,11 +5,11 @@ signal stats_changed
 signal skills_changed
 signal gear_changed
 
-var unit_scene : PackedScene = preload("res://Scenes/Units/BaseUnit/BaseUnit.tscn")
+var unit_scene : PackedScene = null  
 
 ## Identity / UI
-@export var id: String = "BaseUnit"
-@export var display_name: String = "BaseUnit"
+@export var id: String = "Unit"
+@export var display_name: String = "Unit"
 @export var unit_type: String = "Debug"
 @export var description: String = "The template used to create units."
 

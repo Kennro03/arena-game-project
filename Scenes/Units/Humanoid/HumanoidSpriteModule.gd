@@ -3,7 +3,7 @@ class_name HumanoidSpriteModule
 
 var PALETTE_SWAP_MATERIAL = preload("uid://dq56kvtjp86e0")
 
-@onready var humanoid: Humanoid = $".."
+@onready var humanoid: HumanoidUnit = $".."
 
 @onready var head: Node2D = $Head
 @onready var skull: Sprite2D = $Head/Skull
@@ -33,7 +33,6 @@ func _ready() -> void:
 
 func update_sprites() -> void: # called when sprites/armor/weapon change
 	print("Updating sprites.")
-	var unit := owner as Humanoid
 	
 	skull.texture = head_texture
 	eyes.texture = eyes_texture
@@ -43,12 +42,12 @@ func update_sprites() -> void: # called when sprites/armor/weapon change
 	leg_right.texture = feet_texture
 	leg_left.texture = feet_texture
 	
-	head.modulate = unit.sprite_color
-	body.modulate = unit.sprite_color
-	hand_right.modulate = unit.sprite_color
-	hand_left.modulate = unit.sprite_color
-	leg_right.modulate = unit.sprite_color
-	leg_left.modulate = unit.sprite_color
+	head.modulate = humanoid.color
+	body.modulate = humanoid.color
+	hand_right.modulate = humanoid.color
+	hand_left.modulate = humanoid.color
+	leg_right.modulate = humanoid.color
+	leg_left.modulate = humanoid.color
 	
 	update_weapon_visuals.call_deferred(humanoid.weapon)
 	reset_sprite()
@@ -68,10 +67,9 @@ func play_idle() -> void:
 
 func play_move() -> void: 
 	reset_sprite()
-	var unit := owner as Humanoid
 	
-	var wep_type : String = str(Weapon.WeaponTypeEnum.keys()[unit.weapon.weaponType]).to_lower()
-	var category : String = str(Weapon.WeaponCategoryEnum.keys()[unit.weapon.weaponCategory]).to_lower()
+	var wep_type : String = str(Weapon.WeaponTypeEnum.keys()[humanoid.weapon.weaponType]).to_lower()
+	var category : String = str(Weapon.WeaponCategoryEnum.keys()[humanoid.weapon.weaponCategory]).to_lower()
 	
 	var candidates : Array[String ]= [
 		"Stickman/run_%s" % [wep_type],    # ex. greatSword_run
@@ -83,7 +81,7 @@ func play_move() -> void:
 
 func play_attack() -> void: 
 	reset_sprite()
-	var _weapon := humanoid.weapon
+	var _weapon : Weapon = owner.weapon
 	
 	# check and play exclusive animation in priority
 	var exclusive_animations_arr : Array[String] = _weapon.exclusive_animations
@@ -127,19 +125,19 @@ func play_hurt() -> void:
 func play_death() -> void: 
 	# implement basic death position animation
 	reset_sprite()
-	animation_player.play("BaseUnit/go_down")
+	animation_player.play("BaseUnit/go_down") ## need to refactor animations/animation names
 
 func play_block() -> void: 
 	reset_sprite()
-	animation_player.play("Stickman/block")
+	animation_player.play("Stickman/block") ## need to refactor animations/animation names
 
 func play_parry() -> void: 
 	reset_sprite()
-	animation_player.play("Stickman/parry")
+	animation_player.play("Stickman/parry") ## need to refactor animations/animation names
 
 func play_dodge() -> void:
 	reset_sprite()
-	var prefix := "Stickman/dodge_1"
+	var prefix := "Stickman/dodge_1" ## need to refactor animations/animation names
 	var anim := get_random_animation(prefix)
 	animation_player.play(anim)
 

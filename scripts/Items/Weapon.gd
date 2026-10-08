@@ -94,7 +94,7 @@ var current_endlag : float
 var current_crit_endlag : float
 
 var weapon_stat_buffs: Array[Buff] = []
-var owner: BaseUnit
+var owner: Unit
 
 func _init() -> void:
 	item_type = Item.ItemType.WEAPON
@@ -270,7 +270,7 @@ func _spawn_hitbox(target_position: Vector2, _hit: HitData, _hitbox_data: Hitbox
 	hitbox.global_position = target_position #place hitbox on target_position
 	hitbox.rotation = target_position.angle_to_point(_hit.hit_owner.global_position) #rotate hitbox towards target_position
 	hitbox.setup(temp_hitbox_data, _hit)
-	hitbox.target_hit.connect(func(unit: BaseUnit):
+	hitbox.target_hit.connect(func(unit: Unit):
 		unit.resolve_hit(_hit))
 
 func get_color_palette() -> Texture2D :

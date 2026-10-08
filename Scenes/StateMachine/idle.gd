@@ -1,5 +1,5 @@
-extends BaseUnitState
-class_name BaseUnitIdle
+extends UnitState
+class_name UnitIdle
 
 var closest_target
 var closest_target_vector

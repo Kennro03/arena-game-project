@@ -24,13 +24,13 @@ var _current_cooldown: float = 0.0
 var _current_charges: int = 0
 var _is_casting: bool = false
 var _interrupt_requested: bool = false
-var _owner: BaseUnit
+var _owner: Unit
 
-func attach(_unit: BaseUnit) -> void:
+func attach(_unit: Unit) -> void:
 	_owner = _unit
 	_current_charges = charges
 
-func detach(_unit: BaseUnit) -> void:
+func detach(_unit: Unit) -> void:
 	if _is_casting:
 		_interrupt_requested = true
 	_owner = null
@@ -40,7 +40,7 @@ func can_use() -> bool:
 		return false
 	return _current_charges > 0 and _current_cooldown <= 0.0 and targeting.has_targets_in_range(_owner) # AND check if targetingEffect confirms there's targets within range
 
-func use(target: BaseUnit = null) -> void:
+func use(target: Unit = null) -> void:
 	if not can_use():
 		return
 	cast_started.emit(self)

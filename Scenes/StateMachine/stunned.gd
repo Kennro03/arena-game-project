@@ -1,5 +1,5 @@
-extends BaseUnitState
-class_name BaseUnitStunned
+extends UnitState
+class_name UnitStunned
 
 var remaining_stun_duration : float = 0.0
 

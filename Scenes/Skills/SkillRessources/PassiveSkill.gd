@@ -13,15 +13,15 @@ var _current_cooldown: float = 0.0
 var _current_charges: int = 0
 @warning_ignore("unused_private_class_variable")
 var _last_triggered: float = -INF
-var _owner: BaseUnit
+var _owner: Unit
 
-func attach(unit: BaseUnit) -> void:
+func attach(unit: Unit) -> void:
 	_owner = unit
 	_current_charges = max_charges
 	for trigger in triggers:
 		trigger.connect_to_unit(unit, _on_triggered)
 
-func detach(unit: BaseUnit) -> void:
+func detach(unit: Unit) -> void:
 	for trigger in triggers:
 		trigger.disconnect_from_unit(unit, _on_triggered)
 	_owner = null

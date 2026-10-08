@@ -1,15 +1,15 @@
 extends Node
 class_name SelectionManager
 
-signal unit_selected(unit: BaseUnit)
+signal unit_selected(unit: Unit)
 signal unit_deselected
 
-var selected_unit: BaseUnit = null
+var selected_unit: Unit = null
 
-func register_unit(unit: BaseUnit) -> void:
+func register_unit(unit: Unit) -> void:
 	unit.unit_clicked.connect(_on_unit_clicked)
 
-func _on_unit_clicked(unit: BaseUnit) -> void:
+func _on_unit_clicked(unit: Unit) -> void:
 	if selected_unit == unit:
 		# clicking same unit deselects
 		deselect()

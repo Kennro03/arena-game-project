@@ -16,10 +16,10 @@ var _check_timer: float = 0.0
 
 func _ready() -> void:
 	await owner.ready
-	var unit := owner as BaseUnit
+	var unit := owner as Unit
 	
 	print("SkillModule ready for %s, unit_data skills: %s" % [
-		unit.display_name, 
+		unit.unit_name, 
 		unit.unit_data.skill_list.map(func(s): return s.name) if unit.unit_data else []
 	])
 	
@@ -30,7 +30,7 @@ func _ready() -> void:
 	#	_register_skill(skill)
 
 func _tick(delta: float) -> void:
-	var unit : BaseUnit = owner
+	var unit : Unit = owner
 	
 	# tick cooldowns
 	if _general_cooldown > 0.0:
@@ -66,7 +66,7 @@ func remove_skill(skill: Skill) -> void:
 		_active_skills.erase(active)
 	elif skill is Passive_Skill:
 		var passive := skill as Passive_Skill
-		passive.detach(owner as BaseUnit)
+		passive.detach(owner)
 		_passive_skills.erase(passive)
 
 func _register_skill(skill: Skill) -> void:
@@ -74,21 +74,21 @@ func _register_skill(skill: Skill) -> void:
 	# duplicate so runtime state is unique per unit
 	if skill is ActiveSkill:
 		var active := skill.duplicate(true) as ActiveSkill
-		active.attach(owner as BaseUnit)
+		active.attach(owner)
 		active.cast_started.connect(_on_cast_started)
 		active.cast_completed.connect(_on_cast_completed)
 		active.cast_interrupted.connect(_on_cast_interrupted)
 		_active_skills.append(active)
 	elif skill is Passive_Skill:
 		var passive := skill.duplicate(true) as Passive_Skill
-		passive.attach(owner as BaseUnit)
+		passive.attach(owner)
 		_passive_skills.append(passive)
 	skills_changed.emit()
 
 func _disconnect_skills() -> void:
 	print("Disconnecting all skills")
 	# duplicate so runtime state is unique per unit
-	var unit := owner as BaseUnit
+	var unit : Unit = owner
 	for skill in _active_skills:
 		skill.detach(unit)
 		if skill.cast_started.is_connected(_on_cast_started):
@@ -110,7 +110,7 @@ func _has_skill(skill: Skill) -> bool:
 func _try_use_skill() -> void:
 	if _is_casting or _general_cooldown > 0.0:
 		return
-	var unit := owner as BaseUnit
+	var unit := owner as Unit
 	if unit.is_stunned or unit.is_silenced:
 		return
 	var skill := _get_best_usable_skill()
@@ -120,9 +120,9 @@ func _try_use_skill() -> void:
 func use_skill(skill: ActiveSkill) -> void:
 	if not skill.can_use() or _is_casting:
 		return
-	var target: BaseUnit = null
+	var target: Unit = null
 	if skill.targeting:
-		target = skill.targeting.get_target(owner as BaseUnit)
+		target = skill.targeting.get_target(owner as Unit)
 		print("Targeting result: ", target)
 	else:
 		print("No targeting set on skill: ", skill.skill_name)
@@ -148,7 +148,7 @@ func _get_best_usable_skill() -> ActiveSkill:
 
 func get_usable_skills() -> Array[ActiveSkill]:
 	var result: Array[ActiveSkill] = []
-	var unit : BaseUnit = owner
+	var unit : Unit = owner
 	for skill in _active_skills:
 		if skill.usable_when_alive == true and unit.state_machine.current_state_name() != "Downed"  :
 			if skill.can_use():

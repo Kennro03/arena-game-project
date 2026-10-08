@@ -1,8 +1,8 @@
 extends SkillTargeting
 class_name Targeting_Self
 
-func get_target(caster: BaseUnit) -> BaseUnit:
+func get_target(caster: Unit) -> Unit:
 	return caster
 
-func has_targets_in_range(_caster: BaseUnit) -> bool : 
+func has_targets_in_range(_caster: Unit) -> bool : 
 	return true

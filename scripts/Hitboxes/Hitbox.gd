@@ -1,7 +1,7 @@
 extends Area2D
 class_name Hitbox
 
-signal target_hit(target: BaseUnit)
+signal target_hit(target: Unit)
 
 var hit_data: HitData = null
 var hitbox_data: HitboxData = null
@@ -70,7 +70,7 @@ func _check_overlaps() -> void:
 		if body.is_in_group("Hurtbox") :
 			_pass_checks(body.get_parent())  
 
-func _pass_checks(body: BaseUnit) -> void:
+func _pass_checks(body: Unit) -> void:
 	# multi hit check
 	if not hitbox_data.multi_hit and already_hit.has(body):
 		return
@@ -82,7 +82,7 @@ func _pass_checks(body: BaseUnit) -> void:
 		return
 	# team check
 	if hit_data.hit_owner != null:
-		var owner_unit := hit_data.hit_owner as BaseUnit
+		var owner_unit := hit_data.hit_owner as Unit
 		if owner_unit and owner_unit.check_if_ally(body):
 			return
 	

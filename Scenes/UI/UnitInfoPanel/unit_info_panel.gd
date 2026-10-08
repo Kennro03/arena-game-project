@@ -2,8 +2,8 @@ extends Control
 class_name UnitInfoPanel
 
 const LEVELUP_CARD_SELECTION = preload("uid://dorvy7lec2kjk")
-var humanoid_scene := preload("res://Scenes/Units/Humanoid/humanoid.tscn")
-#var placeholderLiveTarget : BaseUnit = stickman_scene.instantiate()
+var humanoid_scene : PackedScene = preload("uid://dxh7n6qwa5fag")
+#var placeholderLiveTarget : Unit = stickman_scene.instantiate()
 #var placeholderDataTarget : UnitData = stickmanUnitData.new()
 
 var unit
@@ -64,7 +64,7 @@ func _ready() -> void:
 	
 	if unit is UnitData and is_instance_valid(unit):
 		_setup_data.call_deferred(unit)
-	elif unit is BaseUnit and is_instance_valid(unit):
+	elif unit is Unit and is_instance_valid(unit):
 		_setup_live.call_deferred(unit)
 	else :
 		printerr("Unit provided to UnitInfoPanel invalid !")
@@ -83,23 +83,23 @@ func ignore_tab()->void:
 	tab_bar.mouse_filter = Control.MOUSE_FILTER_PASS
 
 func _get_stats() -> Stats:
-	if unit is BaseUnit: return unit.stats
+	if unit is Unit: return unit.stats
 	if unit is UnitData: return unit.stats
 	return null
 
-func _get_display_name() -> String:
-	return unit.display_name
+func _get_unit_name() -> String:
+	return unit.unit_name
 
 func _get_icon() -> Texture2D:
 	return unit.icon
 
 func _get_weapon():
-	if unit is BaseUnit: return unit.weapon
+	if unit is Unit: return unit.weapon
 	if unit is UnitData: return unit.weapon
 	return null
 
 # Live unit setup
-func _setup_live(target: BaseUnit) -> void:
+func _setup_live(target: Unit) -> void:
 	_populate_shared()
 	_populate_live_only()
 	
@@ -110,7 +110,6 @@ func _setup_live(target: BaseUnit) -> void:
 	target.stats.exp_changed.connect(_on_experience_changed.unbind(2))
 	#target.statusEffectModule.effects_changed.connect(set_status_effects)
 	target.weapon_changed.connect(set_gear)
-	target.armor_changed.connect(set_gear)
 	target.accessories_changed.connect(set_gear)
 	
 	target.skillModule.skills_changed.connect(set_skills_view)
@@ -129,7 +128,7 @@ func _setup_data(_target: UnitData) -> void:
 func _populate_shared() -> void:
 	iconRect.texture = _get_icon()
 	iconRect.modulate = unit.color if unit is UnitData else unit.sprite_color
-	nameLabel.text = _get_display_name()
+	nameLabel.text = _get_unit_name()
 	typeLabel.text = "Unit type : " + unit.unit_type
 	descriptionLabel.text = unit.description
 	levelLabel.text = "Lv. %d" % _get_stats().level
@@ -172,7 +171,7 @@ func _on_stats_changed() -> void :
 	set_stats_view()  # refresh stats view
 
 func _on_experience_changed() -> void :
-	print("updating %s exp display" % [unit.display_name])
+	print("updating %s exp display" % [_get_unit_name()])
 	set_experience()
 	pass
 
@@ -275,7 +274,7 @@ func _apply_unit_data_buffs(unit_stats: Stats) -> void :
 	unit_stats.stat_buffs.clear()
 	if unit.weapon:
 		unit.weapon.apply_owner_buffs(unit_stats)
-		if unit is BaseUnit :
+		if unit is Unit :
 			unit.weapon.owner = unit
 			unit.weapon.setup_stats()
 	if unit.armor:
@@ -395,7 +394,7 @@ func set_skills_view() -> void :
 	fill_skills_entries()
 
 func get_unit_skills_list() -> Array[Skill] :
-	if unit is BaseUnit :
+	if unit is Unit :
 		return unit.skillModule.skill_list
 	elif unit is UnitData :
 		return unit.skill_list

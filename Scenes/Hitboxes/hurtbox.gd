@@ -13,7 +13,7 @@ func push_units_from_body() -> void :
 	for area in get_overlapping_areas():
 		if not area.is_in_group("Hurtbox"):
 			continue
-		var other_unit := area.owner as BaseUnit
+		var other_unit := area.owner as Unit
 		if other_unit == null or other_unit == owner:
 			continue
 		

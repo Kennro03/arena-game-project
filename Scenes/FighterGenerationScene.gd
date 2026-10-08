@@ -14,7 +14,7 @@ var tournament_config: Resource = null  # change this to TournamentConfig
 
 @export var min_fighters: int = 20
 @export var max_fighters: int = 0          # 0 = unlimited
-@export var base_unit_data: humanoidUnitData = humanoidUnitData.new()
+@export var base_unit_data: UnitData = UnitData.new()
 
 @onready var mode_label: RichTextLabel = %ModeLabel
 @onready var fighter_count_label: RichTextLabel = %FighterCountLabel

@@ -1,5 +1,5 @@
-extends BaseUnitState
-class_name BaseUnitCasting
+extends UnitState
+class_name UnitCasting
 
 var _current_skill: ActiveSkill = null
 

@@ -3,6 +3,6 @@ class_name Step_Delay
 
 @export var duration: float = 0.2
 
-func execute(caster: BaseUnit, _context: Dictionary, next: Callable) -> void:
+func execute(caster: Unit, _context: Dictionary, next: Callable) -> void:
 	print("Delay Called")
 	caster.get_tree().create_timer(duration).timeout.connect(next)

@@ -2,7 +2,7 @@ extends Resource
 class_name FighterData
 
 @export var arena_id: String = ""
-@export var unit_data: humanoidUnitData = null
+@export var unit_data: UnitData = null
 
 # stat distribution — null means fully random
 @export var stat_archetype: StatArchetype = null

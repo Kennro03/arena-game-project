@@ -1,5 +1,5 @@
-extends BaseUnitState
-class_name BaseUnitEngaged
+extends UnitState
+class_name UnitEngaged
 
 var closest_target
 var closest_target_vector

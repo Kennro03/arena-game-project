@@ -1,0 +1,511 @@
+[gd_scene format=3 uid="uid://dxh7n6qwa5fag"]
+
+[ext_resource type="Script" uid="uid://or04st1ly7ul" path="res://scripts/humanoid_unit.gd" id="1_8ok1q"]
+[ext_resource type="Script" uid="uid://bs80sdhk6rmno" path="res://Scenes/Hitboxes/hurtbox.gd" id="2_vol73"]
+[ext_resource type="Script" uid="uid://cmd6etkryt0xs" path="res://Scenes/Units/BaseUnit/display_module.gd" id="3_cw53s"]
+[ext_resource type="Script" uid="uid://dchw8cs1125p4" path="res://Scenes/Units/Humanoid/HumanoidSpriteModule.gd" id="3_xwvl5"]
+[ext_resource type="Texture2D" uid="uid://d2ku0b8gclm5v" path="res://ressources/Sprites/UI/UnitOverlay/CompactBodyOverlay.png" id="4_bexeo"]
+[ext_resource type="Texture2D" uid="uid://bukfb4qicnqfg" path="res://ressources/Sprites/Units/Humanoid/base_skull.png" id="4_cks1s"]
+[ext_resource type="Texture2D" uid="uid://bgwrw0cxq3e4y" path="res://ressources/Sprites/Units/Humanoid/base_eyes.png" id="5_fgtp4"]
+[ext_resource type="Texture2D" uid="uid://bly65xvmeu06d" path="res://ressources/Sprites/UI/UnitOverlay/CompactHealthbar.png" id="5_v5s18"]
+[ext_resource type="Texture2D" uid="uid://bi0lebitijxj4" path="res://ressources/Sprites/UI/UnitOverlay/CompactShieldbar.png" id="6_30cid"]
+[ext_resource type="Texture2D" uid="uid://df1vkik70sug3" path="res://ressources/Sprites/Units/Humanoid/base_body.png" id="6_jsibe"]
+[ext_resource type="Texture2D" uid="uid://dt2kt5ou425fd" path="res://ressources/Sprites/Units/Humanoid/base_arms.png" id="7_24oe5"]
+[ext_resource type="FontFile" uid="uid://dn68knm25w0cg" path="res://Fonts/fs-pixel-sans-unicode-regular.ttf" id="7_cs5s4"]
+[ext_resource type="Texture2D" uid="uid://b8sqlm3css61u" path="res://ressources/Sprites/UI/UnitOverlay/ExpandButton.png" id="8_ccnsb"]
+[ext_resource type="Texture2D" uid="uid://c10gb6ph26us4" path="res://ressources/Sprites/Units/Humanoid/base_legs.png" id="8_hif5g"]
+[ext_resource type="AnimationLibrary" uid="uid://oymicds2otf5" path="res://ressources/Sprites/Units/Stickman/StickmanAnimations.res" id="9_negkx"]
+[ext_resource type="PackedScene" uid="uid://d4rq68h801ac" path="res://Scenes/UI/StatusEffectIcon/status_icon.tscn" id="9_xwvl5"]
+[ext_resource type="Material" uid="uid://dq56kvtjp86e0" path="res://Shaders/palette_swap_material.tres" id="10_0x3c2"]
+[ext_resource type="Texture2D" uid="uid://d1vf75j7c8xys" path="res://ressources/Sprites/Weapons/debug_shortbow_icon.png" id="11_bdqpv"]
+[ext_resource type="Script" uid="uid://5r2u3nk0unia" path="res://Scenes/Units/BaseUnit/particle_module.gd" id="12_jsibe"]
+[ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="13_24oe5"]
+[ext_resource type="Script" uid="uid://cti6dobwwux2e" path="res://scripts/Status_Effects/StatusEffectModule.gd" id="14_hif5g"]
+[ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="15_negkx"]
+[ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="16_0x3c2"]
+[ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="17_bdqpv"]
+[ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/engaged.gd" id="18_3lbkk"]
+[ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="19_iootp"]
+[ext_resource type="Script" uid="uid://7xbnrxcgcsgo" path="res://Scenes/StateMachine/stunned.gd" id="20_wiilt"]
+[ext_resource type="Script" uid="uid://b5qqs007n3apo" path="res://Scenes/StateMachine/downded.gd" id="21_btnb8"]
+[ext_resource type="Script" uid="uid://d1q28n8pmp1d4" path="res://Scenes/Units/BaseUnit/cycling_anims.gd" id="22_1vrhe"]
+[ext_resource type="Script" uid="uid://h20yhk3gyt8n" path="res://Scenes/Skills/skill_module.gd" id="23_r7gmp"]
+[ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="24_7fd5m"]
+[ext_resource type="Script" uid="uid://de3oub0ll741a" path="res://scripts/Components/velocity_based_rotation.gd" id="25_0t4j5"]
+[ext_resource type="Script" uid="uid://dnriefm5vyac4" path="res://scripts/Components/OutlineHighlighter.gd" id="26_yhmoc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rcxne"]
+radius = 5.0
+height = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1wqfa"]
+size = Vector2(34, 40)
+
+[sub_resource type="Shader" id="Shader_33p63"]
+code = "
+shader_type canvas_item;
+
+uniform vec3 line_colour: source_color = vec3(1.0);
+uniform int line_thickness: hint_range(0, 10) = 1;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+
+void fragment() {
+	vec2 size = SCREEN_PIXEL_SIZE * float(line_thickness);
+	float line_alpha = 0.0;
+	for (float i = -size.x; i <= size.x; i += SCREEN_PIXEL_SIZE.x) {
+		for (float j = -size.y; j <= size.y; j += SCREEN_PIXEL_SIZE.y) {
+			line_alpha += texture(screen_texture, SCREEN_UV + vec2(i, j)).a;
+		}
+	}
+	vec4 colour = texture(screen_texture, SCREEN_UV);
+	vec4 outline = vec4(line_colour, min(line_alpha, 1.0));
+	COLOR *= mix(outline, colour, colour.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lbkk"]
+shader = SubResource("Shader_33p63")
+shader_parameter/line_colour = Color(0, 0, 0, 1)
+shader_parameter/line_thickness = 0
+
+[sub_resource type="Animation" id="Animation_3qbi7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../DisplayModule/CompactDisplay/NameLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../DisplayModule/CompactDisplay/ShieldBar:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../DisplayModule/CompactDisplay/HealthBar:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iootp"]
+_data = {
+&"RESET": SubResource("Animation_3qbi7")
+}
+
+[sub_resource type="Animation" id="Animation_mhbyd"]
+resource_name = "go_down"
+length = 1.5
+step = 0.1333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(4.5, 1),
+"update": 0,
+"values": [0.0, -1.5707964]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.5882353, 0.5882353, 0.5882353, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../DisplayModule/CompactDisplay/NameLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.25, 1.5),
+"transitions": PackedFloat32Array(1, 5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../DisplayModule/CompactDisplay/ShieldBar:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../DisplayModule/CompactDisplay/HealthBar:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wiilt"]
+_data = {
+&"go_down": SubResource("Animation_mhbyd")
+}
+
+[node name="HumanoidUnit" type="Node2D" unique_id=1889911686]
+script = ExtResource("1_8ok1q")
+metadata/_custom_type_script = "uid://dbkhsvwvrla1m"
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1908640231 groups=["Hurtbox"]]
+unique_name_in_owner = true
+script = ExtResource("2_vol73")
+
+[node name="HurtboxCollisionShape" type="CollisionShape2D" parent="Hurtbox" unique_id=1479216426]
+unique_name_in_owner = true
+visible = false
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_rcxne")
+debug_color = Color(0, 0.470588, 0.701961, 0.545098)
+
+[node name="SelectionArea" type="Area2D" parent="." unique_id=559439388]
+unique_name_in_owner = true
+
+[node name="SelectionAreaCollisionShape" type="CollisionShape2D" parent="SelectionArea" unique_id=1483698747]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_1wqfa")
+debug_color = Color(0, 0.470588, 0.701961, 0.545098)
+
+[node name="SpriteModule" type="CanvasGroup" parent="." unique_id=1498509121]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_3lbkk")
+script = ExtResource("3_xwvl5")
+head_texture = ExtResource("4_cks1s")
+eyes_texture = ExtResource("5_fgtp4")
+torso_texture = ExtResource("6_jsibe")
+hands_texture = ExtResource("7_24oe5")
+feet_texture = ExtResource("8_hif5g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpriteModule" unique_id=1259050276]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_iootp")
+libraries/BaseUnit = SubResource("AnimationLibrary_wiilt")
+libraries/Stickman = ExtResource("9_negkx")
+
+[node name="HandLeft" type="Sprite2D" parent="SpriteModule" unique_id=7029931]
+modulate = Color(0, 1, 1, 1)
+position = Vector2(0, -16)
+texture = ExtResource("7_24oe5")
+vframes = 2
+
+[node name="LegLeft" type="Sprite2D" parent="SpriteModule" unique_id=132556108]
+modulate = Color(0, 1, 1, 1)
+position = Vector2(0, -16)
+texture = ExtResource("8_hif5g")
+vframes = 2
+
+[node name="Body" type="Node2D" parent="SpriteModule" unique_id=2071826372]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(0, -16)
+
+[node name="Torso" type="Sprite2D" parent="SpriteModule/Body" unique_id=1564198696]
+texture = ExtResource("6_jsibe")
+
+[node name="Head" type="Node2D" parent="SpriteModule" unique_id=513197745]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(0, -16)
+
+[node name="Skull" type="Sprite2D" parent="SpriteModule/Head" unique_id=775278465]
+texture = ExtResource("4_cks1s")
+
+[node name="Eyes" type="Sprite2D" parent="SpriteModule/Head" unique_id=529038669]
+texture = ExtResource("5_fgtp4")
+
+[node name="WeaponHandle" type="Node2D" parent="SpriteModule" unique_id=823646724]
+unique_name_in_owner = true
+position = Vector2(-3, -10)
+
+[node name="WeaponSprite2D" type="Sprite2D" parent="SpriteModule/WeaponHandle" unique_id=390153923]
+unique_name_in_owner = true
+material = ExtResource("10_0x3c2")
+texture = ExtResource("11_bdqpv")
+
+[node name="HandRight" type="Sprite2D" parent="SpriteModule" unique_id=417623253]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0, -16)
+texture = ExtResource("7_24oe5")
+vframes = 2
+frame = 1
+
+[node name="LegRight" type="Sprite2D" parent="SpriteModule" unique_id=1021626957]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0, -16)
+texture = ExtResource("8_hif5g")
+vframes = 2
+frame = 1
+
+[node name="DisplayModule" type="Control" parent="." unique_id=938630096 node_paths=PackedStringArray("_status_module")]
+z_index = 1
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_top = 4.0
+offset_bottom = 4.0
+script = ExtResource("3_cw53s")
+_status_module = NodePath("")
+
+[node name="CompactDisplay" type="Control" parent="DisplayModule" unique_id=50254922]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="DisplayModule/CompactDisplay" unique_id=186334566]
+modulate = Color(1, 1, 1, 0.25490198)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.0
+offset_top = 2.0
+offset_right = 27.0
+offset_bottom = 34.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0)
+texture = ExtResource("4_bexeo")
+
+[node name="HealthBar" type="TextureProgressBar" parent="DisplayModule/CompactDisplay" unique_id=1714304457]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.275
+anchor_bottom = 0.275
+offset_left = -41.0
+offset_top = 3.0
+offset_right = 42.0
+offset_bottom = 11.0
+grow_horizontal = 2
+value = 100.0
+texture_under = ExtResource("5_v5s18")
+texture_progress = ExtResource("5_v5s18")
+tint_under = Color(1, 1, 1, 0)
+
+[node name="ShieldBar" type="TextureProgressBar" parent="DisplayModule/CompactDisplay" unique_id=1333613031]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.275
+anchor_bottom = 0.275
+offset_left = -41.0
+offset_top = 6.0
+offset_right = 42.0
+offset_bottom = 11.0
+grow_horizontal = 2
+value = 100.0
+texture_under = ExtResource("6_30cid")
+texture_progress = ExtResource("6_30cid")
+tint_under = Color(0, 0, 0, 0)
+
+[node name="NameLabel" type="Label" parent="DisplayModule/CompactDisplay" unique_id=1612385449]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 1
+anchors_preset = -1
+offset_left = -60.166668
+offset_top = 0.99999976
+offset_right = 61.166668
+offset_bottom = 17.0
+grow_horizontal = 2
+scale = Vector2(0.75, 0.75)
+pivot_offset_ratio = Vector2(0.5, 0)
+theme_override_fonts/font = ExtResource("7_cs5s4")
+text = "Display_name loonnnnggg"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+text_overrun_behavior = 3
+
+[node name="StateRichTextLabel" type="RichTextLabel" parent="DisplayModule/CompactDisplay" unique_id=360589759]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.77500004
+anchor_bottom = 0.77500004
+offset_left = -50.0
+offset_top = 2.999998
+offset_right = 50.0
+offset_bottom = 18.999998
+grow_horizontal = 2
+pivot_offset = Vector2(50, 0)
+bbcode_enabled = true
+text = "STATE"
+horizontal_alignment = 1
+
+[node name="ExpandButton" type="TextureButton" parent="DisplayModule/CompactDisplay" unique_id=1284557248]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 29.0
+offset_top = 25.0
+offset_right = 35.0
+offset_bottom = 31.0
+texture_normal = ExtResource("8_ccnsb")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DisplayModule/CompactDisplay" unique_id=1785106411]
+layout_mode = 0
+offset_left = -27.0
+offset_top = 23.0
+offset_right = 28.0
+offset_bottom = 33.0
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="DisplayModule/CompactDisplay/ScrollContainer" unique_id=796419131]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="StatusEffectIconsContainer" type="HBoxContainer" parent="DisplayModule/CompactDisplay/ScrollContainer/MarginContainer" unique_id=130542421]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 9
+
+[node name="StatusIcon" parent="DisplayModule/CompactDisplay/ScrollContainer/MarginContainer/StatusEffectIconsContainer" unique_id=908797033 instance=ExtResource("9_xwvl5")]
+layout_mode = 2
+offset_transform_scale = Vector2(0.5, 0.5)
+
+[node name="StatusIcon2" parent="DisplayModule/CompactDisplay/ScrollContainer/MarginContainer/StatusEffectIconsContainer" unique_id=1745052495 instance=ExtResource("9_xwvl5")]
+layout_mode = 2
+offset_transform_scale = Vector2(0.5, 0.5)
+
+[node name="StatusIcon3" parent="DisplayModule/CompactDisplay/ScrollContainer/MarginContainer/StatusEffectIconsContainer" unique_id=1133454542 instance=ExtResource("9_xwvl5")]
+layout_mode = 2
+offset_transform_scale = Vector2(0.5, 0.5)
+
+[node name="ParticleModule" type="Node2D" parent="." unique_id=646353266]
+unique_name_in_owner = true
+position = Vector2(0, -20)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("12_jsibe")
+
+[node name="DamagePopupMarker" type="Marker2D" parent="ParticleModule" unique_id=1794460946]
+unique_name_in_owner = true
+position = Vector2(0, -16)
+script = ExtResource("13_24oe5")
+
+[node name="StatusEffectModule" type="Node2D" parent="." unique_id=669366720]
+unique_name_in_owner = true
+script = ExtResource("14_hif5g")
+
+[node name="StateMachine" type="Node" parent="." unique_id=2006414324 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("15_negkx")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=2131644068]
+script = ExtResource("16_0x3c2")
+
+[node name="Moving" type="Node" parent="StateMachine" unique_id=1624163990]
+script = ExtResource("17_bdqpv")
+
+[node name="Engaged" type="Node" parent="StateMachine" unique_id=847077785]
+script = ExtResource("18_3lbkk")
+
+[node name="Casting" type="Node" parent="StateMachine" unique_id=969669951]
+script = ExtResource("19_iootp")
+
+[node name="Stunned" type="Node" parent="StateMachine" unique_id=67780084]
+script = ExtResource("20_wiilt")
+
+[node name="Downed" type="Node" parent="StateMachine" unique_id=1661842469]
+script = ExtResource("21_btnb8")
+
+[node name="Cycling_anims" type="Node" parent="StateMachine" unique_id=130394510]
+script = ExtResource("22_1vrhe")
+
+[node name="SkillModule" type="Node" parent="." unique_id=2068905292]
+unique_name_in_owner = true
+script = ExtResource("23_r7gmp")
+
+[node name="UnitDragAndDropComponent" type="Node" parent="." unique_id=1792044896 node_paths=PackedStringArray("target_area", "target")]
+unique_name_in_owner = true
+script = ExtResource("24_7fd5m")
+target_area = NodePath("../SelectionArea")
+target = NodePath("..")
+
+[node name="VelocityBasedRotationComponent" type="Node" parent="." unique_id=1951897956 node_paths=PackedStringArray("target")]
+unique_name_in_owner = true
+script = ExtResource("25_0t4j5")
+target = NodePath("")
+lerp_seconds = 1.5
+rotation_multiplier = 30
+x_velocity_threshold = 5.0
+
+[node name="OutlineHighlightComponent" type="Node" parent="." unique_id=730493499 node_paths=PackedStringArray("target")]
+unique_name_in_owner = true
+script = ExtResource("26_yhmoc")
+target = NodePath("../SpriteModule")
+outline_color = Color(1, 1, 1, 1)
+outline_thickness = 2
+default_outline_thickness = 1

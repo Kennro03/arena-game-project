@@ -1,5 +1,5 @@
 extends State
-class_name BaseUnitState 
+class_name UnitState 
 
 const IDLE = "Idle"
 const MOVING = "Moving"
@@ -11,9 +11,9 @@ const DOWNED = "Downed"
 
 const CYCLING_ANIMATIONS = "Cycling_animations"
 
-var unit: BaseUnit
+var unit: Unit
 
 func _ready() -> void:
 	await owner.ready
-	unit = owner as BaseUnit
-	assert(unit != null, "The PlayerState state type must be used only in the unit scene. It needs the owner to be a BaseUnit.")
+	unit = owner as Unit
+	assert(unit != null, "The PlayerState state type must be used only in the unit scene. It needs the owner to be a Unit.")

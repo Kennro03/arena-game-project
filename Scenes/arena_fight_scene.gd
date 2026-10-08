@@ -48,7 +48,7 @@ const TEAM_COLORS: Array[Color] = [
 var _teams: Array[Team] = []
 var _team_fighters: Dictionary = {}      # Team -> Array[FighterData]
 var _team_spawn_points: Dictionary = {}  # Team -> Vector2
-var _team_units_alive: Dictionary = {}   # Team -> Array[BaseUnit]
+var _team_units_alive: Dictionary = {}   # Team -> Array[Unit]
 var _state: FightState = FightState.SETUP
 var _paused: bool = false
 
@@ -184,7 +184,7 @@ func _spawn_unit(fighter: FighterData, team: Team) -> void:
 	unit.unit_downed.connect(func(_dying_unit, _killer): _on_unit_downed(unit, team))
 	selection_manager.register_unit(unit)
 
-func _spawn_from_data(center: Vector2, data: UnitData) -> BaseUnit:
+func _spawn_from_data(center: Vector2, data: UnitData) -> Unit:
 	if data == null or data.unit_scene == null:
 		printerr("ArenaFightScene: invalid UnitData for spawning")
 		return null
@@ -229,7 +229,7 @@ func _start_fight() -> void:
 
 # ── Victory detection ─────────────────────────────────────────────────────
 
-func _on_unit_downed(unit: BaseUnit, team: Team) -> void:
+func _on_unit_downed(unit: Unit, team: Team) -> void:
 	# will need to check for ressurections here before removing from teams later
 	if not is_instance_valid(unit) or unit.is_downed:
 		_team_units_alive[team].erase(unit)

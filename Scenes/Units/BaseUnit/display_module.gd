@@ -33,7 +33,7 @@ func clear_status_icons() -> void :
 	for icon in status_effect_icons_container.get_children() :
 		icon.queue_free()
 
-func link_to_unit(unit: BaseUnit) -> void:
+func link_to_unit(unit: Unit) -> void:
 	_status_module = unit.statusEffectModule
 	clear_status_icons()
 	_status_module.effect_applied_with_id.connect(_on_effect_applied)

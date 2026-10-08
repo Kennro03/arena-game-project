@@ -60,7 +60,7 @@ static func _generate_stat_cards_from_weights(
 	return result
 
 static func generate_pool(
-		unit: BaseUnit,
+		unit: Unit,
 		draw_type: DrawSchedule.DrawType,
 		count: int = 3) -> Array[LevelupCardData]:
 	
@@ -81,7 +81,7 @@ static func generate_pool(
 	return []
 
 static func _generate_skill_cards(
-		unit: BaseUnit,
+		unit: Unit,
 		active: bool,
 		count: int) -> Array[LevelupCardData]:
 	
@@ -89,7 +89,7 @@ static func _generate_skill_cards(
 	var all_skills: Array[Skill] = _load_skills(active)
 	
 	# filter skill prerequisites and only skills not already owned
-	var owned := unit.skillModule.skill_list
+	var owned : Array[Skill] = unit.skillModule.skill_list
 	var eligible := all_skills.filter(func(s):
 		return s.are_prerequisites_met(unit) and s not in owned)
 	
@@ -108,7 +108,7 @@ static func _generate_skill_cards(
 	
 	return result
 
-static func _generate_stat_cards(_unit: BaseUnit, count: int) -> Array[LevelupCardData]:
+static func _generate_stat_cards(_unit: Unit, count: int) -> Array[LevelupCardData]:
 	var result: Array[LevelupCardData] = []
 	var stats := [
 		Stats.Attributes.STRENGTH, 
@@ -167,7 +167,7 @@ static func generate_pool_excluding(
 		excluded_names.append(e.display_name)
 	
 	var pool: Array[LevelupCardData] = []
-	if unit is BaseUnit:
+	if unit is Unit:
 		pool = generate_pool(unit, draw_type, count + excluded.size())
 	elif unit is UnitData:
 		pool = generate_pool_for_data(unit, draw_type, count + excluded.size())

@@ -47,7 +47,7 @@ enum SpawnOrigin {
 @export var spawn_offset: Vector2 = Vector2.ZERO  # for OFFSET origin
 
 
-func _get_spawn_position(caster: BaseUnit, target: BaseUnit) -> Vector2:
+func _get_spawn_position(caster: Unit, target: Unit) -> Vector2:
 	match origin:
 		SpawnOrigin.CASTER:
 			return caster.global_position
@@ -71,7 +71,7 @@ func _random_in_radius(radius: float) -> Vector2:
 	var dist := sqrt(randf()) * radius  # sqrt for uniform distribution
 	return Vector2(cos(angle), sin(angle)) * dist
 
-func _make_hit(caster: BaseUnit) -> HitData:
+func _make_hit(caster: Unit) -> HitData:
 	var hit := HitData.new(caster)
 	hit.hit_owner = caster
 	
@@ -88,16 +88,16 @@ func _make_hit(caster: BaseUnit) -> HitData:
 		hit.base_damage *= caster.stats.current_crit_damage
 	return hit
 
-func execute(caster: BaseUnit, context: Dictionary, next: Callable) -> void:
+func execute(caster: Unit, context: Dictionary, next: Callable) -> void:
 	print("Spawn Projectile Called")
 	_execute_volley(caster, context, 0, next)
 
-func _execute_volley(caster: BaseUnit, context: Dictionary, volley_index: int, next: Callable) -> void:
+func _execute_volley(caster: Unit, context: Dictionary, volley_index: int, next: Callable) -> void:
 	if volley_index >= volley_count:
 		next.call()
 		return
 	
-	var target := context.get("target") as BaseUnit
+	var target : Unit = context.get("target")
 	if target == null or not is_instance_valid(target):
 		printerr("Step_SpawnProjectile: no target")
 		next.call()
@@ -130,13 +130,13 @@ func _execute_volley(caster: BaseUnit, context: Dictionary, volley_index: int, n
 	else:
 		_execute_volley(caster, context, volley_index + 1, next)
 
-func _spawn_one(caster: BaseUnit, proj_data: ProjectileData, pos: Vector2, direction: Vector2) -> void:
+func _spawn_one(caster: Unit, proj_data: ProjectileData, pos: Vector2, direction: Vector2) -> void:
 	var projectile := PROJECTILE_SCENE.instantiate() as Projectile
 	caster.get_tree().root.add_child(projectile)
 	projectile.global_position = pos
 	projectile.setup(proj_data, _make_hit(caster), direction)
 
-func _spawn_fan(caster: BaseUnit, proj_data: ProjectileData, pos: Vector2, base_direction: Vector2) -> void:
+func _spawn_fan(caster: Unit, proj_data: ProjectileData, pos: Vector2, base_direction: Vector2) -> void:
 	if projectile_count <= 1:
 		_spawn_one(caster, proj_data, pos, base_direction)
 		return
@@ -147,23 +147,23 @@ func _spawn_fan(caster: BaseUnit, proj_data: ProjectileData, pos: Vector2, base_
 		var direction := base_direction.rotated(angle)
 		_spawn_one(caster, proj_data, pos, direction)
 
-func _spawn_ring(caster: BaseUnit, proj_data: ProjectileData, pos: Vector2) -> void:
+func _spawn_ring(caster: Unit, proj_data: ProjectileData, pos: Vector2) -> void:
 	var angle_step := TAU / projectile_count
 	for i in projectile_count:
 		var direction := Vector2.RIGHT.rotated(angle_step * i)
 		_spawn_one(caster, proj_data, pos, direction)
 
-func _spawn_line(caster: BaseUnit, proj_data: ProjectileData, pos: Vector2, direction: Vector2) -> void:
+func _spawn_line(caster: Unit, proj_data: ProjectileData, pos: Vector2, direction: Vector2) -> void:
 	var perpendicular := direction.rotated(PI / 2.0)
 	var half := (projectile_count - 1) / 2.0
 	for i in projectile_count:
 		var offset := perpendicular * (i - half) * line_spacing
 		_spawn_one(caster, proj_data, pos + offset, direction)
 
-func _spawn_rain_burst(caster: BaseUnit, proj_data: ProjectileData, target_pos: Vector2) -> void:
+func _spawn_rain_burst(caster: Unit, proj_data: ProjectileData, target_pos: Vector2) -> void:
 	_spawn_rain_drop(caster, proj_data, target_pos, 0)
 
-func _spawn_rain_drop(caster: BaseUnit, proj_data: ProjectileData, target_pos: Vector2, drop_index: int) -> void:
+func _spawn_rain_drop(caster: Unit, proj_data: ProjectileData, target_pos: Vector2, drop_index: int) -> void:
 	if drop_index >= projectile_count:
 		return
 	
