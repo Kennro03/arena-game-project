@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://dli7e6s5tu673"]
 
-[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/CastStep.gd" id="1_hk1jo"]
-[ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/SkillEffect.gd" id="2_rmv8p"]
-[ext_resource type="Script" uid="uid://w7i3wh7rbdpo" path="res://scripts/Skills/SkillEffect_InflictHit.gd" id="3_16uxk"]
-[ext_resource type="Script" uid="uid://dcasgb6uiicvo" path="res://scripts/Skills/SkillEffect_ApplyStatusEffect.gd" id="4_e85kh"]
-[ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Step_SpawnLingeringArea.gd" id="4_nyfgu"]
+[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/Cast_steps/CastStep.gd" id="1_hk1jo"]
+[ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/Skill_effects/SkillEffect.gd" id="2_rmv8p"]
+[ext_resource type="Script" uid="uid://w7i3wh7rbdpo" path="res://scripts/Skills/Skill_effects/SkillEffect_InflictHit.gd" id="3_16uxk"]
+[ext_resource type="Script" uid="uid://dcasgb6uiicvo" path="res://scripts/Skills/Skill_effects/SkillEffect_ApplyStatusEffect.gd" id="4_e85kh"]
+[ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Cast_steps/Step_SpawnLingeringArea.gd" id="4_nyfgu"]
 [ext_resource type="PackedScene" uid="uid://m18hu87jtivp" path="res://Scenes/VFX/fire_tornado_particles_2d.tscn" id="4_rmv8p"]
 [ext_resource type="Resource" uid="uid://ca8ri5wx8pnbn" path="res://ressources/Status_Effects/burn.tres" id="5_arpwe"]
-[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="5_e85kh"]
+[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/Skill_prerequisites/SkillPrerequisite.gd" id="5_e85kh"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="6_arpwe"]
-[ext_resource type="Script" uid="uid://c7pvww45kvh3r" path="res://scripts/Skills/Targeting_NearestEnemy.gd" id="7_2l4e4"]
+[ext_resource type="Script" uid="uid://c7pvww45kvh3r" path="res://scripts/Skills/Skill_targeting/Targeting_NearestEnemy.gd" id="7_2l4e4"]
 
 [sub_resource type="Resource" id="Resource_45imn"]
 script = ExtResource("3_16uxk")

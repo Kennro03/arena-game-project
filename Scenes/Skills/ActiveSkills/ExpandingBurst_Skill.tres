@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://dg5hyahub2of"]
 
-[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/CastStep.gd" id="1_xl8ot"]
-[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="2_xk7y5"]
+[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/Cast_steps/CastStep.gd" id="1_xl8ot"]
+[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/Skill_prerequisites/SkillPrerequisite.gd" id="2_xk7y5"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="5_u7dmn"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fqelj"]

@@ -128,7 +128,10 @@ func _build_test_teams() -> void:
 				var data := UnitData.new()
 				data.display_name = "%s Fighter %d" % [team.team_name, j + 1]
 				data.stats.experience = test_starting_exp
-				data.auto_spend_attribute_points()
+				if fighter.stat_archetype:
+					data.spend_points_with_archetype(fighter.stat_archetype)
+				else:
+					data.auto_spend_attribute_points()
 				fighter.unit_data = data
 				_team_fighters[team].append(fighter)
 	else:
@@ -173,7 +176,8 @@ func _spawn_unit(fighter: FighterData, team: Team) -> void:
 	
 	var data := fighter.unit_data._make_copy()
 	data.team = team
-	data.color = team.team_color
+	#Don't change the unit's color to the team's
+	#data.color = team.team_color
 	
 	var unit := _spawn_from_data(_team_spawn_points[team], data)
 	if unit == null:
@@ -221,6 +225,7 @@ func _tick_countdown(count: int) -> void:
 
 func _start_fight() -> void:
 	_state = FightState.FIGHTING
+	Events.combat_started.emit()
 	print("Fight start!")
 	for team in _teams:
 		for unit in _team_units_alive[team]:
@@ -270,6 +275,8 @@ func _end_fight(winning_team: Team, is_draw: bool) -> void:
 		print("Fight ended: %s wins!" % winning_team.team_name)
 	
 	Engine.time_scale = 1.0  # reset speed
+	
+	Events.combat_ended.emit()
 	
 	# wait then return
 	get_tree().create_timer(fight_config.post_fight_delay).timeout.connect(func():

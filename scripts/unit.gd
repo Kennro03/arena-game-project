@@ -2,6 +2,7 @@ extends Node2D
 class_name Unit
 
 @warning_ignore_start("unused_signal")
+signal hit_dealt(hit_data: HitData)
 signal hit_received(hit_data: HitData)
 signal unit_clicked(unit: Unit)
 signal unit_died(unit: Unit, killer: Unit)
@@ -46,6 +47,11 @@ var active: bool = true:
 		active = value
 		if active: _on_activated.call_deferred()
 		else: _on_deactivated.call_deferred()
+
+var is_unkillable: bool = false
+var is_intangible: bool = false
+var is_cc_immune: bool = false
+var is_silenced: bool = false
 
 func _ready() -> void:
 	add_to_group("Live_Units")

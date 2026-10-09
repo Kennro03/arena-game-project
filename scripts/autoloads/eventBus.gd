@@ -45,8 +45,12 @@ signal run_modifier_added()
 signal run_modifier_removed()
 
 #battle related
-signal battle_won
-signal battle_lost
+signal combat_started
+signal combat_ended
+signal round_started(round: int)
+signal unit_entered_combat(unit: Unit)
+signal unit_exited_combat(unit: Unit)
+signal unit_died(unit: Unit, killer: Unit)
 
 #map related
 signal map_exited(room: Room)

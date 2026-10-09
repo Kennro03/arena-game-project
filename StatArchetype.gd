@@ -7,6 +7,8 @@ class_name StatArchetype
 # example physical: {STRENGTH: 3, DEXTERITY: 2, ENDURANCE: 2}
 @export var stat_weights: Dictionary = {}  # Stats.Attributes -> float
 
+@export var restrict_random_to_unfocused: bool = false
+
 # what fraction of total points goes to prioritized stats vs random others
 # 1.0 = all points in stat_weights, 0.5 = half focused half totally random
 @export var focus_ratio: float = 1.0

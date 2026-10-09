@@ -28,7 +28,6 @@ var is_downed: bool:
 	get: return state_machine.is_in_state(UnitState.DOWNED)
 
 var is_action_locked: bool = false
-var is_silenced: bool = false
 
 # Movement
 var velocity: Vector2 = Vector2.ZERO
@@ -78,8 +77,9 @@ func _is_player_unit() -> bool:
 
 func _get_allowed_zones() -> Array[Area2D]:
 	var zone := get_tree().get_first_node_in_group("PlayerSpawnZone") as Area2D
-	if zone: return [zone]
-	printerr("No player spawn zone found in scene")
+	if zone: 
+		return [zone]
+	#printerr("No player spawn zone found in scene")
 	return []
 
 
@@ -228,6 +228,7 @@ func die() -> void:
 		print("%s gave %s exp to %s" % [unit_name, stats.get_exp_worth(), last_hit_owner.unit_name])
 	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(), 1.25, Color("DARKRED"), 0.25)
 	unit_died.emit(self, last_hit_owner)
+	Events.unit_died.emit(self, last_hit_owner)  
 	queue_free()
 
 

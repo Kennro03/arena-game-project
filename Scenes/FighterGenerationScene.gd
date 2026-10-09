@@ -1,7 +1,7 @@
 extends Control
 class_name FighterGenerationScene
 
-signal generation_complete(fighters: Array[FighterData])
+signal generation_complete(fighters: Array[FighterData], config: Resource)
 
 const PARTICIPANT_SLOT = preload("res://Scenes/participant_slot.tscn")
 

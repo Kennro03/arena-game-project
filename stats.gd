@@ -87,7 +87,7 @@ signal stats_recalculated
 signal exp_changed(old_exp:int,new_exp:int)
 signal level_changed(old_level:int,new_level:int)
 
-@export var base_exp_worth: int = 10
+@export var base_exp_worth: int = 0
 @export var experience : int = 0: set = _on_experience_set
 
 @export_group("Base attributes")

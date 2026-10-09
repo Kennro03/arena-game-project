@@ -14,20 +14,20 @@ enum Target {
 
 @export var target: Target = Target.SELF
 
-func apply(unit: BaseUnit, context: Dictionary) -> void:
+func apply(unit: Unit, context: Dictionary) -> void:
 	var targets := _resolve_targets(unit, context)
 	for t in targets:
 		_apply_to(t, unit, context)
 
-func _resolve_targets(caster: BaseUnit, context: Dictionary) -> Array[BaseUnit]:
+func _resolve_targets(caster: Unit, context: Dictionary) -> Array[Unit]:
 	match target:
 		Target.SELF:
 			return [caster]
 		Target.TARGET:
-			var t : BaseUnit = context.get("target")
+			var t : Unit = context.get("target")
 			return [t] if t else []
 		Target.ATTACKER:
-			var attacker := context.get("attacker") as BaseUnit
+			var attacker := context.get("attacker") as Unit
 			return [attacker] if attacker and is_instance_valid(attacker) else []
 		Target.ALL_ALLIES:
 			return caster.get_tree().get_nodes_in_group("living_units").filter(
@@ -36,7 +36,7 @@ func _resolve_targets(caster: BaseUnit, context: Dictionary) -> Array[BaseUnit]:
 			return caster.get_tree().get_nodes_in_group("living_units").filter(
 				func(u): return not caster.check_if_ally(u))
 		Target.NEAREST_ENEMY:
-			var enemy := caster.get_closest_unit(
+			var enemy : Unit = caster.get_closest_unit(
 				caster.get_tree().get_nodes_in_group("living_units"),
 				INF,
 				func(u): return not caster.check_if_ally(u))
@@ -48,5 +48,5 @@ func _resolve_targets(caster: BaseUnit, context: Dictionary) -> Array[BaseUnit]:
 				func(u): return u.global_position.distance_to(pos) <= _range)
 	return [caster]
 
-func _apply_to(_target: BaseUnit, _caster: BaseUnit, _context: Dictionary) -> void:
+func _apply_to(_target: Unit, _caster: Unit, _context: Dictionary) -> void:
 	pass  # subclasses override this instead of apply()

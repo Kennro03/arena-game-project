@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://dhregwb73rglr"]
 
-[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/CastStep.gd" id="1_y05u5"]
-[ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/SkillEffect.gd" id="2_441py"]
-[ext_resource type="Script" uid="uid://dtips15ok2bnp" path="res://scripts/Skills/SkillEffect_HealFlat.gd" id="3_441py"]
-[ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Step_SpawnLingeringArea.gd" id="3_kfpli"]
+[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/Cast_steps/CastStep.gd" id="1_y05u5"]
+[ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/Skill_effects/SkillEffect.gd" id="2_441py"]
+[ext_resource type="Script" uid="uid://dtips15ok2bnp" path="res://scripts/Skills/Skill_effects/SkillEffect_HealFlat.gd" id="3_441py"]
+[ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Cast_steps/Step_SpawnLingeringArea.gd" id="3_kfpli"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="3_w1e7m"]
-[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="4_w1e7m"]
+[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/Skill_prerequisites/SkillPrerequisite.gd" id="4_w1e7m"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="5_jdlbm"]
-[ext_resource type="Script" uid="uid://besimhcerwss4" path="res://scripts/Skills/Targeting_Self.gd" id="6_y05u5"]
+[ext_resource type="Script" uid="uid://besimhcerwss4" path="res://scripts/Skills/Skill_targeting/Targeting_Self.gd" id="6_y05u5"]
 
 [sub_resource type="Resource" id="Resource_kfpli"]
 script = ExtResource("3_441py")

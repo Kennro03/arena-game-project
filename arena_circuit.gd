@@ -6,7 +6,7 @@ const ARENA_FIGHT_SCENE = preload("res://Scenes/arena_fight_scene.tscn")
 
 @export var auto_proceed: bool = true
 @export var auto_proceed_delay: float = 3.0      # seconds before next match starts
-@export var highlight_duration: float = 2.0      # seconds fighters are highlighted before transition
+@export var highlight_duration: float = 1.5      # seconds fighters are highlighted before transition
 
 @onready var slots_container: GridContainer = %SlotsContainer
 @onready var standings_container: VBoxContainer = %StandingsContainer
@@ -63,7 +63,7 @@ func _build_slots() -> void:
 
 func _select_next_matchup() -> void:
 	_clear_highlights()
-	var pair := _pick_matchup()
+	var pair : Array[FighterData] = _pick_matchup()
 	if pair.is_empty():
 		_on_no_matchup_available()
 		return
@@ -169,7 +169,7 @@ func _apply_progression(fighters: Array[FighterData]) -> void:
 				f.unit_data.stats.experience += _config.exp_gained_per_prog
 			if _config.level_gained_per_prog > 0:
 				var target_level := f.unit_data.stats.level + _config.level_gained_per_prog
-				f.unit_data.stats.experience = f.unit_data.stats.get_xp_for_level(target_level)
+				f.unit_data.stats.experience = Stats.get_xp_for_level(target_level)
 
 func _check_round_end(all_involved: Array[FighterData]) -> void:
 	match _config.round_format:
@@ -187,41 +187,42 @@ func _check_round_end(all_involved: Array[FighterData]) -> void:
 			pass  # no round concept
 
 func _pick_gauntlet_matchup() -> Array[FighterData]:
-	var available := _fighters.filter(func(f): 
+	var available : Array[FighterData] = _fighters.filter(func(f): 
 		return f not in _gauntlet_fought_this_round)
 	if available.size() < 2:
-		return []  # round over — _check_round_end handles reset
+		return []  # round over
 	available.shuffle()
 	return [available[0], available[1]]
 
 func _pick_round_robin_matchup() -> Array[FighterData]:
 	for i in _fighters.size():
 		for j in range(i + 1, _fighters.size()):
-			var pair := [_fighters[i], _fighters[j]]
+			var pair: Array[FighterData] = [_fighters[i], _fighters[j]]  # ← typed
 			var already_fought := _round_robin_completed_pairs.any(func(p):
 				return (p[0] == pair[0] and p[1] == pair[1]) or (p[0] == pair[1] and p[1] == pair[0]))
 			if not already_fought:
 				return pair
-	# all pairs exhausted — round robin complete
 	_round_robin_completed_pairs.clear()
 	_current_round += 1
-	return _pick_round_robin_matchup()  # start new round
+	return _pick_round_robin_matchup()
 
 func _pick_continuous_matchup() -> Array[FighterData]:
-	# existing _pick_matchup logic
+	var pair: Array[FighterData] = []
 	if _fighters.size() < 2:
-		return []
+		var empty: Array[FighterData] = []; return empty
 	var min_fights: int = _fighters.map(func(f): return f.fights_count).min()
 	var least_fought := _fighters.filter(func(f): return f.fights_count == min_fights)
 	if least_fought.size() >= 2:
 		least_fought.shuffle()
-		return [least_fought[0], least_fought[1]]
+		pair = [least_fought[0], least_fought[1]]  # ← typed
+		return pair
 	var first: FighterData = least_fought[0]
 	var others := _fighters.filter(func(f): return f != first)
 	if others.is_empty():
-		return []
+		var empty: Array[FighterData] = []; return empty
 	others.shuffle()
-	return [first, others[0]]
+	pair = [first, others[0]]  # ← typed
+	return pair
 
 func on_fight_result(winning_team: Team, all_teams: Array[Team], is_draw: bool) -> void:
 	show()
@@ -269,6 +270,8 @@ func _on_fight_result_multi(winner: FighterData, losers: Array[FighterData], is_
 	
 	# apply progression
 	_apply_progression(all_involved)
+	_spend_pending_points(all_involved) 
+	_auto_draw_pending_cards(all_involved)
 	
 	# gear reroll
 	if _config and _config.gear_handling == ArenaConfig.GearHandling.REROLL_AFTER_FIGHT:
@@ -283,6 +286,24 @@ func _on_fight_result_multi(winner: FighterData, losers: Array[FighterData], is_
 		await get_tree().create_timer(auto_proceed_delay).timeout
 	_select_next_matchup()
 
+func _spend_pending_points(fighters: Array[FighterData]) -> void:
+	for f in fighters:
+		if f.unit_data == null:
+			continue
+		f.unit_data.stats.recalculate_stats()
+		if f.unit_data.stats.attribute_points_available <= 0:
+			continue
+		if f.stat_archetype:
+			f.unit_data.spend_points_with_archetype(f.stat_archetype)
+		else:
+			f.unit_data.auto_spend_attribute_points()
+
+func _auto_draw_pending_cards(fighters: Array[FighterData]) -> void:
+	for f in fighters:
+		if f.unit_data == null: continue
+		if f.unit_data.stats.pending_draws.is_empty(): continue
+		f.unit_data.auto_process_draws(f.tag_priority)
+
 func _reroll_gear(fighter: FighterData) -> void:
 	if fighter.unit_data == null:
 		return
@@ -295,19 +316,17 @@ func _reroll_gear(fighter: FighterData) -> void:
 	if weapon:
 		fighter.unit_data.weapon = weapon
 
-func _generate_weapon_for_fighter(fighter: FighterData, config: FighterGenerationConfig) -> Weapon:
+func _generate_weapon_for_fighter(_fighter: FighterData, config: FighterGenerationConfig) -> Weapon:
 	var allowed_types := config.allowed_weapon_types
 	if allowed_types.is_empty():
 		return null
-	var type : Weapon.WeaponTypeEnum = allowed_types.pick_random()
-	var mat: ItemMaterial = null
+	var _type : Weapon.WeaponTypeEnum = allowed_types.pick_random()
+	var _mat: ItemMaterial = null
 	if not config.allowed_weapon_materials.is_empty():
-		mat = config.allowed_weapon_materials.pick_random()
-	var base_weapons := MaterialRegistry.get_all_materials()  # placeholder — load from weapon pool
+		_mat = config.allowed_weapon_materials.pick_random()
+	var _base_weapons : Array[ItemMaterial] = MaterialRegistry.get_all_materials()  # placeholder — load from weapon pool
 	# weapon generation logic depends on how your weapon pool is structured
 	return null  # fill in when weapon pool is accessible
-
-
 
 func _refresh_standings() -> void:
 	for c in standings_container.get_children():

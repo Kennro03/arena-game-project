@@ -2,7 +2,7 @@ extends Node
 signal inventory_stickman_added(unit_data : humanoidUnitData)
 signal inventory_stickman_removed()
 
-@export var humanoid_scene := preload("res://Scenes/humanoid_unit.tscn")
+@export var humanoid_scene := preload("uid://dxh7n6qwa5fag")
 
 @export var HOTBAR_SIZE := 10
 @export var autofill_test_int := 4

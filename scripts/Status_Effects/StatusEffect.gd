@@ -1,10 +1,11 @@
 extends Resource
 class_name StatusEffect
 
-signal effect_applied
-signal effect_ticked
-signal effect_stack_changed
-signal effect_expired
+signal effect_applied(effect: StatusEffect)
+signal effect_ticked(effect: StatusEffect)
+signal effect_stack_changed(effect: StatusEffect)
+signal effect_expired(effect: StatusEffect)
+
 
 @export var Status_effect_name : String
 @export var status_ID : String

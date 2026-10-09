@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="ActiveSkill" format=3 uid="uid://b1y3fhvahlv34"]
 
-[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/CastStep.gd" id="1_cmth7"]
-[ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/SkillEffect.gd" id="2_1kn3j"]
-[ext_resource type="Script" uid="uid://w7i3wh7rbdpo" path="res://scripts/Skills/SkillEffect_InflictHit.gd" id="3_45vbg"]
-[ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Step_SpawnLingeringArea.gd" id="4_3qbk8"]
-[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/SkillPrerequisite.gd" id="5_22kxq"]
+[ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/Cast_steps/CastStep.gd" id="1_cmth7"]
+[ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/Skill_effects/SkillEffect.gd" id="2_1kn3j"]
+[ext_resource type="Script" uid="uid://w7i3wh7rbdpo" path="res://scripts/Skills/Skill_effects/SkillEffect_InflictHit.gd" id="3_45vbg"]
+[ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Cast_steps/Step_SpawnLingeringArea.gd" id="4_3qbk8"]
+[ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/Skill_prerequisites/SkillPrerequisite.gd" id="5_22kxq"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="6_dywq4"]
-[ext_resource type="Script" uid="uid://c7pvww45kvh3r" path="res://scripts/Skills/Targeting_NearestEnemy.gd" id="7_gmkpi"]
+[ext_resource type="Script" uid="uid://c7pvww45kvh3r" path="res://scripts/Skills/Skill_targeting/Targeting_NearestEnemy.gd" id="7_gmkpi"]
 
 [sub_resource type="Resource" id="Resource_45imn"]
 script = ExtResource("3_45vbg")

@@ -227,6 +227,7 @@ text = "Simulation speed "
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 0.1
+max_value = 999.0
 step = 0.1
 value = 1.0
 

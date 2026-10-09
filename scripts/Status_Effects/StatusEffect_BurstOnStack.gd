@@ -2,6 +2,7 @@ extends StatusEffect
 class_name StatusEffect_BurstOnStack
 
 signal emit_particle(particle_scene:PackedScene)
+signal effect_burst(effect: StatusEffect)
 
 @export var damage_per_stack : float = 2.0
 @export var damage_mult_full_stack : float = 1.25

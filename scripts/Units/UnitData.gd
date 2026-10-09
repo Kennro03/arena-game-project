@@ -262,14 +262,44 @@ func auto_spend_attribute_points() -> void:
 	stats_changed.emit()
 
 func _pick_weighted_attribute() -> Stats.Attributes:
-	var total : int = attribute_weights.values().reduce(func(a, b): return a + b, 0.0)
+	return _pick_from_weights(attribute_weights)
+
+func _pick_from_weights(weights: Dictionary) -> Stats.Attributes:
+	var total: float = 0.0
+	for v in weights.values(): total += v
+	if total <= 0.0: return Stats.Attributes.values().pick_random()
 	var roll := randf_range(0.0, total)
-	for attr in attribute_weights:
-		roll -= attribute_weights[attr]
-		if roll <= 0:
-			return attr
-	printerr("Used fallback weight attribute !")
-	return Stats.Attributes.STRENGTH
+	for attr in weights:
+		roll -= weights[attr]
+		if roll <= 0.0: return attr
+	return weights.keys().back()
+
+func spend_points_with_archetype(archetype: StatArchetype) -> void:
+	stats.recalculate_stats()
+	if stats.attribute_points_available <= 0: return
+	
+	var total_points := stats.attribute_points_available
+	var focused_count: int = int(float(total_points) * archetype.focus_ratio)
+	
+	# Focused spend — weighted toward archetype stats
+	if not archetype.stat_weights.is_empty() and focused_count > 0:
+		for i in focused_count:
+			if stats.attribute_points_available <= 0: break
+			stats.spend_attribute_point(_pick_from_weights(archetype.stat_weights))
+	else:
+		# No weights defined or focus_ratio is 0 — skip focused pass
+		focused_count = 0
+	
+	# Random spend — whatever's left
+	if stats.attribute_points_available > 0:
+		var pool: Array = Stats.Attributes.values().duplicate()
+		if archetype.restrict_random_to_unfocused and not archetype.stat_weights.is_empty():
+			pool = pool.filter(func(a): return not archetype.stat_weights.has(a))
+			if pool.is_empty(): pool = Stats.Attributes.values().duplicate()
+		while stats.attribute_points_available > 0:
+			stats.spend_attribute_point(pool.pick_random())
+	
+	stats_changed.emit()
 
 func apply_draw(card_data: LevelupCardData) -> void:
 	match card_data.card_type:
@@ -284,13 +314,24 @@ func apply_draw(card_data: LevelupCardData) -> void:
 				stats.recalculate_stats()
 				stats_changed.emit()
 
-func auto_process_draws() -> void:
+func auto_process_draws(tag_priority: Array[String] = []) -> void:
 	while not stats.pending_draws.is_empty():
 		var draw_type: DrawSchedule.DrawType = stats.pending_draws.pop_front()
 		var pool := CardPoolGenerator.generate_pool_for_data(self, draw_type, 3)
-		if not pool.is_empty():
-			apply_draw(pool.pick_random())
-			#emit all just in case
-			skills_changed.emit()
-			stats_changed.emit()
-			gear_changed.emit()
+		if pool.is_empty():
+			continue
+		var picked : LevelupCardData = _pick_card_by_tags(pool, tag_priority) if not tag_priority.is_empty() \
+					  else pool.pick_random()
+		apply_draw(picked)
+	# emit once after all draws resolved, not per-draw
+	skills_changed.emit()
+	stats_changed.emit()
+	gear_changed.emit()
+
+func _pick_card_by_tags(pool: Array[LevelupCardData], tags: Array[String]) -> LevelupCardData:
+	var tagged: Array[LevelupCardData] = []
+	for tag in tags:
+		for card in pool:
+			if card.get_tags().has(tag) and not tagged.has(card):
+				tagged.append(card)
+	return tagged.pick_random() if not tagged.is_empty() else pool.pick_random()

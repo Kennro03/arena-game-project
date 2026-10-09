@@ -1,6 +1,8 @@
 extends Control
 class_name ArenaSetupScene
 
+
+
 const FIGHTER_GENERATION_SCENE = preload("res://Scenes/fighter_generation_scene.tscn")
 
 # fight rules
@@ -160,7 +162,10 @@ func _on_proceed() -> void:
 	gen_scene.arena_config = config
 	gen_scene.min_fighters = int(min_fighters_spinbox.value)
 	gen_scene.generation_complete.connect(_on_fighters_ready)
-	get_tree().root.add_child(gen_scene)
+	if Player.ui_layer :
+		Player.ui_layer.add_child(gen_scene)
+	else :
+		get_tree().root.add_child(gen_scene)
 	hide()
 
 func _on_fighters_ready(fighters: Array[FighterData], config: Resource) -> void:

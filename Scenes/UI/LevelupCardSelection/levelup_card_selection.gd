@@ -60,10 +60,10 @@ func _update_title() -> void:
 
 func _roll_cards() -> void:
 	_clear_cards()
-	if _unit is BaseUnit:
-		_current_pool = CardPoolGenerator.generate_pool(_unit, _draw_type, _cards_to_show)
-	else:
-		_current_pool = CardPoolGenerator.generate_pool_for_data(_unit, _draw_type, _cards_to_show)
+	var data : UnitData = _unit
+	if data:
+		_current_pool = CardPoolGenerator.generate_pool_for_data(data, _draw_type, _cards_to_show)
+	
 	for card_data in _current_pool:
 		_spawn_card(card_data)
 
@@ -80,7 +80,7 @@ func _clear_cards() -> void:
 
 func _card_selected(card_data: LevelupCardData) -> void:
 	print("Card selected: %s" % card_data.display_name)
-	if _unit is BaseUnit or _unit is UnitData:
+	if _unit is Unit or _unit is UnitData:
 		_unit.apply_draw(card_data)
 	else:
 		print("Test mode — card not applied to any unit")
@@ -155,3 +155,24 @@ func _on_select_random_button_pressed() -> void:
 func _on_cancel_selection_button_pressed() -> void:
 	# cancel the card selection without consuming the unit's draw
 	queue_free()
+
+static func auto_draw(unit: UnitData, draw_type: DrawSchedule.DrawType, tag_priority: Array[String] = []) -> LevelupCardData:
+	var pool := CardPoolGenerator.generate_pool_for_data(unit, draw_type, 3)
+	if pool.is_empty():
+		return null
+	
+	var picked := _pick_from_pool(pool, tag_priority)
+	if picked:
+		unit.apply_draw(picked)
+	return picked
+
+static func _pick_from_pool(pool: Array[LevelupCardData], tags: Array[String]) -> LevelupCardData:
+	if tags.is_empty():
+		return pool.pick_random()
+	
+	var tagged: Array[LevelupCardData] = []
+	for tag in tags:
+		for card in pool:
+			if card.get_tags().has(tag) and not tagged.has(card):
+				tagged.append(card)
+	return tagged.pick_random() if not tagged.is_empty() else pool.pick_random()

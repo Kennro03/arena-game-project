@@ -4,7 +4,7 @@ class_name Effect_HealFlat
 @export var amount: float = 1.0
 @export var heal_scalings: Array[StatScaling] = []
 
-func _apply_to(_target: BaseUnit, _caster: BaseUnit, _context: Dictionary) -> void:
+func _apply_to(_target: Unit, _caster: Unit, _context: Dictionary) -> void:
 	var total_healing_amount : float = amount
 	
 	for scaling in heal_scalings:

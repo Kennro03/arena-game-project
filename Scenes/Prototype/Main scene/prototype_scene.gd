@@ -4,7 +4,6 @@ const ARENA_SETUP = preload("uid://cbbr1vp20iks7")
 const FIGHTER_GENERATION_SCENE = preload("uid://c154o53mrj6im")
 const ARENA_CIRCUIT = preload("uid://clh70vlg1drhg")
 
-
 @export var expedition_selection_scene : StringName = &""
 @export var expedition_scene : StringName = &""
 @export var battle_scene : StringName = &"" 
@@ -40,8 +39,13 @@ func _on_camp_button_pressed() -> void:
 	Player.go_to_scene(camp_scene)
 
 func _on_arena_gamemode_button_pressed() -> void:
-	var arena_setup := ARENA_SETUP.instantiate()
+	var arena_setup : ArenaSetupScene = ARENA_SETUP.instantiate()
 	ui.add_child(arena_setup)
+	#arena_setup.connect()
+
+func spawn_fighter_generation_scene() -> void:
+	var fighter_generation_scene : FighterGenerationScene = FIGHTER_GENERATION_SCENE.instantiate()
+	ui.add_child(fighter_generation_scene)
 
 func _on_tournament_gamemode_button_pressed() -> void:
 	pass # Replace with function body.

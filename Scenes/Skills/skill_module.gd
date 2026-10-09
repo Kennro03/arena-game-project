@@ -16,12 +16,9 @@ var _check_timer: float = 0.0
 
 func _ready() -> void:
 	await owner.ready
-	var unit := owner as Unit
+	var _unit : Unit = owner
 	
-	print("SkillModule ready for %s, unit_data skills: %s" % [
-		unit.unit_name, 
-		unit.unit_data.skill_list.map(func(s): return s.name) if unit.unit_data else []
-	])
+	#print("SkillModule ready for %s, unit_data skills: %s" % [ unit.unit_name, unit.unit_data.skill_list.map(func(s): return s.name) if unit.unit_data else []])
 	
 	#if unit and unit.unit_data:
 	#	for skill in unit.unit_data.skill_list:
