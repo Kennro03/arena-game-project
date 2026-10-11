@@ -31,7 +31,6 @@ signal armor_changed(armor: Armor)
 # Identity & relations related
 # Action related
 var is_action_locked : bool = false
-var is_silenced : bool = false
 
 # Movement related
 var velocity: Vector2 = Vector2.ZERO

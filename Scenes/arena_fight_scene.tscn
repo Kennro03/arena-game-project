@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="4_gcnp8"]
 [ext_resource type="Resource" uid="uid://ps2wy7q88f5b" path="res://ressources/Units/unit_data/Pablo.tres" id="4_gr6io"]
 [ext_resource type="Resource" uid="uid://dt5ucbvun4vyl" path="res://ressources/Units/unit_data/BigGuy.tres" id="5_tgw3m"]
+[ext_resource type="Texture2D" uid="uid://bwaitgbywa38r" path="res://ressources/Sprites/arenas/placeholder1.png" id="7_o1gs2"]
 
 [sub_resource type="Resource" id="Resource_fnsfk"]
 script = ExtResource("2_dtjro")
@@ -27,6 +28,11 @@ arena_radius = 400.0
 spawn_radius = 100.0
 metadata/_custom_type_script = "uid://csghl06iotc8y"
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_0sdo2"]
+vertices = PackedVector2Array(68.21875, -368.10938, 146.02344, -346.71875, 218.15625, -303.82813, 272.64844, -257.1172, 319.46875, -194.70313, 352.5625, -128.53125, 370.0703, -58.453125, 373.97656, 0, 370.0703, 60.4375, 352.54688, 128.60156, 329.25, 179.09375, 286.32813, 243.46094, 235.84375, 290.0703, 163.53906, 336.96875, 81.78125, 366.17188, 0.0390625, 373.95313, -77.85156, 366.15625, -151.89063, 340.82813, -218.21094, 303.77344, -278.60156, 251.17969, -315.46875, 200.71875, -344.7422, 144.13281, -368.1172, 73.99219, -373.96875, -0.09375, -370.07813, -62.328125, -348.75, -137.96094, -286.15625, -241.63281, -223.95313, -299.95313, -157.65625, -338.9375, -89.36719, -364.3125, -46.867188, -372.03125, -0.1875, -373.97656)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -384, 70, -378, 150, -356, 224, -312, 280, -264, 328, -200, 362, -132, 380, -60, 384, 0, 380, 62, 362, 132, 338, 184, 294, 250, 242, 298, 168, 346, 84, 376, 0, 384, -80, 376, -156, 350, -224, 312, -286, 258, -324, 206, -354, 148, -378, 76, -384, 0, -380, -64, -358, -142, -294, -248, -230, -308, -162, -348, -92, -374, -48, -382)])
+
 [node name="ArenaFightScene" type="Node2D" unique_id=1887876671]
 script = ExtResource("1_yjuyy")
 test_mode = true
@@ -35,6 +41,19 @@ fight_config = SubResource("Resource_yjuyy")
 
 [node name="Arena" type="Node2D" parent="." unique_id=1344798893]
 unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Arena" unique_id=663036994]
+texture = ExtResource("7_o1gs2")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Arena" unique_id=1382222467]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/StaticBody2D" unique_id=518834054]
+build_mode = 1
+polygon = PackedVector2Array(384, 0, 382, -50, 364, -126, 332, -194, 296, -244, 268, -276, 230, -308, 188, -336, 142, -358, 88, -374, 44, -382, 0, -384, -22, -384, -58, -380, -112, -368, -172, -344, -216, -318, -252, -290, -292, -250, -326, -204, -352, -154, -370, -104, -382, -46, -384, 0, -384, 26, -378, 74, -356, 146, -330, 198, -286, 256, -240, 300, -200, 328, -162, 348, -106, 370, -46, 382, 0, 384, 54, 382, 112, 368, 154, 352, 214, 320, 252, 290, 282, 260, 328, 202, 358, 142, 382, 56)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Arena" unique_id=1264565316]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_0sdo2")
 
 [node name="Units" type="Node2D" parent="." unique_id=1068604497]
 unique_name_in_owner = true
@@ -163,3 +182,5 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Return to main menu"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1057960502]

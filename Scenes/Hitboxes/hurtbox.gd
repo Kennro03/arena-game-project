@@ -43,10 +43,10 @@ func _bounce_off_obstacles() -> void:
 		
 		# wall collision damage — only if moving fast into wall
 		if impact_speed > 150.0:
-			var impact_damage : float = (impact_speed - 150.0) * 0.1
-			owner.take_damage(impact_damage)
+			var _impact_damage : float = (impact_speed - 150.0) * 0.1
+			# owner.take_damage(impact_damage)
 			# signal for passive: "took wall collision damage"
-			Events.wall_collision.emit(owner, impact_damage)
+			# Events.wall_collision.emit(owner, impact_damage)
 
 func get_overlapping_areas_in_area(areagroupname : String = "Hurtbox") -> Array:
 	var results: Array = []

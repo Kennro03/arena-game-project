@@ -146,12 +146,9 @@ func _compute_spawn_points() -> void:
 	for i in team_count:
 		var angle : float = (TAU / team_count) * i  # start from right
 		var point : Vector2 = Vector2(
-			cos(angle) * fight_config.arena_radius * 0.6,
-			sin(angle) * fight_config.arena_radius * 0.6)
+			cos(angle) * fight_config.arena_radius * 0.6-650,
+			sin(angle) * fight_config.arena_radius * 0.6-350)
 		_team_spawn_points[_teams[i]] = point
-	
-	#if arena and arena.has_method("set_radius"):
-	#	arena.set_radius(fight_config.arena_radius)
 
 # ── Spawn sequence ────────────────────────────────────────────────────────
 
