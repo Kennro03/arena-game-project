@@ -24,7 +24,7 @@ func physics_update(_delta: float) -> void:
 
 	# Update navigation destination every tick — target moves
 	var arrive_radius := maxf(
-		unit.weapon.current_attack_range * 0.65 if unit.weapon else 50.0,
+		unit.weapon.current_attack_range * 0.60 if unit.weapon else 40.0,
 		24.0)
 	unit.movement_controller.navigate_to(
 		_current_target.global_position,

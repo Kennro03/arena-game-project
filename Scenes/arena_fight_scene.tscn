@@ -51,6 +51,7 @@ build_mode = 1
 polygon = PackedVector2Array(384, 0, 382, -50, 364, -126, 332, -194, 296, -244, 268, -276, 230, -308, 188, -336, 142, -358, 88, -374, 44, -382, 0, -384, -22, -384, -58, -380, -112, -368, -172, -344, -216, -318, -252, -290, -292, -250, -326, -204, -352, -154, -370, -104, -382, -46, -384, 0, -384, 26, -378, 74, -356, 146, -330, 198, -286, 256, -240, 300, -200, 328, -162, 348, -106, 370, -46, 382, 0, 384, 54, 382, 112, 368, 154, 352, 214, 320, 252, 290, 282, 260, 328, 202, 358, 142, 382, 56)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Arena" unique_id=1264565316]
+unique_name_in_owner = true
 navigation_polygon = SubResource("NavigationPolygon_0sdo2")
 
 [node name="Units" type="Node2D" parent="." unique_id=1068604497]

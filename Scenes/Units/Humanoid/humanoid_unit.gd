@@ -244,7 +244,9 @@ func can_hit() -> bool:
 	return weapon != null and last_attack_time >= 1.0 / weapon.current_attack_speed
 
 func attack(target: Node2D) -> void:
-	if is_action_locked: return
+	if is_action_locked: 
+		print("unit is action locked! Canceling attack.")
+		return
 	var hit := HitData.new(owner)
 	hit.is_critical = randf() <= stats.current_crit_chance / 100.0
 	hit.crit_mult = stats.current_crit_damage

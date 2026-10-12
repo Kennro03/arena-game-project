@@ -61,6 +61,7 @@ func physics_update(delta: float) -> void:
 	#var skill_used : bool = unit.skillModule.try_use_skill(_current_target)
 	#if not skill_used and
 	if unit.can_hit():
+		print("Unit can hit, attacking")
 		unit.attack(_current_target)
 		unit.last_attack_time = 0.0
 		# Change footwork after acting
