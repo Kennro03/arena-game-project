@@ -21,8 +21,8 @@ func play_channel_cast() -> void: pass
 func flipSprite(flipped: bool) -> void:
 	if flip == flipped:
 		return
-	self.scale.x = -1
 	flip = flipped
+	scale.x = -1.0 if flipped else 1.0
 
 func get_random_animation(prefix: String) -> String:
 	var matches : Array[String] = []

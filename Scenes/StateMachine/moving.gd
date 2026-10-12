@@ -1,44 +1,39 @@
 extends UnitState
 class_name UnitMoving
 
-var closest_target
-var closest_target_vector
+var _current_target: Unit = null
 
 func enter(_previous_state_path: String, _data := {}) -> void:
 	unit.displayModule.state_rich_text_label.text = "MOVING"
-	unit.animationPlayer.stop()
+	unit.spriteModule.play_move()
+	_current_target = null
 
 func physics_update(_delta: float) -> void:
-	if unit.is_action_locked:
-		return
 	if unit.is_stunned:
 		finished.emit(STUNNED)
-	
-	closest_target = unit.get_closest_unit(
-		unit.get_units_in_group("Live_Units"),
-		INF,
-		func(u): return not unit.check_if_ally(u))
-	
-	if closest_target != null :
-		closest_target_vector = unit.get_target_position_vector(closest_target.position)
-		if closest_target_vector.x > 0 :
-			unit.spriteModule.flipSprite(false)
-		else : 
-			unit.spriteModule.flipSprite(true)
-	else : 
-		finished.emit(IDLE)
-	
-	if !unit.animationPlayer.is_playing():
-		unit.spriteModule.play_move()
-	
-	#%SkillModule.check_skill_timepassed += _delta
-	#if %SkillModule.check_skill_timepassed >= %SkillModule.skill_check_delay : 
-	#	if %SkillModule.check_any_usable_skill() : 
-	#		finished.emit(CASTING)
-	
-	if unit.melee_close_range_check(closest_target) :
+		return
+
+	_current_target = _find_enemy()
+
+	if _current_target == null:
+		unit.movement_controller.cancel()
 		finished.emit(IDLE)
 		return
-	
-	if closest_target_vector: 
-		unit.position = unit.position + closest_target_vector.normalized()*unit.stats.current_movement_speed*_delta
+
+	unit.face_toward(_current_target.global_position)
+
+	# Update navigation destination every tick — target moves
+	var arrive_radius := maxf(
+		unit.weapon.current_attack_range * 0.65 if unit.weapon else 50.0,
+		24.0)
+	unit.movement_controller.navigate_to(
+		_current_target.global_position,
+		unit.stats.current_movement_speed,
+		arrive_radius)
+
+	if !unit.animationPlayer.is_playing():
+		unit.spriteModule.play_move()
+
+	if unit.melee_close_range_check(_current_target):
+		unit.movement_controller.cancel()
+		finished.emit(ENGAGED)

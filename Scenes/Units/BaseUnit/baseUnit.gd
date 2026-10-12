@@ -33,7 +33,6 @@ signal armor_changed(armor: Armor)
 var is_action_locked : bool = false
 
 # Movement related
-var velocity: Vector2 = Vector2.ZERO
 var acceleration: Vector2 = Vector2.ZERO
 var previous_velocity: Vector2 = Vector2.ZERO
 var movement_direction: Vector2 = Vector2.ZERO

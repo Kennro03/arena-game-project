@@ -15,11 +15,10 @@ fighters = Array[ExtResource("3_o1gs2")]([ExtResource("4_gr6io")])
 override_color = Color(0, 1, 1, 1)
 metadata/_custom_type_script = "uid://c8pdj04xpk0kl"
 
-[sub_resource type="Resource" id="Resource_34igr"]
+[sub_resource type="Resource" id="Resource_lpt4p"]
 script = ExtResource("2_dtjro")
 team_name = "Team 2"
 fighters = Array[ExtResource("3_o1gs2")]([ExtResource("5_tgw3m")])
-override_color = Color(1, 0, 0, 1)
 metadata/_custom_type_script = "uid://c8pdj04xpk0kl"
 
 [sub_resource type="Resource" id="Resource_yjuyy"]
@@ -36,7 +35,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(0, -384, 70, -378, 150,
 [node name="ArenaFightScene" type="Node2D" unique_id=1887876671]
 script = ExtResource("1_yjuyy")
 test_mode = true
-test_teams = Array[ExtResource("2_dtjro")]([SubResource("Resource_fnsfk"), SubResource("Resource_34igr")])
+test_teams = Array[ExtResource("2_dtjro")]([SubResource("Resource_fnsfk"), SubResource("Resource_lpt4p")])
 fight_config = SubResource("Resource_yjuyy")
 
 [node name="Arena" type="Node2D" parent="." unique_id=1344798893]
@@ -52,7 +51,6 @@ build_mode = 1
 polygon = PackedVector2Array(384, 0, 382, -50, 364, -126, 332, -194, 296, -244, 268, -276, 230, -308, 188, -336, 142, -358, 88, -374, 44, -382, 0, -384, -22, -384, -58, -380, -112, -368, -172, -344, -216, -318, -252, -290, -292, -250, -326, -204, -352, -154, -370, -104, -382, -46, -384, 0, -384, 26, -378, 74, -356, 146, -330, 198, -286, 256, -240, 300, -200, 328, -162, 348, -106, 370, -46, 382, 0, 384, 54, 382, 112, 368, 154, 352, 214, 320, 252, 290, 282, 260, 328, 202, 358, 142, 382, 56)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Arena" unique_id=1264565316]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_0sdo2")
 
 [node name="Units" type="Node2D" parent="." unique_id=1068604497]

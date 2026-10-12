@@ -33,6 +33,11 @@
 [ext_resource type="Script" uid="uid://bxo2ywf66un7q" path="res://scripts/Components/unit_drag_and_drop_component.gd" id="31_bjh0y"]
 [ext_resource type="Script" uid="uid://de3oub0ll741a" path="res://scripts/Components/velocity_based_rotation.gd" id="32_qxu24"]
 [ext_resource type="Script" uid="uid://dnriefm5vyac4" path="res://scripts/Components/OutlineHighlighter.gd" id="33_sqvnx"]
+[ext_resource type="Script" uid="uid://b4fpendao8pl4" path="res://scripts/Components/movement_controller.gd" id="34_psbye"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0sdo2"]
+radius = 5.0
+height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rcxne"]
 radius = 5.0
@@ -206,9 +211,13 @@ _data = {
 &"go_down": SubResource("Animation_mhbyd")
 }
 
-[node name="HumanoidUnit" type="Node2D" unique_id=1889911686]
+[node name="HumanoidUnit" type="CharacterBody2D" unique_id=1075465213]
 script = ExtResource("1_8pr6i")
 metadata/_custom_type_script = "uid://dbkhsvwvrla1m"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=734181558]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_0sdo2")
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=1908640231 groups=["Hurtbox"]]
 unique_name_in_owner = true
@@ -261,7 +270,7 @@ vframes = 2
 
 [node name="Body" type="Node2D" parent="SpriteModule" unique_id=2071826372]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(0, -16)
+position = Vector2(0, -16.11111)
 
 [node name="Torso" type="Sprite2D" parent="SpriteModule/Body" unique_id=1564198696]
 texture = ExtResource("6_cddti")
@@ -507,3 +516,9 @@ target = NodePath("../SpriteModule")
 outline_color = Color(1, 1, 1, 1)
 outline_thickness = 2
 default_outline_thickness = 1
+
+[node name="MovementController" type="Node" parent="." unique_id=258812261]
+script = ExtResource("34_psbye")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=9918233]
+avoidance_enabled = true

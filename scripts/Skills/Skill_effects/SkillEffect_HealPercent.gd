@@ -4,7 +4,7 @@ class_name Effect_HealPercent
 @export var base_percent: float = 0.1
 @export var heal_scalings: Array[StatScaling] = []
 
-func _apply_to(_target: BaseUnit, _caster: BaseUnit, _context: Dictionary) -> void:
+func _apply_to(_target: Unit, _caster: Unit, _context: Dictionary) -> void:
 	var total_healing_percent : float = base_percent
 	
 	for scaling in heal_scalings:

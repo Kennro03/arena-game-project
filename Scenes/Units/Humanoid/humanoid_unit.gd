@@ -13,6 +13,7 @@ class_name HumanoidUnit
 @onready var state_machine: UnitStateMachine = $StateMachine
 @onready var hurtbox_collision_shape: CollisionShape2D = %HurtboxCollisionShape
 @onready var selection_area_collision_shape: CollisionShape2D = %SelectionAreaCollisionShape
+@onready var movement_controller: MovementController = $MovementController
 
 @export var weapon_spritesheets: Dictionary = {
 	Weapon.WeaponTypeEnum.UNARMED: PlaceholderTexture2D.new(),
@@ -30,7 +31,6 @@ var is_downed: bool:
 var is_action_locked: bool = false
 
 # Movement
-var velocity: Vector2 = Vector2.ZERO
 var acceleration: Vector2 = Vector2.ZERO
 var previous_velocity: Vector2 = Vector2.ZERO
 var movement_direction: Vector2 = Vector2.ZERO
@@ -53,6 +53,8 @@ func _ready() -> void:
 	animationPlayer.animation_finished.connect(_on_anim_finished)
 	stats.level_changed.connect(particleModule.emit_level_up_particles)
 	spriteModule.update_sprites.call_deferred()
+	
+	
 
 ## Activation
 func _on_activated() -> void:
@@ -125,6 +127,11 @@ static func remove_buff(buff: Buff, unit: Unit) -> void:
 
 
 ## Combat
+func face_toward(target_position: Vector2) -> void:
+	if movement_controller.facing_locked:
+		return
+	spriteModule.flipSprite(target_position.x < global_position.x)
+
 func apply_stun(duration: float) -> void:
 	state_machine._transition_to_next_state(UnitState.STUNNED, {"duration": duration})
 	

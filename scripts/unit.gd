@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 class_name Unit
 
 @warning_ignore_start("unused_signal")
@@ -98,6 +98,9 @@ func apply_data(data: UnitData) -> void:
 	team = data.team
 	stats = data.stats
 	stats.setup_stats()
+
+func face_toward(_target_position: Vector2) -> void:
+	pass
 
 # --- Hooks ---
 func _on_activated() -> void:
