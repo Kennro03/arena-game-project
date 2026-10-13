@@ -238,8 +238,8 @@ func hit(target:Node2D, _hit: HitData)-> void:
 		printerr("No owner ! Voiding hit")
 		return
 	
-	##var attack : DamageType = generate_attack_type(attackTypes)
-	_hit.attack_type = current_damage_type
+	_hit.damage_type = current_damage_type
+	#print("Damage type = " + str(_hit.attack_type))
 	_hit.base_damage = current_damage
 	_hit.knockback_force = current_knockback
 	
@@ -248,13 +248,13 @@ func hit(target:Node2D, _hit: HitData)-> void:
 	
 	if _hit.is_critical == false and current_hitbox != null : 
 		_spawn_hitbox(target.global_position, _hit, current_hitbox)
-		attack_performed.emit(_hit.attack_type, current_endlag)
+		attack_performed.emit(_hit.damage_type, current_endlag)
 	elif _hit.is_critical == true and current_crit_hitbox != null : 
 		_spawn_hitbox(target.global_position, _hit, current_crit_hitbox)
-		attack_performed.emit(_hit.attack_type, current_endlag)
+		attack_performed.emit(_hit.damage_type, current_endlag)
 	elif target.has_method("resolve_hit") :
 		target.resolve_hit(_hit)
-		attack_performed.emit(_hit.attack_type, current_endlag)
+		attack_performed.emit(_hit.damage_type, current_endlag)
 	else :
 		printerr("Trying to attack an unvalid target without a hitbox !")
 

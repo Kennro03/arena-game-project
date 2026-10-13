@@ -5,24 +5,23 @@ enum DamageType { PIERCE, SLASH, BLUNT, FIRE, FROST, LIGHTNING, EARTH, WIND, WAT
 
 var hit_owner : Unit
 var is_critical : bool = false
-var attack_type : DamageType
 
 enum HitOutcome { NONE, HIT, BLOCK, PARRY, DODGE }
 var outcome : HitOutcome = HitOutcome.NONE
 
 @export var base_damage : float = 0.0
 @export var damage_type : DamageType
-var crit_mult : float = 1.0
 @export var knockback_direction : Vector2 = Vector2(0,0)
 @export var knockback_force : float = 0.0
 @export var status_effects: Array[StatusEffect] = [] # optional, e.g. "Burn", "Stun"
+var crit_mult : float = 1.0
 
 func _init(_hit_owner : Node2D, _damage_or_data = null, _dir: Vector2 = Vector2.ZERO, _force: float = 0.0, _effects: Array[StatusEffect] = [], _is_critical: bool = false):
 	if typeof(_damage_or_data) == TYPE_DICTIONARY:
 		var data: Dictionary = _damage_or_data
 		hit_owner = data.get("hit_owner")
 		base_damage = data.get("base_damage", 0.0)
-		damage_type = data.get("base_damage",damage_type)
+		damage_type = data.get("damage_type",damage_type)
 		knockback_direction = data.get("knockback_direction", Vector2.ZERO)
 		knockback_force = data.get("knockback_force", 0.0)
 		status_effects = data.get("status_effects", [])

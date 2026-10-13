@@ -195,9 +195,9 @@ func resolve_hit(hit_result: HitData) -> void:
 			statusEffectModule.apply_status_effect(effect)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2.ZERO:
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
-		var attacker_weapon: Weapon = hit_result.hit_owner.weapon if hit_result.hit_owner.has_method("equip_weapon") else null
-		if attacker_weapon and attacker_weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED:
-			particleModule.emit_hit_particles()
+		
+		particleModule.emit_hit_particles(hit_result)
+		
 		hit_received.emit(hit_result)
 
 func _block(hit: HitData) -> void:
