@@ -4,7 +4,6 @@ class_name UnitDownded
 func enter(_previous_state_path: String, _data := {}) -> void:
 	unit.displayModule.state_rich_text_label.text = ""
 	owner.spriteModule.play_death()
-	unit.is_action_locked = true
 	unit.remove_from_group("Live_Units")
 	unit.add_to_group("Downed_Units")
 	unit.displayModule.set_healthbar_visibility(false)

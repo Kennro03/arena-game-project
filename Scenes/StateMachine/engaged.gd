@@ -58,17 +58,24 @@ func physics_update(delta: float) -> void:
 		_pick_new_behavior()
 
 	# Skills take priority over weapon attacks
-	#var skill_used : bool = unit.skillModule.try_use_skill(_current_target)
-	#if not skill_used and
-	if unit.can_hit():
-		print("Unit can hit, attacking")
-		unit.attack(_current_target)
-		unit.last_attack_time = 0.0
-		# Change footwork after acting
+	# ── Weapon attack slot ──────────────────────────────────
+	# Weapon-attack skills get priority over bare auto-attack
+	if unit.can_weapon_attack():
+		var skill_used : bool = unit.skillModule.try_use_weapon_attack_skill(_current_target)
+		if not skill_used:
+			unit.attack(_current_target)
+		unit.consume_weapon_attack()
 		_pick_new_behavior()
+
+	# ── Free skill slot ─────────────────────────────────────
+	# Independent of weapon cooldown — buffs, repositions, ranged, etc.
+	unit.skillModule.try_use_free_skills(_current_target)
 
 	if not unit.melee_range_check(_current_target):
 		finished.emit(IDLE)
+	
+	if not unit.animationPlayer.is_playing():
+		unit.spriteModule.play_idle()
 
 
 func _pick_new_behavior() -> void:

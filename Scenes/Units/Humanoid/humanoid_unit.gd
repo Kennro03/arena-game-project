@@ -28,8 +28,6 @@ var is_stunned: bool:
 var is_downed: bool:
 	get: return state_machine.is_in_state(UnitState.DOWNED)
 
-var is_action_locked: bool = false
-
 # Movement
 var acceleration: Vector2 = Vector2.ZERO
 var previous_velocity: Vector2 = Vector2.ZERO
@@ -50,7 +48,6 @@ func _ready() -> void:
 		drag_and_drop_component.drag_canceled.connect(_on_drag_canceled)
 
 	_setup_display_module()
-	animationPlayer.animation_finished.connect(_on_anim_finished)
 	stats.level_changed.connect(particleModule.emit_level_up_particles)
 	spriteModule.update_sprites.call_deferred()
 	
@@ -127,6 +124,19 @@ static func remove_buff(buff: Buff, unit: Unit) -> void:
 
 
 ## Combat
+func can_weapon_attack() -> bool:
+	return (
+		not is_stunned
+		and not is_downed
+		and weapon_attack_timer >= _get_attack_interval()
+	)
+
+func consume_weapon_attack() -> void:
+	weapon_attack_timer = 0.0
+
+func _get_attack_interval() -> float:
+	return weapon.current_attack_speed if weapon else 1.5
+
 func face_toward(target_position: Vector2) -> void:
 	if movement_controller.facing_locked:
 		return
@@ -156,7 +166,12 @@ func take_damage(incoming_damage: float, _damage_type: HitData.DamageType = HitD
 func resolve_hit(hit_result: HitData) -> void:
 	last_hit_owner = hit_result.hit_owner
 	var not_locked := not state_machine.is_in_state(UnitState.CASTING) and not state_machine.is_in_state(UnitState.STUNNED)
-
+	
+	if is_dodging:
+		hit_result.outcome = HitData.HitOutcome.DODGE
+		hit_received.emit(hit_result)
+		return
+	
 	if randf_range(0.0, 100.0) <= stats.current_dodge_probability and not_locked:
 		hit_result.outcome = HitData.HitOutcome.DODGE
 		_dodge(hit_result)
@@ -238,15 +253,8 @@ func die() -> void:
 	Events.unit_died.emit(self, last_hit_owner)  
 	queue_free()
 
-
 ## Weapon
-func can_hit() -> bool:
-	return weapon != null and last_attack_time >= 1.0 / weapon.current_attack_speed
-
 func attack(target: Node2D) -> void:
-	if is_action_locked: 
-		print("unit is action locked! Canceling attack.")
-		return
 	var hit := HitData.new(owner)
 	hit.is_critical = randf() <= stats.current_crit_chance / 100.0
 	hit.crit_mult = stats.current_crit_damage
@@ -439,10 +447,5 @@ func _on_selection_area_input_event(_viewport: Node, _event: InputEvent, _shape_
 
 
 # --- Internal callbacks ---
-
-func _on_anim_finished(_anim_name) -> void:
-	is_action_locked = false
-
 func _on_weapon_attack(_damage_type: HitData.DamageType, _endlag: float = 0.0) -> void:
 	spriteModule.play_attack()
-	is_action_locked = true

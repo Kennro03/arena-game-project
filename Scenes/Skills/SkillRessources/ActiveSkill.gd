@@ -11,6 +11,13 @@ enum InterruptType {
 	INTERRUPTED_BY_HIT,     # any hit, silence, or CC interrupts it
 }
 
+enum ActionSlot {
+	WEAPON_ATTACK,  # Consumes the weapon attack cooldown
+	FREE,           # Has its own per-skill cooldown
+	## can implement spell specific actions and cooldown later
+}
+
+@export var action_slot: ActionSlot = ActionSlot.FREE
 @export var cooldown: float = 5.0
 @export var charges: int = 1
 @export var interrupt_type: InterruptType = InterruptType.INTERRUPTED_BY_STUN

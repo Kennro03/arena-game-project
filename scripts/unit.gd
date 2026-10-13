@@ -41,6 +41,7 @@ var accessories: Array[Accessory] = []
 var unit_data: UnitData = null
 var summoner: Unit = null
 var last_hit_owner: Unit = null
+var weapon_attack_timer: float = 0.0   # counts up each frame
 
 var active: bool = true:
 	set(value):
@@ -55,6 +56,9 @@ var is_silenced: bool = false
 
 func _ready() -> void:
 	add_to_group("Live_Units")
+
+func _physics_process(delta: float) -> void:
+	weapon_attack_timer += delta
 
 # --- Team logic (universal, summoner chain works for all unit types) ---
 func get_effective_team() -> Team:

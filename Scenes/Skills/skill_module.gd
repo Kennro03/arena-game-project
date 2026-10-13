@@ -46,7 +46,8 @@ func _tick(delta: float) -> void:
 	_check_timer += delta
 	if _check_timer >= skill_check_delay:
 		_check_timer = 0.0
-		_try_use_skill()
+		#checking to try and use skills would go here ? 
+		#_try_use_skill()
 
 func add_skill(skill: Skill) -> void:
 	if _has_skill(skill):
@@ -104,15 +105,19 @@ func _disconnect_skills() -> void:
 func _has_skill(skill: Skill) -> bool:
 	return skill_list.any(func(s): return s.name == skill.name)
 
-func _try_use_skill() -> void:
-	if _is_casting or _general_cooldown > 0.0:
-		return
-	var unit := owner as Unit
-	if unit.is_stunned or unit.is_silenced:
-		return
-	var skill := _get_best_usable_skill()
-	if skill:
-		use_skill(skill)
+func try_use_weapon_attack_skill(target: Unit) -> bool:
+	if _is_casting:
+		return false
+	for skill in _active_skills:
+		if skill.action_slot == ActiveSkill.ActionSlot.WEAPON_ATTACK and skill.can_use():
+			skill.use(target)
+			return true
+	return false
+
+func try_use_free_skills(target: Unit) -> void:
+	for skill in _active_skills:
+		if skill.action_slot == ActiveSkill.ActionSlot.FREE and skill.can_use():
+			skill.use(target)
 
 func use_skill(skill: ActiveSkill) -> void:
 	if not skill.can_use() or _is_casting:
