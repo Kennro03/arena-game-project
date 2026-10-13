@@ -15,9 +15,7 @@ class_name HumanoidUnit
 @onready var selection_area_collision_shape: CollisionShape2D = %SelectionAreaCollisionShape
 @onready var movement_controller: MovementController = $MovementController
 
-@export var weapon_spritesheets: Dictionary = {
-	Weapon.WeaponTypeEnum.UNARMED: PlaceholderTexture2D.new(),
-}
+
 @export var unit_size: float = 32.0
 
 # State machine state overrides

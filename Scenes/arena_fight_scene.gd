@@ -173,7 +173,7 @@ func _spawn_unit(fighter: FighterData, team: Team) -> void:
 	
 	var data := fighter.unit_data._make_copy()
 	data.team = team
-	#Don't change the unit's color to the team's
+	
 	#data.color = team.team_color
 	
 	var unit := _spawn_from_data(_team_spawn_points[team], data)
