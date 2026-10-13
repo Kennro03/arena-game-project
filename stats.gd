@@ -104,6 +104,7 @@ signal level_changed(old_level:int,new_level:int)
 @export var base_health_regen : float = 1.0
 @export var base_movement_speed : float = 80.0
 @export var base_dodge_probability : float = 10.0
+@export var base_dodge_distance: float = 64.0
 @export var base_parry_probability : float = 5.0
 @export var base_block_probability : float = 25.0
 @export var base_flat_block_power : float = 0.0
@@ -219,6 +220,12 @@ var current_active_skill_cooldown_percent_mod : float
 var dodge_prob_cap : float = 95.0
 var block_prob_cap : float = 95.0
 var parry_prob_cap : float = 95.0
+
+var dodge_distance: float:
+	get: return base_dodge_distance + current_movement_speed * 0.15 + current_dexterity * 0.5
+
+var dodge_speed: float:
+	get: return current_movement_speed * 2 + current_dexterity
 
 var health : float = 0.0 : set = _on_health_set
 var shield : float = 0.0 : set = _on_shield_set

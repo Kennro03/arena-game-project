@@ -36,6 +36,7 @@ var skill_list: Array[Skill] = []
 var weapon: Weapon = null
 var default_weapon: Weapon = null
 var accessories: Array[Accessory] = []
+@export var dodge_strategy: DodgeStrategy = null  
 
 # Runtime identity
 var unit_data: UnitData = null
@@ -49,6 +50,7 @@ var active: bool = true:
 		if active: _on_activated.call_deferred()
 		else: _on_deactivated.call_deferred()
 
+var is_dodging: bool = false
 var is_unkillable: bool = false
 var is_intangible: bool = false
 var is_cc_immune: bool = false

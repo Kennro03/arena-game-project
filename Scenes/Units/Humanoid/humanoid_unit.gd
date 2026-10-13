@@ -204,7 +204,7 @@ func _block(hit: HitData) -> void:
 	spriteModule.play_block()
 	var flat := maxf(hit.base_damage - stats.current_flat_block_power, 0.0)
 	var blocked := flat - (flat / 100.0) * stats.current_percent_block_power
-	%DamagePopupMarker.damage_popup("Blocked!", 0.5, Color("LightBlue"))
+	%DamagePopupMarker.damage_popup("Blocked!", 0.5, Color("Silver"))
 	take_damage(blocked, hit.damage_type, hit.hit_owner)
 	var attacker_weapon: Weapon = hit.hit_owner.weapon if hit.hit_owner.has_method("equip_weapon") else null
 	if attacker_weapon and attacker_weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED \
@@ -220,8 +220,17 @@ func _parry(hit: HitData) -> void:
 		particleModule.emit_parry_particles()
 
 func _dodge(_hit: HitData) -> void:
-	spriteModule.play_dodge()
-	apply_knockback(self, Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)), 250.0)
+	%DamagePopupMarker.damage_popup("Dodged !", 1.0, Color("Cyan"))
+	var dodge_dir: Vector2 = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+	#if is_instance_valid(_hit.hit_owner):
+	#	dodge_dir = (global_position - _hit.hit_owner.global_position).normalized()
+	
+	state_machine._transition_to_next_state("Dodging", {
+		"direction":    dodge_dir,
+		"attacker":     _hit.hit_owner,
+		"return_state": UnitState.IDLE
+	})
+
 
 func _apply_passives(hit_result: HitData) -> void:
 	for passive in hit_result.hit_owner.weapon.onHitPassives:

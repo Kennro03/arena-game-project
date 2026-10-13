@@ -8,6 +8,7 @@ const DYING = "Dying"
 const CASTING = "Casting"
 const STUNNED = "Stunned"
 const DOWNED = "Downed"
+const DODGING = "Dodging"
 
 const CYCLING_ANIMATIONS = "Cycling_animations"
 

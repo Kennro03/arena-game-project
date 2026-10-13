@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="23_anlvg"]
 [ext_resource type="Script" uid="uid://d0giuo3l71o8s" path="res://Scenes/StateMachine/moving.gd" id="24_s2xhf"]
 [ext_resource type="Script" uid="uid://c8rxynh1kvcsh" path="res://Scenes/StateMachine/engaged.gd" id="25_1ygtv"]
+[ext_resource type="Script" uid="uid://bniqh6wn7yusq" path="res://Scenes/Units/Humanoid/UnitDodging.gd" id="26_4sqmf"]
 [ext_resource type="Script" uid="uid://tbsoi4oabaqu" path="res://Scenes/StateMachine/casting.gd" id="26_8od5o"]
 [ext_resource type="Script" uid="uid://7xbnrxcgcsgo" path="res://Scenes/StateMachine/stunned.gd" id="27_x7f2t"]
 [ext_resource type="Script" uid="uid://b5qqs007n3apo" path="res://Scenes/StateMachine/downded.gd" id="28_hyktx"]
@@ -479,6 +480,9 @@ script = ExtResource("24_s2xhf")
 
 [node name="Engaged" type="Node" parent="StateMachine" unique_id=847077785]
 script = ExtResource("25_1ygtv")
+
+[node name="Dodging" type="Node" parent="StateMachine" unique_id=280897718]
+script = ExtResource("26_4sqmf")
 
 [node name="Casting" type="Node" parent="StateMachine" unique_id=969669951]
 script = ExtResource("26_8od5o")
