@@ -16,6 +16,10 @@ static var default_tier_weights := {
 
 static func get_all_materials() -> Array[ItemMaterial] : 
 	ensure_loaded()
+	var materials_list : Array[ItemMaterial] = _materials
+	for mat in materials_list :
+		if mat.material_name == "DebugMaterial" :
+			materials_list.erase(mat)
 	return _materials
 
 static func ensure_loaded() -> void:

@@ -222,10 +222,9 @@ var block_prob_cap : float = 95.0
 var parry_prob_cap : float = 95.0
 
 var dodge_distance: float:
-	get: return base_dodge_distance + current_movement_speed * 0.15 + current_dexterity * 0.5
-
+	get: return base_dodge_distance + current_movement_speed * 0.1 + current_dexterity * 0.5
 var dodge_speed: float:
-	get: return current_movement_speed * 2 + current_dexterity
+	get: return current_movement_speed * 1.75 + current_dexterity
 
 var health : float = 0.0 : set = _on_health_set
 var shield : float = 0.0 : set = _on_shield_set

@@ -10,6 +10,7 @@
 
 [resource]
 script = ExtResource("3_s3i3i")
+material_name = "DebugMaterial"
 material_icon = SubResource("PlaceholderTexture2D_sqcf8")
 material_color_palette = ExtResource("2_ihkuo")
 metadata/_custom_type_script = "uid://dghonse17mg3s"

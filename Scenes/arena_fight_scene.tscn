@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="7_pbq5j"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="8_vdqhs"]
 [ext_resource type="Script" uid="uid://ba2sw8ajyas5p" path="res://Scenes/Units/BaseUnit/team.gd" id="9_hopt8"]
-[ext_resource type="Resource" uid="uid://dal5rgfowl103" path="res://ressources/Items/Weapons/WeaponBases/dagger.tres" id="10_pm48a"]
+[ext_resource type="Resource" uid="uid://cikjn1d3hom5x" path="res://ressources/Items/Weapons/WeaponBases/bow.tres" id="10_5uqrd"]
 
 [sub_resource type="Resource" id="Resource_b2pde"]
 script = ExtResource("8_vdqhs")
@@ -45,7 +45,7 @@ description = "That's your buddy pablo !! "
 color = Color(5.7756904e-07, 0.58147335, 0.6343939, 1)
 team = SubResource("Resource_ip823")
 stats = SubResource("Resource_b2pde")
-weapon = ExtResource("10_pm48a")
+weapon = ExtResource("10_5uqrd")
 accessory_limit = 1
 metadata/_custom_type_script = "uid://gk2b37nd41oy"
 
@@ -72,6 +72,9 @@ vertices = PackedVector2Array(68.21875, -368.10938, 146.02344, -346.71875, 218.1
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, -384, 70, -378, 150, -356, 224, -312, 280, -264, 328, -200, 362, -132, 380, -60, 384, 0, 380, 62, 362, 132, 338, 184, 294, 250, 242, 298, 168, 346, 84, 376, 0, 384, -80, 376, -156, 350, -224, 312, -286, 258, -324, 206, -354, 148, -378, 76, -384, 0, -380, -64, -358, -142, -294, -248, -230, -308, -162, -348, -92, -374, -48, -382)])
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2v1d4"]
+size = Vector2(134, 32)
+
 [node name="ArenaFightScene" type="Node2D" unique_id=1887876671]
 script = ExtResource("1_yjuyy")
 test_mode = true
@@ -84,15 +87,184 @@ unique_name_in_owner = true
 [node name="Sprite2D" type="Sprite2D" parent="Arena" unique_id=663036994]
 texture = ExtResource("7_o1gs2")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Arena" unique_id=1382222467]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/StaticBody2D" unique_id=518834054]
-build_mode = 1
-polygon = PackedVector2Array(384, 0, 382, -50, 364, -126, 332, -194, 296, -244, 268, -276, 230, -308, 188, -336, 142, -358, 88, -374, 44, -382, 0, -384, -22, -384, -58, -380, -112, -368, -172, -344, -216, -318, -252, -290, -292, -250, -326, -204, -352, -154, -370, -104, -382, -46, -384, 0, -384, 26, -378, 74, -356, 146, -330, 198, -286, 256, -240, 300, -200, 328, -162, 348, -106, 370, -46, 382, 0, 384, 54, 382, 112, 368, 154, 352, 214, 320, 252, 290, 282, 260, 328, 202, 358, 142, 382, 56)
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Arena" unique_id=1264565316]
 unique_name_in_owner = true
 navigation_polygon = SubResource("NavigationPolygon_0sdo2")
+
+[node name="StaticWall1" type="StaticBody2D" parent="Arena" unique_id=1382222467]
+collision_layer = 3
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/StaticWall1" unique_id=90795655]
+position = Vector2(67, -400)
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Arena/StaticWall1" unique_id=521137820]
+position = Vector2(107, -386.00006)
+rotation = 0.21816616
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Arena/StaticWall1" unique_id=528726530]
+position = Vector2(171.99998, -360.99997)
+rotation = 0.43633232
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Arena/StaticWall1" unique_id=1232430826]
+position = Vector2(249.00006, -312.99997)
+rotation = 0.65449846
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Arena/StaticWall1" unique_id=354306587]
+position = Vector2(309, -254)
+rotation = 0.87266463
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Arena/StaticWall1" unique_id=907466360]
+position = Vector2(356.00006, -182)
+rotation = 1.0908308
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Arena/StaticWall1" unique_id=1350472296]
+position = Vector2(388, -100)
+rotation = 1.3089969
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Arena/StaticWall1" unique_id=1110462917]
+position = Vector2(397.00003, -48.000004)
+rotation = 1.4398966
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="StaticWall2" type="StaticBody2D" parent="Arena" unique_id=100808406]
+rotation = 1.5707964
+collision_layer = 3
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/StaticWall2" unique_id=665460503]
+position = Vector2(67, -400)
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Arena/StaticWall2" unique_id=1668119243]
+position = Vector2(107, -386.00006)
+rotation = 0.21816616
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Arena/StaticWall2" unique_id=1617694566]
+position = Vector2(171.99998, -360.99997)
+rotation = 0.43633232
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Arena/StaticWall2" unique_id=961768375]
+position = Vector2(249.00006, -312.99997)
+rotation = 0.65449846
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Arena/StaticWall2" unique_id=1439570616]
+position = Vector2(309, -254)
+rotation = 0.87266463
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Arena/StaticWall2" unique_id=1797363165]
+position = Vector2(356.00006, -182)
+rotation = 1.0908308
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Arena/StaticWall2" unique_id=370394637]
+position = Vector2(388, -100)
+rotation = 1.3089969
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Arena/StaticWall2" unique_id=1484872957]
+position = Vector2(397.00003, -48.000004)
+rotation = 1.4398966
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="StaticWall3" type="StaticBody2D" parent="Arena" unique_id=693811130]
+rotation = 3.1415927
+collision_layer = 3
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/StaticWall3" unique_id=2070215122]
+position = Vector2(67, -400)
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Arena/StaticWall3" unique_id=2068342853]
+position = Vector2(107, -386.00006)
+rotation = 0.21816616
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Arena/StaticWall3" unique_id=2138663012]
+position = Vector2(171.99998, -360.99997)
+rotation = 0.43633232
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Arena/StaticWall3" unique_id=1834215241]
+position = Vector2(249.00006, -312.99997)
+rotation = 0.65449846
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Arena/StaticWall3" unique_id=888769167]
+position = Vector2(309, -254)
+rotation = 0.87266463
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Arena/StaticWall3" unique_id=1838975564]
+position = Vector2(356.00006, -182)
+rotation = 1.0908308
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Arena/StaticWall3" unique_id=2000622128]
+position = Vector2(388, -100)
+rotation = 1.3089969
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Arena/StaticWall3" unique_id=162910969]
+position = Vector2(397.00003, -48.000004)
+rotation = 1.4398966
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="StaticWall4" type="StaticBody2D" parent="Arena" unique_id=1819714194]
+rotation = 4.712389
+collision_layer = 3
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/StaticWall4" unique_id=1609895199]
+position = Vector2(67, -400)
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Arena/StaticWall4" unique_id=305753228]
+position = Vector2(107, -386.00006)
+rotation = 0.21816616
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Arena/StaticWall4" unique_id=1287123344]
+position = Vector2(171.99998, -360.99997)
+rotation = 0.43633232
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Arena/StaticWall4" unique_id=2015881925]
+position = Vector2(249.00006, -312.99997)
+rotation = 0.65449846
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Arena/StaticWall4" unique_id=860002537]
+position = Vector2(309, -254)
+rotation = 0.87266463
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Arena/StaticWall4" unique_id=687203825]
+position = Vector2(356.00006, -182)
+rotation = 1.0908308
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Arena/StaticWall4" unique_id=535111839]
+position = Vector2(388, -100)
+rotation = 1.3089969
+shape = SubResource("RectangleShape2D_2v1d4")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Arena/StaticWall4" unique_id=850507983]
+position = Vector2(397.00003, -48.000004)
+rotation = 1.4398966
+shape = SubResource("RectangleShape2D_2v1d4")
 
 [node name="Units" type="Node2D" parent="." unique_id=1068604497]
 unique_name_in_owner = true

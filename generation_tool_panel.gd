@@ -4,6 +4,17 @@ class_name GenerationToolPanel
 signal config_changed(config: FighterGenerationConfig)
 signal generate_requested(count: int, config: FighterGenerationConfig)
 
+var weapons_bases_list : Dictionary = {
+	"bow" : preload("uid://cikjn1d3hom5x"), 
+	"gauntlets" : preload("uid://evw15hgtlv7a"),
+	"dagger" : preload("uid://dal5rgfowl103"), 
+	"broadsword" : preload("uid://cpnr5mpvtakmp"),
+	"spear" : preload("uid://cje1th2326lj"), 
+	"foci staff" : preload("uid://ds6y5tv4n4hsx"), 
+	"warhammer" : preload("uid://cseh3bpxs7l8k"), 
+	"greatsword" : preload("uid://bwlni7c3utacx"), 
+}
+
 @onready var exp_spinbox: SpinBox = %ExpSpinbox
 @onready var level_spinbox: SpinBox = %LvlSpinbox
 @onready var count_spinbox: SpinBox = %CountSpinbox
@@ -13,7 +24,7 @@ signal generate_requested(count: int, config: FighterGenerationConfig)
 
 var _archetype_list: CollapsibleChecklist
 var _tag_list: CollapsibleChecklist
-var _weapon_type_list: CollapsibleChecklist
+var _weapon_base_list: CollapsibleChecklist
 var _weapon_material_list: CollapsibleChecklist
 var _accessory_list: CollapsibleChecklist
 
@@ -44,22 +55,19 @@ func _build_checklists() -> void:
 		 "fire", "frost", "lightning", "wind", "water", "earth", "order", "entropy",
 		])
 	
-	var weapon_types : Array[String]
-	for type in Weapon.WeaponTypeEnum.keys().filter(func(k): return k != "UNARMED") :
-		weapon_types.append(str(type))
-	_weapon_type_list = _make_checklist(
-		"Allowed Weapon Types",
-		weapon_types)
-	
-	var materials_list : Array[ItemMaterial] = MaterialRegistry.get_all_materials()
-	materials_list.sort_custom(func(a: ItemMaterial, b: ItemMaterial): return a.tier < b.tier)
-	var material_names : Array[String] = []
-	for mat in materials_list : 
+	var weapons_names_list : Array[String] = []
+	for entry in weapons_bases_list.keys() : 
+		weapons_names_list.append(entry)
+	_weapon_base_list = _make_checklist(
+		"Allowed Weapon Bases",
+		weapons_names_list)  # ["bow", "gauntlets", "dagger", ...]
+
+	var materials_list := MaterialRegistry.get_all_materials()
+	materials_list.sort_custom(func(a, b): return a.tier < b.tier)
+	var material_names: Array[String] = []              # .map() returns untyped Array — use a loop
+	for mat in materials_list:
 		material_names.append(mat.material_name)
-	_weapon_material_list = _make_checklist(
-		"Weapon Materials",
-		material_names) # Get a list of the actual materials in resources
-	
+	_weapon_material_list = _make_checklist("Weapon Materials", material_names)
 	
 	var _accessories : Array[Accessory] = []
 	var accessory_names : Array[String] = []
@@ -85,14 +93,12 @@ func build_config() -> FighterGenerationConfig:
 	# map archetype names to StatArchetype instances
 	config.allowed_stat_archetypes = _build_archetypes_from_selection()
 	
-	# map weapon type strings to enums
-	config.allowed_weapon_types = []
-	for type_name in _weapon_type_list.get_selected():
-		var idx := Weapon.WeaponTypeEnum.keys().find(type_name)
-		if idx >= 0:
-			config.allowed_weapon_types.append(idx as Weapon.WeaponTypeEnum)
-	
-	# map material names to ItemMaterial resources
+	config.allowed_weapon_bases = []
+	for weapon_name in _weapon_base_list.get_selected():
+		if weapons_bases_list.has(weapon_name):
+			config.allowed_weapon_bases.append(weapons_bases_list[weapon_name])
+
+	# Materials — already correct, just kept as-is
 	config.allowed_weapon_materials = []
 	var all_materials := MaterialRegistry.get_all_materials()
 	for mat_name in _weapon_material_list.get_selected():

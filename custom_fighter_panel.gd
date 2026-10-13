@@ -53,7 +53,7 @@ func _on_create() -> void:
 		starting_exp = Stats.get_xp_for_level(int(lvl_spinbox.value))
 	
 	var base := UnitData.new()
-	var fighter := FighterGenerator.generate(archetype, tags, starting_exp, base)
+	var fighter := FighterGenerator.generate(archetype, tags, base) ## HERE as last argument !! need to create a custom fightergenerationconfig to pass a selected weapon + material
 	
 	if not name_input.text.is_empty():
 		fighter.unit_data.display_name = name_input.text

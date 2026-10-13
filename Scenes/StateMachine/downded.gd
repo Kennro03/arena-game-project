@@ -3,6 +3,7 @@ class_name UnitDownded
 
 func enter(_previous_state_path: String, _data := {}) -> void:
 	unit.displayModule.state_rich_text_label.text = ""
+	unit.is_downed = true
 	owner.spriteModule.play_death()
 	unit.remove_from_group("Live_Units")
 	unit.add_to_group("Downed_Units")
@@ -15,12 +16,12 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	tween.tween_property(unit.spriteModule, "rotation", deg_to_rad(90.0*_data["dir_mult"]), 0.75).set_trans(Tween.TRANS_QUART)
 
 func exit() -> void:
+	unit.is_downed = false
 	var tween = get_tree().create_tween()
 	tween.tween_property(unit.spriteModule, "rotation", deg_to_rad(0.0), 0.75).set_trans(Tween.TRANS_QUART)
 	await tween.finished
 	
-	owner.spriteModule.play_go_down_animation(-1.0) #play go_down animation in reverse to rise up
-	unit.is_action_locked = true
+	owner.spriteModule.play_death(-1.0) #play go_down animation in reverse to rise up
 	unit.remove_from_group("Downed_Units")
 	unit.add_to_group("Live_Units")
 	unit.set_healthbar_visibility(unit.show_health)

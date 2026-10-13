@@ -564,7 +564,11 @@ down={
 
 [layer_names]
 
-2d_physics/layer_4="MapRooms"
+2d_physics/layer_1="SolidGroundLimits"
+2d_physics/layer_2="WallCollisions"
+2d_physics/layer_3="UnitObstaclesLayer"
+2d_physics/layer_4="Hurtboxes"
+2d_physics/layer_5="Hitboxes"
 
 [rendering]
 

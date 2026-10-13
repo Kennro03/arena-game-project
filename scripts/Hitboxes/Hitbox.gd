@@ -9,6 +9,10 @@ var already_hit: Array[Node] = []  # prevent multi-hit in same swing
 var _time_since_last_check: float = INF
 var _lifetime: float = 0.0
 
+func _ready() -> void:
+	set_collision_layer_value(5,true)
+	set_collision_mask_value(4,true)
+
 func setup(h_data: HitboxData, hit: HitData) -> void:
 	hitbox_data = h_data
 	hit_data = hit

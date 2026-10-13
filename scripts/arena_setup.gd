@@ -1,7 +1,18 @@
 extends Control
 class_name ArenaSetupScene
 
+var weapons_bases_list : Dictionary = {
+	"bow" : preload("uid://cikjn1d3hom5x"), #bow
+	"gauntlets" : preload("uid://evw15hgtlv7a"),  #gauntlets
+	"dagger" : preload("uid://dal5rgfowl103"), #dagger
+	"broadsword" : preload("uid://cpnr5mpvtakmp"), #broadsword
+	"spear" : preload("uid://cje1th2326lj"),  #spear
+	"foci staff" : preload("uid://ds6y5tv4n4hsx"), #foci staff
+	"warhammer" : preload("uid://cseh3bpxs7l8k"), #warhammer
+	"greatsword" : preload("uid://bwlni7c3utacx"), #greatsword 
+}
 
+var materials_list : Array[ItemMaterial] = MaterialRegistry.get_all_materials()
 
 const FIGHTER_GENERATION_SCENE = preload("res://Scenes/fighter_generation_scene.tscn")
 
@@ -68,10 +79,14 @@ func _populate_options() -> void:
 		round_format_option.add_item(key.capitalize().replace("_", " "))
 
 func _build_checklists() -> void:
-	var weapon_type_names: Array[String] = []
-	for key in Weapon.WeaponTypeEnum.keys():
-		if key != "UNARMED":
-			weapon_type_names.append(key.capitalize())
+	var weapon_names: Array[String] = []
+	for key in weapons_bases_list.keys():
+		weapon_names.append(key.capitalize())
+	
+	_reroll_weapon_type_list = _make_checklist(
+		reroll_weapon_type_container, 
+		"Allowed Weapons", 
+		weapon_names)
 	
 	var item_materials : Array[ItemMaterial] = MaterialRegistry.get_all_materials()
 	item_materials.sort_custom(func(a, b): return a.tier < b.tier)
@@ -79,20 +94,14 @@ func _build_checklists() -> void:
 	for item_material in item_materials :
 		material_names.append(item_material.material_name)
 	
-	
-	# generation gear checklists
-	_reroll_weapon_type_list = _make_checklist(
-		reroll_weapon_type_container, 
-		"Allowed Weapon Types", 
-		weapon_type_names)
-	
 	_reroll_weapon_mat_list = _make_checklist(
 		reroll_weapon_mat_container, 
-		"Allowed Materials", 
+		"Allowed weapon Materials", 
 		material_names)
 	
 	var _accessories : Array[Accessory] = []
 	var accessory_names : Array[String] = []
+	
 	_reroll_accessories_list = _make_checklist(
 		reroll_allowed_accessories_container,
 		"Allowed accessories",
@@ -107,13 +116,13 @@ func _make_checklist(parent: Control, title: String, items: Array[String]) -> Co
 	cl.populate(items)
 	return cl
 
-func _weapon_type_names_to_enums(names: Array[String]) -> Array[Weapon.WeaponTypeEnum]:
-	var result: Array[Weapon.WeaponTypeEnum] = []
+func _weapon_bases_names_to_resources(names: Array[String]) -> Array[Weapon]:
+	var result: Array[Weapon] = []
 	for name in names:
-		var key := name.to_upper()
-		var idx := Weapon.WeaponTypeEnum.keys().find(key)
-		if idx >= 0:
-			result.append(idx as Weapon.WeaponTypeEnum)
+		var key : String = name.to_lower()
+		var entry : Weapon = weapons_bases_list[key]
+		if entry != null :
+			result.append(entry)
 	return result
 
 func _material_names_to_resources(names: Array[String]) -> Array[ItemMaterial]:
@@ -140,7 +149,7 @@ func build_config() -> ArenaConfig:
 	# Gear handling
 	config.gear_handling = gear_handling_option.selected as ArenaConfig.GearHandling
 	config.number_of_accessories_rerolled = int(accessory_reroll_count_spinbox.value)
-	config.reroll_allowed_weapon_types = _weapon_type_names_to_enums(
+	config.reroll_allowed_weapon_bases = _weapon_bases_names_to_resources(
 		_reroll_weapon_type_list.get_selected())
 	config.reroll_allowed_weapon_materials = _material_names_to_resources(
 		_reroll_weapon_mat_list.get_selected())
@@ -153,6 +162,7 @@ func build_config() -> ArenaConfig:
 	config.simulation_speed = simulation_speed_slider.value
 	
 	config._seed = randi()
+	print(config)
 	return config
 
 func _on_proceed() -> void:

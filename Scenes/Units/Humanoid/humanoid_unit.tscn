@@ -137,6 +137,54 @@ tracks/4/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LegLeft:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HandLeft:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("HandRight:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("LegRight:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iootp"]
 _data = {
@@ -214,6 +262,8 @@ _data = {
 }
 
 [node name="HumanoidUnit" type="CharacterBody2D" unique_id=1075465213]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_8pr6i")
 metadata/_custom_type_script = "uid://dbkhsvwvrla1m"
 
@@ -223,6 +273,8 @@ shape = SubResource("CapsuleShape2D_0sdo2")
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=1908640231 groups=["Hurtbox"]]
 unique_name_in_owner = true
+collision_layer = 8
+collision_mask = 26
 script = ExtResource("2_psbye")
 
 [node name="HurtboxCollisionShape" type="CollisionShape2D" parent="Hurtbox" unique_id=1479216426]
@@ -234,6 +286,8 @@ debug_color = Color(0, 0.470588, 0.701961, 0.545098)
 
 [node name="SelectionArea" type="Area2D" parent="." unique_id=559439388]
 unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 0
 
 [node name="SelectionAreaCollisionShape" type="CollisionShape2D" parent="SelectionArea" unique_id=1483698747]
 unique_name_in_owner = true
@@ -272,14 +326,16 @@ vframes = 2
 
 [node name="Body" type="Node2D" parent="SpriteModule" unique_id=2071826372]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(0, -16.11111)
+position = Vector2(1, -16)
+rotation = 0.17453292
 
 [node name="Torso" type="Sprite2D" parent="SpriteModule/Body" unique_id=1564198696]
 texture = ExtResource("6_cddti")
 
 [node name="Head" type="Node2D" parent="SpriteModule" unique_id=513197745]
 modulate = Color(1, 1, 0, 1)
-position = Vector2(0, -16)
+position = Vector2(-3, -16)
+rotation = 0.7853982
 
 [node name="Skull" type="Sprite2D" parent="SpriteModule/Head" unique_id=775278465]
 texture = ExtResource("4_c8ktf")
@@ -289,7 +345,8 @@ texture = ExtResource("5_85h5t")
 
 [node name="WeaponHandle" type="Node2D" parent="SpriteModule" unique_id=823646724]
 unique_name_in_owner = true
-position = Vector2(-3, -10)
+position = Vector2(3, -10.086)
+rotation = -0.9599311
 
 [node name="WeaponSprite2D" type="Sprite2D" parent="SpriteModule/WeaponHandle" unique_id=390153923]
 unique_name_in_owner = true
@@ -298,7 +355,8 @@ texture = ExtResource("11_v4uqy")
 
 [node name="HandRight" type="Sprite2D" parent="SpriteModule" unique_id=417623253]
 modulate = Color(1, 0, 0, 1)
-position = Vector2(0, -16)
+position = Vector2(-3, -30)
+rotation = -1.5707964
 texture = ExtResource("7_a8dqu")
 vframes = 2
 frame = 1

@@ -122,10 +122,10 @@ func play_hurt() -> void:
 	animation_player.play("Stickman/hurt")
 	reset_sprite()
 
-func play_death() -> void: 
+func play_death(playback_speed: float = 1.0) -> void: 
 	# implement basic death position animation
 	reset_sprite()
-	animation_player.play("BaseUnit/go_down") ## need to refactor animations/animation names
+	animation_player.play("BaseUnit/go_down",-1,playback_speed) ## need to refactor animations/animation names
 
 func play_block() -> void: 
 	reset_sprite()

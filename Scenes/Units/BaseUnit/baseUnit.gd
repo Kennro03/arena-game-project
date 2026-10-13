@@ -42,9 +42,6 @@ var is_casting: bool:
 	get: return state_machine.is_in_state(UnitState.CASTING)
 var is_stunned: bool:
 	get: return state_machine.is_in_state(UnitState.STUNNED)
-var is_downed: bool:
-	get: return state_machine.is_in_state(UnitState.DOWNED)
-
 
 var last_attack_time:= 0.0
 var knockback_velocity: Vector2 = Vector2.ZERO

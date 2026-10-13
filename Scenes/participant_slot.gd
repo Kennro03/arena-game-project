@@ -51,6 +51,7 @@ func _add_fighter_header(rtl: RichTextLabel) -> void:
 	var _name := _fighter_data.unit_data.display_name if _fighter_data.unit_data else "Unknown"
 	rtl.append_text("[center][font_size=20]%s[/font_size][/center]\n" % _name)
 	rtl.append_text("[center][color=gray]ID: %s[/color][/center]\n" % _fighter_data.arena_id)
+	rtl.append_text("[center][color=white]Weapon : %s %s[/color][/center]\n" % [_fighter_data.unit_data.weapon.weapon_material.material_name if _fighter_data.unit_data.weapon else "",_fighter_data.unit_data.weapon.item_name])
 
 func _add_fighter_record(rtl: RichTextLabel) -> void:
 	rtl.append_text("\nFights: %d 

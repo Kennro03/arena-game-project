@@ -4,8 +4,8 @@ class_name FighterGenerator
 static func generate(
 		stat_archetype: StatArchetype,
 		tag_priority: Array[String],
-		starting_exp: int,
-		base_unit_data: humanoidUnitData) -> FighterData:
+		base_unit_data: humanoidUnitData,
+		_config: FighterGenerationConfig = null) -> FighterData:
 	
 	var fighter := FighterData.new()
 	fighter.arena_id = UIDGenerator.generate("arena_id")
@@ -22,11 +22,14 @@ static func generate(
 		# for now, each attribute remains at 1, so everything has the same weight and is randomized
 		pass
 	
-	data.stats.experience = starting_exp
+	data.stats.experience = _config.starting_exp
 	data.auto_spend_attribute_points()
 	_auto_process_draws(data, tag_priority)
 	
 	fighter.unit_data = data
+	if _config != null:
+		data.weapon = _generate_weapon_for_config(_config)
+	
 	return fighter
 
 static func _apply_stat_archetype(data: UnitData, archetype: StatArchetype) -> void:
@@ -68,3 +71,12 @@ static func _auto_process_draws(data: UnitData, tag_priority: Array[String]) -> 
 			picked = pool.pick_random()
 		
 		data.apply_draw(picked)
+
+static func _generate_weapon_for_config(config: FighterGenerationConfig) -> Weapon:
+	if config.allowed_weapon_bases.is_empty():
+		return null
+	var weapon: Weapon = config.allowed_weapon_bases.pick_random().duplicate()
+	if not config.allowed_weapon_materials.is_empty():
+		var material: ItemMaterial = config.allowed_weapon_materials.pick_random()
+		weapon.weapon_material = material  # adjust to match your Weapon API
+	return weapon

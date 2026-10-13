@@ -24,6 +24,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xchk0")
+min_fighters = null
+max_fighters = null
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1236771513]
 layout_mode = 1
@@ -114,21 +116,17 @@ text = "Proceed to arena"
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
-folded = true
 title = "Fighter Generator"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/FoldableContainer" unique_id=778166891]
-visible = false
 layout_mode = 2
 
 [node name="FoldableContainer2" type="FoldableContainer" parent="MarginContainer/PanelContainer/FoldableContainer/VBoxContainer" unique_id=519402382]
 layout_mode = 2
-folded = true
 title = "Fighter batch Generator"
 
 [node name="GenerationToolPanel" parent="MarginContainer/PanelContainer/FoldableContainer/VBoxContainer/FoldableContainer2" unique_id=818840208 instance=ExtResource("2_4ithg")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="FoldableContainer3" type="FoldableContainer" parent="MarginContainer/PanelContainer/FoldableContainer/VBoxContainer" unique_id=1261711074]

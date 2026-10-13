@@ -190,17 +190,15 @@ func _spawn_from_data(center: Vector2, data: UnitData) -> Unit:
 		printerr("ArenaFightScene: invalid UnitData for spawning")
 		return null
 	
-	# scatter around center point
 	var angle := randf() * TAU
-	var dist := randf() * fight_config.spawn_radius
-	var pos := center + Vector2(cos(angle), sin(angle)) * dist
+	var dist  := randf() * fight_config.spawn_radius
+	var pos   := center + Vector2(cos(angle), sin(angle)) * dist
 	
-	var unit := data.unit_scene.instantiate()
+	var unit := data.unit_scene.instantiate() as Unit
 	unit.position = pos
-	unit.unit_data = data
 	unit.active = false
-	unit.apply_data(data._make_copy())
-	units_layer.add_child(unit)
+	units_layer.add_child(unit)      
+	unit.apply_data(data)          
 	return unit
 
 # ── Countdown ─────────────────────────────────────────────────────────────

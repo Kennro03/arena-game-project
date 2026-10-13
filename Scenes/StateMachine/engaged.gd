@@ -18,8 +18,8 @@ const BEHAVIOR_WEIGHTS := {
 }
 
 const MIN_BEHAVIOR_DURATION := 0.9
-const MAX_BEHAVIOR_DURATION := 3.0
-const STEP_DISTANCE := 40.0
+const MAX_BEHAVIOR_DURATION := 2.0
+const STEP_DISTANCE := 35.0
 
 var _current_target: Unit = null
 var _behavior: Behavior = Behavior.STATIONARY

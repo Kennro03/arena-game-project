@@ -12,18 +12,21 @@ enum BuffableStats {
 }
 
 @export var projectile_data: ProjectileData
-var hit_data: HitData
 @export var _hitbox : Hitbox = null
 
+var hit_data: HitData
 var direction: Vector2
 var _current_height: float = 0.0
 var _vertical_velocity: float = 0.0
 var _distance_traveled: float = 0.0
-var _hit_targets: Array[BaseUnit] = []
+var _hit_targets: Array[Unit] = []
 var _lifetime : float = 0.0
+var _bounce_count: int = 0
 
-@onready var sprite: Sprite2D = %ProjectileSprite
-@onready var shadow: Sprite2D = %ShadowSprite2D
+@onready var sprite: Sprite2D = $ProjectileSpriteHeightOffset/ProjectileSprite
+@onready var shadow: Sprite2D = $ShadowSprite2D
+@onready var _wall_ray: RayCast2D = $WallRayCast2D
+@onready var projectile_sprite_offset: Node2D = $ProjectileSpriteHeightOffset
 
 func setup(data: ProjectileData, hit: HitData, dir: Vector2) -> void:
 	projectile_data = data
@@ -38,7 +41,6 @@ func setup(data: ProjectileData, hit: HitData, dir: Vector2) -> void:
 	_hitbox.setup(data.hitbox_data, hit)
 	_hitbox.hitbox_data.duration = INF     #make sure hitbox doesn't despawn without the projectile
 	
-	
 	# intercept hits to apply height check before forwarding
 	_hitbox.target_hit.connect(_on_target_detected)
 	
@@ -51,8 +53,16 @@ func setup(data: ProjectileData, hit: HitData, dir: Vector2) -> void:
 			shadow.visible = false
 	
 	# rotate sprite to face direction
-	rotation = direction.angle()
+	shadow.rotation = direction.angle()
+	sprite.rotation = direction.angle()
 	
+	_wall_ray.collision_mask = data.wall_collision_mask
+	_wall_ray.enabled = data.wall_behavior != ProjectileData.WallBehavior.NONE
+	_update_ray_direction()
+
+func _update_ray_direction() -> void:
+	# cast slightly ahead of movement to catch walls before we enter them
+	_wall_ray.target_position = direction * (projectile_data.speed * 0.05 + 8.0)
 
 func _physics_process(delta: float) -> void:
 	if projectile_data :
@@ -72,14 +82,11 @@ func _physics_process(delta: float) -> void:
 		_current_height += _vertical_velocity * delta
 		
 		# visual fall of the sprite
-		sprite.position.y = -_current_height
+		projectile_sprite_offset.position.y = -_current_height
 		
 		if projectile_data.does_sprite_arc:
-			var horizontal_velocity := direction * projectile_data.speed
-			# combine horizontal and vertical into a single 2D vector for rotation
-			# x = horizontal magnitude, y = vertical (negative = up, positive = down)
-			var velocity_2d := Vector2(horizontal_velocity.length(), -_vertical_velocity)
-			sprite.rotation = velocity_2d.angle()
+			var pitch := atan2(-_vertical_velocity, projectile_data.speed)
+			sprite.rotation = direction.angle() + pitch
 		
 		# shadow fades and shrinks as projectile goes higher
 		var height_ratio := clampf(_current_height / 50.0, 0.1, 1.0)
@@ -94,8 +101,19 @@ func _physics_process(delta: float) -> void:
 		# max range
 		if _distance_traveled >= projectile_data.max_range:
 			queue_free()
+			
+		if _wall_ray.enabled and _wall_ray.is_colliding():
+			_handle_wall_collision()
 
-func _on_target_detected(unit: BaseUnit) -> void:
+func _handle_wall_collision() -> void:
+	match projectile_data.wall_behavior:
+		ProjectileData.WallBehavior.IMPACT:
+			_on_impact()
+		
+		ProjectileData.WallBehavior.NONE:
+			pass  # flies through — ray disabled anyway
+
+func _on_target_detected(unit: Unit) -> void:
 	# height check
 	if _current_height > unit.unit_size + projectile_data.size:
 		return  # flies over

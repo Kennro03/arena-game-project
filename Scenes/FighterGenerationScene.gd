@@ -7,6 +7,7 @@ const PARTICIPANT_SLOT = preload("res://Scenes/participant_slot.tscn")
 
 enum Mode { ARENA, TOURNAMENT }
 
+
 # set by the calling setup scene before adding to tree
 var mode: Mode = Mode.ARENA
 var arena_config: ArenaConfig = null
@@ -153,7 +154,7 @@ func _generate_one(config: FighterGenerationConfig) -> FighterData:
 		var shuffled := config.allowed_tags.duplicate()
 		shuffled.shuffle()
 		tags = shuffled.slice(0, randi_range(0, 2))
-	return FighterGenerator.generate(archetype, tags, config.starting_exp, humanoidUnitData.new())
+	return FighterGenerator.generate(archetype, tags, humanoidUnitData.new(), config)
 
 func _on_custom_fighter_created(fighter: FighterData) -> void:
 	# fill first empty slot or add a new one

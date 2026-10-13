@@ -7,9 +7,14 @@
 script = ExtResource("1_2re41")
 
 [node name="ShadowSprite2D" type="Sprite2D" parent="." unique_id=1861111640]
-unique_name_in_owner = true
 modulate = Color(0, 0, 0, 0.5882353)
 texture = ExtResource("2_aihi3")
 
-[node name="ProjectileSprite" type="Sprite2D" parent="." unique_id=810817899]
-unique_name_in_owner = true
+[node name="ProjectileSpriteHeightOffset" type="Node2D" parent="." unique_id=134774661]
+
+[node name="ProjectileSprite" type="Sprite2D" parent="ProjectileSpriteHeightOffset" unique_id=810817899]
+
+[node name="WallRayCast2D" type="RayCast2D" parent="." unique_id=1497752345]
+target_position = Vector2(16, 0)
+collision_mask = 2
+collide_with_areas = true

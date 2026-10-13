@@ -23,8 +23,6 @@ var is_casting: bool:
 	get: return state_machine.is_in_state(UnitState.CASTING)
 var is_stunned: bool:
 	get: return state_machine.is_in_state(UnitState.STUNNED)
-var is_downed: bool:
-	get: return state_machine.is_in_state(UnitState.DOWNED)
 
 # Movement
 var acceleration: Vector2 = Vector2.ZERO
@@ -82,12 +80,15 @@ func _get_allowed_zones() -> Array[Area2D]:
 
 ## Data
 func apply_data(data: UnitData) -> void:
-	super.apply_data(data)  # sets unit_data, team, stats, stats.setup_stats()
+	super.apply_data(data)
 	if data.weapon: equip_weapon(data.weapon)
 	elif data.default_weapon: equip_weapon(data.default_weapon)
 	for a in data.accessories: equip_accessory(a)
 	stats.recalculate_stats()
 	_apply_skills.call_deferred(data.skill_list)
+	# Re-wire display to the stats object that actually received the data
+	if is_node_ready():
+		_rewire_stats_signals()
 
 func save_changes_to_data() -> void:
 	if unit_data == null:
@@ -270,9 +271,10 @@ func attack(target: Node2D) -> void:
 	weapon.hit(target, hit)
 
 func ensure_weapon() -> void:
-	if weapon == null:
-		if default_weapon != null: equip_weapon(default_weapon.duplicate(true))
-		else: printerr("No weapon or default_weapon set for " + str(self))
+	if weapon == null and default_weapon != null: 
+		equip_weapon(default_weapon.duplicate(true))
+	elif weapon == null and default_weapon == null: 
+		push_warning("No weapon or default_weapon set for " + str(self))
 
 func equip(_item: Item = null) -> void:
 	if _item == null: return
@@ -406,7 +408,6 @@ func process_pending_draws() -> void:
 
 
 # --- Display ---
-
 func _setup_display_module() -> void:
 	%NameLabel.text = unit_name
 	%NameLabel.visible = show_name
@@ -416,14 +417,20 @@ func _setup_display_module() -> void:
 		flag.modulate = team.team_color
 		add_child(flag)
 	displayModule.set_healthbar_visibility(show_health)
+	displayModule.link_to_unit(self)
+	_rewire_stats_signals()   # <-- delegate the signal wiring
+
+func _rewire_stats_signals() -> void:
 	if show_health:
 		displayModule.update_healthBar(stats.health, stats.current_max_health)
-		stats.connect("health_changed", displayModule.update_healthBar)
-		stats.connect("shield_changed", displayModule.update_shieldBar)
-		stats.connect("shield_depleted", displayModule.hide_shieldBar)
-	stats.connect("health_depleted", get_downed)
-	displayModule.link_to_unit(self)
-
+		if not stats.health_changed.is_connected(displayModule.update_healthBar):
+			stats.connect("health_changed", displayModule.update_healthBar)
+		if not stats.shield_changed.is_connected(displayModule.update_shieldBar):
+			stats.connect("shield_changed", displayModule.update_shieldBar)
+		if not stats.shield_depleted.is_connected(displayModule.hide_shieldBar):
+			stats.connect("shield_depleted", displayModule.hide_shieldBar)
+	if not stats.health_depleted.is_connected(get_downed):
+		stats.connect("health_depleted", get_downed)
 
 # --- Input / selection ---
 

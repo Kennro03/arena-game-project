@@ -317,16 +317,16 @@ func _reroll_gear(fighter: FighterData) -> void:
 		fighter.unit_data.weapon = weapon
 
 func _generate_weapon_for_fighter(_fighter: FighterData, config: FighterGenerationConfig) -> Weapon:
-	var allowed_types := config.allowed_weapon_types
-	if allowed_types.is_empty():
+	var allowed_weapon_bases := config.allowed_weapon_bases
+	if allowed_weapon_bases.is_empty():
 		return null
-	var _type : Weapon.WeaponTypeEnum = allowed_types.pick_random()
+	var _weapon : Weapon = allowed_weapon_bases.pick_random().duplicate(true)
 	var _mat: ItemMaterial = null
 	if not config.allowed_weapon_materials.is_empty():
-		_mat = config.allowed_weapon_materials.pick_random()
-	var _base_weapons : Array[ItemMaterial] = MaterialRegistry.get_all_materials()  # placeholder — load from weapon pool
-	# weapon generation logic depends on how your weapon pool is structured
-	return null  # fill in when weapon pool is accessible
+		_weapon.weapon_material = config.allowed_weapon_materials.pick_random()
+	
+	
+	return _weapon  # fill in when weapon pool is accessible
 
 func _refresh_standings() -> void:
 	for c in standings_container.get_children():

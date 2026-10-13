@@ -50,6 +50,7 @@ var active: bool = true:
 		if active: _on_activated.call_deferred()
 		else: _on_deactivated.call_deferred()
 
+var is_downed: bool = false
 var is_dodging: bool = false
 var is_unkillable: bool = false
 var is_intangible: bool = false
