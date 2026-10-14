@@ -31,18 +31,16 @@ const TEAM_COLORS: Array[Color] = [
 @export var fight_config: ArenaFightConfig = ArenaFightConfig.new()
 
 # ── Nodes ───────────────────────────────────────────────────────────────
+@onready var selection_manager: SelectionManager = %SelectionManager
 @onready var ui_layer: CanvasLayer = %UILayer
-@onready var overlay_layer: CanvasLayer = %OverlayLayer
+#@onready var overlay_layer: CanvasLayer = %OverlayLayer
 @onready var units_layer: Node2D = %Units
 @onready var arena: Node2D = %Arena   # the circle, purely visual
 @onready var countdown_label: Label = %CountdownLabel
 @onready var status_label: Label = %StatusLabel
-@onready var speed_spin_box: SpinBox = %SpeedSpinBox
-@onready var speed_slider: HSlider = %SpeedSlider
-@onready var pause_button: Button = %PauseButton
-@onready var menu_button: Button = %MenuButton
-@onready var menu_panel: Control = %MenuPanel       # slides in from side
-@onready var selection_manager: SelectionManager = %SelectionManager
+#@onready var speed_spin_box: SpinBox = %SpeedSpinBox
+#@onready var speed_slider: HSlider = %SpeedSlider
+#@onready var pause_button: Button = %PauseButton
 
 # ── State ────────────────────────────────────────────────────────────────
 var _teams: Array[Team] = []
@@ -50,7 +48,6 @@ var _team_fighters: Dictionary = {}      # Team -> Array[FighterData]
 var _team_spawn_points: Dictionary = {}  # Team -> Vector2
 var _team_units_alive: Dictionary = {}   # Team -> Array[Unit]
 var _state: FightState = FightState.SETUP
-var _paused: bool = false
 
 var _caller: Node = null   # ArenaCircuit or TournamentCircuit — null if test mode
 
@@ -66,24 +63,21 @@ func setup(teams: Array[Team], team_fighters: Dictionary, config: ArenaFightConf
 
 func _ready() -> void:
 	Player.ui_layer = ui_layer
-	Player.overlay_layer = overlay_layer
 	
 	# wire UI
-	pause_button.pressed.connect(_toggle_pause)
-	menu_button.pressed.connect(_toggle_menu)
-	speed_slider.value_changed.connect(func(v): Engine.time_scale = v)
-	speed_slider.value = fight_config.simulation_speed
-	speed_slider.value_changed.connect(speed_spin_box.set_value_no_signal)
-	speed_spin_box.value_changed.connect(func(v): Engine.time_scale = v)
-	speed_spin_box.value = fight_config.simulation_speed
-	speed_spin_box.value_changed.connect(speed_slider.set_value_no_signal)
-	menu_panel.visible = false
+	#speed_slider.value_changed.connect(func(v): Engine.time_scale = v)
+	#speed_slider.value = fight_config.simulation_speed
+	#speed_slider.value_changed.connect(speed_spin_box.set_value_no_signal)
+	##speed_spin_box.value_changed.connect(func(v): Engine.time_scale = v)
+	#speed_spin_box.value = fight_config.simulation_speed
+	#speed_spin_box.value_changed.connect(speed_slider.set_value_no_signal)
+	#menu_panel.visible = false
+	
 	countdown_label.visible = false
 	status_label.visible = false
 	
 	if test_mode:
 		_build_test_teams()
-	
 	_compute_spawn_points()
 	_begin_spawn_sequence()
 
@@ -269,8 +263,7 @@ func _end_fight(winning_team: Team, is_draw: bool) -> void:
 		status_label.text = "%s wins!" % winning_team.team_name
 		print("Fight ended: %s wins!" % winning_team.team_name)
 	
-	Engine.time_scale = 1.0  # reset speed
-	
+	get_tree().paused = false
 	Events.combat_ended.emit()
 	
 	# wait then return
@@ -278,24 +271,11 @@ func _end_fight(winning_team: Team, is_draw: bool) -> void:
 		_state = FightState.DONE
 		fight_ended.emit(winning_team, _teams, is_draw)
 		if _caller != null:
-			_return_to_caller(winning_team, is_draw))
-		# else: test mode, stay in scene for inspection
+			_return_to_caller(winning_team, is_draw)
+	)
+	# else: test mode, stay in scene for inspection
 
 func _return_to_caller(winning_team: Team, is_draw: bool) -> void:
 	if _caller.has_method("on_fight_result"):
 		_caller.on_fight_result(winning_team, _teams, is_draw)
 	queue_free()
-
-# ── UI handlers ───────────────────────────────────────────────────────────
-
-func _toggle_pause() -> void:
-	_paused = not _paused
-	Engine.time_scale = 0.0 if _paused else speed_slider.value
-	pause_button.text = "Resume" if _paused else "Pause"
-
-func _toggle_menu() -> void:
-	menu_panel.visible = not menu_panel.visible
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		_toggle_menu()

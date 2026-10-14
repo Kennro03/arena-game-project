@@ -316,7 +316,8 @@ theme_override_font_sizes/font_size = 64
 text = "Status"
 horizontal_alignment = 1
 
-[node name="top-right HUD" type="HBoxContainer" parent="UILayer" unique_id=432616334]
+[node name="top-left HUD" type="HBoxContainer" parent="UILayer" unique_id=1950597917]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 offset_left = 32.0
 offset_top = 32.0
@@ -324,17 +325,12 @@ offset_right = 232.0
 offset_bottom = 64.0
 alignment = 1
 
-[node name="MenuButton" type="Button" parent="UILayer/top-right HUD" unique_id=481577580]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Open menu"
-
-[node name="PauseButton" type="Button" parent="UILayer/top-right HUD" unique_id=2128507809]
+[node name="PauseButton" type="Button" parent="UILayer/top-left HUD" unique_id=110112450]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Pause"
 
-[node name="SpeedSpinBox" type="SpinBox" parent="UILayer/top-right HUD" unique_id=27529229]
+[node name="SpeedSpinBox" type="SpinBox" parent="UILayer/top-left HUD" unique_id=1382400665]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 0.1
@@ -343,7 +339,7 @@ step = 0.1
 value = 0.1
 allow_greater = true
 
-[node name="SpeedSlider" type="HSlider" parent="UILayer/top-right HUD" unique_id=1517208386]
+[node name="SpeedSlider" type="HSlider" parent="UILayer/top-left HUD" unique_id=1005921124]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -352,48 +348,5 @@ max_value = 10.0
 step = 0.1
 value = 1.0
 allow_greater = true
-
-[node name="MenuPanel" type="PanelContainer" parent="UILayer" unique_id=2091493171]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -53.5
-offset_top = -40.0
-offset_right = 53.5
-offset_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/MenuPanel" unique_id=594802329]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuPanel/MarginContainer" unique_id=1220614339]
-layout_mode = 2
-
-[node name="InspectFightersButton" type="Button" parent="UILayer/MenuPanel/MarginContainer/VBoxContainer" unique_id=1261784383]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Inspect Fighters"
-
-[node name="ReturnToCircuitButton" type="Button" parent="UILayer/MenuPanel/MarginContainer/VBoxContainer" unique_id=68723161]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Return to Circuit"
-
-[node name="ReturnToMainMenuButton" type="Button" parent="UILayer/MenuPanel/MarginContainer/VBoxContainer" unique_id=2145813497]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Return to main menu"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1057960502]

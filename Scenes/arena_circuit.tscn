@@ -3,19 +3,29 @@
 [ext_resource type="Script" uid="uid://dnaidnmc4a7wu" path="res://arena_circuit.gd" id="1_5g6y2"]
 [ext_resource type="PackedScene" uid="uid://dbqlpbmnj7pnl" path="res://Scenes/participant_slot.tscn" id="2_vg0xa"]
 
-[node name="ArenaCircuit" type="Control" unique_id=1414504434]
-layout_mode = 3
+[node name="ArenaCircuit" type="Node2D" unique_id=783076590]
+script = ExtResource("1_5g6y2")
+auto_proceed_delay = 1.5
+
+[node name="FightLayer" type="Node2D" parent="." unique_id=1783177296]
+
+[node name="ArenaFightsLayer" type="CanvasLayer" parent="." unique_id=1793352293]
+visible = false
+
+[node name="ArenaFightsPanelContainer" type="PanelContainer" parent="ArenaFightsLayer" unique_id=2001960516]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5g6y2")
-auto_proceed_delay = 1.5
-highlight_duration = 0.25
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=281248656]
-layout_mode = 1
+[node name="ArenaFightsGridContainer" type="GridContainer" parent="ArenaFightsLayer/ArenaFightsPanelContainer" unique_id=392030750]
+layout_mode = 2
+
+[node name="CircuitUI" type="CanvasLayer" parent="." unique_id=1001339495]
+unique_name_in_owner = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CircuitUI" unique_id=281248656]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -26,15 +36,15 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1757714185]
+[node name="HBoxContainer" type="HBoxContainer" parent="CircuitUI/MarginContainer" unique_id=1757714185]
 layout_mode = 2
 
-[node name="ParticipantsVBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1318776831]
+[node name="ParticipantsVBoxContainer" type="VBoxContainer" parent="CircuitUI/MarginContainer/HBoxContainer" unique_id=1318776831]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer" unique_id=499501263]
+[node name="RichTextLabel" type="RichTextLabel" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer" unique_id=499501263]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
@@ -46,70 +56,70 @@ text = "Fighters"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer" unique_id=1398785722]
+[node name="ScrollContainer" type="ScrollContainer" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer" unique_id=1398785722]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
-[node name="SlotsContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer" unique_id=482927616]
+[node name="SlotsContainer" type="GridContainer" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer" unique_id=482927616]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 columns = 9
 
-[node name="ParticipantSlot" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=62567015 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=62567015 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot2" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=14520332 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot2" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=14520332 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot3" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1362114345 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot3" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1362114345 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot4" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=107736838 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot4" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=107736838 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot5" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1218559517 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot5" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1218559517 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot6" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1958770921 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot6" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1958770921 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot7" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=315050657 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot7" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=315050657 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot8" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1902943788 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot8" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1902943788 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot9" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1226464574 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot9" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1226464574 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot10" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1343115722 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot10" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=1343115722 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="ParticipantSlot11" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=307035561 instance=ExtResource("2_vg0xa")]
+[node name="ParticipantSlot11" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/ScrollContainer/SlotsContainer" unique_id=307035561 instance=ExtResource("2_vg0xa")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer" unique_id=49347569]
+[node name="HBoxContainer" type="HBoxContainer" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer" unique_id=49347569]
 layout_mode = 2
 alignment = 1
 
-[node name="AutoProceedCheck" type="CheckBox" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/HBoxContainer" unique_id=1960632948]
+[node name="AutoProceedCheck" type="CheckBox" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/HBoxContainer" unique_id=1960632948]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Auto-proceed"
 
-[node name="NextMatchButton" type="Button" parent="MarginContainer/HBoxContainer/ParticipantsVBoxContainer/HBoxContainer" unique_id=1158262850]
+[node name="NextMatchButton" type="Button" parent="CircuitUI/MarginContainer/HBoxContainer/ParticipantsVBoxContainer/HBoxContainer" unique_id=1158262850]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Start Match"
 
-[node name="MatchInfoVBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1284263304]
+[node name="MatchInfoVBoxContainer" type="VBoxContainer" parent="CircuitUI/MarginContainer/HBoxContainer" unique_id=1284263304]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="MatchupLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=850209764]
+[node name="MatchupLabel" type="RichTextLabel" parent="CircuitUI/MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=850209764]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
@@ -122,27 +132,134 @@ text = "Matchup"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="CountdownLabel" type="Label" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=1730877381]
+[node name="CountdownLabel" type="Label" parent="CircuitUI/MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=1730877381]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Countdown..."
 horizontal_alignment = 1
 
-[node name="StatusLabel" type="Label" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=1146163105]
+[node name="StatusLabel" type="Label" parent="CircuitUI/MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=1146163105]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Status"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=591081127]
+[node name="HSeparator" type="HSeparator" parent="CircuitUI/MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=591081127]
 layout_mode = 2
 
-[node name="Standings" type="Label" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=716997592]
+[node name="Standings" type="Label" parent="CircuitUI/MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=716997592]
 layout_mode = 2
 text = "Standings"
 horizontal_alignment = 1
 
-[node name="StandingsContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=1857791834]
+[node name="StandingsContainer" type="VBoxContainer" parent="CircuitUI/MarginContainer/HBoxContainer/MatchInfoVBoxContainer" unique_id=1857791834]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="OverlayLayer" type="CanvasLayer" parent="." unique_id=1620083663]
+unique_name_in_owner = true
+process_mode = 3
+layer = 100
+
+[node name="PauseMenu" type="PanelContainer" parent="OverlayLayer" unique_id=1805566205]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -40.0
+offset_right = 53.5
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OverlayLayer/PauseMenu" unique_id=113095873]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OverlayLayer/PauseMenu/MarginContainer" unique_id=77505238]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="OverlayLayer/PauseMenu/MarginContainer/VBoxContainer" unique_id=1781208939]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Resume"
+
+[node name="DisplayRosterButton" type="Button" parent="OverlayLayer/PauseMenu/MarginContainer/VBoxContainer" unique_id=1319957081]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Inspect Fighters"
+
+[node name="SaveArenaStateButton" type="Button" parent="OverlayLayer/PauseMenu/MarginContainer/VBoxContainer" unique_id=1408864950]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Save arena state"
+
+[node name="ReturnToMainMenuButton" type="Button" parent="OverlayLayer/PauseMenu/MarginContainer/VBoxContainer" unique_id=505583080]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Return to main menu"
+
+[node name="RosterPanel" type="PanelContainer" parent="OverlayLayer" unique_id=1543885240]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="top-right HUD" type="HBoxContainer" parent="OverlayLayer" unique_id=88063343]
+process_mode = 3
+custom_minimum_size = Vector2(200, 0)
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 48.0
+alignment = 1
+
+[node name="PauseButton" type="Button" parent="OverlayLayer/top-right HUD" unique_id=1290041462]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Menu"
+
+[node name="SpeedSpinBox" type="SpinBox" parent="OverlayLayer/top-right HUD" unique_id=2025551689]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+max_value = 999.0
+step = 0.1
+value = 1.0
+allow_greater = true
+
+[node name="SpeedSlider" type="HSlider" parent="OverlayLayer/top-right HUD" unique_id=817740128]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.0
+allow_greater = true
+
+[connection signal="pressed" from="OverlayLayer/PauseMenu/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="OverlayLayer/top-right HUD/PauseButton" to="." method="_on_pause_button_pressed"]

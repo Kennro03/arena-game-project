@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 class_name ArenaCircuit
 
 const PARTICIPANT_SLOT = preload("res://Scenes/participant_slot.tscn")
@@ -8,13 +8,26 @@ const ARENA_FIGHT_SCENE = preload("res://Scenes/arena_fight_scene.tscn")
 @export var auto_proceed_delay: float = 3.0      # seconds before next match starts
 @export var highlight_duration: float = 1.5      # seconds fighters are highlighted before transition
 
+@onready var fight_layer: Node2D = $FightLayer
+@onready var arena_fights_layer: CanvasLayer = $ArenaFightsLayer
+@onready var arena_fights_panel_container: PanelContainer = $ArenaFightsLayer/ArenaFightsPanelContainer
+@onready var arena_fights_grid_container: GridContainer = $ArenaFightsLayer/ArenaFightsPanelContainer/ArenaFightsGridContainer
+@onready var circuit_ui: CanvasLayer = %CircuitUI
+@onready var overlay_layer: CanvasLayer = %OverlayLayer
+@onready var pause_menu: PanelContainer = %PauseMenu
+@onready var roster_panel: PanelContainer = %RosterPanel
+
+@onready var matchup_label: RichTextLabel = %MatchupLabel
 @onready var slots_container: GridContainer = %SlotsContainer
 @onready var standings_container: VBoxContainer = %StandingsContainer
-@onready var matchup_label: RichTextLabel = %MatchupLabel
 @onready var next_match_button: Button = %NextMatchButton
 @onready var auto_proceed_check: CheckBox = %AutoProceedCheck
 @onready var countdown_label: Label = %CountdownLabel
 @onready var status_label: Label = %StatusLabel
+
+@onready var pause_button: Button = %PauseButton
+@onready var speed_spin_box: SpinBox = %SpeedSpinBox
+@onready var speed_slider: HSlider = %SpeedSlider
 
 var _fighters: Array[FighterData] = []
 var _config: ArenaConfig = null
@@ -48,6 +61,17 @@ func _ready() -> void:
 	_build_slots()
 	_refresh_standings()
 	_select_next_matchup()
+	
+	Player.overlay_layer = overlay_layer
+	
+	speed_slider.value_changed.connect(func(v): Engine.time_scale = v)
+	speed_spin_box.value_changed.connect(func(v): Engine.time_scale = v)
+	speed_slider.value_changed.connect(speed_spin_box.set_value_no_signal)
+	speed_spin_box.value_changed.connect(speed_slider.set_value_no_signal)
+	
+	if _config:
+		speed_slider.value = _config.simulation_speed
+		Engine.time_scale = _config.simulation_speed
 
 func _build_slots() -> void:
 	for old_slot in slots_container.get_children() :
@@ -153,8 +177,8 @@ func _transition_to_fight(matchup: Array[FighterData]) -> void:
 	
 	var scene := ARENA_FIGHT_SCENE.instantiate() as ArenaFightScene
 	scene.setup(teams, team_fighters, config, self)
-	get_tree().root.add_child(scene)
-	hide()
+	fight_layer.add_child(scene)   # ← this is the missing line
+	circuit_ui.hide()
 
 func _simulate_fight(matchup: Array[FighterData]) -> void:
 	var winner_index := randi() % matchup.size()
@@ -225,7 +249,8 @@ func _pick_continuous_matchup() -> Array[FighterData]:
 	return pair
 
 func on_fight_result(winning_team: Team, all_teams: Array[Team], is_draw: bool) -> void:
-	show()
+	circuit_ui.show()   
+	
 	if is_draw:
 		var all_fighters: Array[FighterData] = []
 		for team in all_teams:
@@ -356,3 +381,23 @@ func _refresh_standings() -> void:
 func _refresh_slot_tooltips() -> void:
 	for slot in _slots:
 		slot.set_fighter(slot.get_fighter())  # triggers tooltip refresh
+
+# ── UI handlers ───────────────────────────────────────────────────────────
+func _toggle_pause() -> void:
+	get_tree().paused = not get_tree().paused
+	#a pause button doesn't currently exist, it would happen when you open the pause menu (escape key)
+	#pause_button.text = "Resume" if get_tree().paused else "Pause"
+
+func _toggle_menu() -> void:
+	pause_menu.visible = not pause_menu.visible
+	get_tree().paused = pause_menu.visible
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		_toggle_menu()
+
+func _on_pause_button_pressed() -> void:
+	_toggle_menu()
+
+func _on_resume_button_pressed() -> void:
+	_toggle_menu()
