@@ -7,13 +7,20 @@
 [ext_resource type="Script" uid="uid://c4fibwo0c6337" path="res://scripts/Items/Accesssory.gd" id="4_5uqrd"]
 [ext_resource type="Script" uid="uid://cu6b4pflkscq6" path="res://Scenes/Levels/Battles/selection_manager.gd" id="4_gcnp8"]
 [ext_resource type="Script" uid="uid://gk2b37nd41oy" path="res://Scenes/Units/Humanoid/humanoidUnitData.gd" id="5_l22rg"]
-[ext_resource type="Resource" uid="uid://dt5ucbvun4vyl" path="res://ressources/Units/unit_data/BigGuy.tres" id="5_tgw3m"]
 [ext_resource type="Script" uid="uid://dnqlxuaginn8e" path="res://Scenes/Skills/SkillRessources/Skill.gd" id="6_og1yp"]
 [ext_resource type="Texture2D" uid="uid://bwaitgbywa38r" path="res://ressources/Sprites/arenas/placeholder1.png" id="7_o1gs2"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="7_pbq5j"]
 [ext_resource type="Script" uid="uid://3ilvdjppydrs" path="res://stats.gd" id="8_vdqhs"]
 [ext_resource type="Script" uid="uid://ba2sw8ajyas5p" path="res://Scenes/Units/BaseUnit/team.gd" id="9_hopt8"]
 [ext_resource type="Resource" uid="uid://cikjn1d3hom5x" path="res://ressources/Items/Weapons/WeaponBases/bow.tres" id="10_5uqrd"]
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="11_b2pde"]
+[ext_resource type="Texture2D" uid="uid://c4aokvfpd1s4o" path="res://ressources/Sprites/VFX/hitEffects/blunthiteffects.png" id="12_ip823"]
+[ext_resource type="Script" uid="uid://bd4xcgg65elbj" path="res://scripts/Hitboxes/HitboxData.gd" id="13_5obce"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="14_7ltxk"]
+[ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="15_8gpfd"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="16_jp8tr"]
+[ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="17_2dfun"]
+[ext_resource type="Resource" uid="uid://dli7e6s5tu673" path="res://ressources/Skills/ActiveSkills/FireTornado.tres" id="18_d1o62"]
 
 [sub_resource type="Resource" id="Resource_b2pde"]
 script = ExtResource("8_vdqhs")
@@ -55,10 +62,175 @@ fighters = Array[ExtResource("3_o1gs2")]([SubResource("Resource_5obce")])
 override_color = Color(0, 1, 1, 1)
 metadata/_custom_type_script = "uid://c8pdj04xpk0kl"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ps7s"]
+atlas = ExtResource("12_ip823")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hs883"]
+atlas = ExtResource("12_ip823")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4cs8"]
+atlas = ExtResource("12_ip823")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wexb3"]
+resource_name = "HammerCritHitEffect"
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ps7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hs883")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_w4cs8")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="Resource" id="Resource_cj0j4"]
+script = ExtResource("13_5obce")
+size = Vector2(28, 28)
+attack_frames = SubResource("SpriteFrames_wexb3")
+metadata/_custom_type_script = "uid://bd4xcgg65elbj"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yv1tb"]
+load_path = "res://.godot/imported/Fist_Icon.png-31ccafa06b1582b3f119c438bb757f0e.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0nncq"]
+load_path = "res://.godot/imported/debug_color_palette.png-83a0ab341a80c1d7cdded274d1275215.ctex"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_03rk4"]
+
+[sub_resource type="Resource" id="Resource_pe7od"]
+script = ExtResource("17_2dfun")
+material_name = "DebugMaterial"
+material_icon = SubResource("PlaceholderTexture2D_03rk4")
+material_color_palette = SubResource("CompressedTexture2D_0nncq")
+metadata/_custom_type_script = "uid://dghonse17mg3s"
+
+[sub_resource type="Resource" id="Resource_n20wg"]
+script = ExtResource("15_8gpfd")
+weapon_material = SubResource("Resource_pe7od")
+base_attack_range = 80.0
+base_damage = 10.0
+base_knockback = 35.0
+base_crit_hitbox = SubResource("Resource_cj0j4")
+custom_pip_rarities_weigths = null
+allowed_animations = Array[String]([])
+item_id = "fists"
+item_name = "Fists"
+description = "A stickman's bare fist. Usually used when nothing else is available."
+icon = SubResource("CompressedTexture2D_yv1tb")
+is_obtainable = false
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_ghxco"]
+script = ExtResource("8_vdqhs")
+base_exp_worth = 100
+base_endurance = 10
+base_max_health = 200.0
+base_health_regen = 0.0
+base_dodge_probability = 0.0
+base_parry_probability = 0.0
+base_block_probability = 0.0
+base_percent_block_power = 0.0
+base_crit_chance = 1.0
+base_crit_damage = 2.0
+max_health_scalings = null
+health_regen_scalings = null
+movement_speed_scalings = null
+dodge_probability_scalings = null
+parry_probability_scalings = null
+block_probability_scalings = null
+flat_block_power_scalings = null
+crit_chance_scalings = null
+crit_damage_scalings = null
+metadata/_custom_type_script = "uid://3ilvdjppydrs"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fgx8d"]
+resource_name = "HammerCritHitEffect"
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ps7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hs883")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_w4cs8")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="Resource" id="Resource_gvkcs"]
+script = ExtResource("13_5obce")
+shape = 1
+size = Vector2(48, 32)
+attack_frames = SubResource("SpriteFrames_fgx8d")
+metadata/_custom_type_script = "uid://bd4xcgg65elbj"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yy3uv"]
+load_path = "res://.godot/imported/debug_hammer.png-325026daf4abd76dca00cc4105a73741.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4f5dk"]
+load_path = "res://.godot/imported/debug_hammer.png-325026daf4abd76dca00cc4105a73741.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vmsit"]
+load_path = "res://.godot/imported/debug_color_palette.png-83a0ab341a80c1d7cdded274d1275215.ctex"
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pu355"]
+
+[sub_resource type="Resource" id="Resource_tfoga"]
+script = ExtResource("17_2dfun")
+material_name = "DebugMaterial"
+material_icon = SubResource("PlaceholderTexture2D_pu355")
+material_color_palette = SubResource("CompressedTexture2D_vmsit")
+metadata/_custom_type_script = "uid://dghonse17mg3s"
+
+[sub_resource type="Resource" id="Resource_u2chk"]
+script = ExtResource("15_8gpfd")
+weaponCategory = 2
+weaponType = 5
+weaponSprite = SubResource("CompressedTexture2D_4f5dk")
+weapon_material = SubResource("Resource_tfoga")
+base_attack_speed = 0.7
+base_attack_range = 110.0
+base_damage = 14.0
+base_knockback = 70.0
+base_crit_hitbox = SubResource("Resource_gvkcs")
+custom_pip_rarities_weigths = null
+allowed_animations = Array[String](["slash", "bash"])
+item_id = "warhammer"
+item_name = "Warhammer"
+description = "A large hammer, made to crush enemies flat."
+icon = SubResource("CompressedTexture2D_yy3uv")
+base_value = 10
+metadata/_custom_type_script = "uid://bmisrl2r5a5eh"
+
+[sub_resource type="Resource" id="Resource_swwsa"]
+script = ExtResource("5_l22rg")
+id = "Big_guy"
+display_name = "Big guy"
+description = "That's a... *gulp*... big guy..."
+color = Color(1, 1, 0, 1)
+stats = SubResource("Resource_ghxco")
+skill_list = Array[ExtResource("6_og1yp")]([ExtResource("18_d1o62")])
+weapon = SubResource("Resource_u2chk")
+default_weapon = SubResource("Resource_n20wg")
+metadata/_custom_type_script = "uid://gk2b37nd41oy"
+
 [sub_resource type="Resource" id="Resource_lpt4p"]
 script = ExtResource("2_dtjro")
 team_name = "Team 2"
-fighters = Array[ExtResource("3_o1gs2")]([ExtResource("5_tgw3m")])
+fighters = Array[ExtResource("3_o1gs2")]([SubResource("Resource_swwsa")])
 metadata/_custom_type_script = "uid://c8pdj04xpk0kl"
 
 [sub_resource type="Resource" id="Resource_yjuyy"]

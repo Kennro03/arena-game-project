@@ -2,15 +2,33 @@
 
 [ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/Cast_steps/CastStep.gd" id="1_pmiju"]
 [ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/Skill_prerequisites/SkillPrerequisite.gd" id="2_kcuc1"]
+[ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/Skill_effects/SkillEffect.gd" id="2_tmgp7"]
+[ext_resource type="Script" uid="uid://dcasgb6uiicvo" path="res://scripts/Skills/Skill_effects/SkillEffect_ApplyStatusEffect.gd" id="3_f8xut"]
+[ext_resource type="Script" uid="uid://bsfee53vkwo5r" path="res://scripts/Skills/Skill_targeting/SkillTargeting.gd" id="4_kcuc1"]
+[ext_resource type="Resource" uid="uid://ca8ri5wx8pnbn" path="res://ressources/Status_Effects/burn.tres" id="4_nqte7"]
+[ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Cast_steps/Step_SpawnLingeringArea.gd" id="5_ylb1d"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="6_arpwe"]
 
-[sub_resource type="Resource" id="Resource_s1m5y"]
-metadata/_custom_type_script = "uid://c7pvww45kvh3r"
+[sub_resource type="Resource" id="Resource_jiw8d"]
+script = ExtResource("3_f8xut")
+status_effect = ExtResource("4_nqte7")
+target = 1
+metadata/_custom_type_script = "uid://dcasgb6uiicvo"
+
+[sub_resource type="Resource" id="Resource_m41xr"]
+script = ExtResource("5_ylb1d")
+effects_per_tick = Array[ExtResource("2_tmgp7")]([SubResource("Resource_jiw8d")])
+metadata/_custom_type_script = "uid://bg30eb4pvw8iy"
+
+[sub_resource type="Resource" id="Resource_sf0gi"]
+script = ExtResource("4_kcuc1")
+metadata/_custom_type_script = "uid://bsfee53vkwo5r"
 
 [resource]
 script = ExtResource("6_arpwe")
 cooldown = 8.0
 interrupt_type = 0
-targeting = SubResource("Resource_s1m5y")
+targeting = SubResource("Resource_sf0gi")
+cast_sequence = Array[ExtResource("1_pmiju")]([SubResource("Resource_m41xr")])
 name = "Fire Tornado"
 metadata/_custom_type_script = "uid://dav671j6ilit5"
