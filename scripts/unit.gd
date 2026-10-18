@@ -83,7 +83,7 @@ func check_if_ally(target: Node2D) -> bool:
 	return my_team.team_name == their_team.team_name
 
 # --- Combat interface (virtual, subclasses implement) ---
-func take_damage(_damage: float, _type: HitData.DamageType = HitData.DamageType.NONE, _owner: Unit = null) -> void:
+func take_damage(_damage: float, _hit_data: HitData) -> void:
 	pass
 
 func resolve_hit(_hit: HitData) -> void:

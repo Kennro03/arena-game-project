@@ -53,24 +53,7 @@ func hit(target:Node2D, _hit: HitData)-> void:
 	
 	if owner.global_position.distance_to(target.global_position) < current_min_shooting_range :
 		is_shooting = false
-		_hit.damage_type = current_damage_type
-		_hit.base_damage = current_damage
-		_hit.knockback_force = current_knockback
-		
-		if _hit.is_critical :
-			_hit.base_damage *= _hit.hit_owner.stats.current_crit_damage
-		
-		if _hit.is_critical == false and current_hitbox != null : 
-			_spawn_hitbox(target.global_position, _hit, current_hitbox)
-			attack_performed.emit(_hit.damage_type, current_endlag)
-		elif _hit.is_critical == true and current_crit_hitbox != null : 
-			_spawn_hitbox(target.global_position, _hit, current_crit_hitbox)
-			attack_performed.emit(_hit.damage_type, current_endlag)
-		elif target.has_method("resolve_hit") :
-			target.resolve_hit(_hit)
-			attack_performed.emit(_hit.damage_type, current_endlag)
-		else :
-			printerr("Trying to attack an unvalid target without a hitbox !")
+		super.hit(target, _hit)
 	else :
 		is_shooting = true
 		_hit.damage_type = current_damage_type

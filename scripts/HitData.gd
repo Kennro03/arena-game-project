@@ -1,7 +1,37 @@
 extends RefCounted
 class_name HitData
 
-enum DamageType { PIERCE, SLASH, BLUNT, FIRE, FROST, LIGHTNING, EARTH, WIND, WATER, ORDER, ENTROPY, NONE }
+enum DamageType { NONE, SLASH, PIERCE, BLUNT, ETHEREAL, FIRE, FROST, LIGHTNING, EARTH, WIND, WATER, ORDER, ENTROPY }
+
+const DAMAGE_TYPE_SPRITE_INDEX := {
+	DamageType.NONE: 0,
+	DamageType.SLASH: 1,
+	DamageType.PIERCE: 2,
+	DamageType.BLUNT: 3,
+	DamageType.ETHEREAL: 4,
+	DamageType.ORDER: 5,
+	DamageType.ENTROPY: 6,
+	DamageType.FIRE: 7,
+	DamageType.FROST: 8,
+	DamageType.EARTH: 9,
+	DamageType.LIGHTNING: 10,
+	DamageType.WIND: 11,
+}
+
+const DAMAGE_TYPE_COLOR_INDEX:= {
+	DamageType.NONE: Color.WHITE,
+	DamageType.SLASH: Color.WHITE,
+	DamageType.PIERCE: Color.WHITE,
+	DamageType.BLUNT: Color.WHITE,
+	DamageType.ETHEREAL: Color.DEEP_SKY_BLUE,
+	DamageType.ORDER: Color.DARK_ORANGE,
+	DamageType.ENTROPY: Color.REBECCA_PURPLE,
+	DamageType.FIRE: Color.DARK_RED,
+	DamageType.FROST: Color.LIGHT_BLUE,
+	DamageType.EARTH: Color.SADDLE_BROWN,
+	DamageType.LIGHTNING: Color.YELLOW,
+	DamageType.WIND: Color.LIGHT_GREEN,
+}
 
 var hit_owner : Unit
 var is_critical : bool = false

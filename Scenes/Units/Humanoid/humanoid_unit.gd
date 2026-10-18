@@ -143,24 +143,6 @@ func face_toward(target_position: Vector2) -> void:
 
 func apply_stun(duration: float) -> void:
 	state_machine._transition_to_next_state(UnitState.STUNNED, {"duration": duration})
-	
-func take_damage(incoming_damage: float, _damage_type: HitData.DamageType = HitData.DamageType.NONE, _hit_owner: Unit = null) -> void:
-	incoming_damage += stats.current_damage_taken_bonus
-	incoming_damage *= stats.current_damage_taken_multiplier
-	incoming_damage = round(incoming_damage * pow(10.0, 2)) / pow(10.0, 2)
-
-	if stats.shield > 0.0 and stats.shield > incoming_damage:
-		stats.shield -= incoming_damage
-		%DamagePopupMarker.damage_popup(str(incoming_damage), 0.5 + 0.01 * incoming_damage, Color(0.6, 0.8, 0.8, 1.0))
-	elif stats.shield > 0.0 and stats.shield < incoming_damage:
-		incoming_damage -= stats.shield
-		%DamagePopupMarker.damage_popup(str(incoming_damage), 0.5 + 0.01 * incoming_damage, Color(0.6, 0.8, 0.8, 1.0))
-		stats.shield = 0.0
-		stats.health -= incoming_damage
-		%DamagePopupMarker.damage_popup(str(incoming_damage), 0.75 + 0.01 * incoming_damage, Color(1, 1 - incoming_damage * 0.02, 1 - incoming_damage * 0.02))
-	else:
-		stats.health -= incoming_damage
-		%DamagePopupMarker.damage_popup(str(incoming_damage), 0.75 + 0.01 * incoming_damage, Color(1, 1 - incoming_damage * 0.02, 1 - incoming_damage * 0.02))
 
 func resolve_hit(hit_result: HitData) -> void:
 	last_hit_owner = hit_result.hit_owner
@@ -188,7 +170,7 @@ func resolve_hit(hit_result: HitData) -> void:
 	else:
 		hit_result.outcome = HitData.HitOutcome.HIT
 		skillModule.interrupt_active_skills("hit")
-		take_damage(hit_result.base_damage, hit_result.damage_type, hit_result.hit_owner)
+		take_damage(hit_result.base_damage, hit_result)
 		_apply_passives(hit_result)
 		for effect in hit_result.status_effects:
 			statusEffectModule.apply_status_effect(effect)
@@ -199,12 +181,52 @@ func resolve_hit(hit_result: HitData) -> void:
 		
 		hit_received.emit(hit_result)
 
+func take_damage(calculated_damage: float, hit_data: HitData) -> void:
+	calculated_damage += stats.current_damage_taken_bonus
+	calculated_damage *= stats.current_damage_taken_multiplier
+	calculated_damage = round(calculated_damage * pow(10.0, 2)) / pow(10.0, 2)
+
+	var icon_idx : int = HitData.DAMAGE_TYPE_SPRITE_INDEX.get(hit_data.damage_type, -1)
+
+	if stats.shield > 0.0 and stats.shield >= calculated_damage:
+		# Shield absorbs everything
+		stats.shield -= calculated_damage
+		particleModule.text_popup(
+			str(roundi(calculated_damage)),
+			particleModule.damage_to_scale(calculated_damage) * 0.75,
+			Color(0.6, 0.8, 0.8, 1.0),
+			1.0, icon_idx
+		)
+	elif stats.shield > 0.0:
+		# Shield breaks, remainder hits health
+		var shield_absorbed := stats.shield
+		calculated_damage -= stats.shield
+		stats.shield = 0.0
+		# shield portion
+		particleModule.text_popup(                              
+			str(roundi(shield_absorbed)),
+			particleModule.damage_to_scale(shield_absorbed) * 0.75,
+			Color(0.6, 0.8, 0.8, 1.0),
+			1.0, icon_idx
+		)
+		stats.health -= calculated_damage
+		# health portion
+		particleModule.text_popup(                              
+			str(roundi(calculated_damage)),
+			particleModule.damage_to_scale(calculated_damage),
+			Color(1.0, maxf(0.0, 1.0 - calculated_damage * 0.02), maxf(0.0, 1.0 - calculated_damage * 0.02)),
+			1.0, icon_idx
+		)
+	else:
+		stats.health -= calculated_damage
+		particleModule.damage_popup(hit_data)
+
 func _block(hit: HitData) -> void:
 	spriteModule.play_block()
 	var flat := maxf(hit.base_damage - stats.current_flat_block_power, 0.0)
 	var blocked := flat - (flat / 100.0) * stats.current_percent_block_power
-	%DamagePopupMarker.damage_popup("Blocked!", 0.5, Color("Silver"))
-	take_damage(blocked, hit.damage_type, hit.hit_owner)
+	particleModule.text_popup("Blocked!", 0.75, Color("Silver"))
+	take_damage(blocked, hit)
 	var attacker_weapon: Weapon = hit.hit_owner.weapon if hit.hit_owner.has_method("equip_weapon") else null
 	if attacker_weapon and attacker_weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED \
 			and weapon and weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED:
@@ -212,18 +234,15 @@ func _block(hit: HitData) -> void:
 
 func _parry(hit: HitData) -> void:
 	spriteModule.play_parry()
-	%DamagePopupMarker.damage_popup("Parry!", 1.0, Color("Gold"))
+	particleModule.text_popup("Parry!", 1.0, Color("Gold"))
 	var attacker_weapon: Weapon = hit.hit_owner.weapon if hit.hit_owner.has_method("equip_weapon") else null
 	if attacker_weapon and attacker_weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED \
 			and weapon and weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED:
 		particleModule.emit_parry_particles()
 
 func _dodge(_hit: HitData) -> void:
-	%DamagePopupMarker.damage_popup("Dodged !", 1.0, Color("Cyan"))
+	particleModule.text_popup("Dodged!", 1.0, Color("Cyan"))
 	var dodge_dir: Vector2 = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
-	#if is_instance_valid(_hit.hit_owner):
-	#	dodge_dir = (global_position - _hit.hit_owner.global_position).normalized()
-	
 	state_machine._transition_to_next_state("Dodging", {
 		"direction":    dodge_dir,
 		"attacker":     _hit.hit_owner,

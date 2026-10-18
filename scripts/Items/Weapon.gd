@@ -239,7 +239,6 @@ func hit(target:Node2D, _hit: HitData)-> void:
 		return
 	
 	_hit.damage_type = current_damage_type
-	#print("Damage type = " + str(_hit.attack_type))
 	_hit.base_damage = current_damage
 	_hit.knockback_force = current_knockback
 	

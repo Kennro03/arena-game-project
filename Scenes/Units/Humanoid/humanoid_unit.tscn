@@ -20,7 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://d4rq68h801ac" path="res://Scenes/UI/StatusEffectIcon/status_icon.tscn" id="18_0reww"]
 [ext_resource type="Script" uid="uid://5r2u3nk0unia" path="res://Scenes/Units/BaseUnit/particle_module.gd" id="19_ervmy"]
 [ext_resource type="PackedScene" uid="uid://dpnfxl7xm0c02" path="res://Scenes/hit_effect.tscn" id="20_c8ktf"]
-[ext_resource type="Script" uid="uid://c8ol06hj1l4h1" path="res://Scenes/UI/damage_popup_marker.gd" id="20_jnu7g"]
 [ext_resource type="Script" uid="uid://cti6dobwwux2e" path="res://scripts/Status_Effects/StatusEffectModule.gd" id="21_w8h6d"]
 [ext_resource type="Script" uid="uid://bes5u52bk3io6" path="res://Scenes/StateMachine/state_machine.gd" id="22_dnsi1"]
 [ext_resource type="Script" uid="uid://ioqknboyvfj1" path="res://Scenes/StateMachine/idle.gd" id="23_anlvg"]
@@ -517,11 +516,6 @@ position = Vector2(0, -20)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("19_ervmy")
 hit_effect_scene = ExtResource("20_c8ktf")
-
-[node name="DamagePopupMarker" type="Marker2D" parent="ParticleModule" unique_id=1794460946]
-unique_name_in_owner = true
-position = Vector2(0, -16)
-script = ExtResource("20_jnu7g")
 
 [node name="StatusEffectModule" type="Node2D" parent="." unique_id=669366720]
 unique_name_in_owner = true
