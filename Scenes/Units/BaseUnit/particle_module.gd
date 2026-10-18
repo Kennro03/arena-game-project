@@ -27,7 +27,7 @@ func text_popup(
 func damage_popup(hit_data: HitData, damage_override: float = -1.0) -> void:
 	var damage : float = damage_override if damage_override >= 0.0 else hit_data.base_damage
 	var text  : String = str(roundi(damage))
-	var scale : float = _damage_to_scale(damage)
+	var scale : float = damage_to_scale(damage)
 	var color : Color = Color.WHITE
 	var icon_idx: int = HitData.DAMAGE_TYPE_SPRITE_INDEX.get(hit_data.damage_type, -1)
 	
@@ -73,8 +73,8 @@ func _spawn_popup(
 	tween.tween_property(popup, "position",
 		global_position + DMG_POPUP_OFFSET + get_direction() * movement_multiplier, 0.5)
 
-## Logarithmic scale: ~0.8 at 1 dmg, 1.0 around 5–10, grows slowly to 2.0 cap.
-func _damage_to_scale(damage: float) -> float:
+## ~0.8 at 1 dmg, 1.0 around 5–10, grows slowly to 2.0 cap.
+func damage_to_scale(damage: float) -> float:
 	return clampf(0.6 + log(maxf(damage, 1.0)) * 0.2, 0.8, 2.0)
 
 func get_damage_icon(sprite_index: int) -> AtlasTexture:
@@ -94,7 +94,7 @@ func _spawn(scene: PackedScene, hit_data: HitData = null) -> Node2D:
 		return null
 	var inst := scene.instantiate() 
 	add_child(inst)
-	print("Added child " + str(inst))
+	#print("Added child " + str(inst))
 	if hit_data != null and inst.has_method("setup"):
 		inst.setup(hit_data)
 	if inst is GPUParticles2D:

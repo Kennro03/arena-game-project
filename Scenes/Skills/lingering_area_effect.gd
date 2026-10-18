@@ -31,7 +31,7 @@ class_name LingeringAreaEffect
 @export var sprite_color_modulation : Color = Color(1,1,1,1)
 
 
-var _caster: BaseUnit = null
+var _caster: Unit = null
 var _elapsed: float = 0.0
 var _tick_timer: float = 0.0
 var _target: Node2D = null # target that the zone follows
@@ -72,7 +72,7 @@ func _ready() -> void:
 	area_visual.setup(shape, size, draw_area ,fill_color, border_color, particle_scene, area_sprite, sprite_scale, sprite_color_modulation)
 	_apply_tick()
 
-func setup(caster: BaseUnit) -> void:
+func setup(caster: Unit) -> void:
 	_caster = caster
 
 func _process(delta: float) -> void:
@@ -99,7 +99,7 @@ func _apply_tick() -> void:
 	for body in detection_area.get_overlapping_areas():
 		if body is not Hurtbox :
 			continue
-		var unit := body.get_parent() as BaseUnit
+		var unit := body.get_parent() as Unit
 		if unit == null or not is_instance_valid(unit):
 			continue
 		

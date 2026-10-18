@@ -46,8 +46,6 @@ func _ready() -> void:
 	_setup_display_module()
 	stats.level_changed.connect(particleModule.emit_level_up_particles)
 	spriteModule.update_sprites.call_deferred()
-	
-	
 
 ## Activation
 func _on_activated() -> void:
@@ -144,6 +142,7 @@ func face_toward(target_position: Vector2) -> void:
 func apply_stun(duration: float) -> void:
 	state_machine._transition_to_next_state(UnitState.STUNNED, {"duration": duration})
 
+
 func resolve_hit(hit_result: HitData) -> void:
 	last_hit_owner = hit_result.hit_owner
 	var not_locked := not state_machine.is_in_state(UnitState.CASTING) and not state_machine.is_in_state(UnitState.STUNNED)
@@ -170,10 +169,12 @@ func resolve_hit(hit_result: HitData) -> void:
 	else:
 		hit_result.outcome = HitData.HitOutcome.HIT
 		skillModule.interrupt_active_skills("hit")
-		take_damage(hit_result.base_damage, hit_result)
+		process_hit(hit_result)
 		_apply_passives(hit_result)
+		
 		for effect in hit_result.status_effects:
 			statusEffectModule.apply_status_effect(effect)
+			
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2.ZERO:
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
 		
@@ -181,52 +182,71 @@ func resolve_hit(hit_result: HitData) -> void:
 		
 		hit_received.emit(hit_result)
 
-func take_damage(calculated_damage: float, hit_data: HitData) -> void:
-	calculated_damage += stats.current_damage_taken_bonus
-	calculated_damage *= stats.current_damage_taken_multiplier
-	calculated_damage = round(calculated_damage * pow(10.0, 2)) / pow(10.0, 2)
+func process_hit(hit_data: HitData) -> void:
+	take_damage(
+		_apply_incoming_modifiers(hit_data.base_damage),
+		hit_data.damage_type,
+		hit_data.is_critical
+	)
 
-	var icon_idx : int = HitData.DAMAGE_TYPE_SPRITE_INDEX.get(hit_data.damage_type, -1)
+## Applies the unit's flat bonus and multiplier to an incoming damage value.
+func _apply_incoming_modifiers(base: float) -> float:
+	var d := base + stats.current_damage_taken_bonus
+	d *= stats.current_damage_taken_multiplier
+	return round(d * pow(10.0, 2)) / pow(10.0, 2)
 
-	if stats.shield > 0.0 and stats.shield >= calculated_damage:
-		# Shield absorbs everything
-		stats.shield -= calculated_damage
+func take_damage(
+	damage: float,
+	damage_type: HitData.DamageType = HitData.DamageType.NONE,
+	is_critical: bool = false
+) -> void:
+
+	var icon_idx: int = HitData.DAMAGE_TYPE_SPRITE_INDEX.get(damage_type, -1)
+	var type_color: Color = HitData.DAMAGE_TYPE_COLOR_INDEX.get(damage_type, Color.WHITE)
+	var scale_mult: float = 1.4 if is_critical else 1.0
+
+	if stats.shield > 0.0 and stats.shield >= damage:
+		stats.shield -= damage
 		particleModule.text_popup(
-			str(roundi(calculated_damage)),
-			particleModule.damage_to_scale(calculated_damage) * 0.75,
-			Color(0.6, 0.8, 0.8, 1.0),
+			str(roundi(damage)),
+			particleModule.damage_to_scale(damage) * 0.75,
+			Color(0.6, 0.8, 0.8, 1.0),   # shield always teal
 			1.0, icon_idx
 		)
+
 	elif stats.shield > 0.0:
-		# Shield breaks, remainder hits health
 		var shield_absorbed := stats.shield
-		calculated_damage -= stats.shield
+		damage -= stats.shield
 		stats.shield = 0.0
-		# shield portion
-		particleModule.text_popup(                              
+		particleModule.text_popup(
 			str(roundi(shield_absorbed)),
 			particleModule.damage_to_scale(shield_absorbed) * 0.75,
 			Color(0.6, 0.8, 0.8, 1.0),
 			1.0, icon_idx
 		)
-		stats.health -= calculated_damage
-		# health portion
-		particleModule.text_popup(                              
-			str(roundi(calculated_damage)),
-			particleModule.damage_to_scale(calculated_damage),
-			Color(1.0, maxf(0.0, 1.0 - calculated_damage * 0.02), maxf(0.0, 1.0 - calculated_damage * 0.02)),
+		stats.health -= damage
+		particleModule.text_popup(
+			str(roundi(damage)),
+			minf(particleModule.damage_to_scale(damage) * scale_mult, 2.0),
+			type_color,
 			1.0, icon_idx
 		)
+
 	else:
-		stats.health -= calculated_damage
-		particleModule.damage_popup(hit_data)
+		stats.health -= damage
+		particleModule.text_popup(
+			str(roundi(damage)),
+			minf(particleModule.damage_to_scale(damage) * scale_mult, 2.0),
+			type_color,
+			1.0, icon_idx
+		)
 
 func _block(hit: HitData) -> void:
 	spriteModule.play_block()
-	var flat := maxf(hit.base_damage - stats.current_flat_block_power, 0.0)
+	var flat    := maxf(hit.base_damage - stats.current_flat_block_power, 0.0)
 	var blocked := flat - (flat / 100.0) * stats.current_percent_block_power
 	particleModule.text_popup("Blocked!", 0.75, Color("Silver"))
-	take_damage(blocked, hit)
+	take_damage(_apply_incoming_modifiers(blocked), hit.damage_type)
 	var attacker_weapon: Weapon = hit.hit_owner.weapon if hit.hit_owner.has_method("equip_weapon") else null
 	if attacker_weapon and attacker_weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED \
 			and weapon and weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED:

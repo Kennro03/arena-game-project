@@ -4,10 +4,11 @@
 [ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/Skill_prerequisites/SkillPrerequisite.gd" id="2_kcuc1"]
 [ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/Skill_effects/SkillEffect.gd" id="2_tmgp7"]
 [ext_resource type="Script" uid="uid://dcasgb6uiicvo" path="res://scripts/Skills/Skill_effects/SkillEffect_ApplyStatusEffect.gd" id="3_f8xut"]
-[ext_resource type="Script" uid="uid://bsfee53vkwo5r" path="res://scripts/Skills/Skill_targeting/SkillTargeting.gd" id="4_kcuc1"]
 [ext_resource type="Resource" uid="uid://ca8ri5wx8pnbn" path="res://ressources/Status_Effects/burn.tres" id="4_nqte7"]
+[ext_resource type="PackedScene" uid="uid://m18hu87jtivp" path="res://Scenes/VFX/fire_tornado_particles_2d.tscn" id="5_f8xut"]
 [ext_resource type="Script" uid="uid://bg30eb4pvw8iy" path="res://scripts/Skills/Cast_steps/Step_SpawnLingeringArea.gd" id="5_ylb1d"]
 [ext_resource type="Script" uid="uid://dav671j6ilit5" path="res://Scenes/Skills/SkillRessources/ActiveSkill.gd" id="6_arpwe"]
+[ext_resource type="Script" uid="uid://c7pvww45kvh3r" path="res://scripts/Skills/Skill_targeting/Targeting_NearestEnemy.gd" id="9_f8xut"]
 
 [sub_resource type="Resource" id="Resource_jiw8d"]
 script = ExtResource("3_f8xut")
@@ -17,18 +18,26 @@ metadata/_custom_type_script = "uid://dcasgb6uiicvo"
 
 [sub_resource type="Resource" id="Resource_m41xr"]
 script = ExtResource("5_ylb1d")
+size = Vector2(100, 80)
 effects_per_tick = Array[ExtResource("2_tmgp7")]([SubResource("Resource_jiw8d")])
+affect_allies = false
+affect_enemies = true
+follow_target = true
+follow_speed = 30.0
+fill_color = Color(0.65630305, 0.41943654, 0.3050651, 0.3019608)
+border_color = Color(0.5596428, 0.20967382, 0.10513631, 0.8)
+particle_scene = ExtResource("5_f8xut")
 metadata/_custom_type_script = "uid://bg30eb4pvw8iy"
 
-[sub_resource type="Resource" id="Resource_sf0gi"]
-script = ExtResource("4_kcuc1")
-metadata/_custom_type_script = "uid://bsfee53vkwo5r"
+[sub_resource type="Resource" id="Resource_nqte7"]
+script = ExtResource("9_f8xut")
+metadata/_custom_type_script = "uid://c7pvww45kvh3r"
 
 [resource]
 script = ExtResource("6_arpwe")
 cooldown = 8.0
 interrupt_type = 0
-targeting = SubResource("Resource_sf0gi")
+targeting = SubResource("Resource_nqte7")
 cast_sequence = Array[ExtResource("1_pmiju")]([SubResource("Resource_m41xr")])
 name = "Fire Tornado"
 metadata/_custom_type_script = "uid://dav671j6ilit5"

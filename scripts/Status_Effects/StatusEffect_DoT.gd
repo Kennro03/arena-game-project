@@ -9,10 +9,10 @@ signal emit_particle(particle_scene:PackedScene)
 
 var total_damage : float = 0.0
 
-func on_tick(_target, _effect):
+func on_tick(_target: Unit, _effect):
 	var dmg : float = stacks * damage_per_stack
 	if _target.has_method("take_damage"):
-		#print("Dealing DOT " + str(_target.display_name) + "for " + str(dmg) + " damage" )
+		print("Dealing DOT " + str(_target.display_name) + "for " + str(dmg) + " damage" )
 		_target.take_damage(dmg,damage_type)
 		total_damage += dmg
 	

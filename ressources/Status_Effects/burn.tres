@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("2_cn0sc")
+damage_type = 5
 particle_effect = ExtResource("1_ssh7k")
 Status_effect_name = "Burn"
 status_ID = "burn"

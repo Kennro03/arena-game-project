@@ -24,7 +24,6 @@ static var resistance_to_damage_type: Dictionary = {
 	BuffableStats.LIGHTNING_RESISTANCE: HitData.DamageType.LIGHTNING,
 	BuffableStats.EARTH_RESISTANCE:     HitData.DamageType.EARTH,
 	BuffableStats.WIND_RESISTANCE:      HitData.DamageType.WIND,
-	BuffableStats.WATER_RESISTANCE:     HitData.DamageType.WATER,
 	BuffableStats.ORDER_RESISTANCE:     HitData.DamageType.ORDER,
 	BuffableStats.ENTROPY_RESISTANCE:   HitData.DamageType.ENTROPY,
 }
@@ -43,7 +42,6 @@ static var resistance_to_damage_type: Dictionary = {
 	HitData.DamageType.LIGHTNING :1.0,
 	HitData.DamageType.EARTH :1.0,
 	HitData.DamageType.WIND :1.0,
-	HitData.DamageType.WATER :1.0,
 	HitData.DamageType.ORDER :1.0,
 	HitData.DamageType.ENTROPY :1.0,
 }
