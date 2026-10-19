@@ -522,3 +522,4 @@ value = 1.0
 allow_greater = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1057960502]
+zoom = Vector2(1.25, 1.25)

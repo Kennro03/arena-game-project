@@ -23,14 +23,14 @@ const DAMAGE_TYPE_COLOR_INDEX:= {
 	DamageType.SLASH: Color.WHITE,
 	DamageType.PIERCE: Color.WHITE,
 	DamageType.BLUNT: Color.WHITE,
-	DamageType.ETHEREAL: Color.DEEP_SKY_BLUE,
+	DamageType.ETHEREAL: Color.DODGER_BLUE,
 	DamageType.ORDER: Color.DARK_ORANGE,
 	DamageType.ENTROPY: Color.REBECCA_PURPLE,
-	DamageType.FIRE: Color.DARK_RED,
+	DamageType.FIRE: Color.FIREBRICK,
 	DamageType.FROST: Color.LIGHT_BLUE,
 	DamageType.EARTH: Color.SADDLE_BROWN,
-	DamageType.LIGHTNING: Color.YELLOW,
-	DamageType.WIND: Color.LIGHT_GREEN,
+	DamageType.LIGHTNING: Color.GOLD,
+	DamageType.WIND: Color.LIME_GREEN,
 }
 
 var hit_owner : Unit
