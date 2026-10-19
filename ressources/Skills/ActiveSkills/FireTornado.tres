@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djd7hvq3unw48" path="res://scripts/Skills/Cast_steps/CastStep.gd" id="1_pmiju"]
 [ext_resource type="Script" uid="uid://bux0fk4n7efd3" path="res://scripts/Skills/Skill_prerequisites/SkillPrerequisite.gd" id="2_kcuc1"]
+[ext_resource type="Texture2D" uid="uid://cl41x3gcwnc3o" path="res://ressources/Sprites/VFX/Spells/Fire/FireTornado1.png" id="2_nqte7"]
 [ext_resource type="Script" uid="uid://f84r5hfl7kje" path="res://scripts/Skills/Skill_effects/SkillEffect.gd" id="2_tmgp7"]
 [ext_resource type="Script" uid="uid://dcasgb6uiicvo" path="res://scripts/Skills/Skill_effects/SkillEffect_ApplyStatusEffect.gd" id="3_f8xut"]
 [ext_resource type="Resource" uid="uid://ca8ri5wx8pnbn" path="res://ressources/Status_Effects/burn.tres" id="4_nqte7"]
@@ -19,14 +20,18 @@ metadata/_custom_type_script = "uid://dcasgb6uiicvo"
 [sub_resource type="Resource" id="Resource_m41xr"]
 script = ExtResource("5_ylb1d")
 size = Vector2(100, 80)
+duration = 4.0
 effects_per_tick = Array[ExtResource("2_tmgp7")]([SubResource("Resource_jiw8d")])
 affect_allies = false
 affect_enemies = true
 follow_target = true
 follow_speed = 30.0
 fill_color = Color(0.65630305, 0.41943654, 0.3050651, 0.3019608)
-border_color = Color(0.5596428, 0.20967382, 0.10513631, 0.8)
+border_color = Color(0.56078434, 0.20784314, 0.105882354, 0.70980394)
 particle_scene = ExtResource("5_f8xut")
+area_sprite = ExtResource("2_nqte7")
+sprite_scale = Vector2(2, 2)
+sprite_color_modulation = Color(1, 1, 1, 0.47058824)
 metadata/_custom_type_script = "uid://bg30eb4pvw8iy"
 
 [sub_resource type="Resource" id="Resource_nqte7"]

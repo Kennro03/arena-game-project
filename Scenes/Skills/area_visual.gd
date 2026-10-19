@@ -34,6 +34,7 @@ func setup(shape: AreaShape,
 		mat.set_shader_parameter("border_color", border_color)
 	
 	if particle_scene != null:
+		print("Area visual spawning particle scene")
 		particles_emitter.visible = true
 		_setup_particles(size)
 		add_child(particle_scene.instantiate().duplicate(true))

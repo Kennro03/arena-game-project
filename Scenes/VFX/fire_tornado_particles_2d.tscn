@@ -56,7 +56,6 @@ anim_speed_max = 6.0
 anim_offset_max = 1.0
 
 [node name="FlameTornadoParticles2D" type="GPUParticles2D" unique_id=462074599]
-z_index = -1
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_7vt7n")
 amount = 35
