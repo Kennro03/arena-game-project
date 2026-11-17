@@ -66,9 +66,9 @@ func spawn_random(pos: Vector2, data: UnitData = null) -> Unit:
 
 func load_weapons() -> Array[Weapon]:
 	var weps : Array[Weapon] = []
-	for file_name in DirAccess.get_files_at("res://ressources/Weapons/"):
-		if (file_name.get_extension() == "tres"):
-			weps.append(load("res://ressources/Weapons/"+file_name))
+	for res in ResourceScan.load_all(UnitData.WEAPONS_DIR):
+		if res is Weapon:
+			weps.append(res)
 	return weps
 
 func _on_random_spawn_button_pressed() -> void:

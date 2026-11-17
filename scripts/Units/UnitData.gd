@@ -5,7 +5,11 @@ signal stats_changed
 signal skills_changed
 signal gear_changed
 
-var unit_scene : PackedScene = null  
+var unit_scene : PackedScene = null
+
+const WEAPONS_DIR := "res://ressources/Items/Weapons/WeaponBases/"
+const STATUS_EFFECTS_DIR := "res://ressources/Status_Effects/"
+const ON_HIT_PASSIVES_DIR := "res://ressources/OnHit_Passives/"
 
 ## Identity / UI
 @export var id: String = "Unit"
@@ -65,16 +69,24 @@ func with_points(_stat_points : int) -> UnitData:
 	return data
 
 func with_weapon(_wep : Weapon) -> UnitData:
-	if _wep == null : 
-		var weps : Array[Weapon] = []
-		for file_name in DirAccess.get_files_at("res://ressources/Weapons/"):
-			if (file_name.get_extension() == "tres") and (load("res://ressources/Weapons/"+file_name).weaponName != "Unarmed"):
-				weps.append(load("res://ressources/Weapons/"+file_name))
+	if _wep == null :
+		var weps := _load_armed_weapons()
+		if weps.is_empty():
+			printerr("with_weapon: no weapons found in %s, keeping current weapon" % WEAPONS_DIR)
+			return _make_copy()
 		_wep = weps.pick_random()
-	var data := _make_copy()  
+	var data := _make_copy()
 	data.weapon = _wep.duplicate(true)
-	data.display_name = "%s, Armed(%s)" % [display_name, _wep.weaponName]
+	data.display_name = "%s, Armed(%s)" % [display_name, _wep.item_name]
 	return data
+
+## All non-unarmed weapons in WEAPONS_DIR.
+static func _load_armed_weapons() -> Array[Weapon]:
+	var weps : Array[Weapon] = []
+	for res in ResourceScan.load_all(WEAPONS_DIR):
+		if res is Weapon and res.weaponType != Weapon.WeaponTypeEnum.UNARMED:
+			weps.append(res)
+	return weps
 
 func with_stats(_stats : Stats) -> UnitData:
 	var data := _make_copy()  
@@ -99,11 +111,11 @@ func with_scale(multiplier: float) -> UnitData:
 
 func with_skills(skill_array: Array[Skill]) -> UnitData:
 	var data := _make_copy()  
-	data.display_name = "%s, Skills(" % [display_name]
+	var skill_names : PackedStringArray = []
 	for s in skill_array:
 		data.skill_list.append(s.duplicate(true))
-		data.display_name = "%s%s" % [s.name]
-	data.display_name = "%s)" % [display_name]
+		skill_names.append(s.name)
+	data.display_name = "%s, Skills(%s)" % [display_name, ", ".join(skill_names)]
 	return data
 
 func with_passive_skill(passive: Passive_Skill) -> UnitData:
@@ -175,13 +187,9 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 			2 : 
 				# Give a random weapon if unarmed
 				if data.weapon :
-					if data.weapon.weaponName == "Unarmed" : 
+					if data.weapon.weaponType == Weapon.WeaponTypeEnum.UNARMED :
 						var temp : Array[OnHitPassive] = data.weapon.onHitPassives
-						var weps : Array[Weapon] = []
-						for file_name in DirAccess.get_files_at("res://ressources/Weapons/"):
-							if (file_name.get_extension() == "tres") and (load("res://ressources/Weapons/"+file_name).weaponName != "Unarmed"):
-								weps.append(load("res://ressources/Weapons/"+file_name))
-						data = data.with_weapon(weps.pick_random())
+						data = data.with_weapon(null) # picks a random armed weapon
 						for effect in temp : 
 							data = data.with_onHit_passive(effect)
 					else :
@@ -191,9 +199,9 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 			3 : 
 				# On-hit: inflict a random debuff (status effect or stat debuff) on enemy
 				var effects : Array[StatusEffect] = []
-				for file_name in DirAccess.get_files_at("res://ressources/Status_Effects/Statuses"):
-					if (file_name.get_extension() == "tres"):
-						effects.append(load("res://ressources/Status_Effects/Statuses/"+file_name))
+				for res in ResourceScan.load_all(STATUS_EFFECTS_DIR):
+					if res is StatusEffect:
+						effects.append(res)
 				var random_attribute_status_debuff : StatusEffect = StatusEffect_Stat_Buff.new().setup(
 					Buff.new(Stats.Attributes.values().pick_random(), -(randi() % 10 + 11), Buff.BuffType.ADD))
 				#print("randomly generated debuff : " + random_attribute_status_debuff.Status_effect_name)
@@ -205,10 +213,13 @@ func with_random_modifiers(nb_modifiers : int = 1) -> UnitData :
 			4 : 
 				# Add an on-hit passive (shield, chain to nearby target, ...)
 				var passives : Array[OnHitPassive] = []
-				for file_name in DirAccess.get_files_at("res://ressources/OnHit_Passives/"):
-					if (file_name.get_extension() == "tres"):
-						passives.append(load("res://ressources/OnHit_Passives/"+file_name))
-				data = data.with_onHit_passive(passives.pick_random())
+				for res in ResourceScan.load_all(ON_HIT_PASSIVES_DIR):
+					if res is OnHitPassive:
+						passives.append(res)
+				if passives.is_empty():
+					nb_modifiers += 1 # nothing to add, roll another modifier
+				else:
+					data = data.with_onHit_passive(passives.pick_random())
 			5 :
 				# On-hit: inflict a random weapon stat debuff on enemy
 				var random_weapon_stat : Weapon.BuffableStats = Weapon.BuffableStats.values().pick_random()

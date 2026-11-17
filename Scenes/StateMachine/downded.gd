@@ -24,8 +24,8 @@ func exit() -> void:
 	owner.spriteModule.play_death(-1.0) #play go_down animation in reverse to rise up
 	unit.remove_from_group("Downed_Units")
 	unit.add_to_group("Live_Units")
-	unit.set_healthbar_visibility(unit.show_health)
-	unit.hide_shieldBar()
+	unit.displayModule.set_healthbar_visibility(unit.show_health)
+	unit.displayModule.hide_shieldBar()
 	unit.show_name = true
 	unit.hurtbox_collision_shape.disabled = false
 	unit.selection_area_collision_shape.disabled = false

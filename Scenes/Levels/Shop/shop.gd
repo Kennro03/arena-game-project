@@ -116,20 +116,10 @@ func get_item_list() -> Array[Item] :
 
 func get_debug_item_list() -> Array[Item] :
 	var item_List : Array[Item] = []
-	var acc_file_names := DirAccess.open("res://ressources/Items/Accessories/").get_files()
-	for file_name in acc_file_names :
-		if file_name.get_extension() == "tres":
-			item_List.append(load("res://ressources/Items/Accessories/" + file_name))
-	
-	var wep_file_names := DirAccess.open("res://ressources/Items/Weapons/WeaponBases/").get_files()
-	for file_name in wep_file_names :
-		if file_name.get_extension() == "tres":
-			item_List.append(load("res://ressources/Items/Weapons/WeaponBases/" + file_name))
-	
-	var arm_file_names := DirAccess.open("res://ressources/Items/Armors/").get_files()
-	for file_name in arm_file_names :
-		if file_name.get_extension() == "tres":
-			item_List.append(load("res://ressources/Items/Armors/" + file_name))
+	for dir in ["res://ressources/Items/Accessories/", UnitData.WEAPONS_DIR, "res://ressources/Items/Armors/"]:
+		for res in ResourceScan.load_all(dir): # missing folders (e.g. Armors) are skipped
+			if res is Item:
+				item_List.append(res)
 	
 	item_List = item_List.filter(func(item): return item.is_obtainable)
 	return item_List #this returns ALL items resources for debug/testing purposes

@@ -27,11 +27,3 @@ static func create(name: String, RGB_color: Color, showFlag: bool = true) -> Tea
 	Team.registry.append(t)
 	return t
 
-func get_team(name = "", RGB_color = Color()) -> Team :
-	if name :
-		return registry.filter(func(t): return t.team_name == name)[0]
-	elif RGB_color : 
-		return registry.filter(func(t): return t.team_color == RGB_color)[0]
-	else :
-		printerr("Could not find Team !")
-		return null

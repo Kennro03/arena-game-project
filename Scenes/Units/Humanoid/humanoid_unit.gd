@@ -250,7 +250,7 @@ func _block(hit: HitData) -> void:
 	var blocked := flat - (flat / 100.0) * stats.current_percent_block_power
 	particleModule.text_popup("Blocked!", 0.75, Color("Silver"))
 	take_damage(_apply_incoming_modifiers(blocked), hit.damage_type)
-	var attacker_weapon: Weapon = hit.hit_owner.weapon if hit.hit_owner.has_method("equip_weapon") else null
+	var attacker_weapon: Weapon = _get_attacker_weapon(hit)
 	if attacker_weapon and attacker_weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED \
 			and weapon and weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED:
 		particleModule.emit_block_particles()
@@ -258,7 +258,7 @@ func _block(hit: HitData) -> void:
 func _parry(hit: HitData) -> void:
 	spriteModule.play_parry()
 	particleModule.text_popup("Parry!", 1.0, Color("Gold"))
-	var attacker_weapon: Weapon = hit.hit_owner.weapon if hit.hit_owner.has_method("equip_weapon") else null
+	var attacker_weapon: Weapon = _get_attacker_weapon(hit)
 	if attacker_weapon and attacker_weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED \
 			and weapon and weapon.weaponType != Weapon.WeaponTypeEnum.UNARMED:
 		particleModule.emit_parry_particles()
@@ -273,11 +273,19 @@ func _dodge(_hit: HitData) -> void:
 	})
 
 
+## Returns the attacker's weapon, or null if the attacker is gone or has none.
+func _get_attacker_weapon(hit: HitData) -> Weapon:
+	if not is_instance_valid(hit.hit_owner) or not ("weapon" in hit.hit_owner):
+		return null
+	return hit.hit_owner.weapon
+
 func _apply_passives(hit_result: HitData) -> void:
-	if is_instance_valid(hit_result.hit_owner) :
-		for passive in hit_result.hit_owner.weapon.onHitPassives:
-			if _passive_clears_outcome(passive, hit_result.outcome):
-				passive.on_hit(hit_result)
+	var attacker_weapon := _get_attacker_weapon(hit_result)
+	if attacker_weapon == null:
+		return
+	for passive in attacker_weapon.onHitPassives:
+		if _passive_clears_outcome(passive, hit_result.outcome):
+			passive.on_hit(hit_result)
 
 func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome) -> bool:
 	match outcome:
