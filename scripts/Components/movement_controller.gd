@@ -144,8 +144,7 @@ func dash_to(destination: Vector2, speed: float = -1.0, updates_facing: bool = t
 		updates_facing))
 
 ## Apply knockback. Always overrides the current job.
-func apply_knockback(direction: Vector2, force: float,
-					 max_distance: float = INF, max_duration: float = INF) -> void:
+func apply_knockback(direction: Vector2, force: float, max_distance: float = INF, max_duration: float = INF) -> void:
 	var j := KnockbackJob.new(
 		direction.normalized() * force, knockback_deceleration, max_distance, max_duration)
 	j.start_pos = _body.global_position

@@ -2,42 +2,27 @@
 
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="1_80t4j"]
 [ext_resource type="Resource" uid="uid://dv7poowtktn5l" path="res://ressources/Weapon_Hitboxes_Data/BroadswordCritHitboxData.tres" id="1_gklm5"]
+[ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="1_vhkh4"]
+[ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_owoed"]
 [ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="3_na2a8"]
+[ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="5_eg5hl"]
 [ext_resource type="Texture2D" uid="uid://ds2300iqhvnig" path="res://ressources/Sprites/Weapons/debug_sword.png" id="6_8a6mx"]
+[ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="7_7u5qt"]
 
 [resource]
 script = ExtResource("1_80t4j")
 weaponCategory = 1
 weaponType = 3
 weaponSprite = ExtResource("6_8a6mx")
-base_attack_speed = null
-base_attack_range = null
 base_damage_type = 1
 base_damage = 14.0
-base_knockback = 45.0
-base_endlag = null
-base_crit_endlag = null
+base_knockback = 110.0
 base_crit_hitbox = ExtResource("1_gklm5")
-statChanges = null
-onHitPassives = null
-attack_speed_scalings = null
-attack_range_scalings = null
-damage_scalings = null
-knockback_scalings = null
-pips = null
-guaranteed_pips_count = null
-random_pips_amount = null
-allowed_pips_list = null
 custom_pip_rarities_weigths = null
 allowed_animations = Array[String](["slash", "stab"])
-exclusive_animations = null
 item_id = "broadsword"
 item_name = "Broadsword"
-tags = null
 description = "A simple sword with a wide blade."
 icon = ExtResource("6_8a6mx")
-item_type = null
-rarity = null
-is_obtainable = null
 base_value = 10
 metadata/_custom_type_script = "uid://bmisrl2r5a5eh"

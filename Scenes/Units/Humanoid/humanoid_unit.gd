@@ -144,7 +144,9 @@ func apply_stun(duration: float) -> void:
 
 
 func resolve_hit(hit_result: HitData) -> void:
-	last_hit_owner = hit_result.hit_owner
+	if is_instance_valid(hit_result.hit_owner) :
+		last_hit_owner = hit_result.hit_owner
+	
 	var not_locked := not state_machine.is_in_state(UnitState.CASTING) and not state_machine.is_in_state(UnitState.STUNNED)
 	
 	if is_dodging:
@@ -155,26 +157,27 @@ func resolve_hit(hit_result: HitData) -> void:
 	if randf_range(0.0, 100.0) <= stats.current_dodge_probability and not_locked:
 		hit_result.outcome = HitData.HitOutcome.DODGE
 		_dodge(hit_result)
+		_apply_passives(hit_result) # on hit passives
 	elif randf_range(0.0, 100.0) <= stats.current_parry_probability and not_locked:
 		hit_result.outcome = HitData.HitOutcome.PARRY
 		_parry(hit_result)
+		_apply_passives(hit_result) # on hit passives
 	elif randf_range(0.0, 100.0) <= stats.current_block_probability and not_locked:
 		hit_result.outcome = HitData.HitOutcome.BLOCK
 		_block(hit_result)
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2.ZERO:
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force / 2)
-		for passive in hit_result.hit_owner.weapon.onHitPassives:
-			passive.on_hit(hit_result)
+		_apply_passives(hit_result) # on hit passives
 		hit_received.emit(hit_result)
 	else:
 		hit_result.outcome = HitData.HitOutcome.HIT
 		skillModule.interrupt_active_skills("hit")
 		process_hit(hit_result)
-		_apply_passives(hit_result)
+		_apply_passives(hit_result) # on hit passives
 		
 		for effect in hit_result.status_effects:
-			statusEffectModule.apply_status_effect(effect)
-			
+			statusEffectModule.apply_status_effect(effect) # on hit status effects 
+		
 		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2.ZERO:
 			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
 		
@@ -271,9 +274,10 @@ func _dodge(_hit: HitData) -> void:
 
 
 func _apply_passives(hit_result: HitData) -> void:
-	for passive in hit_result.hit_owner.weapon.onHitPassives:
-		if _passive_clears_outcome(passive, hit_result.outcome):
-			passive.on_hit(hit_result)
+	if is_instance_valid(hit_result.hit_owner) :
+		for passive in hit_result.hit_owner.weapon.onHitPassives:
+			if _passive_clears_outcome(passive, hit_result.outcome):
+				passive.on_hit(hit_result)
 
 func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome) -> bool:
 	match outcome:
@@ -283,11 +287,12 @@ func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome)
 		_: return true
 
 func get_downed() -> void:
+	var dir := Vector2(randi()%2-1,0.0) #default is between x = -1 or 0 at random (in case of no killer)
 	if is_instance_valid(last_hit_owner):
 		last_hit_owner.stats.experience += stats.get_exp_worth()
 		print("%s gave %s exp to %s" % [unit_name, stats.get_exp_worth(), last_hit_owner.unit_name])
+		dir = (last_hit_owner.global_position - global_position).normalized()
 	particleModule.text_popup(deathmessagelist.pick_random(), 1.25, Color("DARKRED"), 0.25)
-	var dir := (last_hit_owner.global_position - global_position).normalized()
 	state_machine._transition_to_next_state(UnitState.DOWNED, {"dir_mult": 1 if dir.x < 0.0 else -1})
 	unit_downed.emit(self, last_hit_owner)
 
@@ -415,13 +420,12 @@ func melee_range_check(target: Node2D) -> bool:
 	return weapon != null and target != null \
 		and position.distance_to(target.position) <= max(50, weapon.current_attack_range)
 
-func apply_knockback(target: Node2D, direction: Vector2, force: float) -> void:
+func apply_knockback(target: Node2D, direction: Vector2, force: float) -> void: # this method is probably useless/shouldn't exist?
 	if target.has_method("receive_knockback"):
-		target.receive_knockback(direction.normalized() * force)
+		target.receive_knockback(direction.normalized(), force)
 
-func receive_knockback(force: Vector2) -> void:
-	knockback_velocity += force
-
+func receive_knockback(knockback_dir: Vector2, force: float) -> void:
+	movement_controller.push(knockback_dir.normalized(), force)
 
 # --- Draw system ---
 

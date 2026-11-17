@@ -50,7 +50,7 @@ static var debug_weapon_sprites : Dictionary = {
 @export var base_attack_range : float = 100.0
 @export var base_damage_type: HitData.DamageType = HitData.DamageType.BLUNT
 @export var base_damage: float = 5.0
-@export var base_knockback : float = 50.0
+@export var base_knockback : float = 100.0
 @export var base_endlag : float = 0.15
 @export var base_crit_endlag : float = 0.15
 

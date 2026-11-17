@@ -16,7 +16,6 @@ weaponSprite = ExtResource("5_2dw06")
 base_attack_speed = 1.05
 base_attack_range = 80.0
 base_damage = 10.0
-base_knockback = 40.0
 base_crit_hitbox = ExtResource("3_lq4m8")
 custom_pip_rarities_weigths = null
 allowed_animations = Array[String]([])

@@ -325,16 +325,14 @@ vframes = 2
 
 [node name="Body" type="Node2D" parent="SpriteModule" unique_id=2071826372]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(1, -16)
-rotation = 0.17453292
+position = Vector2(0, -16)
 
 [node name="Torso" type="Sprite2D" parent="SpriteModule/Body" unique_id=1564198696]
 texture = ExtResource("6_cddti")
 
 [node name="Head" type="Node2D" parent="SpriteModule" unique_id=513197745]
 modulate = Color(1, 1, 0, 1)
-position = Vector2(-3, -16)
-rotation = 0.7853982
+position = Vector2(0, -16)
 
 [node name="Skull" type="Sprite2D" parent="SpriteModule/Head" unique_id=775278465]
 texture = ExtResource("4_c8ktf")
@@ -344,8 +342,7 @@ texture = ExtResource("5_85h5t")
 
 [node name="WeaponHandle" type="Node2D" parent="SpriteModule" unique_id=823646724]
 unique_name_in_owner = true
-position = Vector2(3, -10.086)
-rotation = -0.9599311
+position = Vector2(-3, -10)
 
 [node name="WeaponSprite2D" type="Sprite2D" parent="SpriteModule/WeaponHandle" unique_id=390153923]
 unique_name_in_owner = true
@@ -354,8 +351,7 @@ texture = ExtResource("11_v4uqy")
 
 [node name="HandRight" type="Sprite2D" parent="SpriteModule" unique_id=417623253]
 modulate = Color(1, 0, 0, 1)
-position = Vector2(-3, -30)
-rotation = -1.5707964
+position = Vector2(0, -16)
 texture = ExtResource("7_a8dqu")
 vframes = 2
 frame = 1

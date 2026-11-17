@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="1_5dhyc"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_7g3ht"]
+[ext_resource type="Texture2D" uid="uid://ckaa1vswxi1xo" path="res://ressources/materials/color_palettes/wood_color_palette.png" id="3_7g3ht"]
 [ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="3_k7wqe"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_667f7"]
 
@@ -25,6 +26,7 @@ metadata/_custom_type_script = "uid://q8d1701jqhkf"
 script = ExtResource("3_k7wqe")
 material_name = "Wood"
 material_description = "This item is made out of a wood, it is light but not very strong, of course, used more for training tools than real weapons."
+material_color_palette = ExtResource("3_7g3ht")
 value_multiplier = 0.5
 guaranteed_stat_changes = Array[ExtResource("1_5dhyc")]([SubResource("Resource_5jeiv"), SubResource("Resource_vvch3")])
 metadata/_custom_type_script = "uid://dghonse17mg3s"
