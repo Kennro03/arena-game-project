@@ -3,7 +3,7 @@ class_name Prereq_WeaponType
 
 @export var required_type: Weapon.WeaponTypeEnum = Weapon.WeaponTypeEnum.SWORD
 
-func is_met(unit: BaseUnit) -> bool:
+func is_met(unit: Unit) -> bool:
 	return unit.weapon != null and unit.weapon.weaponType == required_type
 
 func get_description() -> String:

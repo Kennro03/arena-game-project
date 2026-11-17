@@ -69,10 +69,10 @@ func hit(target:Node2D, _hit: HitData)-> void:
 		_shoot_at_target(aim_pos,_hit)
 
 func _get_aim_position(target: Node2D) -> Vector2:
-	if not target is BaseUnit or projectile_data == null:
+	if not target is Unit or projectile_data == null:
 		return target.global_position
 	
-	var target_unit :BaseUnit = target
+	var target_unit :Unit = target
 	var dist : float = owner.global_position.distance_to(target.global_position)
 	var travel_time : float = dist / projectile_data.speed  # rough estimate
 	

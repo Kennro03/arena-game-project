@@ -4,7 +4,7 @@ class_name SkillPrereq_MinUnitStat
 @export var stat: Stats.BuffableStats = Stats.BuffableStats.STRENGTH
 @export var min_value: float = 10.0
 
-func is_met(_unit: BaseUnit) -> bool:
+func is_met(_unit: Unit) -> bool:
 	return _unit.stats.get_current_stat(stat) >= min_value
 
 func get_description() -> String:

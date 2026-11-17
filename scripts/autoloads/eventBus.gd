@@ -4,7 +4,7 @@ class_name EventBus
 @warning_ignore_start("unused_signal")
 
 # UI related
-signal open_unit_info_requested(unit: BaseUnit)
+signal open_unit_info_requested(unit: Unit)
 signal open_unit_slot_info_requested(unit_data: UnitData)
 signal open_item_info_requested(item: Item)
 
@@ -21,8 +21,8 @@ signal item_equipped(item: Item)
 signal item_unequipped(item: Item)
 
 # Unit related
-signal unit_recalled(unit: BaseUnit)            # sent from field to reserve
-signal unit_deployed(unit: BaseUnit)            # any unit spawned on field
+signal unit_recalled(unit: Unit)            # sent from field to reserve
+signal unit_deployed(unit: Unit)            # any unit spawned on field
 signal unit_deployment_failed(reason: String)   # spawning unit failed
 signal unit_recruited(unit: UnitData)           # added to reserve for the first time
 signal unit_removed(unit: UnitData)             # permadeath

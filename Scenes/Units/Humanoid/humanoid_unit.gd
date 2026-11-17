@@ -286,7 +286,7 @@ func get_downed() -> void:
 	if is_instance_valid(last_hit_owner):
 		last_hit_owner.stats.experience += stats.get_exp_worth()
 		print("%s gave %s exp to %s" % [unit_name, stats.get_exp_worth(), last_hit_owner.unit_name])
-	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(), 1.25, Color("DARKRED"), 0.25)
+	particleModule.text_popup(deathmessagelist.pick_random(), 1.25, Color("DARKRED"), 0.25)
 	var dir := (last_hit_owner.global_position - global_position).normalized()
 	state_machine._transition_to_next_state(UnitState.DOWNED, {"dir_mult": 1 if dir.x < 0.0 else -1})
 	unit_downed.emit(self, last_hit_owner)
@@ -295,7 +295,7 @@ func die() -> void:
 	if is_instance_valid(last_hit_owner):
 		last_hit_owner.stats.experience += stats.get_exp_worth()
 		print("%s gave %s exp to %s" % [unit_name, stats.get_exp_worth(), last_hit_owner.unit_name])
-	%DamagePopupMarker.damage_popup(deathmessagelist.pick_random(), 1.25, Color("DARKRED"), 0.25)
+	particleModule.text_popup(deathmessagelist.pick_random(), 1.25, Color("DARKRED"), 0.25)
 	unit_died.emit(self, last_hit_owner)
 	Events.unit_died.emit(self, last_hit_owner)  
 	queue_free()

@@ -13,7 +13,7 @@ var player_team : Team = preload("res://ressources/Teams/PlayerTeam.tres")
 @onready var UnitLayer : Node2D = %Units
 @onready var ObstaclesLayer : Node2D = %Obstacles
 
-var unit: PackedScene = preload("res://Scenes/Units/BaseUnit/BaseUnit.tscn")
+var unit: PackedScene = null # unit abstract class has no unit scene
 var default_data: UnitData = UnitData.new()
 
 var selected_UnitData : UnitData 
@@ -39,7 +39,7 @@ func _random_point_in_zone(zone: Area2D) -> Vector2:
 		randf_range(-extents.y, extents.y)
 	)
 
-func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
+func spawn_from_data(pos: Vector2, data: UnitData) -> Unit:
 	if data == null:
 		push_error("Missing data")
 		return null
@@ -47,7 +47,7 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 		push_error("UnitData has no unit_scene: " + data.display_name)
 		return null
 	
-	var spawned : BaseUnit = data.unit_scene.instantiate()
+	var spawned : Unit = data.unit_scene.instantiate()
 	spawned.position = pos
 	spawned.unit_data = data
 	spawned.active = false
@@ -58,7 +58,7 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 	
 	return spawned
 
-func spawn_random(pos: Vector2, data: UnitData = null) -> BaseUnit:
+func spawn_random(pos: Vector2, data: UnitData = null) -> Unit:
 	if data == null:
 		data = humanoidUnitData.new()
 	var rand_data := data.with_random_modifiers(randi() % 3 + 1 )
@@ -80,7 +80,7 @@ func _on_slot_drag_ended(slot: Slot, world_pos: Vector2) -> void:
 	if slot is ItemSlot and slot.item != null :
 		_try_equip_item(slot.item,world_pos)
 
-func _get_unit_at_position(world_pos: Vector2) -> BaseUnit :
+func _get_unit_at_position(world_pos: Vector2) -> Unit :
 	var space := get_viewport().world_2d.direct_space_state
 	var query := PhysicsPointQueryParameters2D.new()
 	query.position = world_pos
@@ -89,7 +89,7 @@ func _get_unit_at_position(world_pos: Vector2) -> BaseUnit :
 	var results := space.intersect_point(query)
 	for result in results:
 		var parent : Node = result.collider.get_parent()
-		if parent is BaseUnit:
+		if parent is Unit:
 			return parent
 	return null
 
@@ -99,8 +99,11 @@ func _try_equip_item(item: Item, world_pos: Vector2) -> void:
 	if target_unit and target_unit in Player.deployed_units :
 		if item is Weapon and target_unit.weapon.item_id != target_unit.default_weapon.item_id :
 			Player.add_item_to_inventory(target_unit.weapon)
-		if item is Armor and target_unit.armor != null :
-			Player.add_item_to_inventory(target_unit.armor)
+		if item is Armor :
+			if not ("armor" in target_unit) :
+				return # this unit type can't wear armor; keep the item in the inventory
+			if target_unit.armor != null :
+				Player.add_item_to_inventory(target_unit.armor)
 		if item is Accessory and target_unit.accessories.size() == target_unit.stats.current_accessory_limit :
 			return
 			## !!! Need special logic to determine which accessories to replace

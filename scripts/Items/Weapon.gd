@@ -259,7 +259,7 @@ func hit(target:Node2D, _hit: HitData)-> void:
 
 func _spawn_hitbox(target_position: Vector2, _hit: HitData, _hitbox_data: HitboxData, _size_mult: float = 1.0) -> void:
 	if _hitbox_data == null:
-		printerr("No hitbox data on %s's %s, not spawning hitbox" % [_hit.hit_owner.display_name ,item_name])
+		printerr("No hitbox data on %s's %s, not spawning hitbox" % [_hit.hit_owner.unit_name if is_instance_valid(_hit.hit_owner) else "<no owner>", item_name])
 		return
 	var temp_hitbox_data : HitboxData = _hitbox_data.duplicate(true) # create a temporary duplicate as to not modify original resource's size
 	var hitbox := Hitbox.new()

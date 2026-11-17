@@ -6,7 +6,7 @@ const PALETTE_SWAP_MATERIAL = preload("uid://dq56kvtjp86e0")
 enum SlotContext { INVENTORY, UNIT_GEAR, REWARD, SHOP, DISPLAY }
 
 var slot_context: SlotContext = SlotContext.DISPLAY
-var owner_unit: BaseUnit = null  
+var owner_unit: Unit = null  
 
 @export var item: Item = null
 @onready var drag_visual: SlotDragVisual = $DragVisual

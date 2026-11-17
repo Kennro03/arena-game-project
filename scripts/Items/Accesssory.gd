@@ -13,7 +13,7 @@ class_name Accessory
 @export var allowed_pips_list : Array[Pip] = [] # select pips from this array, generate random pips when empty
 @export var custom_pip_rarities_weigths : Dictionary = PipRegistry.pip_default_rarities_weigths
 
-var owner: BaseUnit
+var owner: Unit
 
 func _init() -> void:
 	item_type = Item.ItemType.ACCESSORY

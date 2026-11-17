@@ -4,7 +4,7 @@ class_name DebugSpawner
 @export var UI_node : Control 
 @export var random_spawn_delay : float = 10.0
 
-var unit: PackedScene = preload("res://Scenes/Units/BaseUnit/BaseUnit.tscn")
+var unit: PackedScene = null # unit scene comes from UnitData.unit_scene
 var default_data: UnitData = UnitData.new()
 var selected_UnitData : UnitData 
 var random_spawn_toggle : bool = false
@@ -45,7 +45,7 @@ func _random_point_in_zone(zone: Area2D) -> Vector2:
 		randf_range(-extents.y, extents.y)
 	)
 
-func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
+func spawn_from_data(pos: Vector2, data: UnitData) -> Unit:
 	if data == null:
 		push_error("Missing data")
 		return null
@@ -53,7 +53,7 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 		push_error("UnitData has no unit_scene: " + data.display_name)
 		return null
 	
-	var spawned : BaseUnit = data.unit_scene.instantiate()
+	var spawned : Unit = data.unit_scene.instantiate()
 	spawned.position = pos
 	spawned.apply_data(data._make_copy())
 	
@@ -63,7 +63,7 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> BaseUnit:
 	get_tree().root.add_child(spawned)
 	return spawned
 
-func spawn_random(pos: Vector2, data: UnitData = null) -> BaseUnit:
+func spawn_random(pos: Vector2, data: UnitData = null) -> Unit:
 	if data == null:
 		data = humanoidUnitData.new()
 	var rand_data := data.with_random_modifiers(randi() % 3 + 1 )

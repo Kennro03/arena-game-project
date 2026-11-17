@@ -29,7 +29,7 @@ func clear_button_list() -> void :
 		c.queue_free()
 
 func load_button_list() -> void :
-	if target is BaseUnit:
+	if target is Unit:
 		load_unit_inspect_buttons()
 	elif target is UnitSlot:
 		load_unit_slot_inspect_buttons()
@@ -59,13 +59,16 @@ func _unequip_gear(container: GearContainer) -> void:
 	var gear_owner := container.owner_unit
 	var gear := container.gear
 	
-	if gear_owner is BaseUnit:
+	if gear_owner is Unit:
 		if gear is Weapon:
 			gear_owner.equip(gear_owner.default_weapon)
 		elif gear is Armor:
+			if not ("armor" in gear_owner) or gear_owner.armor == null:
+				return # this unit type has no armor slot
 			gear_owner.armor.remove_owner_buffs(gear_owner.stats)
 			gear_owner.armor = null
-			gear_owner.armor_changed.emit(null)
+			if gear_owner.has_signal("armor_changed"):
+				gear_owner.armor_changed.emit(null)
 		elif gear is Accessory:
 			gear_owner.unequip_accessory(gear as Accessory)
 		Player.add_item_to_inventory(gear)
@@ -82,7 +85,7 @@ func _unequip_gear(container: GearContainer) -> void:
 func load_unit_inspect_buttons() -> void :
 	
 	#load buttons regarding live units
-	var _unit := target as BaseUnit
+	var _unit := target as Unit
 	_add_button("Inspect unit", func():
 		Events.open_unit_info_requested.emit(_unit)
 		)
@@ -214,6 +217,8 @@ func _unequip_from_unit(slot: ItemSlot) -> void:
 		unit.equip(unit.default_weapon)
 		Player.add_item_to_inventory(slot.item)
 	elif slot.item is Armor:
+		if not ("armor" in unit) or unit.armor == null:
+			return # this unit type has no armor slot
 		unit.armor.remove_owner_buffs(unit.stats)
 		unit.armor = null
 		Player.add_item_to_inventory(slot.item)

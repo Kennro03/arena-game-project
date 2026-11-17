@@ -49,14 +49,22 @@ func _setup_test() -> void:
 	
 	setup(dummy, test_draw_type, test_rerolls)
 
+func _get_unit_display_name() -> String:
+	if _unit is Unit:
+		return _unit.unit_name
+	if _unit is UnitData:
+		return _unit.display_name
+	return "Unknown"
+
 func _update_title() -> void:
+	var unit_display_name := _get_unit_display_name()
 	match _draw_type:
 		DrawSchedule.DrawType.ACTIVE_SKILL:
-			title_label.text = "[wave amp=40.0 freq=3.0 connected=1] Select an %s for %s" % ["Active skill",_unit.display_name]
+			title_label.text = "[wave amp=40.0 freq=3.0 connected=1] Select an %s for %s" % ["Active skill",unit_display_name]
 		DrawSchedule.DrawType.PASSIVE_SKILL:
-			title_label.text = "[wave amp=40.0 freq=3.0 connected=1] Select a %s card for %s" % ["Passive skill",_unit.display_name]
+			title_label.text = "[wave amp=40.0 freq=3.0 connected=1] Select a %s card for %s" % ["Passive skill",unit_display_name]
 		DrawSchedule.DrawType.STAT_BONUS:
-			title_label.text = "[wave amp=40.0 freq=3.0 connected=1] Select a %s card for %s" % ["Bonus",_unit.display_name]
+			title_label.text = "[wave amp=40.0 freq=3.0 connected=1] Select a %s card for %s" % ["Bonus",unit_display_name]
 
 func _roll_cards() -> void:
 	_clear_cards()

@@ -9,7 +9,7 @@ func _ready() -> void:
 	initialize_statcontainers.call_deferred()
 
 func getDictionnary() -> void :
-	stickmanDictionnary = BaseUnit.new().stats.get_stats_dictionary()
+	stickmanDictionnary = Stats.new().get_stats_dictionary()
 
 func initialize_statcontainers() -> void :
 	var displaynamecontainer = statcontainerscene.instantiate()

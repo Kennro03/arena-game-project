@@ -10,7 +10,7 @@ script/source = "extends Button
 class_name oldSlot
 @export var stickman_data: UnitData = null
 
-signal stickman_selected(_stickman_data: BaseUnit)
+signal stickman_selected(_stickman_data: UnitData)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

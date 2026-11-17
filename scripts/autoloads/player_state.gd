@@ -19,7 +19,7 @@ var gold: int = 0:
 		Events.gold_changed.emit(gold)
 
 # Units
-var deployed_units: Array[BaseUnit] = []   # reference of units that are deployed on the field from team, capped by team_size
+var deployed_units: Array[Unit] = []   # reference of units that are deployed on the field from team, capped by team_size
 var team: Array[UnitData] = []             # units that get automatically deployed, capped by team_size
 var team_size: int = 5
 var reserve: Array[UnitData] = []          # bench, uncapped or larger cap, capped by reserve_size
@@ -123,12 +123,12 @@ func remove_item_from_inventory(item: Item) -> void:
 	inventory.erase(item)
 	Events.item_removed.emit(item)
 
-func recall_unit(unit: BaseUnit) -> void:
+func recall_unit(unit: Unit) -> void:
 	if not is_instance_valid(unit):
 		printerr("Cannot recall invalid unit")
 		return
 	if unit.unit_data == null:
-		printerr("Unit has no associated UnitData: " + unit.display_name)
+		printerr("Unit has no associated UnitData: " + unit.unit_name)
 		return
 	
 	unit.save_changes_to_data() # transfer things like exp to unit_data before moving
@@ -143,13 +143,13 @@ func recall_unit(unit: BaseUnit) -> void:
 	unit.skillModule._disconnect_skills()
 	unit.queue_free()
 
-func register_deployed_unit(unit:BaseUnit) -> void:
+func register_deployed_unit(unit:Unit) -> void:
 	deployed_units.append(unit)
 	unit.unit_died.connect(_on_deployed_unit_died.unbind(2).bind(unit))
 
-func _on_deployed_unit_died(unit: BaseUnit) -> void:
+func _on_deployed_unit_died(unit: Unit) -> void:
 	deployed_units.erase(unit)
-	print("%s was downed !" % [unit.display_name])
+	print("%s was downed !" % [unit.unit_name])
 
 func clear_deployed_units() -> void:
 	deployed_units.clear()
@@ -232,7 +232,7 @@ func sell_item(_item: Item) -> void:
 	Player.gold += _item.value
 	Player.remove_item_from_inventory(_item)
 
-func get_deployed_unit(unit_data: UnitData) -> BaseUnit:
+func get_deployed_unit(unit_data: UnitData) -> Unit:
 	for unit in deployed_units:
 		if is_instance_valid(unit) and unit.unit_data == unit_data:
 			return unit

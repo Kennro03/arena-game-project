@@ -4,7 +4,6 @@ class_name InventoryModule
 signal inventory_stickman_added(unit_data : UnitData)
 signal inventory_stickman_removed()
 
-@export var base_unit_scene := preload("res://Scenes/Units/BaseUnit/baseUnit.gd")
 @export var Slot_scene := preload("res://Scenes/UI/stickman_slot.tscn")
 @export var inventory_size : int = 20
 @export var HOTBAR_SIZE := 10

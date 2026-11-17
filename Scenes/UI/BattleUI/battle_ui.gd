@@ -30,14 +30,14 @@ func _on_begin_encounter() -> void:
 	await animationPlayer.animation_finished
 	introEnded.emit()
 
-func _on_unit_selected(unit: BaseUnit) -> void:
+func _on_unit_selected(unit: Unit) -> void:
 	if Input.is_action_pressed("DisplayUnitInfo"):
 		_spawn_unit_info_panel(unit)
 
 func _on_unit_deselected() -> void:
 	pass
 
-func _spawn_unit_info_panel(unit: BaseUnit) -> void:
+func _spawn_unit_info_panel(unit: Unit) -> void:
 	#if is_instance_valid(unit_info_panel):
 		#unit_info_panel.queue_free()
 	unit_info_panel = UnitInfoPanelScene.instantiate()

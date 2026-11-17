@@ -8,13 +8,13 @@ signal LostEncounter
 enum LevelState { LOADING, SPAWNING, FIGHTING, RESOLVING, COMPLETE }
 
 var state: LevelState = LevelState.LOADING
-var ennemy_units_alive : Array[BaseUnit]
-var neutral_units_alive : Array[BaseUnit]
-var player_units_alive : Array[BaseUnit]
+var ennemy_units_alive : Array[Unit]
+var neutral_units_alive : Array[Unit]
+var player_units_alive : Array[Unit]
 
 var _defeated_enemies: Array[EnemyData] = []
 var _defeated_player_unit_data : Array[UnitData] = []
-var unit_bodies : Array[BaseUnit] = [] #add units when they're down, remove them when reviving and free all upon retry 
+var unit_bodies : Array[Unit] = [] #add units when they're down, remove them when reviving and free all upon retry 
 
 var _pre_battle_inventory_snapshot: Array[Item] = []
 var _pre_battle_team_snapshot: Array[UnitData] = []
@@ -186,14 +186,14 @@ func _on_exit_battle(_victory: bool) -> void:
 	print("Leaving battle...")
 	Player.clear_deployed_units()
 
-func _on_unit_recalled(unit: BaseUnit) -> void:
+func _on_unit_recalled(unit: Unit) -> void:
 	player_units_alive.erase(unit)
 	#print("Player unit recalled, remaining: %d" % player_units_alive.size())
 	if player_units_alive.is_empty() and state == LevelState.FIGHTING:
 		state = LevelState.RESOLVING
 		LostEncounter.emit()
 
-func _on_enemy_unit_downed(unit: BaseUnit) -> void:
+func _on_enemy_unit_downed(unit: Unit) -> void:
 	ennemy_units_alive.erase(unit)
 	
 	var enemy_data := _get_enemy_data_for_unit(unit)
@@ -203,14 +203,14 @@ func _on_enemy_unit_downed(unit: BaseUnit) -> void:
 		
 	_check_victory_conditions()
 
-func _on_player_unit_downed(unit: BaseUnit) -> void:
+func _on_player_unit_downed(unit: Unit) -> void:
 	player_units_alive.erase(unit)
 	unit_bodies.append(unit)  
 	if is_instance_valid(unit.unit_data):
 		_defeated_player_unit_data.append(unit.unit_data)
 	_check_victory_conditions()
 
-func _get_enemy_data_for_unit(unit: BaseUnit) -> EnemyData:
+func _get_enemy_data_for_unit(unit: Unit) -> EnemyData:
 	unit_bodies.append(unit)
 	for enemy in enemy_units:
 		if enemy.unit_data == unit.unit_data:

@@ -5,7 +5,7 @@ var flip : bool = false
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
-# Signals from BaseUnit get forwarded here
+# Signals from Units get forwarded here
 func update_sprites() -> void: pass  # called when sprites/armor/weapon change
 func play_idle() -> void: pass
 func play_move() -> void: pass

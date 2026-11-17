@@ -2,7 +2,7 @@ extends Resource
 class_name SkillPrerequisite
 
 # returns true if the unit meets this prerequisite
-func is_met(_unit: BaseUnit) -> bool:
+func is_met(_unit: Unit) -> bool:
 	return true
 
 func get_description() -> String:

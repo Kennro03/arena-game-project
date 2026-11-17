@@ -17,7 +17,7 @@ enum SkillCategory { NORMAL, RARE,  EXCLUSIVE}
 @export var ticks_when_downed: bool = false
 @export var usable_when_downed: bool = false
 
-func are_prerequisites_met(unit: BaseUnit) -> bool:
+func are_prerequisites_met(unit: Unit) -> bool:
 	return prerequisites.all(func(p): return p.is_met(unit))
 
 func get_prerequisites_description() -> String:

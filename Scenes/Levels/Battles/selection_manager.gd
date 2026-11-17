@@ -19,7 +19,7 @@ func _on_unit_clicked(unit: Unit) -> void:
 	print("Unit clicked, selected unit = " + str(selected_unit))
 
 func deselect() -> void:
-	print("Deselected %s" % [selected_unit.display_name])
+	print("Deselected %s" % [selected_unit.unit_name if is_instance_valid(selected_unit) else "<freed unit>"])
 	selected_unit = null
 	unit_deselected.emit()
 

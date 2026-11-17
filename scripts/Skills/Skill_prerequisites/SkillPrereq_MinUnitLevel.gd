@@ -3,7 +3,7 @@ class_name SkillPrereq_MinUnitLevel
 
 @export var min_level: int = 1
 
-func is_met(_unit: BaseUnit) -> bool:
+func is_met(_unit: Unit) -> bool:
 	return _unit.stats.level >= min_level
 
 func get_description() -> String:

@@ -277,7 +277,7 @@ func _apply_unit_data_buffs(unit_stats: Stats) -> void :
 		if unit is Unit :
 			unit.weapon.owner = unit
 			unit.weapon.setup_stats()
-	if unit.armor:
+	if "armor" in unit and unit.armor:
 		unit.armor.apply_owner_buffs(unit_stats)
 	if unit.accessories != []:
 		for acc in unit.accessories:
