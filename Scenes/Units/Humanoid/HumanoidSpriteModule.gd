@@ -125,7 +125,8 @@ func play_hurt() -> void:
 func play_death(playback_speed: float = 1.0) -> void: 
 	# implement basic death position animation
 	reset_sprite()
-	animation_player.play("BaseUnit/go_down",-1,playback_speed) ## need to refactor animations/animation names
+	# A negative speed must start from the end, otherwise the reversed animation ends instantly.
+	animation_player.play("BaseUnit/go_down", -1, playback_speed, playback_speed < 0.0) ## need to refactor animations/animation names
 
 func play_block() -> void: 
 	reset_sprite()

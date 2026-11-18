@@ -7,6 +7,7 @@ signal hit_received(hit_data: HitData)
 signal unit_clicked(unit: Unit)
 signal unit_died(unit: Unit, killer: Unit)
 signal unit_downed(unit: Unit, killer: Unit)
+signal unit_revived(unit: Unit)
 signal weapon_changed(weapon: Weapon)
 signal accessories_changed(accessories: Array[Accessory])
 
@@ -24,8 +25,11 @@ var icon: Texture2D:
 	get: return unit_data.icon if unit_data else null
 var color: Color:
 	get: return unit_data.color if unit_data else Color.WHITE
-var show_name: bool:
-	get: return unit_data.show_name if unit_data else true
+## Whether the name label is shown. Initialised from UnitData in apply_data(); set it any time.
+var show_name: bool = true:
+	set(value):
+		show_name = value
+		_on_show_name_changed()
 var show_health: bool:
 	get: return unit_data.show_health if unit_data else true
 
@@ -83,7 +87,7 @@ func check_if_ally(target: Node2D) -> bool:
 	return my_team.team_name == their_team.team_name
 
 # --- Combat interface (virtual, subclasses implement) ---
-func take_damage(_damage: float, damage_type: HitData.DamageType = HitData.DamageType.NONE) -> void:
+func take_damage(_damage: float, _damage_type: HitData.DamageType = HitData.DamageType.NONE) -> void:
 	pass
 
 func resolve_hit(_hit: HitData) -> void:
@@ -102,6 +106,7 @@ func apply_stun(_duration: float) -> void:
 func apply_data(data: UnitData) -> void:
 	color = data.color
 	unit_data = data
+	show_name = data.show_name
 	team = data.team
 	stats = data.stats
 	stats.setup_stats()
@@ -109,7 +114,14 @@ func apply_data(data: UnitData) -> void:
 func face_toward(_target_position: Vector2) -> void:
 	pass
 
+## Brings a downed unit back. The only way out of the Downed state. Subclasses implement it.
+func revive(_health_fraction: float = 0.3) -> void:
+	pass
+
 # --- Hooks ---
+func _on_show_name_changed() -> void:
+	pass
+
 func _on_activated() -> void:
 	pass
 

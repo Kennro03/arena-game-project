@@ -230,7 +230,15 @@ var health : float = 0.0 : set = _on_health_set
 var shield : float = 0.0 : set = _on_shield_set
 var max_shield : float
 
-var unit_stat_buffs: Array[Buff]
+var unit_stat_buffs: Array[Buff]          # temporary: gear, status effects, auras... (not saved)
+
+@export_group("Progression")
+## Buffs that persist between battles (level-up stat cards, permanent rewards from gear, ...).
+## Exported so they're copied with UnitData and saved by save_changes_to_data().
+@export var permanent_buffs: Array[Buff] = []
+
+## While true, health and shield ignore every change (set by the Downed state, cleared by revive).
+var vitals_locked: bool = false
 
 func _init() -> void:
 	setup_stats.call_deferred()
@@ -287,6 +295,22 @@ func remove_buff(buff: Buff) -> void :
 	unit_stat_buffs.erase(buff)
 	recalculate_stats()
 
+## Adds a buff that persists between battles. With `unique_source`, a buff whose Buff.source
+## already exists in permanent_buffs is not added again (e.g. "first kill" rewards). Returns true if added.
+func add_permanent_buff(buff: Buff, unique_source: bool = false) -> bool :
+	if unique_source and buff.source != "" and has_permanent_buff_from(buff.source):
+		return false
+	permanent_buffs.append(buff)
+	recalculate_stats()
+	return true
+
+func remove_permanent_buff(buff: Buff) -> void :
+	permanent_buffs.erase(buff)
+	recalculate_stats()
+
+func has_permanent_buff_from(source: String) -> bool :
+	return permanent_buffs.any(func(b: Buff): return b.source == source)
+
 func setup_stats() -> void :
 	recalculate_stats() 
 	health = current_max_health
@@ -307,8 +331,8 @@ func recalculate_stats() -> void :
 	current_attunement = int(base_attunement)
 	
 	
-	for buff in unit_stat_buffs :
-		var stat_name: String = BuffableStats.keys()[buff.get_unit_stat()].to_lower()
+	for buff in unit_stat_buffs + permanent_buffs :
+		var stat_name: String= BuffableStats.keys()[buff.get_unit_stat()].to_lower()
 		#print("Processing buff: stat=%s, amount=%s, type=%s" % [stat_name, buff.buff_amount, buff.buff_type])
 		#var cur_property_name := "current_" + stat_name
 		#print("Property exists: ", get(cur_property_name) != null)
@@ -321,8 +345,8 @@ func recalculate_stats() -> void :
 				stat_addends[stat_name] += buff.buff_amount
 			
 			Buff.BuffType.MULTIPLY:
-				if not stat_addends.has(stat_name) : 
-					stat_addends[stat_name] = 1.0
+				if not stat_multipliers.has(stat_name) :
+					stat_multipliers[stat_name] = 1.0
 				stat_multipliers[stat_name] *= buff.buff_amount
 				
 				#if stat_multipliers[stat_name] < 0.0:
@@ -382,6 +406,8 @@ func recalculate_stats() -> void :
 	stats_recalculated.emit()
 
 func _on_health_set(new_value : float) -> void:
+	if vitals_locked:
+		return
 	var was_above_zero := health > 0.0
 	health = clampf(new_value, 0, current_max_health)
 	health_changed.emit(health,current_max_health)
@@ -389,6 +415,8 @@ func _on_health_set(new_value : float) -> void:
 		health_depleted.emit()
 
 func _on_shield_set(new_value : float) -> void:
+	if vitals_locked:
+		return
 	var was_above_zero := shield > 0.0
 	shield = clampf(new_value, 0, max_shield)
 	shield_changed.emit(shield,max_shield)

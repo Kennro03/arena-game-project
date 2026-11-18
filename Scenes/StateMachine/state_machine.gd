@@ -56,6 +56,10 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 		printerr(unit.name + ": Trying to transition to state " + target_state_path + " but it does not exist.")
 		return
 
+	# Nothing but a revive can take a unit out of Downed.
+	if state.name == UnitState.DOWNED and not data.get("revive", false):
+		return
+
 	var previous_state_path := state.name
 	state.exit()
 	state = get_node(target_state_path)

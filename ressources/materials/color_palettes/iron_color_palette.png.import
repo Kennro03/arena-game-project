@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c82hheaja6rd6"
-path="res://.godot/imported/iron_color_palette.png-4c4be48ee51581a0607801303f03692f.ctex"
+path="res://.godot/imported/iron_color_palette.png-2dd9ce85374e529eb0b5777b3f0b4a0b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/materials/color_palettes/iron_color_palette.png"
-dest_files=["res://.godot/imported/iron_color_palette.png-4c4be48ee51581a0607801303f03692f.ctex"]
+source_file="res://ressources/Materials/color_palettes/iron_color_palette.png"
+dest_files=["res://.godot/imported/iron_color_palette.png-2dd9ce85374e529eb0b5777b3f0b4a0b.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="4_lq4m8"]
 [ext_resource type="Texture2D" uid="uid://bisn55jrtqnxi" path="res://ressources/Sprites/Weapons/debug_wand.png" id="5_2dw06"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_iwcfh"]
-[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_bhm0c"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/Materials/DebugMaterial.tres" id="7_bhm0c"]
 
 [resource]
 script = ExtResource("4_hs3hj")

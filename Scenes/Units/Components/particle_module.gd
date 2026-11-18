@@ -27,15 +27,15 @@ func text_popup(
 func damage_popup(hit_data: HitData, damage_override: float = -1.0) -> void:
 	var damage : float = damage_override if damage_override >= 0.0 else hit_data.base_damage
 	var text  : String = str(roundi(damage))
-	var scale : float = damage_to_scale(damage)
+	var _scale : float = damage_to_scale(damage)
 	var color : Color = Color.WHITE
 	var icon_idx: int = HitData.DAMAGE_TYPE_SPRITE_INDEX.get(hit_data.damage_type, -1)
 	
 	if hit_data.is_critical:
-		scale = minf(scale * 1.4, 2.0)
+		_scale = minf(_scale * 1.4, 2.0)
 		color = Color("FFD700")
 	
-	_spawn_popup(text, scale, color, 1.0, icon_idx)
+	_spawn_popup(text, _scale, color, 1.0, icon_idx)
 
 # ── Internals ─────────────────────────────────────────────────────────────
 func _spawn_popup(

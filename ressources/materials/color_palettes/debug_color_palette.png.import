@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dv8kdjtdqrghu"
-path="res://.godot/imported/debug_color_palette.png-83a0ab341a80c1d7cdded274d1275215.ctex"
+path="res://.godot/imported/debug_color_palette.png-293197e3d06cdd03be3fa9e56393193d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/materials/color_palettes/debug_color_palette.png"
-dest_files=["res://.godot/imported/debug_color_palette.png-83a0ab341a80c1d7cdded274d1275215.ctex"]
+source_file="res://ressources/Materials/color_palettes/debug_color_palette.png"
+dest_files=["res://.godot/imported/debug_color_palette.png-293197e3d06cdd03be3fa9e56393193d.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

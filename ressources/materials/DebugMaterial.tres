@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemMaterial" format=3 uid="uid://b64ruo6aqmuk"]
 
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="1_y0po4"]
-[ext_resource type="Texture2D" uid="uid://dv8kdjtdqrghu" path="res://ressources/materials/color_palettes/debug_color_palette.png" id="2_ihkuo"]
+[ext_resource type="Texture2D" uid="uid://dv8kdjtdqrghu" path="res://ressources/Materials/color_palettes/debug_color_palette.png" id="2_ihkuo"]
 [ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="3_s3i3i"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="4_md44b"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="5_2ni35"]

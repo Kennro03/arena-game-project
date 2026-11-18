@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bwsxoouw568gv" path="res://ressources/Sprites/Icons/Items/Weapons/Fist_Icon.png" id="2_dyl5h"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="2_jfweh"]
 [ext_resource type="Resource" uid="uid://disvofrv6e1sn" path="res://ressources/Weapon_Hitboxes_Data/UnarmedCritHitboxData.tres" id="3_fld0f"]
-[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_fld0f"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/Materials/DebugMaterial.tres" id="7_fld0f"]
 
 [resource]
 script = ExtResource("1_datym")

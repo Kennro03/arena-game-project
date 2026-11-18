@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="1_82ynl"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_hbpbf"]
 [ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="3_dlip4"]
-[ext_resource type="Texture2D" uid="uid://b28t4totxxlsr" path="res://ressources/materials/color_palettes/slime_color_palette.png" id="3_hbpbf"]
+[ext_resource type="Texture2D" uid="uid://b28t4totxxlsr" path="res://ressources/Materials/color_palettes/slime_color_palette.png" id="3_hbpbf"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_48yjy"]
 
 [sub_resource type="Resource" id="Resource_82ynl"]

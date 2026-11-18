@@ -110,6 +110,7 @@ func save_changes_to_data() -> void:
 		dst.attribute_points_spent = stats.attribute_points_spent
 		dst.pending_draws = stats.pending_draws.duplicate()
 		dst.draws_used = stats.draws_used.duplicate()
+		dst.permanent_buffs = stats.permanent_buffs.duplicate(true)
 		dst.recalculate_stats()
 
 	# Gear: duplicate(true) drops runtime-only fields (owner, temporary weapon buffs).
@@ -172,10 +173,18 @@ func face_toward(target_position: Vector2) -> void:
 	spriteModule.flipSprite(target_position.x < global_position.x)
 
 func apply_stun(duration: float) -> void:
+	if is_downed:
+		return # downed units can't be stunned
 	state_machine._transition_to_next_state(UnitState.STUNNED, {"duration": duration})
 
 
 func resolve_hit(hit_result: HitData) -> void:
+	if is_downed:
+		# Downed bodies only get pushed around by hits (collateral); no damage, dodge or effects.
+		if hit_result.knockback_force >= 0.1 and hit_result.knockback_direction != Vector2.ZERO:
+			apply_knockback(self, hit_result.knockback_direction, hit_result.knockback_force)
+		return
+
 	if is_instance_valid(hit_result.hit_owner) :
 		last_hit_owner = hit_result.hit_owner
 	
@@ -235,6 +244,8 @@ func take_damage(
 	damage_type: HitData.DamageType = HitData.DamageType.NONE,
 	is_critical: bool = false
 ) -> void:
+	if is_downed:
+		return # downed units can't take damage (status effects keep ticking but deal nothing)
 
 	var icon_idx: int = HitData.DAMAGE_TYPE_SPRITE_INDEX.get(damage_type, -1)
 	var type_color: Color = HitData.DAMAGE_TYPE_COLOR_INDEX.get(damage_type, Color.WHITE)
@@ -326,10 +337,16 @@ func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome)
 		HitData.HitOutcome.PARRY: return passive.triggers_on_parry
 		_: return true
 
+## Brings the unit back with a fraction of its max health; the Downed state plays the rise-up.
+func revive(health_fraction: float = 0.3) -> void:
+	if not is_downed:
+		return
+	(state_machine.get_node(UnitState.DOWNED) as UnitDownded).begin_revive(health_fraction)
+
 func get_downed() -> void:
 	if is_downed:
 		return # already down; don't award XP or re-enter Downed again
-var dir := Vector2(randi()%2-1,0.0) #default is between x = -1 or 0 at random (in case of no killer)
+	var dir := Vector2(randi()%2-1,0.0) #default is between x = -1 or 0 at random (in case of no killer)
 	if is_instance_valid(last_hit_owner):
 		last_hit_owner.stats.experience += stats.get_exp_worth()
 		print("%s gave %s exp to %s" % [unit_name, stats.get_exp_worth(), last_hit_owner.unit_name])
@@ -485,8 +502,7 @@ func apply_draw(card_data: LevelupCardData) -> void:
 			if card_data.skill: skillModule.add_skill(card_data.skill)
 		LevelupCardData.CardType.STAT_BONUS:
 			if card_data.stat_buff:
-				stats.add_buff(card_data.stat_buff.duplicate(true))
-				stats.recalculate_stats()
+				stats.add_permanent_buff(card_data.stat_buff.duplicate(true))
 
 func process_pending_draws() -> void:
 	pass
@@ -516,6 +532,10 @@ func _rewire_stats_signals() -> void:
 			stats.connect("shield_depleted", displayModule.hide_shieldBar)
 	if not stats.health_depleted.is_connected(get_downed):
 		stats.connect("health_depleted", get_downed)
+
+func _on_show_name_changed() -> void:
+	if is_node_ready():
+		displayModule.name_label.visible = show_name
 
 # --- Input / selection ---
 

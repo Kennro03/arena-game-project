@@ -321,8 +321,7 @@ func apply_draw(card_data: LevelupCardData) -> void:
 		LevelupCardData.CardType.STAT_BONUS:
 			if card_data.stat_buff:
 				var buff := card_data.stat_buff.duplicate(true) as Buff
-				stats.add_buff(buff)
-				stats.recalculate_stats()
+				stats.add_permanent_buff(buff)
 				stats_changed.emit()
 
 func auto_process_draws(tag_priority: Array[String] = []) -> void:

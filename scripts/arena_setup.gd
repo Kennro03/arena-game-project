@@ -118,8 +118,8 @@ func _make_checklist(parent: Control, title: String, items: Array[String]) -> Co
 
 func _weapon_bases_names_to_resources(names: Array[String]) -> Array[Weapon]:
 	var result: Array[Weapon] = []
-	for name in names:
-		var key : String = name.to_lower()
+	for _name in names:
+		var key : String = _name.to_lower()
 		var entry : Weapon = weapons_bases_list[key]
 		if entry != null :
 			result.append(entry)

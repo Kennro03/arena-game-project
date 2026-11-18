@@ -47,6 +47,7 @@ folder_colors={
 "res://ressources/Items/Accessories/": "teal",
 "res://ressources/Items/Armors/": "blue",
 "res://ressources/Items/Weapons/": "red",
+"res://ressources/Materials/": "red",
 "res://ressources/OnHit_Passives/": "teal",
 "res://ressources/SkillEffects/": "orange",
 "res://ressources/Sprites/Icons/": "yellow",
@@ -55,7 +56,6 @@ folder_colors={
 "res://ressources/Status_Effects/": "yellow",
 "res://ressources/Theme/": "gray",
 "res://ressources/Units/": "teal",
-"res://ressources/materials/": "red",
 "res://scripts/": "purple"
 }
 

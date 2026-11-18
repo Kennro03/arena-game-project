@@ -67,7 +67,7 @@ class RepositionJob extends Job:
 		speed_factor = sf
 		clockwise = cw
 
-	func _tick(body: CharacterBody2D, delta: float) -> Vector2:
+	func _tick(body: CharacterBody2D, _delta: float) -> Vector2:
 		var to_center := center - body.global_position
 		var radial := to_center.normalized() * (to_center.length() - radius) * 3.0
 		var tangent := Vector2(-to_center.normalized().y, to_center.normalized().x)

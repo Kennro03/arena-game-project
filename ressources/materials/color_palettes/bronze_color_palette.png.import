@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1o0suukio7ss"
-path="res://.godot/imported/bronze_color_palette.png-70535bedb13f6a8e6248491a98878c80.ctex"
+path="res://.godot/imported/bronze_color_palette.png-c1a0ff9da9188af3a1b0370ead4aba2d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/materials/color_palettes/bronze_color_palette.png"
-dest_files=["res://.godot/imported/bronze_color_palette.png-70535bedb13f6a8e6248491a98878c80.ctex"]
+source_file="res://ressources/Materials/color_palettes/bronze_color_palette.png"
+dest_files=["res://.godot/imported/bronze_color_palette.png-c1a0ff9da9188af3a1b0370ead4aba2d.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

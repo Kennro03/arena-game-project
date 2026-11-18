@@ -1,6 +1,7 @@
 extends PanelContainer
 class_name GenerationToolPanel
 
+@warning_ignore("unused_signal")
 signal config_changed(config: FighterGenerationConfig)
 signal generate_requested(count: int, config: FighterGenerationConfig)
 

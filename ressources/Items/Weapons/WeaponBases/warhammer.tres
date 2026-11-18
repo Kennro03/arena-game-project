@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="4_ls2qu"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="5_acw1h"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="6_37mim"]
-[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="7_nxd0k"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/Materials/DebugMaterial.tres" id="7_nxd0k"]
 
 [resource]
 script = ExtResource("5_acw1h")

@@ -114,6 +114,8 @@ func _handle_wall_collision() -> void:
 			pass  # flies through — ray disabled anyway
 
 func _on_target_detected(unit: Unit) -> void:
+	if unit.is_downed:
+		return # projectiles pass over downed bodies instead of being used up on them
 	# height check
 	if _current_height > unit.unit_size + projectile_data.size:
 		return  # flies over

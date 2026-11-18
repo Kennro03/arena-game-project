@@ -48,9 +48,9 @@ func _on_create() -> void:
 	var archetype := _build_archetype_from_selection()
 	
 	# use level to compute starting exp if level spinbox is set
-	var starting_exp := int(exp_spinbox.value)
+	var _starting_exp := int(exp_spinbox.value)
 	if lvl_spinbox.value > 1:
-		starting_exp = Stats.get_xp_for_level(int(lvl_spinbox.value))
+		_starting_exp = Stats.get_xp_for_level(int(lvl_spinbox.value))
 	
 	var base := UnitData.new()
 	var fighter := FighterGenerator.generate(archetype, tags, base) ## HERE as last argument !! need to create a custom fightergenerationconfig to pass a selected weapon + material
@@ -61,10 +61,10 @@ func _on_create() -> void:
 	fighter_created.emit(fighter)
 
 func _build_archetype_from_selection() -> StatArchetype:
-	var name := archetype_option.get_item_text(archetype_option.selected)
-	if name == "Wildcard":
+	var _name := archetype_option.get_item_text(archetype_option.selected)
+	if _name == "Wildcard":
 		return null
-	return GenerationToolPanel._name_to_archetype(name)
+	return GenerationToolPanel._name_to_archetype(_name)
 
 func _on_import() -> void:
 	var dialog := FileDialog.new()

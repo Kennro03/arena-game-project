@@ -74,7 +74,11 @@ func _run_step(index: int, context: Dictionary) -> void:
 func try_interrupt(cause: String = "hit") -> bool:
 	if not _is_casting:
 		return false
-	
+
+	if cause == "downed": # a downed caster can't finish anything, even uninterruptible casts
+		_interrupt_requested = true
+		return true
+
 	match interrupt_type:
 		InterruptType.UNINTERRUPTIBLE:
 			return false

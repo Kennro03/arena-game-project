@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://dv7poowtktn5l" path="res://ressources/Weapon_Hitboxes_Data/BroadswordCritHitboxData.tres" id="1_gklm5"]
 [ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="1_vhkh4"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_owoed"]
-[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="3_na2a8"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/Materials/DebugMaterial.tres" id="3_na2a8"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="5_eg5hl"]
 [ext_resource type="Texture2D" uid="uid://ds2300iqhvnig" path="res://ressources/Sprites/Weapons/debug_sword.png" id="6_8a6mx"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="7_7u5qt"]

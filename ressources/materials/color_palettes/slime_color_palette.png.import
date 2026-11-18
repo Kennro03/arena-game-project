@@ -3,20 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b28t4totxxlsr"
-path="res://.godot/imported/slime_color_palette.png-92441d7f60ea1a5b7a2d2754874671b7.ctex"
+path="res://.godot/imported/slime_color_palette.png-29e4c7803d715fb5c6992877c2c490af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/materials/color_palettes/slime_color_palette.png"
-dest_files=["res://.godot/imported/slime_color_palette.png-92441d7f60ea1a5b7a2d2754874671b7.ctex"]
+source_file="res://ressources/Materials/color_palettes/slime_color_palette.png"
+dest_files=["res://.godot/imported/slime_color_palette.png-29e4c7803d715fb5c6992877c2c490af.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

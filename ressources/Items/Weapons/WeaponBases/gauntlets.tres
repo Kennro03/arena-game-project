@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://8m3pf2u63eqm" path="res://scripts/Items/Pip.gd" id="1_tbvoj"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="2_8eluk"]
 [ext_resource type="Script" uid="uid://bmisrl2r5a5eh" path="res://scripts/Items/Weapon.gd" id="4_k8wk0"]
-[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/materials/DebugMaterial.tres" id="4_ofi0r"]
+[ext_resource type="Resource" uid="uid://b64ruo6aqmuk" path="res://ressources/Materials/DebugMaterial.tres" id="4_ofi0r"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="5_cx61u"]
 [ext_resource type="Texture2D" uid="uid://cgt11mipx5r5p" path="res://ressources/Sprites/Weapons/debug_gauntlets.png" id="6_8ngoy"]
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="7_7jjak"]

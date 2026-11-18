@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q8d1701jqhkf" path="res://buff.gd" id="1_5dhyc"]
 [ext_resource type="Script" uid="uid://ci73kqf5nkkfh" path="res://ressources/OnHit_Passives/OnHitPassive.gd" id="2_7g3ht"]
-[ext_resource type="Texture2D" uid="uid://ckaa1vswxi1xo" path="res://ressources/materials/color_palettes/wood_color_palette.png" id="3_7g3ht"]
+[ext_resource type="Texture2D" uid="uid://ckaa1vswxi1xo" path="res://ressources/Materials/color_palettes/wood_color_palette.png" id="3_7g3ht"]
 [ext_resource type="Script" uid="uid://dghonse17mg3s" path="res://scripts/Items/ItemMaterial.gd" id="3_k7wqe"]
 [ext_resource type="Script" uid="uid://dvgl6dhe0gi8g" path="res://stat_scaling.gd" id="4_667f7"]
 
