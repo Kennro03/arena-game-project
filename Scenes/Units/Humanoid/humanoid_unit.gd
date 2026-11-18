@@ -25,10 +25,6 @@ var is_stunned: bool:
 	get: return state_machine.is_in_state(UnitState.STUNNED)
 
 # Movement
-var acceleration: Vector2 = Vector2.ZERO
-var previous_velocity: Vector2 = Vector2.ZERO
-var movement_direction: Vector2 = Vector2.ZERO
-var velocity_smoothing: float = 0.2
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_decay := 1000.0
 var last_attack_time := 0.0
@@ -440,12 +436,15 @@ func get_accessory_at(index: int) -> Accessory:
 
 
 ## Targeting
+## Where this unit will probably be in `time_ahead` seconds (p + v·t + ½·a·t²), using the
+## movement measured by MovementController. The result is capped to a plausible distance so
+## a noisy acceleration can't fling the aim point.
 func predict_position(time_ahead: float) -> Vector2:
-	var _predicted_velocity := (velocity + acceleration * time_ahead).limit_length(stats.current_movement_speed * 1.5)
-	return global_position + velocity * time_ahead + 0.5 * acceleration * time_ahead
-
-func _smooth_velocity(new_vel: Vector2) -> void:
-	velocity = velocity.lerp(new_vel, velocity_smoothing)
+	var v := movement_controller.measured_velocity
+	var a := movement_controller.measured_acceleration
+	var displacement := v * time_ahead + 0.5 * a * time_ahead * time_ahead
+	var max_distance := maxf(stats.current_movement_speed * 1.5, v.length()) * time_ahead
+	return global_position + displacement.limit_length(max_distance)
 
 func get_units_in_group(group_name: String) -> Array:
 	return get_tree().get_nodes_in_group(group_name)

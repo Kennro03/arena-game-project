@@ -177,6 +177,7 @@ func _spawn_unit(fighter: FighterData, team: Team) -> void:
 	unit.active = false
 	_team_units_alive[team].append(unit)
 	unit.unit_downed.connect(func(_dying_unit, _killer): _on_unit_downed(unit, team))
+	unit.unit_revived.connect(func(_revived_unit): _on_unit_revived(unit, team))
 	selection_manager.register_unit(unit)
 
 func _spawn_from_data(center: Vector2, data: UnitData) -> Unit:
@@ -228,6 +229,10 @@ func _on_unit_downed(unit: Unit, team: Team) -> void:
 	if not is_instance_valid(unit) or unit.is_downed:
 		_team_units_alive[team].erase(unit)
 		_check_victory()
+
+func _on_unit_revived(unit: Unit, team: Team) -> void:
+	if unit not in _team_units_alive[team]:
+		_team_units_alive[team].append(unit)
 
 func _check_victory() -> void:
 	if _state != FightState.FIGHTING:

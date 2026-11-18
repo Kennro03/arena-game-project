@@ -34,21 +34,10 @@ func _process(delta: float) -> void:
 		return
 	unit.skillModule._tick(delta)
 
-var last_position : Vector2
-
 func _physics_process(delta: float) -> void:
-	var prev_position : Vector2 = unit.global_position
-	unit.previous_velocity = unit.velocity
-	
 	%Hurtbox.body_knockback()
-	
 	state.physics_update(delta)
-	
-	var raw_velocity : Vector2 = (unit.global_position - prev_position) / delta
-	unit.velocity = unit.velocity.lerp(raw_velocity, 0.2)
-	unit.acceleration = (unit.velocity - unit.previous_velocity) / delta
-	
-	unit.movement_direction = unit.velocity.normalized() if unit.velocity.length() > 0.1 else unit.movement_direction
+	# Velocity/acceleration for aim prediction are measured by MovementController.
 
 
 func _transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:

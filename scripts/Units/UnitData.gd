@@ -39,9 +39,22 @@ var multiplier_array : Array[float] = []
 func _init() -> void:
 	pass
 
+## Independent copy for runtime use or as a variant. duplicate(true) shares any resource
+## that lives in its own file, so the per-unit parts are duplicated explicitly.
 func _make_copy() -> UnitData:
-	var copy := duplicate(true)
-	copy.team = team  # preserve reference
+	var copy := duplicate(true) as UnitData
+	copy.team = team  # shared on purpose
+	copy.stats = stats.duplicate(true) if stats else null
+	copy.weapon = weapon.duplicate(true) if weapon else null
+	copy.armor = armor.duplicate(true) if armor else null
+	var copied_accessories : Array[Accessory] = []
+	for acc in accessories:
+		copied_accessories.append(acc.duplicate(true) if acc else null)
+	copy.accessories = copied_accessories
+	var copied_skills : Array[Skill] = []
+	for skill in skill_list:
+		copied_skills.append(skill.duplicate(true) if skill else null)
+	copy.skill_list = copied_skills
 	return copy
 
 func validate() -> bool:

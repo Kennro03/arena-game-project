@@ -114,6 +114,7 @@ func _spawn_player_units() -> void:
 			Events.unit_deployed.emit(unit)
 			player_units_alive.append(unit)
 			unit.unit_downed.connect(_on_player_unit_downed.unbind(1))
+			unit.unit_revived.connect(_on_player_unit_revived)
 			selection_manager.register_unit(unit)
 
 func _spawn_enemy_units() -> void:
@@ -130,6 +131,7 @@ func _spawn_enemy_units() -> void:
 		if unit:
 			ennemy_units_alive.append(unit)
 			unit.stats.health_depleted.connect(_on_enemy_unit_downed.bind(unit))
+			unit.unit_revived.connect(_on_enemy_unit_revived)
 			selection_manager.register_unit(unit)
 
 func _generate_enemy_list() -> Array[EnemyData]:
@@ -195,6 +197,7 @@ func _on_unit_recalled(unit: Unit) -> void:
 
 func _on_enemy_unit_downed(unit: Unit) -> void:
 	ennemy_units_alive.erase(unit)
+	unit_bodies.append(unit)
 	
 	var enemy_data := _get_enemy_data_for_unit(unit)
 	
@@ -210,8 +213,25 @@ func _on_player_unit_downed(unit: Unit) -> void:
 		_defeated_player_unit_data.append(unit.unit_data)
 	_check_victory_conditions()
 
+func _on_player_unit_revived(unit: Unit) -> void:
+	if state != LevelState.FIGHTING:
+		return
+	unit_bodies.erase(unit)
+	if unit not in player_units_alive:
+		player_units_alive.append(unit)
+	_defeated_player_unit_data.erase(unit.unit_data)
+
+func _on_enemy_unit_revived(unit: Unit) -> void:
+	if state != LevelState.FIGHTING:
+		return
+	unit_bodies.erase(unit)
+	if unit not in ennemy_units_alive:
+		ennemy_units_alive.append(unit)
+	var enemy_data := _get_enemy_data_for_unit(unit)
+	if enemy_data:
+		_defeated_enemies.erase(enemy_data) # its loot is no longer earned
+
 func _get_enemy_data_for_unit(unit: Unit) -> EnemyData:
-	unit_bodies.append(unit)
 	for enemy in enemy_units:
 		if enemy.unit_data == unit.unit_data:
 			return enemy

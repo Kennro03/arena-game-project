@@ -14,13 +14,14 @@ static var default_tier_weights := {
 	ItemMaterial.Material_Tiers.SPECIAL: 0.5,
 }
 
-static func get_all_materials() -> Array[ItemMaterial] : 
+static func get_all_materials() -> Array[ItemMaterial] :
 	ensure_loaded()
-	var materials_list : Array[ItemMaterial] = _materials
-	for mat in materials_list :
-		if mat.material_name == "DebugMaterial" :
-			materials_list.erase(mat)
-	return _materials
+	# Return a filtered copy: the registry itself keeps every material.
+	var materials_list : Array[ItemMaterial] = []
+	for mat in _materials :
+		if mat.material_name != "DebugMaterial" :
+			materials_list.append(mat)
+	return materials_list
 
 static func ensure_loaded() -> void:
 	if _loaded:

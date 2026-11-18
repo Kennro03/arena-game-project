@@ -105,6 +105,16 @@ var _job: Job = Job.new()
 var _body: CharacterBody2D
 var _nav: NavigationAgent2D
 
+# ── Measured motion (read by aim prediction) ─────────────────────────────────
+## How the body actually moved over recent frames (jobs, pushes, knockback), smoothed.
+var measured_velocity: Vector2 = Vector2.ZERO
+var measured_acceleration: Vector2 = Vector2.ZERO
+const MOTION_SMOOTHING := 0.3
+## Faster than this between two frames = teleport or drag-and-drop, not real movement.
+const TELEPORT_SPEED := 3000.0
+var _last_position: Vector2
+var _has_last_position := false
+
 # ── Setup ─────────────────────────────────────────────────────────────────────
 func _ready() -> void:
 	_body = get_parent() as CharacterBody2D
@@ -127,6 +137,8 @@ func _physics_process(delta: float) -> void:
 		_body.velocity = _push_velocity
 		_body.move_and_slide()
 		_push_velocity = _push_velocity.move_toward(Vector2.ZERO, push_deceleration * delta)
+
+	_measure_motion(delta)
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
@@ -254,6 +266,20 @@ func _tick_sequence(delta: float) -> void:
 		j.step_active = false
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
+## Measures real displacement after all movement this frame (runs after the state machine).
+func _measure_motion(delta: float) -> void:
+	var pos := _body.global_position
+	if _has_last_position and delta > 0.0:
+		var raw := (pos - _last_position) / delta
+		if raw.length() > TELEPORT_SPEED:
+			raw = Vector2.ZERO # teleport or drag-and-drop, not movement
+		var new_velocity := measured_velocity.lerp(raw, MOTION_SMOOTHING)
+		var raw_acceleration := (new_velocity - measured_velocity) / delta
+		measured_acceleration = measured_acceleration.lerp(raw_acceleration, MOTION_SMOOTHING)
+		measured_velocity = new_velocity
+	_last_position = pos
+	_has_last_position = true
+
 func _try_set(new_job: Job) -> void:
 	if new_job.type >= _job.type:
 		_job = new_job

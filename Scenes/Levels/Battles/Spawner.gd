@@ -135,6 +135,7 @@ func _try_deploy_unit(data: UnitData, world_pos: Vector2) -> void:
 	Player.register_deployed_unit(deployed_unit)
 	battle_manager.player_units_alive.append(deployed_unit)
 	deployed_unit.stats.health_depleted.connect(battle_manager._on_player_unit_downed.bind(deployed_unit))
+	deployed_unit.unit_revived.connect(battle_manager._on_player_unit_revived)
 	
 	Events.unit_deployed.emit(data)
 

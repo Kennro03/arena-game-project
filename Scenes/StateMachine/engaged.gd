@@ -66,13 +66,18 @@ func physics_update(delta: float) -> void:
 			unit.attack(_current_target)
 		unit.consume_weapon_attack()
 		_pick_new_behavior()
+		if unit.state_machine.state != self:
+			return # the attack skill moved us to another state (e.g. Casting)
 
 	# ── Free skill slot ─────────────────────────────────────
 	# Independent of weapon cooldown — buffs, repositions, ranged, etc.
 	unit.skillModule.try_use_free_skills(_current_target)
+	if unit.state_machine.state != self:
+		return # a skill moved us to another state (e.g. Casting)
 
 	if not unit.melee_range_check(_current_target):
 		finished.emit(IDLE)
+		return
 	
 	if not unit.animationPlayer.is_playing():
 		unit.spriteModule.play_idle()
