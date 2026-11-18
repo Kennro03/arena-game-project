@@ -61,6 +61,7 @@ class RepositionJob extends Job:
 	var clockwise: bool
 
 	func _init(c: Vector2, r: float, sf: float, cw: bool = true) -> void:
+		type = JobType.REPOSITION
 		center = c
 		radius = r
 		speed_factor = sf

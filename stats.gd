@@ -382,15 +382,17 @@ func recalculate_stats() -> void :
 	stats_recalculated.emit()
 
 func _on_health_set(new_value : float) -> void:
+	var was_above_zero := health > 0.0
 	health = clampf(new_value, 0, current_max_health)
 	health_changed.emit(health,current_max_health)
-	if health <=0:
+	if was_above_zero and health <= 0.0: # only on the transition, not on every set at 0
 		health_depleted.emit()
 
 func _on_shield_set(new_value : float) -> void:
+	var was_above_zero := shield > 0.0
 	shield = clampf(new_value, 0, max_shield)
 	shield_changed.emit(shield,max_shield)
-	if shield <=0:
+	if was_above_zero and shield <= 0.0: # only on the transition, not on every set at 0
 		shield_depleted.emit()
 
 func _on_experience_set(new_value: int) -> void:

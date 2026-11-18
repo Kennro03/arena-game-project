@@ -191,8 +191,8 @@ func _spawn_from_data(center: Vector2, data: UnitData) -> Unit:
 	var unit := data.unit_scene.instantiate() as Unit
 	unit.position = pos
 	unit.active = false
-	units_layer.add_child(unit)      
-	unit.apply_data(data)          
+	unit.apply_data(data)           # before add_child, so _ready() sees the data (weapon, name, team flag)
+	units_layer.add_child(unit)
 	return unit
 
 # ── Countdown ─────────────────────────────────────────────────────────────

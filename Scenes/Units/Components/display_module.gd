@@ -27,7 +27,7 @@ func set_healthbar_visibility(vis : bool)->void:
 	health_bar.visible = vis
 
 func hide_shieldBar() -> void :
-	shield_bar.visible = !shield_bar.visible
+	shield_bar.visible = false
 
 func clear_status_icons() -> void :
 	for icon in status_effect_icons_container.get_children() :

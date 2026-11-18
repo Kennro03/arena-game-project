@@ -49,11 +49,13 @@ func spawn_from_data(pos: Vector2, data: UnitData) -> Unit:
 	
 	var spawned : Unit = data.unit_scene.instantiate()
 	spawned.position = pos
-	spawned.unit_data = data
 	spawned.active = false
-	
+
+	# Runtime works on a copy (stats, gear), but unit_data must keep pointing at the
+	# roster/enemy entry so loot matching, recall and save_changes_to_data() find it.
 	spawned.apply_data(data._make_copy())
-	
+	spawned.unit_data = data
+
 	UnitLayer.add_child(spawned)
 	
 	return spawned

@@ -88,13 +88,45 @@ func apply_data(data: UnitData) -> void:
 	if is_node_ready():
 		_rewire_stats_signals()
 
+## Copies progression (XP, attributes, draws, skills, gear) back to unit_data.
+## Runtime-only state (current HP/shield, temporary buffs) is intentionally not saved.
 func save_changes_to_data() -> void:
 	if unit_data == null:
 		printerr("Cannot save changes to data, unit has no unit_data.")
 		return
-	unit_data.stats = stats
-	unit_data.weapon = weapon
-	unit_data.accessories = accessories.duplicate(true)
+
+	if unit_data.stats != stats:
+		var dst := unit_data.stats
+		# Set XP first: it re-runs level-up bookkeeping on dst, which is overwritten just below.
+		dst.experience = stats.experience
+		dst.base_strength = stats.base_strength
+		dst.base_dexterity = stats.base_dexterity
+		dst.base_endurance = stats.base_endurance
+		dst.base_intellect = stats.base_intellect
+		dst.base_faith = stats.base_faith
+		dst.base_attunement = stats.base_attunement
+		dst.attribute_spend_history = stats.attribute_spend_history.duplicate()
+		dst.total_attribute_points_gained = stats.total_attribute_points_gained
+		dst.attribute_points_spent = stats.attribute_points_spent
+		dst.pending_draws = stats.pending_draws.duplicate()
+		dst.draws_used = stats.draws_used.duplicate()
+		dst.recalculate_stats()
+
+	# Gear: duplicate(true) drops runtime-only fields (owner, temporary weapon buffs).
+	unit_data.weapon = weapon.duplicate(true) if weapon else null
+	var saved_accessories : Array[Accessory] = []
+	for acc in accessories:
+		saved_accessories.append(acc.duplicate(true))
+	unit_data.accessories = saved_accessories
+
+	# Skills learned during the fight (skill_list holds the un-attached originals).
+	var saved_skills : Array[Skill] = []
+	for skill in skillModule.skill_list:
+		saved_skills.append(skill.duplicate(true))
+	unit_data.skill_list = saved_skills
+	unit_data.stats_changed.emit()
+	unit_data.skills_changed.emit()
+	unit_data.gear_changed.emit()
 
 func _apply_skills(skills: Array[Skill]) -> void:
 	if not is_node_ready(): await ready
@@ -295,7 +327,9 @@ func _passive_clears_outcome(passive: OnHitPassive, outcome: HitData.HitOutcome)
 		_: return true
 
 func get_downed() -> void:
-	var dir := Vector2(randi()%2-1,0.0) #default is between x = -1 or 0 at random (in case of no killer)
+	if is_downed:
+		return # already down; don't award XP or re-enter Downed again
+var dir := Vector2(randi()%2-1,0.0) #default is between x = -1 or 0 at random (in case of no killer)
 	if is_instance_valid(last_hit_owner):
 		last_hit_owner.stats.experience += stats.get_exp_worth()
 		print("%s gave %s exp to %s" % [unit_name, stats.get_exp_worth(), last_hit_owner.unit_name])
